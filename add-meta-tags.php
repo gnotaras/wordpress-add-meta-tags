@@ -518,6 +518,50 @@ function amt_add_meta_tags() {
 	}
 }
 
+
+
+/*
+Template Tags
+*/
+function amt_get_content_description() {
+	/*
+	This is a helper function that returns the post's or page's description.
+	*/
+	global $posts;
+
+    $content_description = '';
+
+	if ( is_single() || is_page() ) {
+
+		/* Custom description field name */
+		$desc_fld = "description";
+
+		/*
+		Description
+		Custom post field "description" overrides post's excerpt in Single Post View.
+		*/
+		$desc_fld_content = get_post_meta($posts[0]->ID, $desc_fld, true);
+		if ( !empty($desc_fld_content) ) {
+			/*
+			If there is a custom field, use it
+			*/
+			$content_description = amt_clean_desc($desc_fld_content);
+		} elseif ( is_single() ) {
+			/*
+			Else, use the post's excerpt. Only for Single Post View (not valid for Pages)
+			*/
+			$content_description = amt_clean_desc(amt_get_the_excerpt());
+		}
+    }
+    return $content_description;
+}
+
+function amt_content_description() {
+    echo amt_get_content_description();
+}
+
+
+
 /*
 Actions
 */
