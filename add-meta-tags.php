@@ -9,7 +9,7 @@ Author URI: http://www.g-loaded.eu/
 */
 
 /*
-  Copyright 2007 George Notaras <gnot [at] g-loaded.eu>, CodeTRAX.org
+  Copyright 2007 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
