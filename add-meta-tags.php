@@ -353,6 +353,7 @@ function amt_add_meta_tags() {
 	appropriate page.
 	*/
 	global $posts, $include_keywords_in_single_posts;
+    global $paged;
 
 	/*
 	Get the options the DB
@@ -481,7 +482,11 @@ function amt_add_meta_tags() {
 
 		$cur_cat_desc = category_description();
 		if ( $cur_cat_desc ) {
-			$my_metatags .= "\n<meta name=\"description\" content=\"" . amt_clean_desc($cur_cat_desc) . "\" />";
+            $description_content = amt_clean_desc($cur_cat_desc);
+            if ( $paged ) {
+                $description_content .= ' (page ' . $paged . ')';
+            }
+			$my_metatags .= "\n<meta name=\"description\" content=\"" . $description_content . "\" />";
 		}
 		
 		/*
