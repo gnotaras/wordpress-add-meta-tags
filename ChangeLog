@@ -1,5 +1,11 @@
 ChangeLog
 
+The changelog for this version can be found at:
+
+    http://www.codetrax.org/projects/wp-add-meta-tags/versions/87
+
+Below are pre-1.7 entries
+-------------------------
 * Wed, Nov 7 2007 - v1.6
 - Bug Fixed: The adaptation of the new taxonomy system while maintaining
   backwards compatibility is solid in this version.
