@@ -182,6 +182,21 @@ function amt_options_page() {
 
 
 
+function amt_strtolower($text) {
+    /*
+    Helper function that converts $text to lowercase.
+    If the mbstring php plugin exists, then the string functions provided by that
+    plugin are used.
+    */
+    if (function_exists('mb_strtolower')) {
+        return mb_strtolower($text, get_bloginfo('charset'));
+    } else {
+        return strtolower($text);
+    }
+}
+
+
+
 function amt_clean_desc($desc) {
 	/*
 	This is a filter for the description metatag text.
@@ -297,7 +312,7 @@ function amt_get_post_tags() {
 			foreach ( $tags as $tag ) {
 				$tag_list .= $tag->name . ', ';
 			}
-			$tag_list = strtolower(rtrim($tag_list, " ,"));
+			$tag_list = amt_strtolower(rtrim($tag_list, " ,"));
 			return $tag_list;
 		}
 	} else {
@@ -330,7 +345,7 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
 				$all_cats .= $cat->$cat_field . ', ';
 			}
 		}
-		$all_cats = strtolower(rtrim($all_cats, " ,"));
+		$all_cats = amt_strtolower(rtrim($all_cats, " ,"));
 		return $all_cats;
 	}
 }
@@ -417,15 +432,15 @@ function amt_add_meta_tags() {
 						$keyw_fld_content = str_replace("%tags%", amt_get_post_tags(), $keyw_fld_content);
 					}
 				}
-				$my_metatags .= "\n<meta name=\"keywords\" content=\"" . strtolower($keyw_fld_content) . "\" />";
+				$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($keyw_fld_content) . "\" />";
 			} elseif ( is_single() ) {
 				/*
 				Add keywords automatically.
 				Keywords consist of the post's categories and the post's tags (tags exist in WordPress 2.3 or newer).
 				Only for Single Post View (not valid for Pages)
 				*/
-				$my_metatags .= "\n<meta name=\"keywords\" content=\"" . strtolower(amt_get_keywords_from_post_cats());
-				$post_tags = strtolower(amt_get_post_tags());
+				$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower(amt_get_keywords_from_post_cats());
+				$post_tags = amt_strtolower(amt_get_post_tags());
 				if ( $post_tags ) {
 					$my_metatags .= ", " . $post_tags;
 				}
@@ -494,7 +509,7 @@ function amt_add_meta_tags() {
 		*/
 		$cur_cat_name = single_cat_title($prefix = '', $display = false );
 		if ( $cur_cat_name ) {
-			$my_metatags .= "\n<meta name=\"keywords\" content=\"" . strtolower($cur_cat_name) . "\" />";
+			$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($cur_cat_name) . "\" />";
 		}
 	}
 
