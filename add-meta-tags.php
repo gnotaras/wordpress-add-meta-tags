@@ -93,19 +93,6 @@ function amt_options_page() {
 		update_option("add_meta_tags_opts", $options);
 		amt_show_info_msg(__('Add-Meta-Tags options saved.', 'add-meta-tags'));
 
-	} elseif (isset($_POST["info_reset"])) {
-
-		delete_option("add_meta_tags_opts");
-		amt_show_info_msg(__('Add-Meta-Tags options deleted from the WordPress database.', 'add-meta-tags'));
-
-		/*
-		The following exists for deleting old add-meta-tags options (version 1.0 or older).
-		The following statement have no effect if the options do not exist.
-		This is 100% safe (TM).
-		*/
-		delete_option('amt_site_description');
-		delete_option('amt_site_keywords');
-
 	} else {
 
 		$options = get_option("add_meta_tags_opts");
@@ -184,16 +171,6 @@ function amt_options_page() {
 		<h2>'.__('Meta Tags on Category Archives', 'add-meta-tags').'</h2>
 		<p>'.__('META tags are automatically added to Category Archives, for example when viewing all posts that belong to a specific category. In this case, if you have set a description for that category, then this description is added to a "description" META tag.', 'add-meta-tags').'</p>
 		<p>'.__('Furthermore, a "keywords" META tag - containing only the category\'s name - is always added to Category Archives.', 'add-meta-tags').'</p>
-	</div>
-
-	<div class="wrap">
-		<h2>'.__('Reset Plugin', 'add-meta-tags').'</h2>
-		<form name="formamtreset" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
-			<p>'.__('By pressing the "Reset" button, the plugin will be reset. This means that the stored options will be deleted from the WordPress database. Although it is not necessary, you should consider doing this before uninstalling the plugin, so no trace is left behind.', 'add-meta-tags').'</p>
-			<p class="submit">
-				<input type="submit" name="info_reset" value="'.__('Reset Options', 'add-meta-tags').'" />
-			</p>
-		</from>
 	</div>
 
 	');
