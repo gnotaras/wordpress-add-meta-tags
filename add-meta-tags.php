@@ -361,6 +361,99 @@ function amt_get_site_wide_metatags($site_wide_meta) {
 }
 
 
+function amt_get_content_description() {
+	/*
+	This is a helper function that returns the post's or page's description.
+	*/
+	global $posts;
+
+    $content_description = '';
+
+	if ( is_single() || is_page() ) {
+
+		/* Custom description field name */
+		$desc_fld = "description";
+
+		/*
+		Description
+		Custom post field "description" overrides post's excerpt in Single Post View.
+		*/
+		$desc_fld_content = get_post_meta($posts[0]->ID, $desc_fld, true);
+		if ( !empty($desc_fld_content) ) {
+			/*
+			If there is a custom field, use it
+			*/
+			$content_description = amt_clean_desc($desc_fld_content);
+		} elseif ( is_single() ) {
+			/*
+			Else, use the post's excerpt. Only for Single Post View (not valid for Pages)
+			*/
+			$content_description = amt_clean_desc(amt_get_the_excerpt());
+		}
+    }
+    return $content_description;
+}
+
+
+function amt_get_content_keywords() {
+	/*
+	This is a helper function that returns the post's or page's keywords.
+	*/
+    global $posts, $include_keywords_in_single_posts;
+
+    $keyw_fld = "keywords";
+
+    $content_keywords = '';
+
+    /*
+     * Custom post field "keywords" overrides post's categories and tags (tags exist in WordPress 2.3 or newer).
+     * %cats% is replaced by the post's categories.
+     * %tags% us replaced by the post's tags.
+     * NOTE: if $include_keywords_in_single_posts is FALSE, then keywords
+     * metatag is not added to single posts.
+     */
+    if ( ($include_keywords_in_single_posts && is_single()) || is_page() ) {
+        $keyw_fld_content = get_post_meta($posts[0]->ID, $keyw_fld, true);
+        if ( !empty($keyw_fld_content) ) {
+            /*
+            If there is a custom field, use it
+            */
+            if ( is_single() ) {
+                /*
+                For single posts, the %cat% tag is replaced by the post's categories
+                */
+                $keyw_fld_content = str_replace("%cats%", amt_get_keywords_from_post_cats(), $keyw_fld_content);
+                /*
+                Also, the %tags% tag is replaced by the post's tags (WordPress 2.3 or newer)
+                */
+                if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
+                    $keyw_fld_content = str_replace("%tags%", amt_get_post_tags(), $keyw_fld_content);
+                }
+            }
+            $content_keywords .= amt_strtolower($keyw_fld_content);
+        } elseif ( is_single() ) {
+            /*
+            Add keywords automatically.
+            Keywords consist of the post's categories and the post's tags (tags exist in WordPress 2.3 or newer).
+            Only for Single Post View (not valid for Pages)
+            */
+            $content_keywords .= amt_strtolower(amt_get_keywords_from_post_cats());
+            $post_tags = amt_strtolower(amt_get_post_tags());
+            if (!empty($post_tags)) {
+                $content_keywords .= ", " . $post_tags;
+            }
+        }
+    }
+    return $content_keywords;
+}
+
+
+function amt_get_content_keywords_mesh() {
+    // Keywords returned in the form: keyword1;keyword2;keyword3
+    $keywords = explode(', ', amt_get_content_keywords());
+    return implode(';', $keywords);
+}
+
 
 function amt_add_meta_tags() {
 	/*
@@ -384,68 +477,15 @@ function amt_add_meta_tags() {
 		*/
 
 		/*
-		Custom Field names
+		Auto Description
 		*/
-		$desc_fld = "description";
-		$keyw_fld = "keywords";
+        $my_metatags .= "\n<meta name=\"description\" content=\"" . amt_get_content_description() . "\" />";
 
 		/*
-		Description
-		Custom post field "description" overrides post's excerpt in Single Post View.
-		*/
-		$desc_fld_content = get_post_meta($posts[0]->ID, $desc_fld, true);
-		if ( !empty($desc_fld_content) ) {
-			/*
-			If there is a custom field, use it
-			*/
-			$my_metatags .= "\n<meta name=\"description\" content=\"" . amt_clean_desc($desc_fld_content) . "\" />";
-		} elseif ( is_single() ) {
-			/*
-			Else, use the post's excerpt. Only for Single Post View (not valid for Pages)
-			*/
-			$my_metatags .= "\n<meta name=\"description\" content=\"" . amt_clean_desc(amt_get_the_excerpt()) . "\" />";
-		}
-
-		/*
-		Keywords
-		Custom post field "keywords" overrides post's categories and tags (tags exist in WordPress 2.3 or newer).
-		%cats% is replaced by the post's categories.
-		%tags% us replaced by the post's tags.
-		NOTE: if $include_keywords_in_single_posts is FALSE, then keywords
-		metatag is not added to single posts.
+		Auto Keywords
 		*/
 		if ( ($include_keywords_in_single_posts && is_single()) || is_page() ) {
-			$keyw_fld_content = get_post_meta($posts[0]->ID, $keyw_fld, true);
-			if ( !empty($keyw_fld_content) ) {
-				/*
-				If there is a custom field, use it
-				*/
-				if ( is_single() ) {
-					/*
-					For single posts, the %cat% tag is replaced by the post's categories
-					*/
-					$keyw_fld_content = str_replace("%cats%", amt_get_keywords_from_post_cats(), $keyw_fld_content);
-					/*
-					Also, the %tags% tag is replaced by the post's tags (WordPress 2.3 or newer)
-					*/
-					if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
-						$keyw_fld_content = str_replace("%tags%", amt_get_post_tags(), $keyw_fld_content);
-					}
-				}
-				$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($keyw_fld_content) . "\" />";
-			} elseif ( is_single() ) {
-				/*
-				Add keywords automatically.
-				Keywords consist of the post's categories and the post's tags (tags exist in WordPress 2.3 or newer).
-				Only for Single Post View (not valid for Pages)
-				*/
-				$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower(amt_get_keywords_from_post_cats());
-				$post_tags = amt_strtolower(amt_get_post_tags());
-				if ( $post_tags ) {
-					$my_metatags .= ", " . $post_tags;
-				}
-				$my_metatags .= "\" />";
-			}
+            $my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower(amt_get_content_keywords()) . "\" />";
 		}
 
 
@@ -523,43 +563,59 @@ function amt_add_meta_tags() {
 /*
 Template Tags
 */
-function amt_get_content_description() {
-	/*
-	This is a helper function that returns the post's or page's description.
-	*/
-	global $posts;
-
-    $content_description = '';
-
-	if ( is_single() || is_page() ) {
-
-		/* Custom description field name */
-		$desc_fld = "description";
-
-		/*
-		Description
-		Custom post field "description" overrides post's excerpt in Single Post View.
-		*/
-		$desc_fld_content = get_post_meta($posts[0]->ID, $desc_fld, true);
-		if ( !empty($desc_fld_content) ) {
-			/*
-			If there is a custom field, use it
-			*/
-			$content_description = amt_clean_desc($desc_fld_content);
-		} elseif ( is_single() ) {
-			/*
-			Else, use the post's excerpt. Only for Single Post View (not valid for Pages)
-			*/
-			$content_description = amt_clean_desc(amt_get_the_excerpt());
-		}
-    }
-    return $content_description;
-}
-
 function amt_content_description() {
     echo amt_get_content_description();
 }
 
+function amt_content_keywords() {
+    echo amt_get_content_keywords();
+}
+
+function amt_content_keywords_mesh() {
+    // Keywords echoed in the form: keyword1;keyword2;keyword3
+    echo amt_get_content_keywords_mesh();
+}
+
+
+/**
+ * Dublin Core metadata on posts and pages
+ */
+
+function amt_add_dublin_core_metadata() {
+    global $post;
+
+    if ( !is_single() && !is_page()) {
+        return;
+    }
+
+    $metadata_arr = array();
+    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink() . '" />';
+    $metadata_arr[] = '<meta name="dc.title" content="' . single_post_title('', FALSE) . '" />';
+    $metadata_arr[] = '<meta name="dc.creator" content="' . get_the_author_meta('last_name', $post->post_author) . ', ' . get_the_author_meta('first_name', $post->post_author) . '" />';
+    $metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . get_the_time('c') . '" />';
+    // We use the same description as the ``description`` meta tag.
+    $content_desc = amt_get_content_description();
+    if ( !empty($content_desc) ) {
+        $metadata_arr[] = '<meta name="dc.description" content="' . $content_desc . '" />';
+    }
+    // Keywords are in the form: keyword1;keyword2;keyword3
+    $metadata_arr[] = '<meta name="dc.subject" content="' . amt_get_content_keywords_mesh() . '" />';
+    $metadata_arr[] = '<meta name="dc.language" scheme="dcterms.rfc4646" content="' . get_bloginfo('language') . '" />';
+    $metadata_arr[] = '<meta name="dc.publisher" scheme="dcterms.uri" content="' . get_bloginfo('url') . '" />';
+    // TODO: Coipyright page from setting in the admin panel
+    // <meta name="dcterms.rights" scheme="dcterms.uri" content=" bloginfo('url') /about/disclaimer-and-license/" />
+
+    // The following requires creative commons configurator
+    if (function_exists('bccl_get_license_url')) {
+        $metadata_arr[] = '<meta name="dcterms.license" scheme="dcterms.uri" content="' . bccl_get_license_url() . '" />';
+    }
+
+    $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="text/html" />';
+    $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Text" />';
+    $metadata_arr[] = '<meta name="dc.coverage" content="World" />';
+
+    echo "\n" . implode("\n", $metadata_arr) . "\n";
+}
 
 
 /*
@@ -569,5 +625,6 @@ Actions
 add_action('admin_menu', 'amt_add_pages');
 
 add_action('wp_head', 'amt_add_meta_tags', 0);
+add_action('wp_head', 'amt_add_dublin_core_metadata', 0);
 
 ?>
