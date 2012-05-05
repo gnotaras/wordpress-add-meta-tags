@@ -51,7 +51,7 @@ Admin Panel
 */
 
 function amt_add_pages() {
-	add_options_page(__('Meta Tags Options', 'add-meta-tags'), __('Meta Tags', 'add-meta-tags'), 8, __FILE__, 'amt_options_page');
+	add_options_page(__('Meta Tags Options', 'add-meta-tags'), __('Meta Tags', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options-menu', 'amt_options_page');
 }
 
 function amt_show_info_msg($msg) {
@@ -59,6 +59,11 @@ function amt_show_info_msg($msg) {
 }
 
 function amt_options_page() {
+    // Permission Check
+    if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+
 	if (isset($_POST['info_update'])) {
 		/*
 		For a little bit more security and easier maintenance, a separate options array is used.
