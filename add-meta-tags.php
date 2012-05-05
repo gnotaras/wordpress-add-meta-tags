@@ -116,61 +116,88 @@ function amt_options_page() {
 
 		<form name="formamt" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
 
-			<fieldset class="options">
-				<legend>'.__('Site Description', 'add-meta-tags').'<br />
-					<p>'.__('The following text will be used in the "description" meta tag on the <strong>homepage only</strong>. If this is left <strong>empty</strong>, then the blog\'s description from the <em>General Options</em> (Tagline) will be used.', 'add-meta-tags').'</p>
-					<p><textarea name="site_description" id="site_description" cols="40" rows="3" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_description"]) . '</textarea></p>
-				</legend>
-			</fieldset>
+        <table class="form-table">
+        <tbody>
 
-			<fieldset class="options">
-				<legend>'.__('Site Keywords', 'add-meta-tags').'<br />
-					<p>'.__('The following keywords will be used for the "keywords" meta tag on the <strong>homepage only</strong>. Provide a comma-delimited list of keywords for your blog. If this field is left <strong>empty</strong>, then all of your blog\'s categories will be used as keywords for the "keywords" meta tag.', 'add-meta-tags').'</p>
-					<p><textarea name="site_keywords" id="site_keywords" cols="40" rows="3" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_keywords"]) . '</textarea></p>
-					<p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code></p>
-				</legend>
-			</fieldset>
+            <tr valign="top">
+            <th scope="row">'.__('Site Description', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Site Description', 'add-meta-tags').'</span></legend>
+                <label for="site_description">
+                    <textarea name="site_description" id="site_description" cols="40" rows="3" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_description"]) . '</textarea>
+                    <br />
+                    '.__('The following text will be used in the "description" meta tag on the <strong>homepage only</strong>. If this is left <strong>empty</strong>, then the blog\'s description from the <em>General Options</em> (Tagline) will be used.', 'add-meta-tags').'
+                </label>
+            </fieldset>
+            </td>
+            </tr>
 
-			<fieldset class="options">
-				<legend>'.__('Site-wide META tags', 'add-meta-tags').'<br />
-					<p>'.__('Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages.', 'add-meta-tags').'</p>
-					<p><textarea name="site_wide_meta" id="site_wide_meta" cols="40" rows="10" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_wide_meta"]) . '</textarea></p>
-					<p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>&lt;meta name="robots" content="index,follow" /&gt;</code></p>
-				</legend>
+            <tr valign="top">
+            <th scope="row">'.__('Site Keywords', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Site Keywords', 'add-meta-tags').'</span></legend>
+                <label for="site_keywords">
+                    <textarea name="site_keywords" id="site_keywords" cols="40" rows="3" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_keywords"]) . '</textarea>
+                    <br />
+					'.__('The following keywords will be used for the "keywords" meta tag on the <strong>homepage only</strong>. Provide a comma-delimited list of keywords for your blog. If this field is left <strong>empty</strong>, then all of your blog\'s categories will be used as keywords for the "keywords" meta tag.', 'add-meta-tags').'
+                    <br />
+					<strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code>
+                </label>
 			</fieldset>
+            </td>
+            </tr>
 
-			<p class="submit">
-				<input type="submit" name="info_update" value="'.__('Update Options', 'add-meta-tags').' &raquo;" />
-			</p>
+            <tr valign="top">
+            <th scope="row">'.__('Site-wide META tags', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Site-wide META tags', 'add-meta-tags').'</span></legend>
+                <label for="site_wide_meta">
+                    <textarea name="site_wide_meta" id="site_wide_meta" cols="40" rows="10" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_wide_meta"]) . '</textarea>
+                    <br />
+					'.__('Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages.', 'add-meta-tags').'
+					<br />
+					<strong>'.__('Example', 'add-meta-tags').'</strong>: <code>&lt;meta name="robots" content="index,follow" /&gt;</code>
+				</label>
+			</fieldset>
+            </td>
+            </tr>
+
+        </tbody>
+        </table>
+
+        <p class="submit">
+            <input id="submit" class="button-primary" type="submit" value="'.__('Update Options', 'add-meta-tags').'" name="info_update" />
+        </p>
 
 		</form>
+        
 	</div>
 
 	<div class="wrap"> 
-		<h2>'.__('Meta Tags on the Front Page', 'add-meta-tags').'</h2>
+
+        <h2>'.__('Documentation', 'add-meta-tags').'</h2>
+		<h3>'.__('Meta Tags on the Front Page', 'add-meta-tags').'</h3>
 		<p>'.__('If a site description and/or keywords have been set in the Add-Meta-Tags options above, then those will be used in the "<em>description</em>" and "<em>keywords</em>" META tags respectively.', 'add-meta-tags').'</p>
 		<p>'.__('Alternatively, if the above options are not set, then the blog\'s description from the <em>General</em> WordPress options will be used in the "<em>description</em>" META tag, while all of the blog\'s categories, except for the "Uncategorized" category, will be used in the "<em>keywords</em>" META tag.', 'add-meta-tags').'</p>
-	</div>
 
-	<div class="wrap">
-		<h2>'.__('Meta Tags on Single Posts', 'add-meta-tags').'</h2>
+		<h3>'.__('Meta Tags on Single Posts', 'add-meta-tags').'</h3>
 		<p>'.__('Although no configuration is needed in order to put meta tags on single posts, the following information will help you customize them.', 'add-meta-tags').'</p>
 		<p>'.__('By default, when a single post is displayed, the post\'s excerpt and the post\'s categories and tags are used in the "description" and the "keywords" meta tags respectively.', 'add-meta-tags').'</p>
 		<p>'.__('It is possible to override them by providing a custom description in a custom field named "<strong>description</strong>" and a custom comma-delimited list of keywords by providing it in a custom field named "<strong>keywords</strong>".', 'add-meta-tags').'</p>
 		<p>'.__("Furthermore, when overriding the post's keywords, but you need to include the post's categories too, you don't need to type them, but the tag <code>%cats%</code> can be used. In the same manner you can also include your tags in this custom field by adding the word <code>%tags%</code>, which will be replaced by your post's tags.", "add-meta-tags").'</p>
 		<p><strong>'.__('Example', 'add-meta-tags').':</strong> <code>'.__('keyword1, keyword2, %cats%, keyword3, %tags%, keyword4', 'add-meta-tags').'</code></p>
-	</div>
 
-	<div class="wrap">
-		<h2>'.__('Meta Tags on Pages', 'add-meta-tags').'</h2>
+		<h3>'.__('Meta Tags on Pages', 'add-meta-tags').'</h3>
 		<p>'.__('By default, meta tags are not added automatically when viewing Pages. However, it is possible to define a description and a comma-delimited list of keywords for the Page, by using custom fields named "<strong>description</strong>" and/or "<strong>keywords</strong>" as described for single posts.', 'add-meta-tags').'</p>
 		<p>'.__('<strong>WARNING</strong>: Pages do not belong to categories in WordPress. Therefore, the tag <code>%cats%</code> will not be replaced by any categories if it is included in the comma-delimited list of keywords for the Page, so <strong>do not use it for Pages</strong>.', 'add-meta-tags').'</p>
-	</div>
 
-	<div class="wrap">
-		<h2>'.__('Meta Tags on Category Archives', 'add-meta-tags').'</h2>
+		<h3>'.__('Meta Tags on Category Archives', 'add-meta-tags').'</h3>
 		<p>'.__('META tags are automatically added to Category Archives, for example when viewing all posts that belong to a specific category. In this case, if you have set a description for that category, then this description is added to a "description" META tag.', 'add-meta-tags').'</p>
 		<p>'.__('Furthermore, a "keywords" META tag - containing only the category\'s name - is always added to Category Archives.', 'add-meta-tags').'</p>
+
 	</div>
 
 	');
