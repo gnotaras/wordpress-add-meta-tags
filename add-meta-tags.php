@@ -46,12 +46,27 @@ Translation files are searched in: wp-content/plugins
 */
 load_plugin_textdomain('add-meta-tags', 'wp-content/plugins');
 
-/*
-Admin Panel
-*/
+
+/**
+ * Settings Link in the ``Installed Plugins`` page
+ */
+function amt_plugin_actions( $links, $file ) {
+ 	if( $file == 'add-meta-tags/add-meta-tags.php' && function_exists( "admin_url" ) ) {
+		$settings_link = '<a href="' . admin_url( 'options-general.php?page=add-meta-tags-options' ) . '">' . __('Settings') . '</a>';
+        // Add the settings link before other links
+		array_unshift( $links, $settings_link );
+	}
+	return $links;
+}
+add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
+
+
+/**
+ * Admin Panel - Options Page
+ */
 
 function amt_add_pages() {
-	add_options_page(__('Meta Tags Options', 'add-meta-tags'), __('Meta Tags', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options-menu', 'amt_options_page');
+	add_options_page(__('Meta Tags Options', 'add-meta-tags'), __('Meta Tags', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page');
 }
 
 function amt_show_info_msg($msg) {
