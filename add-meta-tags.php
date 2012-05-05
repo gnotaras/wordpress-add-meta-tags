@@ -294,6 +294,18 @@ function amt_get_keywords_from_post_cats() {
 	return $postcats;
 }
 
+
+function amt_get_first_category() {
+    // Helper function. Returns the first category the post belongs to.
+    $cats = amt_strtolower(amt_get_keywords_from_post_cats());
+    $bits = explode(',', $cats);
+    if (!empty($bits)) {
+        return $bits[0];
+    }
+    return '';
+}
+
+
 function amt_get_post_tags() {
 	/*
 	Retrieves the post's user-defined tags.
@@ -489,7 +501,7 @@ function amt_add_meta_tags() {
 		}
 
 
-	} elseif ( is_home() ) {
+	} elseif ( is_front_page() ) {
 		/*
 		Add META tags to Home Page
 		*/
@@ -578,6 +590,113 @@ function amt_content_keywords_mesh() {
 
 
 /**
+ * Opengraph helper functions
+ */
+
+function amt_get_video_url() {
+    global $post;
+
+    // Youtube
+    $pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
+    preg_match($pattern, $post->post_content, $matches);
+    $youtube_video_id = $matches[1];
+    if (!empty($youtube_video_id)) {
+        return 'http://youtube.com/v/' . $youtube_video_id;
+    }
+
+    // Vimeo
+    $pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
+    preg_match($pattern, $post->post_content, $matches);
+    $vimeo_video_id = $matches[1];
+    if (!empty($vimeo_video_id)) {
+        return 'http://vimeo.com/couchmode/' . $vimeo_video_id;
+    }
+
+    return '';
+}
+
+
+/**
+ * Opengraph metadata on posts and pages
+ * Opengraph Specification: http://ogp.me
+ */
+
+function amt_add_opengraph_metadata() {
+
+    global $post;
+
+    if ( is_front_page() ) {
+
+        $options = get_option("add_meta_tags_opts");
+        $site_description = $options["site_description"];
+
+        $metadata_arr = array();
+        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
+        $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
+        if (!empty($site_description)) {
+            $metadata_arr[] = '<meta property="og:description" content="' . $site_description . '" />';
+        }
+        // TODO: add default image?
+        // $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';
+        
+        echo "\n" . implode("\n", $metadata_arr) . "\n";
+
+    } elseif ( is_single() || is_page()) {
+
+        $metadata_arr = array();
+        $metadata_arr[] = '<meta property="og:title" content="' . single_post_title('', FALSE) . '" />';
+        $metadata_arr[] = '<meta property="og:url" content="' . get_permalink() . '" />';
+        // We use the description defined by Add-Meta-Tags
+        $content_desc = amt_get_content_description();
+        if ( !empty($content_desc) ) {
+            $metadata_arr[] = '<meta property="og:description" content="' . $content_desc . '" />';
+        }
+        $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
+        $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
+        
+        // Image
+        if (has_post_thumbnail()) {
+            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID) );
+            $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';
+            //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
+            $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
+            $metadata_arr[] = '<meta property="og:image:height" content="' . $thumbnail_info[2] . '" />';
+        }
+
+        // Video
+        $video_url = amt_get_video_url();
+        if (!empty($video_url)) {
+            $metadata_arr[] = '<meta property="og:video" content="' . $video_url . '" />';
+        }
+
+        /**
+         * We treat all post formats as articles.
+         */
+
+        $metadata_arr[] = '<meta property="og:type" content="article" />';
+        $metadata_arr[] = '<meta property="article:published_time" content="' . get_the_time('c') . '" />';
+        $metadata_arr[] = '<meta property="article:modified_time" content="' . get_the_modified_time('c') . '" />';
+        // We use the first category as the section
+        $first_cat = amt_get_first_category();
+        if (!empty($first_cat)) {
+            $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
+        }
+        $metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
+        // Keywords are listed as post tags
+        $keywords = explode(', ', amt_get_content_keywords());
+        foreach ($keywords as $tag) {
+            if (!empty($tag)) {
+                $metadata_arr[] = '<meta property="article:tag" content="' . $tag . '" />';
+            }
+        }
+
+        echo "\n" . implode("\n", $metadata_arr) . "\n";
+    }
+}
+
+
+/**
  * Dublin Core metadata on posts and pages
  */
 
@@ -585,6 +704,7 @@ function amt_add_dublin_core_metadata() {
     global $post;
 
     if ( !is_single() && !is_page()) {
+        // Dublin Core metadata has a meaning for content only.
         return;
     }
 
@@ -610,9 +730,40 @@ function amt_add_dublin_core_metadata() {
         $metadata_arr[] = '<meta name="dcterms.license" scheme="dcterms.uri" content="' . bccl_get_license_url() . '" />';
     }
 
-    $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="text/html" />';
-    $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Text" />';
     $metadata_arr[] = '<meta name="dc.coverage" content="World" />';
+
+    /**
+     * WordPress Post Formats: http://codex.wordpress.org/Post_Formats
+     * Dublin Core Format: http://dublincore.org/documents/dcmi-terms/#terms-format
+     * Dublin Core DCMIType: http://dublincore.org/documents/dcmi-type-vocabulary/
+     */
+
+    /**
+     * TREAT ALL POST FORMATS AS TEXT (for now)
+     */
+    $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Text" />';
+    $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="text/html" />';
+
+    /**
+    $format = get_post_format( $post->id );
+    if ( empty($format) || $format=="aside" || $format=="link" || $format=="quote" || $format=="status" || $format=="chat") {
+        // Default format
+        $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Text" />';
+        $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="text/html" />';
+    } elseif ($format=="gallery") {
+        $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Collection" />';
+        // $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="image" />';
+    } elseif ($format=="image") {
+        $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Image" />';
+        // $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="image/png" />';
+    } elseif ($format=="video") {
+        $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Moving Image" />';
+        $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="application/x-shockwave-flash" />';
+    } elseif ($format=="audio") {
+        $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Sound" />';
+        $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="audio/mpeg" />';
+    }
+    */
 
     echo "\n" . implode("\n", $metadata_arr) . "\n";
 }
@@ -625,6 +776,7 @@ Actions
 add_action('admin_menu', 'amt_add_pages');
 
 add_action('wp_head', 'amt_add_meta_tags', 0);
+add_action('wp_head', 'amt_add_opengraph_metadata', 0);
 add_action('wp_head', 'amt_add_dublin_core_metadata', 0);
 
 ?>
