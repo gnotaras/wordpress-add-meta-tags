@@ -3,7 +3,7 @@
 Plugin Name: Add Meta Tags
 Plugin URI: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags to your blog's <em>front page</em>, posts, pages, category-based archives and tag-based archives. Also adds Opengraph and Dublin Core metadata on posts and pages.
-Version: 2.0.0
+Version: 2.0.1b1
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 */
