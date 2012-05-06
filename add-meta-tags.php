@@ -52,7 +52,7 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
  */
 
 function amt_add_pages() {
-	add_options_page(__('Meta Tags Options', 'add-meta-tags'), __('Meta Tags', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page');
+	add_options_page(__('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page');
 }
 
 function amt_show_info_msg($msg) {
@@ -75,6 +75,8 @@ function amt_options_page() {
         "auto_opengraph"    => "0",
         "auto_dublincore"   => "0",
         "noindex_archives"  => "0",
+        "copyright_url"     => "",
+        "default_image_url" => "",
         );
 
 	if (isset($_POST['info_update'])) {
@@ -92,6 +94,8 @@ function amt_options_page() {
             "auto_opengraph"    => $_POST["auto_opengraph"],
             "auto_dublincore"   => $_POST["auto_dublincore"],
             "noindex_archives"  => $_POST["noindex_archives"],
+            "copyright_url"     => $_POST["copyright_url"],
+            "default_image_url" => $_POST["default_image_url"],
 			));
 		amt_show_info_msg(__('Add-Meta-Tags options saved.', 'add-meta-tags'));
 
@@ -178,10 +182,10 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Automatic metadata insertion', 'add-meta-tags').'</th>
+            <th scope="row">'.__('Automatic Metadata', 'add-meta-tags').'</th>
             <td>
 			<fieldset>
-                <legend class="screen-reader-text"><span>'.__('Automatic metadata insertion', 'add-meta-tags').'</span></legend>
+                <legend class="screen-reader-text"><span>'.__('Automatic Metadata', 'add-meta-tags').'</span></legend>
 
                 <input id="auto_description" type="checkbox" value="1" name="auto_description" '. (($options["auto_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_description">
@@ -212,18 +216,51 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Extra Settings', 'add-meta-tags').'</th>
+            <th scope="row">'.__('Extra SEO Options', 'add-meta-tags').'</th>
             <td>
 			<fieldset>
-                <legend class="screen-reader-text"><span>'.__('Extra Settings', 'add-meta-tags').'</span></legend>
+                <legend class="screen-reader-text"><span>'.__('Extra SEO Options', 'add-meta-tags').'</span></legend>
 
                 <input id="noindex_archives" type="checkbox" value="1" name="noindex_archives" '. (($options["noindex_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_archives">
                 '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives. This is an advanced setting that aims at reducing the duplicate content search engines find on your web site.', 'add-meta-tags').'
                 </label>
                 <br />
-                
 			</fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Copyright', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Copyright', 'add-meta-tags').'</span></legend>
+                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . $options["copyright_url"] . '" size="60" maxlength="1024" />
+                <br />
+                <label for="copyright_url">
+                '.__('Add an absolute URL to a document containing information about copyright. The relevant meta tags will be added automatically.', 'add-meta-tags').'
+                <br />
+                <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/copyright.html</code>
+                </label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Default Image', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Default Image', 'add-meta-tags').'</span></legend>
+                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . $options["default_image_url"] . '" size="60" maxlength="1024" />
+                <br />
+                <label for="default_image_url">
+                '.__('Add an absolute URL to an image that will be used in meta data in case a featured image has not been set for the content.', 'add-meta-tags').'
+                <br />
+                <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/default.png</code>
+                </label>
+                <br />
+            </fieldset>
             </td>
             </tr>
 
@@ -710,6 +747,11 @@ function amt_add_meta_tags() {
 		echo "\n<!-- META Tags added by Add-Meta-Tags WordPress plugin. Get it at: http://www.g-loaded.eu/ -->" . $my_metatags . "\n" . amt_get_site_wide_metatags($site_wide_meta) . "\n\n";
 	}
 
+    // On every page print the copyright head link
+    if (!empty($options["copyright_url"])) {
+        echo "\n<link rel=\"copyright\" type=\"text/html\" title=\"" . get_bloginfo('name') . " Copyright Information\" href=\"" . trim($options["copyright_url"]) . "\" />\n\n";
+    }
+
 }
 
 
@@ -789,9 +831,11 @@ function amt_add_opengraph_metadata() {
         if (!empty($site_description)) {
             $metadata_arr[] = '<meta property="og:description" content="' . $site_description . '" />';
         }
-        // TODO: add default image?
-        // $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';
-        
+        // Add default image
+        if (!empty($options["default_image_url"])) {
+            $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
+        }
+
         echo "\n" . implode("\n", $metadata_arr) . "\n";
 
     } elseif ( is_single() || is_page()) {
@@ -814,6 +858,9 @@ function amt_add_opengraph_metadata() {
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
             $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
             $metadata_arr[] = '<meta property="og:image:height" content="' . $thumbnail_info[2] . '" />';
+        } elseif (!empty($options["default_image_url"])) {
+            // Alternatively, use default image
+            $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
         }
 
         // Video
@@ -860,9 +907,7 @@ function amt_add_dublin_core_metadata() {
         return;
     }
 
-    /*
-	Get the options the DB
-	*/
+    // Get the options the DB
 	$options = get_option("add_meta_tags_opts");
 	$auto_dublincore = $options["auto_dublincore"];
     $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );
@@ -884,9 +929,10 @@ function amt_add_dublin_core_metadata() {
     $metadata_arr[] = '<meta name="dc.subject" content="' . amt_get_content_keywords_mesh() . '" />';
     $metadata_arr[] = '<meta name="dc.language" scheme="dcterms.rfc4646" content="' . get_bloginfo('language') . '" />';
     $metadata_arr[] = '<meta name="dc.publisher" scheme="dcterms.uri" content="' . get_bloginfo('url') . '" />';
-    // TODO: Copyright page from setting in the admin panel
-    // <meta name="dcterms.rights" scheme="dcterms.uri" content=" bloginfo('url') /about/disclaimer-and-license/" />
-
+    // Copyright page
+    if (!empty($options["copyright_url"])) {
+        $metadata_arr[] = '<meta name="dcterms.rights" scheme="dcterms.uri" content="' . get_bloginfo('url') . '" />';
+    }
     // The following requires creative commons configurator
     if (function_exists('bccl_get_license_url')) {
         $metadata_arr[] = '<meta name="dcterms.license" scheme="dcterms.uri" content="' . bccl_get_license_url() . '" />';
