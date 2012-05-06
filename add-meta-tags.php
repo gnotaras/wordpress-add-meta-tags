@@ -2,7 +2,7 @@
 /*
 Plugin Name: Add Meta Tags
 Plugin URI: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
-Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags to your blog's <em>front page</em> and to each one of the <em>posts</em>, <em>static pages</em> and <em>category archives</em>. This operation is automatic, but the generated META tags can be fully customized. Also, the inclusion of other META tags, which do not need any computation, is possible. Please read the tips and all other info provided at the <a href="options-general.php?page=add-meta-tags/add-meta-tags.php">configuration panel</a>.
+Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags to your blog's <em>front page</em>, posts, pages, category-based archives and tag-based archives. Also adds Opengraph and Dublin Core metadata on posts and pages.
 Version: 1.8.0
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
@@ -270,6 +270,8 @@ function amt_clean_desc($desc) {
 	/*
 	This is a filter for the description metatag text.
 	*/
+    $desc = str_replace('"', '', $desc);
+    $desc = str_replace("'", '', $desc);
 	$desc = stripslashes($desc);
 	$desc = strip_tags($desc);
 	$desc = htmlspecialchars($desc);
@@ -814,7 +816,7 @@ function amt_add_opengraph_metadata() {
             }
         }
 
-        echo "\n" . implode("\n", $metadata_arr) . "\n";
+        echo "\n" . implode("\n", $metadata_arr) . "\n\n";
     }
 }
 
@@ -898,7 +900,7 @@ function amt_add_dublin_core_metadata() {
     }
     */
 
-    echo "\n" . implode("\n", $metadata_arr) . "\n";
+    echo "\n" . implode("\n", $metadata_arr) . "\n\n";
 }
 
 
