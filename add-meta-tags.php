@@ -93,6 +93,19 @@ function amt_options_page() {
 		update_option("add_meta_tags_opts", $options);
 		amt_show_info_msg(__('Add-Meta-Tags options saved.', 'add-meta-tags'));
 
+    } elseif (isset($_POST["info_reset"])) {
+
+		delete_option("add_meta_tags_opts");
+		amt_show_info_msg(__('Add-Meta-Tags options deleted from the WordPress database.', 'add-meta-tags'));
+
+		/*
+		The following exists for deleting old add-meta-tags options (version 1.0 or older).
+		The following statement have no effect if the options do not exist.
+		This is 100% safe (TM).
+		*/
+		delete_option('amt_site_description');
+		delete_option('amt_site_keywords');
+
 	} else {
 
 		$options = get_option("add_meta_tags_opts");
@@ -170,6 +183,7 @@ function amt_options_page() {
 
         <p class="submit">
             <input id="submit" class="button-primary" type="submit" value="'.__('Update Options', 'add-meta-tags').'" name="info_update" />
+            <input id="reset" class="button-primary" type="submit" value="'.__('Reset Options', 'add-meta-tags').'" name="info_reset" />
         </p>
 
 		</form>
