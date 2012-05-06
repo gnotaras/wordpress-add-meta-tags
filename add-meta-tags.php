@@ -178,6 +178,8 @@ function amt_options_page() {
             </td>
             </tr>
 
+
+
         </tbody>
         </table>
 
@@ -208,9 +210,9 @@ function amt_options_page() {
 		<p>'.__('By default, meta tags are not added automatically when viewing Pages. However, it is possible to define a description and a comma-delimited list of keywords for the Page, by using custom fields named "<strong>description</strong>" and/or "<strong>keywords</strong>" as described for single posts.', 'add-meta-tags').'</p>
 		<p>'.__('<strong>WARNING</strong>: Pages do not belong to categories in WordPress. Therefore, the tag <code>%cats%</code> will not be replaced by any categories if it is included in the comma-delimited list of keywords for the Page, so <strong>do not use it for Pages</strong>.', 'add-meta-tags').'</p>
 
-		<h3>'.__('Meta Tags on Category Archives', 'add-meta-tags').'</h3>
-		<p>'.__('META tags are automatically added to Category Archives, for example when viewing all posts that belong to a specific category. In this case, if you have set a description for that category, then this description is added to a "description" META tag.', 'add-meta-tags').'</p>
-		<p>'.__('Furthermore, a "keywords" META tag - containing only the category\'s name - is always added to Category Archives.', 'add-meta-tags').'</p>
+		<h3>'.__('Metadata on Category and Tag Archives', 'add-meta-tags').'</h3>
+		<p>'.__('A <em>description</em> meta tag is automatically added to category-based and tag-based archives, only if a description has been set for that specific category or tag.', 'add-meta-tags').'</p>
+        <p>'.__('A <em>keywords</em> meta tag is always added automatically to category-based and tag-based archives. The value of the meta tag is set to the category or tag name respectively.', 'add-meta-tags').'</p>
 
 	</div>
 
@@ -600,6 +602,28 @@ function amt_add_meta_tags() {
 		$cur_cat_name = single_cat_title($prefix = '', $display = false );
 		if ( $cur_cat_name ) {
 			$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($cur_cat_name) . "\" />";
+		}
+
+	} elseif ( is_tag() ) {
+		/*
+		Writes a description META tag only if a description for the current tag has been set.
+		*/
+
+		$cur_tag_desc = tag_description();
+		if ( $cur_tag_desc ) {
+            $description_content = amt_clean_desc($cur_tag_desc);
+            if ( $paged ) {
+                $description_content .= ' (page ' . $paged . ')';
+            }
+			$my_metatags .= "\n<meta name=\"description\" content=\"" . $description_content . "\" />";
+		}
+		
+		/*
+		Write a keyword metatag if there is a tag name (always)
+		*/
+		$cur_tag_name = single_tag_title($prefix = '', $display = false );
+		if ( $cur_tag_name ) {
+			$my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($cur_tag_name) . "\" />";
 		}
 	}
 
