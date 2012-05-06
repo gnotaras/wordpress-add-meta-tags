@@ -105,7 +105,7 @@ function amt_options_page() {
 	
 	print('
 	<div class="wrap">
-		<h2>'.__('Add-Meta-Tags', 'add-meta-tags').'</h2>
+		<h2>'.__('Add-Meta-Tags Settings', 'add-meta-tags').'</h2>
 		<p>'.__('This is where you can configure the Add-Meta-Tags plugin and read about how the plugin adds META tags in the WordPress pages.', 'add-meta-tags').'</p>
 		<p>'.__('Modifying any of the settings in this page is completely <strong>optional</strong>, as the plugin will add META tags automatically.', 'add-meta-tags').'</p>
 		<p>'.__("For more information about the plugin's default behaviour and how you could customize the metatag generation can be found in detail in the sections that follow.", "add-meta-tags").'</p>
