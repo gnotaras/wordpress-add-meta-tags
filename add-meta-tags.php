@@ -54,10 +54,13 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
 function amt_add_pages() {
 	add_options_page(__('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page');
 }
+add_action('admin_menu', 'amt_add_pages');
+
 
 function amt_show_info_msg($msg) {
 	echo '<div id="message" class="updated fade"><p>' . $msg . '</p></div>';
 }
+
 
 function amt_options_page() {
     // Permission Check
@@ -655,27 +658,23 @@ function amt_add_meta_tags() {
 
 	// Get the options the DB
 	$options = get_option("add_meta_tags_opts");
-	$site_wide_meta = $options["site_wide_meta"];
     $do_auto_description = (($options["auto_description"] == "1") ? true : false );
     $do_auto_keywords = (($options["auto_keywords"] == "1") ? true : false );
-    $do_noindex_archives = (($options["noindex_archives"] == "1") ? true : false );
     $do_noodp_description = (($options["noodp_description"] == "1") ? true : false );
 
+    // Array to store metadata
+    $metadata_arr = array();
+
     /**
-     * NOINDEX,FOLLOW on archives or NOODP on posts and pages
+     * NOODP on posts and pages
      */
-    if (is_archive() && $do_noindex_archives) {
-        echo "<META NAME=\"ROBOTS\" CONTENT=\"NOINDEX,FOLLOW\" />\n";
-        // We return here as there is no need to further process metadata as
-        // we explicitly ask search engines not to index the content.
-        return;
-    } elseif ( is_single() || is_page() ) {
-        if ($do_noodp_description) {
-            echo "<meta name=\"robots\" content=\"NOODP\" />\n";
-        }
+    if ( $do_noodp_description && (is_single() || is_page()) ) {
+        $metadata_arr[] = '<meta name="robots" content="NOODP" />';
     }
 
-	$my_metatags = "";
+    /**
+     * Basic Meta tags
+     */
 
 	if ( is_front_page() ) {
 		/*
@@ -696,7 +695,7 @@ function amt_add_meta_tags() {
 
 		if ( !empty($site_description) ) {
 			// If $site_description is not empty, then use it in the description meta-tag of the front page
-			$my_metatags .= "\n<meta name=\"description\" content=\"" . amt_clean_desc($site_description) . "\" />";
+			$metadata_arr[] = '<meta name="description" content="' . amt_clean_desc($site_description) . '" />';
 		}
 
 		// Keywords
@@ -708,7 +707,7 @@ function amt_add_meta_tags() {
 
 		if ( !empty($site_keywords) ) {
             // If $site_keywords is not empty, then use it in the keywords meta-tag of the front page
-			$my_metatags .= "\n<meta name=\"keywords\" content=\"" . $site_keywords . "\" />";
+			$metadata_arr[] = '<meta name="keywords" content="' . $site_keywords . '" />';
 		}
 
 
@@ -720,13 +719,13 @@ function amt_add_meta_tags() {
 		// Description
         $description = amt_get_content_description($auto=$do_auto_description);
         if (!empty($description)) {
-            $my_metatags .= "\n<meta name=\"description\" content=\"" . $description . "\" />";
+            $metadata_arr[] = '<meta name="description" content="' . $description . '" />';
         }
 
 		// Keywords
 		$keywords = amt_get_content_keywords($auto=$do_auto_keywords);
         if (!empty($keywords)) {
-            $my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($keywords) . "\" />";
+            $metadata_arr[] = '<meta name="keywords" content="' . amt_strtolower($keywords) . '" />';
 		}
 
 
@@ -742,7 +741,7 @@ function amt_add_meta_tags() {
                     $description_content .= ' (page ' . $paged . ')';
                 }
                 if (!empty($description_content)) {
-                    $my_metatags .= "\n<meta name=\"description\" content=\"" . $description_content . "\" />";
+                    $metadata_arr[] = '<meta name="description" content="' . $description_content . '" />';
                 }
             }
         }
@@ -753,7 +752,7 @@ function amt_add_meta_tags() {
         if ($do_auto_keywords) {
             $cur_cat_name = single_cat_title($prefix = '', $display = false );
             if ( !empty($cur_cat_name) ) {
-                $my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($cur_cat_name) . "\" />";
+                $metadata_arr[] = '<meta name="keywords" content="' . amt_strtolower($cur_cat_name) . '" />';
             }
         }
 
@@ -769,7 +768,7 @@ function amt_add_meta_tags() {
                     $description_content .= ' (page ' . $paged . ')';
                 }
                 if (!empty($description_content)) {
-                    $my_metatags .= "\n<meta name=\"description\" content=\"" . $description_content . "\" />";
+                    $metadata_arr[] = '<meta name="description" content="' . $description_content . '" />';
                 }
             }
         }
@@ -780,20 +779,22 @@ function amt_add_meta_tags() {
         if ($do_auto_keywords) {
             $cur_tag_name = single_tag_title($prefix = '', $display = false );
             if ( !empty($cur_tag_name) ) {
-                $my_metatags .= "\n<meta name=\"keywords\" content=\"" . amt_strtolower($cur_tag_name) . "\" />";
+                $metadata_arr[] = '<meta name="keywords" content="' . amt_strtolower($cur_tag_name) . '" />';
             }
         }
 	}
 
-	if (!empty($my_metatags)) {
-		echo "\n<!-- META Tags added by Add-Meta-Tags WordPress plugin. Get it at: http://www.g-loaded.eu/ -->" . $my_metatags . "\n" . amt_get_site_wide_metatags($site_wide_meta) . "\n\n";
-	}
+	// Add site wide meta tags
+    if (!empty($options["site_wide_meta"])) {
+        $metadata_arr[] = amt_get_site_wide_metatags($options["site_wide_meta"]);
+    }
 
     // On every page print the copyright head link
     if (!empty($options["copyright_url"])) {
-        echo "\n<link rel=\"copyright\" type=\"text/html\" title=\"" . get_bloginfo('name') . " Copyright Information\" href=\"" . trim($options["copyright_url"]) . "\" />\n\n";
+        $metadata_arr[] = '<link rel="copyright" type="text/html" title="' . get_bloginfo('name') . ' Copyright Information" href="' . trim($options["copyright_url"]) . '" />';
     }
 
+    return $metadata_arr;
 }
 
 
@@ -858,7 +859,7 @@ function amt_add_opengraph_metadata() {
 	$auto_opengraph = $options["auto_opengraph"];
     $do_auto_opengraph = (($options["auto_opengraph"] == "1") ? true : false );
     if (!$do_auto_opengraph) {
-        return;
+        return array();
     }
 
     if ( is_front_page() ) {
@@ -878,7 +879,7 @@ function amt_add_opengraph_metadata() {
             $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
         }
 
-        echo "\n" . implode("\n", $metadata_arr) . "\n";
+        return $metadata_arr;
 
     } elseif ( is_single() || is_page()) {
 
@@ -932,7 +933,7 @@ function amt_add_opengraph_metadata() {
             }
         }
 
-        echo "\n" . implode("\n", $metadata_arr) . "\n\n";
+        return $metadata_arr;
     }
 }
 
@@ -946,7 +947,7 @@ function amt_add_dublin_core_metadata() {
 
     if ( !is_single() && !is_page()) {
         // Dublin Core metadata has a meaning for content only.
-        return;
+        return array();
     }
 
     // Get the options the DB
@@ -954,7 +955,7 @@ function amt_add_dublin_core_metadata() {
 	$auto_dublincore = $options["auto_dublincore"];
     $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );
     if (!$do_auto_dublincore) {
-        return;
+        return array();
     }
 
     $metadata_arr = array();
@@ -1015,18 +1016,43 @@ function amt_add_dublin_core_metadata() {
     }
     */
 
-    echo "\n" . implode("\n", $metadata_arr) . "\n\n";
+    return $metadata_arr;
 }
 
 
 /*
 Actions
 */
+function amt_add_metadata() {
 
-add_action('admin_menu', 'amt_add_pages');
+    // Get the options the DB
+	$options = get_option("add_meta_tags_opts");
+    $do_noindex_archives = (($options["noindex_archives"] == "1") ? true : false );
 
-add_action('wp_head', 'amt_add_meta_tags', 0);
-add_action('wp_head', 'amt_add_opengraph_metadata', 0);
-add_action('wp_head', 'amt_add_dublin_core_metadata', 0);
+    $metadata_arr = array();
+    $metadata_arr[] = "";
+    $metadata_arr[] = "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin";
+    $metadata_arr[] = "Get the plugin at: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ -->";
+    // Check for NOINDEX,FOLLOW on archives.
+    // There is no need to further process metadata as we explicitly ask search
+    // engines not to index the content.
+    if (is_archive() && $do_noindex_archives) {
+        $metadata_arr[] = '<META NAME="ROBOTS" CONTENT="NOINDEX,FOLLOW" />';
+    } else {
+        // Basic Meta tags
+        $metadata_arr = array_merge($metadata_arr, amt_add_meta_tags());
+        // Add Opengraph
+        $metadata_arr = array_merge($metadata_arr, amt_add_opengraph_metadata());
+        // Add Dublin Core
+        $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata());
+    }
+    $metadata_arr[] = "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->";
+    $metadata_arr[] = "";
+    $metadata_arr[] = "";
+
+    echo implode("\n", $metadata_arr);
+}
+
+add_action('wp_head', 'amt_add_metadata', 0);
 
 ?>
