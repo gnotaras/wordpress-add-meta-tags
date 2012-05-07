@@ -77,6 +77,7 @@ function amt_options_page() {
         "noindex_archives"  => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
+        "i_have_donated"    => "0",
         );
 
 	if (isset($_POST['info_update'])) {
@@ -96,14 +97,15 @@ function amt_options_page() {
             "noindex_archives"  => $_POST["noindex_archives"],
             "copyright_url"     => $_POST["copyright_url"],
             "default_image_url" => $_POST["default_image_url"],
+            "i_have_donated"    => $_POST["i_have_donated"],
 			));
-		amt_show_info_msg(__('Add-Meta-Tags options saved.', 'add-meta-tags'));
+		amt_show_info_msg(__('Add-Meta-Tags options saved', 'add-meta-tags'));
 
     } elseif (isset($_POST["info_reset"])) {
 
 		delete_option("add_meta_tags_opts");
         update_option("add_meta_tags_opts", $default_options);
-		amt_show_info_msg(__('Add-Meta-Tags options deleted from the WordPress database.', 'add-meta-tags'));
+		amt_show_info_msg(__('Add-Meta-Tags options were reset to defaults', 'add-meta-tags'));
 
 	} elseif (!get_option("add_meta_tags_opts")) {
 
@@ -121,10 +123,19 @@ function amt_options_page() {
 	
 	print('
 	<div class="wrap">
-		<h2>'.__('Add-Meta-Tags Settings', 'add-meta-tags').'</h2>
-		<p>'.__('This is where you can configure the Add-Meta-Tags plugin and read about how the plugin adds META tags in the WordPress pages.', 'add-meta-tags').'</p>
-		<p>'.__('Modifying any of the settings in this page is completely <strong>optional</strong>, as the plugin will add META tags automatically.', 'add-meta-tags').'</p>
-		<p>'.__("For more information about the plugin's default behaviour and how you could customize the metatag generation can be found in detail in the sections that follow.", "add-meta-tags").'</p>
+        <div id="icon-options-general" class="icon32"><br /></div>
+		<h2>'.__('Metadata Settings', 'add-meta-tags').'</h2>
+		<p>'.__('Welcome to the configuration settings of the Add-Meta-Tags plugin.', 'add-meta-tags').'</p>
+        <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automagically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presense of acurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
+		<p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to your blog\'s front page, posts, pages, category and tag based archives. Furthermore, it is possible to enable the insertion of <em>Opengraph</em> and <em>Dublin Core</em> metadata to your posts and pages. The plugin also supports some extra functionality that helps fine tune the added meta information. Please, go through the settings and the documentation below for more details.', 'add-meta-tags').'</p>
+	</div>
+
+    <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
+		<h2>'.__('Message from the author', 'add-meta-tags').'</h2>
+		<p style="font-size: 1.2em; padding-left: 2em;">'.__('<em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.', 'add-meta-tags').'</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would definitely appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.', 'add-meta-tags').'</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('Thank you in advance,', 'add-meta-tags').'<br />'.__('George Notaras', 'add-meta-tags').'</p>
+        <div style="text-align: right;"><small>'.__('This message can de deactivated in the settings below.', 'add-meta-tags').'</small></div>
 	</div>
 
 	<div class="wrap">
@@ -141,9 +152,9 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Site Description', 'add-meta-tags').'</span></legend>
                 <label for="site_description">
-                    <textarea name="site_description" id="site_description" cols="40" rows="3" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_description"]) . '</textarea>
+                    <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . stripslashes($options["site_description"]) . '</textarea>
                     <br />
-                    '.__('The following text will be used in the "description" meta tag on the <strong>homepage only</strong>. If this is left <strong>empty</strong>, then the blog\'s description from the <em>General Options</em> (Tagline) will be used.', 'add-meta-tags').'
+                    '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog\'s description from the <em>Tagline</em> in <a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php">General Options</a> will be used.', 'add-meta-tags').'
                 </label>
             </fieldset>
             </td>
@@ -155,9 +166,9 @@ function amt_options_page() {
 			<fieldset>
                 <legend class="screen-reader-text"><span>'.__('Site Keywords', 'add-meta-tags').'</span></legend>
                 <label for="site_keywords">
-                    <textarea name="site_keywords" id="site_keywords" cols="40" rows="3" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_keywords"]) . '</textarea>
+                    <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . stripslashes($options["site_keywords"]) . '</textarea>
                     <br />
-					'.__('The following keywords will be used for the "keywords" meta tag on the <strong>homepage only</strong>. Provide a comma-delimited list of keywords for your blog. If this field is left <strong>empty</strong>, then all of your blog\'s categories will be used as keywords for the "keywords" meta tag.', 'add-meta-tags').'
+					'.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="' . get_bloginfo('wpurl') . '/wp-admin/edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'
                     <br />
 					<strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code>
                 </label>
@@ -171,21 +182,23 @@ function amt_options_page() {
 			<fieldset>
                 <legend class="screen-reader-text"><span>'.__('Site-wide META tags', 'add-meta-tags').'</span></legend>
                 <label for="site_wide_meta">
-                    <textarea name="site_wide_meta" id="site_wide_meta" cols="40" rows="10" style="width: 80%; font-size: 14px;" class="code">' . stripslashes($options["site_wide_meta"]) . '</textarea>
+                    <textarea name="site_wide_meta" id="site_wide_meta" cols="100" rows="10" class="code">' . stripslashes($options["site_wide_meta"]) . '</textarea>
                     <br />
 					'.__('Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages.', 'add-meta-tags').'
 					<br />
-					<strong>'.__('Example', 'add-meta-tags').'</strong>: <code>&lt;meta name="robots" content="index,follow" /&gt;</code>
+					<strong>'.__('Examples', 'add-meta-tags').'</strong>:
+                    <br /><code>&lt;meta name="google-site-verification" content="1234567890" /&gt;</code>
+                    <br /><code>&lt;meta name="msvalidate.01" content="1234567890" /&gt;</code>
 				</label>
 			</fieldset>
             </td>
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Automatic Metadata', 'add-meta-tags').'</th>
+            <th scope="row">'.__('Automatic Basic Metadata', 'add-meta-tags').'</th>
             <td>
 			<fieldset>
-                <legend class="screen-reader-text"><span>'.__('Automatic Metadata', 'add-meta-tags').'</span></legend>
+                <legend class="screen-reader-text"><span>'.__('Automatic Basic Metadata', 'add-meta-tags').'</span></legend>
 
                 <input id="auto_description" type="checkbox" value="1" name="auto_description" '. (($options["auto_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_description">
@@ -199,18 +212,36 @@ function amt_options_page() {
                 </label>
                 <br />
 
+			</fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Automatic Opengraph Metadata', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Automatic Opengraph Metadata', 'add-meta-tags').'</span></legend>
+
                 <input id="auto_opengraph" type="checkbox" value="1" name="auto_opengraph" '. (($options["auto_opengraph"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_opengraph">
                 '.__('Automatically generate Opengraph meta tags for single posts and pages. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'
                 </label>
                 <br />
+			</fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Automatic Dublin Core Metadata', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Automatic Dublin Core Metadata', 'add-meta-tags').'</span></legend>
 
                 <input id="auto_dublincore" type="checkbox" value="1" name="auto_dublincore" '. (($options["auto_dublincore"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_dublincore">
                 '.__('Automatically generate Dublin Core metadata for single posts and pages. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'
                 </label>
                 <br />
-
 			</fieldset>
             </td>
             </tr>
@@ -231,11 +262,11 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Copyright', 'add-meta-tags').'</th>
+            <th scope="row">'.__('Copyright URL', 'add-meta-tags').'</th>
             <td>
 			<fieldset>
-                <legend class="screen-reader-text"><span>'.__('Copyright', 'add-meta-tags').'</span></legend>
-                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . $options["copyright_url"] . '" size="60" maxlength="1024" />
+                <legend class="screen-reader-text"><span>'.__('Copyright URL', 'add-meta-tags').'</span></legend>
+                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . $options["copyright_url"] . '" size="100" maxlength="1024" />
                 <br />
                 <label for="copyright_url">
                 '.__('Add an absolute URL to a document containing information about copyright. The relevant meta tags will be added automatically.', 'add-meta-tags').'
@@ -252,12 +283,27 @@ function amt_options_page() {
             <td>
 			<fieldset>
                 <legend class="screen-reader-text"><span>'.__('Default Image', 'add-meta-tags').'</span></legend>
-                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . $options["default_image_url"] . '" size="60" maxlength="1024" />
+                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . $options["default_image_url"] . '" size="100" maxlength="1024" />
                 <br />
                 <label for="default_image_url">
                 '.__('Add an absolute URL to an image that will be used in meta data in case a featured image has not been set for the content.', 'add-meta-tags').'
                 <br />
                 <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/default.png</code>
+                </label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Donations', 'add-meta-tags').'</th>
+            <td>
+			<fieldset>
+                <legend class="screen-reader-text"><span>'.__('Donations', 'add-meta-tags').'</span></legend>
+
+                <input id="i_have_donated" type="checkbox" value="1" name="i_have_donated" '. (($options["i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="i_have_donated">
+                '.__('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="http://www.g-loaded.eu/about/donate/">donating</a>!', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
@@ -424,6 +470,7 @@ function amt_get_keywords_from_post_cats() {
 	foreach((get_the_category($posts[0]->ID)) as $cat) {
 		$postcats .= $cat->cat_name . ', ';
 	}
+    // strip final comma
 	$postcats = substr($postcats, 0, -2);
 
 	return $postcats;
