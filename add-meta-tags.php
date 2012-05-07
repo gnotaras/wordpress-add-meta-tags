@@ -2,14 +2,14 @@
 /*
 Plugin Name: Add Meta Tags
 Plugin URI: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
-Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags to your blog's <em>front page</em>, posts, pages, category-based archives and tag-based archives. Also adds Opengraph and Dublin Core metadata on posts and pages.
-Version: 2.0.1b1
+Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags to your blog's <em>front page</em>, posts, pages, category-based archives and tag-based archives. Also adds <em>Opengraph</em> and <em>Dublin Core</em> metadata on posts and pages.
+Version: 2.0.2b
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 */
 
 /*
-  Copyright 2007 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
+  Copyright 2006-2012 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -130,7 +130,7 @@ function amt_options_page() {
 	<div class="wrap">
         <div id="icon-options-general" class="icon32"><br /></div>
 		<h2>'.__('Metadata Settings', 'add-meta-tags').'</h2>
-		<p>'.__('Welcome to the configuration settings of the Add-Meta-Tags plugin.', 'add-meta-tags').'</p>
+		<p>'.__('Welcome to the administration panel of the Add-Meta-Tags plugin.', 'add-meta-tags').'</p>
         <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automagically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presense of acurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
 		<p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to your blog\'s front page, posts, pages, category and tag based archives. Furthermore, it is possible to enable the insertion of <em>Opengraph</em> and <em>Dublin Core</em> metadata to your posts and pages. The plugin also supports some extra functionality that helps fine tune the added meta information. Please, go through the settings and the documentation below for more details.', 'add-meta-tags').'</p>
 	</div>
@@ -138,7 +138,7 @@ function amt_options_page() {
     <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
 		<h2>'.__('Message from the author', 'add-meta-tags').'</h2>
 		<p style="font-size: 1.2em; padding-left: 2em;">'.__('<em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.', 'add-meta-tags').'</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">'.__('However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would definitely appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.', 'add-meta-tags').'</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">'.__('However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.', 'add-meta-tags').'</p>
         <p style="font-size: 1.2em; padding-left: 2em;">'.__('Thank you in advance,', 'add-meta-tags').'<br />'.__('George Notaras', 'add-meta-tags').'</p>
         <div style="text-align: right;"><small>'.__('This message can de deactivated in the settings below.', 'add-meta-tags').'</small></div>
 	</div>
@@ -259,7 +259,7 @@ function amt_options_page() {
 
                 <input id="noodp_description" type="checkbox" value="1" name="noodp_description" '. (($options["noodp_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noodp_description">
-                '.__('Add <code>NOODP</code> to the <em>robots</em> meta tag on posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
+                '.__('Add <code>NOODP</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
                 </label>
                 <br />
 
@@ -380,17 +380,40 @@ function amt_strtolower($text) {
 
 function amt_clean_desc($desc) {
 	/*
-	This is a filter for the description metatag text.
-	*/
-    $desc = str_replace('"', '', $desc);
-    $desc = str_replace("'", '', $desc);
+	 * This is a filter for the description metatag text.
+	 */
+
 	$desc = stripslashes($desc);
 	$desc = strip_tags($desc);
 	$desc = htmlspecialchars($desc);
+    // Clean double quotes
+    $desc = str_replace('"', '', $desc);
+    //$desc = str_replace("'", '', $desc);
 	//$desc = preg_replace('/(\n+)/', ' ', $desc);
 	$desc = preg_replace('/([\n \t\r]+)/', ' ', $desc); 
 	$desc = preg_replace('/( +)/', ' ', $desc);
+
+    // Remove shortcode
+    $pattern = get_shortcode_regex();
+    //var_dump($pattern);
+    $desc = preg_replace('#' . $pattern . '#s', '', $desc);
+
 	return trim($desc);
+}
+
+
+function amt_process_paged($metadata) {
+    /*
+     * Accepts any piece of metadata. Checks if current post is paged and, if yes,
+     * then it adds the (page N) suffix.
+     */
+    global $paged;
+
+    if ( $paged ) {
+        $metadata .= ' (page ' . $paged . ')';
+    }
+
+    return $metadata;
 }
 
 
@@ -668,7 +691,7 @@ function amt_add_meta_tags() {
     /**
      * NOODP on posts and pages
      */
-    if ( $do_noodp_description && (is_single() || is_page()) ) {
+    if ( $do_noodp_description && (is_front_page() || is_single() || is_page()) ) {
         $metadata_arr[] = '<meta name="robots" content="NOODP" />';
     }
 
@@ -865,14 +888,18 @@ function amt_add_opengraph_metadata() {
     if ( is_front_page() ) {
 
         $options = get_option("add_meta_tags_opts");
-        $site_description = $options["site_description"];
 
         $metadata_arr = array();
+        $metadata_arr[] = '<meta property="og:title" content="' . get_bloginfo('name') . '" />';
+        $metadata_arr[] = '<meta property="og:url" content="' . get_bloginfo('wpurl') . '" />';
         $metadata_arr[] = '<meta property="og:type" content="website" />';
         $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
         $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
-        if (!empty($site_description)) {
-            $metadata_arr[] = '<meta property="og:description" content="' . $site_description . '" />';
+        // Site description
+        if (!empty($options["site_description"])) {
+            $metadata_arr[] = '<meta property="og:description" content="' . $options["site_description"] . '" />';
+        } elseif (get_bloginfo('description')) {
+            $metadata_arr[] = '<meta property="og:description" content="' . get_bloginfo('description') . '" />';
         }
         // Add default image
         if (!empty($options["default_image_url"])) {
