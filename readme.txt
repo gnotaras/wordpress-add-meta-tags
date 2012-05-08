@@ -55,6 +55,12 @@ Dublin Core metadata
  - Automatic addition of metadata.
 
 
+Extra SEO features
+
+- Add the `NOODP` option to the robots meta tag.
+- Add the `NOINDEX,FOLLOW` options to the robots meta tag on category, tag, author or time based archives.
+
+
 More:
  
 Check out other [open source software](http://www.g-loaded.eu/software/) by the same author.
