@@ -1,0 +1,177 @@
+#  POT (Portable Object Template)
+#
+#  This file is part of the Add-Meta-Tags plugin for WordPress.
+#
+#  http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
+#
+#  Copyright (C) 2006-2012 George Notaras <gnot@g-loaded.eu>
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: add-meta-tags 1.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-12 08:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: add-meta-tags.php:54
+msgid "Meta Tags Options"
+msgstr ""
+
+#: add-meta-tags.php:54
+msgid "Meta Tags"
+msgstr ""
+
+#: add-meta-tags.php:74
+msgid "Add-Meta-Tags options saved."
+msgstr ""
+
+#: add-meta-tags.php:79
+msgid "Add-Meta-Tags options deleted from the WordPress database."
+msgstr ""
+
+#: add-meta-tags.php:101
+msgid "Add-Meta-Tags"
+msgstr ""
+
+#: add-meta-tags.php:102
+msgid "This is where you can configure the Add-Meta-Tags plugin and read about how the plugin adds META tags in the WordPress pages."
+msgstr ""
+
+#: add-meta-tags.php:103
+msgid "Modifying any of the settings in this page is completely <strong>optional</strong>, as the plugin will add META tags automatically."
+msgstr ""
+
+#: add-meta-tags.php:104
+msgid "For more information about the plugin's default behaviour and how you could customize the metatag generation can be found in detail in the sections that follow."
+msgstr ""
+
+#: add-meta-tags.php:108
+msgid "Configuration"
+msgstr ""
+
+#: add-meta-tags.php:113
+msgid "Site Description"
+msgstr ""
+
+#: add-meta-tags.php:114
+msgid "The following text will be used in the \"description\" meta tag on the <strong>homepage only</strong>. If this is left <strong>empty</strong>, then the blog's description from the <em>General Options</em> (Tagline) will be used."
+msgstr ""
+
+#: add-meta-tags.php:120
+msgid "Site Keywords"
+msgstr ""
+
+#: add-meta-tags.php:121
+msgid "The following keywords will be used for the \"keywords\" meta tag on the <strong>homepage only</strong>. Provide a comma-delimited list of keywords for your blog. If this field is left <strong>empty</strong>, then all of your blog's categories will be used as keywords for the \"keywords\" meta tag."
+msgstr ""
+
+#: add-meta-tags.php:123 add-meta-tags.php:131 add-meta-tags.php:154
+msgid "Example"
+msgstr ""
+
+#: add-meta-tags.php:123
+msgid "keyword1, keyword2, keyword3"
+msgstr ""
+
+#: add-meta-tags.php:128
+msgid "Site-wide META tags"
+msgstr ""
+
+#: add-meta-tags.php:129
+msgid "Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages."
+msgstr ""
+
+#: add-meta-tags.php:136
+msgid "Update Options"
+msgstr ""
+
+#: add-meta-tags.php:143
+msgid "Meta Tags on the Front Page"
+msgstr ""
+
+#: add-meta-tags.php:144
+msgid "If a site description and/or keywords have been set in the Add-Meta-Tags options above, then those will be used in the \"<em>description</em>\" and \"<em>keywords</em>\" META tags respectively."
+msgstr ""
+
+#: add-meta-tags.php:145
+msgid "Alternatively, if the above options are not set, then the blog's description from the <em>General</em> WordPress options will be used in the \"<em>description</em>\" META tag, while all of the blog's categories, except for the \"Uncategorized\" category, will be used in the \"<em>keywords</em>\" META tag."
+msgstr ""
+
+#: add-meta-tags.php:149
+msgid "Meta Tags on Single Posts"
+msgstr ""
+
+#: add-meta-tags.php:150
+msgid "Although no configuration is needed in order to put meta tags on single posts, the following information will help you customize them."
+msgstr ""
+
+#: add-meta-tags.php:151
+msgid "By default, when a single post is displayed, the post's excerpt and the post's categories and tags are used in the \"description\" and the \"keywords\" meta tags respectively."
+msgstr ""
+
+#: add-meta-tags.php:152
+msgid "It is possible to override them by providing a custom description in a custom field named \"<strong>description</strong>\" and a custom comma-delimited list of keywords by providing it in a custom field named \"<strong>keywords</strong>\"."
+msgstr ""
+
+#: add-meta-tags.php:153
+msgid "Furthermore, when overriding the post's keywords, but you need to include the post's categories too, you don't need to type them, but the tag <code>%cats%</code> can be used. In the same manner you can also include your tags in this custom field by adding the word <code>%tags%</code>, which will be replaced by your post's tags."
+msgstr ""
+
+#: add-meta-tags.php:154
+msgid "keyword1, keyword2, %cats%, keyword3, %tags%, keyword4"
+msgstr ""
+
+#: add-meta-tags.php:158
+msgid "Meta Tags on Pages"
+msgstr ""
+
+#: add-meta-tags.php:159
+msgid "By default, meta tags are not added automatically when viewing Pages. However, it is possible to define a description and a comma-delimited list of keywords for the Page, by using custom fields named \"<strong>description</strong>\" and/or \"<strong>keywords</strong>\" as described for single posts."
+msgstr ""
+
+#: add-meta-tags.php:160
+msgid "<strong>WARNING</strong>: Pages do not belong to categories in WordPress. Therefore, the tag <code>%cats%</code> will not be replaced by any categories if it is included in the comma-delimited list of keywords for the Page, so <strong>do not use it for Pages</strong>."
+msgstr ""
+
+#: add-meta-tags.php:164
+msgid "Meta Tags on Category Archives"
+msgstr ""
+
+#: add-meta-tags.php:165
+msgid "META tags are automatically added to Category Archives, for example when viewing all posts that belong to a specific category. In this case, if you have set a description for that category, then this description is added to a \"description\" META tag."
+msgstr ""
+
+#: add-meta-tags.php:166
+msgid "Furthermore, a \"keywords\" META tag - containing only the category's name - is always added to Category Archives."
+msgstr ""
+
+#: add-meta-tags.php:170
+msgid "Reset Plugin"
+msgstr ""
+
+#: add-meta-tags.php:172
+msgid "By pressing the \"Reset\" button, the plugin will be reset. This means that the stored options will be deleted from the WordPress database. Although it is not necessary, you should consider doing this before uninstalling the plugin, so no trace is left behind."
+msgstr ""
+
+#: add-meta-tags.php:174
+msgid "Reset Options"
+msgstr ""
