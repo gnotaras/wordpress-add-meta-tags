@@ -3,7 +3,7 @@
 Plugin Name: Add Meta Tags
 Plugin URI: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags to your blog's <em>front page</em>, posts, pages, category-based archives and tag-based archives. Also adds <em>Opengraph</em> and <em>Dublin Core</em> metadata on posts and pages.
-Version: 2.0.2b
+Version: 2.0.2
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 */
@@ -388,7 +388,6 @@ function amt_clean_desc($desc) {
 	$desc = htmlspecialchars($desc);
     // Clean double quotes
     $desc = str_replace('"', '', $desc);
-    //$desc = str_replace("'", '', $desc);
 	//$desc = preg_replace('/(\n+)/', ' ', $desc);
 	$desc = preg_replace('/([\n \t\r]+)/', ' ', $desc); 
 	$desc = preg_replace('/( +)/', ' ', $desc);
@@ -409,8 +408,10 @@ function amt_process_paged($metadata) {
      */
     global $paged;
 
-    if ( $paged ) {
-        $metadata .= ' (page ' . $paged . ')';
+    if (!empty($metadata)) {
+        if ( $paged ) {
+            $metadata .= ' - Page ' . $paged;
+        }
     }
 
     return $metadata;
@@ -718,7 +719,7 @@ function amt_add_meta_tags() {
 
 		if ( !empty($site_description) ) {
 			// If $site_description is not empty, then use it in the description meta-tag of the front page
-			$metadata_arr[] = '<meta name="description" content="' . amt_clean_desc($site_description) . '" />';
+			$metadata_arr[] = '<meta name="description" content="' . amt_process_paged(amt_clean_desc($site_description)) . '" />';
 		}
 
 		// Keywords
@@ -757,15 +758,9 @@ function amt_add_meta_tags() {
 		 * Write a description META tag only if a description for the current category has been set.
 		 */
         if ($do_auto_description) {
-            $cur_cat_desc = category_description();
-            if ( !empty($cur_cat_desc) ) {
-                $description_content = amt_clean_desc($cur_cat_desc);
-                if ( $paged ) {
-                    $description_content .= ' (page ' . $paged . ')';
-                }
-                if (!empty($description_content)) {
-                    $metadata_arr[] = '<meta name="description" content="' . $description_content . '" />';
-                }
+            $description_content = amt_clean_desc(category_description());
+            if (!empty($description_content)) {
+                $metadata_arr[] = '<meta name="description" content="' . amt_process_paged($description_content) . '" />';
             }
         }
 		
@@ -784,15 +779,9 @@ function amt_add_meta_tags() {
 		 * Writes a description META tag only if a description for the current tag has been set.
 		 */
         if ($do_auto_description) {
-            $cur_tag_desc = tag_description();
-            if ( !empty($cur_tag_desc) ) {
-                $description_content = amt_clean_desc($cur_tag_desc);
-                if ( $paged ) {
-                    $description_content .= ' (page ' . $paged . ')';
-                }
-                if (!empty($description_content)) {
-                    $metadata_arr[] = '<meta name="description" content="' . $description_content . '" />';
-                }
+            $description_content = amt_clean_desc(tag_description());
+            if (!empty($description_content)) {
+                $metadata_arr[] = '<meta name="description" content="' . amt_process_paged($description_content) . '" />';
             }
         }
 		
@@ -885,32 +874,27 @@ function amt_add_opengraph_metadata() {
         return array();
     }
 
+    $metadata_arr = array();
+
     if ( is_front_page() ) {
 
-        $options = get_option("add_meta_tags_opts");
-
-        $metadata_arr = array();
-        $metadata_arr[] = '<meta property="og:title" content="' . get_bloginfo('name') . '" />';
-        $metadata_arr[] = '<meta property="og:url" content="' . get_bloginfo('wpurl') . '" />';
+        $metadata_arr[] = '<meta property="og:title" content="' . amt_process_paged(get_bloginfo('name')) . '" />';
         $metadata_arr[] = '<meta property="og:type" content="website" />';
         $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
         $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
         // Site description
         if (!empty($options["site_description"])) {
-            $metadata_arr[] = '<meta property="og:description" content="' . $options["site_description"] . '" />';
+            $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged($options["site_description"]) . '" />';
         } elseif (get_bloginfo('description')) {
-            $metadata_arr[] = '<meta property="og:description" content="' . get_bloginfo('description') . '" />';
+            $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged(get_bloginfo('description')) . '" />';
         }
         // Add default image
         if (!empty($options["default_image_url"])) {
             $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
         }
 
-        return $metadata_arr;
-
     } elseif ( is_single() || is_page()) {
 
-        $metadata_arr = array();
         $metadata_arr[] = '<meta property="og:title" content="' . single_post_title('', FALSE) . '" />';
         $metadata_arr[] = '<meta property="og:url" content="' . get_permalink() . '" />';
         // We use the description defined by Add-Meta-Tags
@@ -959,9 +943,9 @@ function amt_add_opengraph_metadata() {
                 $metadata_arr[] = '<meta property="article:tag" content="' . $tag . '" />';
             }
         }
-
-        return $metadata_arr;
     }
+
+    return $metadata_arr;
 }
 
 
@@ -1063,11 +1047,12 @@ function amt_add_metadata() {
     // Check for NOINDEX,FOLLOW on archives.
     // There is no need to further process metadata as we explicitly ask search
     // engines not to index the content.
-    if (is_archive() && $do_noindex_archives) {
-        $metadata_arr[] = '<META NAME="ROBOTS" CONTENT="NOINDEX,FOLLOW" />';
+    if ($do_noindex_archives && is_archive()) {
+        $metadata_arr[] = '<meta name="robots" content="NOINDEX,FOLLOW" />';
     } else {
         // Basic Meta tags
         $metadata_arr = array_merge($metadata_arr, amt_add_meta_tags());
+        //var_dump(amt_add_meta_tags());
         // Add Opengraph
         $metadata_arr = array_merge($metadata_arr, amt_add_opengraph_metadata());
         // Add Dublin Core
