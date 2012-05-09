@@ -6,6 +6,7 @@ Description: Adds the <em>Description</em> and <em>Keywords</em> XHTML META tags
 Version: 2.0.2
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
+License: Apache License v2
 */
 
 /*
@@ -26,10 +27,10 @@ Author URI: http://www.g-loaded.eu/
 
 
 /*
-Translation Domain
-
-Translation files are searched in: wp-content/plugins
-*/
+ * Translation Domain
+ *
+ * Translation files are searched in: wp-content/plugins
+ */
 load_plugin_textdomain('add-meta-tags', 'wp-content/plugins');
 
 
@@ -951,6 +952,8 @@ function amt_add_opengraph_metadata() {
 
 /**
  * Dublin Core metadata on posts and pages
+ * http://dublincore.org/documents/dcmi-terms/
+ * 
  */
 
 function amt_add_dublin_core_metadata() {
