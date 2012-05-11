@@ -1,7 +1,7 @@
 === Add Meta Tags ===
 License: Apache License v2
 Donate link: http://www.g-loaded.eu/about/donate/
-Tags: meta, metadata, seo, description, keywords, metatag, opengraph, dublin core, google, yahoo, bing
+Tags: meta, metadata, seo, description, keywords, metatag, opengraph, dublin core, google, yahoo, bing, meta tags
 Requires at least: 3.0.0
 Tested up to: 3.3.2
 Stable tag: 2.0.2
@@ -106,10 +106,6 @@ Please, be kind enough to [file a bug report](http://www.codetrax.org/projects/w
 
 Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-tags/issues "Add-Meta-Tags Issue Database") to submit your requests.
 
-= How can I thank you? =
-
-A small [donation](http://www.g-loaded.eu/about/donate/ "Donate here") would be highly appreciated. Researching, coding and maintaining this plugin requires a significant amount of time and energy.
-
 
 == Screenshots ==
 
@@ -119,4 +115,21 @@ A small [donation](http://www.g-loaded.eu/about/donate/ "Donate here") would be 
 == Changelog ==
 
 Please check out the dynamic [changelog](http://www.codetrax.org/versions/2 "Add-Meta-Tags 2.0.2 ChangeLog")
+
+- [2.02](http://www.codetrax.org/versions/2)
+- [1.8](http://www.codetrax.org/versions/87)
+- [1.7](http://www.codetrax.org/versions/3)
+- [1.6](http://www.codetrax.org/versions/1)
+- [1.5](http://www.codetrax.org/versions/36)
+- [1.2](http://www.codetrax.org/versions/35)
+- [1.0](http://www.codetrax.org/versions/34)
+- [0.9](http://www.codetrax.org/versions/33)
+- [0.8](http://www.codetrax.org/versions/32)
+- [0.7](http://www.codetrax.org/versions/31)
+- [0.6](http://www.codetrax.org/versions/30)
+- [0.5](http://www.codetrax.org/versions/29)
+- [0.4](http://www.codetrax.org/versions/28)
+- [0.3](http://www.codetrax.org/versions/27)
+- [0.2](http://www.codetrax.org/versions/26)
+- [0.1](http://www.codetrax.org/versions/25)
 
