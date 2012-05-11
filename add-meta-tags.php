@@ -38,7 +38,7 @@ load_plugin_textdomain('add-meta-tags', false, dirname( plugin_basename( __FILE_
  * Settings Link in the ``Installed Plugins`` page
  */
 function amt_plugin_actions( $links, $file ) {
-    if( $file == 'add-meta-tags/add-meta-tags.php' && function_exists( "admin_url" ) ) {
+    if( $file == plugin_basename(__FILE__) && function_exists( "admin_url" ) ) {
         $settings_link = '<a href="' . admin_url( 'options-general.php?page=add-meta-tags-options' ) . '">' . __('Settings') . '</a>';
         // Add the settings link before other links
         array_unshift( $links, $settings_link );
