@@ -31,7 +31,7 @@ License: Apache License v2
  *
  * Translation files are searched in: wp-content/plugins
  */
-load_plugin_textdomain('add-meta-tags', 'wp-content/plugins');
+load_plugin_textdomain('add-meta-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 
 
 /**
