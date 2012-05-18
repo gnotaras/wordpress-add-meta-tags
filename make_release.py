@@ -19,9 +19,9 @@ PLUGIN_METADATA_FILE = 'add-meta-tags.php'
 
 POT_HEADER = """#  POT (Portable Object Template)
 #
-#  This file is part of the Creative-Commons-Configurator plugin for WordPress.
+#  This file is part of the Add-Meta-Tags plugin for WordPress.
 #
-#  http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
+#  http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 #
 #  Copyright (C) 2006-2012 George Notaras <gnot@g-loaded.eu>
 #
