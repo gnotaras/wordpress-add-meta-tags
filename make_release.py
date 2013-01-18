@@ -25,7 +25,7 @@ POT_HEADER = """#  POT (Portable Object Template)
 #
 #  http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 #
-#  Copyright (C) 2006-2012 George Notaras <gnot@g-loaded.eu>
+#  Copyright (C) 2006-2013 George Notaras <gnot@g-loaded.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
