@@ -1,0 +1,22 @@
+
+1. Change version in plugin PHP file.
+2. Add contributors in AUTHORS
+3. Change stable tag in readme.txt
+4. Add link to changelog in the relevant section in readme.txt
+5. Add mercurial tag.
+6. Run ``make_release.py``.
+7. Upload the created distribution file to CodeTRAX
+8. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and run 7zip's ``Extract here``.
+9. Add any new files using:
+
+    svn add <file1> <dir1>
+
+10. Commit the release:
+
+    svn commit -m "Committing the N.N.N release of Add-Meta-Tags"
+
+11. Tag the new release in the SVN repository:
+
+    svn cp trunk tags/N.N.N
+    svn commit -m "Tagging the N.N.N release"
+
