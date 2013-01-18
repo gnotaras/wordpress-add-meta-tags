@@ -2,11 +2,13 @@
 # Copyright George Notaras
 
 REL_FILES = [
-    'AUTHORS',
+    'add-meta-tags.pot',
 	'add-meta-tags.php',
+    'AUTHORS',
 	'LICENSE',
 	'NOTICE',
 	'README',
+    'readme.txt',
     'screenshot-1.png',
     'uninstall.php',
 ]
