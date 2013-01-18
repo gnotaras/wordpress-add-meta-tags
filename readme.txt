@@ -3,8 +3,8 @@ License: Apache License v2
 Donate link: http://www.g-loaded.eu/about/donate/
 Tags: meta, metadata, seo, description, keywords, metatag, opengraph, dublin core, google, yahoo, bing, meta tags
 Requires at least: 3.0.0
-Tested up to: 3.3.2
-Stable tag: 2.0.3
+Tested up to: 3.5
+Stable tag: 2.0.4
 
 Adds metadata to your content, including the basic description and keywords meta tags, Opengraph and Dublin Core metadata.
 
@@ -116,6 +116,7 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-ta
 
 Please check out the dynamic [changelog](http://www.codetrax.org/versions/2 "Add-Meta-Tags 2.0.2 ChangeLog")
 
+- [2.0.4](http://www.codetrax.org/versions/132)
 - [2.0.3](http://www.codetrax.org/versions/130)
 - [2.0.2](http://www.codetrax.org/versions/2)
 - [1.8](http://www.codetrax.org/versions/87)
