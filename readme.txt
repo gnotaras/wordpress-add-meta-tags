@@ -96,7 +96,7 @@ The *description* and *keywords* meta tags are most probably already hardcoded i
 
 = Where can I get support? =
 
-Add-Meta-Tags is released as free software without warranties or official support. You can still get first class support from the [community of users](http://wordpress.org/tags/add-meta-tags "Add-Meta-Tags Users").
+Add-Meta-Tags is released as free software without warranties or official support. You can still get first class support from the [community of users](http://wordpress.org/support/plugin/add-meta-tags "Add-Meta-Tags Users").
 
 = I found a bug! =
 
