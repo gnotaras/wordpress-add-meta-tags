@@ -838,18 +838,14 @@ function amt_get_video_url() {
 
     // Youtube
     $pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
-    preg_match($pattern, $post->post_content, $matches);
-    $youtube_video_id = $matches[1];
-    if (!empty($youtube_video_id)) {
-        return 'http://youtube.com/v/' . $youtube_video_id;
+    if ( preg_match($pattern, $post->post_content, $matches) ) {
+        return 'http://youtube.com/v/' . $matches[1];
     }
 
     // Vimeo
     $pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
-    preg_match($pattern, $post->post_content, $matches);
-    $vimeo_video_id = $matches[1];
-    if (!empty($vimeo_video_id)) {
-        return 'http://vimeo.com/couchmode/' . $vimeo_video_id;
+    if ( preg_match($pattern, $post->post_content, $matches) ) {
+        return 'http://vimeo.com/couchmode/' . $matches[1];
     }
 
     return '';
