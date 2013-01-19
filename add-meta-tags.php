@@ -155,10 +155,10 @@ function amt_options_page() {
         <tbody>
 
             <tr valign="top">
-            <th scope="row">'.__('Site Description', 'add-meta-tags').'</th>
+            <th scope="row">'.__('Front Page Description', 'add-meta-tags').'</th>
             <td>
             <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Site Description', 'add-meta-tags').'</span></legend>
+                <legend class="screen-reader-text"><span>'.__('Front Page Description', 'add-meta-tags').'</span></legend>
                 <label for="site_description">
                     <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . stripslashes($options["site_description"]) . '</textarea>
                     <br />
@@ -169,10 +169,10 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Site Keywords', 'add-meta-tags').'</th>
+            <th scope="row">'.__('Front Page Keywords', 'add-meta-tags').'</th>
             <td>
             <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Site Keywords', 'add-meta-tags').'</span></legend>
+                <legend class="screen-reader-text"><span>'.__('Front Page Keywords', 'add-meta-tags').'</span></legend>
                 <label for="site_keywords">
                     <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . stripslashes($options["site_keywords"]) . '</textarea>
                     <br />
