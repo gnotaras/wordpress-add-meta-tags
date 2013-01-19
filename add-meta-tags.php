@@ -266,7 +266,7 @@ function amt_options_page() {
 
                 <input id="noindex_archives" type="checkbox" value="1" name="noindex_archives" '. (($options["noindex_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_archives">
-                '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives. This is an advanced setting that aims at reducing the duplicate content search engines find on your web site.', 'add-meta-tags').'
+                '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives and search results. This is an advanced setting that aims at reducing the duplicate content search engines find on your web site.', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
@@ -1046,7 +1046,7 @@ function amt_add_metadata() {
     // Check for NOINDEX,FOLLOW on archives.
     // There is no need to further process metadata as we explicitly ask search
     // engines not to index the content.
-    if ($do_noindex_archives && is_archive()) {
+    if ( $do_noindex_archives && (is_archive() || is_search()) ) {
         $metadata_arr[] = '<meta name="robots" content="NOINDEX,FOLLOW" />';
     } else {
         // Basic Meta tags
