@@ -260,7 +260,7 @@ function amt_options_page() {
 
                 <input id="noodp_description" type="checkbox" value="1" name="noodp_description" '. (($options["noodp_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noodp_description">
-                '.__('Add <code>NOODP</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
+                '.__('Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> or the <a href="http://dir.yahoo.com/">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
                 </label>
                 <br />
 
@@ -694,7 +694,7 @@ function amt_add_meta_tags() {
      * NOODP on posts and pages
      */
     if ( $do_noodp_description && (is_front_page() || is_single() || is_page()) ) {
-        $metadata_arr[] = '<meta name="robots" content="NOODP" />';
+        $metadata_arr[] = '<meta name="robots" content="NOODP,NOYDIR" />';
     }
 
     /**
