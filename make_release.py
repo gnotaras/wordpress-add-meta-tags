@@ -5,11 +5,14 @@ REL_FILES = [
     'add-meta-tags.pot',
 	'add-meta-tags.php',
     'AUTHORS',
+    'CONTRIBUTORS',
 	'LICENSE',
 	'NOTICE',
 	'README',
     'readme.txt',
     'screenshot-1.png',
+    'screenshot-2.png',
+    'screenshot-3.png',
     'uninstall.php',
 ]
 
