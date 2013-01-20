@@ -135,7 +135,6 @@ function amt_options_page() {
         <h2>'.__('Metadata Settings', 'add-meta-tags').'</h2>
         <p>'.__('Welcome to the administration panel of the Add-Meta-Tags plugin.', 'add-meta-tags').'</p>
         <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
-        <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to your blog\'s front page, posts, pages, category and tag based archives. Furthermore, it is possible to enable the insertion of <em>Opengraph</em> and <em>Dublin Core</em> metadata to your posts and pages. The plugin also supports some extra functionality that helps fine tune the added meta information. Please, go through the settings and the documentation below for more details.', 'add-meta-tags').'</p>
     </div>
 
     <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
@@ -147,7 +146,20 @@ function amt_options_page() {
     </div>
 
     <div class="wrap">
+        <h2>'.__('How it works', 'add-meta-tags').'</h2>
+        
+        <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to your blog\'s front page, posts, pages, category and tag based archives. Furthermore, it is possible to enable the insertion of <em>Opengraph</em> and <em>Dublin Core</em> metadata to your posts and pages. The plugin also supports some extra SEO related functionality that helps you fine tune your web site.', 'add-meta-tags').'</p>
+        
+        <p>'.__('Customization of the added metadata on a per post/page basis is possible by using the user-friendly <strong>WordPress meta boxes</strong> in the post/page editing panel. In earlier versions of the plugin (before 2.1.0) such customization was possible through custom fields. If you have already used custom fields in order to customize the posts description and keywords in the past, there is nothing to worry about, since the new meta-box functionality is internally based on those custom fields, so there is no migration procedure involved. However, you need to enable the <em>Metadata</em> meta box in the <a href="http://en.support.wordpress.com/screen-options/">Screen Options</a> of the post/page editing panel.', 'add-meta-tags').'</p>
+
+    </div>
+
+    <div class="wrap">
         <h2>'.__('Configuration', 'add-meta-tags').'</h2>
+
+        <p>'.__('This section contains global configuration options for the metadata that is added to your web site.', 'add-meta-tags').'</p>
+
+        
 
         <form name="formamt" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
 
@@ -366,13 +378,12 @@ function amt_options_page() {
         <p>'.__('A <em>keywords</em> meta tag is automatically added to the web site\'s front page, even when a static page is used as the home page. By default, the site keywords from the settings above are used or, if it has not been set, all the blog categories (except for the <em>Uncategorized</em> category) are used.', 'add-meta-tags').'</p>
 
         <h3>'.__('Metadata on Posts', 'add-meta-tags').'</h3>
-        <p>'.__('A <em>description</em> meta tag is automatically generated from the content and added to posts. It is possible to set a custom description for posts by either adding it as an excerpt in the post edit panel or by adding it to a custom field named <code>description</code>.', 'add-meta-tags').'</p>
-        <p>'.__('A <em>keywords</em> meta tag is added automatically to pages. By default, the post\'s categories and tags are used. It is possible to set custom keywords by adding a comma-delimited list of keywords to a custom field named <code>keywords</code>. Furthermore, the magic keywords <code>%cats%</code> and <code>%tags%</code> can be used in the keywords list. Add-Meta-Tags will expand those magic keywords to the post\'s categories and tags respectively.', 'add-meta-tags').'</p>
-        <p><strong>'.__('Example', 'add-meta-tags').':</strong> <code>'.__('keyword1, keyword2, %cats%, keyword3, %tags%, keyword4', 'add-meta-tags').'</code></p>
+        <p>'.__('A <em>description</em> meta tag is automatically generated from the content and added to posts. It is possible to set a custom description for posts in the <em>Metadata</em> meta box in the post editing panel.', 'add-meta-tags').'</p>
+        <p>'.__('A <em>keywords</em> meta tag is added automatically to pages. By default, the post\'s categories and tags are used. It is possible to set custom keywords for posts in the <em>Metadata</em> meta box in the post editing panel.', 'add-meta-tags').'</p>
 
         <h3>'.__('Metadata on Pages', 'add-meta-tags').'</h3>
-        <p>'.__('A <em>description</em> meta tag is automatically generated from the content and added to pages. It is possible to set a custom description by adding it to a custom field named <code>description</code>.', 'add-meta-tags').'</p>
-        <p>'.__('A <em>keywords</em> meta tag <strong>is not</strong> added automatically to pages. It is possible to set custom keywords by adding a comma-delimited list of keywords to a custom field named <code>keywords</code>. However, keep in mind that WordPress pages do not support categories and tags, so the magic keywords <code>%cats%</code> and <code>%tags%</code>, if used, won\'t be expanded to any categories and tags respectively.', 'add-meta-tags').'</p>
+        <p>'.__('A <em>description</em> meta tag is automatically generated from the content and added to pages. It is possible to set a custom description for pages in the <em>Metadata</em> meta box in the page editing panel.', 'add-meta-tags').'</p>
+        <p>'.__('A <em>keywords</em> meta tag <strong>is not</strong> added automatically to pages. It is possible to set keywords for pages in the <em>Metadata</em> meta box in the page editing panel.', 'add-meta-tags').'</p>
 
         <h3>'.__('Metadata on Category and Tag Archives', 'add-meta-tags').'</h3>
         <p>'.__('A <em>description</em> meta tag is automatically added to category-based and tag-based archives, only if a description has been set for that specific category or tag.', 'add-meta-tags').'</p>
