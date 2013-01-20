@@ -12,10 +12,12 @@ Adds metadata to your content, including the basic description and keywords meta
 
 [Add-Meta-Tags](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ "Official Add-Meta-Tags Homepage") adds metadata to your WordPress blog.
 
-The following list outlines how and where metadata is added to a *WordPress* blog. Please note that this list does not provide all the details you need to know about how to customize the added metatags. Its purpose is to provide a general idea of what this plugin supports.
+*Metadata* refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the *Add-Meta-Tags* plugin does.
+
+The following list outlines how and where metadata is added to a *WordPress* blog.
 
 
-Basic <em>description</em> and <em>keywords</em> meta tags
+Basic <em>description</em> and <em>keywords</em> meta tags:
 
 - Front Page
  - Automatically.
@@ -23,20 +25,23 @@ Basic <em>description</em> and <em>keywords</em> meta tags
 - Single Posts
  - Automatically.
  - Customization of the *description* META tag:
-  - either via setting an excerpt in the post's edit panel
-  - or via custom <em>description</em> field (this overrides the custom excerpt).
- - Customization of the *keywords* META tag via custom <em>keywords</em> field only.
+  - either by setting an excerpt in the post's edit panel
+  - or by setting a custom description in the *Metadata* meta box in the post editing panel. (overrides the custom excerpt).
+ - Customization of the *keywords* META tag is possible by setting a custom list of keywords in the *Metadata* meta box in the post editing panel.
 - Pages
- - Automatic generation of description meta tag.
- - Customization of the description meta tag is possible with a custom field.
- - Setting a keywords meta tag is possible by providing a comma-delimited list of keywords in a custom field.
+ - Automatically (description only - no automatic keywords).
+ - Customization of the *description* meta tag is possible by setting a custom description in the *Metadata* meta box in the page editing panel.
+ - Setting a *keywords* meta tag is possible by setting a custom list of keywords in the *Metadata* meta box in the post editing panel.
 - Category-based Archives
  - The description of the category, if set, is used for the description meta tag. The name of the category is always used at the keywords metatag.
 - Tag-based Archives
  - The description of the tag, if set, is used for the description meta tag. The name of the tag is always used at the keywords metatag.
-- META Tags on all pages
- - It is possible to set any meta tag to all blog pages.
- - Head link to copyright page.
+- Site-wide META Tags
+ - It is possible to add any metatags on all content.
+- Global keywords (since 2.1.0)
+ - It is possible to set some keywords that are prepended/appended to the keywords of all your content.
+- Head link to copyright page.
+- Default image to use in metadata, if a featured image has not been set.
 
 
 Opengraph metadata
@@ -57,13 +62,13 @@ Dublin Core metadata
 
 Extra SEO features
 
-- Add the `NOODP` option to the robots meta tag.
-- Add the `NOINDEX,FOLLOW` options to the robots meta tag on category, tag, author or time based archives.
+- Add the `NOODP,NOYDIR` option to the robots meta tag.
+- Add the `NOINDEX,FOLLOW` options to the robots meta tag on category, tag, author or time based archives and search results.
 
 
 More:
  
-Check out other [open source software](http://www.g-loaded.eu/software/) by the same author.
+Check out other [open source software](http://www.codetrax.org/projects) by the same author.
 
 
 == Installation ==
@@ -92,11 +97,11 @@ Please, check if your theme's `header.php` file contains the following required 
 
 = My meta tags show up twice! =
 
-The *description* and *keywords* meta tags are most probably already hardcoded into your theme's `header.php` file. Please contact the theme author, since this is not good for your website. Meta tags should be different on every page.
+The *description* and *keywords* meta tags are most probably already hardcoded into your theme's `header.php` file. Please contact the theme author.
 
 = Where can I get support? =
 
-Add-Meta-Tags is released as free software without warranties or official support. You can still get first class support from the [community of users](http://wordpress.org/support/plugin/add-meta-tags "Add-Meta-Tags Users").
+Add-Meta-Tags is released as free software without warranties. You can get first class support from the [community of users](http://wordpress.org/support/plugin/add-meta-tags "Add-Meta-Tags Users").
 
 = I found a bug! =
 
@@ -110,6 +115,8 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-ta
 == Screenshots ==
 
 1. Add-Meta-Tags administration interface.
+2. Enable Metadata meta box in the screen options of the post/page editing panel.
+3. Metadata meta box in the post editing panel.
 
 
 == Changelog ==
