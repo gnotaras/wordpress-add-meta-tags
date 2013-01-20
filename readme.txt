@@ -114,7 +114,7 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-ta
 
 == Changelog ==
 
-Please check out the dynamic [changelog](http://www.codetrax.org/versions/2 "Add-Meta-Tags 2.0.2 ChangeLog")
+Please check out the changelog of each version. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
 - [2.0.4](http://www.codetrax.org/versions/132)
 - [2.0.3](http://www.codetrax.org/versions/130)
