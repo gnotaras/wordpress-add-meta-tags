@@ -288,7 +288,7 @@ function amt_options_page() {
 
                 <input id="noindex_archives" type="checkbox" value="1" name="noindex_archives" '. (($options["noindex_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_archives">
-                '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives and search results. This is an advanced setting that aims at reducing the duplicate content search engines find on your web site.', 'add-meta-tags').'
+                '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives and search results. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines.', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
