@@ -4,7 +4,7 @@
 #
 #  http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 #
-#  Copyright (C) 2006-2012 George Notaras <gnot@g-loaded.eu>
+#  Copyright (C) 2006-2013 George Notaras <gnot@g-loaded.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.0.4\n"
+"Project-Id-Version: add-meta-tags 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-18 06:44+0200\n"
+"POT-Creation-Date: 2013-01-20 14:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: add-meta-tags.php:56 add-meta-tags.php:133
+#: add-meta-tags.php:56 add-meta-tags.php:135
 msgid "Metadata Settings"
 msgstr ""
 
-#: add-meta-tags.php:56
+#: add-meta-tags.php:56 add-meta-tags.php:410 add-meta-tags.php:416
 msgid "Metadata"
 msgstr ""
 
@@ -49,219 +49,251 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: add-meta-tags.php:108
+#: add-meta-tags.php:110
 msgid "Add-Meta-Tags options saved"
 msgstr ""
 
-#: add-meta-tags.php:114
+#: add-meta-tags.php:116
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: add-meta-tags.php:134
+#: add-meta-tags.php:136
 msgid "Welcome to the administration panel of the Add-Meta-Tags plugin."
 msgstr ""
 
-#: add-meta-tags.php:135
+#: add-meta-tags.php:137
 msgid "<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does."
 msgstr ""
 
-#: add-meta-tags.php:136
-msgid "Add-Meta-Tags tries to follow the \"<em>It just works</em>\" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to your blog's front page, posts, pages, category and tag based archives. Furthermore, it is possible to enable the insertion of <em>Opengraph</em> and <em>Dublin Core</em> metadata to your posts and pages. The plugin also supports some extra functionality that helps fine tune the added meta information. Please, go through the settings and the documentation below for more details."
-msgstr ""
-
-#: add-meta-tags.php:140
+#: add-meta-tags.php:141
 msgid "Message from the author"
 msgstr ""
 
-#: add-meta-tags.php:141
+#: add-meta-tags.php:142
 msgid "<em>Add-Meta-Tags</em> is released under the terms of the <a href=\"http://www.apache.org/licenses/LICENSE-2.0.html\">Apache License version 2</a> and, therefore, is <strong>free software</strong>."
 msgstr ""
 
-#: add-meta-tags.php:142
+#: add-meta-tags.php:143
 msgid "However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href=\"http://www.g-loaded.eu/about/donate/\">extra cup of coffee</a>."
 msgstr ""
 
-#: add-meta-tags.php:143
+#: add-meta-tags.php:144
 msgid "Thank you in advance,"
 msgstr ""
 
-#: add-meta-tags.php:143
+#: add-meta-tags.php:144
 msgid "George Notaras"
 msgstr ""
 
-#: add-meta-tags.php:144
+#: add-meta-tags.php:145
 msgid "This message can be deactivated in the settings below."
 msgstr ""
 
-#: add-meta-tags.php:148
+#: add-meta-tags.php:149
+msgid "How it works"
+msgstr ""
+
+#: add-meta-tags.php:151
+msgid "Add-Meta-Tags tries to follow the \"<em>It just works</em>\" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to your blog's front page, posts, pages, category and tag based archives. Furthermore, it is possible to enable the insertion of <em>Opengraph</em> and <em>Dublin Core</em> metadata to your posts and pages. The plugin also supports some extra SEO related functionality that helps you fine tune your web site."
+msgstr ""
+
+#: add-meta-tags.php:153
+msgid "Customization of the added metadata on a per post/page basis is possible by using the user-friendly <strong>WordPress meta boxes</strong> in the post/page editing panel. In earlier versions of the plugin (before 2.1.0) such customization was possible through custom fields. If you have already used custom fields in order to customize the posts description and keywords in the past, there is nothing to worry about, since the new meta-box functionality is internally based on those custom fields, so there is no migration procedure involved. However, you need to enable the <em>Metadata</em> meta box in the <a href=\"http://en.support.wordpress.com/screen-options/\">Screen Options</a> of the post/page editing panel."
+msgstr ""
+
+#: add-meta-tags.php:158
 msgid "Configuration"
 msgstr ""
 
-#: add-meta-tags.php:156 add-meta-tags.php:159
-msgid "Site Description"
-msgstr ""
-
-#: add-meta-tags.php:163
-msgid "Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog's description from the <em>Tagline</em> in <a href=\""
+#: add-meta-tags.php:160
+msgid "This section contains global configuration options for the metadata that is added to your web site."
 msgstr ""
 
 #: add-meta-tags.php:170 add-meta-tags.php:173
-msgid "Site Keywords"
+msgid "Front Page Description"
 msgstr ""
 
 #: add-meta-tags.php:177
+msgid "Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog's description from the <em>Tagline</em> in <a href=\""
+msgstr ""
+
+#: add-meta-tags.php:184 add-meta-tags.php:187
+msgid "Front Page Keywords"
+msgstr ""
+
+#: add-meta-tags.php:191
 msgid "Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\""
 msgstr ""
 
-#: add-meta-tags.php:179 add-meta-tags.php:286 add-meta-tags.php:303
-#: add-meta-tags.php:349
+#: add-meta-tags.php:193 add-meta-tags.php:209 add-meta-tags.php:213
+#: add-meta-tags.php:320 add-meta-tags.php:337
 msgid "Example"
 msgstr ""
 
-#: add-meta-tags.php:179
+#: add-meta-tags.php:193 add-meta-tags.php:209
 msgid "keyword1, keyword2, keyword3"
 msgstr ""
 
-#: add-meta-tags.php:186 add-meta-tags.php:189
-msgid "Site-wide META tags"
+#: add-meta-tags.php:200 add-meta-tags.php:203
+msgid "Global Keywords"
 msgstr ""
 
-#: add-meta-tags.php:193
-msgid "Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages."
-msgstr ""
-
-#: add-meta-tags.php:195
-msgid "Examples"
-msgstr ""
-
-#: add-meta-tags.php:204 add-meta-tags.php:207
-msgid "Automatic Basic Metadata"
+#: add-meta-tags.php:207
+msgid "Enter a comma-delimited list of global keywords which will be added before the keywords of <strong>all</strong> posts and pages."
 msgstr ""
 
 #: add-meta-tags.php:211
+msgid "By default, these keywords are prepended to the post/page's keywords. For enhanced flexibility, it is possible to use the <code>%contentkw%</code> placeholder, which will be populated with the post/page's autogenerated or user-defined keywords. This way you can globally both prepend and append keywords to the <em>keywords</em> of your content."
+msgstr ""
+
+#: add-meta-tags.php:213
+msgid "keyword1, keyword2, %contentkw%, keyword3"
+msgstr ""
+
+#: add-meta-tags.php:220 add-meta-tags.php:223
+msgid "Site-wide META tags"
+msgstr ""
+
+#: add-meta-tags.php:227
+msgid "Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages."
+msgstr ""
+
+#: add-meta-tags.php:229
+msgid "Examples"
+msgstr ""
+
+#: add-meta-tags.php:238 add-meta-tags.php:241
+msgid "Automatic Basic Metadata"
+msgstr ""
+
+#: add-meta-tags.php:245
 msgid "Automatically generate the <em>description</em> meta tag for single posts, pages, category-based archives and tag-based archives. If this is unchecked, you can still set a <em>description</em> meta tag by using the <code>description</code> custom field."
 msgstr ""
 
-#: add-meta-tags.php:217
+#: add-meta-tags.php:251
 msgid "Automatically generate the <em>keywords</em> meta tag for single posts, category-based archives and tag-based archives. Automatic keywords are not supported on pages. If this is unchecked, you can still set a <em>keywords</em> meta tag by using the <code>keywords</code> custom field."
 msgstr ""
 
-#: add-meta-tags.php:226 add-meta-tags.php:229
+#: add-meta-tags.php:260 add-meta-tags.php:263
 msgid "Automatic Opengraph Metadata"
 msgstr ""
 
-#: add-meta-tags.php:233
+#: add-meta-tags.php:267
 msgid "Automatically generate Opengraph meta tags for single posts and pages. For more information, please refer to the <a href=\"http://ogp.me\">Opengraph specification</a>."
 msgstr ""
 
-#: add-meta-tags.php:241 add-meta-tags.php:244
+#: add-meta-tags.php:275 add-meta-tags.php:278
 msgid "Automatic Dublin Core Metadata"
 msgstr ""
 
-#: add-meta-tags.php:248
+#: add-meta-tags.php:282
 msgid "Automatically generate Dublin Core metadata for single posts and pages. For more information, please refer to <a href=\"http://dublincore.org\">Dublin Core Metadata Initiative</a>."
 msgstr ""
 
-#: add-meta-tags.php:256 add-meta-tags.php:259
+#: add-meta-tags.php:290 add-meta-tags.php:293
 msgid "Extra SEO Options"
 msgstr ""
 
-#: add-meta-tags.php:263
-msgid "Add <code>NOODP</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href=\"http://www.dmoz.org/\">Open Directory Project</a> instead of the description you set in the <em>description</em> meta tag."
+#: add-meta-tags.php:297
+msgid "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href=\"http://www.dmoz.org/\">Open Directory Project</a> or the <a href=\"http://dir.yahoo.com/\">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag."
 msgstr ""
 
-#: add-meta-tags.php:269
-msgid "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives. This is an advanced setting that aims at reducing the duplicate content search engines find on your web site."
-msgstr ""
-
-#: add-meta-tags.php:277 add-meta-tags.php:280
-msgid "Copyright URL"
-msgstr ""
-
-#: add-meta-tags.php:284
-msgid "Add an absolute URL to a document containing information about copyright. The relevant meta tags will be added automatically."
-msgstr ""
-
-#: add-meta-tags.php:294 add-meta-tags.php:297
-msgid "Default Image"
-msgstr ""
-
-#: add-meta-tags.php:301
-msgid "Add an absolute URL to an image that will be used in meta data in case a featured image has not been set for the content."
+#: add-meta-tags.php:303
+msgid "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives and search results. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines."
 msgstr ""
 
 #: add-meta-tags.php:311 add-meta-tags.php:314
-msgid "Donations"
+msgid "Copyright URL"
 msgstr ""
 
 #: add-meta-tags.php:318
-msgid "By checking this, the <em>message from the author</em> above goes away. Thanks for <a href=\"http://www.g-loaded.eu/about/donate/\">donating</a>!"
+msgid "Add an absolute URL to a document containing information about copyright. The relevant meta tags will be added automatically."
 msgstr ""
 
-#: add-meta-tags.php:329
-msgid "Save Changes"
+#: add-meta-tags.php:328 add-meta-tags.php:331
+msgid "Default Image"
 msgstr ""
 
-#: add-meta-tags.php:330
-msgid "Reset to defaults"
+#: add-meta-tags.php:335
+msgid "Add an absolute URL to an image that will be used in meta data in case a featured image has not been set for the content."
 msgstr ""
 
-#: add-meta-tags.php:339
-msgid "Documentation"
-msgstr ""
-
-#: add-meta-tags.php:340
-msgid "The following notes explain how metadata is added to your content and how it is possible to customize it."
-msgstr ""
-
-#: add-meta-tags.php:342
-msgid "Meta Tags on the Front Page"
-msgstr ""
-
-#: add-meta-tags.php:343
-msgid "A <em>description</em> meta tag is automatically added to the web site's front page, even when a static page is used as the home page. By default, the site description from the settings above is used or, if it has not been set, the blog description is used. If this hasn't been set too, then the meta tag is not added."
-msgstr ""
-
-#: add-meta-tags.php:344
-msgid "A <em>keywords</em> meta tag is automatically added to the web site's front page, even when a static page is used as the home page. By default, the site keywords from the settings above are used or, if it has not been set, all the blog categories (except for the <em>Uncategorized</em> category) are used."
-msgstr ""
-
-#: add-meta-tags.php:346
-msgid "Metadata on Posts"
-msgstr ""
-
-#: add-meta-tags.php:347
-msgid "A <em>description</em> meta tag is automatically generated from the content and added to posts. It is possible to set a custom description for posts by either adding it as an excerpt in the post edit panel or by adding it to a custom field named <code>description</code>."
-msgstr ""
-
-#: add-meta-tags.php:348
-msgid "A <em>keywords</em> meta tag is added automatically to pages. By default, the post's categories and tags are used. It is possible to set custom keywords by adding a comma-delimited list of keywords to a custom field named <code>keywords</code>. Furthermore, the magic keywords <code>%cats%</code> and <code>%tags%</code> can be used in the keywords list. Add-Meta-Tags will expand those magic keywords to the post's categories and tags respectively."
-msgstr ""
-
-#: add-meta-tags.php:349
-msgid "keyword1, keyword2, %cats%, keyword3, %tags%, keyword4"
-msgstr ""
-
-#: add-meta-tags.php:351
-msgid "Metadata on Pages"
+#: add-meta-tags.php:345 add-meta-tags.php:348
+msgid "Donations"
 msgstr ""
 
 #: add-meta-tags.php:352
-msgid "A <em>description</em> meta tag is automatically generated from the content and added to pages. It is possible to set a custom description by adding it to a custom field named <code>description</code>."
+msgid "By checking this, the <em>message from the author</em> above goes away. Thanks for <a href=\"http://www.g-loaded.eu/about/donate/\">donating</a>!"
 msgstr ""
 
-#: add-meta-tags.php:353
-msgid "A <em>keywords</em> meta tag <strong>is not</strong> added automatically to pages. It is possible to set custom keywords by adding a comma-delimited list of keywords to a custom field named <code>keywords</code>. However, keep in mind that WordPress pages do not support categories and tags, so the magic keywords <code>%cats%</code> and <code>%tags%</code>, if used, won't be expanded to any categories and tags respectively."
+#: add-meta-tags.php:363
+msgid "Save Changes"
 msgstr ""
 
-#: add-meta-tags.php:355
+#: add-meta-tags.php:364
+msgid "Reset to defaults"
+msgstr ""
+
+#: add-meta-tags.php:373
+msgid "Documentation"
+msgstr ""
+
+#: add-meta-tags.php:374
+msgid "The following notes explain how metadata is added to your content and how it is possible to customize it."
+msgstr ""
+
+#: add-meta-tags.php:376
+msgid "Meta Tags on the Front Page"
+msgstr ""
+
+#: add-meta-tags.php:377
+msgid "A <em>description</em> meta tag is automatically added to the web site's front page, even when a static page is used as the home page. By default, the site description from the settings above is used or, if it has not been set, the blog description is used. If this hasn't been set too, then the meta tag is not added."
+msgstr ""
+
+#: add-meta-tags.php:378
+msgid "A <em>keywords</em> meta tag is automatically added to the web site's front page, even when a static page is used as the home page. By default, the site keywords from the settings above are used or, if it has not been set, all the blog categories (except for the <em>Uncategorized</em> category) are used."
+msgstr ""
+
+#: add-meta-tags.php:380
+msgid "Metadata on Posts"
+msgstr ""
+
+#: add-meta-tags.php:381
+msgid "A <em>description</em> meta tag is automatically generated from the content and added to posts. It is possible to set a custom description for posts in the <em>Metadata</em> meta box in the post editing panel."
+msgstr ""
+
+#: add-meta-tags.php:382
+msgid "A <em>keywords</em> meta tag is added automatically to pages. By default, the post's categories and tags are used. It is possible to set custom keywords for posts in the <em>Metadata</em> meta box in the post editing panel."
+msgstr ""
+
+#: add-meta-tags.php:384
+msgid "Metadata on Pages"
+msgstr ""
+
+#: add-meta-tags.php:385
+msgid "A <em>description</em> meta tag is automatically generated from the content and added to pages. It is possible to set a custom description for pages in the <em>Metadata</em> meta box in the page editing panel."
+msgstr ""
+
+#: add-meta-tags.php:386
+msgid "A <em>keywords</em> meta tag <strong>is not</strong> added automatically to pages. It is possible to set keywords for pages in the <em>Metadata</em> meta box in the page editing panel."
+msgstr ""
+
+#: add-meta-tags.php:388
 msgid "Metadata on Category and Tag Archives"
 msgstr ""
 
-#: add-meta-tags.php:356
+#: add-meta-tags.php:389
 msgid "A <em>description</em> meta tag is automatically added to category-based and tag-based archives, only if a description has been set for that specific category or tag."
 msgstr ""
 
-#: add-meta-tags.php:357
+#: add-meta-tags.php:390
 msgid "A <em>keywords</em> meta tag is always added automatically to category-based and tag-based archives. The value of the meta tag is set to the category or tag name respectively."
+msgstr ""
+
+#: add-meta-tags.php:440
+msgid "Description"
+msgstr ""
+
+#: add-meta-tags.php:465
+msgid "Keywords"
 msgstr ""
