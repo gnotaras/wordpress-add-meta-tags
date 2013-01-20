@@ -385,6 +385,154 @@ function amt_options_page() {
 }
 
 
+/**
+ * Meta box in post/page editing panel.
+ */
+
+/* Define the custom box */
+add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
+
+/* Adds a box to the main column on the Post and Page edit screens */
+function amt_add_metadata_box() {
+    add_meta_box( 
+        'amt-metadata-box',
+        __( 'Metadata', 'add-meta-tags' ),
+        'amt_inner_metadata_box',
+        'post' 
+    );
+    add_meta_box(
+        'amt-metadata-box',
+        __( 'Metadata', 'add-meta-tags' ), 
+        'amt_inner_metadata_box',
+        'page'
+    );
+}
+
+/* Prints the box content */
+function amt_inner_metadata_box( $post ) {
+
+    // Use a nonce field for verification
+    wp_nonce_field( plugin_basename( __FILE__ ), 'amt_noncename' );
+
+    // Get the post type. Will be used to customize the displayed notes.
+    $post_type = get_post_type( $post->ID );
+
+    // Retrieve the field data from the database.
+    $custom_description_value = get_post_meta( $post->ID, 'description', true );
+    $custom_keywords_value = get_post_meta( $post->ID, 'keywords', true );
+
+    // Display the meta box HTML code.
+
+    // Custom description
+    print('
+        <p>
+            <label for="amt_custom_description">'.__('Description', 'add-meta-tags').':</label>
+            <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >'.$custom_description_value.'</textarea>
+            <br>
+            (Enter a custom description of 20-40 words - based on an average word length of 5 characters)
+        </p>
+    ');
+    // Different notes based on post type
+    if ( $post_type == 'post' ) {
+        print('
+            <p>
+                If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content.
+            </p>
+        ');
+    } elseif ( $post_type == 'page' ) {
+        print('
+            <p>
+                If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.
+            </p>
+        ');
+    }
+
+    // Custom keywords
+    // Alt input:  <input type="text" class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" value="'.$custom_keywords_value.'" />
+    print('
+        <p>
+            <label for="amt_custom_keywords">'.__('Keywords', 'add-meta-tags').':</label>
+            <textarea class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" cols="30" rows="2" >'.$custom_keywords_value.'</textarea>
+            <br>
+            (Separate keywords with commas)
+        </p>
+    ');
+    // Different notes based on post type
+    if ( $post_type == 'post' ) {
+        print('
+            <p>
+                If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories and keywords in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively.
+                <br />
+                Example: <code>keyword1, keyword2, %cats%, keyword3, %tags%, keyword4</code>
+            </p>
+        ');
+    } elseif ( $post_type == 'page' ) {
+        print('
+            <p>
+                If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.
+            </p>
+        ');
+    }
+
+}
+
+
+/* Manage the entered data */
+add_action( 'save_post', 'amt_save_postdata', 10, 2 );
+
+/* When the post is saved, saves our custom description and keywords */
+function amt_save_postdata( $post_id, $post ) {
+
+    // Verify if this is an auto save routine. 
+    // If it is our form has not been submitted, so we dont want to do anything
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+        return;
+
+    /* Verify the nonce before proceeding. */
+    // Verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if ( !wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( __FILE__ ) ) )
+        return;
+
+    /* Get the post type object. */
+	$post_type_obj = get_post_type_object( $post->post_type );
+
+    /* Check if the current user has permission to edit the post. */
+	if ( !current_user_can( $post_type_obj->cap->edit_post, $post_id ) )
+		return;
+
+    // OK, we're authenticated: we need to find and save the data
+
+    // Sanitize user input
+    // $description_value = sanitize_text_field( $_POST['amt_custom_description'] );
+    // TODO: sanitize removes '%ca' part of '%cats%'
+    // $keywords_value = sanitize_text_field( $_POST['amt_custom_keywords'] );
+    $description_value = $_POST['amt_custom_description'];
+    $keywords_value = $_POST['amt_custom_keywords'];
+
+    // If a value has not been entered we try to delete existing data from the database
+    // If the user has entered data, store it in the database.
+
+    // Description
+    if ( empty($description_value) ) {
+        delete_post_meta($post_id, 'description');
+    } else {
+        update_post_meta($post_id, 'description', $description_value);
+    }
+    // Keywords
+    if ( empty($keywords_value) ) {
+        delete_post_meta($post_id, 'keywords');
+    } else {
+        update_post_meta($post_id, 'keywords', $keywords_value);
+    }
+
+}
+
+
+//
+// Core
+//
+
 
 function amt_strtolower($text) {
     /*
