@@ -4,7 +4,7 @@ Donate link: http://www.g-loaded.eu/about/donate/
 Tags: meta, metadata, seo, description, keywords, metatag, opengraph, dublin core, google, yahoo, bing, meta tags
 Requires at least: 3.0.0
 Tested up to: 3.5
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 
 Adds metadata to your content, including the basic description and keywords meta tags, Opengraph and Dublin Core metadata.
 
@@ -123,6 +123,7 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-ta
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.1.1](http://www.codetrax.org/versions/168)
 - [2.1.0](http://www.codetrax.org/versions/126)
 - [2.0.4](http://www.codetrax.org/versions/132)
 - [2.0.3](http://www.codetrax.org/versions/130)
