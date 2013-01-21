@@ -68,6 +68,7 @@ function amt_get_default_options() {
  * Returns an array with the default options.
  */
     return array(
+        "settings_version"  => 1,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -83,6 +84,66 @@ function amt_get_default_options() {
         "i_have_donated"    => "0",
         );
 }
+
+
+function amt_plugin_upgrade() {
+
+    // First we try to determine if this is a new installation or if the
+    // current installation requires upgrade.
+
+    // Default Add-Meta-Tags Settings
+    $default_options = amt_get_default_options();
+
+    // Try to get the current Add-Meta-Tags options from the database
+    $stored_options = get_option("add_meta_tags_opts");
+    if ( empty($stored_options) ) {
+        // This is the first run, so set our defaults.
+        update_option("add_meta_tags_opts", $default_options);
+        return;
+    }
+
+    // Check the settings version
+
+    // If the settings version of the default options matches the settings version
+    // of the stored options, there is no need to upgrade.
+    if (array_key_exists('settings_version', $stored_options) &&
+            (intval($stored_options["settings_version"]) == intval($default_options["settings_version"])) ) {
+        // Settings are up to date. No upgrade required.
+        return;
+    }
+
+    // On any other case a settings upgrade is required.
+
+    // First, add any missing options to the stored Add-Meta-Tags options
+    foreach ($default_options as $opt => $value) {
+        // Always upgrade the ``settings_version`` option
+        if ($opt == 'settings_version') {
+            $stored_options['settings_version'] = $default_options['settings_version'];
+        }
+        // Add missing options
+        elseif ( !array_key_exists($opt, $stored_options) ) {
+            $stored_options[$opt] = $default_options[$opt];
+        }
+        // Existing stored options are untouched here.
+    }
+
+    // Migrate any current options to new ones.
+    // Migration rules should go here.
+
+    // No migrations required.
+
+    // Clean stored options. Remove any options that do not exist in the default options.
+    foreach ($stored_options as $opt => $value) {
+        if ( !array_key_exists($opt, $default_options) ) {
+            unset($stored_options[$opt]);
+        }
+    }
+
+    // Finally save the updated options.
+    update_option("add_meta_tags_opts", $stored_options);
+
+}
+add_action('plugins_loaded', 'amt_plugin_upgrade');
 
 
 function amt_options_page() {
@@ -101,6 +162,7 @@ function amt_options_page() {
 
         //var_dump($_POST);
         update_option("add_meta_tags_opts", array(
+            "settings_version"  => $default_options["settings_version"], // ``settings_version`` is always set to the default. All migrations have already taken place in ``amt_plugin_upgrade()``
             "site_description"  => $_POST["site_description"],
             "site_keywords"     => $_POST["site_keywords"],
             "global_keywords"   => $_POST["global_keywords"],
@@ -123,15 +185,12 @@ function amt_options_page() {
         update_option("add_meta_tags_opts", $default_options);
         amt_show_info_msg(__('Add-Meta-Tags options were reset to defaults', 'add-meta-tags'));
 
-    } elseif (!get_option("add_meta_tags_opts")) {
-
-        // Add-Meta-Tags options do not exist in the database.
-        // This is the first run, so set our defaults.
-        update_option("add_meta_tags_opts", $default_options);
     }
 
     // Get the options from the DB.
     $options = get_option("add_meta_tags_opts");
+
+    // var_dump($options);
 
     /*
     Configuration Page
