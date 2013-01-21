@@ -114,27 +114,28 @@ function amt_plugin_upgrade() {
 
     // On any other case a settings upgrade is required.
 
-    // First, add any missing options to the stored Add-Meta-Tags options
+    // 1) Add any missing options to the stored Add-Meta-Tags options
     foreach ($default_options as $opt => $value) {
         // Always upgrade the ``settings_version`` option
         if ($opt == 'settings_version') {
-            $stored_options['settings_version'] = $default_options['settings_version'];
+            $stored_options['settings_version'] = $value;
         }
         // Add missing options
         elseif ( !array_key_exists($opt, $stored_options) ) {
-            $stored_options[$opt] = $default_options[$opt];
+            $stored_options[$opt] = $value;
         }
         // Existing stored options are untouched here.
     }
 
-    // Migrate any current options to new ones.
+    // 2) Migrate any current options to new ones.
     // Migration rules should go here.
 
     // No migrations required.
 
-    // Clean stored options. Remove any options that do not exist in the default options.
+    // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {
         if ( !array_key_exists($opt, $default_options) ) {
+            // Remove any options that do not exist in the default options.
             unset($stored_options[$opt]);
         }
     }
