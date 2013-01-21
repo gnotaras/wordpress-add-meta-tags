@@ -63,14 +63,11 @@ function amt_show_info_msg($msg) {
 }
 
 
-function amt_options_page() {
-    // Permission Check
-    if ( !current_user_can( 'manage_options' ) )  {
-        wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-    }
-
-    // Default Add-Meta-Tags Settings
-    $default_options = array(
+function amt_get_default_options() {
+/**
+ * Returns an array with the default options.
+ */
+    return array(
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -85,6 +82,17 @@ function amt_options_page() {
         "default_image_url" => "",
         "i_have_donated"    => "0",
         );
+}
+
+
+function amt_options_page() {
+    // Permission Check
+    if ( !current_user_can( 'manage_options' ) )  {
+        wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+    }
+
+    // Default Add-Meta-Tags Settings
+    $default_options = amt_get_default_options();
 
     if (isset($_POST['info_update'])) {
         /*
