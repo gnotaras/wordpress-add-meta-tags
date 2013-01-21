@@ -17,6 +17,7 @@
 
 11. Tag the new release in the SVN repository:
 
+    cd ..
     svn cp trunk tags/N.N.N
     svn commit -m "Tagging the N.N.N release"
 
