@@ -3,8 +3,8 @@
 2. Add contributors in CONTRIBUTORS.
 3. Change stable tag in readme.txt
 4. Add link to changelog in the relevant section in readme.txt
-5. Commit changes in mercurial and add tag.
 6. Run ``make_release.py``.
+5. Commit changes in mercurial and add tag.
 7. Upload the created distribution file to CodeTRAX
 8. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and run 7zip's ``Extract here``.
 9. Add any new files using:
