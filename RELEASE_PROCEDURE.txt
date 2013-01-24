@@ -6,7 +6,7 @@
 6. Run ``make_release.py``.
 5. Commit changes in mercurial and add tag.
 7. Upload the created distribution file to CodeTRAX
-8. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and run 7zip's ``Extract here``.
+8. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and extract contents here.
 9. Add any new files using:
 
     svn add <file1> <dir1>
