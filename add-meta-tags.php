@@ -9,24 +9,24 @@ Author URI: http://www.g-loaded.eu/
 License: Apache License v2
 */
 
-/*
-  Copyright 2006-2013 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+/**
+ *  Copyright 2006-2013 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
 */
 
 
-/*
+/**
  * Translation Domain
  *
  * Translation files are searched in: wp-content/plugins
@@ -49,7 +49,7 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
 
 
 /**
- * Admin Panel - Options Page
+ * Administration Panel - Add-Meta-Tags Settings
  */
 
 function amt_add_pages() {
@@ -63,10 +63,10 @@ function amt_show_info_msg($msg) {
 }
 
 
-function amt_get_default_options() {
 /**
  * Returns an array with the default options.
  */
+function amt_get_default_options() {
     return array(
         "settings_version"  => 1,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
@@ -86,6 +86,9 @@ function amt_get_default_options() {
 }
 
 
+/**
+ * Performs upgrade of the plugin settings.
+ */
 function amt_plugin_upgrade() {
 
     // First we try to determine if this is a new installation or if the
