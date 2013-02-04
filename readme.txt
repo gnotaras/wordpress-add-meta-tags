@@ -16,8 +16,9 @@ Adds metadata to your content, including the basic description and keywords meta
 
 The following list outlines how and where metadata is added to a *WordPress* blog.
 
+**Basic meta tags**
 
-Basic <em>description</em> and <em>keywords</em> meta tags:
+The <em>description</em> and <em>keywords</em> meta tags are added:
 
 - Front Page
  - Automatically.
@@ -43,8 +44,7 @@ Basic <em>description</em> and <em>keywords</em> meta tags:
 - Head link to copyright page.
 - Default image to use in metadata, if a featured image has not been set.
 
-
-Opengraph metadata
+**Opengraph metadata**
 
 - Front page
  - Automatic addition of metadata.
@@ -53,29 +53,37 @@ Opengraph metadata
  - Automatic addition of metadata.
  - Use featured image or alternatively the default image if URL has been set.
 
-
-Dublin Core metadata
+**Dublin Core metadata**
 
 - Posts and Pages
  - Automatic addition of metadata.
 
-
-Extra SEO features
+**Extra SEO features**
 
 - Add the `NOODP,NOYDIR` option to the robots meta tag.
 - Add the `NOINDEX,FOLLOW` options to the robots meta tag on category, tag, author or time based archives and search results.
 
+**Languages**
 
-More:
+Add-Meta-Tags is available in the following languages:
+
+* English (default language)
+* Slovak (sk_SK) - contributed by Branco from <a href="http://webhostinggeeks.com/user-reviews/">WebHostingGeeks.com</a>
+
+**More**
  
-Check out other [open source software](http://www.codetrax.org/projects) by the same author.
+Check out other [open source software](http://www.codetrax.org/projects) by George Notaras.
 
 
 == Installation ==
 
-1. Extract the compressed (zip) package in the `/wp-content/plugins/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Visit the plugin's administration panel at `Options->Metadata` to read the detailed instructions about customizing the generated metatags.
+Add-Meta-Tags can be easily installed through the plugin management interface from within the WordPress administration panel (*recommended*).
+
+Alternatively, you may manually extract the compressed (zip) package in the `/wp-content/plugins/` directory.
+
+After the plugin has been installed, activate it through the 'Plugins' menu in WordPress.
+
+Finally, visit the plugin's administration panel at `Options->Metadata` to read the detailed instructions about customizing the generated metatags.
 
 As it has been mentioned, no configuration is required for the plugin to function. It will add meta tags automatically. Full customization is possible though.
 
@@ -113,6 +121,8 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-ta
 
 
 == Screenshots ==
+
+Screenshots as of v2.1.0.
 
 1. Add-Meta-Tags administration interface.
 2. Enable Metadata meta box in the screen options of the post/page editing panel.
