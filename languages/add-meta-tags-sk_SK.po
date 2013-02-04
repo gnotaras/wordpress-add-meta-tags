@@ -1,0 +1,530 @@
+#  POT (Portable Object Template)
+#
+#  This file is part of the Add-Meta-Tags plugin for WordPress.
+#
+#  http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
+#
+#  Copyright (C) 2006-2013 George Notaras <gnot@g-loaded.eu>
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: add-meta-tags 2.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-21 13:50+0200\n"
+"PO-Revision-Date: 2013-01-22 23:15+0300\n"
+"Last-Translator: Serg\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: add-meta-tags.php:42
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: add-meta-tags.php:56 add-meta-tags.php:203
+msgid "Metadata Settings"
+msgstr "Metadata nastavenia"
+
+#: add-meta-tags.php:56 add-meta-tags.php:478 add-meta-tags.php:484
+msgid "Metadata"
+msgstr "Metadata"
+
+#: add-meta-tags.php:153
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nemate dostatocne povolenia na pristup k tejto stranke."
+
+#: add-meta-tags.php:181
+msgid "Add-Meta-Tags options saved"
+msgstr "Pridat Meta Tagy nastavenia ulozene"
+
+#: add-meta-tags.php:187
+msgid "Add-Meta-Tags options were reset to defaults"
+msgstr "Pridat Meta Tagy moznosti boli Znovunastavit na predvolene"
+
+#: add-meta-tags.php:204
+msgid "Welcome to the administration panel of the Add-Meta-Tags plugin."
+msgstr "Vitajte do administracneho panelu Add-Meta-Tagy plugin."
+
+#: add-meta-tags.php:205
+msgid ""
+"<em>Metadata</em> refers to information that describes the content in a "
+"machine-friendly way. Search engines and other online services use this "
+"metadata to better understand your content. Keep in mind that metadata "
+"itself does not automatically make your blog rank better. For this to happen "
+"the content is still required to meet various quality standards. However, "
+"the presence of accurate and adequate metadata gives search engines and "
+"other services the chance to make less guesses about your content, index and "
+"categorize it better and, eventually, deliver it to an audience that finds "
+"it useful.  Good metadata facilitates this process and thus plays a "
+"significant role in achieving better rankings. This is what the Add-Meta-"
+"Tags plugin does."
+msgstr ""
+"<em>Metadata</em> odkazuje na informacie, ktore popisuju obsah v stroj-"
+"vstricna. Vyhladavace a dalsich online sluzieb pouzivat metaudajov lepsie "
+"pochopit vas obsah. Majte na pamati, ze metadata sam automaticky neznamena "
+"vase hodnost blogu lepsie. Za tymto ucelom obsah je stale povinny plnit "
+"rozne normy kvality. Avsak pritomnost presne a zodpovedajuce metaudaje dava "
+"vyhladavacov a dalsie sluzby sancu urobit menej dohady o vasom obsahu, index "
+"a kategorizovat lepsie a nakoniec dodat, ze k publiku, ktore povazuje za "
+"uzitocne.  Dobry metadata ulahcuje tento proces a zohrava vyznamnu ulohu pri "
+"dosahovani lepsej rebricku. Je to, co robi Add-Meta-Tagy plugin."
+
+#: add-meta-tags.php:209
+msgid "Message from the author"
+msgstr "Spravy od autora"
+
+#: add-meta-tags.php:210
+msgid ""
+"<em>Add-Meta-Tags</em> is released under the terms of the <a href=\"http://"
+"www.apache.org/licenses/LICENSE-2.0.html\">Apache License version 2</a> and, "
+"therefore, is <strong>free software</strong>."
+msgstr ""
+"<em>Add-Meta-tagov</em> je vydany pod <a href=&quot;\"http://www.apache.org/"
+"licenses/LICENSE-2.0.html\"&quot;>licenciou Apache verziu 2</a> , a preto je "
+"<strong>slobodny softver</strong>."
+
+#: add-meta-tags.php:211
+msgid ""
+"However, a significant amount of <strong>time</strong> and <strong>energy</"
+"strong> has been put into developing this plugin, so, its production has not "
+"been free from cost. If you find this plugin useful and if it has helped "
+"your blog get indexed better and rank higher, I would appreciate an <a href="
+"\"http://www.g-loaded.eu/about/donate/\">extra cup of coffee</a>."
+msgstr ""
+"Dal vsak znacne mnozstvo <strong>casu</strong> a <strong>energie</strong> do "
+"rozvoja tohto pluginu, takze jeho vyroby nevyskytla z nakladov. Ak zistite, "
+"ze tento plugin uzitocne a ak pomohol vas blog dostat indexuju lepsie a "
+"hodnost vyssia, ocenil by som <a href=&quot;\"http://www.g-loaded.eu/about/"
+"donate/\"&quot;>dalsiu salku kavy</a>."
+
+#: add-meta-tags.php:212
+msgid "Thank you in advance,"
+msgstr "Dakujem vopred,"
+
+#: add-meta-tags.php:212
+msgid "George Notaras"
+msgstr "George Notaras"
+
+#: add-meta-tags.php:213
+msgid "This message can be deactivated in the settings below."
+msgstr "Toto hlasenie je mozne deaktivovat v nastaveniach nizsie."
+
+#: add-meta-tags.php:217
+msgid "How it works"
+msgstr "Ako to funguje"
+
+#: add-meta-tags.php:219
+msgid ""
+"Add-Meta-Tags tries to follow the \"<em>It just works</em>\" principal. By "
+"default, the <em>description</em> and <em>keywords</em> meta tags are added "
+"to your blog's front page, posts, pages, category and tag based archives. "
+"Furthermore, it is possible to enable the insertion of <em>Opengraph</em> "
+"and <em>Dublin Core</em> metadata to your posts and pages. The plugin also "
+"supports some extra SEO related functionality that helps you fine tune your "
+"web site."
+msgstr ""
+"Pridat Meta Tagy sa snazi dodrziavat \" &quot;<em>to jednoducho funguje</em>"
+"\" hlavne. V predvolenom nastaveni, <em>Popis</em> a <em>klucove slova,</em> "
+"meta tagy su pridane na vas blog na prednej strane, prispevky, stranky, "
+"kategorie a tag Archiv zalozene. Okrem toho je mozne umoznit vlozenie "
+"<em>Opengraph</em> a <em>Dublin Core</em> metaudajov do prispevkov a "
+"stranok. Plugin podporuje aj nejake extra SEO suvisiace s funkcnost, ktore "
+"vam pomoze jemne melodie vase webove stranky."
+
+#: add-meta-tags.php:221
+msgid ""
+"Customization of the added metadata on a per post/page basis is possible by "
+"using the user-friendly <strong>WordPress meta boxes</strong> in the post/"
+"page editing panel. In earlier versions of the plugin (before 2.1.0) such "
+"customization was possible through custom fields. If you have already used "
+"custom fields in order to customize the posts description and keywords in "
+"the past, there is nothing to worry about, since the new meta-box "
+"functionality is internally based on those custom fields, so there is no "
+"migration procedure involved. However, you need to enable the <em>Metadata</"
+"em> meta box in the <a href=\"http://en.support.wordpress.com/screen-options/"
+"\">Screen Options</a> of the post/page editing panel."
+msgstr ""
+"Prisposobenia pridane metadat na zaklade per post/stranku je mozne pomocou "
+"uzivatelsky-priatelske <strong>WordPress metapopulacie boxov</strong> v post/"
+"stranku upravy panel. V starsich verziach tohto pluginu (pred 2.1.0) taketo "
+"prisposobenie bolo mozne prostrednictvom vlastnych poli. Ak ste uz pouzili "
+"vlastne polia s cielom prisposobit prispevky popis a klucove slova v "
+"minulosti, nie je coho bat, pretoze novy meta-box funkcnost vnutorne "
+"vychadza z tychto vlastnych poli, takze neexistuje postup migracie zapojene. "
+"Avsak, budete musiet zapnut pola <em>metaudajov</em> meta v <a href=&quot;"
+"\"http://en.support.wordpress.com/screen-options/\"&quot;>Obrazovke "
+"moznosti</a> post/stranku upravy panel."
+
+#: add-meta-tags.php:226
+msgid "Configuration"
+msgstr "Konfiguracia"
+
+#: add-meta-tags.php:228
+msgid ""
+"This section contains global configuration options for the metadata that is "
+"added to your web site."
+msgstr ""
+"Tato sekcia obsahuje moznosti globalnej konfiguracie pre metaudaje ziskavane "
+"je pridany do vasho webu."
+
+#: add-meta-tags.php:238 add-meta-tags.php:241
+msgid "Front Page Description"
+msgstr "Predne popis stranky"
+
+#: add-meta-tags.php:245
+msgid ""
+"Enter a short (150-250 characters long) description of your blog. This text "
+"will be used in the <em>description</em> meta tag and the <em>og:"
+"description</em> meta property (if Opengraph is enabled) on the "
+"<strong>front page</strong>. If this is left empty, then the blog's "
+"description from the <em>Tagline</em> in <a href=\""
+msgstr ""
+"Zadajte kratky (150-250 znakov) popis vasho blogu. Tento text sa pouzije v "
+"<em>meta tagu</em> a <em>og: opis</em> meta nehnutelnosti (ak je Opengraph "
+"zapnuta) na <strong>prednej strane</strong>. Ak je ponechany prazdny, potom "
+"blog popisu z <em>slogan</em> v<a href=\" href=&quot;&quot;></a href=\">"
+
+#: add-meta-tags.php:252 add-meta-tags.php:255
+msgid "Front Page Keywords"
+msgstr "Predne stranku klucove slova"
+
+#: add-meta-tags.php:259
+msgid ""
+"Enter a comma-delimited list of keywords for your blog. These keywords will "
+"be used for the <em>keywords</em> meta tag on the <strong>front page</"
+"strong>. If this field is left empty, then all of your blog's <a href=\""
+msgstr ""
+"Zadajte ciarkami zoznam klucovych slov pre vas blog. Tieto klucove slova "
+"budu pouzite pre znacku meta <em>klucove slova</em> na <strong>prednej "
+"strane</strong>. Ak toto pole je ponechany prazdny, potom cely vas blog<a "
+"href=\" href=&quot;&quot;></a href=\">"
+
+#: add-meta-tags.php:261 add-meta-tags.php:277 add-meta-tags.php:281
+#: add-meta-tags.php:388 add-meta-tags.php:405
+msgid "Example"
+msgstr "Priklad"
+
+#: add-meta-tags.php:261 add-meta-tags.php:277
+msgid "keyword1, keyword2, keyword3"
+msgstr "keyword1, keyword2, keyword3"
+
+#: add-meta-tags.php:268 add-meta-tags.php:271
+msgid "Global Keywords"
+msgstr "Globalne klucove slova"
+
+#: add-meta-tags.php:275
+msgid ""
+"Enter a comma-delimited list of global keywords which will be added before "
+"the keywords of <strong>all</strong> posts and pages."
+msgstr ""
+"Zadajte ciarkami zoznam globalne klucove slova, ktore budu pripocitane pred "
+"klucove slova <strong>vsetky</strong> prispevky a stranky."
+
+#: add-meta-tags.php:279
+msgid ""
+"By default, these keywords are prepended to the post/page's keywords. For "
+"enhanced flexibility, it is possible to use the <code>%contentkw%</code> "
+"placeholder, which will be populated with the post/page's autogenerated or "
+"user-defined keywords. This way you can globally both prepend and append "
+"keywords to the <em>keywords</em> of your content."
+msgstr ""
+"Predvolene maju prefix tieto klucove slova klucovych slov na post/stranku. "
+"Pre flexibilnejsie, je mozne pouzit <code>%contentkw%</code> zastupny "
+"symbol, ktory bude byt vyplnene na post/stranku autogenerated alebo "
+"pouzivatelom definovane klucove slova. Tymto sposobom mozete globalne aj na "
+"zaciatok pripojit a pridat klucove slova k <em>klucove slova</em> svojho "
+"obsahu."
+
+#: add-meta-tags.php:281
+msgid "keyword1, keyword2, %contentkw%, keyword3"
+msgstr "keyword1, keyword2, contentkw %, keyword3"
+
+#: add-meta-tags.php:288 add-meta-tags.php:291
+msgid "Site-wide META tags"
+msgstr "Site-wide META Tagy"
+
+#: add-meta-tags.php:295
+msgid ""
+"Provide the <strong>full XHTML code</strong> of META tags you would like to "
+"be included in <strong>all</strong> of your blog pages."
+msgstr ""
+"Poskytnut <strong>plnu XHTML kod</strong> META tagy, ktore by ste chceli byt "
+"zahrnute <strong>vsetky</strong> svojho blogu stranok."
+
+#: add-meta-tags.php:297
+msgid "Examples"
+msgstr "Priklady"
+
+#: add-meta-tags.php:306 add-meta-tags.php:309
+msgid "Automatic Basic Metadata"
+msgstr "Automaticke zakladne metadata"
+
+#: add-meta-tags.php:313
+msgid ""
+"Automatically generate the <em>description</em> meta tag for single posts, "
+"pages, category-based archives and tag-based archives. If this is unchecked, "
+"you can still set a <em>description</em> meta tag by using the "
+"<code>description</code> custom field."
+msgstr ""
+"Automaticky generovat <em>meta tagu pre jednotlivych miest, stranky, "
+"kategorie-zalozene archivov a archivov tag-zalozene</em> . Ak to nie je "
+"zaciarknute, mozete nastavit <em>Popis</em> meta tag pomocou "
+"<code>description</code> vlastne pole."
+
+#: add-meta-tags.php:319
+msgid ""
+"Automatically generate the <em>keywords</em> meta tag for single posts, "
+"category-based archives and tag-based archives. Automatic keywords are not "
+"supported on pages. If this is unchecked, you can still set a <em>keywords</"
+"em> meta tag by using the <code>keywords</code> custom field."
+msgstr ""
+"Automaticke generovanie <em>klucovych slov</em> meta tagu pre jednotlivych "
+"miest, Kategoria-zalozene archivov a archivov tag-zalozene. Automaticka "
+"klucove slova nie su podporovane na strankach. Ak to nie je zaciarknute, "
+"mozete nastavit meta tag <em>klucove slova</em> pomocou <code>keywords</"
+"code> vlastne pole."
+
+#: add-meta-tags.php:328 add-meta-tags.php:331
+msgid "Automatic Opengraph Metadata"
+msgstr "Automaticke Opengraph metaudajov"
+
+#: add-meta-tags.php:335
+msgid ""
+"Automatically generate Opengraph meta tags for single posts and pages. For "
+"more information, please refer to the <a href=\"http://ogp.me\">Opengraph "
+"specification</a>."
+msgstr ""
+"Automaticky generovat Opengraph meta tagy pre jedneho miesta a stranky. Viac "
+"informacii najdete <a href=&quot;\"http://ogp.me\"&quot;>Opengraph "
+"specifikacia</a>."
+
+#: add-meta-tags.php:343 add-meta-tags.php:346
+msgid "Automatic Dublin Core Metadata"
+msgstr "Automaticke metaudajov jadra Dublin"
+
+#: add-meta-tags.php:350
+msgid ""
+"Automatically generate Dublin Core metadata for single posts and pages. For "
+"more information, please refer to <a href=\"http://dublincore.org\">Dublin "
+"Core Metadata Initiative</a>."
+msgstr ""
+"Automaticky generovat metaudajov jadra Dublin jednotlivych miest a stranok. "
+"Dalsie informacie najdete <a href=&quot;\"http://dublincore.org\"&quot;"
+">Dublin Core metaudajov iniciativy</a>."
+
+#: add-meta-tags.php:358 add-meta-tags.php:361
+msgid "Extra SEO Options"
+msgstr "Dalsie SEO volby"
+
+#: add-meta-tags.php:365
+msgid ""
+"Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
+"tag on the front page, posts and pages. This setting will prevent all search "
+"engines (at least those that support the meta tag) from displaying "
+"information from the <a href=\"http://www.dmoz.org/\">Open Directory "
+"Project</a> or the <a href=\"http://dir.yahoo.com/\">Yahoo Directory</a> "
+"instead of the description you set in the <em>description</em> meta tag."
+msgstr ""
+"Pridat <code>NOODP</code> a <code>NOYDIR</code> <em>roboty</em> meta tag na "
+"prednej strane, prispevky a stranky. Toto nastavenie zabrani vsetkych "
+"vyhladavacov (aspon tie podporuju meta tag) zobrazovanie informacii z <a "
+"href=&quot;\"http://www.dmoz.org/\"&quot;>Open Directory Project</a> alebo "
+"<a href=&quot;\"http://dir.yahoo.com/\"&quot;>Yahoo adresar</a> namiesto "
+"popisu nastavite v <em>meta tagu</em> ."
+
+#: add-meta-tags.php:371
+msgid ""
+"Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/"
+"category/tag/author-based archives and search results. This is an advanced "
+"setting that aims at reducing the amount of duplicate content that gets "
+"indexed by search engines."
+msgstr ""
+"Pridat <code>NOINDEX,FOLLOW</code> na <em>metaznacky robots na cas/kategorie/"
+"tag/autor-zalozene Archiv a vysledky vyhladavania</em> . Je to rozsirene "
+"nastavenie, ktore sa zameriava na znizenie mnozstva duplicitne obsah, ktory "
+"dostane indexuju pomocou vyhladavacov."
+
+#: add-meta-tags.php:379 add-meta-tags.php:382
+msgid "Copyright URL"
+msgstr "Copyright URL"
+
+#: add-meta-tags.php:386
+msgid ""
+"Add an absolute URL to a document containing information about copyright. "
+"The relevant meta tags will be added automatically."
+msgstr ""
+"Absolutna adresa URL pridat dokument obsahujuci informacie o autorskych "
+"pravach. Relevantne meta tagy sa pridaju automaticky."
+
+#: add-meta-tags.php:396 add-meta-tags.php:399
+msgid "Default Image"
+msgstr "Predvoleny obrazok"
+
+#: add-meta-tags.php:403
+msgid ""
+"Add an absolute URL to an image that will be used in meta data in case a "
+"featured image has not been set for the content."
+msgstr ""
+"Absolutna adresa URL pridat obrazok, ktory sa pouzije v meta data v pripade, "
+"ze Odporucane obraz nebol nastaveny pre obsah."
+
+#: add-meta-tags.php:413 add-meta-tags.php:416
+msgid "Donations"
+msgstr "Dary"
+
+#: add-meta-tags.php:420
+msgid ""
+"By checking this, the <em>message from the author</em> above goes away. "
+"Thanks for <a href=\"http://www.g-loaded.eu/about/donate/\">donating</a>!"
+msgstr ""
+"Tym, ze tuto kontrolu, <em>spravu od autora</em> nad zmizne. Vdaka za <a "
+"href=&quot;\"http://www.g-loaded.eu/about/donate/\"&quot;>darovanie</a>!"
+
+#: add-meta-tags.php:431
+msgid "Save Changes"
+msgstr "Ulozit zmeny"
+
+#: add-meta-tags.php:432
+msgid "Reset to defaults"
+msgstr "Znovunastavit na predvolene"
+
+#: add-meta-tags.php:441
+msgid "Documentation"
+msgstr "Dokumentacia"
+
+#: add-meta-tags.php:442
+msgid ""
+"The following notes explain how metadata is added to your content and how it "
+"is possible to customize it."
+msgstr ""
+"Nasledujuce poznamky vysvetlit ako metaudajov je pridany do vasho obsahu a "
+"ako je mozne prisposobit."
+
+#: add-meta-tags.php:444
+msgid "Meta Tags on the Front Page"
+msgstr "Meta tagy na prednej strane"
+
+#: add-meta-tags.php:445
+msgid ""
+"A <em>description</em> meta tag is automatically added to the web site's "
+"front page, even when a static page is used as the home page. By default, "
+"the site description from the settings above is used or, if it has not been "
+"set, the blog description is used. If this hasn't been set too, then the "
+"meta tag is not added."
+msgstr ""
+"<em>Opis</em> meta tag sa automaticky prida do prednej strane webovej "
+"lokality, aj ked staticke stranky sa pouziva ako domovsku stranku. "
+"Predvolene popis stranky z vyssie uvedene nastavenia sa pouziva alebo, ak to "
+"nebol nastaveny, blog popisu sa pouziva. Ak to nebola nastavena prilis, meta "
+"tag sa neprida."
+
+#: add-meta-tags.php:446
+msgid ""
+"A <em>keywords</em> meta tag is automatically added to the web site's front "
+"page, even when a static page is used as the home page. By default, the site "
+"keywords from the settings above are used or, if it has not been set, all "
+"the blog categories (except for the <em>Uncategorized</em> category) are "
+"used."
+msgstr ""
+"<em>Klucovych slov</em> meta tag sa automaticky prida do prednej strane "
+"webovej lokality, aj ked staticke stranky sa pouziva ako domovsku stranku. "
+"Predvolene klucove slova stranky z vyssie uvedene nastavenia sa pouzivaju, "
+"alebo ak to nebol nastaveny, vsetky blog kategorie (s vynimkou kategoriu "
+"<em>Neclenene</em> ) su pouzivane."
+
+#: add-meta-tags.php:448
+msgid "Metadata on Posts"
+msgstr "Metadata o prispevky"
+
+#: add-meta-tags.php:449
+msgid ""
+"A <em>description</em> meta tag is automatically generated from the content "
+"and added to posts. It is possible to set a custom description for posts in "
+"the <em>Metadata</em> meta box in the post editing panel."
+msgstr ""
+"<em>Opis</em> meta tag je automaticky generuje z obsahu a pridany do "
+"prispevkov. Je mozne nastavit vlastny popis prispevky do pola "
+"<em>metaudajov</em> meta v post upravy panel."
+
+#: add-meta-tags.php:450
+msgid ""
+"A <em>keywords</em> meta tag is added automatically to pages. By default, "
+"the post's categories and tags are used. It is possible to set custom "
+"keywords for posts in the <em>Metadata</em> meta box in the post editing "
+"panel."
+msgstr ""
+"<em>Klucovych slov</em> meta tag je automaticky pridany na stranky. "
+"Standardne sa pouzivaju post kategorii a znaciek. Je mozne nastavit vlastne "
+"klucove slova pre prispevky do pola <em>metaudajov</em> meta v post upravy "
+"panel."
+
+#: add-meta-tags.php:452
+msgid "Metadata on Pages"
+msgstr "Metadata na strankach"
+
+#: add-meta-tags.php:453
+msgid ""
+"A <em>description</em> meta tag is automatically generated from the content "
+"and added to pages. It is possible to set a custom description for pages in "
+"the <em>Metadata</em> meta box in the page editing panel."
+msgstr ""
+"<em>Opis</em> meta tag je automaticky generuje z obsahu a pridal na stranky. "
+"Je mozne nastavit vlastny popis stranky do pola <em>metaudajov</em> meta na "
+"stranke upravy panel."
+
+#: add-meta-tags.php:454
+msgid ""
+"A <em>keywords</em> meta tag <strong>is not</strong> added automatically to "
+"pages. It is possible to set keywords for pages in the <em>Metadata</em> "
+"meta box in the page editing panel."
+msgstr ""
+"<em>Klucovych slov</em> meta tagu <strong>nie je</strong> automaticky "
+"pridany na stranky. Je mozne nastavit klucove slova pre stranky v poli "
+"<em>metaudajov</em> meta na stranke upravy panel."
+
+#: add-meta-tags.php:456
+msgid "Metadata on Category and Tag Archives"
+msgstr "Metadata o kategorii a Tag Archives"
+
+#: add-meta-tags.php:457
+msgid ""
+"A <em>description</em> meta tag is automatically added to category-based and "
+"tag-based archives, only if a description has been set for that specific "
+"category or tag."
+msgstr ""
+"<em>Opis</em> meta tag sa automaticky zaradi do kategorie zalozenych a tag "
+"Archiv, iba v pripade, ze popis bol nastaveny pre tuto konkretnu kategoriu "
+"alebo znacku."
+
+#: add-meta-tags.php:458
+msgid ""
+"A <em>keywords</em> meta tag is always added automatically to category-based "
+"and tag-based archives. The value of the meta tag is set to the category or "
+"tag name respectively."
+msgstr ""
+"<em>Klucovych slov</em> meta tag je vzdy automaticky pridany do kategorie "
+"zalozenych a tag Archiv. Hodnota meta tag je nastavena na kategoriu alebo "
+"znacku, meno."
+
+#: add-meta-tags.php:508
+msgid "Description"
+msgstr "Popis"
+
+#: add-meta-tags.php:533
+msgid "Keywords"
+msgstr "Klucove slova"
