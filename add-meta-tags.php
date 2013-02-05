@@ -495,7 +495,6 @@ function amt_add_metadata_box() {
 
     // Add an Add-Meta-Tags meta box to all supported types
     foreach ($supported_types as $supported_type) {
-        echo $supported_type.'<br>';
         add_meta_box( 
             'amt-metadata-box',
             __( 'Metadata', 'add-meta-tags' ),
@@ -1284,6 +1283,12 @@ function amt_add_opengraph_metadata() {
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
             $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
             $metadata_arr[] = '<meta property="og:image:height" content="' . $thumbnail_info[2] . '" />';
+        } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image
+            $attachment_image_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
+            $metadata_arr[] = '<meta property="og:image" content="' . $attachment_image_info[0] . '" />';
+            //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $attachment_image_info[0]) . '" />';
+            $metadata_arr[] = '<meta property="og:image:width" content="' . $attachment_image_info[1] . '" />';
+            $metadata_arr[] = '<meta property="og:image:height" content="' . $attachment_image_info[2] . '" />';
         } elseif (!empty($options["default_image_url"])) {
             // Alternatively, use default image
             $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
