@@ -474,20 +474,38 @@ function amt_options_page() {
 /* Define the custom box */
 add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
 
-/* Adds a box to the main column on the Post and Page edit screens */
+/**
+ * Adds a box to the main column of the editing panel of the following built-in
+ * post types:
+ *
+ *   - post
+ *   - page
+ *
+ * And also to ALL public custom post types.
+ *
+ * NOTE ABOUT attachments:
+ * The 'attachment' post type does not support saving custom fields like other post types.
+ * See: http://www.codetrax.org/issues/875
+ *
+ */
 function amt_add_metadata_box() {
-    add_meta_box( 
-        'amt-metadata-box',
-        __( 'Metadata', 'add-meta-tags' ),
-        'amt_inner_metadata_box',
-        'post' 
-    );
-    add_meta_box(
-        'amt-metadata-box',
-        __( 'Metadata', 'add-meta-tags' ), 
-        'amt_inner_metadata_box',
-        'page'
-    );
+    $supported_builtin_types = array('post', 'page');
+    $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false) );
+    $supported_types = array_merge($supported_builtin_types, $public_custom_types);
+
+    // Add an Add-Meta-Tags meta box to all supported types
+    foreach ($supported_types as $supported_type) {
+        echo $supported_type.'<br>';
+        add_meta_box( 
+            'amt-metadata-box',
+            __( 'Metadata', 'add-meta-tags' ),
+            'amt_inner_metadata_box',
+            $supported_type,
+            'advanced',
+            'high'
+        );
+    }
+
 }
 
 /* Prints the box content */
@@ -527,6 +545,12 @@ function amt_inner_metadata_box( $post ) {
                 If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.
             </p>
         ');
+    } else {    // Custom post types
+        print('
+            <p>
+                If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.
+            </p>
+        ');
     }
 
     // Custom keywords
@@ -549,6 +573,12 @@ function amt_inner_metadata_box( $post ) {
             </p>
         ');
     } elseif ( $post_type == 'page' ) {
+        print('
+            <p>
+                If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.
+            </p>
+        ');
+    } else {    // Custom post types
         print('
             <p>
                 If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.
