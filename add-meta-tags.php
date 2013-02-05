@@ -951,14 +951,14 @@ function amt_get_content_description($auto=true) {
 
     $content_description = '';
 
-    if ( is_single() || is_page() ) {
+    if ( is_single() || is_page() ) {   // is_single() is true for attachments and custom post types too
 
         // The custom post field "description" overrides post's excerpt in Single Post View.
         $desc_fld_content = amt_get_post_meta_description( $posts[0]->ID );
         if ( !empty($desc_fld_content) ) {
             // If there is a custom field, use it
             $content_description = amt_clean_desc($desc_fld_content);
-        } elseif ( is_single() || is_page() ) {
+        } else {
             // Else, use the post's excerpt. Valid for Pages too.
             if ($auto) {
                 $content_description = amt_clean_desc(amt_get_the_excerpt());
@@ -982,7 +982,7 @@ function amt_get_content_keywords($auto=true) {
      * %cats% is replaced by the post's categories.
      * %tags% us replaced by the post's tags.
      */
-    if ( ( is_single()) || is_page() ) {
+    if ( ( is_single()) || is_page() ) {    // is_single() is true for attachments and custom post types too
         $keyw_fld_content = amt_get_post_meta_keywords( $posts[0]->ID );
         if ( !empty($keyw_fld_content) ) {
             // If there is a custom field, use it
@@ -1014,7 +1014,7 @@ function amt_get_content_keywords($auto=true) {
      * Finally, add the global keyword, if they are set in the administration panel.
      * If $content_keywords is empty, then no global keyword processing takes place.
      */
-    if ( !empty($content_keywords) && (is_single() || is_page()) ) {
+    if ( !empty($content_keywords) && (is_single() || is_page()) ) {    // is_single() is true for attachments and custom post types too
         $options = get_option("add_meta_tags_opts");
         $global_keywords = $options["global_keywords"];
         if (!empty($global_keywords)) {
