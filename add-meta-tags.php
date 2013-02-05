@@ -843,6 +843,62 @@ function amt_get_site_wide_metatags($site_wide_meta) {
 }
 
 
+/**
+ * Helper function that returns the value of the custom field that contains
+ * the content description.
+ * The default field name for the description has changed to ``_amt_description``.
+ * For easy migration this function supports reading the description from the
+ * old ``description`` custom field and also from the custom field of other plugins.
+ */
+function amt_get_post_meta_description($post_id) {
+    $amt_description_field_name = '_amt_description';
+
+    // Get an array of all custom fields names of the post
+    $custom_fields = get_post_custom_keys($post_id);
+    // First try our default description field
+    if ( array_key_exists($amt_description_field_name, $custom_fields) ) {
+        return get_post_meta($post_id, $amt_description_field_name, true);
+    }
+    // Try old description field: ``description``
+    elseif ( array_key_exists('description', $custom_fields) ) {
+        return get_post_meta($post_id, 'description', true);
+    }
+    // Try other description field names here.
+    // Support rerading from other plugins
+
+    //Return empty string if all fails
+    return '';
+}
+
+
+/**
+ * Helper function that returns the value of the custom field that contains
+ * the content keywords.
+ * The default field name for the keywords has changed to ``_amt_keywords``.
+ * For easy migration this function supports reading the keywords from the
+ * old ``keywords`` custom field and also from the custom field of other plugins.
+ */
+function amt_get_post_meta_keywords($post_id) {
+    $amt_keywords_field_name = '_amt_keywords';
+
+    // Get an array of all custom fields names of the post
+    $custom_fields = get_post_custom_keys($post_id);
+    // First try our default keywords field
+    if ( array_key_exists($amt_keywords_field_name, $custom_fields) ) {
+        return get_post_meta($post_id, $amt_keywords_field_name, true);
+    }
+    // Try old keywords field: ``keywords``
+    elseif ( array_key_exists('keywords', $custom_fields) ) {
+        return get_post_meta($post_id, 'keywords', true);
+    }
+    // Try other keywords field names here.
+    // Support rerading from other plugins
+
+    //Return empty string if all fails
+    return '';
+}
+
+
 function amt_get_content_description($auto=true) {
     /*
      * This is a helper function that returns the post's or page's description.
