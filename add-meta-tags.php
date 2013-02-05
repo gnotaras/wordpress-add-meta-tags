@@ -500,8 +500,8 @@ function amt_inner_metadata_box( $post ) {
     $post_type = get_post_type( $post->ID );
 
     // Retrieve the field data from the database.
-    $custom_description_value = get_post_meta( $post->ID, 'description', true );
-    $custom_keywords_value = get_post_meta( $post->ID, 'keywords', true );
+    $custom_description_value = amt_get_post_meta_description( $post->ID );
+    $custom_keywords_value = amt_get_post_meta_keywords( $post->ID );
 
     // Display the meta box HTML code.
 
@@ -595,17 +595,29 @@ function amt_save_postdata( $post_id, $post ) {
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.
 
+    // Add-Meta-Tags custom field names
+    $amt_description_field_name = '_amt_description';
+    $amt_keywords_field_name = '_amt_keywords';
+
     // Description
     if ( empty($description_value) ) {
+        delete_post_meta($post_id, $amt_description_field_name);
+        // Also clean up old description field
         delete_post_meta($post_id, 'description');
     } else {
-        update_post_meta($post_id, 'description', $description_value);
+        update_post_meta($post_id, $amt_description_field_name, $description_value);
+        // Also clean up again old description field - no need to exist any more since the new field is used.
+        delete_post_meta($post_id, 'description');
     }
     // Keywords
     if ( empty($keywords_value) ) {
+        delete_post_meta($post_id, $amt_keywords_field_name);
+        // Also clean up old keywords field
         delete_post_meta($post_id, 'keywords');
     } else {
-        update_post_meta($post_id, 'keywords', $keywords_value);
+        update_post_meta($post_id, $amt_keywords_field_name, $keywords_value);
+        // Also clean up again old keywords field - no need to exist any more since the new field is used.
+        delete_post_meta($post_id, 'keywords');
     }
 
 }
@@ -855,12 +867,13 @@ function amt_get_post_meta_description($post_id) {
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys($post_id);
+
     // First try our default description field
-    if ( array_key_exists($amt_description_field_name, $custom_fields) ) {
+    if ( in_array($amt_description_field_name, $custom_fields) ) {
         return get_post_meta($post_id, $amt_description_field_name, true);
     }
     // Try old description field: ``description``
-    elseif ( array_key_exists('description', $custom_fields) ) {
+    elseif ( in_array('description', $custom_fields) ) {
         return get_post_meta($post_id, 'description', true);
     }
     // Try other description field names here.
@@ -883,12 +896,13 @@ function amt_get_post_meta_keywords($post_id) {
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys($post_id);
+
     // First try our default keywords field
-    if ( array_key_exists($amt_keywords_field_name, $custom_fields) ) {
+    if ( in_array($amt_keywords_field_name, $custom_fields) ) {
         return get_post_meta($post_id, $amt_keywords_field_name, true);
     }
     // Try old keywords field: ``keywords``
-    elseif ( array_key_exists('keywords', $custom_fields) ) {
+    elseif ( in_array('keywords', $custom_fields) ) {
         return get_post_meta($post_id, 'keywords', true);
     }
     // Try other keywords field names here.
@@ -909,11 +923,8 @@ function amt_get_content_description($auto=true) {
 
     if ( is_single() || is_page() ) {
 
-        // Custom description field name
-        $desc_fld = "description";
-
         // The custom post field "description" overrides post's excerpt in Single Post View.
-        $desc_fld_content = get_post_meta($posts[0]->ID, $desc_fld, true);
+        $desc_fld_content = amt_get_post_meta_description( $posts[0]->ID );
         if ( !empty($desc_fld_content) ) {
             // If there is a custom field, use it
             $content_description = amt_clean_desc($desc_fld_content);
@@ -934,8 +945,6 @@ function amt_get_content_keywords($auto=true) {
     */
     global $posts;
 
-    $keyw_fld = "keywords";
-
     $content_keywords = '';
 
     /*
@@ -944,7 +953,7 @@ function amt_get_content_keywords($auto=true) {
      * %tags% us replaced by the post's tags.
      */
     if ( ( is_single()) || is_page() ) {
-        $keyw_fld_content = get_post_meta($posts[0]->ID, $keyw_fld, true);
+        $keyw_fld_content = amt_get_post_meta_keywords( $posts[0]->ID );
         if ( !empty($keyw_fld_content) ) {
             // If there is a custom field, use it
             if ( is_single() ) {
