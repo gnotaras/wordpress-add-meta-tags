@@ -906,7 +906,7 @@ function amt_get_post_meta_description($post_id) {
         return get_post_meta($post_id, 'description', true);
     }
     // Try other description field names here.
-    // Support rerading from other plugins
+    // Support reading from other plugins
 
     //Return empty string if all fails
     return '';
@@ -935,7 +935,7 @@ function amt_get_post_meta_keywords($post_id) {
         return get_post_meta($post_id, 'keywords', true);
     }
     // Try other keywords field names here.
-    // Support rerading from other plugins
+    // Support reading from other plugins
 
     //Return empty string if all fails
     return '';
