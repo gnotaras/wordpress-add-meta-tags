@@ -456,6 +456,10 @@ function amt_options_page() {
         <p>'.__('A <em>description</em> meta tag is automatically generated from the content and added to pages. It is possible to set a custom description for pages in the <em>Metadata</em> meta box in the page editing panel.', 'add-meta-tags').'</p>
         <p>'.__('A <em>keywords</em> meta tag <strong>is not</strong> added automatically to pages. It is possible to set keywords for pages in the <em>Metadata</em> meta box in the page editing panel.', 'add-meta-tags').'</p>
 
+        <h3>'.__('Metadata on Attachment Pages', 'add-meta-tags').'</h3>
+        <p>'.__('A <em>description</em> meta tag is automatically generated from the caption or, if a caption has not been set, from the description of the attachment.', 'add-meta-tags').'</p>
+        <p>'.__('A <em>keywords</em> meta tag <strong>is not</strong> added to attachment pages.', 'add-meta-tags').'</p>
+
         <h3>'.__('Metadata on Category and Tag Archives', 'add-meta-tags').'</h3>
         <p>'.__('A <em>description</em> meta tag is automatically added to category-based and tag-based archives, only if a description has been set for that specific category or tag.', 'add-meta-tags').'</p>
         <p>'.__('A <em>keywords</em> meta tag is always added automatically to category-based and tag-based archives. The value of the meta tag is set to the category or tag name respectively.', 'add-meta-tags').'</p>

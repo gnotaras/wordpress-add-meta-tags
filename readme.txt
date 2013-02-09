@@ -33,6 +33,8 @@ The <em>description</em> and <em>keywords</em> meta tags are added:
  - Automatically (description only - no automatic keywords).
  - Customization of the *description* meta tag is possible by setting a custom description in the *Metadata* meta box in the page editing panel.
  - Setting a *keywords* meta tag is possible by setting a custom list of keywords in the *Metadata* meta box in the post editing panel.
+- Attachment Pages
+ - A 'description' metatag is automatically generated from the caption or, if a caption has not been set, from the description of the attachment.
 - Category-based Archives
  - The description of the category, if set, is used for the description meta tag. The name of the category is always used at the keywords metatag.
 - Tag-based Archives
