@@ -599,7 +599,7 @@ function amt_save_postdata( $post_id, $post ) {
     /* Verify the nonce before proceeding. */
     // Verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
-    if ( !wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( __FILE__ ) ) )
+    if ( !isset($_POST['amt_noncename']) || !wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( __FILE__ ) ) )
         return;
 
     /* Get the post type object. */
