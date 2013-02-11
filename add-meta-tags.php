@@ -498,7 +498,7 @@ add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
  */
 function amt_add_metadata_box() {
     $supported_builtin_types = array('post', 'page');
-    $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false) );
+    $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
     $supported_types = array_merge($supported_builtin_types, $public_custom_types);
 
     // Add an Add-Meta-Tags meta box to all supported types
