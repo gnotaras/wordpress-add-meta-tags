@@ -58,6 +58,10 @@ It is possible to customize the <em>title</em> tag for posts, pages and any publ
 It is possible to set a <code>news_keywords</code> meta tag for posts, pages and any public custom post type. 
 For more info about the <emnews_keywords</em> meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.
 
+**Per post full meta tags**
+
+It is possible to assign custom full meta tags to single posts (posts, pages, custom post types).
+
 **Opengraph metadata**
 
 - Front page

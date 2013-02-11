@@ -638,6 +638,21 @@ function amt_inner_metadata_box( $post ) {
             Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.
         </p>
     ');
+
+    // per post full meta tags
+    
+    // Retrieve the field data from the database.
+    $custom_full_metatags_value = amt_get_post_meta_full_metatags( $post->ID );
+
+    print('
+        <p>
+            <label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').':</label>
+            <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'.$custom_full_metatags_value.'</textarea>
+            <br>
+            Enter full meta tags.
+        </p>
+    ');
+
 }
 
 
@@ -675,6 +690,7 @@ function amt_save_postdata( $post_id, $post ) {
     $keywords_value = $_POST['amt_custom_keywords'];
     $title_value = $_POST['amt_custom_title'];
     $newskeywords_value = $_POST['amt_custom_newskeywords'];
+    $full_metatags_value = $_POST['amt_custom_full_metatags'];
 
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.
@@ -684,6 +700,7 @@ function amt_save_postdata( $post_id, $post ) {
     $amt_keywords_field_name = '_amt_keywords';
     $amt_title_field_name = '_amt_title';
     $amt_newskeywords_field_name = '_amt_news_keywords';
+    $amt_full_metatags_field_name = '_amt_full_metatags';
 
     // Description
     if ( empty($description_value) ) {
@@ -719,6 +736,13 @@ function amt_save_postdata( $post_id, $post ) {
         delete_post_meta($post_id, $amt_newskeywords_field_name);
     } else {
         update_post_meta($post_id, $amt_newskeywords_field_name, $newskeywords_value);
+    }
+
+    // per post full meta tags
+    if ( empty($full_metatags_value) ) {
+        delete_post_meta($post_id, $amt_full_metatags_field_name);
+    } else {
+        update_post_meta($post_id, $amt_full_metatags_field_name, $full_metatags_value);
     }
     
 }
@@ -1105,6 +1129,36 @@ function amt_get_post_meta_newskeywords($post_id) {
 }
 
 
+/**
+ * Helper function that returns the value of the custom field that contains
+ * the per-post full metatags.
+ * The default field name is ``_amt_full_metatags``.
+ * No need to migrate from older field name.
+ */
+function amt_get_post_meta_full_metatags($post_id) {
+    $amt_full_metatags_field_name = '_amt_full_metatags';
+
+    // Get an array of all custom fields names of the post
+    $custom_fields = get_post_custom_keys($post_id);
+
+    // Just return an empty string if no custom fields have been associated with this content.
+    if ( empty($custom_fields) ) {
+        return '';
+    }
+
+    // First try our default 'full_metatags' field
+    if ( in_array($amt_full_metatags_field_name, $custom_fields) ) {
+        return get_post_meta($post_id, $amt_full_metatags_field_name, true);
+    }
+    
+    // Try other 'full_metatags' field names here.
+    // Support reading from other plugins
+
+    //Return empty string if all fails
+    return '';
+}
+
+
 function amt_get_content_description($auto=true) {
     /*
      * This is a helper function that returns the post's or page's description.
@@ -1285,6 +1339,12 @@ function amt_add_meta_tags() {
         $newskeywords = amt_get_post_meta_newskeywords( $posts[0]->ID );
         if (!empty($newskeywords)) {
             $metadata_arr[] = '<meta name="news_keywords" content="' . $newskeywords . '" />';
+        }
+
+        // per post full meta tags
+        $full_metatags_for_content = amt_get_post_meta_full_metatags( $posts[0]->ID );
+        if (!empty($full_metatags_for_content)) {
+            $metadata_arr[] = $full_metatags_for_content;
         }
 
 
