@@ -504,6 +504,29 @@ function amt_add_metadata_box() {
 }
 
 
+/**
+ * Load CSS and JS for metadata box.
+ * The editing pages are post.php and post-new.php
+ */
+add_action('admin_print_styles-post.php', 'amt_metadata_box_css_js');
+add_action('admin_print_styles-post-new.php', 'amt_metadata_box_css_js');
+
+function amt_metadata_box_css_js () {
+    // $supported_types = amt_get_supported_post_types();
+    // See: #900 for details
+    // wp_enqueue_script('jquery-ui-core');
+    // wp_enqueue_script('jquery-ui-tabs');
+}
+
+
+/* For future reference - Add data to the HEAD area of post editing panel
+add_action('admin_head-post.php', 'amt_js_head');
+add_action('admin_head-post-new.php', 'amt_js_head');
+function amt_js_head() {
+}
+*/
+
+
 /* Prints the box content */
 function amt_inner_metadata_box( $post ) {
 
