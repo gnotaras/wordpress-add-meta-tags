@@ -905,6 +905,11 @@ function amt_get_post_meta_description($post_id) {
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys($post_id);
 
+    // Just return an empty string if no custom fields have been associated with this content.
+    if ( empty($custom_fields) ) {
+        return '';
+    }
+
     // First try our default description field
     if ( in_array($amt_description_field_name, $custom_fields) ) {
         return get_post_meta($post_id, $amt_description_field_name, true);
@@ -933,6 +938,11 @@ function amt_get_post_meta_keywords($post_id) {
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys($post_id);
+
+    // Just return an empty string if no custom fields have been associated with this content.
+    if ( empty($custom_fields) ) {
+        return '';
+    }
 
     // First try our default keywords field
     if ( in_array($amt_keywords_field_name, $custom_fields) ) {
