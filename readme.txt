@@ -49,6 +49,10 @@ The <em>description</em> and <em>keywords</em> meta tags are added:
 - Head link to copyright page.
 - Default image to use in metadata, if a featured image has not been set.
 
+**Custom title tag**
+
+It is possible to customize the <em>title</em> tag for posts, pages and any public custom post type.
+
 **Opengraph metadata**
 
 - Front page

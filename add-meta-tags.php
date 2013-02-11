@@ -536,13 +536,13 @@ function amt_inner_metadata_box( $post ) {
     // Get the post type. Will be used to customize the displayed notes.
     $post_type = get_post_type( $post->ID );
 
-    // Retrieve the field data from the database.
-    $custom_description_value = amt_get_post_meta_description( $post->ID );
-    $custom_keywords_value = amt_get_post_meta_keywords( $post->ID );
-
     // Display the meta box HTML code.
 
     // Custom description
+    
+    // Retrieve the field data from the database.
+    $custom_description_value = amt_get_post_meta_description( $post->ID );
+
     print('
         <p>
             <label for="amt_custom_description">'.__('Description', 'add-meta-tags').':</label>
@@ -573,6 +573,10 @@ function amt_inner_metadata_box( $post ) {
     }
 
     // Custom keywords
+
+    // Retrieve the field data from the database.
+    $custom_keywords_value = amt_get_post_meta_keywords( $post->ID );
+
     // Alt input:  <input type="text" class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" value="'.$custom_keywords_value.'" />
     print('
         <p>
@@ -604,6 +608,22 @@ function amt_inner_metadata_box( $post ) {
             </p>
         ');
     }
+
+    // Advanced options
+
+    // Custom title tag
+
+    // Retrieve the field data from the database.
+    $custom_title_value = amt_get_post_meta_title( $post->ID );
+
+    print('
+        <p>
+            <label for="amt_custom_title">'.__('Title', 'add-meta-tags').':</label>
+            <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="'.$custom_title_value.'" />
+            <br>
+            Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title.
+        </p>
+    ');
 
 }
 
@@ -640,6 +660,7 @@ function amt_save_postdata( $post_id, $post ) {
     // $keywords_value = sanitize_text_field( $_POST['amt_custom_keywords'] );
     $description_value = $_POST['amt_custom_description'];
     $keywords_value = $_POST['amt_custom_keywords'];
+    $title_value = $_POST['amt_custom_title'];
 
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.
@@ -647,6 +668,7 @@ function amt_save_postdata( $post_id, $post ) {
     // Add-Meta-Tags custom field names
     $amt_description_field_name = '_amt_description';
     $amt_keywords_field_name = '_amt_keywords';
+    $amt_title_field_name = '_amt_title';
 
     // Description
     if ( empty($description_value) ) {
@@ -658,6 +680,7 @@ function amt_save_postdata( $post_id, $post ) {
         // Also clean up again old description field - no need to exist any more since the new field is used.
         delete_post_meta($post_id, 'description');
     }
+
     // Keywords
     if ( empty($keywords_value) ) {
         delete_post_meta($post_id, $amt_keywords_field_name);
@@ -667,6 +690,13 @@ function amt_save_postdata( $post_id, $post ) {
         update_post_meta($post_id, $amt_keywords_field_name, $keywords_value);
         // Also clean up again old keywords field - no need to exist any more since the new field is used.
         delete_post_meta($post_id, 'keywords');
+    }
+
+    // Title
+    if ( empty($title_value) ) {
+        delete_post_meta($post_id, $amt_title_field_name);
+    } else {
+        update_post_meta($post_id, $amt_title_field_name, $title_value);
     }
 
 }
@@ -986,6 +1016,36 @@ function amt_get_post_meta_keywords($post_id) {
         return get_post_meta($post_id, 'keywords', true);
     }
     // Try other keywords field names here.
+    // Support reading from other plugins
+
+    //Return empty string if all fails
+    return '';
+}
+
+
+/**
+ * Helper function that returns the value of the custom field that contains
+ * the custom content title.
+ * The default field name for the title is ``_amt_title``.
+ * No need to migrate from older field name.
+ */
+function amt_get_post_meta_title($post_id) {
+    $amt_title_field_name = '_amt_title';
+
+    // Get an array of all custom fields names of the post
+    $custom_fields = get_post_custom_keys($post_id);
+
+    // Just return an empty string if no custom fields have been associated with this content.
+    if ( empty($custom_fields) ) {
+        return '';
+    }
+
+    // First try our default title field
+    if ( in_array($amt_title_field_name, $custom_fields) ) {
+        return get_post_meta($post_id, $amt_title_field_name, true);
+    }
+    
+    // Try other title field names here.
     // Support reading from other plugins
 
     //Return empty string if all fails
@@ -1462,8 +1522,28 @@ function amt_add_dublin_core_metadata() {
 
 
 /*
-Actions
+Final
 */
+
+/**
+ * Uses the custom title, if one has been set.
+ */
+function amt_custom_title_tag($title) {
+    global $posts;
+
+    if ( is_single() || is_page() ) {   // is_single() is true for attachments and custom post types
+        $custom_title = amt_get_post_meta_title( $posts[0]->ID );
+        if ( !empty($custom_title) ) {
+            $custom_title = str_replace('%title%', $title, $custom_title);
+            return $custom_title;
+        }
+    }
+
+    return $title;
+}
+add_filter('wp_title', 'amt_custom_title_tag');
+
+
 function amt_add_metadata() {
 
     // Get the options the DB
