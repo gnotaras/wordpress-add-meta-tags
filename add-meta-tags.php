@@ -483,23 +483,11 @@ function amt_options_page() {
 add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
 
 /**
- * Adds a box to the main column of the editing panel of the following built-in
- * post types:
- *
- *   - post
- *   - page
- *
- * And also to ALL public custom post types.
- *
- * NOTE ABOUT attachments:
- * The 'attachment' post type does not support saving custom fields like other post types.
- * See: http://www.codetrax.org/issues/875
- *
+ * Adds a box to the main column of the editing panel of the supported post types.
+ * See the amt_get_supported_post_types() docstring for more info on the supported types.
  */
 function amt_add_metadata_box() {
-    $supported_builtin_types = array('post', 'page');
-    $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
-    $supported_types = array_merge($supported_builtin_types, $public_custom_types);
+    $supported_types = amt_get_supported_post_types();
 
     // Add an Add-Meta-Tags meta box to all supported types
     foreach ($supported_types as $supported_type) {
@@ -514,6 +502,7 @@ function amt_add_metadata_box() {
     }
 
 }
+
 
 /* Prints the box content */
 function amt_inner_metadata_box( $post ) {
@@ -889,6 +878,27 @@ function amt_get_site_wide_metatags($site_wide_meta) {
     $site_wide_meta = stripslashes($site_wide_meta);
     $site_wide_meta = trim($site_wide_meta);
     return $site_wide_meta;
+}
+
+
+/**
+ * Helper function that returns an array containing the post types that are
+ * supported by Add-Meta-Tags. These include:
+ *
+ *   - post
+ *   - page
+ *
+ * And also to ALL public custom post types which have a UI.
+ *
+ * NOTE ABOUT attachments:
+ * The 'attachment' post type does not support saving custom fields like other post types.
+ * See: http://www.codetrax.org/issues/875
+ */
+function amt_get_supported_post_types() {
+    $supported_builtin_types = array('post', 'page');
+    $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
+    $supported_types = array_merge($supported_builtin_types, $public_custom_types);
+    return $supported_types;
 }
 
 
