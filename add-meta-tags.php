@@ -236,7 +236,58 @@ function amt_options_page() {
 
         <table class="form-table">
         <tbody>
+    ');
 
+    if ( amt_has_page_on_front() ) {
+
+        /* Options:
+
+            Example No pages
+            +-----------+----------------+--------------+----------+
+            | option_id | option_name    | option_value | autoload |
+            +-----------+----------------+--------------+----------+
+            |        58 | show_on_front  | posts        | yes      |
+            |        93 | page_for_posts | 0            | yes      |
+            |        94 | page_on_front  | 0            | yes      |
+            +-----------+----------------+--------------+----------+
+
+            Example pages as front page and posts page
+            +-----------+----------------+--------------+----------+
+            | option_id | option_name    | option_value | autoload |
+            +-----------+----------------+--------------+----------+
+            |        58 | show_on_front  | page         | yes      |
+            |        93 | page_for_posts | 28           | yes      |
+            |        94 | page_on_front  | 25           | yes      |
+            +-----------+----------------+--------------+----------+
+
+        */
+        print('
+            <tr valign="top">
+            <th scope="row">'.__('Front Page Metadata', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Front Page Metadata', 'add-meta-tags').'</span></legend>
+                '.__('It appears that you use static pages on the <em>front</em> page and the <em>posts</em> index of this web site. Please visit the editing panel of these pages and set the <code>description</code> and <code>keywords</code> meta tags in the relevant Metadata box. (since v2.2.0)', 'add-meta-tags').'
+                ');
+                print('<ul>');
+                $front_page_id = get_option('page_on_front');
+                if ( intval($front_page_id) > 0 ) {
+                    print('<li>&raquo; '.__('Edit the', 'add-meta-tags').' <a href="'.get_edit_post_link(intval($front_page_id)).'">'.__('front page', 'add-meta-tags').'</a></li>');
+                }
+                $posts_page_id = get_option('page_for_posts');
+                if ( intval($posts_page_id) > 0 ) {
+                    print('<li>&raquo; '.__('Edit the', 'add-meta-tags').' <a href="'.get_edit_post_link(intval($posts_page_id)).'">'.__('posts page', 'add-meta-tags').'</a></li>');
+                }
+                print('</ul>');
+        print('
+            </fieldset>
+            </td>
+            </tr>
+        ');
+
+    } else {
+
+        print('
             <tr valign="top">
             <th scope="row">'.__('Front Page Description', 'add-meta-tags').'</th>
             <td>
@@ -266,7 +317,10 @@ function amt_options_page() {
             </fieldset>
             </td>
             </tr>
+        ');
+    }
 
+    print('
             <tr valign="top">
             <th scope="row">'.__('Global Keywords', 'add-meta-tags').'</th>
             <td>
@@ -1159,6 +1213,18 @@ function amt_get_post_meta_full_metatags($post_id) {
 }
 
 
+/** Helper function that returns true if a page is used as the homepage
+ * instead of the posts index page.
+ */
+function amt_has_page_on_front() {
+    $front_type = get_option('show_on_front', 'posts');
+    if ( $front_type == 'page' ) {
+        return true;
+    }
+    return false;
+}
+
+
 function amt_get_content_description($auto=true) {
     /*
      * This is a helper function that returns the post's or page's description.
@@ -1283,7 +1349,7 @@ function amt_add_meta_tags() {
      * Basic Meta tags
      */
 
-    if ( is_front_page() ) {
+    if ( !amt_has_page_on_front() && is_front_page() ) {    // Enters only if posts are used as the front page.
         /*
          * Add META tags to Home Page
          * Description and Keywords from the Add-Meta-Tags settings override default behaviour
@@ -1467,7 +1533,7 @@ function amt_add_opengraph_metadata() {
 
     $metadata_arr = array();
 
-    if ( is_front_page() ) {
+    if ( !amt_has_page_on_front() && is_front_page() ) {    // Enters only if posts are used as the front page.
 
         $metadata_arr[] = '<meta property="og:title" content="' . amt_process_paged(get_bloginfo('name')) . '" />';
         $metadata_arr[] = '<meta property="og:type" content="website" />';
