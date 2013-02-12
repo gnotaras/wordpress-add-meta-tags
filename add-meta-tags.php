@@ -68,7 +68,7 @@ function amt_show_info_msg($msg) {
  */
 function amt_get_default_options() {
     return array(
-        "settings_version"  => 1,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
+        "settings_version"  => 2,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -78,7 +78,11 @@ function amt_get_default_options() {
         "auto_opengraph"    => "0",
         "auto_dublincore"   => "0",
         "noodp_description" => "0",
-        "noindex_archives"  => "0",
+        "noindex_search_results"     => "1",
+        "noindex_date_archives"      => "0",
+        "noindex_category_archives"  => "0",
+        "noindex_tag_archives"       => "0",
+        "noindex_author_archives"    => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
         "i_have_donated"    => "0",
@@ -133,7 +137,9 @@ function amt_plugin_upgrade() {
     // 2) Migrate any current options to new ones.
     // Migration rules should go here.
 
-    // No migrations required.
+    // Version 2.2.0 (settings_version 1->2)
+    // Removed ``noindex_archives``
+    // No migrations required. Clean-up takes place in step (3) below.
 
     // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {
@@ -160,27 +166,35 @@ function amt_options_page() {
     $default_options = amt_get_default_options();
 
     if (isset($_POST['info_update'])) {
-        /*
-        For a little bit more security and easier maintenance, a separate options array is used.
-        */
+
+        // Update settings
+
+        $add_meta_tags_opts = array();
+
+        foreach ($default_options as $def_key => $def_value) {
+
+            // **Always** use the ``settings_version`` from the defaults
+            if ($def_key == 'settings_version') {
+                $add_meta_tags_opts['settings_version'] = $def_value;
+            }
+
+            // Add options from the POST request (saved by the user)
+            elseif ( array_key_exists($def_key, $_POST) ) {
+                $add_meta_tags_opts[$def_key] = $_POST[$def_key];
+            }
+            
+            // If missing (eg checkboxes), use the default value
+            else {
+                $add_meta_tags_opts[$def_key] = $def_value;
+            }
+        }
+
+        // Finally update the Add-Meta-Tags options.
+        update_option("add_meta_tags_opts", $add_meta_tags_opts);
 
         //var_dump($_POST);
-        update_option("add_meta_tags_opts", array(
-            "settings_version"  => $default_options["settings_version"], // ``settings_version`` is always set to the default. All migrations have already taken place in ``amt_plugin_upgrade()``
-            "site_description"  => $_POST["site_description"],
-            "site_keywords"     => $_POST["site_keywords"],
-            "global_keywords"   => $_POST["global_keywords"],
-            "site_wide_meta"    => $_POST["site_wide_meta"],
-            "auto_description"  => $_POST["auto_description"],
-            "auto_keywords"     => $_POST["auto_keywords"],
-            "auto_opengraph"    => $_POST["auto_opengraph"],
-            "auto_dublincore"   => $_POST["auto_dublincore"],
-            "noodp_description" => $_POST["noodp_description"],
-            "noindex_archives"  => $_POST["noindex_archives"],
-            "copyright_url"     => $_POST["copyright_url"],
-            "default_image_url" => $_POST["default_image_url"],
-            "i_have_donated"    => $_POST["i_have_donated"],
-            ));
+        //var_dump($add_meta_tags_opts);
+
         amt_show_info_msg(__('Add-Meta-Tags options saved', 'add-meta-tags'));
 
     } elseif (isset($_POST["info_reset"])) {
@@ -422,12 +436,41 @@ function amt_options_page() {
                 '.__('Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> or the <a href="http://dir.yahoo.com/">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
                 </label>
                 <br />
+                <br />
 
-                <input id="noindex_archives" type="checkbox" value="1" name="noindex_archives" '. (($options["noindex_archives"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="noindex_archives">
-                '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on time/category/tag/author-based archives and search results. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines.', 'add-meta-tags').'
+                '.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines:', 'add-meta-tags').'
+                <br />
+
+                <input id="noindex_search_results" type="checkbox" value="1" name="noindex_search_results" '. (($options["noindex_search_results"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="noindex_search_results">
+                '.__('Search results (<em>Highly recommended</em>)', 'add-meta-tags').'
                 </label>
                 <br />
+
+                <input id="noindex_date_archives" type="checkbox" value="1" name="noindex_date_archives" '. (($options["noindex_date_archives"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="noindex_date_archives">
+                '.__('Date based archives (<em>Recommended</em>)', 'add-meta-tags').'
+                </label>
+                <br />
+
+                <input id="noindex_category_archives" type="checkbox" value="1" name="noindex_category_archives" '. (($options["noindex_category_archives"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="noindex_category_archives">
+                '.__('Category based archives', 'add-meta-tags').'
+                </label>
+                <br />
+
+                <input id="noindex_tag_archives" type="checkbox" value="1" name="noindex_tag_archives" '. (($options["noindex_tag_archives"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="noindex_tag_archives">
+                '.__('Tag based archives', 'add-meta-tags').'
+                </label>
+                <br />
+
+                <input id="noindex_author_archives" type="checkbox" value="1" name="noindex_author_archives" '. (($options["noindex_author_archives"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="noindex_author_archives">
+                '.__('Author based archives', 'add-meta-tags').'
+                </label>
+                <br />
+
             </fieldset>
             </td>
             </tr>
@@ -703,7 +746,7 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').':</label>
             <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'.$custom_full_metatags_value.'</textarea>
             <br>
-            Enter full meta tags.
+            Enter full meta tags specific to this content.
         </p>
     ');
 
@@ -1746,18 +1789,31 @@ function amt_add_metadata() {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
-    $do_noindex_archives = (($options["noindex_archives"] == "1") ? true : false );
+    $do_add_metadata = true;
 
     $metadata_arr = array();
     $metadata_arr[] = "";
     $metadata_arr[] = "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin";
     $metadata_arr[] = "Get the plugin at: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ -->";
+
     // Check for NOINDEX,FOLLOW on archives.
     // There is no need to further process metadata as we explicitly ask search
     // engines not to index the content.
-    if ( $do_noindex_archives && (is_archive() || is_search()) ) {
-        $metadata_arr[] = '<meta name="robots" content="NOINDEX,FOLLOW" />';
-    } else {
+    if ( is_archive() || is_search() ) {
+        if (
+            ( is_search() && ($options["noindex_search_results"] == "1") )  ||          // Search results
+            ( is_date() && ($options["noindex_date_archives"] == "1") )  ||             // Date and time archives
+            ( is_category() && ($options["noindex_category_archives"] == "1") )  ||     // Category archives
+            ( is_tag() && ($options["noindex_tag_archives"] == "1") )  ||               // Tag archives
+            ( is_author() && ($options["noindex_author_archives"] == "1") )             // Author archives
+        ) {
+            $metadata_arr[] = '<meta name="robots" content="NOINDEX,FOLLOW" />';
+            $do_add_metadata = false;   // No need to process metadata
+        }
+    }
+
+    // Add Metadata
+    if ($do_add_metadata) {
         // Basic Meta tags
         $metadata_arr = array_merge($metadata_arr, amt_add_meta_tags());
         //var_dump(amt_add_meta_tags());
