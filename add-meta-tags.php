@@ -1621,6 +1621,20 @@ function amt_add_opengraph_metadata() {
 }
 
 
+
+/**
+ * Dublin Core helper functions
+ */
+function amt_get_dublin_core_author_notation($post) {
+    $last_name = get_the_author_meta('last_name', $post->post_author);
+    $first_name = get_the_author_meta('first_name', $post->post_author);
+    if ( empty($last_name) && empty($first_name) ) {
+        return get_the_author_meta('display_name', $post->post_author);
+    }
+    return $last_name . ', ' . $first_name;
+}
+
+
 /**
  * Dublin Core metadata on posts and pages
  * http://dublincore.org/documents/dcmi-terms/
@@ -1646,7 +1660,7 @@ function amt_add_dublin_core_metadata() {
     $metadata_arr = array();
     $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink() . '" />';
     $metadata_arr[] = '<meta name="dc.title" content="' . single_post_title('', FALSE) . '" />';
-    $metadata_arr[] = '<meta name="dc.creator" content="' . get_the_author_meta('last_name', $post->post_author) . ', ' . get_the_author_meta('first_name', $post->post_author) . '" />';
+    $metadata_arr[] = '<meta name="dc.creator" content="' . amt_get_dublin_core_author_notation($post) . '" />';
     $metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . get_the_time('c') . '" />';
     // We use the same description as the ``description`` meta tag.
     $content_desc = amt_get_content_description();
