@@ -81,6 +81,10 @@ It is possible to assign custom full meta tags to single posts (posts, pages, cu
 - Add the `NOODP,NOYDIR` option to the robots meta tag.
 - Add the `NOINDEX,FOLLOW` options to the robots meta tag on category, tag, author or time based archives and search results.
 
+**Metadata Review Mode**
+
+When enabled, WordPress users with administrator privileges see a box that contains the full metadata (exactly as it is added in the HTML head) above the content for easier examination.
+
 **Languages**
 
 Add-Meta-Tags is available in the following languages:

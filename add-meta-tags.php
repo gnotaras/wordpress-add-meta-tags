@@ -702,7 +702,7 @@ function amt_custom_title_tag($title) {
 add_filter('wp_title', 'amt_custom_title_tag');
 
 
-function amt_add_metadata() {
+function amt_get_metadata() {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
@@ -743,9 +743,49 @@ function amt_add_metadata() {
     $metadata_arr[] = "";
     $metadata_arr[] = "";
 
-    echo implode("\n", $metadata_arr);
+    return $metadata_arr;
+}
+
+
+function amt_add_metadata() {
+    echo implode("\n", amt_get_metadata());
 }
 
 add_action('wp_head', 'amt_add_metadata', 0);
+
+
+
+// Review mode
+
+function amt_get_metadata_review() {
+    // Returns metadata review code
+    return '<pre>' . htmlentities( implode("\n", amt_get_metadata()) ) . '</pre>';
+}
+
+function amt_add_metadata_review($post_body) {
+    // Automatic addition in posts, pages, attachments and custom post types
+    if ( !is_single() && !is_page()) {
+        return $post_body;
+    }
+
+    // Check if Review Mode is enabled
+    $options = get_option("add_meta_tags_opts");
+    if ( $options["review_mode"] == "0" ) {
+        return $post_body;
+    }
+
+    // Adds metadata review code only for admins
+    $user_info = get_userdata(get_current_user_id());
+    
+    // See: http://codex.wordpress.org/User_Levels
+    // Admin -> User level 10
+    if ( $user_info->user_level == '10' ) {
+        $post_body = amt_get_metadata_review() . '<br /><br />' . $post_body;
+    }
+
+    return $post_body;
+}
+
+add_filter('the_content', 'amt_add_metadata_review');
 
 ?>

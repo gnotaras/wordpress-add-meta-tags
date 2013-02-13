@@ -9,7 +9,7 @@
  */
 function amt_get_default_options() {
     return array(
-        "settings_version"  => 2,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
+        "settings_version"  => 3,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -26,6 +26,7 @@ function amt_get_default_options() {
         "noindex_author_archives"    => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
+        "review_mode"       => "0",
         "i_have_donated"    => "0",
         );
 }
@@ -81,6 +82,10 @@ function amt_plugin_upgrade() {
     // Version 2.2.0 (settings_version 1->2)
     // Removed ``noindex_archives``
     // No migrations required. Clean-up takes place in step (3) below.
+
+    // Version 2.2.1 (settings_version 2->3)
+    // Added ``review_mode``
+    // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {

@@ -17,3 +17,13 @@ function amt_content_keywords_mesh() {
     echo amt_get_content_keywords_mesh();
 }
 
+function amt_metadata() {
+    // Prints full metadata.
+    echo implode("\n", amt_get_metadata());
+}
+
+function amt_metadata_review() {
+    // Prints full metadata in review mode. No user level checks here.
+    echo amt_get_metadata_inspect();
+}
+
