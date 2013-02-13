@@ -466,33 +466,80 @@ function amt_add_metadata_box() {
 }
 
 
-
-
 /**
  * Load CSS and JS for metadata box.
  * The editing pages are post.php and post-new.php
  */
-add_action('admin_print_styles-post.php', 'amt_metadata_box_css_js');
-add_action('admin_print_styles-post-new.php', 'amt_metadata_box_css_js');
+// add_action('admin_print_styles-post.php', 'amt_metadata_box_css_js');
+// add_action('admin_print_styles-post-new.php', 'amt_metadata_box_css_js');
 
 function amt_metadata_box_css_js () {
     // $supported_types = amt_get_supported_post_types();
     // See: #900 for details
-    // wp_enqueue_script('jquery-ui-core');
-    // wp_enqueue_script('jquery-ui-tabs');
+
+    // Using included Jquery UI
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui-core');
+    wp_enqueue_script('jquery-ui-widget');
+    wp_enqueue_script('jquery-ui-tabs');
+
+    //wp_register_style( 'amt-jquery-ui-core', plugins_url('css/jquery.ui.core.css', __FILE__) );
+    //wp_enqueue_style( 'amt-jquery-ui-core' );
+    //wp_register_style( 'amt-jquery-ui-tabs', plugins_url('css/jquery.ui.tabs.css', __FILE__) );
+    //wp_enqueue_style( 'amt-jquery-ui-tabs' );
+    wp_register_style( 'amt-metabox-tabs', plugins_url('css/amt-metabox-tabs.css', __FILE__) );
+    wp_enqueue_style( 'amt-metabox-tabs' );
+
 }
 
 
-/* For future reference - Add data to the HEAD area of post editing panel
-add_action('admin_head-post.php', 'amt_js_head');
-add_action('admin_head-post-new.php', 'amt_js_head');
-function amt_js_head() {
+/* For future reference - Add data to the HEAD area of post editing panel */
+
+// add_action('admin_head-post.php', 'amt_metabox_script_caller');
+// add_action('admin_head-post-new.php', 'amt_metabox_script_caller');
+// OR
+// add_action('admin_footer-post.php', 'amt_metabox_script_caller');
+// add_action('admin_footer-post-new.php', 'amt_metabox_script_caller');
+function amt_metabox_script_caller() {
+    print('
+    <script>
+        jQuery(document).ready(function($) {
+        $("#amt-metabox-tabs .hidden").removeClass(\'hidden\');
+        $("#amt-metabox-tabs").tabs();
+        });
+    </script>
+    ');
 }
-*/
+
 
 
 /* Prints the box content */
 function amt_inner_metadata_box( $post ) {
+
+    /* For future implementation. Basic code for tabs. */
+    /*
+    print('<br /><br />
+        <div id="amt-metabox-tabs">
+            <ul id="amt-metabox-tabs-list" class="category-tabs">
+                <li><a href="#metadata-basic">Basic</a></li>
+                <li><a href="#metadata-advanced">Advanced</a></li>
+                <li><a href="#metadata-extra">Extra</a></li>
+            </ul>
+
+            <br class="clear" />
+            <div id="metadata-basic">
+                <p>#1 - basic</p>
+            </div>
+            <div class="hidden" id="metadata-advanced">
+                <p>#2 - advanced</p>
+            </div>
+            <div class="hidden" id="metadata-extra">
+                <p>#3 - extra</p>
+            </div>
+        </div>
+        <br /><br />
+    ');
+    */
 
     // Use a nonce field for verification
     wp_nonce_field( plugin_basename( __FILE__ ), 'amt_noncename' );
