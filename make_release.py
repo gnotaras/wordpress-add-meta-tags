@@ -22,6 +22,8 @@ REL_FILES = [
 
 REL_DIRS = [
     'languages',
+    'css',
+    'js',
 ]
 
 PLUGIN_METADATA_FILE = 'add-meta-tags.php'
