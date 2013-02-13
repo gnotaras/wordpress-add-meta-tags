@@ -1,0 +1,18 @@
+
+#amt-metabox-tabs ul.category-tabs li {
+    background-color: white;
+    padding: 5px 0px;
+}
+
+#amt-metabox-tabs ul.category-tabs li a {
+    padding: 5px 20px;
+}
+
+#amt-metabox-tabs ul li.ui-state-active {
+    background-color: #777;
+}
+
+#amt-metabox-tabs ul li.ui-state-active a {
+    color: white;
+}
+
