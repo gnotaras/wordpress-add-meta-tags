@@ -241,8 +241,41 @@ function amt_has_page_on_front() {
  * This function was written because is_page() is not true for the page that is
  * used as the 'posts' page.
  */
-function amt_is_posts_page() {
+function amt_is_the_posts_page() {
     if ( amt_has_page_on_front() && is_home() ) {
+        return true;
+    }
+    return false;
+}
+
+
+/**
+ * Helper function that returns true, if the currently displayed page is a
+ * page that has been set as the 'front' page in the 'Reading Settings'.
+ * See: http://codex.wordpress.org/Conditional_Tags#The_Main_Page
+ *
+ * This function was written because is_front_page() returns true if a static
+ * page is used as the front page and also if the latest posts are displayed
+ * on the front page.
+ */
+function amt_is_the_front_page() {
+    if ( amt_has_page_on_front() && is_front() ) {
+        return true;
+    }
+    return false;
+}
+
+
+/**
+ * Helper function that returns true, if the currently displayed page is the
+ * main index page of the site that displays the latest posts.
+ *
+ * This function was written because is_front_page() returns true if a static
+ * page is used as the front page and also if the latest posts are displayed
+ * on the front page.
+ */
+function amt_is_the_latest_posts_front() {
+    if ( !amt_has_page_on_front() && is_front() ) {
         return true;
     }
     return false;
