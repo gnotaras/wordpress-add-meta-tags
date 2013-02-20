@@ -363,13 +363,16 @@ function amt_add_meta_tags() {
      * Basic Meta tags
      */
 
-    if ( !amt_has_page_on_front() && is_front_page() ) {    // Enters only if posts are used as the front page.
+    if ( !amt_has_page_on_front() && is_front_page() ) {
         /*
-         * Add META tags to Home Page
-         * Description and Keywords from the Add-Meta-Tags settings override default behaviour
+         * Add META tags to Front Page, only if the 'latest posts' are set to
+         * be displayed on the front page in the 'Reading Settings'.
          *
-         * Description and Keywords are always set on the front page regardless of the
-         * auto_description and auto_keywords setings.
+         * Description and Keywords from the Add-Meta-Tags settings override
+         * default behaviour.
+         *
+         * Description and Keywords are always set on the front page regardless
+         * of the auto_description and auto_keywords setings.
          */
 
         // Description
@@ -396,7 +399,6 @@ function amt_add_meta_tags() {
             // If $site_keywords is not empty, then use it in the keywords meta-tag of the front page
             $metadata_arr[] = '<meta name="keywords" content="' . $site_keywords . '" />';
         }
-
 
     } elseif ( is_single() || is_page() ) {
         /*
