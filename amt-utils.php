@@ -233,6 +233,49 @@ function amt_has_page_on_front() {
 }
 
 
+/**
+ * Helper function that returns true, if the currently displayed page is a
+ * page that has been set as the 'posts' page in the 'Reading Settings'.
+ * See: http://codex.wordpress.org/Conditional_Tags#The_Main_Page
+ *
+ * This function was written because is_page() is not true for the page that is
+ * used as the 'posts' page.
+ */
+function amt_is_posts_page() {
+    if ( amt_has_page_on_front() && is_home() ) {
+        return true;
+    }
+    return false;
+}
+
+
+/**
+ * Helper function that returns the ID of the page that is used as the 'posts'
+ * page. If a static page has not been set as the 'posts' page in the
+ * 'Reading Settings' or if the latest posts are displayed in the front page,
+ * then 0 is returned.
+ */
+function amt_get_posts_page_id() {
+    if ( amt_has_page_on_front() ) {
+        return intval(get_option('page_for_posts', 0));
+    }
+    return 0;
+}
+
+
+/**
+ * Helper function that returns the ID of the page that is used as the 'front'
+ * page. If a static page has not been set as the 'front' page in the
+ * 'Reading Settings' or if the latest posts are displayed in the front page,
+ * then 0 is returned.
+ */
+function amt_get_front_page_id() {
+    if ( amt_has_page_on_front() ) {
+        return intval(get_option('page_on_front', 0));
+    }
+    return 0;
+}
+
 
 /**
  * Opengraph helper functions
