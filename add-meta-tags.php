@@ -151,8 +151,10 @@ function amt_get_keywords_from_post_cats() {
 }
 
 
+/**
+ * Helper function. Returns the first category the post belongs to.
+ */
 function amt_get_first_category() {
-    // Helper function. Returns the first category the post belongs to.
     $cats = amt_strtolower(amt_get_keywords_from_post_cats());
     $bits = explode(',', $cats);
     if (!empty($bits)) {
