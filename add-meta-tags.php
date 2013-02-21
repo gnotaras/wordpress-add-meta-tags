@@ -50,11 +50,12 @@ load_plugin_textdomain('add-meta-tags', false, dirname( plugin_basename( __FILE_
 // Core
 //
 
+/**
+ * Accepts any piece of metadata. Checks if current post is paged and, if yes,
+ * then it adds the (page N) suffix.
+ */
 function amt_process_paged($metadata) {
-    /*
-     * Accepts any piece of metadata. Checks if current post is paged and, if yes,
-     * then it adds the (page N) suffix.
-     */
+    
     global $paged;
 
     if (!empty($metadata)) {
@@ -67,30 +68,27 @@ function amt_process_paged($metadata) {
 }
 
 
+/**
+ * Returns the post's excerpt.
+ * This was written in order to get the excerpt *outside* the loop
+ * because the get_the_excerpt() function does not work there any more.
+ * This function makes the retrieval of the excerpt independent from the
+ * WordPress function in order not to break compatibility with older WP versions.
+ *
+ * Also, this is even better as the algorithm tries to get text of average
+ * length 250 characters, which is more SEO friendly. The algorithm is not
+ * perfect, but will do for now.
+ */
 function amt_get_the_excerpt($excerpt_max_len = 300, $desc_avg_length = 250, $desc_min_length = 150) {
-    /*
-    Returns the post's excerpt.
-    This was written in order to get the excerpt *outside* the loop
-    because the get_the_excerpt() function does not work there any more.
-    This function makes the retrieval of the excerpt independent from the
-    WordPress function in order not to break compatibility with older WP versions.
     
-    Also, this is even better as the algorithm tries to get text of average
-    length 250 characters, which is more SEO friendly. The algorithm is not
-    perfect, but will do for now.
-    */
     global $posts;
 
     if ( empty($posts[0]->post_excerpt) ) {
 
-        /*
-        Get the initial data for the excerpt
-        */
+        // Get the initial data for the excerpt
         $amt_excerpt = strip_tags(substr($posts[0]->post_content, 0, $excerpt_max_len));
 
-        /*
-        If this was not enough, try to get some more clean data for the description (nasty hack)
-        */
+        // If this was not enough, try to get some more clean data for the description (nasty hack)
         if ( strlen($amt_excerpt) < $desc_avg_length ) {
             $amt_excerpt = strip_tags(substr($posts[0]->post_content, 0, (int) ($excerpt_max_len * 1.5)));
             if ( strlen($amt_excerpt) < $desc_avg_length ) {
@@ -101,33 +99,24 @@ function amt_get_the_excerpt($excerpt_max_len = 300, $desc_avg_length = 250, $de
         $end_of_excerpt = strrpos($amt_excerpt, ".");
 
         if ($end_of_excerpt) {
-            /*
-            if there are sentences, end the description at the end of a sentence.
-            */
+            
+            // if there are sentences, end the description at the end of a sentence.
             $amt_excerpt_test = substr($amt_excerpt, 0, $end_of_excerpt + 1);
 
             if ( strlen($amt_excerpt_test) < $desc_min_length ) {
-                /*
-                don't end at the end of the sentence because the description would be too small
-                */
+                // don't end at the end of the sentence because the description would be too small
                 $amt_excerpt .= "...";
             } else {
-                /*
-                If after ending at the end of a sentence the description has an acceptable length, use this
-                */
+                // If after ending at the end of a sentence the description has an acceptable length, use this
                 $amt_excerpt = $amt_excerpt_test;
             }
         } else {
-            /*
-            otherwise (no end-of-sentence in the excerpt) add this stuff at the end of the description.
-            */
+            // otherwise (no end-of-sentence in the excerpt) add this stuff at the end of the description.
             $amt_excerpt .= "...";
         }
 
     } else {
-        /*
-        When the post excerpt has been set explicitly, then it has priority.
-        */
+        // When the post excerpt has been set explicitly, then it has priority.
         $amt_excerpt = $posts[0]->post_excerpt;
     }
 
@@ -144,10 +133,11 @@ function amt_get_the_excerpt($excerpt_max_len = 300, $desc_avg_length = 250, $de
 }
 
 
+/**
+ * Returns a comma-delimited list of a post's categories.
+ */
 function amt_get_keywords_from_post_cats() {
-    /*
-    Returns a comma-delimited list of a post's categories.
-    */
+
     global $posts;
 
     $postcats = "";
@@ -172,13 +162,14 @@ function amt_get_first_category() {
 }
 
 
+/**
+ * Retrieves the post's user-defined tags.
+ *
+ * This will only work in WordPress 2.3 or newer. On older versions it will
+ * return an empty string.
+ */
 function amt_get_post_tags() {
-    /*
-    Retrieves the post's user-defined tags.
-    
-    This will only work in WordPress 2.3 or newer. On older versions it will
-    return an empty string.
-    */
+
     global $posts;
     
     if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
@@ -199,11 +190,12 @@ function amt_get_post_tags() {
 }
 
 
+/**
+ * Returns a comma-delimited list of all the blog's categories.
+ * The built-in category "Uncategorized" is excluded.
+ */
 function amt_get_all_categories($no_uncategorized = TRUE) {
-    /*
-    Returns a comma-delimited list of all the blog's categories.
-    The built-in category "Uncategorized" is excluded.
-    */
+
     global $wpdb;
 
     if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
@@ -229,20 +221,21 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
 }
 
 
+/**
+ * This is a filter for the site-wide meta tags.
+ */
 function amt_get_site_wide_metatags($site_wide_meta) {
-    /*
-    This is a filter for the site-wide meta tags.
-    */
     $site_wide_meta = stripslashes($site_wide_meta);
     $site_wide_meta = trim($site_wide_meta);
     return $site_wide_meta;
 }
 
 
+/**
+ * This is a helper function that returns the post's or page's description.
+ */
 function amt_get_content_description($auto=true) {
-    /*
-     * This is a helper function that returns the post's or page's description.
-     */
+    
     global $posts;
 
     $content_description = '';
@@ -265,10 +258,11 @@ function amt_get_content_description($auto=true) {
 }
 
 
+/**
+ * This is a helper function that returns the post's or page's keywords.
+ */
 function amt_get_content_keywords($auto=true) {
-    /*
-    This is a helper function that returns the post's or page's keywords.
-    */
+    
     global $posts;
 
     $content_keywords = '';
@@ -335,11 +329,12 @@ function amt_get_content_keywords_mesh() {
 }
 
 
+/**
+ * This is the main function that actually writes the meta tags to the
+ * appropriate page.
+ */
 function amt_add_meta_tags() {
-    /*
-     * This is the main function that actually writes the meta tags to the
-     * appropriate page.
-     */
+
     global $posts;
     global $paged;
 
@@ -496,9 +491,7 @@ function amt_add_opengraph_metadata() {
 
     global $post;
 
-    /*
-    Get the options the DB
-    */
+    // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     $auto_opengraph = $options["auto_opengraph"];
     $do_auto_opengraph = (($options["auto_opengraph"] == "1") ? true : false );
