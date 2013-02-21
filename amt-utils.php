@@ -288,10 +288,7 @@ function amt_is_the_latest_posts_front() {
  * then 0 is returned.
  */
 function amt_get_posts_page_id() {
-    if ( amt_has_page_on_front() ) {
-        return intval(get_option('page_for_posts', 0));
-    }
-    return 0;
+    return intval(get_option('page_for_posts', 0));
 }
 
 
@@ -302,10 +299,7 @@ function amt_get_posts_page_id() {
  * then 0 is returned.
  */
 function amt_get_front_page_id() {
-    if ( amt_has_page_on_front() ) {
-        return intval(get_option('page_on_front', 0));
-    }
-    return 0;
+    return intval(get_option('page_on_front', 0));
 }
 
 
