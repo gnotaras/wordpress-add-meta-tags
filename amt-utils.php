@@ -4,12 +4,12 @@
  */
 
 
+/**
+ * Helper function that converts $text to lowercase.
+ * If the mbstring php plugin exists, then the string functions provided by that
+ * plugin are used.
+ */
 function amt_strtolower($text) {
-    /*
-    Helper function that converts $text to lowercase.
-    If the mbstring php plugin exists, then the string functions provided by that
-    plugin are used.
-    */
     if (function_exists('mb_strtolower')) {
         return mb_strtolower($text, get_bloginfo('charset'));
     } else {
@@ -18,11 +18,10 @@ function amt_strtolower($text) {
 }
 
 
+/**
+ * This is a filter for the description metatag text.
+ */
 function amt_clean_desc($desc) {
-    /*
-     * This is a filter for the description metatag text.
-     */
-
     $desc = stripslashes($desc);
     $desc = strip_tags($desc);
     $desc = htmlspecialchars($desc);
