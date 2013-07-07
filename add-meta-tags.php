@@ -696,7 +696,7 @@ function amt_custom_title_tag($title) {
 
     return $title;
 }
-add_filter('wp_title', 'amt_custom_title_tag');
+add_filter('wp_title', 'amt_custom_title_tag', 1000);
 
 
 function amt_get_metadata() {
