@@ -707,8 +707,7 @@ function amt_get_metadata() {
 
     $metadata_arr = array();
     $metadata_arr[] = "";
-    $metadata_arr[] = "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin";
-    $metadata_arr[] = "Get the plugin at: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ -->";
+    $metadata_arr[] = "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->";
 
     // Check for NOINDEX,FOLLOW on archives.
     // There is no need to further process metadata as we explicitly ask search
