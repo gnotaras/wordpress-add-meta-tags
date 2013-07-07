@@ -125,9 +125,25 @@ function amt_save_settings($post_payload) {
             $add_meta_tags_opts[$def_key] = $post_payload[$def_key];
         }
         
-        // If missing (eg checkboxes), use the default value
+        // If missing (eg checkboxes), use the default value, except for the case
+        // those checkbox settings whose default value is 1.
         else {
-            $add_meta_tags_opts[$def_key] = $def_value;
+
+            // The following settings have a default value of 1, so they can never be
+            // deactivated, unless the following check takes place.
+            if (
+                $def_key == 'auto_description' ||
+                $def_key == 'auto_keywords' ||
+                $def_key == 'noindex_search_results'
+            ) {
+                if( !isset($post_payload[$def_key]) ){
+                    $add_meta_tags_opts[$def_key] = "0";
+                }
+            } else {
+                // Else save the default value in the db.
+                $add_meta_tags_opts[$def_key] = $def_value;
+            }
+
         }
     }
 
