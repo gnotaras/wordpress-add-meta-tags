@@ -503,44 +503,31 @@ function amt_add_opengraph_metadata() {
 
     $metadata_arr = array();
 
-    if ( !amt_has_page_on_front() && is_front_page() ) {    // Enters only if posts are used as the front page.
+    if ( amt_is_default_front_page() ) {
 
         $metadata_arr[] = '<meta property="og:title" content="' . amt_process_paged(get_bloginfo('name')) . '" />';
         $metadata_arr[] = '<meta property="og:type" content="website" />';
-        $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
-        $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
+        // Site Image
+        // Use the default image, if one has been set.
+        if (!empty($options["default_image_url"])) {
+            $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
+        }
+        $metadata_arr[] = '<meta property="og:url" content="' . site_url() . '" />';
         // Site description
         if (!empty($options["site_description"])) {
             $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged($options["site_description"]) . '" />';
         } elseif (get_bloginfo('description')) {
             $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged(get_bloginfo('description')) . '" />';
         }
-        // Site Image
-        // If a static page has been used as the front page and a feature image
-        // has been set for that page, use its medium size as the 'site image'.
-        // Otherwise, use the default image.
-        if (function_exists('has_post_thumbnail') && has_post_thumbnail()) {
-            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
-            $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';  // src url
-            //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
-            $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
-            $metadata_arr[] = '<meta property="og:image:height" content="' . $thumbnail_info[2] . '" />';
-        } elseif (!empty($options["default_image_url"])) {
-            $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
-        }
+        $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
+        $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
 
-    } elseif ( is_single() || is_page()) {
+
+    } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
         $metadata_arr[] = '<meta property="og:title" content="' . single_post_title('', FALSE) . '" />';
         $metadata_arr[] = '<meta property="og:url" content="' . get_permalink() . '" />';
-        // We use the description defined by Add-Meta-Tags
-        $content_desc = amt_get_content_description();
-        if ( !empty($content_desc) ) {
-            $metadata_arr[] = '<meta property="og:description" content="' . $content_desc . '" />';
-        }
-        $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
-        $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
-        
+
         // Image
         if (function_exists('has_post_thumbnail') && has_post_thumbnail()) {
             $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
@@ -548,10 +535,11 @@ function amt_add_opengraph_metadata() {
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
             $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
             $metadata_arr[] = '<meta property="og:image:height" content="' . $thumbnail_info[2] . '" />';
-        } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image
+        } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image.
             $attachment_image_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
             $metadata_arr[] = '<meta property="og:image" content="' . $attachment_image_info[0] . '" />';
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $attachment_image_info[0]) . '" />';
+            $metadata_arr[] = '<meta property="og:image:type" content="' . get_post_mime_type($post->ID) . '" />';
             $metadata_arr[] = '<meta property="og:image:width" content="' . $attachment_image_info[1] . '" />';
             $metadata_arr[] = '<meta property="og:image:height" content="' . $attachment_image_info[2] . '" />';
         } elseif (!empty($options["default_image_url"])) {
@@ -559,26 +547,34 @@ function amt_add_opengraph_metadata() {
             $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
         }
 
+        // We use the description defined by Add-Meta-Tags
+        $content_desc = amt_get_content_description();
+        if ( !empty($content_desc) ) {
+            $metadata_arr[] = '<meta property="og:description" content="' . $content_desc . '" />';
+        }
+
+        $metadata_arr[] = '<meta property="og:locale" content="' . str_replace('-', '_', get_bloginfo('language')) . '" />';
+        $metadata_arr[] = '<meta property="og:site_name" content="' . get_bloginfo('name') . '" />';
+
         // Video
         $video_url = amt_get_video_url();
         if (!empty($video_url)) {
             $metadata_arr[] = '<meta property="og:video" content="' . $video_url . '" />';
         }
 
-        /**
-         * We treat all post formats as articles.
-         */
-
+        // Type: article (We treat all post formats as articles for now)
+        // TODO: Check whether we could use anopther type for image-attachment pages.
         $metadata_arr[] = '<meta property="og:type" content="article" />';
         $metadata_arr[] = '<meta property="article:published_time" content="' . get_the_time('c') . '" />';
         $metadata_arr[] = '<meta property="article:modified_time" content="' . get_the_modified_time('c') . '" />';
-        // We use the first category as the section
+
+        // article:section: We use the first category as the section
         $first_cat = amt_get_first_category();
         if (!empty($first_cat)) {
             $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
         }
         $metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
-        // Keywords are listed as post tags
+        // article:tag: Keywords are listed as post tags
         $keywords = explode(', ', amt_get_content_keywords());
         foreach ($keywords as $tag) {
             if (!empty($tag)) {
