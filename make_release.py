@@ -91,7 +91,12 @@ name, release = get_name_release()
 pot_domain = os.path.splitext(PLUGIN_METADATA_FILE)[0]
 
 # Generate POT file
-args = ['xgettext', '--default-domain=%s' % pot_domain, '--output=%s.pot' % pot_domain, '--language=PHP', '--from-code=UTF-8', '--keyword=__', '--keyword=_e', '--no-wrap', '--package-name=%s' % pot_domain, '--package-version=%s' % release, '--copyright-holder', 'George Notaras <gnot@g-loaded.eu>', '%s.php' % pot_domain]
+args = ['xgettext', '--default-domain=%s' % pot_domain, '--output=%s.pot' % pot_domain, '--language=PHP', '--from-code=UTF-8', '--keyword=__', '--keyword=_e', '--no-wrap', '--package-name=%s' % pot_domain, '--package-version=%s' % release, '--copyright-holder', 'George Notaras <gnot@g-loaded.eu>']
+# Add php files as arguments
+for rf in REL_FILES:
+    if rf.endswith('.php'):
+        args.append(rf)
+print (' ').join(args)
 p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = p.communicate()
 
