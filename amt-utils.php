@@ -258,7 +258,7 @@ function amt_is_the_posts_page() {
  * on the front page.
  */
 function amt_is_the_front_page() {
-    if ( amt_has_page_on_front() && is_front() ) {
+    if ( amt_has_page_on_front() && is_front_page() ) {
         return true;
     }
     return false;
@@ -274,7 +274,7 @@ function amt_is_the_front_page() {
  * on the front page.
  */
 function amt_is_the_latest_posts_front() {
-    if ( !amt_has_page_on_front() && is_front() ) {
+    if ( !amt_has_page_on_front() && is_front_page() ) {
         return true;
     }
     return false;
