@@ -59,31 +59,32 @@ import shutil
 import subprocess
 
 def get_name_release():
-	def get_data(cur_line):
-		return cur_line.split(':')[1].strip()
-	f = open(PLUGIN_METADATA_FILE)
-	name = ''
-	release = ''
-	for line in f:
-		if line.lower().startswith('plugin name:'):
-			name = get_data(line)
-		elif line.lower().startswith('version:'):
-			release = get_data(line)
-		if name and release:
-			break
-	f.close()
-	
-	if not name:
-		raise Exception('Cannot determine plugin name')
-	elif not release:
-		raise Exception('Cannot determine plugin version')
-	else:
-		# Replace spaces in name and convert it to lowercase
-		name = name.replace(' ', '-')
-		name = name.lower()
-		return name, release
+    def get_data(cur_line):
+        return cur_line.split(':')[1].strip()
+    f = open(PLUGIN_METADATA_FILE)
+    name = ''
+    release = ''
+    for line in f:
+        if line.lower().startswith('plugin name:'):
+            name = get_data(line)
+        elif line.lower().startswith('version:'):
+            release = get_data(line)
+        if name and release:
+            break
+    f.close()
+    
+    if not name:
+        raise Exception('Cannot determine plugin name')
+    elif not release:
+        raise Exception('Cannot determine plugin version')
+    else:
+        # Replace spaces in name and convert it to lowercase
+        name = name.replace(' ', '-')
+        name = name.lower()
+        return name, release
 
 name, release = get_name_release()
+
 
 
 # Translation
