@@ -392,7 +392,7 @@ function amt_options_page() {
         </table>
 
         <p class="submit">
-            <input id="submit" class="button-primary" type="submit" value="'.__('Save Changes', 'add-meta-tags').'" name="info_update" />
+            <input id="submit" class="button-primary" type="submit" value="'.__('Save changes', 'add-meta-tags').'" name="info_update" />
             <input id="reset" class="button-primary" type="submit" value="'.__('Reset to defaults', 'add-meta-tags').'" name="info_reset" />
         </p>
 
@@ -528,26 +528,26 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_description">'.__('Description', 'add-meta-tags').':</label>
             <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >'.$custom_description_value.'</textarea>
             <br>
-            (Enter a custom description of 20-40 words - based on an average word length of 5 characters)
+            ('.__('Enter a custom description of 20-40 words - based on an average word length of 5 characters', 'add-meta-tags').')
         </p>
     ');
     // Different notes based on post type
     if ( $post_type == 'post' ) {
         print('
             <p>
-                If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content.
+                '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content.', 'add-meta-tags').'
             </p>
         ');
     } elseif ( $post_type == 'page' ) {
         print('
             <p>
-                If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.
+                '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.', 'add-meta-tags').'
             </p>
         ');
     } else {    // Custom post types
         print('
             <p>
-                If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.
+                '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.', 'add-meta-tags').'
             </p>
         ');
     }
@@ -563,28 +563,28 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_keywords">'.__('Keywords', 'add-meta-tags').':</label>
             <textarea class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" cols="30" rows="2" >'.$custom_keywords_value.'</textarea>
             <br>
-            (Separate keywords with commas)
+            ('.__('Separate keywords with commas', 'add-meta-tags').')
         </p>
     ');
     // Different notes based on post type
     if ( $post_type == 'post' ) {
         print('
             <p>
-                If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories and keywords in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively.
+                '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories and keywords in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively.', 'add-meta-tags').'
                 <br />
-                Example: <code>keyword1, keyword2, %cats%, keyword3, %tags%, keyword4</code>
+                '.__('Example', 'add-meta-tags').': <code>keyword1, keyword2, %cats%, keyword3, %tags%, keyword4</code>
             </p>
         ');
     } elseif ( $post_type == 'page' ) {
         print('
             <p>
-                If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.
+                '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
             </p>
         ');
     } else {    // Custom post types
         print('
             <p>
-                If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.
+                '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
             </p>
         ');
     }
@@ -601,7 +601,7 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_title">'.__('Title', 'add-meta-tags').':</label>
             <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="'.$custom_title_value.'" />
             <br>
-            Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title.
+            '.__('Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title.', 'add-meta-tags').'
         </p>
     ');
 
@@ -615,7 +615,7 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_newskeywords">'.__('News Keywords', 'add-meta-tags').':</label>
             <input type="text" class="code" style="width: 99%" id="amt_custom_newskeywords" name="amt_custom_newskeywords" value="'.$custom_newskeywords_value.'" />
             <br>
-            Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.
+            '.__('Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.', 'add-meta-tags').'
         </p>
     ');
 
@@ -629,7 +629,7 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').':</label>
             <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'.$custom_full_metatags_value.'</textarea>
             <br>
-            Enter full meta tags specific to this content.
+            '.__('Enter full meta tags specific to this content.', 'add-meta-tags').'
         </p>
     ');
 
