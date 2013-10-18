@@ -597,7 +597,7 @@ function amt_add_opengraph_metadata() {
 function amt_add_dublin_core_metadata() {
     global $post;
 
-    if ( !is_single() && !is_page()) {
+    if ( !is_singular() ) {
         // Dublin Core metadata has a meaning for content only.
         return array();
     }
