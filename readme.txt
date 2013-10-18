@@ -197,5 +197,5 @@ Please check out the changelog of each release by following the links below. You
 
 == Contribute ==
 
-This page will contain information about how to contribute to the project.
+This page will contain information about how to contribute to this project.
 
