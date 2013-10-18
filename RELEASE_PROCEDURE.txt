@@ -21,3 +21,14 @@
     svn cp trunk tags/N.N.N
     svn commit -m "Tagging the N.N.N release"
 
+
+Translations
+------------
+
+Compile PO to MO
+
+- Linux:
+    msgfmt -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
+- Windows:
+    "C:\Program Files (x86)\Gettext\bin\msgfmt.exe" -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
+
