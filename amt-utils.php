@@ -241,7 +241,7 @@ function amt_has_page_on_front() {
  * This function was written because is_page() is not true for the page that is
  * used as the 'posts' page.
  */
-function amt_is_the_posts_page() {
+function amt_is_static_home() {
     if ( amt_has_page_on_front() && is_home() ) {
         return true;
     }
@@ -258,7 +258,7 @@ function amt_is_the_posts_page() {
  * page is used as the front page and also if the latest posts are displayed
  * on the front page.
  */
-function amt_is_the_front_page() {
+function amt_is_static_front_page() {
     if ( amt_has_page_on_front() && is_front_page() ) {
         return true;
     }
@@ -274,7 +274,7 @@ function amt_is_the_front_page() {
  * page is used as the front page and also if the latest posts are displayed
  * on the front page.
  */
-function amt_is_the_latest_posts_front() {
+function amt_is_default_front_page() {
     if ( !amt_has_page_on_front() && is_front_page() ) {
         return true;
     }
