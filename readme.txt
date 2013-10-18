@@ -1,80 +1,97 @@
 === Add Meta Tags ===
-License: Apache License v2
+Contributors: gnotaras
 Donate link: http://www.g-loaded.eu/about/donate/
 Tags: meta, metadata, seo, description, keywords, metatag, opengraph, dublin core, google, yahoo, bing, meta tags
 Requires at least: 3.0.0
-Tested up to: 3.5.1
+Tested up to: 3.6.1
 Stable tag: 2.2.0
+License: Apache License v2
+License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Adds metadata to your content, including the basic description and keywords meta tags, Opengraph and Dublin Core metadata.
 
 == Description ==
 
-*Add-Meta-Tags* adds metadata to your content, including the basic description and keywords meta tags, Opengraph and Dublin Core metadata. It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ "Official Add-Meta-Tags Homepage")).
+*Add-Meta-Tags* adds metadata to your content, including the basic *description* and *keywords* meta tags, [Opengraph](http://ogp.me "Opengraph specification") and [Dublin Core](http://dublincore.org "Dublin Core Metadata Initiative") metadata. It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ "Official historical Add-Meta-Tags Homepage")).
 
-*Metadata* refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the *Add-Meta-Tags* plugin does.
+*Metadata* refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful. Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the *Add-Meta-Tags* plugin does.
 
 The following list outlines how and where metadata is added to a *WordPress* blog.
 
-**Basic meta tags**
+= Basic meta tags =
 
-The <em>description</em> and <em>keywords</em> meta tags are added:
+The *description* and *keywords* meta tags are added:
 
-- Front Page
- - Automatically.
- - Customization is possible through the plugin's configuration panel.
-- Single Posts
- - Automatically.
- - Customization of the *description* META tag:
-  - either by setting an excerpt in the post's edit panel
-  - or by setting a custom description in the *Metadata* meta box in the post editing panel. (overrides the custom excerpt).
- - Customization of the *keywords* META tag is possible by setting a custom list of keywords in the *Metadata* meta box in the post editing panel.
-- Pages
- - Automatically (description only - no automatic keywords).
- - Customization of the *description* meta tag is possible by setting a custom description in the *Metadata* meta box in the page editing panel.
- - Setting a *keywords* meta tag is possible by setting a custom list of keywords in the *Metadata* meta box in the post editing panel.
-- Attachment Pages
- - A 'description' metatag is automatically generated from the caption or, if a caption has not been set, from the description of the attachment.
-- Custom Post Types
- - Automatically (description only - no automatic keywords) from the first paragraph of the content.
- - Custom description and keywords by setting a description and a keywords list in the *Metadata* meta box in the post editing panel.
-- Category-based Archives
- - The description of the category, if set, is used for the description meta tag. The name of the category is always used at the keywords metatag.
-- Tag-based Archives
- - The description of the tag, if set, is used for the description meta tag. The name of the tag is always used at the keywords metatag.
-- Site-wide META Tags
- - It is possible to add any metatags on all content.
-- Global keywords (since 2.1.0)
- - It is possible to set some keywords that are prepended/appended to the keywords of all your content.
-- Head link to copyright page.
-- Default image to use in metadata, if a featured image has not been set.
+**Front Page**
+
+- Automatic addition of the blog's tagline in the *description* metatag.
+- Automatic addition of the blog's categories in the *keywords* metatag.
+- Customization is possible through the plugin's administration panel.
+- If a static page is used as the front page, customization is possible at the page's editing panel (*Metadata* box).
+
+**Posts & Pages**
+
+- Automatic addition of an auto-generated excerpt of the post's or page's content in the *description* metatag. In case a post has a user-defined excerpt, then this is what is used.
+- Automatic addition of the post's categories and tags in the *keywords* meta tag. Pages do not support categories and tags, so there is no automatic addition of the *keywords* metatag.
+- Customization is possible by adding a custom description and keywords in the post's or page's editing panel (*Metadata* box).
+
+**Attachment Pages**
+
+- A *description* metatag is automatically generated from the caption or, if a caption has not been set, from the description of the attachment.
+
+**Custom Post Types**
+
+- A description is automatically generated from the first paragraph of the content. Keywords are not generated automatically.
+- Customization of the *description* and *keywords* meta tags is possible at the post type's editing panel (*Metadata* box).
+
+**Category-based Archives**
+
+- The description of the category, if set, is used for the *description* meta tag. The name of the category is always used at the *keywords* metatag.
+
+**Tag-based Archives**
+
+- The description of the tag, if set, is used for the *description* meta tag. The name of the tag is always used at the *keywords* metatag.
+
+= Extended Meta Tag Support =
+
+The following advanced features are also available:
+
+**Global keywords**
+
+- It is possible to set some keywords that are prepended/appended to the keywords of all your content.
+
+**Site-wide META Tags**
+
+- It is possible to force any metatags site-wide.
 
 **Custom title tag**
 
-It is possible to customize the <em>title</em> tag for posts, pages and any public custom post type.
+It is possible to customize the *title* element on posts, pages and public custom post types.
 
 **'news_keywords' meta tag**
 
-It is possible to set a <code>news_keywords</code> meta tag for posts, pages and any public custom post type. 
-For more info about the <emnews_keywords</em> meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.
+It is possible to set a *news_keywords* meta tag for posts, pages and any public custom post type. 
+For more info about the *news_keywords* metatag, please read this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.
 
 **Per post full meta tags**
 
 It is possible to assign custom full meta tags to single posts (posts, pages, custom post types).
 
+**Copyright Metatag**
+
+It is possible to a head link to a user-defined copyright page.
+
+**Default Image**
+
+A path to an image can be set in order to be used in autogenerated metadata where a *featured image* has not been set.
+
 **Opengraph metadata**
 
-- Front page
- - Automatic addition of metadata.
- - Supports custom default image if URL is provided.
-- Posts and Pages
- - Automatic addition of metadata.
- - Use featured image or alternatively the default image if URL has been set.
+Opengraph meta tags can be automatically added to the front page, posts and pages.
 
 **Dublin Core metadata**
 
-- Posts and Pages
- - Automatic addition of metadata.
+Dublin Core metatags can be automatically added to posts and pages.
 
 **Extra SEO features**
 
@@ -87,10 +104,7 @@ When enabled, WordPress users with administrator privileges see a box that conta
 
 **Languages**
 
-Add-Meta-Tags is available in the following languages:
-
-* English (default language)
-* Slovak (sk_SK) - contributed by Branco from <a href="http://webhostinggeeks.com/user-reviews/">WebHostingGeeks.com</a>
+Join our [Team of Add-Meta-Tags translators](https://www.transifex.com/projects/p/add-meta-tags)!
 
 **More**
  
@@ -179,4 +193,9 @@ Please check out the changelog of each release by following the links below. You
 - [0.3](http://www.codetrax.org/versions/27)
 - [0.2](http://www.codetrax.org/versions/26)
 - [0.1](http://www.codetrax.org/versions/25)
+
+
+== Contribute ==
+
+This page will contain information about how to contribute to the project.
 
