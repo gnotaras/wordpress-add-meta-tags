@@ -572,23 +572,29 @@ function amt_add_opengraph_metadata() {
             $metadata_arr[] = '<meta property="og:video" content="' . $video_url . '" />';
         }
 
-        // Type: article (We treat all post formats as articles for now)
-        // TODO: Check whether we could use anopther type for image-attachment pages.
-        $metadata_arr[] = '<meta property="og:type" content="article" />';
-        $metadata_arr[] = '<meta property="article:published_time" content="' . get_the_time('c') . '" />';
-        $metadata_arr[] = '<meta property="article:modified_time" content="' . get_the_modified_time('c') . '" />';
+        // Type
+        if ( amt_is_static_front_page() ) {
+            // If it is the front page (could only be a static page here) set type to 'website'
+            $metadata_arr[] = '<meta property="og:type" content="website" />';
+        } else {
+            // We treat all other resources as articles for now
+            // TODO: Check whether we could use anopther type for image-attachment pages.
+            $metadata_arr[] = '<meta property="og:type" content="article" />';
+            $metadata_arr[] = '<meta property="article:published_time" content="' . get_the_time('c') . '" />';
+            $metadata_arr[] = '<meta property="article:modified_time" content="' . get_the_modified_time('c') . '" />';
 
-        // article:section: We use the first category as the section
-        $first_cat = amt_get_first_category();
-        if (!empty($first_cat)) {
-            $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
-        }
-        $metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
-        // article:tag: Keywords are listed as post tags
-        $keywords = explode(', ', amt_get_content_keywords());
-        foreach ($keywords as $tag) {
-            if (!empty($tag)) {
-                $metadata_arr[] = '<meta property="article:tag" content="' . $tag . '" />';
+            // article:section: We use the first category as the section
+            $first_cat = amt_get_first_category();
+            if (!empty($first_cat)) {
+                $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
+            }
+            $metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
+            // article:tag: Keywords are listed as post tags
+            $keywords = explode(', ', amt_get_content_keywords());
+            foreach ($keywords as $tag) {
+                if (!empty($tag)) {
+                    $metadata_arr[] = '<meta property="article:tag" content="' . $tag . '" />';
+                }
             }
         }
     }
