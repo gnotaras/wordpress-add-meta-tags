@@ -517,10 +517,10 @@ function amt_add_opengraph_metadata() {
         }
         // Site Image
         // If a static page has been used as the front page and a feature image
-        // has been set for that page, use its thumbnail as the 'site image'.
+        // has been set for that page, use its medium size as the 'site image'.
         // Otherwise, use the default image.
         if (function_exists('has_post_thumbnail') && has_post_thumbnail()) {
-            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' );
+            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
             $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';  // src url
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
             $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
@@ -543,7 +543,7 @@ function amt_add_opengraph_metadata() {
         
         // Image
         if (function_exists('has_post_thumbnail') && has_post_thumbnail()) {
-            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' );
+            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
             $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
             $metadata_arr[] = '<meta property="og:image:width" content="' . $thumbnail_info[1] . '" />';
