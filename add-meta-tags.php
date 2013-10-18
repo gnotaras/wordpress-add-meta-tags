@@ -525,8 +525,18 @@ function amt_add_opengraph_metadata() {
 
     } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
+        // Title
         $metadata_arr[] = '<meta property="og:title" content="' . single_post_title('', FALSE) . '" />';
-        $metadata_arr[] = '<meta property="og:url" content="' . get_permalink() . '" />';
+
+        // URL
+        // Workaround: When a static page that displayes the latest posts is displayed (amt_is_static_home()),
+        // then get_permalink() returns the permalink of first displayed post instead of the permalink of
+        // static page. Here we fix this.
+        if ( amt_is_static_home() ) {
+            $metadata_arr[] = '<meta property="og:url" content="' . get_permalink(amt_get_posts_page_id()) . '" />';
+        } else {
+            $metadata_arr[] = '<meta property="og:url" content="' . get_permalink() . '" />';
+        }
 
         // Image
         if (function_exists('has_post_thumbnail') && has_post_thumbnail()) {
@@ -597,7 +607,7 @@ function amt_add_opengraph_metadata() {
 function amt_add_dublin_core_metadata() {
     global $post;
 
-    if ( !is_singular() ) {
+    if ( !is_singular() && !amt_is_static_front_page() && !amt_is_static_home() ) {
         // Dublin Core metadata has a meaning for content only.
         return array();
     }
@@ -611,8 +621,20 @@ function amt_add_dublin_core_metadata() {
     }
 
     $metadata_arr = array();
-    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink() . '" />';
+
+    // Title
     $metadata_arr[] = '<meta name="dc.title" content="' . single_post_title('', FALSE) . '" />';
+
+    // Resource identifier (URI)
+    // Workaround: When a static page that displayes the latest posts is displayed (amt_is_static_home()),
+    // then get_permalink() returns the permalink of first displayed post instead of the permalink of
+    // static page. Here we fix this.
+    if ( amt_is_static_home() ) {
+        $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink(amt_get_posts_page_id()) . '" />';
+    } else {
+        $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink() . '" />';
+    }
+
     $metadata_arr[] = '<meta name="dc.creator" content="' . amt_get_dublin_core_author_notation($post) . '" />';
     $metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . get_the_time('c') . '" />';
     // We use the same description as the ``description`` meta tag.
