@@ -220,8 +220,9 @@ function amt_get_post_meta_full_metatags($post_id) {
 }
 
 
-/** Helper function that returns true if a page is used as the homepage
- * instead of the posts index page.
+/**
+ *  Helper function that returns true if a static page is used as the homepage
+ *  instead of the default posts index page.
  */
 function amt_has_page_on_front() {
     $front_type = get_option('show_on_front', 'posts');
