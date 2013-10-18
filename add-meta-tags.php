@@ -79,20 +79,18 @@ function amt_process_paged($metadata) {
  * length 250 characters, which is more SEO friendly. The algorithm is not
  * perfect, but will do for now.
  */
-function amt_get_the_excerpt($excerpt_max_len = 300, $desc_avg_length = 250, $desc_min_length = 150) {
+function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
-    global $posts;
-
-    if ( empty($posts[0]->post_excerpt) ) {
+    if ( empty($post->post_excerpt) ) {
 
         // Get the initial data for the excerpt
-        $amt_excerpt = strip_tags(substr($posts[0]->post_content, 0, $excerpt_max_len));
+        $amt_excerpt = strip_tags(substr($post->post_content, 0, $excerpt_max_len));
 
         // If this was not enough, try to get some more clean data for the description (nasty hack)
         if ( strlen($amt_excerpt) < $desc_avg_length ) {
-            $amt_excerpt = strip_tags(substr($posts[0]->post_content, 0, (int) ($excerpt_max_len * 1.5)));
+            $amt_excerpt = strip_tags(substr($post->post_content, 0, (int) ($excerpt_max_len * 1.5)));
             if ( strlen($amt_excerpt) < $desc_avg_length ) {
-                $amt_excerpt = strip_tags(substr($posts[0]->post_content, 0, (int) ($excerpt_max_len * 2)));
+                $amt_excerpt = strip_tags(substr($post->post_content, 0, (int) ($excerpt_max_len * 2)));
             }
         }
 
@@ -117,7 +115,7 @@ function amt_get_the_excerpt($excerpt_max_len = 300, $desc_avg_length = 250, $de
 
     } else {
         // When the post excerpt has been set explicitly, then it has priority.
-        $amt_excerpt = $posts[0]->post_excerpt;
+        $amt_excerpt = $post->post_excerpt;
     }
 
     /**
@@ -136,12 +134,10 @@ function amt_get_the_excerpt($excerpt_max_len = 300, $desc_avg_length = 250, $de
 /**
  * Returns a comma-delimited list of a post's categories.
  */
-function amt_get_keywords_from_post_cats() {
-
-    global $posts;
+function amt_get_keywords_from_post_cats( $post ) {
 
     $postcats = "";
-    foreach((get_the_category($posts[0]->ID)) as $cat) {
+    foreach((get_the_category($post->ID)) as $cat) {
         $postcats .= $cat->cat_name . ', ';
     }
     // strip final comma
@@ -154,8 +150,8 @@ function amt_get_keywords_from_post_cats() {
 /**
  * Helper function. Returns the first category the post belongs to.
  */
-function amt_get_first_category() {
-    $cats = amt_strtolower(amt_get_keywords_from_post_cats());
+function amt_get_first_category( $post ) {
+    $cats = amt_strtolower(amt_get_keywords_from_post_cats( $post ));
     $bits = explode(',', $cats);
     if (!empty($bits)) {
         return $bits[0];
@@ -170,12 +166,10 @@ function amt_get_first_category() {
  * This will only work in WordPress 2.3 or newer. On older versions it will
  * return an empty string.
  */
-function amt_get_post_tags() {
+function amt_get_post_tags( $post ) {
 
-    global $posts;
-    
     if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
-        $tags = get_the_tags($posts[0]->ID);
+        $tags = get_the_tags($post->ID);
         if ( empty( $tags ) ) {
             return false;
         } else {
@@ -236,23 +230,21 @@ function amt_get_site_wide_metatags($site_wide_meta) {
 /**
  * This is a helper function that returns the post's or page's description.
  */
-function amt_get_content_description($auto=true) {
-    
-    global $posts;
+function amt_get_content_description( $post, $auto=true ) {
 
     $content_description = '';
 
-    if ( is_single() || is_page() ) {   // is_single() is true for attachments and custom post types too
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {    // TODO: check if this check is needed at all!
 
-        // The custom post field "description" overrides post's excerpt in Single Post View.
-        $desc_fld_content = amt_get_post_meta_description( $posts[0]->ID );
+        $desc_fld_content = amt_get_post_meta_description( $post->ID );
+
         if ( !empty($desc_fld_content) ) {
             // If there is a custom field, use it
             $content_description = amt_clean_desc($desc_fld_content);
         } else {
             // Else, use the post's excerpt. Valid for Pages too.
             if ($auto) {
-                $content_description = amt_clean_desc(amt_get_the_excerpt());
+                $content_description = amt_clean_desc( amt_get_the_excerpt($post) );
             }
         }
     }
@@ -263,10 +255,8 @@ function amt_get_content_description($auto=true) {
 /**
  * This is a helper function that returns the post's or page's keywords.
  */
-function amt_get_content_keywords($auto=true) {
+function amt_get_content_keywords($post, $auto=true) {
     
-    global $posts;
-
     $content_keywords = '';
 
     /*
@@ -274,16 +264,18 @@ function amt_get_content_keywords($auto=true) {
      * %cats% is replaced by the post's categories.
      * %tags% us replaced by the post's tags.
      */
-    if ( ( is_single()) || is_page() ) {    // is_single() is true for attachments and custom post types too
-        $keyw_fld_content = amt_get_post_meta_keywords( $posts[0]->ID );
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+
+        $keyw_fld_content = amt_get_post_meta_keywords( $post->ID );
+
         if ( !empty($keyw_fld_content) ) {
             // If there is a custom field, use it
             if ( is_single() ) {
                 // On single posts, the %cat% tag is replaced by the post's categories
-                $keyw_fld_content = str_replace("%cats%", amt_get_keywords_from_post_cats(), $keyw_fld_content);
+                $keyw_fld_content = str_replace("%cats%", amt_get_keywords_from_post_cats($post), $keyw_fld_content);
                 // Also, the %tags% tag is replaced by the post's tags (WordPress 2.3 or newer)
                 if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
-                    $keyw_fld_content = str_replace("%tags%", amt_get_post_tags(), $keyw_fld_content);
+                    $keyw_fld_content = str_replace("%tags%", amt_get_post_tags($post), $keyw_fld_content);
                 }
             }
             $content_keywords .= amt_strtolower($keyw_fld_content);
@@ -293,8 +285,8 @@ function amt_get_content_keywords($auto=true) {
                  * Add keywords automatically.
                  * Keywords consist of the post's categories and the post's tags (tags exist in WordPress 2.3 or newer).
                  */
-                $content_keywords .= amt_strtolower(amt_get_keywords_from_post_cats());
-                $post_tags = amt_strtolower(amt_get_post_tags());
+                $content_keywords .= amt_strtolower(amt_get_keywords_from_post_cats($post));
+                $post_tags = amt_strtolower(amt_get_post_tags($post));
                 if (!empty($post_tags)) {
                     $content_keywords .= ", " . $post_tags;
                 }
@@ -306,7 +298,7 @@ function amt_get_content_keywords($auto=true) {
      * Finally, add the global keyword, if they are set in the administration panel.
      * If $content_keywords is empty, then no global keyword processing takes place.
      */
-    if ( !empty($content_keywords) && (is_single() || is_page()) ) {    // is_single() is true for attachments and custom post types too
+    if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
         $options = get_option("add_meta_tags_opts");
         $global_keywords = $options["global_keywords"];
         if (!empty($global_keywords)) {
@@ -324,9 +316,9 @@ function amt_get_content_keywords($auto=true) {
 }
 
 
-function amt_get_content_keywords_mesh() {
+function amt_get_content_keywords_mesh( $post ) {
     // Keywords returned in the form: keyword1;keyword2;keyword3
-    $keywords = explode(', ', amt_get_content_keywords());
+    $keywords = explode(', ', amt_get_content_keywords($post));
     return implode(';', $keywords);
 }
 
@@ -335,9 +327,8 @@ function amt_get_content_keywords_mesh() {
  * This is the main function that actually writes the meta tags to the
  * appropriate page.
  */
-function amt_add_meta_tags() {
+function amt_add_meta_tags( $post ) {
 
-    global $posts;
     global $paged;
 
     // Get the options the DB
@@ -360,7 +351,7 @@ function amt_add_meta_tags() {
      * Basic Meta tags
      */
 
-    if ( !amt_has_page_on_front() && is_front_page() ) {
+    if ( amt_is_default_front_page() ) {
         /*
          * Add META tags to Front Page, only if the 'latest posts' are set to
          * be displayed on the front page in the 'Reading Settings'.
@@ -397,31 +388,28 @@ function amt_add_meta_tags() {
             $metadata_arr[] = '<meta name="keywords" content="' . $site_keywords . '" />';
         }
 
-    } elseif ( is_single() || is_page() ) {
-        /*
-         * Add META tags to Single Page View or Page
-         */
+    } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
         // Description
-        $description = amt_get_content_description($auto=$do_auto_description);
+        $description = amt_get_content_description($post, $auto=$do_auto_description);
         if (!empty($description)) {
             $metadata_arr[] = '<meta name="description" content="' . $description . '" />';
         }
 
         // Keywords
-        $keywords = amt_get_content_keywords($auto=$do_auto_keywords);
+        $keywords = amt_get_content_keywords($post, $auto=$do_auto_keywords);
         if (!empty($keywords)) {
             $metadata_arr[] = '<meta name="keywords" content="' . amt_strtolower($keywords) . '" />';
         }
 
         // 'news_keywords'
-        $newskeywords = amt_get_post_meta_newskeywords( $posts[0]->ID );
+        $newskeywords = amt_get_post_meta_newskeywords( $post->ID );
         if (!empty($newskeywords)) {
             $metadata_arr[] = '<meta name="news_keywords" content="' . $newskeywords . '" />';
         }
 
         // per post full meta tags
-        $full_metatags_for_content = amt_get_post_meta_full_metatags( $posts[0]->ID );
+        $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
         if (!empty($full_metatags_for_content)) {
             $metadata_arr[] = $full_metatags_for_content;
         }
@@ -489,9 +477,7 @@ function amt_add_meta_tags() {
  * Opengraph Specification: http://ogp.me
  */
 
-function amt_add_opengraph_metadata() {
-
-    global $post;
+function amt_add_opengraph_metadata( $post ) {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
@@ -512,7 +498,7 @@ function amt_add_opengraph_metadata() {
         if (!empty($options["default_image_url"])) {
             $metadata_arr[] = '<meta property="og:image" content="' . trim($options["default_image_url"]) . '" />';
         }
-        $metadata_arr[] = '<meta property="og:url" content="' . site_url() . '" />';
+        $metadata_arr[] = '<meta property="og:url" content="' . get_bloginfo('url') . '" />';
         // Site description
         if (!empty($options["site_description"])) {
             $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged($options["site_description"]) . '" />';
@@ -526,20 +512,13 @@ function amt_add_opengraph_metadata() {
     } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
         // Title
-        $metadata_arr[] = '<meta property="og:title" content="' . single_post_title('', FALSE) . '" />';
+        $metadata_arr[] = '<meta property="og:title" content="' . get_the_title($post->ID) . '" />';
 
         // URL
-        // Workaround: When a static page that displayes the latest posts is displayed (amt_is_static_home()),
-        // then get_permalink() returns the permalink of first displayed post instead of the permalink of
-        // static page. Here we fix this.
-        if ( amt_is_static_home() ) {
-            $metadata_arr[] = '<meta property="og:url" content="' . get_permalink(amt_get_posts_page_id()) . '" />';
-        } else {
-            $metadata_arr[] = '<meta property="og:url" content="' . get_permalink() . '" />';
-        }
+        $metadata_arr[] = '<meta property="og:url" content="' . get_permalink($post->ID) . '" />';
 
         // Image
-        if (function_exists('has_post_thumbnail') && has_post_thumbnail()) {
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
             $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
             $metadata_arr[] = '<meta property="og:image" content="' . $thumbnail_info[0] . '" />';
             //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . str_replace('http:', 'https:', $thumbnail_info[0]) . '" />';
@@ -558,7 +537,7 @@ function amt_add_opengraph_metadata() {
         }
 
         // We use the description defined by Add-Meta-Tags
-        $content_desc = amt_get_content_description();
+        $content_desc = amt_get_content_description($post);
         if ( !empty($content_desc) ) {
             $metadata_arr[] = '<meta property="og:description" content="' . $content_desc . '" />';
         }
@@ -576,21 +555,24 @@ function amt_add_opengraph_metadata() {
         if ( amt_is_static_front_page() ) {
             // If it is the front page (could only be a static page here) set type to 'website'
             $metadata_arr[] = '<meta property="og:type" content="website" />';
+        } elseif ( amt_is_static_home() ) {
+            // If it is the static page containing the latest posts
+            $metadata_arr[] = '<meta property="og:type" content="article" />';
         } else {
             // We treat all other resources as articles for now
             // TODO: Check whether we could use anopther type for image-attachment pages.
             $metadata_arr[] = '<meta property="og:type" content="article" />';
-            $metadata_arr[] = '<meta property="article:published_time" content="' . get_the_time('c') . '" />';
-            $metadata_arr[] = '<meta property="article:modified_time" content="' . get_the_modified_time('c') . '" />';
+            $metadata_arr[] = '<meta property="article:published_time" content="' . amt_iso8601_date($post->post_date) . '" />';
+            $metadata_arr[] = '<meta property="article:modified_time" content="' . amt_iso8601_date($post->post_modified) . '" />';
 
             // article:section: We use the first category as the section
-            $first_cat = amt_get_first_category();
+            $first_cat = amt_get_first_category($post);
             if (!empty($first_cat)) {
                 $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
             }
             $metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
             // article:tag: Keywords are listed as post tags
-            $keywords = explode(', ', amt_get_content_keywords());
+            $keywords = explode(', ', amt_get_content_keywords($post));
             foreach ($keywords as $tag) {
                 if (!empty($tag)) {
                     $metadata_arr[] = '<meta property="article:tag" content="' . $tag . '" />';
@@ -610,8 +592,7 @@ function amt_add_opengraph_metadata() {
  * 
  */
 
-function amt_add_dublin_core_metadata() {
-    global $post;
+function amt_add_dublin_core_metadata( $post ) {
 
     if ( !is_singular() || is_front_page() ) {
         // Dublin Core metadata has a meaning for content only.
@@ -629,20 +610,20 @@ function amt_add_dublin_core_metadata() {
     $metadata_arr = array();
 
     // Title
-    $metadata_arr[] = '<meta name="dc.title" content="' . single_post_title('', FALSE) . '" />';
+    $metadata_arr[] = '<meta name="dc.title" content="' . get_the_title($post->ID) . '" />';
 
     // Resource identifier
-    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink() . '" />';
+    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . get_permalink($post->ID) . '" />';
 
     $metadata_arr[] = '<meta name="dc.creator" content="' . amt_get_dublin_core_author_notation($post) . '" />';
-    $metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . get_the_time('c') . '" />';
+    $metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . amt_iso8601_date($post->post_date) . '" />';
     // We use the same description as the ``description`` meta tag.
-    $content_desc = amt_get_content_description();
+    $content_desc = amt_get_content_description($post);
     if ( !empty($content_desc) ) {
         $metadata_arr[] = '<meta name="dc.description" content="' . $content_desc . '" />';
     }
     // Keywords are in the form: keyword1;keyword2;keyword3
-    $metadata_arr[] = '<meta name="dc.subject" content="' . amt_get_content_keywords_mesh() . '" />';
+    $metadata_arr[] = '<meta name="dc.subject" content="' . amt_get_content_keywords_mesh($post) . '" />';
     $metadata_arr[] = '<meta name="dc.language" scheme="dcterms.rfc4646" content="' . get_bloginfo('language') . '" />';
     $metadata_arr[] = '<meta name="dc.publisher" scheme="dcterms.uri" content="' . get_bloginfo('url') . '" />';
     // Copyright page
@@ -701,10 +682,12 @@ Final
  * Uses the custom title, if one has been set.
  */
 function amt_custom_title_tag($title) {
-    global $posts;
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+        
+        // Get current post object
+        $post = amt_get_current_post_object();
 
-    if ( is_single() || is_page() ) {   // is_single() is true for attachments and custom post types
-        $custom_title = amt_get_post_meta_title( $posts[0]->ID );
+        $custom_title = amt_get_post_meta_title( $post->ID );
         if ( !empty($custom_title) ) {
             $custom_title = str_replace('%title%', $title, $custom_title);
             return $custom_title;
@@ -744,13 +727,17 @@ function amt_get_metadata() {
 
     // Add Metadata
     if ($do_add_metadata) {
+
+        // Get current post object
+        $post = amt_get_current_post_object();
+
         // Basic Meta tags
-        $metadata_arr = array_merge($metadata_arr, amt_add_meta_tags());
+        $metadata_arr = array_merge($metadata_arr, amt_add_meta_tags($post));
         //var_dump(amt_add_meta_tags());
         // Add Opengraph
-        $metadata_arr = array_merge($metadata_arr, amt_add_opengraph_metadata());
+        $metadata_arr = array_merge($metadata_arr, amt_add_opengraph_metadata($post));
         // Add Dublin Core
-        $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata());
+        $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata($post));
     }
     $metadata_arr[] = "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->";
     $metadata_arr[] = "";
@@ -773,32 +760,33 @@ add_action('wp_head', 'amt_add_metadata', 0);
 function amt_get_metadata_review() {
     // Returns metadata review code
     return '<pre>' . htmlentities( implode("\n", amt_get_metadata()) ) . '</pre>';
+    //return '<pre lang="XML" line="1">' . implode("\n", amt_get_metadata()) . '</pre>';
 }
 
 function amt_add_metadata_review($post_body) {
-    // Automatic addition in posts, pages, attachments and custom post types
-    if ( !is_single() && !is_page()) {
-        return $post_body;
-    }
 
-    // Check if Review Mode is enabled
-    $options = get_option("add_meta_tags_opts");
-    if ( $options["review_mode"] == "0" ) {
-        return $post_body;
-    }
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
-    // Adds metadata review code only for admins
-    $user_info = get_userdata(get_current_user_id());
-    
-    // See: http://codex.wordpress.org/User_Levels
-    // Admin -> User level 10
-    if ( $user_info->user_level == '10' ) {
-        $post_body = amt_get_metadata_review() . '<br /><br />' . $post_body;
+        // Check if Review Mode is enabled
+        $options = get_option("add_meta_tags_opts");
+        if ( $options["review_mode"] == "0" ) {
+            return $post_body;
+        }
+
+        // Adds metadata review code only for admins
+        $user_info = get_userdata(get_current_user_id());
+        
+        // See: http://codex.wordpress.org/User_Levels
+        // Admin -> User level 10
+        if ( $user_info->user_level == '10' ) {
+            $post_body = amt_get_metadata_review() . '<br /><br />' . $post_body;
+        }
+
     }
 
     return $post_body;
 }
 
-add_filter('the_content', 'amt_add_metadata_review');
+add_filter('the_content', 'amt_add_metadata_review', 0);
 
 ?>

@@ -24,9 +24,9 @@ function amt_strtolower($text) {
 function amt_clean_desc($desc) {
     $desc = stripslashes($desc);
     $desc = strip_tags($desc);
-    $desc = htmlspecialchars($desc);
     // Clean double quotes
     $desc = str_replace('"', '', $desc);
+    $desc = htmlspecialchars($desc);
     //$desc = preg_replace('/(\n+)/', ' ', $desc);
     $desc = preg_replace('/([\n \t\r]+)/', ' ', $desc); 
     $desc = preg_replace('/( +)/', ' ', $desc);
@@ -283,6 +283,17 @@ function amt_is_default_front_page() {
 
 
 /**
+ * Helper function that returns the ID of the page that is used as the 'front'
+ * page. If a static page has not been set as the 'front' page in the
+ * 'Reading Settings' or if the latest posts are displayed in the front page,
+ * then 0 is returned.
+ */
+function amt_get_front_page_id() {
+    return intval(get_option('page_on_front', 0));
+}
+
+
+/**
  * Helper function that returns the ID of the page that is used as the 'posts'
  * page. If a static page has not been set as the 'posts' page in the
  * 'Reading Settings' or if the latest posts are displayed in the front page,
@@ -294,13 +305,40 @@ function amt_get_posts_page_id() {
 
 
 /**
- * Helper function that returns the ID of the page that is used as the 'front'
- * page. If a static page has not been set as the 'front' page in the
- * 'Reading Settings' or if the latest posts are displayed in the front page,
- * then 0 is returned.
+ * This is a helper function that returns the current post's ID
  */
-function amt_get_front_page_id() {
-    return intval(get_option('page_on_front', 0));
+function amt_get_post_id() {
+    if ( amt_is_static_front_page() ) {
+        return amt_get_front_page_id();
+    } elseif ( amt_is_static_home() ) {
+        return amt_get_posts_page_id();
+    } elseif ( is_singular() ) {
+        global $post;
+        return $post->ID;
+        // Alt
+        // global $posts;
+        // return $posts[0]->ID
+    }
+}
+
+
+/**
+ * Helper function that returns the current post object
+ */
+function amt_get_current_post_object() {
+    // Determine post object.
+    if ( amt_is_static_home() ) {
+        // If a static page is used as the page that displays the latest posts,
+        // the available $post object is NOT the object of the static page,
+        // but the object of the latest retrieved post.
+        // This does not happen with the static page that is used as a front page.
+        $post = get_post( amt_get_posts_page_id() );
+    } else {
+        //global $post;
+        // Get current post.
+        $post = get_post();
+    }
+    return $post;
 }
 
 
@@ -338,5 +376,14 @@ function amt_get_dublin_core_author_notation($post) {
         return get_the_author_meta('display_name', $post->post_author);
     }
     return $last_name . ', ' . $first_name;
+}
+
+
+/**
+ * Taken from WordPress (http://core.trac.wordpress.org/browser/tags/3.6.1/wp-includes/general-template.php#L1397)
+ * Modified to accept a mysqltime object.
+ */
+function amt_iso8601_date( $mysqldate ) {
+    return mysql2date('c', $mysqldate);
 }
 
