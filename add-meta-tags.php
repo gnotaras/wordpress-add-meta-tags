@@ -569,7 +569,6 @@ function amt_get_metadata() {
     $do_add_metadata = true;
 
     $metadata_arr = array();
-    $metadata_arr[] = "";
     $metadata_arr[] = "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->";
 
     // Check for NOINDEX,FOLLOW on archives.
@@ -603,17 +602,14 @@ function amt_get_metadata() {
         $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata($post));
     }
     $metadata_arr[] = "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->";
-    $metadata_arr[] = "";
-    $metadata_arr[] = "";
 
     return $metadata_arr;
 }
 
 
 function amt_add_metadata() {
-    echo implode("\n", amt_get_metadata());
+    echo PHP_EOL . implode(PHP_EOL, amt_get_metadata()) . PHP_EOL . PHP_EOL;
 }
-
 add_action('wp_head', 'amt_add_metadata', 0);
 
 
@@ -622,8 +618,8 @@ add_action('wp_head', 'amt_add_metadata', 0);
 
 function amt_get_metadata_review() {
     // Returns metadata review code
-    return '<pre>' . htmlentities( implode("\n", amt_get_metadata()) ) . '</pre>';
-    //return '<pre lang="XML" line="1">' . implode("\n", amt_get_metadata()) . '</pre>';
+    return '<pre>' . htmlentities( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
+    //return '<pre lang="XML" line="1">' . implode(PHP_EOL, amt_get_metadata()) . '</pre>';
 }
 
 function amt_add_metadata_review($post_body) {
