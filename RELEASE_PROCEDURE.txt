@@ -5,7 +5,7 @@
 4. Add link to changelog in the relevant section in readme.txt
 6. Run ``make_release.py``.
 5. Commit changes in mercurial and add tag.
-7. Upload the created distribution file to CodeTRAX
+7. Upload the created distribution file to CodeTRAX and close the relevant version.
 8. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and extract contents here.
 9. Add any new files using:
 
@@ -21,7 +21,9 @@
     svn cp trunk tags/N.N.N
     svn commit -m "Tagging the N.N.N release"
 
-
+12. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
+    And upload (Source File) the new POT file.
+    
 Translations
 ------------
 
