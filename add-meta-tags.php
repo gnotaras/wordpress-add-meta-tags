@@ -152,13 +152,6 @@ function amt_get_content_keywords($post, $auto=true) {
 }
 
 
-function amt_get_content_keywords_mesh( $post ) {
-    // Keywords returned in the form: keyword1;keyword2;keyword3
-    $keywords = explode(', ', amt_get_content_keywords($post));
-    return implode(';', $keywords);
-}
-
-
 /**
  * This is the main function that actually writes the meta tags to the
  * appropriate page.
