@@ -241,6 +241,10 @@ function amt_options_page() {
                 '.__('Automatically generate Opengraph meta tags for single posts and pages. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'
                 </label>
                 <br />
+                <strong>'.__('Important Note', 'add-meta-tags').'</strong>:
+                <br />
+                '.__('In order to generate the <code>article:author</code> and <code>article:publisher</code> meta tags for your content, it is required to provide the respective URLs of the Facebook profiles of the author and/or publisher of the content. Update your WordPress user\'s <a href="/wp-admin/profile.php">profile page</a> and fill in the relevant URLs under the section \'Contact Info\'.', 'add-meta-tags').'
+                <br />
             </fieldset>
             </td>
             </tr>
