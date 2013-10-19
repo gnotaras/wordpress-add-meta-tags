@@ -572,7 +572,8 @@ function amt_add_opengraph_metadata( $post ) {
             if (!empty($first_cat)) {
                 $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
             }
-            $metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
+            // article:author is commented out for now. TODO: Retrieve this from contactinfos
+            //$metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
             // article:tag: Keywords are listed as post tags
             $keywords = explode(', ', amt_get_content_keywords($post));
             foreach ($keywords as $tag) {
