@@ -19,7 +19,7 @@ function amt_content_keywords_mesh() {
 
 function amt_metadata() {
     // Prints full metadata.
-    echo implode("\n", amt_get_metadata());
+    amt_add_metadata();
 }
 
 function amt_metadata_review() {
