@@ -295,6 +295,9 @@ function amt_add_meta_tags( $post ) {
         $metadata_arr[] = '<link rel="copyright" type="text/html" title="' . get_bloginfo('name') . ' Copyright Information" href="' . trim($options["copyright_url"]) . '" />';
     }
 
+    // Filtering of the generated basic metadata
+    $metadata_arr = apply_filters( 'amt_basic_metatags', $metadata_arr );
+
     return $metadata_arr;
 }
 
@@ -444,6 +447,9 @@ function amt_add_opengraph_metadata( $post ) {
         }
     }
 
+    // Filtering of the generated Opengraph metadata
+    $metadata_arr = apply_filters( 'amt_opengraph_metatags', $metadata_arr );
+
     return $metadata_arr;
 }
 
@@ -532,6 +538,9 @@ function amt_add_dublin_core_metadata( $post ) {
         $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="audio/mpeg" />';
     }
     */
+
+    // Filtering of the generated Dublin Core metadata
+    $metadata_arr = apply_filters( 'amt_dublin_core_metatags', $metadata_arr );
 
     return $metadata_arr;
 }
