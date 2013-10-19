@@ -475,10 +475,36 @@ function amt_add_meta_tags( $post ) {
 
 
 /**
- * Opengraph metadata on posts and pages
+ * Opengraph metadata
  * Opengraph Specification: http://ogp.me
  */
 
+/**
+ * Add contact method for Facebook author and publisher.
+ */
+function amt_add_facebook_contactmethod( $contactmethods ) {
+    // Add Facebook Author Profile URL
+    if ( !isset( $contactmethods['amt_facebook_author_profile_url'] ) ) {
+        $contactmethods['amt_facebook_author_profile_url'] = 'Facebook Author Profile URL';
+    }
+    // Add Facebook Publisher Profile URL
+    if ( !isset( $contactmethods['amt_facebook_publisher_profile_url'] ) ) {
+        $contactmethods['amt_facebook_publisher_profile_url'] = 'Facebook Publisher Profile URL';
+    }
+
+    // Remove test
+    // if ( isset( $contactmethods['test'] ) {
+    //     unset( $contactmethods['test'] );
+    // }
+
+    return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'amt_add_facebook_contactmethod', 10, 1 );
+
+
+/**
+ * Add Opengraph metadata for site and content.
+ */
 function amt_add_opengraph_metadata( $post ) {
 
     // Get the options the DB
@@ -567,13 +593,22 @@ function amt_add_opengraph_metadata( $post ) {
             $metadata_arr[] = '<meta property="article:published_time" content="' . amt_iso8601_date($post->post_date) . '" />';
             $metadata_arr[] = '<meta property="article:modified_time" content="' . amt_iso8601_date($post->post_modified) . '" />';
 
+            // Author and Publisher
+            $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $post->post_author);
+            if ( !empty($fb_author_url) ) {
+                $metadata_arr[] = '<meta property="article:author" content="' . esc_url( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
+            }
+            $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
+            if ( !empty($fb_publisher_url) ) {
+                $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
+            }
+
             // article:section: We use the first category as the section
             $first_cat = amt_get_first_category($post);
             if (!empty($first_cat)) {
                 $metadata_arr[] = '<meta property="article:section" content="' . $first_cat . '" />';
             }
-            // article:author is commented out for now. TODO: Retrieve this from contactinfos
-            //$metadata_arr[] = '<meta property="article:author" content="' . get_the_author_meta('display_name', $post->post_author) . '" />';
+            
             // article:tag: Keywords are listed as post tags
             $keywords = explode(', ', amt_get_content_keywords($post));
             foreach ($keywords as $tag) {
