@@ -24,6 +24,173 @@ function get_allowed_html_kses() {
 
 
 /**
+ * Accepts any piece of metadata. Checks if current post is paged and, if yes,
+ * then it adds the (page N) suffix.
+ */
+function amt_process_paged($metadata) {
+    
+    global $paged;
+
+    if (!empty($metadata)) {
+        if ( $paged ) {
+            $metadata .= ' - Page ' . $paged;
+        }
+    }
+
+    return $metadata;
+}
+
+
+/**
+ * Returns the post's excerpt.
+ * This function was written in order to get the excerpt *outside* the loop
+ * because the get_the_excerpt() function does not work there any more.
+ * This function makes the retrieval of the excerpt independent from the
+ * WordPress function in order not to break compatibility with older WP versions.
+ *
+ * Also, this is even better as the algorithm tries to get text of average
+ * length 250 characters, which is more SEO friendly. The algorithm is not
+ * perfect, but will do for now.
+ */
+function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
+    
+    if ( empty($post->post_excerpt) ) {
+
+        // Get the initial data for the excerpt
+        $amt_excerpt = strip_tags(substr($post->post_content, 0, $excerpt_max_len));
+
+        // If this was not enough, try to get some more clean data for the description (nasty hack)
+        if ( strlen($amt_excerpt) < $desc_avg_length ) {
+            $amt_excerpt = strip_tags(substr($post->post_content, 0, (int) ($excerpt_max_len * 1.5)));
+            if ( strlen($amt_excerpt) < $desc_avg_length ) {
+                $amt_excerpt = strip_tags(substr($post->post_content, 0, (int) ($excerpt_max_len * 2)));
+            }
+        }
+
+        $end_of_excerpt = strrpos($amt_excerpt, ".");
+
+        if ($end_of_excerpt) {
+            
+            // if there are sentences, end the description at the end of a sentence.
+            $amt_excerpt_test = substr($amt_excerpt, 0, $end_of_excerpt + 1);
+
+            if ( strlen($amt_excerpt_test) < $desc_min_length ) {
+                // don't end at the end of the sentence because the description would be too small
+                $amt_excerpt .= "...";
+            } else {
+                // If after ending at the end of a sentence the description has an acceptable length, use this
+                $amt_excerpt = $amt_excerpt_test;
+            }
+        } else {
+            // otherwise (no end-of-sentence in the excerpt) add this stuff at the end of the description.
+            $amt_excerpt .= "...";
+        }
+
+    } else {
+        // When the post excerpt has been set explicitly, then it has priority.
+        $amt_excerpt = $post->post_excerpt;
+    }
+
+    /**
+     * In some cases, the algorithm might not work, depending on the content.
+     * In those cases, $amt_excerpt might only contain ``...``. Here we perform
+     * a check for this and return an empty $amt_excerpt.
+     */
+    if ($amt_excerpt == "...") {
+        $amt_excerpt = "";
+    }
+
+    return $amt_excerpt;
+}
+
+
+/**
+ * Returns a comma-delimited list of a post's categories.
+ */
+function amt_get_keywords_from_post_cats( $post ) {
+
+    $postcats = "";
+    foreach((get_the_category($post->ID)) as $cat) {
+        $postcats .= $cat->cat_name . ', ';
+    }
+    // strip final comma
+    $postcats = substr($postcats, 0, -2);
+
+    return $postcats;
+}
+
+
+/**
+ * Helper function. Returns the first category the post belongs to.
+ */
+function amt_get_first_category( $post ) {
+    $cats = amt_strtolower(amt_get_keywords_from_post_cats( $post ));
+    $bits = explode(',', $cats);
+    if (!empty($bits)) {
+        return $bits[0];
+    }
+    return '';
+}
+
+
+/**
+ * Retrieves the post's user-defined tags.
+ *
+ * This will only work in WordPress 2.3 or newer. On older versions it will
+ * return an empty string.
+ */
+function amt_get_post_tags( $post ) {
+
+    if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
+        $tags = get_the_tags($post->ID);
+        if ( empty( $tags ) ) {
+            return false;
+        } else {
+            $tag_list = "";
+            foreach ( $tags as $tag ) {
+                $tag_list .= $tag->name . ', ';
+            }
+            $tag_list = amt_strtolower(rtrim($tag_list, " ,"));
+            return $tag_list;
+        }
+    } else {
+        return "";
+    }
+}
+
+
+/**
+ * Returns a comma-delimited list of all the blog's categories.
+ * The built-in category "Uncategorized" is excluded.
+ */
+function amt_get_all_categories($no_uncategorized = TRUE) {
+
+    global $wpdb;
+
+    if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
+        $cat_field = "name";
+        $sql = "SELECT name FROM $wpdb->terms LEFT OUTER JOIN $wpdb->term_taxonomy ON ($wpdb->terms.term_id = $wpdb->term_taxonomy.term_id) WHERE $wpdb->term_taxonomy.taxonomy = 'category' ORDER BY name ASC";
+    } else {
+        $cat_field = "cat_name";
+        $sql = "SELECT cat_name FROM $wpdb->categories ORDER BY cat_name ASC";
+    }
+    $categories = $wpdb->get_results($sql);
+    if ( empty( $categories ) ) {
+        return "";
+    } else {
+        $all_cats = "";
+        foreach ( $categories as $cat ) {
+            if ($no_uncategorized && $cat->$cat_field != "Uncategorized") {
+                $all_cats .= $cat->$cat_field . ', ';
+            }
+        }
+        $all_cats = amt_strtolower(rtrim($all_cats, " ,"));
+        return $all_cats;
+    }
+}
+
+
+/**
  * Helper function that converts $text to lowercase.
  * If the mbstring php plugin exists, then the string functions provided by that
  * plugin are used.
