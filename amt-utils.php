@@ -380,7 +380,8 @@ function amt_get_video_url() {
     $pattern = '#http:\/\/(?:www.)?vimeo.com\/(\d*)#';
     if ( preg_match($pattern, $post->post_content, $matches) ) {
         //return 'http://vimeo.com/couchmode/' . $matches[1];
-        return 'http://vimeo.com/moogaloop.swf?clip_id=' . $matches[1];
+        //return 'http://vimeo.com/moogaloop.swf?clip_id=' . $matches[1];
+        return 'http://player.vimeo.com/video/' . $matches[1];
     }
 
     return '';
