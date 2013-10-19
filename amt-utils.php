@@ -369,15 +369,18 @@ function amt_get_video_url() {
     global $post;
 
     // Youtube
-    $pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
+    //$pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
+    $pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=(\w*)#';
     if ( preg_match($pattern, $post->post_content, $matches) ) {
         return 'http://youtube.com/v/' . $matches[1];
     }
 
     // Vimeo
-    $pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
+    //$pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
+    $pattern = '#http:\/\/(?:www.)?vimeo.com\/(\d*)#';
     if ( preg_match($pattern, $post->post_content, $matches) ) {
-        return 'http://vimeo.com/couchmode/' . $matches[1];
+        //return 'http://vimeo.com/couchmode/' . $matches[1];
+        return 'http://vimeo.com/moogaloop.swf?clip_id=' . $matches[1];
     }
 
     return '';
