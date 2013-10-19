@@ -158,8 +158,6 @@ function amt_get_content_keywords($post, $auto=true) {
  */
 function amt_add_meta_tags( $post ) {
 
-    global $paged;
-
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     $do_auto_description = (($options["auto_description"] == "1") ? true : false );
