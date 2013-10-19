@@ -627,7 +627,7 @@ function amt_inner_metadata_box( $post ) {
     print('
         <p>
             <label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').':</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'.$custom_full_metatags_value.'</textarea>
+            <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'. stripslashes($custom_full_metatags_value) .'</textarea>
             <br>
             '.__('Enter full meta tags specific to this content.', 'add-meta-tags').'
         </p>
@@ -664,7 +664,9 @@ function amt_save_postdata( $post_id, $post ) {
 
     // OK, we're authenticated: we need to find and save the data
 
+    //
     // Sanitize user input
+    //
     // $description_value = sanitize_text_field( $_POST['amt_custom_description'] );
     // TODO: sanitize removes '%ca' part of '%cats%'
     // $keywords_value = sanitize_text_field( $_POST['amt_custom_keywords'] );
@@ -672,7 +674,8 @@ function amt_save_postdata( $post_id, $post ) {
     $keywords_value = $_POST['amt_custom_keywords'];
     $title_value = $_POST['amt_custom_title'];
     $newskeywords_value = $_POST['amt_custom_newskeywords'];
-    $full_metatags_value = $_POST['amt_custom_full_metatags'];
+    // Full metatags
+    $full_metatags_value = esc_textarea( stripslashes( wp_kses( $_POST['amt_custom_full_metatags'], get_allowed_html_kses() ) ) );
 
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.

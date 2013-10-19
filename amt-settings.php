@@ -122,7 +122,14 @@ function amt_save_settings($post_payload) {
 
         // Add options from the POST request (saved by the user)
         elseif ( array_key_exists($def_key, $post_payload) ) {
-            $add_meta_tags_opts[$def_key] = $post_payload[$def_key];
+
+            // Validate and sanitize input before adding to 'add_meta_tags_opts'
+            if ( $def_key == 'site_wide_meta' ) {
+                //$add_meta_tags_opts[$def_key] = esc_textarea( wp_kses( $post_payload[$def_key], get_allowed_html_kses() ) );
+                $add_meta_tags_opts[$def_key] = esc_textarea( stripslashes( wp_kses( $post_payload[$def_key], get_allowed_html_kses() ) ) );
+            } else {
+                $add_meta_tags_opts[$def_key] = $post_payload[$def_key];
+            }
         }
         
         // If missing (eg checkboxes), use the default value, except for the case

@@ -218,16 +218,6 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
 
 
 /**
- * This is a filter for the site-wide meta tags.
- */
-function amt_get_site_wide_metatags($site_wide_meta) {
-    $site_wide_meta = stripslashes($site_wide_meta);
-    $site_wide_meta = trim($site_wide_meta);
-    return $site_wide_meta;
-}
-
-
-/**
  * This is a helper function that returns the post's or page's description.
  */
 function amt_get_content_description( $post, $auto=true ) {
@@ -411,7 +401,7 @@ function amt_add_meta_tags( $post ) {
         // per post full meta tags
         $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
         if (!empty($full_metatags_for_content)) {
-            $metadata_arr[] = $full_metatags_for_content;
+            $metadata_arr[] = html_entity_decode( stripslashes( $full_metatags_for_content ) );
         }
 
 
@@ -460,7 +450,7 @@ function amt_add_meta_tags( $post ) {
 
     // Add site wide meta tags
     if (!empty($options["site_wide_meta"])) {
-        $metadata_arr[] = amt_get_site_wide_metatags($options["site_wide_meta"]);
+        $metadata_arr[] = html_entity_decode( stripslashes( $options["site_wide_meta"] ) );
     }
 
     // On every page print the copyright head link

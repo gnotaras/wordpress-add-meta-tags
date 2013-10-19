@@ -5,6 +5,25 @@
 
 
 /**
+ * Helper function that returns an array of allowable HTML elements and attributes
+ * for use in wp_kses() function.
+ */
+function get_allowed_html_kses() {
+    return array(
+        'meta' => array(
+            'charset' => array(),
+            'content' => array(),
+            'http-equiv' => array(),
+            'name' => array(),
+            'scheme' => array(),
+            'itemprop' => array(),  // schema.org
+            'property' => array(),  // facebook and others
+        )
+    );
+}
+
+
+/**
  * Helper function that converts $text to lowercase.
  * If the mbstring php plugin exists, then the string functions provided by that
  * plugin are used.
