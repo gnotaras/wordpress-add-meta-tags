@@ -4,6 +4,8 @@
  */
 
 
+
+
 /**
  * Helper function that returns an array of allowable HTML elements and attributes
  * for use in wp_kses() function.
@@ -20,6 +22,28 @@ function get_allowed_html_kses() {
             'property' => array(),  // facebook and others
         )
     );
+}
+
+
+/**
+ * This is a filter for the description metatag text.
+ */
+function amt_clean_desc($desc) {
+    $desc = stripslashes($desc);
+    $desc = strip_tags($desc);
+    // Clean double quotes
+    $desc = str_replace('"', '', $desc);
+    $desc = htmlspecialchars($desc);
+    //$desc = preg_replace('/(\n+)/', ' ', $desc);
+    $desc = preg_replace('/([\n \t\r]+)/', ' ', $desc); 
+    $desc = preg_replace('/( +)/', ' ', $desc);
+
+    // Remove shortcode
+    $pattern = get_shortcode_regex();
+    //var_dump($pattern);
+    $desc = preg_replace('#' . $pattern . '#s', '', $desc);
+
+    return trim($desc);
 }
 
 
@@ -201,28 +225,6 @@ function amt_strtolower($text) {
     } else {
         return strtolower($text);
     }
-}
-
-
-/**
- * This is a filter for the description metatag text.
- */
-function amt_clean_desc($desc) {
-    $desc = stripslashes($desc);
-    $desc = strip_tags($desc);
-    // Clean double quotes
-    $desc = str_replace('"', '', $desc);
-    $desc = htmlspecialchars($desc);
-    //$desc = preg_replace('/(\n+)/', ' ', $desc);
-    $desc = preg_replace('/([\n \t\r]+)/', ' ', $desc); 
-    $desc = preg_replace('/( +)/', ' ', $desc);
-
-    // Remove shortcode
-    $pattern = get_shortcode_regex();
-    //var_dump($pattern);
-    $desc = preg_replace('#' . $pattern . '#s', '', $desc);
-
-    return trim($desc);
 }
 
 
