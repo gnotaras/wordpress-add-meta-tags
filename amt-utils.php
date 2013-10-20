@@ -26,6 +26,58 @@ function get_allowed_html_kses() {
 
 
 /**
+ * Sanitizes text for use in the description and similar metatags.
+ *
+ * Wrapper around sanitize_text_field
+ *
+ */
+function amt_sanitize_description($desc) {
+
+    // Remove shortcode
+    // Needs to be before cleaning double quotes as it may contain quoted settings.
+    $pattern = get_shortcode_regex();
+    //var_dump($pattern);
+    $desc = preg_replace('#' . $pattern . '#s', '', $desc);
+
+    // Clean double quotes
+    $desc = str_replace('"', '', $desc);
+    $desc = str_replace('&quot;', '', $desc);
+
+    return $desc;
+}
+
+
+/**
+ * Helper function that converts the placeholders used by Add-Meta-Tags
+ * to a form, in which they remain unaffected by the sanitization functions.
+ *
+ * Currently the problem is the '%ca' part of '%cats%' which is removed
+ * by sanitize_text_field().
+ */
+function amt_convert_placeholders( $data ) {
+    $data = str_replace('%cats%', '#cats#', $data);
+    $data = str_replace('%tags%', '#tags#', $data);
+    $data = str_replace('%contentkw%', '#contentkw#', $data);
+    $data = str_replace('%title%', '#title#', $data);
+    return $data;
+}
+
+
+/**
+ * Helper function that reverts the placeholders used by Add-Meta-Tags
+ * back to their original form. This action should be performed after
+ * after the sanitization functions have processed the data.
+ */
+function amt_revert_placeholders( $data ) {
+    $data = str_replace('#cats#', '%cats%', $data);
+    $data = str_replace('#tags#', '%tags%', $data);
+    $data = str_replace('#contentkw#', '%contentkw%', $data);
+    $data = str_replace('#title#', '%title%', $data);
+    return $data;
+}
+
+
+/**
  * This is a filter for the description metatag text.
  */
 function amt_clean_desc($desc) {
