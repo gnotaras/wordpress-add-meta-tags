@@ -232,5 +232,15 @@ Please check out the changelog of each release by following the links below. You
 
 == Contribute ==
 
+Add-Meta-Tags is released under the Apache License v2.0 and is free software.
+
+The source code is available on Bitbucket:
+
+`https://bitbucket.org/gnotaras/wordpress-add-meta-tags`
+
+The main repository is mirrored on Github:
+
+`https://github.com/gnotaras/wordpress-add-meta-tags`
+
 This page will contain information about how to contribute to this project.
 
