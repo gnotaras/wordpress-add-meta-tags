@@ -4,7 +4,7 @@ Donate link: http://www.g-loaded.eu/about/donate/
 Tags: meta, metadata, seo, description, keywords, metatag, opengraph, dublin core, google, yahoo, bing, meta tags
 Requires at least: 3.0.0
 Tested up to: 3.6.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -216,6 +216,10 @@ Screenshots as of v2.1.0.
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.3.2](http://www.codetrax.org/versions/182)
+ - Solid sanitization of user input. Please report any issues in the WordPress forums.
+ - Improved core functionality.
+ - Customization through filters. Developers and advanced users please read the *Advanced Customization* section at the plugin homepage.
 - [2.3.1](http://www.codetrax.org/versions/180)
  - Please read note under Opengraph settings regarding the generation of the 'article:author' and 'article:publisher' Opengraph tags.
 - [2.3.0](http://www.codetrax.org/versions/179)

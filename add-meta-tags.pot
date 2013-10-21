@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.3.1\n"
+"Project-Id-Version: add-meta-tags 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-19 20:58+0300\n"
+"POT-Creation-Date: 2013-10-22 02:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,14 @@ msgstr ""
 
 #: add-meta-tags.php:52
 msgid "Settings"
+msgstr ""
+
+#: add-meta-tags.php:351
+msgid "Facebook Author Profile URL"
+msgstr ""
+
+#: add-meta-tags.php:355
+msgid "Facebook Publisher Profile URL"
 msgstr ""
 
 #: amt-admin-panel.php:12 amt-admin-panel.php:55
@@ -163,11 +171,11 @@ msgid "Automatic Basic Metadata"
 msgstr ""
 
 #: amt-admin-panel.php:219
-msgid "Automatically generate the <em>description</em> meta tag for single posts, pages, category-based archives and tag-based archives. If this is unchecked, you can still set a <em>description</em> meta tag by using the <code>description</code> custom field."
+msgid "Automatically generate the <em>description</em> meta tag for single posts, pages, category-based archives and tag-based archives. Customization of the <em>description</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of posts, pages and public custom post types."
 msgstr ""
 
 #: amt-admin-panel.php:225
-msgid "Automatically generate the <em>keywords</em> meta tag for single posts, category-based archives and tag-based archives. Automatic keywords are not supported on pages. If this is unchecked, you can still set a <em>keywords</em> meta tag by using the <code>keywords</code> custom field."
+msgid "Automatically generate the <em>keywords</em> meta tag for single posts, category-based archives and tag-based archives. Automatic keywords are not supported on pages. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of posts, pages and public custom post types."
 msgstr ""
 
 #: amt-admin-panel.php:234 amt-admin-panel.php:237
@@ -322,10 +330,10 @@ msgstr ""
 msgid "Enter full meta tags specific to this content."
 msgstr ""
 
-#: amt-settings.php:163
+#: amt-settings.php:174
 msgid "Add-Meta-Tags options saved"
 msgstr ""
 
-#: amt-settings.php:176
+#: amt-settings.php:187
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
