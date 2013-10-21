@@ -612,6 +612,16 @@ Final
  * Uses the custom title, if one has been set.
  */
 function amt_custom_title_tag($title) {
+
+    // Get current post object
+    $post = get_queried_object();
+
+    // Check if metadata is supported on this content type.
+    $post_type = get_post_type( $post );
+    if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+        return $title;
+    }
+
     if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
         
         // Get current post object
@@ -654,6 +664,15 @@ function amt_get_metadata() {
         }
     }
 
+    // Get current post object
+    $post = get_queried_object();
+
+    // Check if metadata should be added to this content type.
+    $post_type = get_post_type( $post );
+    if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+        $do_add_metadata = false;
+    }
+
     // Add Metadata
     if ($do_add_metadata) {
 
@@ -673,8 +692,10 @@ function amt_get_metadata() {
     $metadata_arr = apply_filters( 'amt_metatags', $metadata_arr );
 
     // Add our comment
-    array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
-    array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
+    if ( count( $metadata_arr ) > 0 ) {
+        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
+    }
 
     return $metadata_arr;
 }
@@ -697,6 +718,15 @@ function amt_get_metadata_review() {
 }
 
 function amt_add_metadata_review($post_body) {
+
+    // Get current post object
+    $post = get_queried_object();
+
+    // Check if metadata is supported on this content type.
+    $post_type = get_post_type( $post );
+    if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+        return $post_body;
+    }
 
     if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
