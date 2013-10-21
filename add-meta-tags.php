@@ -707,7 +707,8 @@ add_action('wp_head', 'amt_add_metadata', 0);
 function amt_get_metadata_review() {
     // Returns metadata review code
     //return '<pre>' . htmlentities( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
-    return '<pre>' . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
+    $msg = '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Review Mode</span> has been enabled in' . PHP_EOL . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . PHP_EOL;
+    return '<pre>' . $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
     //return '<pre lang="XML" line="1">' . implode(PHP_EOL, amt_get_metadata()) . '</pre>';
 }
 
