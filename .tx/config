@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[add-meta-tags.main]
+file_filter = languages/add-meta-tags-<lang>.po
+source_file = add-meta-tags.pot
+source_lang = en
+type = PO
