@@ -1,57 +1,61 @@
 
 1. Change version in plugin PHP file.
+
 2. Add contributors in CONTRIBUTORS.
+
 3. Change stable tag in readme.txt
+
 4. Add link to changelog in the relevant section in readme.txt
-6. Run ``make_release.py``.
-5. Commit changes in mercurial and add tag.
-7. Upload the created distribution file to CodeTRAX and close the relevant version.
-8. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and extract contents here.
-9. Add any new files using:
+
+5. Pull translations (only >80% reviewed):
+
+    tx pull --all --minimum-perc 80 --mode reviewed
+
+    (note: tx --debug pull --resource add-meta-tags.main --all --minimum-perc 80 --mode reviewed )
+
+   Or pull all available:
+    
+    tx pull --all
+
+6. Compile PO to MO (TODO: improve this info)
+
+    - Linux:
+        msgfmt -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
+    - Windows:
+        "C:\Program Files (x86)\Gettext\bin\msgfmt.exe" -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
+
+7. Run ``make_release.py``.
+
+8. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
+    And upload (Source File) the new POT file.
+   OR use the client as shown in step 1 below.
+
+9. Push source language file to translation service:
+
+    tx push -s
+
+    (note: tx push --resource add-meta-tags.main --source -l none )
+
+10. Mercurial:
+   - Add new translation files
+   - Commit changes
+   - Add tag. (format N.N.N)
+
+11. Upload the created distribution file to CodeTRAX and close the relevant version.
+
+12. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and extract contents here.
+
+13. Add any new files using:
 
     svn add <file1> <dir1>
 
-10. Commit the release:
+14. Commit the release:
 
     svn commit -m "Committing the N.N.N release of Add-Meta-Tags"
 
-11. Tag the new release in the SVN repository:
+15. Tag the new release in the SVN repository:
 
     cd ..
     svn cp trunk tags/N.N.N
     svn commit -m "Tagging the N.N.N release"
-
-
-    
-Translations
-------------
-
-0. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
-    And upload (Source File) the new POT file.
-   OR use the client as shown in step 1 below.
-
-1. Push the new source file to the translation service
-
-    tx push --resource add-meta-tags.main --source
-  OR
-    tx push -s
-
-2. Pull translations (only >80% reviewed):
-
-    tx --debug pull --resource add-meta-tags.main --all --minimum-perc 80 --mode reviewed
-  OR
-    tx pull --all --minimum-perc 80 --mode reviewed
-
-  To pull all available:
-
-    tx --debug pull --resource add-meta-tags.main --all
-  OR
-    tx pull --all
-
-Compile PO to MO
-
-- Linux:
-    msgfmt -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
-- Windows:
-    "C:\Program Files (x86)\Gettext\bin\msgfmt.exe" -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
 
