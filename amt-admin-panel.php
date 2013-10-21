@@ -15,7 +15,7 @@ add_action('admin_menu', 'amt_add_pages');
 
 
 function amt_show_info_msg($msg) {
-    echo '<div id="message" class="updated fade"><p>' . $msg . '</p></div>';
+    echo '<div id="message" class="updated fade"><p>' . esc_attr( $msg ) . '</p></div>';
 }
 
 
@@ -143,7 +143,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Front Page Description', 'add-meta-tags').'</span></legend>
                 <label for="site_description">
-                    <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . stripslashes($options["site_description"]) . '</textarea>
+                    <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["site_description"] ) ) . '</textarea>
                     <br />
                     '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog\'s description from the <em>Tagline</em> in <a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php">General Options</a> will be used.', 'add-meta-tags').'
                 </label>
@@ -157,7 +157,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Front Page Keywords', 'add-meta-tags').'</span></legend>
                 <label for="site_keywords">
-                    <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . stripslashes($options["site_keywords"]) . '</textarea>
+                    <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["site_keywords"] ) ) . '</textarea>
                     <br />
                     '.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="' . get_bloginfo('wpurl') . '/wp-admin/edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'
                     <br />
@@ -176,7 +176,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Global Keywords', 'add-meta-tags').'</span></legend>
                 <label for="global_keywords">
-                    <textarea name="global_keywords" id="global_keywords" cols="100" rows="2" class="code">' . stripslashes($options["global_keywords"]) . '</textarea>
+                    <textarea name="global_keywords" id="global_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["global_keywords"] ) ) . '</textarea>
                     <br />
                     '.__('Enter a comma-delimited list of global keywords which will be added before the keywords of <strong>all</strong> posts and pages.', 'add-meta-tags').'
                     <br />
@@ -196,7 +196,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Site-wide META tags', 'add-meta-tags').'</span></legend>
                 <label for="site_wide_meta">
-                    <textarea name="site_wide_meta" id="site_wide_meta" cols="100" rows="10" class="code">' . stripslashes($options["site_wide_meta"]) . '</textarea>
+                    <textarea name="site_wide_meta" id="site_wide_meta" cols="100" rows="10" class="code">' . stripslashes( $options["site_wide_meta"] ) . '</textarea>
                     <br />
                     '.__('Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages.', 'add-meta-tags').'
                     <br />
@@ -216,13 +216,13 @@ function amt_options_page() {
 
                 <input id="auto_description" type="checkbox" value="1" name="auto_description" '. (($options["auto_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_description">
-                '.__('Automatically generate the <em>description</em> meta tag for single posts, pages, category-based archives and tag-based archives. If this is unchecked, you can still set a <em>description</em> meta tag by using the <code>description</code> custom field.', 'add-meta-tags').'
+                '.__('Automatically generate the <em>description</em> meta tag for single posts, pages, category-based archives and tag-based archives. Customization of the <em>description</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of posts, pages and public custom post types.', 'add-meta-tags').'
                 </label>
                 <br />
                 
                 <input id="auto_keywords" type="checkbox" value="1" name="auto_keywords" '. (($options["auto_keywords"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_keywords">
-                '.__('Automatically generate the <em>keywords</em> meta tag for single posts, category-based archives and tag-based archives. Automatic keywords are not supported on pages. If this is unchecked, you can still set a <em>keywords</em> meta tag by using the <code>keywords</code> custom field.', 'add-meta-tags').'
+                '.__('Automatically generate the <em>keywords</em> meta tag for single posts, category-based archives and tag-based archives. Automatic keywords are not supported on pages. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of posts, pages and public custom post types.', 'add-meta-tags').'
                 </label>
                 <br />
 
@@ -319,7 +319,7 @@ function amt_options_page() {
             <td>
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Copyright URL', 'add-meta-tags').'</span></legend>
-                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . $options["copyright_url"] . '" size="100" maxlength="1024" />
+                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . esc_url_raw( stripslashes( $options["copyright_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="copyright_url">
                 '.__('Add an absolute URL to a document containing information about copyright. The relevant meta tags will be added automatically.', 'add-meta-tags').'
@@ -336,7 +336,7 @@ function amt_options_page() {
             <td>
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Default Image', 'add-meta-tags').'</span></legend>
-                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . $options["default_image_url"] . '" size="100" maxlength="1024" />
+                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . esc_url_raw( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="default_image_url">
                 '.__('Add an absolute URL to an image that will be used in meta data in case a featured image has not been set for the content.', 'add-meta-tags').'
@@ -516,7 +516,7 @@ function amt_inner_metadata_box( $post ) {
     print('
         <p>
             <label for="amt_custom_description">'.__('Description', 'add-meta-tags').':</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >'.$custom_description_value.'</textarea>
+            <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_description_value ) ) . '</textarea>
             <br>
             ('.__('Enter a custom description of 20-40 words - based on an average word length of 5 characters', 'add-meta-tags').')
         </p>
@@ -551,7 +551,7 @@ function amt_inner_metadata_box( $post ) {
     print('
         <p>
             <label for="amt_custom_keywords">'.__('Keywords', 'add-meta-tags').':</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" cols="30" rows="2" >'.$custom_keywords_value.'</textarea>
+            <textarea class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_keywords_value ) ) . '</textarea>
             <br>
             ('.__('Separate keywords with commas', 'add-meta-tags').')
         </p>
@@ -589,7 +589,7 @@ function amt_inner_metadata_box( $post ) {
     print('
         <p>
             <label for="amt_custom_title">'.__('Title', 'add-meta-tags').':</label>
-            <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="'.$custom_title_value.'" />
+            <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="' . esc_attr( stripslashes( $custom_title_value ) ) . '" />
             <br>
             '.__('Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title.', 'add-meta-tags').'
         </p>
@@ -603,7 +603,7 @@ function amt_inner_metadata_box( $post ) {
     print('
         <p>
             <label for="amt_custom_newskeywords">'.__('News Keywords', 'add-meta-tags').':</label>
-            <input type="text" class="code" style="width: 99%" id="amt_custom_newskeywords" name="amt_custom_newskeywords" value="'.$custom_newskeywords_value.'" />
+            <input type="text" class="code" style="width: 99%" id="amt_custom_newskeywords" name="amt_custom_newskeywords" value="' . esc_attr( stripslashes( $custom_newskeywords_value ) ) . '" />
             <br>
             '.__('Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.', 'add-meta-tags').'
         </p>
@@ -617,7 +617,7 @@ function amt_inner_metadata_box( $post ) {
     print('
         <p>
             <label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').':</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'. stripslashes($custom_full_metatags_value) .'</textarea>
+            <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="2" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
             <br>
             '.__('Enter full meta tags specific to this content.', 'add-meta-tags').'
         </p>
@@ -657,15 +657,18 @@ function amt_save_postdata( $post_id, $post ) {
     //
     // Sanitize user input
     //
-    // $description_value = sanitize_text_field( $_POST['amt_custom_description'] );
-    // TODO: sanitize removes '%ca' part of '%cats%'
-    // $keywords_value = sanitize_text_field( $_POST['amt_custom_keywords'] );
-    $description_value = $_POST['amt_custom_description'];
-    $keywords_value = $_POST['amt_custom_keywords'];
-    $title_value = $_POST['amt_custom_title'];
-    $newskeywords_value = $_POST['amt_custom_newskeywords'];
-    // Full metatags
-    $full_metatags_value = esc_textarea( stripslashes( wp_kses( $_POST['amt_custom_full_metatags'], get_allowed_html_kses() ) ) );
+
+    //
+    // Description
+    $description_value = sanitize_text_field( amt_sanitize_description( stripslashes( $_POST['amt_custom_description'] ) ) );
+    // Keywords - sanitize_text_field() removes '%ca' part of '%cats%', so we enclose 'sanitize_text_field()' in amt_(convert|revert)_placeholders()
+    $keywords_value = amt_sanitize_keywords(amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $_POST['amt_custom_keywords'] ) ) ) ) );
+    // Title
+    $title_value = amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $_POST['amt_custom_title'] ) ) ) );
+    // News keywords
+    $newskeywords_value = sanitize_text_field( amt_sanitize_keywords( stripslashes( $_POST['amt_custom_newskeywords'] ) ) );
+    // Full metatags - We allow only <meta> elements. 
+    $full_metatags_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_full_metatags'] ), amt_get_allowed_html_kses() ) );
 
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.

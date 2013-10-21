@@ -10,7 +10,7 @@
  * Helper function that returns an array of allowable HTML elements and attributes
  * for use in wp_kses() function.
  */
-function get_allowed_html_kses() {
+function amt_get_allowed_html_kses() {
     return array(
         'meta' => array(
             'charset' => array(),
@@ -28,8 +28,10 @@ function get_allowed_html_kses() {
 /**
  * Sanitizes text for use in the description and similar metatags.
  *
- * Wrapper around sanitize_text_field
- *
+ * Currently:
+ * - removes shortcodes
+ * - removes double quotes
+ * - convert single quotes to space
  */
 function amt_sanitize_description($desc) {
 
@@ -43,7 +45,42 @@ function amt_sanitize_description($desc) {
     $desc = str_replace('"', '', $desc);
     $desc = str_replace('&quot;', '', $desc);
 
+    // Convert single quotes to space
+    $desc = str_replace("'", ' ', $desc);
+    $desc = str_replace('&#039;', ' ', $desc);
+    $desc = str_replace("&apos;", ' ', $desc);
+
     return $desc;
+}
+
+
+/**
+ * Sanitizes text for use in the 'keywords' or similar metatags.
+ *
+ * Currently:
+ * - converts to lowercase
+ * - removes double quotes
+ * - convert single quotes to space
+ */
+function amt_sanitize_keywords( $text ) {
+
+    // Convert to lowercase
+    if (function_exists('mb_strtolower')) {
+        $text = mb_strtolower($text, get_bloginfo('charset'));
+    } else {
+        $text = strtolower($text);
+    }
+
+    // Clean double quotes
+    $text = str_replace('"', '', $text);
+    $text = str_replace('&quot;', '', $text);
+
+    // Convert single quotes to space
+    $text = str_replace("'", ' ', $text);
+    $text = str_replace('&#039;', ' ', $text);
+    $text = str_replace("&apos;", ' ', $text);
+
+    return $text;
 }
 
 
@@ -77,25 +114,10 @@ function amt_revert_placeholders( $data ) {
 }
 
 
-/**
- * This is a filter for the description metatag text.
- */
-function amt_clean_desc($desc) {
-    $desc = stripslashes($desc);
-    $desc = strip_tags($desc);
-    // Clean double quotes
-    $desc = str_replace('"', '', $desc);
-    $desc = htmlspecialchars($desc);
-    //$desc = preg_replace('/(\n+)/', ' ', $desc);
-    $desc = preg_replace('/([\n \t\r]+)/', ' ', $desc); 
-    $desc = preg_replace('/( +)/', ' ', $desc);
-
-    // Remove shortcode
-    $pattern = get_shortcode_regex();
-    //var_dump($pattern);
-    $desc = preg_replace('#' . $pattern . '#s', '', $desc);
-
-    return trim($desc);
+function amt_get_content_keywords_mesh( $post ) {
+    // Keywords returned in the form: keyword1;keyword2;keyword3
+    $keywords = explode(', ', amt_get_content_keywords($post));
+    return implode(';', $keywords);
 }
 
 
@@ -111,9 +133,9 @@ function amt_process_paged( $data ) {
 
     if ( !empty( $data ) ) {
 
-        $data_to_append = ' - Page ';
+        $data_to_append = ' | Page ';
         //TODO: Check if it should be translatable
-        //$data_to_append = ' - ' . __('Page', 'add-meta-tags') . ' ';
+        //$data_to_append = ' | ' . __('Page', 'add-meta-tags') . ' ';
 
         // Allowing filtering of the $data_to_append
         $data_to_append = apply_filters( 'amt_paged_append_data', $data_to_append );
@@ -232,7 +254,7 @@ function amt_get_keywords_from_post_cats( $post ) {
  * Helper function. Returns the first category the post belongs to.
  */
 function amt_get_first_category( $post ) {
-    $cats = amt_strtolower(amt_get_keywords_from_post_cats( $post ));
+    $cats = amt_get_keywords_from_post_cats( $post );
     $bits = explode(',', $cats);
     if (!empty($bits)) {
         return $bits[0];
@@ -258,7 +280,7 @@ function amt_get_post_tags( $post ) {
             foreach ( $tags as $tag ) {
                 $tag_list .= $tag->name . ', ';
             }
-            $tag_list = amt_strtolower(rtrim($tag_list, " ,"));
+            $tag_list = rtrim($tag_list, " ,");
             return $tag_list;
         }
     } else {
@@ -292,30 +314,9 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
                 $all_cats .= $cat->$cat_field . ', ';
             }
         }
-        $all_cats = amt_strtolower(rtrim($all_cats, " ,"));
+        $all_cats = rtrim($all_cats, " ,");
         return $all_cats;
     }
-}
-
-
-/**
- * Helper function that converts $text to lowercase.
- * If the mbstring php plugin exists, then the string functions provided by that
- * plugin are used.
- */
-function amt_strtolower($text) {
-    if (function_exists('mb_strtolower')) {
-        return mb_strtolower($text, get_bloginfo('charset'));
-    } else {
-        return strtolower($text);
-    }
-}
-
-
-function amt_get_content_keywords_mesh( $post ) {
-    // Keywords returned in the form: keyword1;keyword2;keyword3
-    $keywords = explode(', ', amt_get_content_keywords($post));
-    return implode(';', $keywords);
 }
 
 

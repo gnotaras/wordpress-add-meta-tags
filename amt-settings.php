@@ -124,11 +124,22 @@ function amt_save_settings($post_payload) {
         elseif ( array_key_exists($def_key, $post_payload) ) {
 
             // Validate and sanitize input before adding to 'add_meta_tags_opts'
-            if ( $def_key == 'site_wide_meta' ) {
-                //$add_meta_tags_opts[$def_key] = esc_textarea( wp_kses( $post_payload[$def_key], get_allowed_html_kses() ) );
-                $add_meta_tags_opts[$def_key] = esc_textarea( stripslashes( wp_kses( $post_payload[$def_key], get_allowed_html_kses() ) ) );
+            if ( $def_key == 'site_description' ) {
+                $add_meta_tags_opts[$def_key] = sanitize_text_field( amt_sanitize_description( stripslashes( $post_payload[$def_key] ) ) );
+            } elseif ( $def_key == 'site_keywords' ) {
+                // No placeholders here
+                $add_meta_tags_opts[$def_key] = sanitize_text_field( amt_sanitize_keywords( stripslashes( $post_payload[$def_key] ) ) );
+            } elseif ( $def_key == 'global_keywords' ) {
+                // placeholder may exist here
+                $add_meta_tags_opts[$def_key] = amt_sanitize_keywords( amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $post_payload[$def_key] ) ) ) ) );
+            } elseif ( $def_key == 'site_wide_meta' ) {
+                $add_meta_tags_opts[$def_key] = esc_textarea( wp_kses( stripslashes( $post_payload[$def_key] ), amt_get_allowed_html_kses() ) );
+            } elseif ( $def_key == 'copyright_url' ) {
+                $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
+            } elseif ( $def_key == 'default_image_url' ) {
+                $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } else {
-                $add_meta_tags_opts[$def_key] = $post_payload[$def_key];
+                $add_meta_tags_opts[$def_key] = sanitize_text_field( stripslashes( $post_payload[$def_key] ) );
             }
         }
         
