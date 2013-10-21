@@ -670,3 +670,32 @@ function amt_iso8601_date( $mysqldate ) {
     return mysql2date('c', $mysqldate);
 }
 
+
+/**
+ * Custom meta tag highlighter.
+ *
+ * Expects string.
+ */
+function amt_metatag_highlighter( $metatags ) {
+
+    preg_match_all('#([^\s]+="[^"]+?)"#i', $metatags, $matches);
+    if ( !$matches ) {
+        return $metatags;
+    }
+
+    //var_dump($matches[0]);
+    foreach ($matches[0] as $match) {
+        $highlighted = preg_replace('#^([^=]+)="(.+)"$#i', '<span style="font-weight:bold;color:black;">$1</span>="<span style="color:blue;">$2</span>"', $match);
+        //var_dump($highlighted);
+        $metatags = str_replace($match, $highlighted, $metatags);
+    }
+
+    // Do some conversions
+    $metatags =  wp_pre_kses_less_than( $metatags );
+    // Done by wp_pre_kses_less_than()
+    //$metatags = str_replace('<meta', '&lt;meta', $metatags);
+    //$metatags = str_replace('/>', '/&gt;', $metatags);
+
+    return $metatags;
+}
+

@@ -691,7 +691,8 @@ add_action('wp_head', 'amt_add_metadata', 0);
 
 function amt_get_metadata_review() {
     // Returns metadata review code
-    return '<pre>' . htmlentities( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
+    //return '<pre>' . htmlentities( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
+    return '<pre>' . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata()) ) . '</pre>';
     //return '<pre lang="XML" line="1">' . implode(PHP_EOL, amt_get_metadata()) . '</pre>';
 }
 
