@@ -100,20 +100,38 @@ function amt_clean_desc($desc) {
 
 
 /**
- * Accepts any piece of metadata. Checks if current post is paged and, if yes,
- * then it adds the (page N) suffix.
+ * This function is meant to be used in order to append information about the
+ * current page to the description of a page.
+ *
+ * Works on both:
+ * 1. paged archives or main blog page
+ * 2. multipage content
  */
-function amt_process_paged($metadata) {
-    
-    global $paged;
+function amt_process_paged( $description ) {
 
-    if (!empty($metadata)) {
-        if ( $paged ) {
-            $metadata .= ' - Page ' . $paged;
+    if ( !empty( $description ) ) {
+
+        $data_to_append = ' - Page ';
+        //TODO: consider allowing filtering.
+        // $data_to_append = apply_filters( 'amt_process_paged', $data_to_append );
+        //TODO: Check if it should be translatable
+        //$data_to_append = ' - ' . __('Page', 'add-meta-tags') . ' ';
+
+        // For paginated archives or paginated main page with latest posts.
+        if ( is_paged() ) {
+            $paged = get_query_var( 'paged' );  // paged
+            if ( $paged && $paged >= 2 ) {
+                return $description . $data_to_append . $paged;
+            }
+        // For a Post or PAGE Page that has been divided into pages using the <!--nextpage--> QuickTag
+        } else {
+            $paged = get_query_var( 'page' );  // page
+            if ( $paged && $paged >= 2 ) {
+                return $description . $data_to_append . $paged;
+            }
         }
     }
-
-    return $metadata;
+    return $description;
 }
 
 
