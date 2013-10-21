@@ -723,7 +723,7 @@ function amt_add_metadata_review($post_body) {
         return $post_body;
     }
 
-    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+    if ( is_singular() || amt_is_static_front_page() ) {
 
         // Check if Review Mode is enabled
         $options = get_option("add_meta_tags_opts");
