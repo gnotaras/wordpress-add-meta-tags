@@ -624,9 +624,6 @@ function amt_custom_title_tag($title) {
 
     if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
         
-        // Get current post object
-        $post = amt_get_current_post_object();
-
         $custom_title = amt_get_post_meta_title( $post->ID );
         if ( !empty($custom_title) ) {
             $custom_title = str_replace('%title%', $title, $custom_title);
@@ -675,9 +672,6 @@ function amt_get_metadata() {
 
     // Add Metadata
     if ($do_add_metadata) {
-
-        // Get current post object
-        $post = amt_get_current_post_object();
 
         // Basic Meta tags
         $metadata_arr = array_merge($metadata_arr, amt_add_meta_tags($post));

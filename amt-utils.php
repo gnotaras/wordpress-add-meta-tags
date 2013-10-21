@@ -588,44 +588,6 @@ function amt_get_posts_page_id() {
 
 
 /**
- * This is a helper function that returns the current post's ID
- */
-function amt_get_post_id() {
-    if ( amt_is_static_front_page() ) {
-        return amt_get_front_page_id();
-    } elseif ( amt_is_static_home() ) {
-        return amt_get_posts_page_id();
-    } elseif ( is_singular() ) {
-        global $post;
-        return $post->ID;
-        // Alt
-        // global $posts;
-        // return $posts[0]->ID
-    }
-}
-
-
-/**
- * Helper function that returns the current post object
- */
-function amt_get_current_post_object() {
-    // Determine post object.
-    if ( amt_is_static_home() ) {
-        // If a static page is used as the page that displays the latest posts,
-        // the available $post object is NOT the object of the static page,
-        // but the object of the latest retrieved post.
-        // This does not happen with the static page that is used as a front page.
-        $post = get_post( amt_get_posts_page_id() );
-    } else {
-        //global $post;
-        // Get current post.
-        $post = get_post();
-    }
-    return $post;
-}
-
-
-/**
  * Opengraph helper functions
  */
 
