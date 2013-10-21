@@ -101,37 +101,38 @@ function amt_clean_desc($desc) {
 
 /**
  * This function is meant to be used in order to append information about the
- * current page to the description of a page.
+ * current page to the description or the title of the content.
  *
  * Works on both:
  * 1. paged archives or main blog page
  * 2. multipage content
  */
-function amt_process_paged( $description ) {
+function amt_process_paged( $data ) {
 
-    if ( !empty( $description ) ) {
+    if ( !empty( $data ) ) {
 
         $data_to_append = ' - Page ';
-        //TODO: consider allowing filtering.
-        // $data_to_append = apply_filters( 'amt_process_paged', $data_to_append );
         //TODO: Check if it should be translatable
         //$data_to_append = ' - ' . __('Page', 'add-meta-tags') . ' ';
+
+        // Allowing filtering of the $data_to_append
+        $data_to_append = apply_filters( 'amt_paged_append_data', $data_to_append );
 
         // For paginated archives or paginated main page with latest posts.
         if ( is_paged() ) {
             $paged = get_query_var( 'paged' );  // paged
             if ( $paged && $paged >= 2 ) {
-                return $description . $data_to_append . $paged;
+                return $data . $data_to_append . $paged;
             }
         // For a Post or PAGE Page that has been divided into pages using the <!--nextpage--> QuickTag
         } else {
             $paged = get_query_var( 'page' );  // page
             if ( $paged && $paged >= 2 ) {
-                return $description . $data_to_append . $paged;
+                return $data . $data_to_append . $paged;
             }
         }
     }
-    return $description;
+    return $data;
 }
 
 
