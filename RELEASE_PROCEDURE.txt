@@ -21,11 +21,32 @@
     svn cp trunk tags/N.N.N
     svn commit -m "Tagging the N.N.N release"
 
-12. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
-    And upload (Source File) the new POT file.
+
     
 Translations
 ------------
+
+0. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
+    And upload (Source File) the new POT file.
+   OR use the client as shown in step 1 below.
+
+1. Push the new source file to the translation service
+
+    tx push --resource add-meta-tags.main --source
+  OR
+    tx push -s
+
+2. Pull translations (only >80% reviewed):
+
+    tx --debug pull --resource add-meta-tags.main --all --minimum-perc 80 --mode reviewed
+  OR
+    tx pull --all --minimum-perc 80 --mode reviewed
+
+  To pull all available:
+
+    tx --debug pull --resource add-meta-tags.main --all
+  OR
+    tx pull --all
 
 Compile PO to MO
 
