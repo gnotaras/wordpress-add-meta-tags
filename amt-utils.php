@@ -337,6 +337,10 @@ function amt_get_supported_post_types() {
     $supported_builtin_types = array('post', 'page');
     $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
     $supported_types = array_merge($supported_builtin_types, $public_custom_types);
+
+    // Allow filtering of the supported content types.
+    $supported_types = apply_filters( 'amt_supported_post_types', $supported_types );
+
     return $supported_types;
 }
 
