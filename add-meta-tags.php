@@ -348,11 +348,11 @@ function amt_add_meta_tags( $post ) {
 function amt_add_facebook_contactmethod( $contactmethods ) {
     // Add Facebook Author Profile URL
     if ( !isset( $contactmethods['amt_facebook_author_profile_url'] ) ) {
-        $contactmethods['amt_facebook_author_profile_url'] = 'Facebook Author Profile URL';
+        $contactmethods['amt_facebook_author_profile_url'] = __('Facebook Author Profile URL', 'add-meta-tags');
     }
     // Add Facebook Publisher Profile URL
     if ( !isset( $contactmethods['amt_facebook_publisher_profile_url'] ) ) {
-        $contactmethods['amt_facebook_publisher_profile_url'] = 'Facebook Publisher Profile URL';
+        $contactmethods['amt_facebook_publisher_profile_url'] = __('Facebook Publisher Profile URL', 'add-meta-tags');
     }
 
     // Remove test
