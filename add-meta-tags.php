@@ -637,7 +637,6 @@ function amt_get_metadata() {
     $do_add_metadata = true;
 
     $metadata_arr = array();
-    $metadata_arr[] = "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->";
 
     // Check for NOINDEX,FOLLOW on archives.
     // There is no need to further process metadata as we explicitly ask search
@@ -669,7 +668,13 @@ function amt_get_metadata() {
         // Add Dublin Core
         $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata($post));
     }
-    $metadata_arr[] = "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->";
+
+    // Allow filtering of the all the generated metatags
+    $metadata_arr = apply_filters( 'amt_metatags', $metadata_arr );
+
+    // Add our comment
+    array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
+    array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
 
     return $metadata_arr;
 }
