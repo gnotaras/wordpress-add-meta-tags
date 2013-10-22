@@ -250,6 +250,24 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Automatic Twitter Cards Metadata', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Automatic Twitter Cards Metadata', 'add-meta-tags').'</span></legend>
+
+                <input id="auto_twitter" type="checkbox" value="1" name="auto_twitter" '. (($options["auto_twitter"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="auto_twitter">
+                '.__('Automatically generate Twitter Cards meta tags for posts, pages and custom post types. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'
+                </label>
+                <br />
+                <strong>'.__('Important Note', 'add-meta-tags').'</strong>:
+                <br />
+                '.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or publisher of the content. Update your WordPress user\'s <a href="/wp-admin/profile.php">profile page</a> and fill in the relevant usernames under the section \'Contact Info\'.', 'add-meta-tags').'
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Automatic Dublin Core Metadata', 'add-meta-tags').'</th>
             <td>
             <fieldset>

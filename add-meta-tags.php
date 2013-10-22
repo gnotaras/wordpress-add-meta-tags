@@ -338,6 +338,95 @@ function amt_add_meta_tags( $post ) {
 
 
 /**
+ * Twitter Cards
+ * Twitter Cards specification: https://dev.twitter.com/docs/cards
+ */
+
+/**
+ * Add contact method for Twitter username of author and publisher.
+ */
+function amt_add_twitter_contactmethod( $contactmethods ) {
+    // Add Twitter author username
+    if ( !isset( $contactmethods['amt_twitter_author_username'] ) ) {
+        $contactmethods['amt_twitter_author_username'] = __('Twitter author username', 'add-meta-tags');
+    }
+    // Add Twitter publisher username
+    if ( !isset( $contactmethods['amt_twitter_publisher_username'] ) ) {
+        $contactmethods['amt_twitter_publisher_username'] = __('Twitter publisher username', 'add-meta-tags');
+    }
+    return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'amt_add_twitter_contactmethod', 10, 1 );
+
+
+/**
+ * Add Twitter Cards metadata to your content pages.
+ */
+function amt_add_twitter_cards_metadata( $post ) {
+
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    $auto_twitter = $options["auto_twitter"];
+    $do_auto_twitter = (($options["auto_twitter"] == "1") ? true : false );
+    if (!$do_auto_twitter) {
+        return array();
+    }
+
+    $metadata_arr = array();
+
+    // Twitter cards are only added to content
+    if ( is_singular() && ! is_front_page() ) {     // is_front_page() is used for the case in which a static page is used as the front page.
+
+        // Type
+        $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
+
+        // Author and Publisher
+        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
+        if ( !empty($twitter_author_username) ) {
+            $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
+        }
+        $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
+        if ( !empty($twitter_publisher_username) ) {
+            $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
+        }
+
+        // Title
+        // Note: Contains multipage information through amt_process_paged()
+        $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+
+        // Description - We use the description defined by Add-Meta-Tags
+        // Note: Contains multipage information through amt_process_paged()
+        $content_desc = amt_get_content_description($post);
+        if ( !empty($content_desc) ) {
+            $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+        }
+
+        // Image
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
+            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
+            $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $thumbnail_info[1] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $thumbnail_info[2] ) . '" />';
+        } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image.
+            $attachment_image_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
+            $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $attachment_image_info[0] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $attachment_image_info[1] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $attachment_image_info[2] ) . '" />';
+        } elseif (!empty($options["default_image_url"])) {
+            // Alternatively, use default image
+            $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        }
+
+    }
+
+    // Filtering of the generated Opengraph metadata
+    $metadata_arr = apply_filters( 'amt_twitter_metatags', $metadata_arr );
+
+    return $metadata_arr;
+}
+
+
+/**
  * Opengraph metadata
  * Opengraph Specification: http://ogp.me
  */
@@ -678,6 +767,8 @@ function amt_get_metadata() {
         //var_dump(amt_add_meta_tags());
         // Add Opengraph
         $metadata_arr = array_merge($metadata_arr, amt_add_opengraph_metadata($post));
+        // Add Twitter Cards
+        $metadata_arr = array_merge($metadata_arr, amt_add_twitter_cards_metadata($post));
         // Add Dublin Core
         $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata($post));
     }
