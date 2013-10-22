@@ -20,9 +20,14 @@ function amt_content_keywords_mesh() {
     echo amt_get_content_keywords_mesh($post);
 }
 
-function amt_metadata() {
-    // Prints full metadata.
-    amt_add_metadata();
+function amt_metadata_head() {
+    // Prints full metadata for head area.
+    amt_add_metadata_head();
+}
+
+function amt_metadata_footer() {
+    // Prints full metadata for footer area.
+    amt_add_metadata_footer();
 }
 
 function amt_metadata_review() {
