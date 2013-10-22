@@ -560,15 +560,26 @@ function amt_add_opengraph_metadata( $post ) {
             $metadata_arr[] = '<meta property="article:published_time" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
             $metadata_arr[] = '<meta property="article:modified_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
 
-            // Author and Publisher
+            // Author
+            // If a Facebook author profile URL has been provided, it has priority,
+            // Otherwise fall back to the WordPress author archive.
             $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $post->post_author);
             if ( !empty($fb_author_url) ) {
                 $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
             }
+
+            // Publisher
+            // If a Facebook publisher profile URL has been provided, it has priority,
+            // Otherwise fall back to the WordPress blog home url.
             $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
             if ( !empty($fb_publisher_url) ) {
                 $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
             }
+
 
             // article:section: We use the first category as the section
             $first_cat = amt_get_first_category($post);

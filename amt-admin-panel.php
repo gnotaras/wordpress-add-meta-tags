@@ -243,7 +243,7 @@ function amt_options_page() {
                 <br />
                 <strong>'.__('Important Note', 'add-meta-tags').'</strong>:
                 <br />
-                '.__('In order to generate the <code>article:author</code> and <code>article:publisher</code> meta tags for your content, it is required to provide the respective URLs of the Facebook profiles of the author and/or publisher of the content. Update your WordPress user\'s <a href="/wp-admin/profile.php">profile page</a> and fill in the relevant URLs under the section \'Contact Info\'.', 'add-meta-tags').'
+                '.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="/wp-admin/profile.php">profile page</a> under the section <em>Contact Info</em>.', 'add-meta-tags').'
                 <br />
             </fieldset>
             </td>
