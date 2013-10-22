@@ -321,6 +321,116 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
 
 
 /**
+ * This is a helper function that returns the post's or page's description.
+ *
+ * Important: MUST return sanitized data.
+ *
+ */
+function amt_get_content_description( $post, $auto=true ) {
+
+    $content_description = '';
+
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {    // TODO: check if this check is needed at all!
+
+        $desc_fld_content = amt_get_post_meta_description( $post->ID );
+
+        if ( !empty($desc_fld_content) ) {
+            // If there is a custom field, use it
+            $content_description = $desc_fld_content;
+        } else {
+            // Else, use the post's excerpt. Valid for Pages too.
+            if ($auto) {
+                // Here we sanitize the generated excerpt for safety
+                $content_description = sanitize_text_field( amt_sanitize_description( amt_get_the_excerpt($post) ) );
+            }
+        }
+    }
+    return $content_description;
+}
+
+
+/**
+ * This is a helper function that returns the post's or page's keywords.
+ *
+ * Important: MUST return sanitized data.
+ *
+ */
+function amt_get_content_keywords($post, $auto=true) {
+    
+    $content_keywords = '';
+
+    /*
+     * Custom post field "keywords" overrides post's categories and tags (tags exist in WordPress 2.3 or newer).
+     * %cats% is replaced by the post's categories.
+     * %tags% us replaced by the post's tags.
+     */
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+
+        $keyw_fld_content = amt_get_post_meta_keywords( $post->ID );
+
+        // If there is a custom field, use it
+        if ( !empty($keyw_fld_content) ) {
+            
+            // On single posts, expand the %cats% and %tags% placeholders
+            if ( is_single() ) {
+
+                // Here we sanitize the provided keywords for safety
+                $keywords_from_post_cats = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_post_cats($post) ) );
+                $keyw_fld_content = str_replace("%cats%", $keywords_from_post_cats, $keyw_fld_content);
+
+                // Also, the %tags% tag is replaced by the post's tags (WordPress 2.3 or newer)
+                if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
+                    // Here we sanitize the provided keywords for safety
+                    $keywords_from_post_tags = sanitize_text_field( amt_sanitize_keywords( amt_get_post_tags($post) ) );
+                    $keyw_fld_content = str_replace("%tags%", $keywords_from_post_tags, $keyw_fld_content);
+                }
+            }
+            $content_keywords .= $keyw_fld_content;
+
+        // Otherwise, generate the keywords from categories and tags
+        } elseif ( is_single() ) {  // pages do not support categories and tags
+            if ($auto) {
+                /*
+                 * Add keywords automatically.
+                 * Keywords consist of the post's categories and the post's tags (tags exist in WordPress 2.3 or newer).
+                 */
+                // Here we sanitize the provided keywords for safety
+                $keywords_from_post_cats = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_post_cats($post) ) );
+                if (!empty($keywords_from_post_cats)) {
+                    $content_keywords .= $keywords_from_post_cats;
+                }
+                // Here we sanitize the provided keywords for safety
+                $keywords_from_post_tags = sanitize_text_field( amt_sanitize_keywords( amt_get_post_tags($post) ) );
+                if (!empty($keywords_from_post_tags)) {
+                    $content_keywords .= ", " . $keywords_from_post_tags;
+                }
+            }
+        }
+    }
+
+    /**
+     * Finally, add the global keywords, if they are set in the administration panel.
+     * If $content_keywords is empty, then no global keyword processing takes place.
+     */
+    if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
+        $options = get_option("add_meta_tags_opts");
+        $global_keywords = $options["global_keywords"];
+        if (!empty($global_keywords)) {
+            if ( strpos($global_keywords, '%contentkw%') ) {
+                // The user has used the placeholder ``%contentkw%``. Replace it with the content keywords.
+                $content_keywords = str_replace('%contentkw%', $content_keywords, $global_keywords);
+            } else {
+                // The placeholder ``%contentkw%`` has not been used. Append the content keywords to the global keywords.
+                $content_keywords = $global_keywords . ', ' . $content_keywords;
+            }
+        }
+    }
+
+    return $content_keywords;
+}
+
+
+/**
  * Helper function that returns an array containing the post types that are
  * supported by Add-Meta-Tags. These include:
  *
