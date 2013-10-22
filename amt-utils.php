@@ -754,6 +754,9 @@ function amt_iso8601_date( $mysqldate ) {
  */
 function amt_metatag_highlighter( $metatags ) {
 
+    // Convert special chars, but leave quotes.
+    $metatags = htmlspecialchars($metatags, ENT_NOQUOTES);
+
     preg_match_all('#([^\s]+="[^"]+?)"#i', $metatags, $matches);
     if ( !$matches ) {
         return $metatags;
@@ -765,6 +768,9 @@ function amt_metatag_highlighter( $metatags ) {
         //var_dump($highlighted);
         $metatags = str_replace($match, $highlighted, $metatags);
     }
+
+    // Highlight 'itemscope'
+    $metatags = str_replace('itemscope', '<span style="font-weight: bold; color: #B90746;">itemscope</span>', $metatags);
 
     // Do some conversions
     $metatags =  wp_pre_kses_less_than( $metatags );

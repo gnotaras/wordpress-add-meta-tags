@@ -1230,10 +1230,20 @@ add_action('wp_footer', 'amt_add_metadata_footer', 0);
  */
 
 function amt_get_metadata_review() {
+    //
+    //  TODO: FIX THIS MESS
+    //
+    //return '<pre>' . amt_metatag_highlighter( htmlspecialchars( amt_add_schemaorg_metadata_content_filter('dzfgdzfdzfdszfzf'), ENT_NOQUOTES) ) . '</pre>';
     // Returns metadata review code
     //return '<pre>' . htmlentities( implode(PHP_EOL, amt_get_metadata_head()) ) . '</pre>';
-    $msg = '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Review Mode</span> has been enabled in' . PHP_EOL . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . PHP_EOL;
-    return '<pre>' . $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head()) ) . '</pre>';
+    $msg = '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Review Mode</span> has been enabled in' . PHP_EOL . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . PHP_EOL . PHP_EOL;
+    $msg_body = '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body.</span>';
+    $metadata = '<pre>';
+    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head()) ) . PHP_EOL;
+    $metadata .= PHP_EOL . $msg_body . PHP_EOL . PHP_EOL . amt_metatag_highlighter( amt_add_schemaorg_metadata_content_filter('') ) . PHP_EOL;
+    $metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_footer()) ) . PHP_EOL;
+    $metadata .= '</pre>';
+    return $metadata;
     //return '<pre lang="XML" line="1">' . implode(PHP_EOL, amt_get_metadata_head()) . '</pre>';
 }
 
@@ -1270,6 +1280,6 @@ function amt_add_metadata_review($post_body) {
     return $post_body;
 }
 
-add_filter('the_content', 'amt_add_metadata_review', 0);
+add_filter('the_content', 'amt_add_metadata_review', 9999);
 
 ?>
