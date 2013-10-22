@@ -283,6 +283,26 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Automatic Schema.org Metadata', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Automatic Schema.org Metadata', 'add-meta-tags').'</span></legend>
+
+                <input id="auto_schemaorg" type="checkbox" value="1" name="auto_schemaorg" '. (($options["auto_schemaorg"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="auto_schemaorg">
+                '.__('Automatically generate Microdata and embed it to your content. This feature embeds <code>meta</code> elements inside the body of the web page. This is compatible with the HTML 5 standard, so, before enabling it, make sure your theme is HTML 5 ready. Fore information about Microdata please refer to <a href="http://schema.org">Schema.org</a>.', 'add-meta-tags').'
+                </label>
+                <br />
+                <strong>'.__('Important Notes', 'add-meta-tags').'</strong>:
+                <br /> &raquo; '
+                .__('By default, this feature links the author and publisher objects to the author archive and the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="/wp-admin/profile.php">profile page</a> under the section <em>Contact Info</em>.', 'add-meta-tags').'
+                <br /> &raquo; '
+                .__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the <code>rel="author"</code> and <code>rel="publisher"</code> attributes are automatically added to the head area of the web page.', 'add-meta-tags').'
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Extra SEO Options', 'add-meta-tags').'</th>
             <td>
             <fieldset>

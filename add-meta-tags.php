@@ -693,9 +693,362 @@ function amt_add_dublin_core_metadata( $post ) {
 }
 
 
-/*
-Final
-*/
+/**
+ * Schema.org Metadata
+ * http://schema.org
+ *
+ * Also Google+ author and publisher links in HEAD.
+ */
+
+/**
+ * Add contact method for Google+ for author and publisher.
+ */
+function amt_add_googleplus_contactmethod( $contactmethods ) {
+    // Add Google+ author profile URL
+    if ( !isset( $contactmethods['amt_googleplus_author_profile_url'] ) ) {
+        $contactmethods['amt_googleplus_author_profile_url'] = __('Google+ author profile URL', 'add-meta-tags');
+    }
+    // Add Google+ publisher profile URL
+    if ( !isset( $contactmethods['amt_googleplus_publisher_profile_url'] ) ) {
+        $contactmethods['amt_googleplus_publisher_profile_url'] = __('Google+ publisher page URL', 'add-meta-tags');
+    }
+    return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
+
+
+/**
+ * Adds links with the rel 'author' and 'publisher' to the HEAD of the page.
+ */
+function amt_add_googleplus_metadata( $post ) {
+
+    if ( !is_singular() || is_front_page() ) {
+        // Add these metatags on content pages only.
+        return array();
+    }
+
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
+    if (!$do_auto_schemaorg) {
+        return array();
+    }
+
+    $metadata_arr = array();
+
+    // Publisher
+    $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
+    if ( !empty($googleplus_publisher_url) ) {
+        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
+    }
+
+    // Author
+    $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $post->post_author);
+    if ( !empty($googleplus_author_url) ) {
+        $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
+    }
+
+    // Filtering of the generated Google+ metadata
+    $metadata_arr = apply_filters( 'amt_googleplus_metatags', $metadata_arr );
+
+    return $metadata_arr;
+}
+
+
+/**
+ * Embed Schema.org Microdata
+ */
+function amt_embed_schemaorg_microdata( $post_body ) {
+
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
+    if (!$do_auto_schemaorg) {
+        return $post_body;
+    }
+
+    // Get current post object
+    $post = get_queried_object();
+
+    $microdata_arr = array();
+
+    // Microdata is added to the front page regardless of the post type.
+    if ( is_front_page() && ! is_paged() ) {
+
+        // Organization
+        // Scope BEGIN: Organization: http://schema.org/Organization
+        $microdata_arr[] = '<span itemscope itemtype="http://schema.org/Organization">';
+        // name
+        $microdata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // description
+        // First use the site description from the Add-Meta-Tags settings
+        $site_description = $options["site_description"];
+        if ( empty($site_description) ) {
+            // Alternatively, use the blog description
+            // Here we sanitize the provided description for safety
+            $site_description = sanitize_text_field( amt_sanitize_description( get_bloginfo('description') ) );
+        }
+        $microdata_arr[] = '<meta itemprop="description" content="' . esc_attr( $site_description ) . '" />';
+        // logo
+        if ( !empty($options["default_image_url"]) ) {
+            $microdata_arr[] = '<meta itemprop="logo" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        }
+        // url
+        // If a Google+ publisher profile URL has been provided, it has priority,
+        // Otherwise fall back to the WordPress blog home url.
+        $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
+        if ( !empty($googleplus_publisher_url) ) {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
+        } else {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+        }
+        // Scope END: Organization
+        $microdata_arr[] = '</span> <!-- Scope END: Organization -->';
+
+    }
+
+    // Microdata is added to the first page of the author archive.
+    elseif ( is_author() && ! is_paged() ) {
+
+        // Person
+        // Scope BEGIN: Person: http://schema.org/Person
+        $microdata_arr[] = '<span itemscope itemtype="http://schema.org/Person">';
+        // name
+        $display_name = get_the_author_meta('display_name', $post->post_author);
+        $microdata_arr[] = '<meta itemprop="name" content="' . esc_attr( $display_name ) . '" />';
+        // description
+        // Here we sanitize the provided description for safety
+        $author_description = sanitize_text_field( amt_sanitize_description( get_the_author_meta('description', $post->post_author) ) );
+        if ( !empty($author_description) ) {
+            $microdata_arr[] = '<meta itemprop="description" content="' . esc_attr( $author_description ) . '" />';
+        }
+        // image
+        // Try to get the gravatar
+        // Note: We do not use the get_avatar() function since it returns an img element.
+        // Here wqe do not check if "Show Avatars" is unchecked in Settings > Discussion
+        // $gravatar_img = get_avatar( get_the_author_meta('ID', $post->post_author), 96, '', get_the_author_meta('display_name', $post->post_author) );
+        $author_email = sanitize_email( get_the_author_meta('user_email', $post->post_author) );
+        if ( !empty( $author_email ) ) {
+            // Contruct gravatar link
+            $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . 128;
+            $microdata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $gravatar_url ) . '" />';
+        }
+        // url
+        // If a Google+ author profile URL has been provided, it has priority,
+        // Otherwise fall back to the WordPress author archive.
+        $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $post->post_author);
+        if ( !empty($googleplus_author_url) ) {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
+        } else {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+        }
+        // Note: The get_the_author_meta('user_url') is used in the sameAs itemprop.
+        $user_url = get_the_author_meta('user_url');
+        if ( !empty($user_url) ) {
+            $microdata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $user_url, array('http', 'https') ) . '" />';
+        }
+        // Scope END: Person
+        $microdata_arr[] = '</span> <!-- Scope END: Person -->';
+
+    }
+
+    // Post type check takes place here
+    elseif ( is_singular() ) {
+
+        // Check if metadata is supported on this content type.
+        $post_type = get_post_type( $post );
+        if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+            return $post_body;
+        }
+
+        // Scope BEGIN: Article: http://schema.org/Article
+        $microdata_arr[] = '<span itemscope itemtype="http://schema.org/Article">';
+
+        // name
+        // Note: Contains multipage information through amt_process_paged()
+        $microdata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+
+        // headline
+        $microdata_arr[] = '<meta itemprop="headline" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+
+        // URL
+        $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink($post->ID) ) . '" />';
+
+        // Description - We use the description defined by Add-Meta-Tags
+        // Note: Contains multipage information through amt_process_paged()
+        $content_desc = amt_get_content_description($post);
+        if ( !empty($content_desc) ) {
+            $microdata_arr[] = '<meta itemprop="description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+        }
+
+        // Section: We use the first category as the section
+        $first_cat = sanitize_text_field( amt_sanitize_keywords( amt_get_first_category($post) ) );
+        if (!empty($first_cat)) {
+            $microdata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $first_cat ) . '" />';
+        }
+
+        // Keywords - We use the keywords defined by Add-Meta-Tags
+        $keywords = amt_get_content_keywords($post);
+        if (!empty($keywords)) {
+            $microdata_arr[] = '<meta itemprop="keywords" content="' . esc_attr( $keywords ) . '" />';
+        }
+
+        // Language
+        $microdata_arr[] = '<meta itemprop="inLanguage" content="' . esc_attr( str_replace('-', '_', get_bloginfo('language')) ) . '" />';
+
+        // Thumbnail URL
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
+            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' );
+            $microdata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
+        }
+
+        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+        $microdata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+        // Image
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
+            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
+            $microdata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
+            $microdata_arr[] = '<meta itemprop="width" content="' . esc_attr( $thumbnail_info[1] ) . '" />';
+            $microdata_arr[] = '<meta itemprop="height" content="' . esc_attr( $thumbnail_info[2] ) . '" />';
+        } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image.
+            $attachment_image_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
+            $microdata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $attachment_image_info[0] ) . '" />';
+            $microdata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( get_post_mime_type($post->ID) ) . '" />';
+            $microdata_arr[] = '<meta itemprop="width" content="' . esc_attr( $attachment_image_info[1] ) . '" />';
+            $microdata_arr[] = '<meta itemprop="height" content="' . esc_attr( $attachment_image_info[2] ) . '" />';
+        } elseif (!empty($options["default_image_url"])) {
+            // Alternatively, use default image
+            $microdata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        }
+        // TODO: caption
+        // Scope END: ImageObject
+        $microdata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        
+        // Video
+        $video_url = amt_get_video_url();
+        if (!empty($video_url)) {
+            // Scope BEGIN: VideoObject: http://schema.org/VideoObject
+            // See: http://googlewebmastercentral.blogspot.gr/2012/02/using-schemaorg-markup-for-videos.html
+            // See: https://support.google.com/webmasters/answer/2413309?hl=en
+            $microdata_arr[] = '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
+            // Video Embed URL
+            $microdata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $video_url ) . '" />';
+            // Scope END: VideoObject
+            $microdata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+        }
+
+        // Dates
+        $microdata_arr[] = '<meta itemprop="datePublished" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+        $microdata_arr[] = '<meta itemprop="dateModified" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
+        $microdata_arr[] = '<meta itemprop="copyrightYear" content="' . esc_attr( mysql2date('Y', $post->post_date) ) . '" />';
+
+        // Publisher
+        // Scope BEGIN: Organization: http://schema.org/Organization
+        $microdata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">';
+        // name
+        $microdata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // description
+        // First use the site description from the Add-Meta-Tags settings
+        $site_description = $options["site_description"];
+        if ( empty($site_description) ) {
+            // Alternatively, use the blog description
+            // Here we sanitize the provided description for safety
+            $site_description = sanitize_text_field( amt_sanitize_description( get_bloginfo('description') ) );
+        }
+        $microdata_arr[] = '<meta itemprop="description" content="' . esc_attr( $site_description ) . '" />';
+        // logo
+        if ( !empty($options["default_image_url"]) ) {
+            $microdata_arr[] = '<meta itemprop="logo" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        }
+        // url
+        // If a Google+ publisher profile URL has been provided, it has priority,
+        // Otherwise fall back to the WordPress blog home url.
+        $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
+        if ( !empty($googleplus_publisher_url) ) {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
+        } else {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+        }
+        // Scope END: Organization
+        $microdata_arr[] = '</span> <!-- Scope END: Organization -->';
+
+        // Author
+        // Scope BEGIN: Person: http://schema.org/Person
+        $microdata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person">';
+        // name
+        $display_name = get_the_author_meta('display_name', $post->post_author);
+        $microdata_arr[] = '<meta itemprop="name" content="' . esc_attr( $display_name ) . '" />';
+        // description
+        // Here we sanitize the provided description for safety
+        $author_description = sanitize_text_field( amt_sanitize_description( get_the_author_meta('description', $post->post_author) ) );
+        if ( !empty($author_description) ) {
+            $microdata_arr[] = '<meta itemprop="description" content="' . esc_attr( $author_description ) . '" />';
+        }
+        // image
+        // Try to get the gravatar
+        // Note: We do not use the get_avatar() function since it returns an img element.
+        // Here wqe do not check if "Show Avatars" is unchecked in Settings > Discussion
+        // $gravatar_img = get_avatar( get_the_author_meta('ID', $post->post_author), 96, '', get_the_author_meta('display_name', $post->post_author) );
+        $author_email = sanitize_email( get_the_author_meta('user_email', $post->post_author) );
+        if ( !empty( $author_email ) ) {
+            // Contruct gravatar link
+            $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . 128;
+            $microdata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $gravatar_url ) . '" />';
+        }
+        // url
+        // If a Google+ author profile URL has been provided, it has priority,
+        // Otherwise fall back to the WordPress author archive.
+        $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $post->post_author);
+        if ( !empty($googleplus_author_url) ) {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
+        } else {
+            $microdata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+        }
+        // Note: The get_the_author_meta('user_url') is used in the sameAs itemprop.
+        $user_url = get_the_author_meta('user_url');
+        if ( !empty($user_url) ) {
+            $microdata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $user_url, array('http', 'https') ) . '" />';
+        }
+        // Scope END: Person
+        $microdata_arr[] = '</span> <!-- Scope END: Person -->';
+
+        // Article Body
+        // The article body is added after filtering the generated microdata below.
+
+        // TODO: also check: comments, contributor, copyrightHolder, , creator, dateCreated, discussionUrl, editor, version (use post revision if possible)
+        // Scope END: Article
+        $microdata_arr[] = '</span> <!-- Scope END: Article -->';
+
+    }
+
+    // Filtering of the generated Schema.org metadata
+    $microdata_arr = apply_filters( 'amt_schemaorg_microdata', $microdata_arr );
+
+    // Add articleBody to content
+    if ( is_singular() && ! is_front_page() ) {
+
+        // Article Body
+        // Now add the article. Remove last closing '</span>' tag, add articleBody and re-add the closing span afterwards.
+        $closing_article_tag = array_pop($microdata_arr);
+        $microdata_arr[] = '<span itemprop="articleBody">';
+        $microdata_arr[] = $post_body;
+        $microdata_arr[] = '</span> <!-- Itemprop END: articleBody -->';
+        // Now add closing tag for Article
+        $microdata_arr[] = $closing_article_tag;
+
+    }
+
+    // Add our comment
+    if ( count( $microdata_arr ) > 0 ) {
+        array_unshift( $microdata_arr, "<!-- BEGIN Microdata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $microdata_arr, "<!-- END Microdata added by Add-Meta-Tags WordPress plugin -->" );
+    }
+
+    //return $post_body;
+    return implode( PHP_EOL, $microdata_arr );
+}
+add_filter('the_content', 'amt_embed_schemaorg_microdata', 500, 1);
+
 
 /**
  * Uses the custom title, if one has been set.
@@ -771,6 +1124,8 @@ function amt_get_metadata() {
         $metadata_arr = array_merge($metadata_arr, amt_add_twitter_cards_metadata($post));
         // Add Dublin Core
         $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata($post));
+        // Add Google+ Author/Publisher links
+        $metadata_arr = array_merge($metadata_arr, amt_add_googleplus_metadata($post));
     }
 
     // Allow filtering of the all the generated metatags

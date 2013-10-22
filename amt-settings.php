@@ -19,6 +19,7 @@ function amt_get_default_options() {
         "auto_opengraph"    => "0",
         "auto_dublincore"   => "0",
         "auto_twitter"      => "0",
+        "auto_schemaorg"    => "0",
         "noodp_description" => "0",
         "noindex_search_results"     => "1",
         "noindex_date_archives"      => "0",
@@ -90,6 +91,7 @@ function amt_plugin_upgrade() {
 
     // Version 2.3.3 (settings_version 3->4)
     // Added ``auto_twitter``
+    // Added ``auto_schemaorg``
     // No migrations required. Addition takes place in (1).
 
 
