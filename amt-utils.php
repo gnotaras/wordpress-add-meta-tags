@@ -416,12 +416,12 @@ function amt_get_content_keywords($post, $auto=true) {
         $options = get_option("add_meta_tags_opts");
         $global_keywords = $options["global_keywords"];
         if (!empty($global_keywords)) {
-            if ( strpos($global_keywords, '%contentkw%') ) {
-                // The user has used the placeholder ``%contentkw%``. Replace it with the content keywords.
-                $content_keywords = str_replace('%contentkw%', $content_keywords, $global_keywords);
-            } else {
+            if ( strpos($global_keywords, '%contentkw%') === false ) {
                 // The placeholder ``%contentkw%`` has not been used. Append the content keywords to the global keywords.
                 $content_keywords = $global_keywords . ', ' . $content_keywords;
+            } else {
+                // The user has used the placeholder ``%contentkw%``. Replace it with the content keywords.
+                $content_keywords = str_replace('%contentkw%', $content_keywords, $global_keywords);
             }
         }
     }
