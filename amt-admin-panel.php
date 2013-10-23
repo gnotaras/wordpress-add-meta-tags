@@ -443,10 +443,10 @@ add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
 
 /**
  * Adds a box to the main column of the editing panel of the supported post types.
- * See the amt_get_supported_post_types() docstring for more info on the supported types.
+ * See the amt_get_post_types_for_metabox() docstring for more info on the supported types.
  */
 function amt_add_metadata_box() {
-    $supported_types = amt_get_supported_post_types();
+    $supported_types = amt_get_post_types_for_metabox();
 
     // Add an Add-Meta-Tags meta box to all supported types
     foreach ($supported_types as $supported_type) {
@@ -471,7 +471,7 @@ function amt_add_metadata_box() {
 // add_action('admin_print_styles-post-new.php', 'amt_metadata_box_css_js');
 
 function amt_metadata_box_css_js () {
-    // $supported_types = amt_get_supported_post_types();
+    // $supported_types = amt_get_post_types_for_metabox();
     // See: #900 for details
 
     // Using included Jquery UI

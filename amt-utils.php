@@ -445,12 +445,10 @@ function amt_get_content_keywords($post, $auto=true) {
  *
  *   - post
  *   - page
+ *   - attachment
  *
  * And also to ALL public custom post types which have a UI.
  *
- * NOTE ABOUT attachments:
- * The 'attachment' post type does not support saving custom fields like other post types.
- * See: http://www.codetrax.org/issues/875
  */
 function amt_get_supported_post_types() {
     $supported_builtin_types = array('post', 'page', 'attachment');
@@ -459,6 +457,31 @@ function amt_get_supported_post_types() {
 
     // Allow filtering of the supported content types.
     $supported_types = apply_filters( 'amt_supported_post_types', $supported_types );
+
+    return $supported_types;
+}
+
+
+/**
+ * Helper function that returns an array containing the post types
+ * on which the Metadata metabox should be added.
+ *
+ *   - post
+ *   - page
+ *
+ * And also to ALL public custom post types which have a UI.
+ *
+ * NOTE ABOUT attachments:
+ * The 'attachment' post type does not support saving custom fields like other post types.
+ * See: http://www.codetrax.org/issues/875
+ */
+function amt_get_post_types_for_metabox() {
+    $supported_builtin_types = array('post', 'page');
+    $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
+    $supported_types = array_merge($supported_builtin_types, $public_custom_types);
+
+    // Allow filtering of the supported content types.
+    $supported_types = apply_filters( 'amt_metabox_post_types', $supported_types );     // Leave this filter out of the documentation for now.
 
     return $supported_types;
 }
