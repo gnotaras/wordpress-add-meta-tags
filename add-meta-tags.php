@@ -932,26 +932,30 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     }
 
     // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-    $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
     // Image
     if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
         $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
+        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
         $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
         $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $thumbnail_info[1] ) . '" />';
         $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $thumbnail_info[2] ) . '" />';
+        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
     } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image.
         $attachment_image_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
+        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
         $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $attachment_image_info[0] ) . '" />';
         $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( get_post_mime_type($post->ID) ) . '" />';
         $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $attachment_image_info[1] ) . '" />';
         $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $attachment_image_info[2] ) . '" />';
+        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
     } elseif (!empty($options["default_image_url"])) {
         // Alternatively, use default image
+        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
         $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
     }
     // TODO: caption
     // Scope END: ImageObject
-    $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
     
     // Video
     $video_url = amt_get_video_url();
