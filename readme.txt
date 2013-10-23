@@ -4,7 +4,7 @@ Donate link: http://www.g-loaded.eu/about/donate/
 Tags: meta, metadata, seo, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, yahoo, bing, meta tags
 Requires at least: 3.0.0
 Tested up to: 3.6.1
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -238,6 +238,7 @@ Screenshots as of v2.1.0.
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.3.4](http://www.codetrax.org/versions/186)
 - [2.3.3](http://www.codetrax.org/versions/183)
  - Available features in this release: Twitter Cards, Schema.org Microdata.
  - Make sure you read the notes under the relevant options. Please report any issues in the WordPress Forums.
