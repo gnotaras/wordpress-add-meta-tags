@@ -741,7 +741,7 @@ function amt_add_schemaorg_metadata_footer( $post ) {
     $options = get_option("add_meta_tags_opts");
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
-        return $post_body;
+        return array();
     }
 
     // Get current post object
