@@ -444,7 +444,7 @@ function amt_get_content_keywords($post, $auto=true) {
  * See: http://www.codetrax.org/issues/875
  */
 function amt_get_supported_post_types() {
-    $supported_builtin_types = array('post', 'page');
+    $supported_builtin_types = array('post', 'page', 'attachment');
     $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
     $supported_types = array_merge($supported_builtin_types, $public_custom_types);
 
