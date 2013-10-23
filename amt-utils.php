@@ -171,7 +171,9 @@ function amt_process_paged( $data ) {
  */
 function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
-    if ( empty($post->post_excerpt) ) {
+    if ( empty($post->post_excerpt) || get_post_type( $post ) == 'attachment' ) {   // In attachments we always use $post->post_content to get a description
+
+        // Here we generate an excerpt from $post->post_content
 
         // Get the initial data for the excerpt
         $amt_excerpt = strip_tags(substr($post->post_content, 0, $excerpt_max_len));
@@ -204,8 +206,15 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
         }
 
     } else {
+
         // When the post excerpt has been set explicitly, then it has priority.
         $amt_excerpt = $post->post_excerpt;
+
+        // NOTE ABOUT ATTACHMENTS: In attachments $post->post_excerpt is the caption.
+        // It is usual that attachments have both the post_excerpt and post_content set.
+        // Attachments should never enter here, but be processed above, so that
+        // post->post_content is always used as the source of the excerpt.
+
     }
 
     /**
