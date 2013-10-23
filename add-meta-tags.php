@@ -122,6 +122,18 @@ function amt_add_basic_metadata_head( $post ) {
             }
         }
 
+    } elseif ( is_attachment() ) {  // has to be before is_singular() since is_singular() is true for attachments.
+
+        // Description
+        if ($do_description) {
+            $description = amt_get_content_description($post, $auto=$do_description);
+            if (!empty($description)) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $description ) ) . '" />';
+            }
+        }
+
+        // No keywords
+
     } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
         // Description
