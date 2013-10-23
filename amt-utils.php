@@ -323,7 +323,7 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
 /**
  * This is a helper function that returns the post's or page's description.
  *
- * Important: MUST return sanitized data.
+ * Important: MUST return sanitized data, unless this plugin has sanitized the data before storing to db.
  *
  */
 function amt_get_content_description( $post, $auto=true ) {
@@ -352,7 +352,7 @@ function amt_get_content_description( $post, $auto=true ) {
 /**
  * This is a helper function that returns the post's or page's keywords.
  *
- * Important: MUST return sanitized data.
+ * Important: MUST return sanitized data, unless this plugin has sanitized the data before storing to db.
  *
  */
 function amt_get_content_keywords($post, $auto=true) {
