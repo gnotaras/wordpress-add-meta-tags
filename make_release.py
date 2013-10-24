@@ -21,6 +21,7 @@ REL_FILES = [
 ]
 
 REL_DIRS = [
+    'metadata',
     'languages',
     'css',
     'js',
