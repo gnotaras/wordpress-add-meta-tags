@@ -752,6 +752,13 @@ function amt_get_video_url() {
         return 'http://player.vimeo.com/video/' . $matches[1];
     }
 
+    // <video> element
+    //$pattern = '#<video.*src="([^"]+)"#';
+    //if ( preg_match($pattern, $post->post_content, $matches) ) {
+    //    var_dump($matches);
+    //    return 'http://player.vimeo.com/video/' . $matches[1];
+    //}
+
     return '';
 }
 
