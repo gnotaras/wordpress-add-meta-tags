@@ -43,7 +43,9 @@ function amt_add_dublin_core_metadata_head( $post ) {
     }
 
     // Keywords are in the form: keyword1;keyword2;keyword3
-    $metadata_arr[] = '<meta name="dc.subject" content="' . esc_attr( amt_get_content_keywords_mesh($post) ) . '" />';
+    if ( ! is_attachment() ) {  // Attachments do not support keywords
+        $metadata_arr[] = '<meta name="dc.subject" content="' . esc_attr( amt_get_content_keywords_mesh($post) ) . '" />';
+    }
 
     $metadata_arr[] = '<meta name="dc.language" scheme="dcterms.rfc4646" content="' . esc_attr( get_bloginfo('language') ) . '" />';
     $metadata_arr[] = '<meta name="dc.publisher" scheme="dcterms.uri" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
@@ -59,18 +61,36 @@ function amt_add_dublin_core_metadata_head( $post ) {
 
     $metadata_arr[] = '<meta name="dc.coverage" content="World" />';
 
+    if ( is_attachment() ) {
+
+        $mime_type = get_post_mime_type( $post->ID );
+        $attachment_type = strstr( $mime_type, '/', true );
+
+        if ( 'image' == $attachment_type ) {
+            $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Image" />';
+            $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="' . $mime_type . '" />';
+        } elseif ( 'video' == $attachment_type ) {
+            $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="MovingImage" />';
+            $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="' . $mime_type . '" />';
+        } elseif ( 'audio' == $attachment_type ) {
+            $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Sound" />';
+            $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="' . $mime_type . '" />';
+        }
+
+    } else {    // Default: Text
+        $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Text" />';
+        $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="text/html" />';
+    }
+
+
     /**
      * WordPress Post Formats: http://codex.wordpress.org/Post_Formats
      * Dublin Core Format: http://dublincore.org/documents/dcmi-terms/#terms-format
      * Dublin Core DCMIType: http://dublincore.org/documents/dcmi-type-vocabulary/
      */
-
     /**
      * TREAT ALL POST FORMATS AS TEXT (for now)
      */
-    $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Text" />';
-    $metadata_arr[] = '<meta name="dc.format" scheme="dcterms.imt" content="text/html" />';
-
     /**
     $format = get_post_format( $post->id );
     if ( empty($format) || $format=="aside" || $format=="link" || $format=="quote" || $format=="status" || $format=="chat") {
