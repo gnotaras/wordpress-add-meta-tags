@@ -101,7 +101,7 @@ for rf in os.listdir('metadata'):
     if rf.endswith('.php'):
         args.append( os.path.join( 'metadata', rf ) )
 print (' ').join(args)
-sys.exit()
+##sys.exit()
 p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = p.communicate()
 
