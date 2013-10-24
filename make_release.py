@@ -97,7 +97,11 @@ args = ['xgettext', '--default-domain=%s' % pot_domain, '--output=%s.pot' % pot_
 for rf in REL_FILES:
     if rf.endswith('.php'):
         args.append(rf)
+for rf in os.listdir('metadata'):
+    if rf.endswith('.php'):
+        args.append( os.path.join( 'metadata', rf ) )
 print (' ').join(args)
+sys.exit()
 p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = p.communicate()
 
