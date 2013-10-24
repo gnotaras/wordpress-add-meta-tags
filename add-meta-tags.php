@@ -287,10 +287,48 @@ function amt_add_twitter_cards_metadata_head( $post ) {
         return array();
     }
 
+    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
+        // Twitter Cards are added to content pages and attachments only.
+        return array();
+    }
+
     $metadata_arr = array();
 
-    // Twitter cards are only added to content
-    if ( is_singular() && ! is_front_page() ) {     // is_front_page() is used for the case in which a static page is used as the front page.
+    if ( is_attachment() ) {
+
+        if ( wp_attachment_is_image( $post->ID ) ) {
+            
+            // $post is an image object
+
+            // Image attachments
+            $image_meta = wp_get_attachment_metadata( $post->ID );   // contains info about all sizes
+            // We use wp_get_attachment_image_src() since it constructs the URLs
+            $main_size_meta = wp_get_attachment_image_src( $post->ID , 'medium' );
+
+            // Type
+            $metadata_arr[] = '<meta name="twitter:card" content="photo" />';
+
+            // Author and Publisher
+            $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
+            if ( !empty($twitter_author_username) ) {
+                $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
+            }
+            $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
+            if ( !empty($twitter_publisher_username) ) {
+                $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
+            }
+
+            // Title
+            $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+
+            // Image
+            $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+
+        }
+
+    } else {    // Text
 
         // Type
         $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
@@ -322,11 +360,6 @@ function amt_add_twitter_cards_metadata_head( $post ) {
             $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
             $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $thumbnail_info[1] ) . '" />';
             $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $thumbnail_info[2] ) . '" />';
-        } elseif ( is_attachment() && wp_attachment_is_image($post->ID) ) { // is attachment page and contains an image.
-            $attachment_image_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large' );
-            $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $attachment_image_info[0] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $attachment_image_info[1] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $attachment_image_info[2] ) . '" />';
         } elseif (!empty($options["default_image_url"])) {
             // Alternatively, use default image
             $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
