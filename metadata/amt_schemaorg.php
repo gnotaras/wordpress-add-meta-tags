@@ -507,7 +507,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Add articleBody to Artice
 
-    if ( ! is_attachment() ) {
+    if ( is_attachment() ) {
+        // Add the $post_body here
+        $metadata_arr[] = $post_body;
+        if ( wp_attachment_is_image( $post->ID ) ) {
+            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        }
+    } else {    // Article
         // Now add the article. Remove last closing '</span>' tag, add articleBody and re-add the closing span afterwards.
         $closing_article_tag = array_pop($metadata_arr);
         $metadata_arr[] = '<span itemprop="articleBody">';
