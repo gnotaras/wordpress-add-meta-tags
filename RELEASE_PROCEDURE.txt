@@ -17,6 +17,47 @@
     
     tx pull --all
 
+6. Run ``make_release.py``.
+
+7. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
+    And upload (Source File) the new POT file.
+   OR use the client as shown in step 1 below.
+
+8. Push source language file to translation service:
+
+    tx push -s
+
+    (note: tx push --resource add-meta-tags.main --source -l none )
+
+9. Mercurial:
+   - Add new translation files
+   - Commit changes
+   - Add tag. (format N.N.N)
+
+10. Upload the created distribution file to CodeTRAX and close the relevant version.
+
+11. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and extract contents here.
+
+12. Add any new files using:
+
+    svn add <file1> <dir1>
+
+13. Commit the release:
+
+    svn commit -m "Committing the N.N.N release of Add-Meta-Tags"
+
+14. Tag the new release in the SVN repository:
+
+    cd ..
+    svn cp trunk tags/N.N.N
+    svn commit -m "Tagging the N.N.N release"
+
+
+
+==============
+OLD STEPS here
+--------------
+
 6. Compile PO to MO (TODO: improve this info)
 
     - Linux:
@@ -24,38 +65,4 @@
     - Windows:
         "C:\Program Files (x86)\Gettext\bin\msgfmt.exe" -c -f -o add-meta-tags-xx_XX.mo add-meta-tags-xx_XX.po
 
-7. Run ``make_release.py``.
-
-8. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
-    And upload (Source File) the new POT file.
-   OR use the client as shown in step 1 below.
-
-9. Push source language file to translation service:
-
-    tx push -s
-
-    (note: tx push --resource add-meta-tags.main --source -l none )
-
-10. Mercurial:
-   - Add new translation files
-   - Commit changes
-   - Add tag. (format N.N.N)
-
-11. Upload the created distribution file to CodeTRAX and close the relevant version.
-
-12. Copy the created file in ``Wordpress.org\add-meta-tags\trunk`` and extract contents here.
-
-13. Add any new files using:
-
-    svn add <file1> <dir1>
-
-14. Commit the release:
-
-    svn commit -m "Committing the N.N.N release of Add-Meta-Tags"
-
-15. Tag the new release in the SVN repository:
-
-    cd ..
-    svn cp trunk tags/N.N.N
-    svn commit -m "Tagging the N.N.N release"
 
