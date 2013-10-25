@@ -204,7 +204,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // In this filter function we only deal with content and attachments.
-        return array();
+        return $post_body;
     }
 
     // Get the options the DB
