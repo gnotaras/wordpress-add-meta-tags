@@ -45,9 +45,15 @@ function amt_add_dublin_core_metadata_head( $post ) {
         $metadata_arr[] = '<meta name="dc.description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
     }
 
-    // Keywords are in the form: keyword1;keyword2;keyword3
+    // Keywords
     if ( ! is_attachment() ) {  // Attachments do not support keywords
-        $metadata_arr[] = '<meta name="dc.subject" content="' . esc_attr( amt_get_content_keywords_mesh($post) ) . '" />';
+        // dc.subject - one for each keyword.
+        $keywords = explode(', ', amt_get_content_keywords($post));
+        foreach ( $keywords as $subject ) {
+            if ( ! empty($subject) ) {
+                $metadata_arr[] = '<meta name="dc.subject" content="' . esc_attr( $subject ) . '" />';
+            }
+        }
     }
 
     $metadata_arr[] = '<meta name="dc.language" scheme="dcterms.rfc4646" content="' . esc_attr( get_bloginfo('language') ) . '" />';
