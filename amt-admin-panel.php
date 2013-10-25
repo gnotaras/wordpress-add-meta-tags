@@ -145,7 +145,7 @@ function amt_options_page() {
                 <label for="site_description">
                     <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["site_description"] ) ) . '</textarea>
                     <br />
-                    '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog\'s description from the <em>Tagline</em> in <a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php">General Options</a> will be used.', 'add-meta-tags').'
+                    '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog\'s description from the <em>Tagline</em> in <a href="/wp-admin/options-general.php">General Options</a> will be used.', 'add-meta-tags').'
                 </label>
             </fieldset>
             </td>
@@ -159,7 +159,7 @@ function amt_options_page() {
                 <label for="site_keywords">
                     <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["site_keywords"] ) ) . '</textarea>
                     <br />
-                    '.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="' . get_bloginfo('wpurl') . '/wp-admin/edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'
+                    '.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="/wp-admin/edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'
                     <br />
                     <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code>
                 </label>
