@@ -55,9 +55,11 @@ POT_HEADER = """#  POT (Portable Object Template)
 
 import sys
 import os
+import glob
 import zipfile
 import shutil
 import subprocess
+import polib
 
 def get_name_release():
     def get_data(cur_line):
@@ -87,6 +89,7 @@ def get_name_release():
 name, release = get_name_release()
 
 
+print 'Generating POT file...'
 
 # Translation
 pot_domain = os.path.splitext(PLUGIN_METADATA_FILE)[0]
@@ -101,7 +104,7 @@ for rf in os.listdir('metadata'):
     if rf.endswith('.php'):
         args.append( os.path.join( 'metadata', rf ) )
 print (' ').join(args)
-##sys.exit()
+
 p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = p.communicate()
 
@@ -118,7 +121,24 @@ for n, line in enumerate(pot_lines):
     f.write(line)
 f.close()
 
+print 'Complete'
 
+# Compile language .po files to .mo
+
+print 'Compiling PO files to MO...'
+for po_file in os.listdir('languages'):
+    if not po_file.endswith('.po'):
+        continue
+    po_path = os.path.join('languages', po_file)
+    print 'Converting', po_path
+    po = polib.pofile(po_path, encoding='utf-8')
+    mo_path = po_path[:-3] + '.mo'
+    po.save_as_mofile(mo_path)
+
+print 'Complete'
+print
+
+print 'Creating distribution package...'
 # Create release dir and move release files inside it
 os.mkdir(name)
 # Copy files
@@ -156,3 +176,5 @@ d_package.close()
 
 shutil.rmtree(name)
 
+print 'Complete'
+print
