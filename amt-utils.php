@@ -114,13 +114,6 @@ function amt_revert_placeholders( $data ) {
 }
 
 
-function amt_get_content_keywords_mesh( $post ) {
-    // Keywords returned in the form: keyword1;keyword2;keyword3
-    $keywords = explode(', ', amt_get_content_keywords($post));
-    return implode(';', $keywords);
-}
-
-
 /**
  * This function is meant to be used in order to append information about the
  * current page to the description or the title of the content.
