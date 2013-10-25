@@ -113,47 +113,47 @@ function amt_add_basic_metadata_head( $post ) {
 
 
     } elseif ( is_category() ) {
-        /*
-         * Write a description META tag only if a description for the current category has been set.
-         */
+
         if ($do_description) {
+            // If set, the description of the category is used in the 'description' metatag.
+            // Otherwise, a generic description is used.
             // Here we sanitize the provided description for safety
             $description_content = sanitize_text_field( amt_sanitize_description( category_description() ) );
-            if (!empty($description_content)) {
+            if ( empty( $description_content ) ) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content filed under the ' . single_cat_title( $prefix='', $display=false ) . ' category.' ) ) . '" />';
+            } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
             }
         }
         
-        /*
-         * Write a keyword metatag if there is a category name (always)
-         */
         if ($do_keywords) {
+            // The category name alone is included in the 'keywords' metatag
             // Here we sanitize the provided keywords for safety
             $cur_cat_name = sanitize_text_field( amt_sanitize_keywords( single_cat_title($prefix = '', $display = false ) ) );
-            if ( !empty($cur_cat_name) ) {
+            if ( ! empty($cur_cat_name) ) {
                 $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cur_cat_name ) . '" />';
             }
         }
 
     } elseif ( is_tag() ) {
-        /*
-         * Writes a description META tag only if a description for the current tag has been set.
-         */
+
         if ($do_description) {
+            // If set, the description of the tag is used in the 'description' metatag.
+            // Otherwise, a generic description is used.
             // Here we sanitize the provided description for safety
             $description_content = sanitize_text_field( amt_sanitize_description( tag_description() ) );
-            if (!empty($description_content)) {
+            if ( empty( $description_content ) ) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content tagged with ' . single_tag_title( $prefix='', $display=false ) . '.' ) ) . '" />';
+            } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
             }
         }
         
-        /*
-         * Write a keyword metatag if there is a tag name (always)
-         */
         if ($do_keywords) {
+            // The tag name alone is included in the 'keywords' metatag
             // Here we sanitize the provided keywords for safety
             $cur_tag_name = sanitize_text_field( amt_sanitize_keywords( single_tag_title($prefix = '', $display = false ) ) );
-            if ( !empty($cur_tag_name) ) {
+            if ( ! empty($cur_tag_name) ) {
                 $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cur_tag_name ) . '" />';
             }
         }
@@ -169,17 +169,31 @@ function amt_add_basic_metadata_head( $post ) {
         // Access user meta with:  $author->description, $author->user_email, etc
         $author = get_queried_object();
 
-        // Write a description META tag only if a bio has been set in the user profile.
+        // If a bio has been set in the user profile, use it in the description metatag of the
+        // first page of the author archive *ONLY*. The other pages of the author archive use a generic description.
+        // This happens because the 1st page of the author archive is considered the profile page
+        // by the other metadata modules.
+        // Otherwise use a generic meta tag.
         if ($do_description) {
             // Here we sanitize the provided description for safety
             $author_description = sanitize_text_field( amt_sanitize_description( $author->description ) );
-            if ( !empty($author_description) ) {
+            if ( empty($author_description) || is_paged() ) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content published by ' . $author->display_name . '.' ) ) . '" />';
+            } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( $author_description ) . '" />';
             }
         }
         
         // no keywords meta tag for author archive
         // TODO: add the categories of the posts the author has written.
+        if ($do_keywords) {
+            // The tag name alone is included in the 'keywords' metatag
+            // Here we sanitize the provided keywords for safety
+            $cats_from_loop = sanitize_text_field( amt_sanitize_keywords( implode( ', ', amt_get_tags_from_loop() ) ) );
+            if ( ! empty($cats_from_loop) ) {
+                $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cats_from_loop ) . '" />';
+            }
+        }
         
     }
 
