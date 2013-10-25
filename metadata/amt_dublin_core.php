@@ -1,7 +1,10 @@
 <?php
 /**
- * Dublin Core metadata on posts and pages
- * http://dublincore.org/documents/dcmi-terms/
+ * Dublin Core metadata on posts, pages and attachments.
+ *
+ *  * http://dublincore.org/documents/dcmi-terms/
+ *  * http://dublincore.org/documents/dces/
+ *  * Examples: http://www.metatags.org/dublin_core_metadata_element_set
  *
  * Module containing functions related to Dublin Core
  */
