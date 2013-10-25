@@ -323,6 +323,55 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
 
 
 /**
+ * Returns an array of the category names that appear in the posts of the loop.
+ * Category 'Uncategorized' is excluded.
+ *
+ * Accepts the $category_arr, an array containing the initial categories.
+ */
+function amt_get_categories_from_loop( $category_arr=array() ) {
+    if (have_posts()) {
+        while ( have_posts() ) {
+            the_post(); // Iterate the post index in The Loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
+            $categories = get_the_category();
+            if( $categories ) {
+                foreach( $categories as $category ) {
+                    if ( ! in_array( $category->name, $category_arr ) && $category->slug != 'uncategorized' ) {
+                        $category_arr[] = $category->name;
+                    }
+                }
+            }
+		}
+	}
+    rewind_posts(); // Not sure if this is needed.
+    return $category_arr;
+}
+
+
+/**
+ * Returns an array of the tag names that appear in the posts of the loop.
+ *
+ * Accepts the $tag_arr, an array containing the initial tags.
+ */
+function amt_get_tags_from_loop( $tag_arr=array() ) {
+    if (have_posts()) {
+        while ( have_posts() ) {
+            the_post(); // Iterate the post index in The Loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
+            $tags = get_the_tags();
+            if( $tags ) {
+                foreach( $tags as $tag ) {
+                    if ( ! in_array( $tag->name, $tag_arr ) ) {
+                        $tag_arr[] = $tag->name;
+                    }
+                }
+            }
+		}
+	}
+    rewind_posts(); // Not sure if this is needed.
+    return $tag_arr;
+}
+
+
+/**
  * This is a helper function that returns the post's or page's description.
  *
  * Important: MUST return sanitized data, unless this plugin has sanitized the data before storing to db.
