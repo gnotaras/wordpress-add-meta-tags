@@ -234,11 +234,12 @@ Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-ta
 
 == Screenshots ==
 
-Screenshots as of v2.1.0.
+Screenshots as of v2.3.5
 
-1. Add-Meta-Tags administration interface.
-2. Enable Metadata meta box in the screen options of the post/page editing panel.
-3. Metadata meta box in the post editing panel.
+1. Add-Meta-Tags administration interface ( `Options -> Metadata` ).
+2. Enable Metadata meta box in the screen options of the post editing panel.
+3. Metadata box in the post editing panel.
+4. Contact info entries added by Add-Meta-Tags (AMT) in the user profile page.
 
 
 == Changelog ==
