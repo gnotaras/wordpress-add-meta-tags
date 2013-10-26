@@ -11,6 +11,7 @@
  * for use in wp_kses() function.
  */
 function amt_get_allowed_html_kses() {
+    //return array();
     return array(
         'meta' => array(
             'charset' => array(),
