@@ -536,29 +536,28 @@ function amt_get_post_types_for_metabox() {
  * For easy migration this function supports reading the description from the
  * old ``description`` custom field and also from the custom field of other plugins.
  */
-function amt_get_post_meta_description($post_id) {
-    $amt_description_field_name = '_amt_description';
+function amt_get_post_meta_description( $post_id ) {
+    // Order matters
+    $supported_custom_fields = array( '_amt_description', 'description' );
+    // Allow filtering of the supported fields
+    $supported_custom_fields = apply_filters( 'amt_supported_description_fields', $supported_custom_fields, $post_id );
 
     // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys($post_id);
-
-    // Just return an empty string if no custom fields have been associated with this content.
-    if ( empty($custom_fields) ) {
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
         return '';
     }
 
-    // First try our default description field
-    if ( in_array($amt_description_field_name, $custom_fields) ) {
-        return get_post_meta($post_id, $amt_description_field_name, true);
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the description.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
     }
-    // Try old description field: ``description``
-    elseif ( in_array('description', $custom_fields) ) {
-        return get_post_meta($post_id, 'description', true);
-    }
-    // Try other description field names here.
-    // Support reading from other plugins
 
-    //Return empty string if all fails
+    //Return empty string if all fail
     return '';
 }
 
@@ -571,28 +570,27 @@ function amt_get_post_meta_description($post_id) {
  * old ``keywords`` custom field and also from the custom field of other plugins.
  */
 function amt_get_post_meta_keywords($post_id) {
-    $amt_keywords_field_name = '_amt_keywords';
+    // Order matters
+    $supported_custom_fields = array( '_amt_keywords', 'keywords' );
+    // Allow filtering of the supported fields
+    $supported_custom_fields = apply_filters( 'amt_supported_keywords_fields', $supported_custom_fields, $post_id );
 
     // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys($post_id);
-
-    // Just return an empty string if no custom fields have been associated with this content.
-    if ( empty($custom_fields) ) {
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
         return '';
     }
 
-    // First try our default keywords field
-    if ( in_array($amt_keywords_field_name, $custom_fields) ) {
-        return get_post_meta($post_id, $amt_keywords_field_name, true);
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the keywords.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
     }
-    // Try old keywords field: ``keywords``
-    elseif ( in_array('keywords', $custom_fields) ) {
-        return get_post_meta($post_id, 'keywords', true);
-    }
-    // Try other keywords field names here.
-    // Support reading from other plugins
 
-    //Return empty string if all fails
+    //Return empty string if all fail
     return '';
 }
 
@@ -604,25 +602,27 @@ function amt_get_post_meta_keywords($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_title($post_id) {
-    $amt_title_field_name = '_amt_title';
+    // Order matters
+    $supported_custom_fields = array( '_amt_title' );
+    // Allow filtering of the supported fields
+    $supported_custom_fields = apply_filters( 'amt_supported_title_fields', $supported_custom_fields, $post_id );
 
     // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys($post_id);
-
-    // Just return an empty string if no custom fields have been associated with this content.
-    if ( empty($custom_fields) ) {
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
         return '';
     }
 
-    // First try our default title field
-    if ( in_array($amt_title_field_name, $custom_fields) ) {
-        return get_post_meta($post_id, $amt_title_field_name, true);
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the custom title.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
     }
-    
-    // Try other title field names here.
-    // Support reading from other plugins
 
-    //Return empty string if all fails
+    //Return empty string if all fail
     return '';
 }
 
@@ -634,25 +634,27 @@ function amt_get_post_meta_title($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_newskeywords($post_id) {
-    $amt_newskeywords_field_name = '_amt_news_keywords';
+    // Order matters
+    $supported_custom_fields = array( '_amt_news_keywords' );
+    // Allow filtering of the supported fields
+    $supported_custom_fields = apply_filters( 'amt_supported_news_keywords_fields', $supported_custom_fields, $post_id );
 
     // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys($post_id);
-
-    // Just return an empty string if no custom fields have been associated with this content.
-    if ( empty($custom_fields) ) {
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
         return '';
     }
 
-    // First try our default 'news_keywords' field
-    if ( in_array($amt_newskeywords_field_name, $custom_fields) ) {
-        return get_post_meta($post_id, $amt_newskeywords_field_name, true);
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the news keywords.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
     }
-    
-    // Try other 'news_keywords' field names here.
-    // Support reading from other plugins
 
-    //Return empty string if all fails
+    //Return empty string if all fail
     return '';
 }
 
@@ -664,25 +666,27 @@ function amt_get_post_meta_newskeywords($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_full_metatags($post_id) {
-    $amt_full_metatags_field_name = '_amt_full_metatags';
+    // Order matters
+    $supported_custom_fields = array( '_amt_full_metatags' );
+    // Allow filtering of the supported fields
+    $supported_custom_fields = apply_filters( 'amt_supported_full_metatags_fields', $supported_custom_fields, $post_id );
 
     // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys($post_id);
-
-    // Just return an empty string if no custom fields have been associated with this content.
-    if ( empty($custom_fields) ) {
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
         return '';
     }
 
-    // First try our default 'full_metatags' field
-    if ( in_array($amt_full_metatags_field_name, $custom_fields) ) {
-        return get_post_meta($post_id, $amt_full_metatags_field_name, true);
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the full metatags.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
     }
-    
-    // Try other 'full_metatags' field names here.
-    // Support reading from other plugins
 
-    //Return empty string if all fails
+    //Return empty string if all fail
     return '';
 }
 
