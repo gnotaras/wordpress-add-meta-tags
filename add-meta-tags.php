@@ -256,12 +256,8 @@ function amt_add_metadata_review($post_body) {
             return $post_body;
         }
 
-        // Adds metadata review code only for admins
-        $user_info = get_userdata(get_current_user_id());
-        
-        // See: http://codex.wordpress.org/User_Levels
-        // Admin -> User level 10
-        if ( $user_info->user_level == '10' ) {
+        // Only administrators can see the review box.
+        if ( current_user_can( 'create_users' ) ) {
             $post_body = amt_get_metadata_review() . '<br /><br />' . $post_body;
         }
 
