@@ -3,7 +3,7 @@ Contributors: gnotaras
 Donate link: http://www.g-loaded.eu/about/donate/
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, meta tags
 Requires at least: 3.0.0
-Tested up to: 3.6.1
+Tested up to: 3.7
 Stable tag: 2.3.4
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
