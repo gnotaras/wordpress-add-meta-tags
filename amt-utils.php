@@ -11,6 +11,7 @@
  * for use in wp_kses() function.
  */
 function amt_get_allowed_html_kses() {
+    // Uncomment the following line to allow any HTML element in the Full Meta Tags box.
     //return array();
     return array(
         'meta' => array(
