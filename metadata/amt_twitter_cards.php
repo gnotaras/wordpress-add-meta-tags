@@ -13,11 +13,11 @@
 function amt_add_twitter_contactmethod( $contactmethods ) {
     // Add Twitter author username
     if ( !isset( $contactmethods['amt_twitter_author_username'] ) ) {
-        $contactmethods['amt_twitter_author_username'] = __('Twitter author username', 'add-meta-tags');
+        $contactmethods['amt_twitter_author_username'] = __('Twitter author username', 'add-meta-tags') . ' (AMT)';
     }
     // Add Twitter publisher username
     if ( !isset( $contactmethods['amt_twitter_publisher_username'] ) ) {
-        $contactmethods['amt_twitter_publisher_username'] = __('Twitter publisher username', 'add-meta-tags');
+        $contactmethods['amt_twitter_publisher_username'] = __('Twitter publisher username', 'add-meta-tags') . ' (AMT)';
     }
     return $contactmethods;
 }

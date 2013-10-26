@@ -15,11 +15,11 @@
 function amt_add_googleplus_contactmethod( $contactmethods ) {
     // Add Google+ author profile URL
     if ( !isset( $contactmethods['amt_googleplus_author_profile_url'] ) ) {
-        $contactmethods['amt_googleplus_author_profile_url'] = __('Google+ author profile URL', 'add-meta-tags');
+        $contactmethods['amt_googleplus_author_profile_url'] = __('Google+ author profile URL', 'add-meta-tags') . ' (AMT)';
     }
     // Add Google+ publisher profile URL
     if ( !isset( $contactmethods['amt_googleplus_publisher_profile_url'] ) ) {
-        $contactmethods['amt_googleplus_publisher_profile_url'] = __('Google+ publisher page URL', 'add-meta-tags');
+        $contactmethods['amt_googleplus_publisher_profile_url'] = __('Google+ publisher page URL', 'add-meta-tags') . ' (AMT)';
     }
     return $contactmethods;
 }

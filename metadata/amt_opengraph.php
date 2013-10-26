@@ -13,11 +13,11 @@
 function amt_add_facebook_contactmethod( $contactmethods ) {
     // Add Facebook Author Profile URL
     if ( !isset( $contactmethods['amt_facebook_author_profile_url'] ) ) {
-        $contactmethods['amt_facebook_author_profile_url'] = __('Facebook author profile URL', 'add-meta-tags');
+        $contactmethods['amt_facebook_author_profile_url'] = __('Facebook author profile URL', 'add-meta-tags') . ' (AMT)';
     }
     // Add Facebook Publisher Profile URL
     if ( !isset( $contactmethods['amt_facebook_publisher_profile_url'] ) ) {
-        $contactmethods['amt_facebook_publisher_profile_url'] = __('Facebook publisher profile URL', 'add-meta-tags');
+        $contactmethods['amt_facebook_publisher_profile_url'] = __('Facebook publisher profile URL', 'add-meta-tags') . ' (AMT)';
     }
 
     // Remove test
