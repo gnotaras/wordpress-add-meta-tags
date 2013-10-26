@@ -539,10 +539,13 @@ function amt_get_post_types_for_metabox() {
  * old ``description`` custom field and also from the custom field of other plugins.
  */
 function amt_get_post_meta_description( $post_id ) {
-    // Order matters
+    // Internal fields - order matters
     $supported_custom_fields = array( '_amt_description', 'description' );
-    // Allow filtering of the supported fields
-    $supported_custom_fields = apply_filters( 'amt_supported_description_fields', $supported_custom_fields, $post_id );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_description_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys( $post_id );
@@ -572,10 +575,13 @@ function amt_get_post_meta_description( $post_id ) {
  * old ``keywords`` custom field and also from the custom field of other plugins.
  */
 function amt_get_post_meta_keywords($post_id) {
-    // Order matters
+    // Internal fields - order matters
     $supported_custom_fields = array( '_amt_keywords', 'keywords' );
-    // Allow filtering of the supported fields
-    $supported_custom_fields = apply_filters( 'amt_supported_keywords_fields', $supported_custom_fields, $post_id );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_keywords_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys( $post_id );
@@ -604,10 +610,13 @@ function amt_get_post_meta_keywords($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_title($post_id) {
-    // Order matters
+    // Internal fields - order matters
     $supported_custom_fields = array( '_amt_title' );
-    // Allow filtering of the supported fields
-    $supported_custom_fields = apply_filters( 'amt_supported_title_fields', $supported_custom_fields, $post_id );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_title_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys( $post_id );
@@ -636,10 +645,13 @@ function amt_get_post_meta_title($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_newskeywords($post_id) {
-    // Order matters
+    // Internal fields - order matters
     $supported_custom_fields = array( '_amt_news_keywords' );
-    // Allow filtering of the supported fields
-    $supported_custom_fields = apply_filters( 'amt_supported_news_keywords_fields', $supported_custom_fields, $post_id );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_news_keywords_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys( $post_id );
@@ -668,10 +680,13 @@ function amt_get_post_meta_newskeywords($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_full_metatags($post_id) {
-    // Order matters
+    // Internal fields - order matters
     $supported_custom_fields = array( '_amt_full_metatags' );
-    // Allow filtering of the supported fields
-    $supported_custom_fields = apply_filters( 'amt_supported_full_metatags_fields', $supported_custom_fields, $post_id );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_full_metatags_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
     // Get an array of all custom fields names of the post
     $custom_fields = get_post_custom_keys( $post_id );
