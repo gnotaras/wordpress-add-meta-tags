@@ -520,7 +520,17 @@ function amt_get_supported_post_types() {
  * See: http://www.codetrax.org/issues/875
  */
 function amt_get_post_types_for_metabox() {
-    $supported_builtin_types = array('post', 'page');
+    // Get the post types supported by Add-Meta-Tags
+    $supported_builtin_types = amt_get_supported_post_types();
+    // The 'attachment' post type does not support saving custom fields like
+    // other post types. See: http://www.codetrax.org/issues/875
+    // So, the 'attachment' type is removed (if exists) so as not to add a metabox there.
+    $attachment_post_type_key = array_search( 'attachment', $supported_builtin_types );
+    if ( $attachment_post_type_key !== false ) {
+        // Remove this type from the array
+        unset( $supported_builtin_types[ $attachment_post_type_key ] );
+    }
+    // Get public post types
     $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
     $supported_types = array_merge($supported_builtin_types, $public_custom_types);
 
