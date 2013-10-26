@@ -35,8 +35,11 @@ function amt_add_dublin_core_metadata_head( $post ) {
     $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.uri" content="' . esc_url_raw( get_permalink($post->ID) ) . '" />';
 
     $metadata_arr[] = '<meta name="dc.creator" content="' . esc_attr( amt_get_dublin_core_author_notation($post) ) . '" />';
-    $metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
-
+    //$metadata_arr[] = '<meta name="dc.date" scheme="dc.w3cdtf" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.created" scheme="dc.w3cdtf" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.issued" scheme="dc.w3cdtf" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.modified" scheme="dc.w3cdtf" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
+ 
     // Description
     // We use the same description as the ``description`` meta tag.
     // Note: Contains multipage information through amt_process_paged()
