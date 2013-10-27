@@ -123,6 +123,21 @@ There is an ongoing effort to translate Add-Meta-Tags to as many languages as po
 
 Once registered, join the team of the language translation you wish to contribute to. If a team does not exist for your language, be the first to create a translation team by requesting the language and start translating.
 
+
+= Code Contributions =
+
+If you are interested in contributing code to this project, please make sure you read the [special section](http://wordpress.org/plugins/add-meta-tags/other_notes/#How-to-contribute-code "How to contribute code") for this purpose, which contains all the details.
+
+
+= Support and Feedback =
+
+Please post your questions and provide general feedback and requests at the [Add-Meta-Tags Community Support Forum](http://wordpress.org/support/plugin/add-meta-tags).
+
+To avoid duplicate effort, before asking a question do some research on the forum about a similar question has been answered before.
+
+Also, make sure you read our [FAQ](http://wordpress.org/plugins/add-meta-tags/faq/ "Add-Meta-Tags FAQ").
+
+
 = Advanced Customization =
 
 Add-Meta-Tags allows filtering of the generated metatags and also of some core functionality through filters. This way advanced customization of the plugin is possible.
