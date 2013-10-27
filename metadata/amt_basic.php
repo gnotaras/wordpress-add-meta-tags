@@ -40,6 +40,7 @@ function amt_add_basic_metadata_head( $post ) {
 
         // Description
         if ($do_description) {
+            // TODO: fix these if clauses
             // First use the site description from the Add-Meta-Tags settings
             $site_description = $options["site_description"];
             if (empty($site_description)) {
@@ -56,6 +57,7 @@ function amt_add_basic_metadata_head( $post ) {
 
         // Keywords
         if ($do_keywords) {
+            // TODO: fix these if clauses
             $site_keywords = $options["site_keywords"];
             if (empty($site_keywords)) {
                 // Alternatively, use the blog categories
