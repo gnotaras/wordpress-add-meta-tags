@@ -287,17 +287,71 @@ Please check out the changelog of each release by following the links below. You
 - [0.1](http://www.codetrax.org/versions/25)
 
 
-== Contribute ==
+== How to contribute code ==
 
-Add-Meta-Tags is released under the Apache License v2.0 and is free software.
+This section contains information about how to contribute code to this project.
 
-The source code is available on Bitbucket:
+Add-Meta-Tags is released under the Apache License v2.0 and is free open-source software. Therefore, code contributions are more than welcome!
+
+But, please, note that not all code contributions will finally make it to the main branch. Patches which fix bugs or improve the current features are very likely to be included. On the contrary, patches which add too complicated or sophisticated features, extra administration options or transform the general character of the plugin are unlikely to be included.
+
+= Source Code =
+
+The repository with the most up-to-date source code can be found on Bitbucket (Mercurial). This is where development takes place:
 
 `https://bitbucket.org/gnotaras/wordpress-add-meta-tags`
 
-The main repository is mirrored on Github:
+The main repository is very frequently mirrored to Github (Git):
 
 `https://github.com/gnotaras/wordpress-add-meta-tags`
 
-This page will contain information about how to contribute to this project.
+The Subversion repository on WordPress.org is only used for releases. The trunk contains the latest stable release:
+
+`http://plugins.svn.wordpress.org/add-meta-tags/`
+
+= Creating a patch =
+
+Using Mercurial:
+
+`
+hg clone https://bitbucket.org/gnotaras/wordpress-add-meta-tags
+cd wordpress-add-meta-tags
+# ... make changes ...
+hg commit -m "fix for bug"
+# create a patch for the last commit
+hg export --git tip > bug-fix.patch
+`
+
+Using Git:
+
+`
+git clone https://github.com/gnotaras/wordpress-add-meta-tags
+cd wordpress-add-meta-tags
+# ... make changes to add-meta-tags.php or other file ...
+git add add-meta-tags.php
+git commit -m "my fix"
+git show > bug-fix.patch
+`
+
+Using SVN:
+
+`
+svn co http://plugins.svn.wordpress.org/add-meta-tags/trunk/ add-meta-tags-trunk
+cd add-meta-tags-trunk
+# ... make changes ...
+svn diff > bug-fix.patch
+`
+
+= Patch Submission =
+
+Here are some ways in which you can submit a patch:
+
+* submit to the [bug tracker](http://www.codetrax.org/projects/wp-add-meta-tags/issues) of the development website.
+* create a pull request on Bitbucket or Github.
+* email it to me directly (my email address can be found in `add-meta-tags.php`).
+* post it in the WordPress forums.
+
+Please note that it may take a while before I get back to you regarding the patch.
+
+Last, but not least, all code contributions are governed by the terms of the Apache License v2.0.
 
