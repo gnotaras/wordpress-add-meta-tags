@@ -1,9 +1,9 @@
 
 1. Change version in plugin PHP file.
 
-2. Add contributors in CONTRIBUTORS.
+2. Add contributors, if required, in AUTHORS.
 
-3. Change stable tag in readme.txt
+3. Change stable tag in readme.txt and 'Tested up to' if required.
 
 4. Add link to changelog in the relevant section in readme.txt
 
