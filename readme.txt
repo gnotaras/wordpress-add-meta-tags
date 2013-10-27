@@ -24,7 +24,6 @@ The goals of the Add-Meta-Tags plugin are:
 - be customizable, yet simple and easy to use and configure with minimal or no support.
 - be as lightweight as possible.
 - support advanced customization through the WordPress filter/action system (for developers and power users).
-- do one job and do it well.
 
 
 = What it does =
