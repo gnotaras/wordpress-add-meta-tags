@@ -234,6 +234,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         if ( wp_attachment_is_image( $post->ID ) ) {
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
             $metadata_arr[] = '<span itemscope itemtype="http://schema.org/ImageObject">';
+        } else {
+            // we do not currently support other attachment types, so we stop processing here
+            return $post_body;
         }
     } else {
         // Scope BEGIN: Article: http://schema.org/Article
