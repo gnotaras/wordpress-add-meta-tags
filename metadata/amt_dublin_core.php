@@ -6,6 +6,8 @@
  *  * http://dublincore.org/documents/dces/
  *  * Examples: http://www.metatags.org/dublin_core_metadata_element_set
  *
+ *  * Generic Examples: http://dublincore.org/documents/2001/04/12/usageguide/generic.shtml
+ *
  * Module containing functions related to Dublin Core
  */
 
