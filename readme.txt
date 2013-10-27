@@ -211,27 +211,27 @@ No special requirements when upgrading.
 
 == Frequently Asked Questions ==
 
-Troubleshooting:
-
 = My meta tags do not show up! =
 
-Please, check if your theme's `header.php` file contains the following required piece of code: `<?php wp_head(); ?>`. If this is missing, contact the theme author. Full WordPress functionality requires this.
+Please, check if your theme's `header.php` file contains the following required piece of code: `<?php wp_head(); ?>`. If this is missing, contact the theme author.
 
 = My meta tags show up twice! =
 
 The *description* and *keywords* meta tags are most probably already hardcoded into your theme's `header.php` file. Please contact the theme author.
 
+= I paste HTML code in the *Full Meta Tags* box, but it keeps disappearing! =
+
+For security reasons, only `<meta>` HTML elements are allowed in this box.
+
 = Where can I get support? =
 
-Add-Meta-Tags is released as free software without warranties. You can get first class support from the [community of users](http://wordpress.org/support/plugin/add-meta-tags "Add-Meta-Tags Users").
+You can get first class support from the [community of users](http://wordpress.org/support/plugin/add-meta-tags "Add-Meta-Tags Users"). Please post your questions, feature requests and general feedback in the forums.
 
-= I found a bug! =
+Also, my email can be found in the `add-meta-tags.php` file. If possible, I'll help. Please note that it may take a while to get back to you.
 
-Please, be kind enough to [file a bug report](http://www.codetrax.org/projects/wp-add-meta-tags/issues/new "File bug about Add-Meta-Tags") to our issue database. This is the only way to bring the issue to the plugin author's attention.
+= Is there a bug tracker? =
 
-= I want to request a new feature! =
-
-Please, use our [issue database](http://www.codetrax.org/projects/wp-add-meta-tags/issues "Add-Meta-Tags Issue Database") to submit your requests.
+You can find the bug tracker at the [Add-Meta-Tags Development web site](http://www.codetrax.org/projects/wp-add-meta-tags).
 
 
 == Screenshots ==
