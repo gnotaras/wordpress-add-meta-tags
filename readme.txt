@@ -4,7 +4,7 @@ Donate link: http://www.g-loaded.eu/about/donate/
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.0.0
 Tested up to: 3.7
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -330,6 +330,12 @@ Screenshots as of v2.3.5
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.3.5](http://www.codetrax.org/versions/187)
+ - Improved metadata on image attachment pages.
+ - Support for reading data from external custom fields. Useful when migrating from other plugins or from custom hacks. Please read the *Advanced Customization* section at the plugin homepage for more information and examples.
+ - Improved basic metadata for category/tag/author based archives (thanks Bidstall Admin).
+ - Improved Dublin Core metadata.
+ - Updated translations. Temporarily removed Slovak translation (until it is refreshed). Added Turkish translation (thanks Burak).
 - [2.3.4](http://www.codetrax.org/versions/186)
 - [2.3.3](http://www.codetrax.org/versions/183)
  - Available features in this release: Twitter Cards, Schema.org Microdata.
