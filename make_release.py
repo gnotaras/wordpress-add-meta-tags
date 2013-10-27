@@ -9,7 +9,7 @@ REL_FILES = [
     'amt-template-tags.php',
     'amt-utils.php',
     'AUTHORS',
-    'CONTRIBUTORS',
+    #'CONTRIBUTORS',
 	'LICENSE',
 	'NOTICE',
 	'README',
