@@ -187,7 +187,7 @@ This can easily be done by hooking a custom function to the `amt_supported_post_
 function limit_metadata_to_post_types( $post_types ) {
     // ... process and return the $post_types array
     // ... or just return a custom array of post types
-    return array( 'post', 'book', 'projects');
+    return array( 'post', 'book', 'project');
 }
 add_filter( 'amt_supported_post_types', 'limit_metadata_to_post_types', 10, 1 );
 `
