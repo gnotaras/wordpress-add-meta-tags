@@ -240,18 +240,22 @@ This code can be placed inside your theme's `functions.php` file.
 
 Keep in mind that:
 
-1. AMT internal fields have priority over the external fields. If both the internal field and an external field contain a description, then the description of the internal field is used.
+1. AMT internal fields have priority over the external fields. If both the internal field and an external field contain data, then the data of the internal field is used.
 1. AMT uses external fields to only read data. It never writes to external fields. Whenever the content is saved, every piece of information, which may have been read from an external field, is stored to the relevant AMT internal field. Consequently, when the content is saved, information from external fields is migrated to the AMT internal fields, and external fields have no effect on this specific content any more.
 
 = Custom Fields =
 
-Add-Meta-Tags uses the following internal custom fields to store data:
+Add-Meta-Tags uses the following internal custom fields to store data related to the content:
 
 * `_amt_description` - the content's custom description (the `description` field is also read as a fallback for backwards compatibility).
 * `_amt_keywords` - the content's custom keywords (the `keywords` field is also read as a fallback for backwards compatibility).
 * `_amt_title` - the content's custom title.
 * `_amt_news_keywords` - the content's custom news keywords.
 * `_amt_full_metatags` - the content's full meta tag code.
+
+The following internal custom fields are also used to store user contact info, which is required for full Add-Meta-Tags functionality:
+
+TODO: add contactinfo fields here
 
 = Template Tags =
 
@@ -301,7 +305,7 @@ Please, check if your theme's `header.php` file contains the following required 
 
 The *description* and *keywords* meta tags are most probably already hardcoded into your theme's `header.php` file. Please contact the theme author.
 
-= I paste HTML code in the *Full Meta Tags* box, but it keeps disappearing! =
+= I paste HTML code in the 'Full Meta Tags' box, but it keeps disappearing! =
 
 For security reasons, only `<meta>` HTML elements are allowed in this box.
 
@@ -335,7 +339,6 @@ Please check out the changelog of each release by following the links below. You
  - Support for reading data from external custom fields. Useful when migrating from other plugins or from custom hacks. Please read the *Advanced Customization* section at the plugin homepage for more information and examples.
  - Improved basic metadata for category/tag/author based archives (thanks Bidstall Admin).
  - Improved Dublin Core metadata.
- - Updated translations. Temporarily removed Slovak translation (until it is refreshed). Added Turkish translation (thanks Burak).
 - [2.3.4](http://www.codetrax.org/versions/186)
 - [2.3.3](http://www.codetrax.org/versions/183)
  - Available features in this release: Twitter Cards, Schema.org Microdata.
