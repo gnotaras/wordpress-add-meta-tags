@@ -157,7 +157,7 @@ Please post your questions and provide general feedback and requests at the [Add
 
 To avoid duplicate effort, before asking a question do some research on the forum about a similar question has been answered before.
 
-Also, make sure you read our [FAQ](http://wordpress.org/plugins/add-meta-tags/faq/ "Add-Meta-Tags FAQ").
+Also, make sure you read the [FAQ](http://wordpress.org/plugins/add-meta-tags/faq/ "Add-Meta-Tags FAQ").
 
 
 = Advanced Customization =
