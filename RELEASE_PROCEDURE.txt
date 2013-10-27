@@ -46,8 +46,13 @@
 
     svn add <file1> <dir1>
 
+    Also, remove outdated translations.
+
+    svn remove languages/lang1.po languages/lang1.mo
+
 13. Commit the release:
 
+    svn status
     svn commit -m "Committing the N.N.N release of Add-Meta-Tags"
 
 14. Tag the new release in the SVN repository:
