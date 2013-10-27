@@ -19,6 +19,7 @@ Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and 
 
 The following list outlines how and where metadata is added to a *WordPress* blog.
 
+
 = Basic meta tags =
 
 The *description* and *keywords* meta tags are added:
@@ -59,6 +60,7 @@ The *description* and *keywords* meta tags are added:
 
 - The bio of the WordPress user, if set, is used in the *description* meta tag on the first page of the author archive. All other author archive pages use a generic description.
 - The categories of the posts that are currently being displayed in the page are used in the keywords meta tag.
+
 
 = Extended Meta Tag Support =
 
@@ -109,6 +111,9 @@ Twitter Cards can be automatically added to content pages and image attachment p
 
 Dublin Core metatags can be automatically added to posts and pages and attachment pages.
 
+
+= Other Features =
+
 **Extra SEO features**
 
 - Add the `NOODP,NOYDIR` option to the robots meta tag.
@@ -118,7 +123,8 @@ Dublin Core metatags can be automatically added to posts and pages and attachmen
 
 When enabled, WordPress users with administrator privileges see a box that contains the full metadata (exactly as it is added in the HTML head) above the content for easier examination.
 
-**Languages**
+
+= Translations =
 
 There is an ongoing effort to translate Add-Meta-Tags to as many languages as possible. The easiest way to contribute translations is to register to our [translations project](https://www.transifex.com/projects/p/add-meta-tags "Add-Meta-Tags translations project") at the Transifex service.
 
