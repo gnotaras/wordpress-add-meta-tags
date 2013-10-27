@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.3.4\n"
+"Project-Id-Version: add-meta-tags 2.3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-23 04:50+0300\n"
+"POT-Creation-Date: 2013-10-28 00:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,32 +33,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: add-meta-tags.php:52
+#: add-meta-tags.php:56
 msgid "Settings"
-msgstr ""
-
-#: add-meta-tags.php:255
-msgid "Twitter author username"
-msgstr ""
-
-#: add-meta-tags.php:259
-msgid "Twitter publisher username"
-msgstr ""
-
-#: add-meta-tags.php:343
-msgid "Facebook Author Profile URL"
-msgstr ""
-
-#: add-meta-tags.php:347
-msgid "Facebook Publisher Profile URL"
-msgstr ""
-
-#: add-meta-tags.php:684
-msgid "Google+ author profile URL"
-msgstr ""
-
-#: add-meta-tags.php:688
-msgid "Google+ publisher page URL"
 msgstr ""
 
 #: amt-admin-panel.php:12 amt-admin-panel.php:55
@@ -134,7 +110,7 @@ msgid "Front Page Description"
 msgstr ""
 
 #: amt-admin-panel.php:148
-msgid "Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog's description from the <em>Tagline</em> in <a href=\""
+msgid "Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog's description from the <em>Tagline</em> in <a href=\"/wp-admin/options-general.php\">General Options</a> will be used."
 msgstr ""
 
 #: amt-admin-panel.php:155 amt-admin-panel.php:158
@@ -142,7 +118,7 @@ msgid "Front Page Keywords"
 msgstr ""
 
 #: amt-admin-panel.php:162
-msgid "Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\""
+msgid "Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\"/wp-admin/edit-tags.php?taxonomy=category\">categories</a> will be used as keywords for the <em>keywords</em> meta tag."
 msgstr ""
 
 #: amt-admin-panel.php:164 amt-admin-panel.php:183 amt-admin-panel.php:187
@@ -175,7 +151,7 @@ msgid "Site-wide META tags"
 msgstr ""
 
 #: amt-admin-panel.php:201
-msgid "Provide the <strong>full XHTML code</strong> of META tags you would like to be included in <strong>all</strong> of your blog pages."
+msgid "Provide the full XHTML code of extra META elements you would like to add to all the pages of your web site (read more about the <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
 msgstr ""
 
 #: amt-admin-panel.php:203
@@ -327,7 +303,7 @@ msgid "Description"
 msgstr ""
 
 #: amt-admin-panel.php:559
-msgid "Enter a custom description of 20-40 words - based on an average word length of 5 characters"
+msgid "Enter a custom description of 20-40 words (based on an average word length of 5 characters)."
 msgstr ""
 
 #: amt-admin-panel.php:566
@@ -343,7 +319,7 @@ msgid "Keywords"
 msgstr ""
 
 #: amt-admin-panel.php:594
-msgid "Separate keywords with commas"
+msgid "Enter keywords separated with commas."
 msgstr ""
 
 #: amt-admin-panel.php:601
@@ -375,7 +351,15 @@ msgid "Full meta tags"
 msgstr ""
 
 #: amt-admin-panel.php:660
-msgid "Enter full meta tags specific to this content."
+msgid "Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
+msgstr ""
+
+#: amt-admin-panel.php:663
+msgid "For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:"
+msgstr ""
+
+#: amt-admin-panel.php:668
+msgid "Important note: for security reasons only <code>meta</code> elements are allowed in this box. All other HTML elements are automatically removed."
 msgstr ""
 
 #: amt-settings.php:182
@@ -384,4 +368,28 @@ msgstr ""
 
 #: amt-settings.php:195
 msgid "Add-Meta-Tags options were reset to defaults"
+msgstr ""
+
+#: metadata\amt_opengraph.php:16
+msgid "Facebook author profile URL"
+msgstr ""
+
+#: metadata\amt_opengraph.php:20
+msgid "Facebook publisher profile URL"
+msgstr ""
+
+#: metadata\amt_schemaorg.php:18
+msgid "Google+ author profile URL"
+msgstr ""
+
+#: metadata\amt_schemaorg.php:22
+msgid "Google+ publisher page URL"
+msgstr ""
+
+#: metadata\amt_twitter_cards.php:16
+msgid "Twitter author username"
+msgstr ""
+
+#: metadata\amt_twitter_cards.php:20
+msgid "Twitter publisher username"
 msgstr ""
