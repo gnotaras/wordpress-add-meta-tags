@@ -214,6 +214,46 @@ add_filter( 'amt_supported_post_types', 'limit_metadata_to_post_types', 10, 1 );
 `
 This code can be placed inside your theme's `functions.php` file.
 
+*Example 3*: you use plugin X that saves the descriptions, keywords, etc in its custom fields. You want to migrate to Add-Meta-Tags and need to read the fields of your old plugin.
+
+This can easily be done by hooking custom functions to the `amt_external_description_fields` and `amt_external_keywords_fields` filters:
+
+`
+function read_old_plugin_description_field( $extfields ) {
+    // Although $extfields is currently empty, it's a good practice to
+    // append your old plugins description field to the $extfields array.
+    array_unshift( 'my_old_plugin_description_field', $extfields );
+    return $extfields;
+}
+add_filter( 'amt_external_description_fields', 'read_old_plugin_description_field', 10, 1 );
+
+function read_old_plugin_keywords_field( $extfields, $post_id ) {
+    // This function also demonstrates how to get and possibly use the post's ID
+    // Append your old plugins keywords field to the $extfields array
+    if ( in_array( $post_id, array( 1, 2, 5, 8 ) ) ) {
+        array_unshift( 'my_old_plugin_keywords_field', $extfields );
+    }
+    return $extfields;
+}
+add_filter( 'amt_external_keywords_fields', 'read_old_plugin_keywords_field', 10, 2 );
+`
+This code can be placed inside your theme's `functions.php` file.
+
+Keep in mind that:
+
+1. AMT internal fields have priority over the external fields. If both the internal field and an external field contain a description, then the description of the internal field is used.
+1. AMT uses external fields to only read data. It never writes to external fields. Whenever the content is saved, every piece of information, which may have been read from an external field, is stored to the relevant AMT internal field. Consequently, when the content is saved, information from external fields is migrated to the AMT internal fields, and external fields have no effect on this specific content any more.
+
+= Custom Fields =
+
+Add-Meta-Tags uses the following internal custom fields to store data:
+
+* `_amt_description` - the content's custom description (the `description` field is also read as a fallback for backwards compatibility).
+* `_amt_keywords` - the content's custom keywords (the `keywords` field is also read as a fallback for backwards compatibility).
+* `_amt_title` - the content's custom title.
+* `_amt_news_keywords` - the content's custom news keywords.
+* `_amt_full_metatags` - the content's full meta tag code.
+
 = Template Tags =
 
 The following *template tags* are available for use in your theme:
