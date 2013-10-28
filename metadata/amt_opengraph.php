@@ -63,23 +63,111 @@ function amt_add_opengraph_metadata_head( $post ) {
 
     } elseif ( amt_is_default_front_page() ) {
 
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Type
         $metadata_arr[] = '<meta property="og:type" content="website" />';
+        // Site Name
+        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Title
+        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // URL
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
         // Site Image
         // Use the default image, if one has been set.
         if (!empty($options["default_image_url"])) {
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
         }
-        $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
         // Site description
         if (!empty($options["site_description"])) {
             $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( $options["site_description"] ) . '" />';
         } elseif (get_bloginfo('description')) {
             $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( get_bloginfo('description') ) . '" />';
         }
+        // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', get_bloginfo('language')) ) . '" />';
-        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
 
+
+    // Front page using a static page
+    } elseif ( amt_is_static_front_page() ) {
+
+        // Type
+        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        // Site Name
+        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Title
+        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+        // URL
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+        // Site Image
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+            // Use the static page's featured image, if set.
+            $image = get_post( get_post_thumbnail_id( $post->ID ) );
+            //$image_meta = wp_get_attachment_metadata( get_post_thumbnail_id( $post->ID ) );   // contains info about all sizes
+            // We use wp_get_attachment_image_src() since it constructs the URLs
+            //$thumbnail_meta = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+            $main_size_meta = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
+            // Image tags
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+            //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:type" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+        } elseif (!empty($options["default_image_url"])) {
+            // Alternatively, use default image
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        }
+        // Site Description
+        $content_desc = amt_get_content_description($post);
+        if ( !empty($content_desc) ) {
+            // Use the pages custom description
+            $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( $content_desc ) . '" />';
+        } elseif (get_bloginfo('description')) {
+            // Alternatively use the blog's description
+            $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( get_bloginfo('description') ) . '" />';
+        }
+        // Locale
+        $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', get_bloginfo('language')) ) . '" />';
+
+
+    // The posts index page - a static page displaying the latest posts
+    } elseif ( amt_is_static_home() ) {
+
+        // Type
+        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        // Site Name
+        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Title - Note: Contains multipage information through amt_process_paged()
+        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        // URL
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_permalink($post->ID) ) . '" />';
+        // Site Image
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+            // Use the static page's featured image, if set.
+            $image = get_post( get_post_thumbnail_id( $post->ID ) );
+            //$image_meta = wp_get_attachment_metadata( get_post_thumbnail_id( $post->ID ) );   // contains info about all sizes
+            // We use wp_get_attachment_image_src() since it constructs the URLs
+            //$thumbnail_meta = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
+            $main_size_meta = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
+            // Image tags
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+            //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:type" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+        } elseif (!empty($options["default_image_url"])) {
+            // Alternatively, use default image
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+        }
+        // Site Description - Note: Contains multipage information through amt_process_paged()
+        $content_desc = amt_get_content_description($post);
+        if ( !empty($content_desc) ) {
+            // Use the pages custom description
+            $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+        } elseif (get_bloginfo('description')) {
+            // Alternatively use a generic description
+            $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged( "An index of the lastest content." ) . '" />';
+        }
+        // Locale
+        $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', get_bloginfo('language')) ) . '" />';
 
     } elseif ( is_author() ) {
 
