@@ -227,6 +227,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         return $post_body;
     }
 
+    // Get an array containing the attachments
+    $attachments = amt_get_ordered_attachments( $post );
+    //var_dump($attachments);
+
+    // Get an array containing the URLs of the embedded media
+    $embedded_media = amt_get_embedded_media( $post );
+    //var_dump($embedded_media);
 
     // Metadata common in Articles and Attachments
 
@@ -471,18 +478,25 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         }
         // Scope END: ImageObject
         
-        // Video
-        $video_url = amt_get_video_url();
-        if (!empty($video_url)) {
+        // Embedded Media
+        foreach( $embedded_media['images'] as $embedded_item ) {
+            // TODO: check how to do this and what to support.
+        }
+        foreach( $embedded_media['videos'] as $embedded_item ) {
             // Scope BEGIN: VideoObject: http://schema.org/VideoObject
             // See: http://googlewebmastercentral.blogspot.gr/2012/02/using-schemaorg-markup-for-videos.html
             // See: https://support.google.com/webmasters/answer/2413309?hl=en
             $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
             $metadata_arr[] = '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
             // Video Embed URL
-            $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $video_url ) . '" />';
+            $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+            // playerType
+            $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
             // Scope END: VideoObject
             $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+        }
+        foreach( $embedded_media['sounds'] as $embedded_item ) {
+            // TODO: check how to do this. Add same as video?
         }
 
         // Article Body
