@@ -65,9 +65,9 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media )
 
 
 /**
- * Add Schema.org Microdata in the footer
+ * Add Schema.org Microdata in the footer.
  *
- * Mainly used to embed microdata to archives.
+ * Mainly used to embed microdata to front page, posts index page and archives.
  */
 function amt_add_schemaorg_metadata_footer( $post ) {
 
