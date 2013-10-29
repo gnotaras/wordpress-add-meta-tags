@@ -69,7 +69,7 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media )
  *
  * Mainly used to embed microdata to front page, posts index page and archives.
  */
-function amt_add_schemaorg_metadata_footer( $post ) {
+function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media ) {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
