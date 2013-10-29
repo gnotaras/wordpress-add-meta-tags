@@ -29,7 +29,7 @@ add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
 /**
  * Adds links with the rel 'author' and 'publisher' to the HEAD of the page for Google+.
  */
-function amt_add_schemaorg_metadata_head( $post ) {
+function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media ) {
 
     if ( !is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // Add these metatags on content pages only.
