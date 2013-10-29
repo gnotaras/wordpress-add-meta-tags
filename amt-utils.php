@@ -719,6 +719,63 @@ function amt_get_post_meta_full_metatags($post_id) {
 
 
 /**
+ * Helper function that returns an array of objects attached to the provided
+ * $post object.
+ */
+function amt_get_ordered_attachments( $post ) {
+    if ( ! is_object( $post ) ) {
+        return array();
+    }
+
+    // to return IDs:
+    // $attachments = array_values( get_children( array( 'post_parent' => $post->post_parent, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC', 'orderby' => 'menu_order ID' ) ) );
+    return get_children( array(
+        'numberposts' => -1,
+        'post_parent' => $post->ID,
+        'post_type' => 'attachment',
+        'post_status' => 'inherit',
+        //'post_mime_type' => 'image',
+        'order' => 'ASC',
+        'orderby' => 'menu_order ID'
+        )
+    );
+}
+
+
+/**
+ * Helper function that returns the permalink of the provided $post object,
+ * taking into account multipage content.
+ *
+ * ONLY for content.
+ * DO NOT use with:
+ *  - paged archives
+ *  - static page as front page
+ *  - static page as posts index page
+ *
+ * Uses logic from default WordPress function: _wp_link_page
+ *   - http://core.trac.wordpress.org/browser/trunk/src/wp-includes/post-template.php#L705
+ * Also see: wp-includes/canonical.php line: 227 (Post Paging)
+ *
+ */
+function amt_get_permalink_for_multipage( $post ) {
+    $pagenum = get_query_var( 'page' );
+    // Content is multipage
+    if ( $pagenum && $pagenum > 1 ) {
+        // Not using clean URLs -> Add query argument to the URL (eg: ?page=2)
+        if ( '' == get_option('permalink_structure') || in_array( $post->post_status, array('draft', 'pending')) ) {
+            return add_query_arg( 'page', $pagenum, get_permalink($post->ID) );
+        // Using clean URLs
+        } else {
+            return trailingslashit( get_permalink($post->ID) ) . user_trailingslashit( $pagenum, 'single_paged');
+        }
+    // Content is not paged
+    } else {
+        return get_permalink($post->ID);
+    }
+}
+
+
+/**
  *  Helper function that returns true if a static page is used as the homepage
  *  instead of the default posts index page.
  */
