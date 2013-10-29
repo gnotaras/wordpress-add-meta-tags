@@ -38,7 +38,7 @@ add_filter( 'user_contactmethods', 'amt_add_facebook_contactmethod', 10, 1 );
  * - author archive
  * - content
  */
-function amt_add_opengraph_metadata_head( $post, $attachments ) {
+function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media ) {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
@@ -379,17 +379,15 @@ function amt_add_opengraph_metadata_head( $post, $attachments ) {
         }
 
         // Embedded Media
-        // Currently only Youtube and Vimeo
-        $embedded_media = amt_get_embedded_media( $post );
-        foreach( $embedded_media['images'] as $embedded_item_url ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item_url ) . '" />';
+        foreach( $embedded_media['images'] as $embedded_item ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
         }
-        foreach( $embedded_media['videos'] as $embedded_item_url ) {
-            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item_url ) . '" />';
+        foreach( $embedded_media['videos'] as $embedded_item ) {
+            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
         }
-        foreach( $embedded_media['sounds'] as $embedded_item_url ) {
-            $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $embedded_item_url ) . '" />';
+        foreach( $embedded_media['sounds'] as $embedded_item ) {
+            $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             $metadata_arr[] = '<meta property="og:audio:type" content="application/x-shockwave-flash" />';
         }
 
