@@ -860,36 +860,71 @@ function amt_get_posts_page_id() {
 
 
 /**
- * Opengraph helper functions
+ * Returns an array with URLs to players for some embedded media.
  */
+function amt_get_embedded_media( $post ) {
 
-function amt_get_video_url() {
-    global $post;
+    $embedded_media_urls = array(
+        'images' => array(),
+        'videos' => array(),
+        'sounds' => array()
+    );
+
+    // Find Videos
 
     // Youtube
     //$pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
-    $pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=(\w*)#';
-    if ( preg_match($pattern, $post->post_content, $matches) ) {
-        return 'http://youtube.com/v/' . $matches[1];
+    //$pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=(\w*)#i';
+    $pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=([a-zA-Z0-9_-]+)#i';
+    preg_match_all( $pattern, $post->post_content, $matches );
+    //var_dump($matches);
+    if ($matches) {
+        // $matches[0] contains a list of YT video URLS
+        // $matches[1] contains a list of YT video IDs
+        // Add matches to $embedded_media_urls
+        foreach( $matches[1] as $youtube_video_id ) {
+            $url = 'http://youtube.com/v/' . $youtube_video_id;
+            array_unshift( $embedded_media_urls['videos'], $url );
+        }
     }
 
     // Vimeo
     //$pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
-    $pattern = '#http:\/\/(?:www.)?vimeo.com\/(\d*)#';
-    if ( preg_match($pattern, $post->post_content, $matches) ) {
-        //return 'http://vimeo.com/couchmode/' . $matches[1];
-        //return 'http://vimeo.com/moogaloop.swf?clip_id=' . $matches[1];
-        return 'http://player.vimeo.com/video/' . $matches[1];
+    $pattern = '#http:\/\/(?:www.)?vimeo.com\/(\d*)#i';
+    preg_match_all( $pattern, $post->post_content, $matches );
+    //var_dump($matches);
+    if ($matches) {
+        // $matches[0] contains a list of Vimeo video URLS
+        // $matches[1] contains a list of Vimeo video IDs
+        // Add matches to $embedded_media_urls
+        foreach( $matches[1] as $vimeo_video_id ) {
+            $url = 'http://player.vimeo.com/video/' . $vimeo_video_id;
+            array_unshift( $embedded_media_urls['videos'], $url );
+        }
     }
 
-    // <video> element
-    //$pattern = '#<video.*src="([^"]+)"#';
-    //if ( preg_match($pattern, $post->post_content, $matches) ) {
-    //    var_dump($matches);
-    //    return 'http://player.vimeo.com/video/' . $matches[1];
-    //}
+    // Find Sounds
 
-    return '';
+    // Soundcloud
+    // The following does not seem to work
+    // [soundcloud url="https://api.soundcloud.com/tracks/117455833" width="100%" height="166" iframe="true" /]
+    // https://soundcloud.com/the_last_architect/going-nowhere-improvisation
+    // player
+    // https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/117455833
+    $pattern = '#https?:\/\/(?:www.)?soundcloud.com\/[^/]+\/[a-zA-Z0-9_-]+#i';
+    preg_match_all( $pattern, $post->post_content, $matches );
+    //var_dump($matches);
+    if ($matches) {
+        // $matches[0] contains a list of Soundcloud URLS
+        // Add matches to $embedded_media_urls
+        foreach( $matches[0] as $soundcloud_url ) {
+            $url = 'https://w.soundcloud.com/player/?url=' . $soundcloud_url;
+            array_unshift( $embedded_media_urls['sounds'], $url );
+        }
+    }
+
+    //var_dump($embedded_media_urls);
+    return $embedded_media_urls;
 }
 
 
