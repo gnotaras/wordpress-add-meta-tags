@@ -864,11 +864,21 @@ function amt_get_posts_page_id() {
  */
 function amt_get_embedded_media( $post ) {
 
+    // Format of the array
+    // Embeds are grouped by type images/videos/sounds
+    // Embedded media are added to any group as an associative array with two
+    // keys: 'page' and 'player'. 'page' contains the URL to a HTML page that
+    // contains the object, while 'player' contains URL to the player that can
+    // be used in an iframe.
     $embedded_media_urls = array(
         'images' => array(),
         'videos' => array(),
         'sounds' => array()
     );
+
+    if ( ! is_object( $post ) ) {
+        return $embedded_media_urls;
+    }
 
     // Find Videos
 
@@ -883,8 +893,11 @@ function amt_get_embedded_media( $post ) {
         // $matches[1] contains a list of YT video IDs
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $youtube_video_id ) {
-            $url = 'http://youtube.com/v/' . $youtube_video_id;
-            array_unshift( $embedded_media_urls['videos'], $url );
+            $item = array(
+                'page' => 'http://www.youtube.com/watch?v=' . $youtube_video_id,
+                'player' => 'http://youtube.com/v/' . $youtube_video_id
+            );
+            array_unshift( $embedded_media_urls['videos'], $item );
         }
     }
 
@@ -898,8 +911,11 @@ function amt_get_embedded_media( $post ) {
         // $matches[1] contains a list of Vimeo video IDs
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $vimeo_video_id ) {
-            $url = 'http://player.vimeo.com/video/' . $vimeo_video_id;
-            array_unshift( $embedded_media_urls['videos'], $url );
+            $item = array(
+                'page' => 'http://vimeo.com/' . $vimeo_video_id,
+                'player' => 'http://player.vimeo.com/video/' . $vimeo_video_id
+            );
+            array_unshift( $embedded_media_urls['videos'], $item );
         }
     }
 
@@ -918,8 +934,11 @@ function amt_get_embedded_media( $post ) {
         // $matches[0] contains a list of Soundcloud URLS
         // Add matches to $embedded_media_urls
         foreach( $matches[0] as $soundcloud_url ) {
-            $url = 'https://w.soundcloud.com/player/?url=' . $soundcloud_url;
-            array_unshift( $embedded_media_urls['sounds'], $url );
+            $item = array(
+                'page' => $soundcloud_url,
+                'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url
+            );
+            array_unshift( $embedded_media_urls['sounds'], $item );
         }
     }
 
