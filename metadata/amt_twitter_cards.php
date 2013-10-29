@@ -52,7 +52,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments ) {
             // Image attachments
             $image_meta = wp_get_attachment_metadata( $post->ID );   // contains info about all sizes
             // We use wp_get_attachment_image_src() since it constructs the URLs
-            $main_size_meta = wp_get_attachment_image_src( $post->ID , 'medium' );
+            $main_size_meta = wp_get_attachment_image_src( $post->ID , 'large' );
 
             // Type
             $metadata_arr[] = '<meta name="twitter:card" content="photo" />';
@@ -104,16 +104,33 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments ) {
         }
 
         // Image
+        // If the content has a featured image, then we use it.
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
-            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
-            $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $thumbnail_info[1] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $thumbnail_info[2] ) . '" />';
-        } elseif (!empty($options["default_image_url"])) {
-            // Alternatively, use default image
-            $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            $main_size_meta = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
+            $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+        } else {
+            // If there are image attachments, use the first one
+            $image_metatags_added = false;
+            foreach( $attachments as $attachment ) {
+                $mime_type = get_post_mime_type( $attachment->ID );
+                $attachment_type = strstr( $mime_type, '/', true );
+                if ( 'image' == $attachment_type ) {
+                    // Add meta tags for the found image
+                    $main_size_meta = wp_get_attachment_image_src( $attachment->ID, 'medium' );
+                    $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+                    $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+                    $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+                    $image_metatags_added = true;
+                    break;
+                }
+            }
+            // If an image is still missing, then use the default image (if set).
+            if ( $image_metatags_added === false && ! empty( $options["default_image_url"] ) ) {
+                $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            }
         }
-
     }
 
     // Filtering of the generated Opengraph metadata
