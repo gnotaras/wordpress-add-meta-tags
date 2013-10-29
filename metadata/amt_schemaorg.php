@@ -94,7 +94,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         //
         // Multipage content IS processed below.
         //
-
+        return array();
     }
 
     elseif ( is_front_page() ) {
