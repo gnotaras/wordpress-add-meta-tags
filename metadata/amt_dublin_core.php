@@ -54,8 +54,9 @@ function amt_add_dublin_core_metadata_head( $post ) {
     // Keywords
     if ( ! is_attachment() ) {  // Attachments do not support keywords
         // dc.subject - one for each keyword.
-        $keywords = explode(', ', amt_get_content_keywords($post));
+        $keywords = explode(',', amt_get_content_keywords($post));
         foreach ( $keywords as $subject ) {
+            $subject = trim( $subject );
             if ( ! empty($subject) ) {
                 $metadata_arr[] = '<meta name="dc.subject" content="' . esc_attr( $subject ) . '" />';
             }
