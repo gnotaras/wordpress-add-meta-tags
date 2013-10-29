@@ -12,7 +12,7 @@
  */
 
 
-function amt_add_dublin_core_metadata_head( $post, $attachments ) {
+function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media ) {
 
     if ( !is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // Dublin Core metadata has a meaning for content only.
@@ -105,15 +105,14 @@ function amt_add_dublin_core_metadata_head( $post, $attachments ) {
         }
 
         // Embedded Media
-        $embedded_media = amt_get_embedded_media( $post );
-        foreach( $embedded_media['images'] as $embedded_item_url ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item_url ) . '" />';
+        foreach( $embedded_media['images'] as $embedded_item ) {
+            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
         }
-        foreach( $embedded_media['videos'] as $embedded_item_url ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item_url ) . '" />';
+        foreach( $embedded_media['videos'] as $embedded_item ) {
+            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
         }
-        foreach( $embedded_media['sounds'] as $embedded_item_url ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item_url ) . '" />';
+        foreach( $embedded_media['sounds'] as $embedded_item ) {
+            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
         }
     }
 
