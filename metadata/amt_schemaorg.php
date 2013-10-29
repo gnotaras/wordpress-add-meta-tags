@@ -97,7 +97,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         return array();
     }
 
-    elseif ( is_front_page() ) {
+
+    // Front page (default page with latest posts or static page used as the front page)
+    if ( is_front_page() ) {
 
         // Organization
         // Scope BEGIN: Organization: http://schema.org/Organization
@@ -168,7 +170,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $author_email = sanitize_email( $author->user_email );
         if ( !empty( $author_email ) ) {
             // Contruct gravatar link
-            $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . 128;
+            $gravatar_size = 128;
+            $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $gravatar_size;
             $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $gravatar_url ) . '" />';
         }
         // url
