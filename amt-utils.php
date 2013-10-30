@@ -944,6 +944,71 @@ function amt_get_embedded_media( $post ) {
         }
     }
 
+    // Find Images
+    //
+    // Keys:
+    // page - URL to a HTML page that contains the object.
+    // player - URL to the player that can be used in an iframe.
+    // thumbnail - URL to thumbnail
+    // image - URL to image
+    // alt - alt text
+    // width - image width
+    // height - image height
+
+    // Flickr
+    //
+    // Embedded URLs MUST be of Format: http://www.flickr.com/photos/USER/IMAGE_ID/
+    //
+    // Sizes:
+    // t - Thumbnail (100x)
+    // q - Square 150 (150x150)
+    // s - Small 240 (140x)
+    // n - Small 320 (320x)
+    // m - Medium 500 (500x)
+    // z - Medium 640 (640x)
+    // c - Large 800 (800x)
+    // b - Large 900 (900x)
+    // l - Large 1024 (1024x)   DOES NOT WORK
+    // h - High 1600 (1600x) DOES NOT WORK
+    //
+    $pattern = '#https?:\/\/(?:www.)?flickr.com\/photos\/[^\/]+\/[^\/]+\/#i';
+    preg_match_all( $pattern, $post->post_content, $matches );
+    //var_dump($matches);
+    if ($matches) {
+        // $matches[0] contains a list of Flickr image page URLS
+        // Add matches to $embedded_media_urls
+        foreach( $matches[0] as $flick_page_url ) {
+
+            // Get cached HTML data for embedded images.
+            // Do it like WordPress.
+            // See source code:
+            // - class-wp-embed.php: line 177 [[ $cachekey = '_oembed_' . md5( $url . serialize( $attr ) ); ]]
+            // - media.php: line 1332 [[ function wp_embed_defaults ]]
+            // If no attributes have been used in the [embed] shortcode, $attr is an empty string.
+            $attr = '';
+            $attr = wp_parse_args( $attr, wp_embed_defaults() );
+            $cachekey = '_oembed_' . md5( $flick_page_url . serialize( $attr ) );
+            $cache = get_post_meta( $post->ID, $cachekey, true );
+            //var_dump($cache);
+
+            // Get image info from the cached HTML
+            preg_match( '#<img src="([^"]+)" alt="([^"]+)" width="([\d]+)" height="([\d]+)" \/>#i', $cache, $img_info );
+            //var_dump($img_info);
+            if ( ! empty( $img_info ) ) {
+                $item = array(
+                    'page' => $flick_page_url,
+                    'player' => $flick_page_url . 'lightbox/',
+                    'thumbnail' => str_replace( 'z.jpg', 'q.jpg', $img_info[1] ),   // size q   BEFORE CHANGING this check if the 150x150 is hardcoded into any metadata generator. It is in Twitter cards.
+                    'image' => $img_info[1],    // size z
+                    'alt' => $img_info[2],
+                    'width' => $img_info[3],
+                    'height' => $img_info[4]
+                );
+                array_unshift( $embedded_media_urls['images'], $item );
+            }
+        }
+    }
+
     //var_dump($embedded_media_urls);
     return $embedded_media_urls;
 }
