@@ -899,6 +899,7 @@ function amt_get_embedded_media( $post ) {
                 'player' => 'http://youtube.com/v/' . $youtube_video_id,
                 // Since we can construct the video thumbnail from the ID, we add it
                 'thumbnail' => 'http://img.youtube.com/vi/' . $youtube_video_id . '/0.jpg'
+                // TODO: check http://i1.ytimg.com/vi/FTnqYIkjSjQ/maxresdefault.jpg    MAXRES
             );
             array_unshift( $embedded_media_urls['videos'], $item );
         }
