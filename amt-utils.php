@@ -866,10 +866,7 @@ function amt_get_embedded_media( $post ) {
 
     // Format of the array
     // Embeds are grouped by type images/videos/sounds
-    // Embedded media are added to any group as an associative array with two
-    // keys: 'page' and 'player'. 'page' contains the URL to a HTML page that
-    // contains the object, while 'player' contains URL to the player that can
-    // be used in an iframe.
+    // Embedded media are added to any group as an associative array.
     $embedded_media_urls = array(
         'images' => array(),
         'videos' => array(),
@@ -881,6 +878,10 @@ function amt_get_embedded_media( $post ) {
     }
 
     // Find Videos
+    //
+    // Keys:
+    // page - URL to a HTML page that contains the object.
+    // player - URL to the player that can be used in an iframe.
 
     // Youtube
     //$pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
@@ -922,6 +923,10 @@ function amt_get_embedded_media( $post ) {
     }
 
     // Find Sounds
+    //
+    // Keys:
+    // page - URL to a HTML page that contains the object.
+    // player - URL to the player that can be used in an iframe.
 
     // Soundcloud
     // The following does not seem to work
