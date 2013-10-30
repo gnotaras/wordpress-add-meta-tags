@@ -7,6 +7,7 @@
  *  * Examples: http://www.metatags.org/dublin_core_metadata_element_set
  *
  *  * Generic Examples: http://dublincore.org/documents/2001/04/12/usageguide/generic.shtml
+ *  * XML examples: http://dublincore.org/documents/dc-xml-guidelines/
  *
  * Module containing functions related to Dublin Core
  */
