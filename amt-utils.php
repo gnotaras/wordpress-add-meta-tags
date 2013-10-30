@@ -916,7 +916,8 @@ function amt_get_embedded_media( $post ) {
         foreach( $matches[1] as $vimeo_video_id ) {
             $item = array(
                 'page' => 'http://vimeo.com/' . $vimeo_video_id,
-                'player' => 'http://player.vimeo.com/video/' . $vimeo_video_id
+                'player' => 'http://player.vimeo.com/video/' . $vimeo_video_id,
+                'thumbnail' => ''
             );
             array_unshift( $embedded_media_urls['videos'], $item );
         }
