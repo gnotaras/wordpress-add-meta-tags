@@ -332,17 +332,21 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media )
         $metadata_arr[] = '<meta property="article:published_time" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
         $metadata_arr[] = '<meta property="article:modified_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
 
-        // Image
+
         // We store the featured image ID in this variable so that it can easily be excluded
         // when all images are parsed from the $attachments array.
         $featured_image_id = 0;
+        // Set to true if any image attachments are found. Use to finally add the default image
+        // if no image attachments have been found.
+        $has_images = false;
+
+        // Image
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( get_post_thumbnail_id( $post->ID ) ) );
             // Finally, set the $featured_image_id
             $featured_image_id = get_post_thumbnail_id( $post->ID );
-        } elseif (!empty($options["default_image_url"])) {
-            // Alternatively, use default image
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            // Images have been found.
+            $has_images = true;
         }
 
         // Process all attachments and add metatags (featured image will be excluded)
@@ -356,7 +360,11 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media )
 
                 if ( 'image' == $attachment_type ) {
 
+                    // Image tags
                     $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $attachment->ID ) );
+
+                    // Images have been found.
+                    $has_images = true;
                     
                 } elseif ( 'video' == $attachment_type ) {
                     
@@ -380,15 +388,33 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media )
 
         // Embedded Media
         foreach( $embedded_media['images'] as $embedded_item ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['image']) ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+            $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+
+            // Images have been found.
+            $has_images = true;
         }
         foreach( $embedded_media['videos'] as $embedded_item ) {
+
             $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
+
         }
         foreach( $embedded_media['sounds'] as $embedded_item ) {
+
             $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             $metadata_arr[] = '<meta property="og:audio:type" content="application/x-shockwave-flash" />';
+
+        }
+
+        // If no images have been found so far use the default image, if set.
+        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+        if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
         }
 
         // Author
