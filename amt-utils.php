@@ -163,12 +163,33 @@ function amt_process_paged( $data ) {
  * Also, this is even better as the algorithm tries to get text of average
  * length 250 characters, which is more SEO friendly. The algorithm is not
  * perfect, but will do for now.
+ *
+ * MUST return sanitized text.
  */
 function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
     if ( empty($post->post_excerpt) || get_post_type( $post ) == 'attachment' ) {   // In attachments we always use $post->post_content to get a description
 
         // Here we generate an excerpt from $post->post_content
+
+        // Get the initial data for the excerpt
+        $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, $excerpt_max_len) ) );
+
+        // Remove any URLs that may exist exactly at the beginning of the description.
+        // This may happen if for example you put a youtube video url first thing in
+        // the post body.
+        $amt_excerpt = preg_replace( '#^https?:[^\t\r\n\s]+#i', '', $amt_excerpt );
+        $amt_excerpt = ltrim( $amt_excerpt );
+
+        // If this was not enough, try to get some more clean data for the description (nasty hack)
+        if ( strlen($amt_excerpt) < $desc_avg_length ) {
+            $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, (int) ($excerpt_max_len * 1.5)) ) );
+            if ( strlen($amt_excerpt) < $desc_avg_length ) {
+                $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, (int) ($excerpt_max_len * 2)) ) );
+            }
+        }
+
+/** ORIGINAL ALGO
 
         // Get the initial data for the excerpt
         $amt_excerpt = strip_tags(substr($post->post_content, 0, $excerpt_max_len));
@@ -181,6 +202,7 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
             }
         }
 
+*/
         $end_of_excerpt = strrpos($amt_excerpt, ".");
 
         if ($end_of_excerpt) {
@@ -203,7 +225,7 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
     } else {
 
         // When the post excerpt has been set explicitly, then it has priority.
-        $amt_excerpt = $post->post_excerpt;
+        $amt_excerpt = sanitize_text_field( amt_sanitize_description( $post->post_excerpt ) );
 
         // NOTE ABOUT ATTACHMENTS: In attachments $post->post_excerpt is the caption.
         // It is usual that attachments have both the post_excerpt and post_content set.
@@ -393,8 +415,8 @@ function amt_get_content_description( $post, $auto=true ) {
         } else {
             // Else, use the post's excerpt. Valid for Pages too.
             if ($auto) {
-                // Here we sanitize the generated excerpt for safety
-                $content_description = sanitize_text_field( amt_sanitize_description( amt_get_the_excerpt($post) ) );
+                // The generated excerpt should already be sanitized.
+                $content_description = amt_get_the_excerpt( $post );
             }
         }
     }
