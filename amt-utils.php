@@ -895,7 +895,9 @@ function amt_get_embedded_media( $post ) {
         foreach( $matches[1] as $youtube_video_id ) {
             $item = array(
                 'page' => 'http://www.youtube.com/watch?v=' . $youtube_video_id,
-                'player' => 'http://youtube.com/v/' . $youtube_video_id
+                'player' => 'http://youtube.com/v/' . $youtube_video_id,
+                // Since we can construct the video thumbnail from the ID, we add it
+                'thumbnail' => 'http://img.youtube.com/vi/' . $youtube_video_id . '/0.jpg'
             );
             array_unshift( $embedded_media_urls['videos'], $item );
         }
