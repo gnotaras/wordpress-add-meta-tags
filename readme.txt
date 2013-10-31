@@ -28,7 +28,7 @@ The goals of the Add-Meta-Tags plugin are:
 
 = What it does =
 
-*Add-Meta-Tags* (AMT) adds metadata to your web site.
+*Add-Meta-Tags* (*AMT*) adds metadata to your web site. This metadata contains information about the **content**, the **author**, the **media files**, which have been attached to your content, and even about some of the **embedded media** (see more info about the details of this feature in the relevant section below).
 
 *Metadata* refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful. Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the *Add-Meta-Tags* plugin does.
 
@@ -138,6 +138,25 @@ Dublin Core metatags can be automatically added to posts and pages and attachmen
 
 When enabled, WordPress users with administrator privileges see a box that contains the full metadata (exactly as it is added in the HTML head) above the content for easier examination.
 
+
+= Metadata for embedded media =
+
+Add-Meta-Tags generates detailed metadata for the media that have been attached to the content. This happens for all the media you manage in the WordPress media library.
+
+Apart from attaching local media to the content, WordPress lets authors <a href="http://codex.wordpress.org/Embeds">embed external media</a> by simply including a link to those media inside the content or by using the `[embed]` shortcode. Several external services are supported.
+
+Add-Meta-Tags can detect some of those media and generate metadata for them. Currently, only links to Youtube and Vimeo videos, Soundcloud tracks and Flickr images are supported. So, even if you host your media externally on those services, this plugin can still generate metadata for them. This metadata is by no means as detailed as the metadata that is generated for local media, but it is gives search engines a good idea about what external media are associated with your content.
+
+This feature relies entirely on the data WordPress has already cached for the embedded media. The plugin will never send any requests to external services attempting to get more detailed information about the embedded media as this would involve unacceptable overhead.
+
+Here is what's supported:
+
+- Links to Youtube videos of the form: `http://www.youtube.com/watch?v=VIDEO_ID`
+- Links to Vimeo videos of the form: `http://vimeo.com/VIDEO_ID`
+- Links to Soundcloud tracks of the form: `https://soundcloud.com/USER_ID/TRACK_ID`
+- Links to Flickr images of the form: `http://www.flickr.com/photos/USER_ID/IMAGE_ID/`
+
+This feature should be considered experimental.
 
 = Translations =
 
