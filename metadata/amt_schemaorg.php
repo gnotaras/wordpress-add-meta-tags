@@ -78,9 +78,6 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         return array();
     }
 
-    // Get current post object
-    $post = get_queried_object();
-
     $metadata_arr = array();
 
     if ( is_paged() ) {
