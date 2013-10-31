@@ -70,6 +70,9 @@ function amt_custom_title_tag($title) {
 
     // Get current post object
     $post = get_queried_object();
+    if ( is_null( $post ) ) {
+        return $title;
+    }
 
     // Check if metadata is supported on this content type.
     $post_type = get_post_type( $post );
@@ -121,23 +124,26 @@ function amt_get_metadata_head() {
 
     // Get current post object
     $post = get_queried_object();
-
-    // Check if metadata should be added to this content type.
-    $post_type = get_post_type( $post );
-    if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+    if ( is_null( $post ) ) {
         $do_add_metadata = false;
+    } else {
+        // Check if metadata should be added to this content type.
+        $post_type = get_post_type( $post );
+        if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+            $do_add_metadata = false;
+        }
     }
-
-    // Get an array containing the attachments
-    $attachments = amt_get_ordered_attachments( $post );
-    //var_dump($attachments);
-
-    // Get an array containing the URLs of the embedded media
-    $embedded_media = amt_get_embedded_media( $post );
-    //var_dump($embedded_media);
 
     // Add Metadata
     if ($do_add_metadata) {
+
+        // Get an array containing the attachments
+        $attachments = amt_get_ordered_attachments( $post );
+        //var_dump($attachments);
+
+        // Get an array containing the URLs of the embedded media
+        $embedded_media = amt_get_embedded_media( $post );
+        //var_dump($embedded_media);
 
         // Basic Meta tags
         $metadata_arr = array_merge( $metadata_arr, amt_add_basic_metadata_head( $post, $attachments, $embedded_media ) );
@@ -187,23 +193,26 @@ function amt_get_metadata_footer() {
 
     // Get current post object
     $post = get_queried_object();
-
-    // Check if metadata should be added to this content type.
-    $post_type = get_post_type( $post );
-    if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+    if ( is_null( $post ) ) {
         $do_add_metadata = false;
+    } else {
+        // Check if metadata should be added to this content type.
+        $post_type = get_post_type( $post );
+        if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
+            $do_add_metadata = false;
+        }
     }
-
-    // Get an array containing the attachments
-    $attachments = amt_get_ordered_attachments( $post );
-    //var_dump($attachments);
-
-    // Get an array containing the URLs of the embedded media
-    $embedded_media = amt_get_embedded_media( $post );
-    //var_dump($embedded_media);
 
     // Add Metadata
     if ($do_add_metadata) {
+
+        // Get an array containing the attachments
+        $attachments = amt_get_ordered_attachments( $post );
+        //var_dump($attachments);
+
+        // Get an array containing the URLs of the embedded media
+        $embedded_media = amt_get_embedded_media( $post );
+        //var_dump($embedded_media);
 
         // Add Schema.org Microdata
         $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media ) );
@@ -257,6 +266,9 @@ function amt_add_metadata_review($post_body) {
 
     // Get current post object
     $post = get_queried_object();
+    if ( is_null( $post ) ) {
+        return $post_body;
+    }
 
     // Check if metadata is supported on this content type.
     $post_type = get_post_type( $post );
