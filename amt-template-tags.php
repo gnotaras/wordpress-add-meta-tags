@@ -6,12 +6,16 @@
 
 function amt_content_description() {
     $post = get_queried_object();
-    echo amt_get_content_description($post);
+    if ( ! is_null( $post ) ) {
+        echo amt_get_content_description( $post );
+    }
 }
 
 function amt_content_keywords() {
     $post = get_queried_object();
-    echo amt_get_content_keywords($post);
+    if ( ! is_null( $post ) ) {
+        echo amt_get_content_keywords( $post );
+    }
 }
 
 function amt_metadata_head() {
