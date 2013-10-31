@@ -10,7 +10,7 @@
  * Generates basic metadata for the head area.
  *
  */
-function amt_add_basic_metadata_head( $post ) {
+function amt_add_basic_metadata_head( $post, $attachments, $embedded_media ) {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");

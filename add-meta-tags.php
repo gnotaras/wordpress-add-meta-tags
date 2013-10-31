@@ -128,20 +128,28 @@ function amt_get_metadata_head() {
         $do_add_metadata = false;
     }
 
+    // Get an array containing the attachments
+    $attachments = amt_get_ordered_attachments( $post );
+    //var_dump($attachments);
+
+    // Get an array containing the URLs of the embedded media
+    $embedded_media = amt_get_embedded_media( $post );
+    //var_dump($embedded_media);
+
     // Add Metadata
     if ($do_add_metadata) {
 
         // Basic Meta tags
-        $metadata_arr = array_merge($metadata_arr, amt_add_basic_metadata_head($post));
+        $metadata_arr = array_merge( $metadata_arr, amt_add_basic_metadata_head( $post, $attachments, $embedded_media ) );
         //var_dump(amt_add_basic_metadata());
         // Add Opengraph
-        $metadata_arr = array_merge($metadata_arr, amt_add_opengraph_metadata_head($post));
+        $metadata_arr = array_merge( $metadata_arr, amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media ) );
         // Add Twitter Cards
-        $metadata_arr = array_merge($metadata_arr, amt_add_twitter_cards_metadata_head($post));
+        $metadata_arr = array_merge( $metadata_arr, amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_media ) );
         // Add Dublin Core
-        $metadata_arr = array_merge($metadata_arr, amt_add_dublin_core_metadata_head($post));
+        $metadata_arr = array_merge( $metadata_arr, amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media ) );
         // Add Google+ Author/Publisher links
-        $metadata_arr = array_merge($metadata_arr, amt_add_schemaorg_metadata_head($post));
+        $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media ) );
     }
 
     // Allow filtering of the all the generated metatags
@@ -186,11 +194,19 @@ function amt_get_metadata_footer() {
         $do_add_metadata = false;
     }
 
+    // Get an array containing the attachments
+    $attachments = amt_get_ordered_attachments( $post );
+    //var_dump($attachments);
+
+    // Get an array containing the URLs of the embedded media
+    $embedded_media = amt_get_embedded_media( $post );
+    //var_dump($embedded_media);
+
     // Add Metadata
     if ($do_add_metadata) {
 
         // Add Schema.org Microdata
-        $metadata_arr = array_merge($metadata_arr, amt_add_schemaorg_metadata_footer($post));
+        $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media ) );
     }
 
     // Allow filtering of all the generated metatags
