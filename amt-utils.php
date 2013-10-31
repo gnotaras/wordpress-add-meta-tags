@@ -1034,6 +1034,9 @@ function amt_get_embedded_media( $post ) {
         }
     }
 
+    // Allow filtering of the embedded media array
+    $embedded_media_urls = apply_filters( 'amt_embedded_media', $embedded_media_urls, $post->ID );
+
     //var_dump($embedded_media_urls);
     return $embedded_media_urls;
 }
