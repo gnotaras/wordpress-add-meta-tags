@@ -167,16 +167,16 @@ function amt_get_metadata_head() {
         //var_dump($embedded_media);
 
         // Basic Meta tags
-        $metadata_arr = array_merge( $metadata_arr, amt_add_basic_metadata_head( $post, $attachments, $embedded_media ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $options ) );
         //var_dump(amt_add_basic_metadata());
         // Add Opengraph
-        $metadata_arr = array_merge( $metadata_arr, amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, $options ) );
         // Add Twitter Cards
-        $metadata_arr = array_merge( $metadata_arr, amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_media ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_media, $options ) );
         // Add Dublin Core
-        $metadata_arr = array_merge( $metadata_arr, amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media, $options ) );
         // Add Google+ Author/Publisher links
-        $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) );
     }
 
     // Allow filtering of the all the generated metatags
@@ -236,7 +236,7 @@ function amt_get_metadata_footer() {
         //var_dump($embedded_media);
 
         // Add Schema.org Microdata
-        $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media, $options ) );
     }
 
     // Allow filtering of all the generated metatags

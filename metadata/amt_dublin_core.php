@@ -51,15 +51,13 @@
  */
 
 
-function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media ) {
+function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
     if ( !is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // Dublin Core metadata has a meaning for content only.
         return array();
     }
 
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );
     if (!$do_auto_dublincore) {
         return array();

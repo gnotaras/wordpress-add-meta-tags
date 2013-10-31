@@ -76,10 +76,8 @@ add_filter( 'user_contactmethods', 'amt_add_facebook_contactmethod', 10, 1 );
  * - author archive
  * - content
  */
-function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media ) {
+function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_auto_opengraph = (($options["auto_opengraph"] == "1") ? true : false );
     if (!$do_auto_opengraph) {
         return array();

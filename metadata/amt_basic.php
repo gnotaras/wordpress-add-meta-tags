@@ -48,10 +48,8 @@
  * Generates basic metadata for the head area.
  *
  */
-function amt_add_basic_metadata_head( $post, $attachments, $embedded_media ) {
+function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_description = (($options["auto_description"] == "1") ? true : false );
     $do_keywords = (($options["auto_keywords"] == "1") ? true : false );
     $do_noodp_description = (($options["noodp_description"] == "1") ? true : false );

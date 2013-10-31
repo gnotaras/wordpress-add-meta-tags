@@ -65,10 +65,8 @@ add_filter( 'user_contactmethods', 'amt_add_twitter_contactmethod', 10, 1 );
 /**
  * Generate Twitter Cards metadata for the content pages.
  */
-function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_media ) {
+function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_auto_twitter = (($options["auto_twitter"] == "1") ? true : false );
     if (!$do_auto_twitter) {
         return array();

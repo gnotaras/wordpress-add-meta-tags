@@ -67,15 +67,13 @@ add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
 /**
  * Adds links with the rel 'author' and 'publisher' to the HEAD of the page for Google+.
  */
-function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media ) {
+function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
     if ( !is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // Add these metatags on content pages only.
         return array();
     }
 
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
         return array();
@@ -107,10 +105,8 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media )
  *
  * Mainly used to embed microdata to front page, posts index page and archives.
  */
-function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media ) {
+function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media, $options ) {
 
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
         return array();
