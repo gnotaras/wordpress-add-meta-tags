@@ -2,8 +2,8 @@
 Contributors: gnotaras
 Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
-Requires at least: 3.0.0
-Tested up to: 3.7
+Requires at least: 3.1.0
+Tested up to: 3.7.1
 Stable tag: 2.3.6
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
