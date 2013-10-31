@@ -71,11 +71,21 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
     if (!empty($options["copyright_url"])) {
         $metadata_arr[] = '<meta name="dcterms.rights" scheme="dcterms.URI" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
     }
+
+    // License
+    $license_url = '';
     // The following requires creative commons configurator
     if (function_exists('bccl_get_license_url')) {
-        $metadata_arr[] = '<meta name="dcterms.license" scheme="dcterms.URI" content="' . esc_url_raw( bccl_get_license_url() ) . '" />';
+        $license_url = bccl_get_license_url();
+    }
+    // Allow filtering of the license URL
+    $license_url = apply_filters( 'amt_dublin_core_license', $license_url, $post->ID );
+    // Add metatag if $license_url is not empty.
+    if ( ! empty( $license_url ) ) {
+        $metadata_arr[] = '<meta name="dcterms.license" scheme="dcterms.URI" content="' . esc_url_raw( $license_url ) . '" />';
     }
 
+    // Coverage
     $metadata_arr[] = '<meta name="dcterms.coverage" content="World" />';
 
     if ( is_attachment() ) {
