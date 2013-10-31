@@ -287,9 +287,6 @@ function amt_add_metadata_review($post_body) {
 
     // Get current post object
     $post = get_queried_object();
-    if ( is_null( $post ) ) {
-        return $post_body;
-    }
 
     // Check if metadata is supported on this content type.
     $post_type = get_post_type( $post );
