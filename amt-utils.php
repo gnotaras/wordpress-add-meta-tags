@@ -745,10 +745,6 @@ function amt_get_post_meta_full_metatags($post_id) {
  * $post object.
  */
 function amt_get_ordered_attachments( $post ) {
-    if ( ! is_object( $post ) ) {
-        return array();
-    }
-
     // to return IDs:
     // $attachments = array_values( get_children( array( 'post_parent' => $post->post_parent, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC', 'orderby' => 'menu_order ID' ) ) );
     return get_children( array(
@@ -894,10 +890,6 @@ function amt_get_embedded_media( $post ) {
         'videos' => array(),
         'sounds' => array()
     );
-
-    if ( ! is_object( $post ) ) {
-        return $embedded_media_urls;
-    }
 
     // Find Videos
     //
