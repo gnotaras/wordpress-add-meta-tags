@@ -79,7 +79,9 @@ function amt_add_dublin_core_metadata_head( $post ) {
     if ( is_attachment() ) {
 
         $mime_type = get_post_mime_type( $post->ID );
-        $attachment_type = strstr( $mime_type, '/', true );
+        //$attachment_type = strstr( $mime_type, '/', true );
+        // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+        $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
         if ( 'image' == $attachment_type ) {
             $metadata_arr[] = '<meta name="dc.type" scheme="DCMIType" content="Image" />';
