@@ -906,6 +906,8 @@ function amt_get_embedded_media( $post ) {
     // player - URL to the player that can be used in an iframe.
 
     // Youtube
+    // Supported:
+    // - http://www.youtube.com/watch?v=VIDEO_ID
     //$pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
     //$pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=(\w*)#i';
     $pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=([a-zA-Z0-9_-]+)#i';
@@ -928,6 +930,8 @@ function amt_get_embedded_media( $post ) {
     }
 
     // Vimeo
+    // Supported:
+    // - http://vimeo.com/VIDEO_ID
     //$pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
     $pattern = '#http:\/\/(?:www.)?vimeo.com\/(\d*)#i';
     preg_match_all( $pattern, $post->post_content, $matches );
@@ -953,10 +957,9 @@ function amt_get_embedded_media( $post ) {
     // player - URL to the player that can be used in an iframe.
 
     // Soundcloud
-    // The following does not seem to work
-    // [soundcloud url="https://api.soundcloud.com/tracks/117455833" width="100%" height="166" iframe="true" /]
-    // https://soundcloud.com/the_last_architect/going-nowhere-improvisation
-    // player
+    // Supported:
+    // - https://soundcloud.com/USER_ID/TRACK_ID
+    // player:
     // https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/117455833
     $pattern = '#https?:\/\/(?:www.)?soundcloud.com\/[^/]+\/[a-zA-Z0-9_-]+#i';
     preg_match_all( $pattern, $post->post_content, $matches );
@@ -986,7 +989,8 @@ function amt_get_embedded_media( $post ) {
 
     // Flickr
     //
-    // Embedded URLs MUST be of Format: http://www.flickr.com/photos/USER/IMAGE_ID/
+    // Supported:
+    // Embedded URLs MUST be of Format: http://www.flickr.com/photos/USER_ID/IMAGE_ID/
     //
     // Sizes:
     // t - Thumbnail (100x)
