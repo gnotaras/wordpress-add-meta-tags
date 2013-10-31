@@ -1,6 +1,6 @@
 === Add Meta Tags ===
 Contributors: gnotaras
-Donate link: http://www.g-loaded.eu/about/donate/
+Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.0.0
 Tested up to: 3.7

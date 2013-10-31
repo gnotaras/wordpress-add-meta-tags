@@ -60,7 +60,7 @@ function amt_options_page() {
     <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
         <h2>'.__('Message from the author', 'add-meta-tags').'</h2>
         <p style="font-size: 1.2em; padding-left: 2em;"><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://www.g-loaded.eu/about/donate/">extra cup of coffee</a>.</p>
+        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
         <p style="font-size: 1.2em; padding-left: 2em;">Thank you in advance,<br />George Notaras</p>
         <div style="text-align: right;"><small>'.__('This message can be deactivated in the settings below.', 'add-meta-tags').'</small></div>
     </div>
@@ -409,7 +409,7 @@ function amt_options_page() {
 
                 <input id="i_have_donated" type="checkbox" value="1" name="i_have_donated" '. (($options["i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="i_have_donated">
-                '.__('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="http://www.g-loaded.eu/about/donate/">donating</a>!', 'add-meta-tags').'
+                '.__('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="http://bit.ly/HvUakt">donating</a>!', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
