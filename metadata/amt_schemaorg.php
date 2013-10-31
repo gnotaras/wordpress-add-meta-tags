@@ -183,7 +183,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     if ( is_attachment() ) {
 
         $mime_type = get_post_mime_type( $post->ID );
-        $attachment_type = strstr( $mime_type, '/', true );
+        //$attachment_type = strstr( $mime_type, '/', true );
+        // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+        $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
         // Early metatags - Scope starts
 
@@ -374,7 +376,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             if ( $attachment->ID != $featured_image_id ) {
                 
                 $mime_type = get_post_mime_type( $attachment->ID );
-                $attachment_type = strstr( $mime_type, '/', true );
+                //$attachment_type = strstr( $mime_type, '/', true );
+                // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+                $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
                 if ( 'image' == $attachment_type ) {
 

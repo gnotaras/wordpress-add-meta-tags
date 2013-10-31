@@ -47,7 +47,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
     if ( is_attachment() ) {
 
         $mime_type = get_post_mime_type( $post->ID );
-        $attachment_type = strstr( $mime_type, '/', true );
+        //$attachment_type = strstr( $mime_type, '/', true );
+        // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+        $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
         if ( 'image' == $attachment_type ) {
             
@@ -152,7 +154,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 if ( $attachment->ID != $featured_image_id ) {
                     
                     $mime_type = get_post_mime_type( $attachment->ID );
-                    $attachment_type = strstr( $mime_type, '/', true );
+                    //$attachment_type = strstr( $mime_type, '/', true );
+                    // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+                    $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
                     if ( 'image' == $attachment_type ) {
 
@@ -232,8 +236,12 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
         // Process all attachments and add metatags for the first image
         foreach( $attachments as $attachment ) {
+
             $mime_type = get_post_mime_type( $attachment->ID );
-            $attachment_type = strstr( $mime_type, '/', true );
+            //$attachment_type = strstr( $mime_type, '/', true );
+            // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+            $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+
             if ( 'image' == $attachment_type ) {
                 // Image tags
                 $main_size_meta = wp_get_attachment_image_src( $attachment->ID, 'medium' );
@@ -284,8 +292,12 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         /** NOT SUPPORTED AT THIS TIME
         // Process all attachments and add metatags for the first video
         foreach( $attachments as $attachment ) {
+
             $mime_type = get_post_mime_type( $attachment->ID );
-            $attachment_type = strstr( $mime_type, '/', true );
+            //$attachment_type = strstr( $mime_type, '/', true );
+            // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+            $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+
             if ( 'video' == $attachment_type ) {
                 // Video tags
                 $metadata_arr[] = '<meta name="twitter:player" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
