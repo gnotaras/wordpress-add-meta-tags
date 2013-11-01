@@ -143,6 +143,9 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
             $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.IMT" content="' . $mime_type . '" />';
         }
 
+        // Finally add the hasFormat
+        $metadata_arr[] = '<meta name="dcterms.hasFormat" scheme="dcterms.URI" content="' . esc_url_raw( $post->guid ) . '" />';
+
     } else {    // Default: Text
         $metadata_arr[] = '<meta name="dcterms.type" scheme="dcterms.DCMIType" content="Text" />';
         $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.IMT" content="text/html" />';
