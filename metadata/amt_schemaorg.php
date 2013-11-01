@@ -83,13 +83,21 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, 
 
     // Publisher
     $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
-    if ( !empty($googleplus_publisher_url) ) {
+    if ( empty( $googleplus_publisher_url ) ) {
+        // Link to homepage
+        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+    } else {
+        // Link to Google+ publisher profile
         $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
     }
 
     // Author
     $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $post->post_author);
-    if ( !empty($googleplus_author_url) ) {
+    if ( empty( $googleplus_author_url ) ) {
+        // Link to the author archive
+        $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_attr( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+    } else {
+        // Link to Google+ author profile
         $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
     }
 
