@@ -79,6 +79,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
     $metadata_arr = array();
 
+
     // Attachments
     if ( is_attachment() ) {
 
@@ -98,19 +99,28 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
             // Type
             $metadata_arr[] = '<meta name="twitter:card" content="photo" />';
-
             // Author and Publisher
             $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
-
             // Title
             $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
-
+            // Description - We use the description defined by Add-Meta-Tags
+            $content_desc = amt_get_content_description( $post );
+            if ( ! empty( $content_desc ) ) {
+                $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( $content_desc ) . '" />';
+            }
             // Image
             $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
             $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
             $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
 
+        } elseif ( 'video' == $attachment_type ) {
+            // No player card for local video.
+            // Will require a page like http://player.vimeo.com/video/VIDEO_ID
+        } elseif ( 'audio' == $attachment_type ) {
+            // No player card for local audio.
+            // Will require a page like http://player.vimeo.com/video/VIDEO_ID
         }
+
 
     // Content, standard format (creates summary card) or photo format (creates (summary_large_image card)
     } elseif ( get_post_format($post->ID) === false || get_post_format($post->ID) == 'image' ) {
