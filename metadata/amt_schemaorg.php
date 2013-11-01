@@ -515,7 +515,15 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
         }
         foreach( $embedded_media['sounds'] as $embedded_item ) {
-            // TODO: check how to do this. Add same as video?
+            // Scope BEGIN: AudioObject: http://schema.org/AudioObject
+            $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
+            $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
+            // Audio Embed URL
+            $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+            // playerType
+            $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
+            // Scope END: AudioObject
+            $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
         }
 
         // If no images have been found so far use the default image, if set.
