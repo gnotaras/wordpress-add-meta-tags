@@ -100,14 +100,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             $metadata_arr[] = '<meta name="twitter:card" content="photo" />';
 
             // Author and Publisher
-            $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
-            if ( !empty($twitter_author_username) ) {
-                $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
-            }
-            $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
-            if ( !empty($twitter_publisher_username) ) {
-                $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
-            }
+            $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
 
             // Title
             $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
@@ -137,14 +130,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         }
 
         // Author and Publisher
-        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
-        if ( !empty($twitter_author_username) ) {
-            $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
-        }
-        $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
-        if ( !empty($twitter_publisher_username) ) {
-            $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
-        }
+        $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
 
         // Title
         // Note: Contains multipage information through amt_process_paged()
@@ -249,14 +235,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // Type
         $metadata_arr[] = '<meta name="twitter:card" content="gallery" />';
         // Author and Publisher
-        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
-        if ( !empty($twitter_author_username) ) {
-            $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
-        }
-        $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
-        if ( !empty($twitter_publisher_username) ) {
-            $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
-        }
+        $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
         // Title
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
@@ -304,14 +283,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // Type
         $metadata_arr[] = '<meta name="twitter:card" content="player" />';
         // Author and Publisher
-        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
-        if ( !empty($twitter_author_username) ) {
-            $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
-        }
-        $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
-        if ( !empty($twitter_publisher_username) ) {
-            $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
-        }
+        $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
         // Title
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
@@ -381,3 +353,21 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
     return $metadata_arr;
 }
 
+
+
+/**
+ * Returns author and publisher metatags for Twitter Cards
+ */
+function amt_get_twitter_cards_author_publisher_metatags( $post ) {
+    $metadata_arr = array();
+    // Author and Publisher
+    $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
+    if ( !empty($twitter_author_username) ) {
+        $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
+    }
+    $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
+    if ( !empty($twitter_publisher_username) ) {
+        $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
+    }
+    return $metadata_arr;
+}
