@@ -209,7 +209,8 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         // $author = get_user_by( 'slug', get_query_var( 'author_name' ) );
         // Also, ``get_the_author_meta('....', $author)`` returns nothing under author archives.
         // Access user meta with:  $author->description, $author->user_email, etc
-        $author = get_queried_object();
+        // $author = get_queried_object();
+        $author = $post;
 
         // If a bio has been set in the user profile, use it in the description metatag of the
         // first page of the author archive *ONLY*. The other pages of the author archive use a generic description.
