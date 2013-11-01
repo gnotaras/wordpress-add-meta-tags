@@ -146,7 +146,13 @@ function amt_get_metadata_head() {
     // Get current post object
     $post = get_queried_object();
     if ( is_null( $post ) ) {
-        $do_add_metadata = false;
+        // Allow metadata on the default front page (latest posts).
+        // A post object is not available on that page, but we still need to
+        // generate metadata for it. A $post object exists for the "front page"
+        // and the "posts page" when static pages are used. No allow rule needed.
+        if ( ! amt_is_default_front_page() ) {
+            $do_add_metadata = false;
+        }
     } else {
         // Check if metadata should be added to this content type.
         $post_type = get_post_type( $post );
@@ -158,13 +164,19 @@ function amt_get_metadata_head() {
     // Add Metadata
     if ($do_add_metadata) {
 
-        // Get an array containing the attachments
-        $attachments = amt_get_ordered_attachments( $post );
-        //var_dump($attachments);
+        // Attachments and embedded media are collected only on content pages.
+        if ( is_singular() ) {
+            // Get an array containing the attachments
+            $attachments = amt_get_ordered_attachments( $post );
+            //var_dump($attachments);
 
-        // Get an array containing the URLs of the embedded media
-        $embedded_media = amt_get_embedded_media( $post );
-        //var_dump($embedded_media);
+            // Get an array containing the URLs of the embedded media
+            $embedded_media = amt_get_embedded_media( $post );
+            //var_dump($embedded_media);
+        } else {
+            $attachments = array();
+            $embedded_media = array();
+        }
 
         // Basic Meta tags
         $metadata_arr = array_merge( $metadata_arr, amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $options ) );
@@ -215,7 +227,13 @@ function amt_get_metadata_footer() {
     // Get current post object
     $post = get_queried_object();
     if ( is_null( $post ) ) {
-        $do_add_metadata = false;
+        // Allow metadata on the default front page (latest posts).
+        // A post object is not available on that page, but we still need to
+        // generate metadata for it. A $post object exists for the "front page"
+        // and the "posts page" when static pages are used. No allow rule needed.
+        if ( ! amt_is_default_front_page() ) {
+            $do_add_metadata = false;
+        }
     } else {
         // Check if metadata should be added to this content type.
         $post_type = get_post_type( $post );
@@ -227,13 +245,19 @@ function amt_get_metadata_footer() {
     // Add Metadata
     if ($do_add_metadata) {
 
-        // Get an array containing the attachments
-        $attachments = amt_get_ordered_attachments( $post );
-        //var_dump($attachments);
+        // Attachments and embedded media are collected only on content pages.
+        if ( is_singular() ) {
+            // Get an array containing the attachments
+            $attachments = amt_get_ordered_attachments( $post );
+            //var_dump($attachments);
 
-        // Get an array containing the URLs of the embedded media
-        $embedded_media = amt_get_embedded_media( $post );
-        //var_dump($embedded_media);
+            // Get an array containing the URLs of the embedded media
+            $embedded_media = amt_get_embedded_media( $post );
+            //var_dump($embedded_media);
+        } else {
+            $attachments = array();
+            $embedded_media = array();
+        }
 
         // Add Schema.org Microdata
         $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media, $options ) );
