@@ -26,9 +26,18 @@ The goals of the Add-Meta-Tags plugin are:
 - support advanced customization through the WordPress filter/action system (for developers and advanced users).
 
 
+= Free License and Donations =
+
+*Add-Meta-Tags* is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is **Free software**.
+
+However, a significant amount of **time** and **energy** has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, you can show your appreciation by making a small <a href="http://bit.ly/HvUakt">donation</a>.
+
+Thank you in advance for **donating**!
+
+
 = What it does =
 
-*Add-Meta-Tags* (*AMT*) adds metadata to your web site. This metadata contains information about the **content**, the **author**, the **media files**, which have been attached to your content, and even about some of the **embedded media** (see more info about the details of this feature in the relevant section below).
+*Add-Meta-Tags* (*AMT*) adds metadata to your web site. This metadata contains information about the **content**, the **author**, the **media files**, which have been attached to your content, and even about some of the **embedded media** (see the details about this feature in the relevant section below).
 
 *Metadata* refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful. Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the *Add-Meta-Tags* plugin does.
 
@@ -319,6 +328,10 @@ No special requirements when upgrading.
 
 == Frequently Asked Questions ==
 
+= There is no amount set in the donation form! How much should I donate? =
+
+The amount of the donation is totally up to you. You can think of it like this: Are you happy with the plugin and feel like buying me a cup of coffee for writing it and releasing it as Free software? If yes, then imagine buying me a cup of coffee at your favorite Cafe and <a href="http://bit.ly/HvUakt">make a donation</a> accordingly.
+
 = My meta tags do not show up! =
 
 Please, check if your theme's `header.php` file contains the following required piece of code: `<?php wp_head(); ?>`. If this is missing, contact the theme author.
@@ -335,6 +348,8 @@ For security reasons, only `<meta>` HTML elements are allowed in this box.
 
 You can get first class support from the [community of users](http://wordpress.org/support/plugin/add-meta-tags "Add-Meta-Tags Users"). Please post your questions, feature requests and general feedback in the forums.
 
+Keep in mind that in order to get helpful answers and eventually solve any problem you encounter with the plugin, it is essential to provide as much information as possible about the problem and the configuration of the plugin. If you use a customized installation of WordPress, please make sure you provide the general details of your setup.
+
 Also, my email can be found in the `add-meta-tags.php` file. If possible, I'll help. Please note that it may take a while to get back to you.
 
 = Is there a bug tracker? =
@@ -344,7 +359,7 @@ You can find the bug tracker at the [Add-Meta-Tags Development web site](http://
 
 == Screenshots ==
 
-Screenshots as of v2.3.5
+Screenshots as of v2.4.0
 
 1. Add-Meta-Tags administration interface ( `Options -> Metadata` ).
 2. Enable Metadata meta box in the screen options of the post editing panel.
