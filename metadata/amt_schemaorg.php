@@ -69,7 +69,7 @@ add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
  */
 function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
-    if ( !is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
+    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // Add these metatags on content pages only.
         return array();
     }
@@ -116,7 +116,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
 
     if ( is_paged() ) {
         //
-        // Currently we do not support adding Opengraph metadata on
+        // Currently we do not support adding Schema.org metadata on
         // paged archives, if page number is >=2
         //
         // NOTE: This refers to an archive or the main page being split up over
@@ -152,7 +152,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // $author = get_user_by( 'slug', get_query_var( 'author_name' ) );
         // Also, ``get_the_author_meta('....', $author)`` returns nothing under author archives.
         // Access user meta with:  $author->description, $author->user_email, etc
-        $author = get_queried_object();
+        // $author = get_queried_object();
+        $author = $post;
 
         // Person
         // Scope BEGIN: Person: http://schema.org/Person
