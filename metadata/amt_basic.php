@@ -231,8 +231,8 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         // For the keywords metatag use the categories of the posts the author has written and are displayed in the current page.
         if ($do_keywords) {
             // Here we sanitize the provided keywords for safety
-            $cats_from_loop = sanitize_text_field( amt_sanitize_keywords( implode( ', ', amt_get_tags_from_loop() ) ) );
-            if ( ! empty($cats_from_loop) ) {
+            $cats_from_loop = sanitize_text_field( amt_sanitize_keywords( implode( ', ', amt_get_categories_from_loop() ) ) );
+            if ( ! empty( $cats_from_loop ) ) {
                 $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cats_from_loop ) . '" />';
             }
         }
