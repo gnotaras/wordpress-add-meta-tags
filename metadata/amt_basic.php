@@ -135,6 +135,16 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             $keywords = amt_get_content_keywords($post, $auto=$do_keywords);
             if ( ! empty( $keywords ) ) {
                 $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $keywords ) . '" />';
+
+            // Static Posts Index Page
+            // If no keywords have been set in the metabox and this is the static page,
+            // which displayes the latest posts, use the categories of the posts in the loop.
+            } elseif ( amt_is_static_home() ) {
+                // Here we sanitize the provided keywords for safety
+                $cats_from_loop = sanitize_text_field( amt_sanitize_keywords( implode( ', ', amt_get_categories_from_loop() ) ) );
+                if ( ! empty( $cats_from_loop ) ) {
+                    $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cats_from_loop ) . '" />';
+                }
             }
         }
 
