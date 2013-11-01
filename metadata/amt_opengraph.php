@@ -197,7 +197,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // $author = get_user_by( 'slug', get_query_var( 'author_name' ) );
         // Also, ``get_the_author_meta('....', $author)`` returns nothing under author archives.
         // Access user meta with:  $author->description, $author->user_email, etc
-        $author = get_queried_object();
+        // $author = get_queried_object();
+        $author = $post;
 
         // Type
         if ( ! is_paged() ) {
