@@ -122,7 +122,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         }
 
 
-    // Content, standard format (creates summary card) or photo format (creates (summary_large_image card)
+    // Content
+    // - standard format (creates summary card)
+    // - photo format (creates (summary_large_image card)
     } elseif ( get_post_format($post->ID) === false || get_post_format($post->ID) == 'image' ) {
 
         // Render a summary card if standard format.
@@ -141,11 +143,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
         // Author and Publisher
         $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
-
         // Title
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
-
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
@@ -154,10 +154,8 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         }
 
         // Image
+        // Use the FIRST image ONLY
 
-        // We store the featured image ID in this variable so that it can easily be excluded
-        // when all images are parsed from the $attachments array.
-        $featured_image_id = 0;
         // Set to true if image meta tags have been added to the card, so that it does not
         // search for any more images.
         $image_metatags_added = false;
@@ -170,44 +168,40 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
             $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
 
-            // Finally, set the $featured_image_id
-            $featured_image_id = get_post_thumbnail_id( $post->ID );
             // Images have been found.
             $image_metatags_added = true;
 
         }
 
+        // If a featured image is not set for this content, try to find the first image
         if ( $image_metatags_added === false ) {
 
-            // Process all attachments and add metatags for the first image (featured image will be excluded)
+            // Process all attachments and add metatags for the first image.
             foreach( $attachments as $attachment ) {
 
-                // Excluded the featured image since 
-                if ( $attachment->ID != $featured_image_id ) {
-                    
-                    $mime_type = get_post_mime_type( $attachment->ID );
-                    //$attachment_type = strstr( $mime_type, '/', true );
-                    // See why we do not use strstr(): http://www.codetrax.org/issues/1091
-                    $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+                $mime_type = get_post_mime_type( $attachment->ID );
+                //$attachment_type = strstr( $mime_type, '/', true );
+                // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+                $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
-                    if ( 'image' == $attachment_type ) {
+                if ( 'image' == $attachment_type ) {
 
-                        // Image tags
-                        $main_size_meta = wp_get_attachment_image_src( $attachment->ID, $image_size );
-                        $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-                        $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-                        $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+                    // Image tags
+                    $main_size_meta = wp_get_attachment_image_src( $attachment->ID, $image_size );
+                    $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+                    $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+                    $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
 
-                        // Images have been found.
-                        $image_metatags_added = true;
+                    // Images have been found.
+                    $image_metatags_added = true;
 
-                        // If an image is added, break.
-                        break;
-                    }
+                    // If an image is added, break.
+                    break;
                 }
             }
         }
 
+        // If a local image-attachment is not set, try to find any embedded images
         if ( $image_metatags_added === false ) {
 
             // Embedded Media
@@ -237,7 +231,8 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         }
 
 
-    // Content, gallery format (creates gallery card)
+    // Content
+    // - gallery format (creates gallery card)
     } elseif ( get_post_format($post->ID) == 'gallery' ) {
 
         // Render a gallery card if gallery format.
@@ -285,7 +280,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             $k++;
         }
 
-    // Content, video/audio format (creates player card)
+
+    // Content
+    // - video/audio format (creates player card)
     } elseif ( get_post_format($post->ID) == 'video' || get_post_format($post->ID) == 'audio' ) {
 
         // Render a player card.
@@ -307,7 +304,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // 
         $video_metatags_set = false;
 
-        /** NOT SUPPORTED AT THIS TIME
+        /** LOCAL VIDEO/AUDIO ATTACHMENTS NOT SUPPORTED AT THIS TIME
         // Process all attachments and add metatags for the first video
         foreach( $attachments as $attachment ) {
 
@@ -364,7 +361,6 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 }
 
 
-
 /**
  * Returns author and publisher metatags for Twitter Cards
  */
@@ -381,3 +377,4 @@ function amt_get_twitter_cards_author_publisher_metatags( $post ) {
     }
     return $metadata_arr;
 }
+
