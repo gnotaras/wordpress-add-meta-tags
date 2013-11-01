@@ -69,9 +69,8 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
     // Note: Contains multipage information through amt_process_paged()
     $metadata_arr[] = '<meta name="dcterms.title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
 
-    // Resource identifier
-    // TODO: In case of paginated content, get_permalink() still returns the link to the main mage. FIX (#1025)
-    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.URI" content="' . esc_url_raw( get_permalink($post->ID) ) . '" />';
+    // Resource identifier - Uses amt_get_permalink_for_multipage()
+    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.URI" content="' . esc_url_raw( amt_get_permalink_for_multipage( $post ) ) . '" />';
 
     $metadata_arr[] = '<meta name="dcterms.creator" content="' . esc_attr( amt_get_dublin_core_author_notation($post) ) . '" />';
     //$metadata_arr[] = '<meta name="dcterms.date" scheme="dcterms.W3CDTF" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
