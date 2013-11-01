@@ -281,6 +281,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
             // Get image metatags. $post is an image object.
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $post, $size='large', $is_representative=true ) );
+            // Add the post body here
+            $metadata_arr[] = $post_body;
             // Scope END: ImageObject
             $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -291,6 +293,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
             $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $post->guid ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
+            // Add the post body here
+            $metadata_arr[] = $post_body;
             // Scope END: VideoObject
             $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
 
@@ -301,6 +305,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
             $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $post->guid ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
+            // Add the post body here
+            $metadata_arr[] = $post_body;
             // Scope END: AudioObject
             $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
 
