@@ -347,8 +347,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Scope END: Person
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
-        // URL (for attachments: links to attachment page)
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
+        // URL - Uses amt_get_permalink_for_multipage()
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
 
         // Dates
         $metadata_arr[] = '<meta itemprop="datePublished" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
