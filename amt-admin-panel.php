@@ -106,9 +106,9 @@ function amt_options_page() {
     <div class="wrap">
         <h2>'.__('How it works', 'add-meta-tags').'</h2>
         
-        <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to the front page, posts, pages, public custom post types, category, tag and author based archives. Furthermore, it is possible to enable the generation of <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The plugin also supports some extra SEO related functionality that helps you fine tune your web site.', 'add-meta-tags').'</p>
+        <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to the front page, posts, pages, public custom post types, attachment pages, category, tag and author based archives. Furthermore, it is possible to enable the generation of <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The plugin also supports some extra SEO related functionality that helps you fine tune your web site.', 'add-meta-tags').'</p>
         
-        <p>'.__('Customization of the added metadata on a per post/page basis is possible by using the user-friendly <strong>WordPress meta boxes</strong> in the post/page editing panel. In earlier versions of the plugin (before 2.1.0) such customization was possible through custom fields. If you have already used custom fields in order to customize the posts description and keywords in the past, there is nothing to worry about, since the new meta-box functionality is internally based on those custom fields, so there is no migration procedure involved. However, you need to enable the <em>Metadata</em> meta box in the <a href="http://en.support.wordpress.com/screen-options/">Screen Options</a> of the post/page editing panel.', 'add-meta-tags').'</p>
+        <p>'.__('The automatically generated metadata can be further customized for each individual post, page, or any public custom post type directly from the <em>Metadata</em> box inside the post editing panel. If the <em>Metadata</em> box is not visible, you probably need to enable it at the <a href="http://en.support.wordpress.com/screen-options/">Screen Options</a> of the post editing panel.', 'add-meta-tags').'</p>
 
     </div>
 
@@ -154,16 +154,16 @@ function amt_options_page() {
             <td>
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Front Page Metadata', 'add-meta-tags').'</span></legend>
-                '.__('It appears that you use static pages on the <em>front</em> page and the <em>posts</em> index of this web site. Please visit the editing panel of these pages and set the <code>description</code> and <code>keywords</code> meta tags in the relevant Metadata box. (since v2.2.0)', 'add-meta-tags').'
+                '.__('It appears that you use static pages on the <em>front page</em> and the <em>latest posts page</em> of this web site. Please visit the editing panel of these pages and set the <code>description</code> and the <code>keywords</code> meta tags in the relevant Metadata box.', 'add-meta-tags').'
                 ');
                 print('<ul>');
                 $front_page_id = get_option('page_on_front');
                 if ( intval($front_page_id) > 0 ) {
-                    print('<li>&raquo; '.__('Edit the', 'add-meta-tags').' <a href="'.get_edit_post_link(intval($front_page_id)).'">'.__('front page', 'add-meta-tags').'</a></li>');
+                    printf( '<li>&raquo; '.__('Edit the <a href="%s">front page</a>', 'add-meta-tags').'</li>', get_edit_post_link(intval($front_page_id)) );
                 }
                 $posts_page_id = get_option('page_for_posts');
                 if ( intval($posts_page_id) > 0 ) {
-                    print('<li>&raquo; '.__('Edit the', 'add-meta-tags').' <a href="'.get_edit_post_link(intval($posts_page_id)).'">'.__('posts page', 'add-meta-tags').'</a></li>');
+                    printf( '<li>&raquo; '.__('Edit the <a href="%s">posts page</a>', 'add-meta-tags').'</li>', get_edit_post_link(intval($posts_page_id)) );
                 }
                 print('</ul>');
         print('
@@ -183,7 +183,7 @@ function amt_options_page() {
                 <label for="site_description">
                     <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["site_description"] ) ) . '</textarea>
                     <br />
-                    '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> meta tag and the <em>og:description</em> meta property (if Opengraph is enabled) on the <strong>front page</strong>. If this is left empty, then the blog\'s description from the <em>Tagline</em> in <a href="/wp-admin/options-general.php">General Options</a> will be used.', 'add-meta-tags').'
+                    '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> and other similar metatags on the <strong>front page</strong>. If this is left empty, then the blog\'s <em>Tagline</em> from the <a href="/wp-admin/options-general.php">General Options</a> will be used.', 'add-meta-tags').'
                 </label>
             </fieldset>
             </td>
@@ -197,7 +197,7 @@ function amt_options_page() {
                 <label for="site_keywords">
                     <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( $options["site_keywords"] ) ) . '</textarea>
                     <br />
-                    '.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used for the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="/wp-admin/edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'
+                    '.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="/wp-admin/edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'
                     <br />
                     <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code>
                 </label>
@@ -241,6 +241,7 @@ function amt_options_page() {
                     <strong>'.__('Examples', 'add-meta-tags').'</strong>:
                     <br /><code>&lt;meta name="google-site-verification" content="1234567890" /&gt;</code>
                     <br /><code>&lt;meta name="msvalidate.01" content="1234567890" /&gt;</code>
+                    <br /><code>&lt;meta name="robots" content="noimageindex" /&gt;</code>
                 </label>
             </fieldset>
             </td>
@@ -254,13 +255,13 @@ function amt_options_page() {
 
                 <input id="auto_description" type="checkbox" value="1" name="auto_description" '. (($options["auto_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_description">
-                '.__('Automatically generate the <em>description</em> meta tag for single posts, pages, category-based archives and tag-based archives. Customization of the <em>description</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of posts, pages and public custom post types.', 'add-meta-tags').'
+                '.__('Automatically generate the <em>description</em> meta tag for the content, attachments and archives. Customization of the <em>description</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of each post type.', 'add-meta-tags').'
                 </label>
                 <br />
                 
                 <input id="auto_keywords" type="checkbox" value="1" name="auto_keywords" '. (($options["auto_keywords"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_keywords">
-                '.__('Automatically generate the <em>keywords</em> meta tag for single posts, category-based archives and tag-based archives. Automatic keywords are not supported on pages. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of posts, pages and public custom post types.', 'add-meta-tags').'
+                '.__('Automatically generate the <em>keywords</em> meta tag for content and archives. Keywords are not generated automatically on pages and attachments. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the editing panel of each post type.', 'add-meta-tags').'
                 </label>
                 <br />
 
@@ -276,7 +277,7 @@ function amt_options_page() {
 
                 <input id="auto_opengraph" type="checkbox" value="1" name="auto_opengraph" '. (($options["auto_opengraph"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_opengraph">
-                '.__('Automatically generate Opengraph meta tags for single posts and pages. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'
+                '.__('Automatically generate Opengraph meta tags for content, attachments and archives. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'
                 </label>
                 <br />
                 <strong>'.__('Important Note', 'add-meta-tags').'</strong>:
@@ -295,12 +296,14 @@ function amt_options_page() {
 
                 <input id="auto_twitter" type="checkbox" value="1" name="auto_twitter" '. (($options["auto_twitter"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_twitter">
-                '.__('Automatically generate Twitter Cards meta tags for posts, pages and custom post types. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'
+                '.__('Automatically generate Twitter Cards meta tags for content and attachments. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'
                 </label>
                 <br />
-                <strong>'.__('Important Note', 'add-meta-tags').'</strong>:
-                <br />
-                '.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or publisher of the content. Update your WordPress user\'s <a href="/wp-admin/profile.php">profile page</a> and fill in the relevant usernames under the section \'Contact Info\'.', 'add-meta-tags').'
+                <strong>'.__('Important Notes', 'add-meta-tags').'</strong>:
+                <br /> &raquo; '
+                .__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="/wp-admin/profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>.', 'add-meta-tags').'
+                <br /> &raquo; '
+                .__('By default, a Twitter Card of type <em>summary</em> is generated for your content. If your theme supports <a href="http://codex.wordpress.org/Post_Formats">post formats</a>, then it is possible to generate Twitter Cards of type <em>summary_large_image</em>, <em>gallery</em> and <em>player</em>, by setting the post\'s format to <em>photo</em>, <em>gallery</em> and <em>audio/video</em> respectively. Currently, the <em>player</em> card can only be generated for embedded Youtube/Vimeo videos and Soundcloud tracks. Local audio and video attachments are not supported.', 'add-meta-tags').'
             </fieldset>
             </td>
             </tr>
@@ -313,7 +316,7 @@ function amt_options_page() {
 
                 <input id="auto_dublincore" type="checkbox" value="1" name="auto_dublincore" '. (($options["auto_dublincore"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_dublincore">
-                '.__('Automatically generate Dublin Core metadata for single posts and pages. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'
+                '.__('Automatically generate Dublin Core metadata for your content and attachments. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
@@ -328,14 +331,14 @@ function amt_options_page() {
 
                 <input id="auto_schemaorg" type="checkbox" value="1" name="auto_schemaorg" '. (($options["auto_schemaorg"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_schemaorg">
-                '.__('Automatically generate Microdata and embed it to your content. This feature embeds <code>meta</code> elements inside the body of the web page. This is compatible with the HTML 5 standard, so, before enabling it, make sure your theme is HTML 5 ready. Fore information about Microdata please refer to <a href="http://schema.org">Schema.org</a>.', 'add-meta-tags').'
+                '.__('Automatically generate Microdata and embed it to your content. This feature embeds <code>meta</code> elements inside the body of the web page. This is compatible with the HTML 5 standard, so, before enabling it, make sure your theme is HTML 5 ready. For information about Microdata please refer to <a href="http://schema.org">Schema.org</a>.', 'add-meta-tags').'
                 </label>
                 <br />
                 <strong>'.__('Important Notes', 'add-meta-tags').'</strong>:
                 <br /> &raquo; '
                 .__('By default, this feature links the author and publisher objects to the author archive and the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="/wp-admin/profile.php">profile page</a> under the section <em>Contact Info</em>.', 'add-meta-tags').'
                 <br /> &raquo; '
-                .__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the <code>rel="author"</code> and <code>rel="publisher"</code> attributes are automatically added to the head area of the web page.', 'add-meta-tags').'
+                .__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the attributes <code>rel="author"</code> and <code>rel="publisher"</code> are automatically added to the head area of the web page.', 'add-meta-tags').'
             </fieldset>
             </td>
             </tr>
@@ -348,7 +351,7 @@ function amt_options_page() {
 
                 <input id="noodp_description" type="checkbox" value="1" name="noodp_description" '. (($options["noodp_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noodp_description">
-                '.__('Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag on the front page, posts and pages. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> or the <a href="http://dir.yahoo.com/">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
+                '.__('Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag on the front page, content and attachments. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> or the <a href="http://dir.yahoo.com/">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'
                 </label>
                 <br />
                 <br />
@@ -398,7 +401,7 @@ function amt_options_page() {
                 <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . esc_url_raw( stripslashes( $options["copyright_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="copyright_url">
-                '.__('Add an absolute URL to a document containing information about copyright. The relevant meta tags will be added automatically.', 'add-meta-tags').'
+                '.__('Enter an absolute URL to a document containing copyright and licensing information about your work. If this URL is set, the relevant meta tags will be added automatically on all the pages of your web site.', 'add-meta-tags').'
                 <br />
                 <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/copyright.html</code>
                 </label>
@@ -415,9 +418,9 @@ function amt_options_page() {
                 <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . esc_url_raw( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="default_image_url">
-                '.__('Add an absolute URL to an image that will be used in meta data in case a featured image has not been set for the content.', 'add-meta-tags').'
+                '.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded.', 'add-meta-tags').'
                 <br />
-                <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/default.png</code>
+                <strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/logo.png</code>
                 </label>
                 <br />
             </fieldset>
@@ -447,7 +450,7 @@ function amt_options_page() {
 
                 <input id="i_have_donated" type="checkbox" value="1" name="i_have_donated" '. (($options["i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="i_have_donated">
-                '.__('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="http://bit.ly/HvUakt">donating</a>!', 'add-meta-tags').'
+                '.sprintf( __('By checking this, the <em>message from the author</em> above goes away. Thanks for <a href="%s">donating</a>!', 'add-meta-tags'), 'http://bit.ly/HvUakt').'
                 </label>
                 <br />
             </fieldset>
@@ -594,7 +597,7 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_description"><strong>'.__('Description', 'add-meta-tags').'</strong>:</label>
             <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_description_value ) ) . '</textarea>
             <br>
-            '.__('Enter a custom description of 20-40 words (based on an average word length of 5 characters).', 'add-meta-tags').'
+            '.__('Enter a custom description of 30-50 words (based on an average word length of 5 characters).', 'add-meta-tags').'
         </p>
     ');
     // Different notes based on post type
