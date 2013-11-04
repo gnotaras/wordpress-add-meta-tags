@@ -47,19 +47,60 @@
  * for use in wp_kses() function.
  */
 function amt_get_allowed_html_kses() {
-    // Uncomment the following line to allow any HTML element in the Full Meta Tags box.
-    //return array();
-    return array(
-        'meta' => array(
+    // Store supported global attributes to an array
+    // As of http://www.w3schools.com/tags/ref_standardattributes.asp
+    $global_attributes = array(
+        'accesskey' => array(),
+        'class' => array(),
+        'contenteditable' => array(),
+        'contextmenu' => array(),
+        // 'data-*' => array(),
+        'dir' => array(),
+        'draggable' => array(),
+        'dropzone' => array(),
+        'hidden' => array(),
+        'id' => array(),
+        'lang' => array(),
+        'spellcheck' => array(),
+        'style' => array(),
+        'tabindex' => array(),
+        'title' => array(),
+        'translate' => array()
+    );
+
+    // Construct an array of valid elements and attributes
+    $valid_elements_attributes = array(
+        // As of http://www.w3schools.com/tags/tag_meta.asp
+        // plus 'itemprop' and 'property'
+        'meta' => array_merge( array(
             'charset' => array(),
             'content' => array(),
             'http-equiv' => array(),
             'name' => array(),
             'scheme' => array(),
             'itemprop' => array(),  // schema.org
-            'property' => array(),  // facebook and others
+            'property' => array()  // opengraph and others
+            ), $global_attributes
+        ),
+        // As of http://www.w3schools.com/tags/tag_link.asp
+        'link' => array_merge( array(
+            'charset' => array(),
+            'href' => array(),
+            'hreflang' => array(),
+            'media' => array(),
+            'rel' => array(),
+            'rev' => array(),
+            'sizes' => array(),
+            'target' => array(),
+            'type' => array()
+            ), $global_attributes
         )
     );
+
+    // Allow filtering of $valid_elements_attributes
+    $valid_elements_attributes = apply_filters( 'amt_valid_full_metatag_html', $valid_elements_attributes );
+
+    return $valid_elements_attributes;
 }
 
 
