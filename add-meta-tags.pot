@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-meta-tags 2.4.0a1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-03 00:29+0200\n"
+"POT-Creation-Date: 2013-11-06 11:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,7 +108,7 @@ msgid "Front Page Description"
 msgstr ""
 
 #: amt-admin-panel.php:186
-msgid "Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> and other similar metatags on the <strong>front page</strong>. If this is left empty, then the blog's <em>Tagline</em> from the <a href=\"/wp-admin/options-general.php\">General Options</a> will be used."
+msgid "Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> and other similar metatags on the <strong>front page</strong>. If this is left empty, then the blog's <em>Tagline</em> from the <a href=\"options-general.php\">General Options</a> will be used."
 msgstr ""
 
 #: amt-admin-panel.php:193 amt-admin-panel.php:196
@@ -116,7 +116,7 @@ msgid "Front Page Keywords"
 msgstr ""
 
 #: amt-admin-panel.php:200
-msgid "Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\"/wp-admin/edit-tags.php?taxonomy=category\">categories</a> will be used as keywords for the <em>keywords</em> meta tag."
+msgid "Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\"edit-tags.php?taxonomy=category\">categories</a> will be used as keywords for the <em>keywords</em> meta tag."
 msgstr ""
 
 #: amt-admin-panel.php:202 amt-admin-panel.php:221 amt-admin-panel.php:225
@@ -181,7 +181,7 @@ msgid "Important Note"
 msgstr ""
 
 #: amt-admin-panel.php:285
-msgid "By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href=\"/wp-admin/profile.php\">profile page</a> under the section <em>Contact Info</em>."
+msgid "By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>."
 msgstr ""
 
 #: amt-admin-panel.php:292 amt-admin-panel.php:295
@@ -197,7 +197,7 @@ msgid "Important Notes"
 msgstr ""
 
 #: amt-admin-panel.php:304
-msgid "In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user's <a href=\"/wp-admin/profile.php\">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>."
+msgid "In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user's <a href=\"profile.php\">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>."
 msgstr ""
 
 #: amt-admin-panel.php:306
@@ -221,7 +221,7 @@ msgid "Automatically generate Microdata and embed it to your content. This featu
 msgstr ""
 
 #: amt-admin-panel.php:339
-msgid "By default, this feature links the author and publisher objects to the author archive and the front page of your web site respectively. In order to link to the author's profile and publisher's page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href=\"/wp-admin/profile.php\">profile page</a> under the section <em>Contact Info</em>."
+msgid "By default, this feature links the author and publisher objects to the author archive and the front page of your web site respectively. In order to link to the author's profile and publisher's page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>."
 msgstr ""
 
 #: amt-admin-panel.php:341
