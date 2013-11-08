@@ -165,7 +165,7 @@ Here is what is supported:
 - Links to Soundcloud tracks of the form: `https://soundcloud.com/USER_ID/TRACK_ID`
 - Links to Flickr images of the form: `http://www.flickr.com/photos/USER_ID/IMAGE_ID/`
 
-This feature should be considered experimental (although it works).
+This feature should be considered experimental. This information might be changed in future versions of the plugin.
 
 
 = Translations =
@@ -347,7 +347,7 @@ No special requirements when upgrading.
 
 = There is no amount set in the donation form! How much should I donate? =
 
-The amount of the donation is totally up to you. You can think of it like this: Are you happy with the plugin and feel like buying me a cup of coffee for writing it and releasing it as Free software? If yes, then imagine buying me a cup of coffee at your favorite Cafe and <a href="http://bit.ly/HvUakt">make a donation</a> accordingly.
+The amount of the donation is totally up to you. You can think of it like this: Are you happy with the plugin? Do you think it makes your life easier or adds value to your web site? If this is a yes and, if you feel like showing your appreciation, you could imagine buying me a cup of coffee at your favorite Cafe and <a href="http://bit.ly/HvUakt">make a donation</a> accordingly.
 
 = My meta tags do not show up! =
 
