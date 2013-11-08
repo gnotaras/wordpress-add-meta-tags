@@ -1,4 +1,15 @@
 
+POT FILE GENERATION
+-------------------
+1. Change version in plugin PHP file. Use an alpha or beta marker like 2.4.0a1
+2. Run make_release.py
+3. Push source language file to translation service:
+    tx push -s
+
+
+FINAL RELEASE
+-------------
+
 1. Change version in plugin PHP file.
 
 2. Add contributors, if required, in AUTHORS.
