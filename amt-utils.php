@@ -1074,6 +1074,7 @@ function amt_get_embedded_media( $post ) {
     // h - High 1600 (1600x) DOES NOT WORK
     //
     $pattern = '#https?:\/\/(?:www.)?flickr.com\/photos\/[^\/]+\/[^\/]+\/#i';
+    //$pattern = '#https?://(?:www.)?flickr.com/photos/[^/]+/[^/]+/#i';
     preg_match_all( $pattern, $post->post_content, $matches );
     //var_dump($matches);
     if ($matches) {
