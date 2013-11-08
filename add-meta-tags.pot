@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.4.0a1\n"
+"Project-Id-Version: add-meta-tags 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-06 11:41+0200\n"
+"POT-Creation-Date: 2013-11-08 22:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -326,7 +326,7 @@ msgid "Enter keywords separated with commas."
 msgstr ""
 
 #: amt-admin-panel.php:642
-msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post's categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post's categories and keywords in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively."
+msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post's categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post's categories and tags in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively."
 msgstr ""
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
