@@ -119,7 +119,7 @@ function amt_options_page() {
 
         
 
-        <form name="formamt" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
+        <form name="formamt" method="post" action="' . admin_url( 'options-general.php?page=add-meta-tags-options' ) . '">
 
         <table class="form-table">
         <tbody>
