@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-06 11:41+0200\n"
-"PO-Revision-Date: 2013-11-08 16:44+0000\n"
+"PO-Revision-Date: 2013-11-08 23:01+0000\n"
 "Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -243,7 +243,7 @@ msgstr "Αυτόματη δημιουργία μεταδεδομένων Opengra
 
 #: amt-admin-panel.php:283
 msgid "Important Note"
-msgstr "Σημαντική σημείωση"
+msgstr "Σημαντική Σημείωση"
 
 #: amt-admin-panel.php:285
 msgid ""
@@ -254,7 +254,7 @@ msgid ""
 "provide the respective URLs. These settings can be added to your WordPress "
 "user <a href=\"profile.php\">profile page</a> under the section <em>Contact "
 "Info</em>."
-msgstr ""
+msgstr "Εξ'ορισμού, αυτό το χαρακτηριστικό θέτει τη διεύθυνση της πρώτης σελίδας του ιστότοπού σας στο metatag <code>article:publisher</code> και τη διεύθυνση του αρχείου συγγραφέα στο metatag <code>article:author</code>. Προκειμένου να συνδεθούν στη σελίδα του εκδότη και στο προφίλ του συγγραφέα στο facebook, είναι απαραίτητο να παρέχετε τις αντίστοιχες διευθύνσεις. Αυτές οι ρυθμίσεις μπορούν να προστεθούν στη <a href=\"profile.php\">σελίδα με το προφίλ</a> του χρήστη σας στο WordPress στην ενότητα <em>Στοιχεία Επικοινωνίας</em>."
 
 #: amt-admin-panel.php:292 amt-admin-panel.php:295
 msgid "Automatic Twitter Cards Metadata"
@@ -279,7 +279,7 @@ msgid ""
 "publisher of the content. Update your WordPress user's <a "
 "href=\"profile.php\">profile page</a> and fill in the relevant usernames "
 "under the section <em>Contact Info</em>."
-msgstr ""
+msgstr "Προκειμένου να δημιουργηθούν τα metatags <code>twitter:site</code> και <code>twitter:creator</code>, είναι απαραίτητο να παρέχετε τα αντίστοιχα ονόματα χρήστη του λογαριασμού του συγγραφέα ή/και του εκδότη του περιεχομένου στο Twitter. Ενημερώστε τη <a href=\"profile.php\">σελίδα του προφίλ</a> του χρήστη σας στο WordPress και προσθέστε τα σχετικά ονόματα χρήστη στην ενότητα <em>Στοιχεία Επικοινωνίας</em>."
 
 #: amt-admin-panel.php:306
 msgid ""
@@ -326,7 +326,7 @@ msgid ""
 "required to provide the respective URLs. These settings can be added to your"
 " WordPress user <a href=\"profile.php\">profile page</a> under the section "
 "<em>Contact Info</em>."
-msgstr ""
+msgstr "Εξ'ορισμού, αυτό το χαρακτηριστικό συνδέει τον συγγραφέα και τον εκδότη στο αρχείο κατά συγγραφέα και στην πρώτη σελίδα του ιστότοπου αντίστοιχα. Προκειμένου να συνδεθούν στο προφίλ του συγγραφέα και στη σελίδα του εκδότη στο Google+, είναι απαραίτητο να παρέχετε τις αντίστοιχες διευθύνσεις. Αυτές οι ρυθμίσεις μπορούν να προστεθούν στη <a href=\"profile.php\">σελίδα με το προφίλ</a> του χρήστη σας στο WordPress στην ενότητα <em>Στοιχεία Επικοινωνίας</em>."
 
 #: amt-admin-panel.php:341
 msgid ""
@@ -403,7 +403,7 @@ msgstr "Εισάγετε την απόλυτη διεύθυνση προς τη 
 
 #: amt-admin-panel.php:431 amt-admin-panel.php:434
 msgid "Review Mode"
-msgstr "Λειτουργία επισκόπησης"
+msgstr "Λειτουργία Επισκόπησης"
 
 #: amt-admin-panel.php:438
 msgid ""
@@ -426,7 +426,7 @@ msgstr "Ενεργοποιώντας αυτό, το <em>μήνυμα από το
 
 #: amt-admin-panel.php:464
 msgid "Save changes"
-msgstr "Αποθήκευση ρυθμίσεων"
+msgstr "Αποθήκευση αλλαγών"
 
 #: amt-admin-panel.php:465
 msgid "Reset to defaults"
@@ -459,7 +459,7 @@ msgstr "Αν το πεδίο <em>περιγραφή</em> παραμείνει κ
 
 #: amt-admin-panel.php:632
 msgid "Keywords"
-msgstr "Λέξεις κλειδιά"
+msgstr "Λέξεις-κλειδιά"
 
 #: amt-admin-panel.php:635
 msgid "Enter keywords separated with commas."
@@ -529,11 +529,11 @@ msgstr "Σημαντική σημείωση: για λόγους ασφαλεί�
 
 #: amt-settings.php:220
 msgid "Add-Meta-Tags options saved"
-msgstr "Οι ρυθμίσεις του Add-Meta-Tags αποθηκεύτηκαν"
+msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags αποθηκεύτηκαν"
 
 #: amt-settings.php:233
 msgid "Add-Meta-Tags options were reset to defaults"
-msgstr "Οι ρυθμίσεις του Add-Meta-Tags επανήλθαν στις αρχικές τιμές"
+msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags επανήλθαν στις αρχικές τιμές"
 
 #: metadata\amt_opengraph.php:54
 msgid "Facebook author profile URL"
