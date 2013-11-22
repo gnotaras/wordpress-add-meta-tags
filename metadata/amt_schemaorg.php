@@ -236,19 +236,19 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemscope itemtype="http://schema.org/ImageObject">';
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject" itemref="comments">';
 
         } elseif ( 'video' == $attachment_type ) {
 
             // Scope BEGIN: VideoObject: http://schema.org/VideoObject
             $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-            $metadata_arr[] = '<span itemscope itemtype="http://schema.org/VideoObject">';
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject" itemref="comments">';
 
         } elseif ( 'audio' == $attachment_type ) {
 
             // Scope BEGIN: AudioObject: http://schema.org/AudioObject
             $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-            $metadata_arr[] = '<span itemscope itemtype="http://schema.org/AudioObject">';
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject" itemref="comments">';
 
         } else {
             // we do not currently support other attachment types, so we stop processing here
@@ -293,7 +293,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Add the post body here
             $metadata_arr[] = $post_body;
             // Scope END: ImageObject
-            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            $metadata_arr[] = '</div> <!-- Scope END: ImageObject -->';
 
         } elseif ( 'video' == $attachment_type ) {
 
@@ -305,7 +305,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Add the post body here
             $metadata_arr[] = $post_body;
             // Scope END: VideoObject
-            $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+            $metadata_arr[] = '</div> <!-- Scope END: VideoObject -->';
 
         } elseif ( 'audio' == $attachment_type ) {
 
@@ -317,7 +317,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Add the post body here
             $metadata_arr[] = $post_body;
             // Scope END: AudioObject
-            $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
+            $metadata_arr[] = '</div> <!-- Scope END: AudioObject -->';
 
         }
 
@@ -327,7 +327,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Scope BEGIN: Article: http://schema.org/Article
         $metadata_arr[] = '<!-- Scope BEGIN: Article -->';
-        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Article">';
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Article" itemref="comments">';
 
         // Publisher
         // Scope BEGIN: Organization: http://schema.org/Organization
@@ -542,7 +542,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // TODO: also check: comments, contributor, copyrightHolder, , creator, dateCreated, discussionUrl, editor, version (use post revision if possible)
 
         // Scope END: Article
-        $metadata_arr[] = '</span> <!-- Scope END: Article -->';
+        $metadata_arr[] = '</div> <!-- Scope END: Article -->';
 
         // Filtering of the generated Schema.org metadata
         $metadata_arr = apply_filters( 'amt_schemaorg_metadata_content', $metadata_arr );
@@ -550,9 +550,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Add articleBody to Artice
         // Now add the article. Remove last closing '</span>' tag, add articleBody and re-add the closing span afterwards.
         $closing_article_tag = array_pop($metadata_arr);
-        $metadata_arr[] = '<span itemprop="articleBody">';
+        $metadata_arr[] = '<div itemprop="articleBody">';
         $metadata_arr[] = $post_body;
-        $metadata_arr[] = '</span> <!-- Itemprop END: articleBody -->';
+        $metadata_arr[] = '</div> <!-- Itemprop END: articleBody -->';
         // Now add closing tag for Article
         $metadata_arr[] = $closing_article_tag;
     }
