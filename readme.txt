@@ -253,7 +253,7 @@ This can easily be done by hooking custom functions to the `amt_external_descrip
 function read_old_plugin_description_field( $extfields ) {
     // Although $extfields is currently empty, it's a good practice to
     // append your old plugins description field to the $extfields array.
-    array_unshift( 'my_old_plugin_description_field', $extfields );
+    array_unshift( $extfields, 'my_old_plugin_description_field' );
     return $extfields;
 }
 add_filter( 'amt_external_description_fields', 'read_old_plugin_description_field', 10, 1 );
@@ -262,7 +262,7 @@ function read_old_plugin_keywords_field( $extfields, $post_id ) {
     // This function also demonstrates how to get and possibly use the post's ID
     // Append your old plugins keywords field to the $extfields array
     if ( in_array( $post_id, array( 1, 2, 5, 8 ) ) ) {
-        array_unshift( 'my_old_plugin_keywords_field', $extfields );
+        array_unshift( $extfields, 'my_old_plugin_keywords_field' );
     }
     return $extfields;
 }
