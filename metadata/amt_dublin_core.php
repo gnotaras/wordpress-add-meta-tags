@@ -70,14 +70,14 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
     $metadata_arr[] = '<meta name="dcterms.title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
 
     // Resource identifier - Uses amt_get_permalink_for_multipage()
-    $metadata_arr[] = '<meta name="dcterms.identifier" scheme="dcterms.URI" content="' . esc_url_raw( amt_get_permalink_for_multipage( $post ) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.identifier" content="' . esc_url_raw( amt_get_permalink_for_multipage( $post ) ) . '" />';
 
     $metadata_arr[] = '<meta name="dcterms.creator" content="' . esc_attr( amt_get_dublin_core_author_notation($post) ) . '" />';
-    //$metadata_arr[] = '<meta name="dcterms.date" scheme="dcterms.W3CDTF" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
-    $metadata_arr[] = '<meta name="dcterms.created" scheme="dcterms.W3CDTF" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
-    $metadata_arr[] = '<meta name="dcterms.available" scheme="dcterms.W3CDTF" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
-    //$metadata_arr[] = '<meta name="dcterms.issued" scheme="dcterms.W3CDTF" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
-    $metadata_arr[] = '<meta name="dcterms.modified" scheme="dcterms.W3CDTF" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
+    //$metadata_arr[] = '<meta name="dcterms.date" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.created" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.available" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    //$metadata_arr[] = '<meta name="dcterms.issued" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.modified" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
  
     // Description
     // We use the same description as the ``description`` meta tag.
@@ -99,12 +99,12 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
         }
     }
 
-    $metadata_arr[] = '<meta name="dcterms.language" scheme="dcterms.RFC4646" content="' . esc_attr( get_bloginfo('language') ) . '" />';
-    $metadata_arr[] = '<meta name="dcterms.publisher" scheme="dcterms.URI" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.language" content="' . esc_attr( get_bloginfo('language') ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.publisher" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
 
     // Copyright page
     if (!empty($options["copyright_url"])) {
-        $metadata_arr[] = '<meta name="dcterms.rights" scheme="dcterms.URI" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+        $metadata_arr[] = '<meta name="dcterms.rights" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
     }
 
     // License
@@ -117,7 +117,7 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
     $license_url = apply_filters( 'amt_dublin_core_license', $license_url, $post->ID );
     // Add metatag if $license_url is not empty.
     if ( ! empty( $license_url ) ) {
-        $metadata_arr[] = '<meta name="dcterms.license" scheme="dcterms.URI" content="' . esc_url_raw( $license_url ) . '" />';
+        $metadata_arr[] = '<meta name="dcterms.license" content="' . esc_url_raw( $license_url ) . '" />';
     }
 
     // Coverage
@@ -130,40 +130,40 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
         // See why we do not use strstr(): http://www.codetrax.org/issues/1091
         $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
-        $metadata_arr[] = '<meta name="dcterms.isPartOf" scheme="dcterms.URI" content="' . esc_url_raw( get_permalink( $post->post_parent ) ) . '" />';
+        $metadata_arr[] = '<meta name="dcterms.isPartOf" content="' . esc_url_raw( get_permalink( $post->post_parent ) ) . '" />';
 
         if ( 'image' == $attachment_type ) {
-            $metadata_arr[] = '<meta name="dcterms.type" scheme="dcterms.DCMIType" content="Image" />';
-            $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.IMT" content="' . $mime_type . '" />';
+            $metadata_arr[] = '<meta name="dcterms.type" content="Image" />';
+            $metadata_arr[] = '<meta name="dcterms.format" content="' . $mime_type . '" />';
         } elseif ( 'video' == $attachment_type ) {
-            $metadata_arr[] = '<meta name="dcterms.type" scheme="dcterms.DCMIType" content="MovingImage" />';
-            $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.IMT" content="' . $mime_type . '" />';
+            $metadata_arr[] = '<meta name="dcterms.type" content="MovingImage" />';
+            $metadata_arr[] = '<meta name="dcterms.format" content="' . $mime_type . '" />';
         } elseif ( 'audio' == $attachment_type ) {
-            $metadata_arr[] = '<meta name="dcterms.type" scheme="dcterms.DCMIType" content="Sound" />';
-            $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.IMT" content="' . $mime_type . '" />';
+            $metadata_arr[] = '<meta name="dcterms.type" content="Sound" />';
+            $metadata_arr[] = '<meta name="dcterms.format" content="' . $mime_type . '" />';
         }
 
         // Finally add the hasFormat
-        $metadata_arr[] = '<meta name="dcterms.hasFormat" scheme="dcterms.URI" content="' . esc_url_raw( $post->guid ) . '" />';
+        $metadata_arr[] = '<meta name="dcterms.hasFormat" content="' . esc_url_raw( $post->guid ) . '" />';
 
     } else {    // Default: Text
-        $metadata_arr[] = '<meta name="dcterms.type" scheme="dcterms.DCMIType" content="Text" />';
-        $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.IMT" content="text/html" />';
+        $metadata_arr[] = '<meta name="dcterms.type" content="Text" />';
+        $metadata_arr[] = '<meta name="dcterms.format" content="text/html" />';
 
         // List attachments
         foreach( $attachments as $attachment ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+            $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
         }
 
         // Embedded Media
         foreach( $embedded_media['images'] as $embedded_item ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+            $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
         }
         foreach( $embedded_media['videos'] as $embedded_item ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+            $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
         }
         foreach( $embedded_media['sounds'] as $embedded_item ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" scheme="dcterms.URI" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+            $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
         }
     }
 
@@ -180,20 +180,20 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
     $format = get_post_format( $post->id );
     if ( empty($format) || $format=="aside" || $format=="link" || $format=="quote" || $format=="status" || $format=="chat") {
         // Default format
-        $metadata_arr[] = '<meta name="dcterms.type" scheme="DCMIType" content="Text" />';
-        $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.imt" content="text/html" />';
+        $metadata_arr[] = '<meta name="dcterms.type" content="Text" />';
+        $metadata_arr[] = '<meta name="dcterms.format" content="text/html" />';
     } elseif ($format=="gallery") {
-        $metadata_arr[] = '<meta name="dcterms.type" scheme="DCMIType" content="Collection" />';
-        // $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.imt" content="image" />';
+        $metadata_arr[] = '<meta name="dcterms.type" content="Collection" />';
+        // $metadata_arr[] = '<meta name="dcterms.format" content="image" />';
     } elseif ($format=="image") {
-        $metadata_arr[] = '<meta name="dcterms.type" scheme="DCMIType" content="Image" />';
-        // $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.imt" content="image/png" />';
+        $metadata_arr[] = '<meta name="dcterms.type" content="Image" />';
+        // $metadata_arr[] = '<meta name="dcterms.format" content="image/png" />';
     } elseif ($format=="video") {
-        $metadata_arr[] = '<meta name="dcterms.type" scheme="DCMIType" content="Moving Image" />';
-        $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.imt" content="application/x-shockwave-flash" />';
+        $metadata_arr[] = '<meta name="dcterms.type" content="Moving Image" />';
+        $metadata_arr[] = '<meta name="dcterms.format" content="application/x-shockwave-flash" />';
     } elseif ($format=="audio") {
-        $metadata_arr[] = '<meta name="dcterms.type" scheme="DCMIType" content="Sound" />';
-        $metadata_arr[] = '<meta name="dcterms.format" scheme="dcterms.imt" content="audio/mpeg" />';
+        $metadata_arr[] = '<meta name="dcterms.type" content="Sound" />';
+        $metadata_arr[] = '<meta name="dcterms.format" content="audio/mpeg" />';
     }
     */
 
