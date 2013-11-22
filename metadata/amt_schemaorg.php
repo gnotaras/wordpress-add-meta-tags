@@ -300,7 +300,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Video specific metatags
             // URL (for attachments: links to attachment page)
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
-            $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $post->guid ) . '" />';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $post->guid ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
             // Add the post body here
             $metadata_arr[] = $post_body;
@@ -312,7 +312,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Audio specific metatags
             // URL (for attachments: links to attachment page)
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
-            $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $post->guid ) . '" />';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $post->guid ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
             // Add the post body here
             $metadata_arr[] = $post_body;
@@ -450,7 +450,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     // Video specific metatags
                     // URL (for attachments: links to attachment page)
                     $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $attachment->guid ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $attachment->guid ) . '" />';
                     $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
                     // Scope END: VideoObject
                     $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
@@ -463,7 +463,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     // Audio specific metatags
                     // URL (for attachments: links to attachment page)
                     $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $attachment->guid ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $attachment->guid ) . '" />';
                     $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
                     // Scope END: AudioObject
                     $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
@@ -489,7 +489,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // thumbnail url
             $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
             // main image
-            $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
             $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
             $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
@@ -531,7 +531,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
             $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
-            $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
             $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
         }
         // Scope END: ImageObject
@@ -610,7 +610,7 @@ function amt_get_schemaorg_image_metatags( $image, $size='medium', $is_represent
     $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $thumbnail_meta[0] ) . '" />';
 
     // main image
-    $metadata_arr[] = '<meta itemprop="contentURL" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
     $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
     $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
     $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
