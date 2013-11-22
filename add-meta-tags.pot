@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.4.0\n"
+"Project-Id-Version: add-meta-tags 2.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-08 22:49+0200\n"
+"POT-Creation-Date: 2013-11-22 15:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,23 +241,27 @@ msgid "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on follow
 msgstr ""
 
 #: amt-admin-panel.php:364
-msgid "Search results (<em>Highly recommended</em>)"
+msgid "Search results. (<em>Highly recommended</em>)"
 msgstr ""
 
 #: amt-admin-panel.php:370
-msgid "Date based archives (<em>Recommended</em>)"
+msgid "Date based archives. (<em>Recommended</em>)"
 msgstr ""
 
 #: amt-admin-panel.php:376
-msgid "Category based archives"
+msgid "Category based archives."
+msgstr ""
+
+#: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
+msgid "Even if checked, the first page of this type of archive is always indexed."
 msgstr ""
 
 #: amt-admin-panel.php:382
-msgid "Tag based archives"
+msgid "Tag based archives."
 msgstr ""
 
 #: amt-admin-panel.php:388
-msgid "Author based archives"
+msgid "Author based archives."
 msgstr ""
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
