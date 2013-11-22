@@ -75,6 +75,7 @@ function amt_get_allowed_html_kses() {
         'meta' => array_merge( array(
             'charset' => array(),
             'content' => array(),
+            'value' => array(),
             'http-equiv' => array(),
             'name' => array(),
             'scheme' => array(),
