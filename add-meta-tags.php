@@ -134,9 +134,9 @@ function amt_get_metadata_head() {
         if (
             ( is_search() && ($options["noindex_search_results"] == "1") )  ||          // Search results
             ( is_date() && ($options["noindex_date_archives"] == "1") )  ||             // Date and time archives
-            ( is_category() && ($options["noindex_category_archives"] == "1") )  ||     // Category archives
-            ( is_tag() && ($options["noindex_tag_archives"] == "1") )  ||               // Tag archives
-            ( is_author() && ($options["noindex_author_archives"] == "1") )             // Author archives
+            ( is_category() && is_paged() && ($options["noindex_category_archives"] == "1") )  ||     // Category archives (except 1st page)
+            ( is_tag() && is_paged() && ($options["noindex_tag_archives"] == "1") )  ||               // Tag archives (except 1st page)
+            ( is_author() && is_paged() && ($options["noindex_author_archives"] == "1") )             // Author archives (except 1st page)
         ) {
             $metadata_arr[] = '<meta name="robots" content="NOINDEX,FOLLOW" />';
             $do_add_metadata = false;   // No need to process metadata

@@ -361,31 +361,31 @@ function amt_options_page() {
 
                 <input id="noindex_search_results" type="checkbox" value="1" name="noindex_search_results" '. (($options["noindex_search_results"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_search_results">
-                '.__('Search results (<em>Highly recommended</em>)', 'add-meta-tags').'
+                '.__('Search results. (<em>Highly recommended</em>)', 'add-meta-tags').'
                 </label>
                 <br />
 
                 <input id="noindex_date_archives" type="checkbox" value="1" name="noindex_date_archives" '. (($options["noindex_date_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_date_archives">
-                '.__('Date based archives (<em>Recommended</em>)', 'add-meta-tags').'
+                '.__('Date based archives. (<em>Recommended</em>)', 'add-meta-tags').'
                 </label>
                 <br />
 
                 <input id="noindex_category_archives" type="checkbox" value="1" name="noindex_category_archives" '. (($options["noindex_category_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_category_archives">
-                '.__('Category based archives', 'add-meta-tags').'
+                '.__('Category based archives.', 'add-meta-tags').' ('.__('Even if checked, the first page of this type of archive is always indexed.', 'add-meta-tags').')
                 </label>
                 <br />
 
                 <input id="noindex_tag_archives" type="checkbox" value="1" name="noindex_tag_archives" '. (($options["noindex_tag_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_tag_archives">
-                '.__('Tag based archives', 'add-meta-tags').'
+                '.__('Tag based archives.', 'add-meta-tags').' ('.__('Even if checked, the first page of this type of archive is always indexed.', 'add-meta-tags').')
                 </label>
                 <br />
 
                 <input id="noindex_author_archives" type="checkbox" value="1" name="noindex_author_archives" '. (($options["noindex_author_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_author_archives">
-                '.__('Author based archives', 'add-meta-tags').'
+                '.__('Author based archives.', 'add-meta-tags').' ('.__('Even if checked, the first page of this type of archive is always indexed.', 'add-meta-tags').')
                 </label>
                 <br />
 
