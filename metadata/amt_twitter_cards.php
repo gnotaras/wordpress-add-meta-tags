@@ -98,20 +98,20 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             $main_size_meta = wp_get_attachment_image_src( $post->ID , 'large' );
 
             // Type
-            $metadata_arr[] = '<meta name="twitter:card" content="photo" />';
+            $metadata_arr[] = '<meta property="twitter:card" content="photo" />';
             // Author and Publisher
             $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
             // Title
-            $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
             // Description - We use the description defined by Add-Meta-Tags
             $content_desc = amt_get_content_description( $post );
             if ( ! empty( $content_desc ) ) {
-                $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( $content_desc ) . '" />';
+                $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( $content_desc ) . '" />';
             }
             // Image
-            $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
 
         } elseif ( 'video' == $attachment_type ) {
             // No player card for local video.
@@ -132,11 +132,11 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
         // Type
         if ( get_post_format($post->ID) === false ) {
-            $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
+            $metadata_arr[] = '<meta property="twitter:card" content="summary" />';
             // Set the image size to use
             $image_size = 'medium';
         } else {
-            $metadata_arr[] = '<meta name="twitter:card" content="summary_large_image" />';
+            $metadata_arr[] = '<meta property="twitter:card" content="summary_large_image" />';
             // Set the image size to use
             $image_size = 'large';
         }
@@ -145,12 +145,12 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
         // Title
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
         if ( !empty($content_desc) ) {
-            $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
         }
 
         // Image
@@ -164,9 +164,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
 
             $main_size_meta = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $image_size );
-            $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-            $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
 
             // Images have been found.
             $image_metatags_added = true;
@@ -188,9 +188,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
                     // Image tags
                     $main_size_meta = wp_get_attachment_image_src( $attachment->ID, $image_size );
-                    $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-                    $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-                    $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:src" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
 
                     // Images have been found.
                     $image_metatags_added = true;
@@ -208,13 +208,13 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             foreach( $embedded_media['images'] as $embedded_item ) {
 
                 if ( get_post_format($post->ID) === false ) {
-                    $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
-                    $metadata_arr[] = '<meta name="twitter:image:width" content="150" />';
-                    $metadata_arr[] = '<meta name="twitter:image:height" content="150" />';
+                    $metadata_arr[] = '<meta property="twitter:image:src" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:width" content="150" />';
+                    $metadata_arr[] = '<meta property="twitter:image:height" content="150" />';
                 } else {
-                    $metadata_arr[] = '<meta name="twitter:image:src" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
-                    $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-                    $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:src" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
                 }
 
                 // Images have been found.
@@ -227,7 +227,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
         // If an image is still missing, then use the default image (if set).
         if ( $image_metatags_added === false && ! empty( $options["default_image_url"] ) ) {
-            $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
         }
 
 
@@ -238,17 +238,17 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // Render a gallery card if gallery format.
 
         // Type
-        $metadata_arr[] = '<meta name="twitter:card" content="gallery" />';
+        $metadata_arr[] = '<meta property="twitter:card" content="gallery" />';
         // Author and Publisher
         $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
         // Title
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
         if ( !empty($content_desc) ) {
-            $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
         }
 
         // Image counter
@@ -265,7 +265,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             if ( 'image' == $attachment_type ) {
                 // Image tags
                 $main_size_meta = wp_get_attachment_image_src( $attachment->ID, 'medium' );
-                $metadata_arr[] = '<meta name="twitter:image' . $k . '" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+                $metadata_arr[] = '<meta property="twitter:image' . $k . '" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
 
                 // Increment the counter
                 $k++;
@@ -274,7 +274,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
         // Embedded Media
         foreach( $embedded_media['images'] as $embedded_item ) {
-            $metadata_arr[] = '<meta name="twitter:image' . $k . '" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:image' . $k . '" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
 
             // Increment the counter
             $k++;
@@ -288,17 +288,17 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // Render a player card.
 
         // Type
-        $metadata_arr[] = '<meta name="twitter:card" content="player" />';
+        $metadata_arr[] = '<meta property="twitter:card" content="player" />';
         // Author and Publisher
         $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
         // Title
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
         if ( !empty($content_desc) ) {
-            $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
         }
 
         // 
@@ -315,12 +315,12 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
             if ( 'video' == $attachment_type ) {
                 // Video tags
-                $metadata_arr[] = '<meta name="twitter:player" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-                <meta name="twitter:player" content="https://example.com/embed/a">
-                <meta name="twitter:player:width" content="435">
-                <meta name="twitter:player:height" content="251">
-                <meta name="twitter:player:stream" content="https://example.com/raw-stream/a.mp4">
-                <meta name="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">
+                $metadata_arr[] = '<meta property="twitter:player" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+                <meta property="twitter:player" content="https://example.com/embed/a">
+                <meta property="twitter:player:width" content="435">
+                <meta property="twitter:player:height" content="251">
+                <meta property="twitter:player:stream" content="https://example.com/raw-stream/a.mp4">
+                <meta property="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">
                 //
                 $video_metatags_set = true;
             }
@@ -330,20 +330,20 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // Embedded Media
         foreach( $embedded_media['videos'] as $embedded_item ) {
             // player
-            $metadata_arr[] = '<meta name="twitter:player" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+            $metadata_arr[] = '<meta property="twitter:player" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             // Player size
             // Mode 1: Size uses  $content_width
             //global $content_width;
             //$width = $content_width;
             //$height = absint(absint($content_width)*3/4);
-            //$metadata_arr[] = '<meta name="twitter:width" content="' . esc_attr( $width ) . '" />';
-            //$metadata_arr[] = '<meta name="twitter:height" content="' . esc_attr( $height ) . '" />';
+            //$metadata_arr[] = '<meta property="twitter:width" content="' . esc_attr( $width ) . '" />';
+            //$metadata_arr[] = '<meta property="twitter:height" content="' . esc_attr( $height ) . '" />';
             // Mode 2: Size hard coded
-            $metadata_arr[] = '<meta name="twitter:width" content="640" />';
-            $metadata_arr[] = '<meta name="twitter:height" content="480" />';
+            $metadata_arr[] = '<meta property="twitter:width" content="640" />';
+            $metadata_arr[] = '<meta property="twitter:height" content="480" />';
             // image
             if ( ! empty( $embedded_item['thumbnail'] ) ) {
-                $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
+                $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
             }
 
             //
@@ -369,11 +369,11 @@ function amt_get_twitter_cards_author_publisher_metatags( $post ) {
     // Author and Publisher
     $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $post->post_author);
     if ( !empty($twitter_author_username) ) {
-        $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
+        $metadata_arr[] = '<meta property="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
     }
     $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
     if ( !empty($twitter_publisher_username) ) {
-        $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
+        $metadata_arr[] = '<meta property="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
     }
     return $metadata_arr;
 }
