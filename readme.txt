@@ -127,6 +127,8 @@ Opengraph meta tags can be automatically added to the front page, posts, pages, 
 
 Schema.org Microdata can be automatically added to the front page, posts, pages, image attachment pages and author archive.
 
+The plugin automatically marks up posts, pages and custom post types as `Article` objects and also images, videos and audio as `Image`, `Video` and `Audio` MediaObjects respectively. It also considers the web site as an `Organization` object and the author as a `Person` object.
+
 **Twitter Cards**
 
 Twitter Cards can be automatically added to content pages and image attachment pages.
