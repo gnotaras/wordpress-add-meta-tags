@@ -317,7 +317,7 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
      * In those cases, $amt_excerpt might only contain ``...``. Here we perform
      * a check for this and return an empty $amt_excerpt.
      */
-    if ($amt_excerpt == "...") {
+    if ( trim($amt_excerpt) == "..." ) {
         $amt_excerpt = "";
     }
 
