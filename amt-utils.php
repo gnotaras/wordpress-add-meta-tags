@@ -541,7 +541,11 @@ function amt_get_content_keywords($post, $auto=true) {
             $content_keywords .= $keyw_fld_content;
 
         // Otherwise, generate the keywords from categories and tags
-        } elseif ( is_single() ) {  // pages do not support categories and tags
+        // Note:
+        // Here we use is_singular(), so that pages are checked for categories and tags.
+        // By default, pages do not support categories and tags, but enabling such
+        // functionality is trivial. See #1206 for more details.
+        } elseif ( is_singular() ) {
             if ($auto) {
                 /*
                  * Add keywords automatically.
