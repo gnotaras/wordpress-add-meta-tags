@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
 Tested up to: 3.8.1
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -390,6 +390,8 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.4.2](http://www.codetrax.org/versions/215)
+ - Minor bug fixes contributed by users during the last months. (Thanks Andy, raidnet, bhoogterp)
 - [2.4.1](http://www.codetrax.org/versions/198)
  - Resolved almost all HTML validation issues.
  - The first page of the category/tag/author archives is always indexed.
