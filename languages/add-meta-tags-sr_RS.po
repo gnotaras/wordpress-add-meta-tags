@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-06 11:41+0200\n"
-"PO-Revision-Date: 2013-11-20 09:38+0000\n"
+"POT-Creation-Date: 2013-11-22 15:41+0200\n"
+"PO-Revision-Date: 2013-11-22 14:02+0000\n"
 "Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/projects/p/add-meta-tags/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -359,24 +359,29 @@ msgid ""
 msgstr "Dodaj<code>NOINDEX,FOLLOW</code> u <em>robots</em> meta tag na sledeće tipove arhive.Ovo je unapredjena postavka koja cilja na smanjivanje količine dupliranog sadržaja koji je indeksovan od strne pretraživača:"
 
 #: amt-admin-panel.php:364
-msgid "Search results (<em>Highly recommended</em>)"
-msgstr "Rezultati pretrage (<em>veoma preporučljivo</em>)"
+msgid "Search results. (<em>Highly recommended</em>)"
+msgstr ""
 
 #: amt-admin-panel.php:370
-msgid "Date based archives (<em>Recommended</em>)"
-msgstr "Arhive bazirane na podacima(<em>Preporučeno</em>)"
+msgid "Date based archives. (<em>Recommended</em>)"
+msgstr ""
 
 #: amt-admin-panel.php:376
-msgid "Category based archives"
-msgstr "Arhive bazirane na kategoriji"
+msgid "Category based archives."
+msgstr ""
+
+#: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
+msgid ""
+"Even if checked, the first page of this type of archive is always indexed."
+msgstr ""
 
 #: amt-admin-panel.php:382
-msgid "Tag based archives"
-msgstr "Arhive bazirane na tagu"
+msgid "Tag based archives."
+msgstr ""
 
 #: amt-admin-panel.php:388
-msgid "Author based archives"
-msgstr "Arhive bazirane na autoru"
+msgid "Author based archives."
+msgstr ""
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
 msgid "Copyright URL"
@@ -470,10 +475,10 @@ msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and keywords in that"
-" list by using the special placeholders <code>%cats%</code> and "
+" it is possible to easily include the post's categories and tags in that "
+"list by using the special placeholders <code>%cats%</code> and "
 "<code>%tags%</code> respectively."
-msgstr "Ako je <em>keywords</em> polje ostavljeno prazno, <em>keywords</em> meta tag <strong>neće biti automatski</strong> generisan sa posta i naslova.U slučaju da odlučite da namestite custom listu ključnij reči za ovaj post, moguće je da lako uključite kategorije postova i ključne reči u toj listo korišćenjem specijalnih placeholdersa <code>%cats%</code> i <code>%tags%</code> ."
+msgstr ""
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
 msgid ""

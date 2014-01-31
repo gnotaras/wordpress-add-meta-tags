@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-06 11:41+0200\n"
-"PO-Revision-Date: 2013-11-20 09:38+0000\n"
+"POT-Creation-Date: 2013-11-22 15:41+0200\n"
+"PO-Revision-Date: 2013-11-22 14:05+0000\n"
 "Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -359,24 +359,29 @@ msgid ""
 msgstr "Προσθήκη των <code>NOINDEX,FOLLOW</code> στο <em>robots</em> meta tag στους ακόλουθους τύπους αρχείου. Αυτή είναι μια ρύθμιση για προχωρημένους η οποία στοχεύει στο να μειώσει την ποσότητα του διπλότυπου περιεχομένου που καταχωρείται από τις μηχανές αναζήτησης."
 
 #: amt-admin-panel.php:364
-msgid "Search results (<em>Highly recommended</em>)"
-msgstr "Αποτελέσματα αναζήτησης (<em>Προτείνεται ανεπιφύλαχτα</em>)"
+msgid "Search results. (<em>Highly recommended</em>)"
+msgstr "Αποτελέσματα αναζήτησης. (<em>Προτείνεται ανεπιφύλαχτα</em>)"
 
 #: amt-admin-panel.php:370
-msgid "Date based archives (<em>Recommended</em>)"
-msgstr "Αρχείο κατά ημερομηνία (<em>Προτείνεται</em>)"
+msgid "Date based archives. (<em>Recommended</em>)"
+msgstr "Αρχείο κατά ημερομηνία. (<em>Προτείνεται</em>)"
 
 #: amt-admin-panel.php:376
-msgid "Category based archives"
-msgstr "Αρχείο με βάση τις κατηγορίες"
+msgid "Category based archives."
+msgstr "Αρχείο με βάση τις κατηγορίες."
+
+#: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
+msgid ""
+"Even if checked, the first page of this type of archive is always indexed."
+msgstr "Ακόμη κι αν ενεργοποιηθεί, η πρώτη σελίδα του αρχείου ταξινομείται πάντοτε."
 
 #: amt-admin-panel.php:382
-msgid "Tag based archives"
-msgstr "Αρχείο με βάση τις ετικέτες"
+msgid "Tag based archives."
+msgstr "Αρχείο με βάση τις ετικέτες."
 
 #: amt-admin-panel.php:388
-msgid "Author based archives"
-msgstr "Αρχείο με βάση τους συγγραφείς"
+msgid "Author based archives."
+msgstr "Αρχείο με βάση τους συγγραφείς."
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
 msgid "Copyright URL"
@@ -470,10 +475,10 @@ msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and keywords in that"
-" list by using the special placeholders <code>%cats%</code> and "
+" it is possible to easily include the post's categories and tags in that "
+"list by using the special placeholders <code>%cats%</code> and "
 "<code>%tags%</code> respectively."
-msgstr "Αν το πεδίο <em>λέξεις-κλειδιά</em> παραμείνει κενό, το metatag <em>keywords</em> θα δημιουργηθεί <strong>αυτόματα</strong> από τις κατηγορίες και τις ετικέτες του άρθρου. Στην περίπτωση που επιλέξετε να ορίσετε μια προσαρμοσμένη λίστα λέξεων-κλειδιών γι' αυτό το άρθρο, είναι δυνατόν εύκολα να συμπεριλάβετε τις κατηγορίες και τις ετικέτες του άρθρου χρησιμοποιώντας τους ειδικούς αντικαταστάτες <code>%cats%</code> και <code>%tags%</code> αντίστοιχα."
+msgstr ""
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
 msgid ""

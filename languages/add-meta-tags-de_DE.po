@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-06 11:41+0200\n"
-"PO-Revision-Date: 2013-11-20 09:38+0000\n"
+"POT-Creation-Date: 2013-11-22 15:41+0200\n"
+"PO-Revision-Date: 2013-11-22 14:02+0000\n"
 "Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/add-meta-tags/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -358,24 +358,29 @@ msgid ""
 msgstr "Metatag <em>robots</em> mit Wert <code>NOINDEX,FOLLOW</code> hinzufügen um Suchmaschinen von der Indizierung solcher Inhalte, die bereits andersweitig indiziert werden, abzuhalten. Gilt für:"
 
 #: amt-admin-panel.php:364
-msgid "Search results (<em>Highly recommended</em>)"
-msgstr "Suchergebnissen (<em>sehr empfohlen</em>)"
+msgid "Search results. (<em>Highly recommended</em>)"
+msgstr ""
 
 #: amt-admin-panel.php:370
-msgid "Date based archives (<em>Recommended</em>)"
-msgstr "Zeitraumabhängige Archivseiten (<em>empfohlen</em>)"
+msgid "Date based archives. (<em>Recommended</em>)"
+msgstr ""
 
 #: amt-admin-panel.php:376
-msgid "Category based archives"
-msgstr "Kategorieabhängige Archivseiten"
+msgid "Category based archives."
+msgstr ""
+
+#: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
+msgid ""
+"Even if checked, the first page of this type of archive is always indexed."
+msgstr ""
 
 #: amt-admin-panel.php:382
-msgid "Tag based archives"
-msgstr "Schlagwortabhängige Archivseiten"
+msgid "Tag based archives."
+msgstr ""
 
 #: amt-admin-panel.php:388
-msgid "Author based archives"
-msgstr "Autorabhängige Archivseiten"
+msgid "Author based archives."
+msgstr ""
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
 msgid "Copyright URL"
@@ -469,10 +474,10 @@ msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and keywords in that"
-" list by using the special placeholders <code>%cats%</code> and "
+" it is possible to easily include the post's categories and tags in that "
+"list by using the special placeholders <code>%cats%</code> and "
 "<code>%tags%</code> respectively."
-msgstr "Werden keine <em>Stichwörter</em> angegebenen, so werden diese <strong>automatisch</strong> erzeugt. Dabei werden die Kategorien und Schlagwörter des Inhalts verwendet. Wenn Sie eigene Stichwörter und automatisch erzeugte kombinieren möchten, so können Sie dafür die Platzhalter  <code>%cats%</code> und <code>%tags%</code> verwenden. Diese werden dann durch die automatisch erzeugten Begriffe ersetzt."
+msgstr ""
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
 msgid ""

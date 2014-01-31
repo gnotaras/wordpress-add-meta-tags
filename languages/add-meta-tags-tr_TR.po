@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-06 11:41+0200\n"
-"PO-Revision-Date: 2013-11-20 09:38+0000\n"
+"POT-Creation-Date: 2013-11-22 15:41+0200\n"
+"PO-Revision-Date: 2013-11-28 19:48+0000\n"
 "Last-Translator: BouRock\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -359,24 +359,29 @@ msgid ""
 msgstr "Arşivlerin aşağıdaki türlerindeki <em>robots</em> meta etiketine <code>NOINDEX,FOLLOW</code> ekle. Bu, arama motorları tarafından indekslenen kopya içeriğin miktarını azaltmak amacındaki gelişmiş bir ayardır:"
 
 #: amt-admin-panel.php:364
-msgid "Search results (<em>Highly recommended</em>)"
-msgstr "Arama sonuçları (<em>Son derece önerilir</em>)"
+msgid "Search results. (<em>Highly recommended</em>)"
+msgstr "Arama sonuçları. (<em>Son derece önerilir</em>)"
 
 #: amt-admin-panel.php:370
-msgid "Date based archives (<em>Recommended</em>)"
-msgstr "Tarih tabanlı arşivler (<em>Önerilir</em>)"
+msgid "Date based archives. (<em>Recommended</em>)"
+msgstr "Tarih tabanlı arşivler. (<em>Önerilir</em>)"
 
 #: amt-admin-panel.php:376
-msgid "Category based archives"
-msgstr "Kategori tabanlı arşivler"
+msgid "Category based archives."
+msgstr "Kategori tabanlı arşivler."
+
+#: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
+msgid ""
+"Even if checked, the first page of this type of archive is always indexed."
+msgstr "Etkinleştirilmiş olsa bile, arşivin bu türünün ilk sayfası her zaman indekslenir."
 
 #: amt-admin-panel.php:382
-msgid "Tag based archives"
-msgstr "Etiket tabanlı arşivler"
+msgid "Tag based archives."
+msgstr "Etiket tabanlı arşivler."
 
 #: amt-admin-panel.php:388
-msgid "Author based archives"
-msgstr "Yazar tabanlı arşivler"
+msgid "Author based archives."
+msgstr "Yazar tabanlı arşivler."
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
 msgid "Copyright URL"
@@ -470,10 +475,10 @@ msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and keywords in that"
-" list by using the special placeholders <code>%cats%</code> and "
+" it is possible to easily include the post's categories and tags in that "
+"list by using the special placeholders <code>%cats%</code> and "
 "<code>%tags%</code> respectively."
-msgstr "<em>Açıklama</em> alanı boş bırakılırsa, <em>description (açıklama)</em> meta etiketi <strong>otomatik olarak</strong> yazının kategorilerinden ve etiketlerinden üretilecektir. Bu yazı için anahtar kelimelerin özel bir listesini ayarlamaya karar verdiğiniz takdirde, <code>%cats%</code> ve <code>%tags%</code> özel yer tutucularını bu listede kullanarak yazıların kategorilerini ve anahtar kelimelerini kolayca dahil etmek mümkündür."
+msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi <strong>otomatik olarak</strong> yazının kategorilerinden ve etiketlerinden üretilecektir. Bu yazı için anahtar kelimelerin özel bir listesini ayarlamaya karar verdiğiniz takdirde, <code>%cats%</code> ve <code>%tags%</code> özel yer tutucularını bu listede kullanarak yazıların kategorilerini ve etiketlerini kolayca dahil etmek mümkündür."
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
 msgid ""
