@@ -392,6 +392,7 @@ Please check out the changelog of each release by following the links below. You
 
 - [2.4.2](http://www.codetrax.org/versions/215)
  - Minor bug fixes contributed by users during the last months. (Thanks Andy, raidnet, bhoogterp)
+ - Updated translations.
 - [2.4.1](http://www.codetrax.org/versions/198)
  - Resolved almost all HTML validation issues.
  - The first page of the category/tag/author archives is always indexed.
