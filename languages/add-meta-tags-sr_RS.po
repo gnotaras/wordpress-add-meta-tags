@@ -20,13 +20,13 @@
 # 
 # 
 # Translators:
-# gnotaras <gnot@g-loaded.eu>, 2013
+# gnotaras <gnot@g-loaded.eu>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-22 15:41+0200\n"
-"PO-Revision-Date: 2013-11-22 14:02+0000\n"
+"PO-Revision-Date: 2014-02-04 07:47+0000\n"
 "Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/projects/p/add-meta-tags/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -360,15 +360,15 @@ msgstr "Dodaj<code>NOINDEX,FOLLOW</code> u <em>robots</em> meta tag na sledeće 
 
 #: amt-admin-panel.php:364
 msgid "Search results. (<em>Highly recommended</em>)"
-msgstr ""
+msgstr "Rezultati pretrage. (<em>veoma preporučljivo</em>)"
 
 #: amt-admin-panel.php:370
 msgid "Date based archives. (<em>Recommended</em>)"
-msgstr ""
+msgstr "Arhive bazirane na podacima. (<em>Preporučeno</em>)"
 
 #: amt-admin-panel.php:376
 msgid "Category based archives."
-msgstr ""
+msgstr "Arhive bazirane na kategoriji."
 
 #: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
 msgid ""
@@ -377,11 +377,11 @@ msgstr ""
 
 #: amt-admin-panel.php:382
 msgid "Tag based archives."
-msgstr ""
+msgstr "Arhive bazirane na tagu."
 
 #: amt-admin-panel.php:388
 msgid "Author based archives."
-msgstr ""
+msgstr "Arhive bazirane na autoru."
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
 msgid "Copyright URL"

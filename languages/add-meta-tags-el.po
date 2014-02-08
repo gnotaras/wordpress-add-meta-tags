@@ -20,13 +20,13 @@
 # 
 # 
 # Translators:
-# gnotaras <gnot@g-loaded.eu>, 2013
+# gnotaras <gnot@g-loaded.eu>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-22 15:41+0200\n"
-"PO-Revision-Date: 2013-11-22 14:05+0000\n"
+"PO-Revision-Date: 2014-02-04 07:50+0000\n"
 "Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -478,7 +478,7 @@ msgid ""
 " it is possible to easily include the post's categories and tags in that "
 "list by using the special placeholders <code>%cats%</code> and "
 "<code>%tags%</code> respectively."
-msgstr ""
+msgstr "Αν το πεδίο <em>λέξεις-κλειδιά</em> παραμείνει κενό, το metatag <em>keywords</em> θα δημιουργηθεί <strong>αυτόματα</strong> από τις κατηγορίες και τις ετικέτες του άρθρου. Στην περίπτωση που επιλέξετε να ορίσετε μια προσαρμοσμένη λίστα λέξεων-κλειδιών γι' αυτό το άρθρο, είναι δυνατόν εύκολα να συμπεριλάβετε τις κατηγορίες και τις ετικέτες του άρθρου χρησιμοποιώντας τους ειδικούς αντικαταστάτες <code>%cats%</code> και <code>%tags%</code> αντίστοιχα."
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
 msgid ""
