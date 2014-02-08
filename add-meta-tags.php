@@ -7,6 +7,8 @@ Version: 2.4.2
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 License: Apache License v2
+Text Domain: add-meta-tags
+Domain Path: /languages/
 */
 
 /**
