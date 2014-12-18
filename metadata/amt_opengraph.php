@@ -259,9 +259,11 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $gravatar_size;
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $gravatar_url ) . '" />';
             $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $gravatar_url ) ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $gravatar_size ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $gravatar_size ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+            if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $gravatar_size ) . '" />';
+                $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $gravatar_size ) . '" />';
+                $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+            }
         }
         // Profile data (only on the 1st page of the archive)
         if ( ! is_paged() ) {
@@ -442,9 +444,11 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
             $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['image']) ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+            if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+            }
 
             // Images have been found.
             $has_images = true;
@@ -527,9 +531,11 @@ function amt_get_opengraph_image_metatags( $post_id, $size='medium' ) {
     // Image tags
     $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
     //$metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
-    $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-    $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
-    $metadata_arr[] = '<meta property="og:image:type" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+    if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+        $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+        $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+        $metadata_arr[] = '<meta property="og:image:type" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+    }
     return $metadata_arr;
 }
 

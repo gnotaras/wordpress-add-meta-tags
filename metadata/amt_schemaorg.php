@@ -496,9 +496,11 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
             // main image
             $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
-            $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-            $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-            $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+            if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+            }
             // embedURL
             $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             // Scope END: ImageObject
@@ -617,9 +619,11 @@ function amt_get_schemaorg_image_metatags( $image, $size='medium', $is_represent
 
     // main image
     $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
-    $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+    if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+        $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+        $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+        $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+    }
 
     // caption
     // Here we sanitize the provided description for safety
