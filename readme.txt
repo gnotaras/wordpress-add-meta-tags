@@ -348,9 +348,15 @@ Add-Meta-Tags uses the following internal custom fields to store data related to
 * `_amt_news_keywords` - the content's custom news keywords.
 * `_amt_full_metatags` - the content's full meta tag code.
 
-The following internal custom fields are also used to store user contact info, which is required for full Add-Meta-Tags functionality:
+The contact methods added by Add-Meta-Tags are:
 
-TODO: add contactinfo fields here
+* `amt_facebook_author_profile_url` as *Facebook author profile URL (AMT)*
+* `amt_facebook_publisher_profile_url` as *Facebook publisher profile URL (AMT)*
+* `amt_googleplus_author_profile_url` as *Google+ author profile URL (AMT)*
+* `amt_googleplus_publisher_profile_url` as *Google+ publisher page URL (AMT)*
+* `amt_twitter_author_username` as *Twitter author username (AMT)*
+* `amt_twitter_publisher_username` as *Twitter publisher username (AMT)*
+
 
 = Template Tags =
 
