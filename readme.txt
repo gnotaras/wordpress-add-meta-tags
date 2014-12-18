@@ -323,6 +323,20 @@ add_filter( 'amt_image_size_attachment', 'amt_use_full_image_size_in_all_meta_ta
 `
 This code can be placed inside your theme's `functions.php` file.
 
+**Example 6**: Add the `fb:admins` and the `fb:app_id` OpenGraph meta tags.
+
+This can easily be done by hooking a custom function to the `amt_opengraph_metadata_head` filter:
+
+`
+function amt_extend_og_metatags( $metatags ) {
+    $metatags[] = '<meta property="fb:admins" content="ENTER_USER_ID_HERE" />';
+    $metatags[] = '<meta property="fb:app_id" content="ENTER_APPID_HERE" />';
+    return $metatags;
+}
+add_filter( 'amt_opengraph_metadata_head', 'amt_extend_og_metatags', 10, 1 );
+`
+This code can be placed inside your theme's `functions.php` file.
+
 
 = Custom Fields =
 
