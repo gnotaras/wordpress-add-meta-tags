@@ -159,8 +159,7 @@ Dublin Core metatags can be automatically added to posts and pages and attachmen
 
 **Metadata Review Mode**
 
-When enabled, WordPress users with administrator privileges see a box that contains the full metadata (exactly as it is added in the HTML head) above the content for easier examination.
-
+When enabled, WordPress users with administrator privileges see a box (right above the post's content) containing the metadata exactly as it is added in the HTML head and body for easier examination. The box is displayed for posts, pages, attachments and custom post types.
 
 = Metadata for embedded media =
 
