@@ -85,6 +85,11 @@ The *description* and *keywords* meta tags are added:
 - The description of the tag, if set, is used in the *description* meta tag. If a description does not exist, then a generic one is used.
 - The name of the tag is always used in the *keywords* metatag.
 
+**Custom Taxonomy based Archives**
+
+- The description of the taxonomy term, if set, is used in the *description* meta tag. If a description does not exist, then a generic one is used.
+- The name of the taxonomy term is always used in the *keywords* metatag.
+
 **Author-based Archives**
 
 - The bio of the WordPress user, if set, is used in the *description* meta tag on the first page of the author archive. All other author archive pages use a generic description.

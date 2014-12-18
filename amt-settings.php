@@ -47,7 +47,7 @@
  */
 function amt_get_default_options() {
     return array(
-        "settings_version"  => 4,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
+        "settings_version"  => 5,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -63,6 +63,7 @@ function amt_get_default_options() {
         "noindex_date_archives"      => "0",
         "noindex_category_archives"  => "0",
         "noindex_tag_archives"       => "0",
+        "noindex_taxonomy_archives"  => "0",
         "noindex_author_archives"    => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
@@ -130,6 +131,10 @@ function amt_plugin_upgrade() {
     // Version 2.3.3 (settings_version 3->4)
     // Added ``auto_twitter``
     // Added ``auto_schemaorg``
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.5.0 (settings_version 4->5)
+    // Added ``noindex_taxonomy_archives``
     // No migrations required. Addition takes place in (1).
 
 

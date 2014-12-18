@@ -138,6 +138,7 @@ function amt_get_metadata_head() {
             ( is_date() && ($options["noindex_date_archives"] == "1") )  ||             // Date and time archives
             ( is_category() && is_paged() && ($options["noindex_category_archives"] == "1") )  ||     // Category archives (except 1st page)
             ( is_tag() && is_paged() && ($options["noindex_tag_archives"] == "1") )  ||               // Tag archives (except 1st page)
+            ( is_tax() && is_paged() && ($options["noindex_taxonomy_archives"] == "1") )  ||          // Custom taxonomy archives (except 1st page)
             ( is_author() && is_paged() && ($options["noindex_author_archives"] == "1") )             // Author archives (except 1st page)
         ) {
             $metadata_arr[] = '<meta name="robots" content="NOINDEX,FOLLOW" />';
