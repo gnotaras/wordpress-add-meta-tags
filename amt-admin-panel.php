@@ -99,6 +99,13 @@ function amt_options_page() {
         <h2>'.__('Message from the author', 'add-meta-tags').'</h2>
         <p style="font-size: 1.2em; padding-left: 2em;"><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>free software</strong>.</p>
         <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
+        <!--
+        <p style="font-size: 1.2em; padding-left: 2em;">Donations in the following crypto currencies are also accepted and welcome. Send coins to the following addresses:</p>
+        <ul style="font-size: 1.2em; padding-left: 2em;">
+            <li style="padding-left: 1em;">- BitCoin (BTC): <code style="font-size: 1.2em;">1KkgpmaBKqQVk643VRhFRkL19Bbci4Mwn9</code></li>
+            <li style="padding-left: 1em;">- LiteCoin (LTC): <code style="font-size: 1.2em;">LS8UF39LfLahzGo49y736ooRYBVT1zZ2Fa</code></li>
+        </ul>
+        -->
         <p style="font-size: 1.2em; padding-left: 2em;">Thank you in advance,<br />George Notaras</p>
         <div style="text-align: right;"><small>'.__('This message can be deactivated in the settings below.', 'add-meta-tags').'</small></div>
     </div>
