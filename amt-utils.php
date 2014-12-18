@@ -126,9 +126,9 @@ function amt_sanitize_description($desc) {
     $desc = str_replace('&quot;', '', $desc);
 
     // Convert single quotes to space
-    $desc = str_replace("'", ' ', $desc);
-    $desc = str_replace('&#039;', ' ', $desc);
-    $desc = str_replace("&apos;", ' ', $desc);
+    //$desc = str_replace("'", ' ', $desc);
+    //$desc = str_replace('&#039;', ' ', $desc);
+    //$desc = str_replace("&apos;", ' ', $desc);
 
     return $desc;
 }
