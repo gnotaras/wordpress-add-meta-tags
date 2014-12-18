@@ -20,13 +20,14 @@
 # 
 # 
 # Translators:
+# si.mueller1 <si.mueller1@web.de>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-22 15:41+0200\n"
-"PO-Revision-Date: 2013-11-22 14:02+0000\n"
-"Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
+"PO-Revision-Date: 2014-04-29 21:16+0000\n"
+"Last-Translator: si.mueller1 <si.mueller1@web.de>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/add-meta-tags/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,11 +49,11 @@ msgstr "Metadata"
 
 #: amt-admin-panel.php:65
 msgid "You do not have sufficient permissions to access this page."
-msgstr "Sie verfügen nicht über die Benutzer-Rechte für diese Seite."
+msgstr "Sie haben keine Rechte, um diese Seite aufzurufen."
 
 #: amt-admin-panel.php:94
 msgid "Welcome to the administration panel of the Add-Meta-Tags plugin."
-msgstr "Willkommen im Verwaltungsbereich von Add-Meta-Tags "
+msgstr "Willkommen im Administrationsbereich von Add-Meta-Tags "
 
 #: amt-admin-panel.php:95
 msgid ""
@@ -115,7 +116,7 @@ msgstr "Dieser Abschnitt umfasst die allgemeinen Metadata-Angaben zu Ihrer Websi
 
 #: amt-admin-panel.php:153 amt-admin-panel.php:156
 msgid "Front Page Metadata"
-msgstr "Metadaten des Startseite"
+msgstr "Metadaten der Startseite"
 
 #: amt-admin-panel.php:157
 msgid ""
@@ -137,7 +138,7 @@ msgstr "<a href=\"%s\">Post editieren</a>"
 
 #: amt-admin-panel.php:179 amt-admin-panel.php:182
 msgid "Front Page Description"
-msgstr "Beschreibung (description) für die Startseite"
+msgstr "Startseiten-Beschreibung"
 
 #: amt-admin-panel.php:186
 msgid ""
@@ -150,7 +151,7 @@ msgstr ""
 
 #: amt-admin-panel.php:193 amt-admin-panel.php:196
 msgid "Front Page Keywords"
-msgstr "Stichwörter (keywords) für die Startseite"
+msgstr "Startseiten-Stichwörter"
 
 #: amt-admin-panel.php:200
 msgid ""
@@ -242,7 +243,7 @@ msgstr "Automatisch Opengraph Meta-Tags für Seiten, Beiträge etc. der Website 
 
 #: amt-admin-panel.php:283
 msgid "Important Note"
-msgstr "Wichtig"
+msgstr "Wichtige Anmerkung"
 
 #: amt-admin-panel.php:285
 msgid ""
@@ -268,7 +269,7 @@ msgstr "Automatisch Twitter-Karten Meta-Tags für Seiten, Beiträge etc. der Web
 
 #: amt-admin-panel.php:302 amt-admin-panel.php:337
 msgid "Important Notes"
-msgstr "Wichtig"
+msgstr "Wichtige Anmerkungen"
 
 #: amt-admin-panel.php:304
 msgid ""
@@ -359,28 +360,28 @@ msgstr "Metatag <em>robots</em> mit Wert <code>NOINDEX,FOLLOW</code> hinzufügen
 
 #: amt-admin-panel.php:364
 msgid "Search results. (<em>Highly recommended</em>)"
-msgstr ""
+msgstr "Suchergebnisse. (<em>Sehr empfohlen</em>)"
 
 #: amt-admin-panel.php:370
 msgid "Date based archives. (<em>Recommended</em>)"
-msgstr ""
+msgstr "Archiv nach Datum. (<em>Empfohlen</em>)"
 
 #: amt-admin-panel.php:376
 msgid "Category based archives."
-msgstr ""
+msgstr "Archiv nach Kategorien."
 
 #: amt-admin-panel.php:376 amt-admin-panel.php:382 amt-admin-panel.php:388
 msgid ""
 "Even if checked, the first page of this type of archive is always indexed."
-msgstr ""
+msgstr "Auch bei Anwahl wird die erste Seite dieses Typen des Archives immer indexiert."
 
 #: amt-admin-panel.php:382
 msgid "Tag based archives."
-msgstr ""
+msgstr "Archiv nach Tag"
 
 #: amt-admin-panel.php:388
 msgid "Author based archives."
-msgstr ""
+msgstr "Archiv nach Autor"
 
 #: amt-admin-panel.php:397 amt-admin-panel.php:400
 msgid "Copyright URL"
@@ -403,7 +404,7 @@ msgid ""
 " the logo. This image will be used in the metadata of the front page and "
 "also in the metadata of the content, in case no featured image or other "
 "images have been attached or embedded."
-msgstr "Geben Sie die absolute Url des Bildes an, das Ihre Website repräsentiert, z.B. Ihr Logo. Dieses Bild wird in den Metadaten der Startseite sowie solcher Inhalte ohne eigenem Bild verwendet um Ihre Website zu repräsentieren."
+msgstr "Geben Sie die absolute Url des Bildes an, das Ihre Website repräsentiert, beispielsweise Ihr Logo. Dieses Bild wird in den Metadaten der Startseite sowie solcher Inhalte ohne eigenem Bild verwendet, um Ihre Website zu repräsentieren."
 
 #: amt-admin-panel.php:431 amt-admin-panel.php:434
 msgid "Review Mode"
@@ -477,7 +478,7 @@ msgid ""
 " it is possible to easily include the post's categories and tags in that "
 "list by using the special placeholders <code>%cats%</code> and "
 "<code>%tags%</code> respectively."
-msgstr ""
+msgstr "Wenn das <em>Stichwörter</em>-Feld leer ist, wird ein <em>Stichwörter</em>-Meta Tag <strong>automatisch</strong> von den Kategorien und Tags der Posts erstellt. Wenn Sie eine benutzerdefinierte Liste der Stichwörter für diesen Post setzen möchtest, können Sie einfach die Kategorien und Tags in die Liste dieses Posts einfügen, indem Sie die speziellen Platzhalter <code>%cats%</code> und <code>%tags%</code> verwenden."
 
 #: amt-admin-panel.php:650 amt-admin-panel.php:656
 msgid ""
