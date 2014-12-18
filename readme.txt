@@ -139,6 +139,8 @@ Schema.org Microdata can be automatically added to the front page, posts, pages,
 
 The plugin automatically marks up posts, pages and custom post types as `Article` objects and also images, videos and audio as `Image`, `Video` and `Audio` MediaObjects respectively. It also considers the web site as an `Organization` object and the author as a `Person` object.
 
+Also, make sure you read Gingerling's guide about <a href="http://community.phplist.com/how-to-enable-google-authorship-rich-snippets-on-your-phplist-community-blog/">how to enable Google Authorship</a> using the Add-Meta-Tags plugin on your WordPress blog (thanks Anna!).
+
 **Twitter Cards**
 
 Twitter Cards can be automatically added to content pages and image attachment pages.
