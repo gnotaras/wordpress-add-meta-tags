@@ -34,8 +34,8 @@ FINAL RELEASE
 
 6. Run ``make_release.py``.
 
-7. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/edit/
-    And upload (Source File) the new POT file.
+7. Go to Transifex: https://www.transifex.com/projects/p/add-meta-tags/resource/main/
+    And upload (Source File) the new POT file (Update Content button).
    OR use the client as shown in step 1 below.
 
 8. Push source language file to translation service:
