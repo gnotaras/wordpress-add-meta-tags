@@ -129,7 +129,8 @@ function amt_get_metadata_head() {
 
     $metadata_arr = array();
 
-    // Robots Meta Tag.
+
+    // Robots Meta Tag content.
     $robots_content = '';
 
     // Check for NOINDEX,FOLLOW on archives.
@@ -144,16 +145,18 @@ function amt_get_metadata_head() {
             ( is_tax() && is_paged() && ($options["noindex_taxonomy_archives"] == "1") )  ||          // Custom taxonomy archives (except 1st page)
             ( is_author() && is_paged() && ($options["noindex_author_archives"] == "1") )             // Author archives (except 1st page)
         ) {
-            $robots_content = 'NOINDEX,FOLLOW';
             $do_add_metadata = false;   // No need to process metadata
+            $robots_content = 'NOINDEX,FOLLOW';
+            // Allow filtering of the robots meta tag content.
+            // Dev Note: Filtering of the robots meta tag takes place here, so as to avoid double filtering in case $do_add_metadata is true.
+            $robots_content = apply_filters( 'amt_robots_data', $robots_content );
         }
     }
-    // Allow filtering of the robots meta tag content.
-    $robots_content = apply_filters( 'amt_robots_data', $robots_content );
     // Add a robots meta tag if its content is not empty.
     if ( ! empty( $robots_content ) ) {
         $metadata_arr[] = '<meta name="robots" content="' . $robots_content . '" />';
     }
+
 
     // Get current post object
     $post = get_queried_object();

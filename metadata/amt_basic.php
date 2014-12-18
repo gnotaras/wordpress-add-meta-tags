@@ -57,9 +57,19 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     // Array to store metadata
     $metadata_arr = array();
 
-    // Add NOODP on posts and pages
+
+    // Robots Meta Tag.
+    $robots_content = '';
+
     if ( $do_noodp_description && ( is_front_page() || is_singular() ) ) {
-        $metadata_arr[] = '<meta name="robots" content="NOODP,NOYDIR" />';
+        // Add NOODP on posts and pages
+        $robots_content = 'NOODP,NOYDIR';
+        // Allow filtering of the robots meta tag content.
+        $robots_content = apply_filters( 'amt_robots_data', $robots_content );
+    }
+    // Add a robots meta tag if its content is not empty.
+    if ( ! empty( $robots_content ) ) {
+        $metadata_arr[] = '<meta name="robots" content="' . $robots_content . '" />';
     }
 
 
