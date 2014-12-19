@@ -181,7 +181,10 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             $description_content = sanitize_text_field( amt_sanitize_description( category_description() ) );
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
-                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content filed under the ' . single_cat_title( $prefix='', $display=false ) . ' category.' ) ) . '" />';
+                // Add a filtered generic description.
+                $generic_description = apply_filters( 'amt_generic_description_category_archive', 'Content filed under the %s category.' );
+                $generic_description = sprintf( $generic_description, single_cat_title( $prefix='', $display=false ) );
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
             }
@@ -205,7 +208,10 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             $description_content = sanitize_text_field( amt_sanitize_description( tag_description() ) );
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
-                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content tagged with ' . single_tag_title( $prefix='', $display=false ) . '.' ) ) . '" />';
+                // Add a filtered generic description.
+                $generic_description = apply_filters( 'amt_generic_description_tag_archive', 'Content tagged with %s.' );
+                $generic_description = sprintf( $generic_description, single_tag_title( $prefix='', $display=false ) );
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
             }
@@ -234,7 +240,10 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             $description_content = sanitize_text_field( amt_sanitize_description( term_description( $tax_term_object->term_id ) ) );
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
-                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content classified under the ' . single_tag_title( $prefix='', $display=false ) . ' taxonomy.' ) ) . '" />';
+                // Add a filtered generic description.
+                $generic_description = apply_filters( 'amt_generic_description_taxonomy_archive', 'Content filed under the %s taxonomy.' );
+                $generic_description = sprintf( $generic_description, single_term_title( $prefix='', $display=false ) );
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
             }
@@ -243,7 +252,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         if ($do_keywords) {
             // The taxonomy term name alone is included in the 'keywords' metatag.
             // Here we sanitize the provided keywords for safety.
-            $cur_tax_term_name = sanitize_text_field( amt_sanitize_keywords( single_tag_title($prefix = '', $display = false ) ) );
+            $cur_tax_term_name = sanitize_text_field( amt_sanitize_keywords( single_term_title( $prefix = '', $display = false ) ) );
             if ( ! empty($cur_tax_term_name) ) {
                 $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cur_tax_term_name ) . '" />';
             }
@@ -271,7 +280,10 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             $author_description = sanitize_text_field( amt_sanitize_description( $author->description ) );
             if ( empty( $author_description ) || is_paged() ) {
                 // Note: Contains multipage information through amt_process_paged()
-                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( 'Content published by ' . $author->display_name . '.' ) ) . '" />';
+                // Add a filtered generic description.
+                $generic_description = apply_filters( 'amt_generic_description_author_archive', 'Content published by %s.' );
+                $generic_description = sprintf( $generic_description, $author->display_name );
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( $author_description ) . '" />';
             }
