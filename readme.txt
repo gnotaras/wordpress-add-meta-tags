@@ -3,8 +3,8 @@ Contributors: gnotaras
 Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
-Tested up to: 4.1
-Stable tag: 2.5.0
+Tested up to: 4.2
+Stable tag: 2.5.1
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -498,6 +498,10 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.5.1](http://www.codetrax.org/versions/221)
+ - Allow filtering the generic descriptions in category, tag, custom taxonomy and author archives.
+ - Add a filter to further customize the custom title programmatically.
+ - Fixed potential circular redirects due to missing trailing slash in the output of ``get_bloginfo('url')``.
 - [2.5.0](http://www.codetrax.org/versions/226)
  - Generate metadata for custom taxonomies.
  - Configurable default image size used in meta tags.
