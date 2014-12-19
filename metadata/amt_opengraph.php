@@ -507,6 +507,15 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             }
         }
 
+        // og:referenced
+        $referenced_url_list = amt_get_referenced_items($post);
+        foreach ($referenced_url_list as $referenced_url) {
+            $referenced_url = trim($referenced_url);
+            if ( ! empty( $referenced_url ) ) {
+                $metadata_arr[] = '<meta property="og:referenced" content="' . esc_url_raw( $referenced_url ) . '" />';
+            }
+        }
+
     }
 
     // Filtering of the generated Opengraph metadata

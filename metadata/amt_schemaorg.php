@@ -392,6 +392,15 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
         }
 
+        // Referenced Items
+        $referenced_url_list = amt_get_referenced_items($post);
+        foreach ($referenced_url_list as $referenced_url) {
+            $referenced_url = trim($referenced_url);
+            if ( ! empty( $referenced_url ) ) {
+                $metadata_arr[] = '<meta itemprop="referencedItem" content="' . esc_url_raw( $referenced_url ) . '" />';
+            }
+        }
+
 
         // We store the featured image ID in this variable so that it can easily be excluded
         // when all images are parsed from the $attachments array.

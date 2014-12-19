@@ -723,6 +723,20 @@ function amt_inner_metadata_box( $post ) {
         </p>
     ');
 
+    // List of URLs of items referenced in the post.
+
+    // Retrieve the field data from the database.
+    $custom_referenced_list_value = amt_get_post_meta_referenced_list( $post->ID );
+
+    print('
+        <p>
+            <label for="amt_custom_referenced_list"><strong>'.__('URLs of referenced items', 'add-meta-tags').'</strong>:</label>
+            <textarea class="code" style="width: 99%" id="amt_custom_referenced_list" name="amt_custom_referenced_list" cols="30" rows="4" >'. stripslashes( $custom_referenced_list_value ) .'</textarea>
+            <br>
+            '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').'
+        </p>
+    ');
+
 }
 
 
@@ -769,6 +783,8 @@ function amt_save_postdata( $post_id, $post ) {
     $newskeywords_value = sanitize_text_field( amt_sanitize_keywords( stripslashes( $_POST['amt_custom_newskeywords'] ) ) );
     // Full metatags - We allow only <meta> elements. 
     $full_metatags_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_full_metatags'] ), amt_get_allowed_html_kses() ) );
+    // List of referenced items - We allow no HTML elements.
+    $referenced_list_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_referenced_list'] ), array() ) );
 
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.
@@ -779,6 +795,7 @@ function amt_save_postdata( $post_id, $post ) {
     $amt_title_field_name = '_amt_title';
     $amt_newskeywords_field_name = '_amt_news_keywords';
     $amt_full_metatags_field_name = '_amt_full_metatags';
+    $amt_referenced_list_field_name = '_amt_referenced_list';
 
     // Description
     if ( empty($description_value) ) {
@@ -821,6 +838,13 @@ function amt_save_postdata( $post_id, $post ) {
         delete_post_meta($post_id, $amt_full_metatags_field_name);
     } else {
         update_post_meta($post_id, $amt_full_metatags_field_name, $full_metatags_value);
+    }
+
+    // Referenced list
+    if ( empty($referenced_list_value) ) {
+        delete_post_meta($post_id, $amt_referenced_list_field_name);
+    } else {
+        update_post_meta($post_id, $amt_referenced_list_field_name, $referenced_list_value);
     }
     
 }

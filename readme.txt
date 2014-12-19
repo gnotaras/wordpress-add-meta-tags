@@ -121,6 +121,10 @@ For more info about the *news_keywords* metatag, please read this <a target="_bl
 
 It is possible to assign custom full meta tags to single posts (posts, pages, custom post types).
 
+**Per post referenced items**
+
+It is possible to enter URLs of referenced items in each single post (posts, pages, custom post types), which results in the generation of the relevant `og:referenced` (OpenGraph) and `referencedItem` (Schema.org) meta tags.
+
 **Copyright Metatag**
 
 It is possible to add a head link to a user-defined copyright page.
@@ -228,6 +232,7 @@ The available filters are:
 1. `amt_external_title_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read data for the title metatag. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves title data to its default field, regardless of the field the data was read from.
 1. `amt_external_news_keywords_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read data for the news_keywords metatag. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves news_keywords data to its default field, regardless of the field the data was read from.
 1. `amt_external_full_metatags_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read full meta tag HTML code. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves full meta tag data to its default field, regardless of the field the data was read from.
+1. `amt_external_referenced_list_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read lists of URLs of referenced items. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves URL lists of referenced items to its default field, regardless of the field the data was read from.
 1. `amt_embedded_media` - applied to the array in which Add-Meta-Tags stores information about the embedded media. The hooked function should accept and return 1 argument: an array of post types. The hooked function can also accept the post ID as a second optional argument.
 1. `amt_valid_full_metatag_html` - applied to all list of valid HTML elements and attributes that can be used in the 'Full Meta Tags' boxes in the general settings and in the metabox. The hooked function should accept and return 1 argument: an array of valid elements and their attributes. The provided array has the same format as the `$allowed_html` array of the <a href="http://codex.wordpress.org/Function_Reference/wp_kses">wp_kses function</a>.
 1. `amt_image_size_index` - applied to the image size that is used when generating image related meta tags for the front/archive pages. By default, the size `medium` is used. The hooked function should accept and return 1 argument: a string containing either one of the default image sizes (thumbnail, medium, large, full) defined by WordPress or the name of any other user-defined image size.
@@ -404,6 +409,7 @@ Add-Meta-Tags uses the following internal custom fields to store data related to
 * `_amt_title` - the content's custom title.
 * `_amt_news_keywords` - the content's custom news keywords.
 * `_amt_full_metatags` - the content's full meta tag code.
+* `_amt_referenced_list` - list of URLs of items referenced in the post.
 
 The contact methods added by Add-Meta-Tags are:
 

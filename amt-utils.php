@@ -474,6 +474,24 @@ function amt_get_tags_from_loop( $tag_arr=array() ) {
 
 
 /**
+ * Returns an array of URLS of referenced items in the post.
+ *
+ * Accepts a post object.
+ */
+function amt_get_referenced_items( $post ) {
+    if ( is_singular() ) {  // TODO: check if this check is needed at all!
+        $referenced_list_content = amt_get_post_meta_referenced_list( $post->ID );
+        if ( ! empty( $referenced_list_content ) ) {
+            // Each line contains a single URL. Split the string and convert each line to an array item.
+            $referenced_list_content = str_replace("\r", '', $referenced_list_content);     // Do not change the double quotes.
+            return explode("\n", $referenced_list_content);                                 // Do not change the double quotes.
+        }
+    }
+    return array();
+}
+
+
+/**
  * This is a helper function that returns the post's or page's description.
  *
  * Important: MUST return sanitized data, unless this plugin has sanitized the data before storing to db.
@@ -812,6 +830,41 @@ function amt_get_post_meta_full_metatags($post_id) {
     // Try our fields
     foreach( $supported_custom_fields as $sup_field ) {
         // If such a field exists in the db, return its content as the full metatags.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
+    }
+
+    //Return empty string if all fail
+    return '';
+}
+
+
+/**
+ * Helper function that returns the value of the custom field that contains
+ * the list of URLs of items referenced in the post.
+ * The default field name is ``_amt_referenced_list``.
+ * No need to migrate from older field name.
+ */
+function amt_get_post_meta_referenced_list($post_id) {
+    // Internal fields - order matters
+    $supported_custom_fields = array( '_amt_referenced_list' );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_referenced_list_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
+
+    // Get an array of all custom fields names of the post
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
+        return '';
+    }
+
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the URL list of referenced items (text).
         if ( in_array( $sup_field, $custom_fields ) ) {
             return get_post_meta( $post_id, $sup_field, true );
         }
