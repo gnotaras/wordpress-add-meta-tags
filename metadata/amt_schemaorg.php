@@ -85,7 +85,7 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, 
     $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
     if ( empty( $googleplus_publisher_url ) ) {
         // Link to homepage
-        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
     } else {
         // Link to Google+ publisher profile
         $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
@@ -674,7 +674,7 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
     // url
     // NOTE: if no author id has been provided, use the blog url.
     if ( $author_id === null ) {
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
     } else {
         // If a Google+ publisher profile URL has been provided, it has priority,
         // Otherwise fall back to the WordPress blog home url.
@@ -682,7 +682,7 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         if ( ! empty( $googleplus_publisher_url ) ) {
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
         } else {
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }
     }
 

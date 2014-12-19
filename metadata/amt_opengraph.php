@@ -99,7 +99,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( is_paged() ) {
             $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_pagenum_link( get_query_var('paged') ) ) . '" />';
         } else {
-            $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+            $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }
         // Site description - Note: Contains multipage information through amt_process_paged()
         if (!empty($options["site_description"])) {
@@ -130,7 +130,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( is_paged() ) {
             $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_pagenum_link( get_query_var('paged') ) ) . '" />';
         } else {
-            $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+            $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }
         // Site Description - Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
@@ -325,7 +325,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( !empty($fb_publisher_url) ) {
             $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
         } else {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }
 
         // Metadata specific to each attachment type
@@ -489,7 +489,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( !empty($fb_publisher_url) ) {
             $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
         } else {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( get_bloginfo('url') ) . '" />';
+            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }
 
         // article:section: We use the first category as the section.
