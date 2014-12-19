@@ -237,7 +237,7 @@ The available filters are:
 1. `amt_robots_data` - applied to the content of the `robots` meta tag. The hooked function should accept and return 1 argument: a string.
 1. `amt_generic_description_category_archive` - applied to the generic description that is used in category archives, in case a custom description has not been set for the category. The hooked function should accept and return 1 argument: a string that contains exactly one `%s` placeholder, which will be replaced by the category name. Default string: `Content filed under the %s category.`
 1. `amt_generic_description_tag_archive` - applied to the generic description that is used in tag archives, in case a custom description has not been set for the tag. The hooked function should accept and return 1 argument: a string that contains exactly one `%s` placeholder, which will be replaced by the tag name. Default string: `Content tagged with %s.`
-1. `amt_generic_description_taxonomy_archive` - applied to the generic description that is used in custom taxonomy archives, in case a custom description has not been set for the taxonomy term. The hooked function should accept and return 1 argument: a string that contains exactly one `%s` placeholder, which will be replaced by the taxonomy term name. Default string: `Content filed under the %s taxonomy.`
+1. `amt_generic_description_TAXONOMYSLUG_archive` - applied to the generic description that is used in the archive of the term which belongs to the taxonomy with slug `TAXONOMYSLUG`, in case a custom description has not been set for the term. The hooked function should accept and return 1 argument: a string that contains exactly one `%s` placeholder, which will be replaced by the taxonomy term name. Default string: `Content filed under the %s taxonomy.`
 1. `amt_generic_description_author_archive` - applied to the generic description that is used in author archives, in case a custom description has not been set for the author. The hooked function should accept and return 1 argument: a string that contains exactly one `%s` placeholder, which will be replaced by the author's display name. Default string: `Content published by %s.`
 1. `amt_custom_title` - applied to the custom title, if a custom title has been set in the post editing panel, otherwise it is not processed. The hooked function should accept and return 1 argument: a string.
 
@@ -370,10 +370,10 @@ function amt_custom_tag_archive_description( $default ) {
 }
 add_filter( 'amt_generic_description_tag_archive', 'amt_custom_tag_archive_description', 10, 1 );
 
-function amt_custom_taxonomy_archive_description( $default ) {
+function amt_custom_mytaxonomyslug_archive_description( $default ) {
     return 'Members of the %s group.';
 }
-add_filter( 'amt_generic_description_taxonomy_archive', 'amt_custom_taxonomy_archive_description', 10, 1 );
+add_filter( 'amt_generic_description_mytaxonomyslug_archive', 'amt_custom_mytaxonomyslug_archive_description', 10, 1 );
 
 function amt_custom_author_archive_description( $default ) {
     return 'Projects started by %s.';

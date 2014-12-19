@@ -232,6 +232,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         // Taxonomy term object.
         // When viewing taxonomy archives, the $post object is the taxonomy term object. Check with: var_dump($post);
         $tax_term_object = $post;
+        //var_dump($tax_term_object);
 
         if ($do_description) {
             // If set, the description of the custom taxonomy term is used in the 'description' metatag.
@@ -241,7 +242,10 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
                 // Add a filtered generic description.
-                $generic_description = apply_filters( 'amt_generic_description_taxonomy_archive', 'Content filed under the %s taxonomy.' );
+                // Construct the filter name. Template: ``amt_generic_description_TAXONOMYSLUG_archive``
+                $taxonomy_description_filter_name = sprintf( 'amt_generic_description_%s_archive', $tax_term_object->taxonomy);
+                // var_dump($taxonomy_description_filter_name);
+                $generic_description = apply_filters( $taxonomy_description_filter_name, 'Content filed under the %s taxonomy.' );
                 $generic_description = sprintf( $generic_description, single_term_title( $prefix='', $display=false ) );
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
