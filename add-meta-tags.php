@@ -108,6 +108,8 @@ function amt_custom_title_tag($title) {
         $custom_title = amt_get_post_meta_title( $post->ID );
         if ( !empty($custom_title) ) {
             $custom_title = str_replace('%title%', $title, $custom_title);
+            // Allow filtering of the custom title
+            $custom_title = apply_filters( 'amt_custom_title', $custom_title );
             // Note: Contains multipage information through amt_process_paged()
             return esc_attr( amt_process_paged( $custom_title ) );
         }
