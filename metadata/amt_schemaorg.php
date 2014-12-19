@@ -666,7 +666,9 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         // Here we sanitize the provided description for safety
         $site_description = sanitize_text_field( amt_sanitize_description( get_bloginfo('description') ) );
     }
-    $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $site_description ) . '" />';
+    if ( ! empty($site_description) ) {
+        $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $site_description ) . '" />';
+    }
     // logo
     if ( !empty($options["default_image_url"]) ) {
         $metadata_arr[] = '<meta itemprop="logo" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
