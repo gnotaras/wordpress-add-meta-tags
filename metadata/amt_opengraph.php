@@ -102,9 +102,9 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }
         // Site description - Note: Contains multipage information through amt_process_paged()
-        if (!empty($options["site_description"])) {
+        if ( ! empty( $options["site_description"] ) ) {
             $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( $options["site_description"] ) ) . '" />';
-        } elseif (get_bloginfo('description')) {
+        } elseif ( get_bloginfo('description') ) {
             $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( get_bloginfo('description') ) ) . '" />';
         }
         // Locale
