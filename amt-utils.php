@@ -633,6 +633,42 @@ function amt_get_supported_post_types() {
 
 
 /**
+ * Helper function that returns an array containing permissions for the
+ * Metadata metabox.
+ */
+function amt_get_metadata_metabox_permissions() {
+    //
+    // Default Metadata metabox permission settings.
+    // Regardless of these settings the `edit_posts` capability is _always_
+    // checked when reading/writing metabox data, so the `edit_posts` capability
+    // should be considered as the least restrictive capability that can be used.
+    // The available Capabilities vs Roles table can be found here:
+    //     http://codex.wordpress.org/Roles_and_Capabilities
+    // To disable a box, simply add a very restrictive capability like `create_users`.
+    //
+    $metabox_permissions = array(
+        // Minimum capability for the metabox to appear in the editing
+        // screen of the supported post types.
+        'global_metabox_capability' => 'edit_posts',
+        // The following permissions have an effect only if they are stricter
+        // than the permission of the `global_metabox_capability` setting.
+        // Edit these, only if you want to further restrict access to
+        // specific boxes, for example the `full metatags` box.
+        'description_box_capability' => 'edit_posts',
+        'keywords_box_capability' => 'edit_posts',
+        'title_box_capability' => 'edit_posts',
+        'news_keywords_box_capability' => 'edit_posts',
+        'full_metatags_box_capability' => 'edit_posts',
+        'referenced_list_box_capability' => 'edit_posts'
+    );
+    // Allow filtering of the metabox permissions
+    $metabox_permissions = apply_filters( 'amt_metadata_metabox_permissions', $metabox_permissions );
+
+    return $metabox_permissions;
+}
+
+
+/**
  * Helper function that returns an array containing the post types
  * on which the Metadata metabox should be added.
  *

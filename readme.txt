@@ -227,6 +227,7 @@ The available filters are:
 1. `amt_get_the_excerpt` - applied to the description that Add-Meta-Tags generates from the first paragraph of the content if no other description has been defined by the user. The hooked function should accept and return 1 argument: a string.
 1. `amt_paged_append_data` - applied to the data that should be appended when paginated content is encountered and a page number greater than 1 is displayed. The hooked function should accept and return 1 argument: a string.
 1. `amt_supported_post_types` - applied to the list of post types Add-Meta-Tags should add metadata to. By default, this list includes posts, pages, attachments and all available public post types. The hooked function should accept and return 1 argument: an array of post types.
+1. `amt_metadata_metabox_permissions` - applied to the default permissions that control whether the `Metadata` metabox as a whole or each individual box is displayed in the post, page and custom post type's editing screen depending on the user's capabilities. The hooked function should accept and return 1 argument: an array. For the details about the available settings, please see `Example 10` below.
 1. `amt_external_description_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read data for the description metatag. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves description data to its default field, regardless of the field the data was read from.
 1. `amt_external_keywords_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read data for the keywords metatag. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves keywords data to its default field, regardless of the field the data was read from.
 1. `amt_external_title_fields` - applied to the list of external custom fields from which Add-Meta-Tags can read data for the title metatag. The hooked function should accept and return 1 argument: an array of field names. The hooked function can also accept the post ID as a second optional argument. Keep in mind that Add-Meta-Tags always saves title data to its default field, regardless of the field the data was read from.
@@ -396,6 +397,44 @@ function amt_custom_title_modified( $title ) {
     return $title . ' | ';
 }
 add_filter( 'amt_custom_title', 'amt_custom_title_modified', 10, 1 );
+`
+This code can be placed inside your theme's `functions.php` file.
+
+**Example 10**: You want to set stricter permissions for the Metadata metabox.
+
+This can easily be done by hooking a custom function to the `amt_metadata_metabox_permissions` filter.
+
+`
+function amt_custom_metadata_metabox_permissions( $default_permissions ) {
+
+    //
+    // This array contains the default Metadata metabox permission settings.
+    // Regardless of these settings the `edit_posts` capability is _always_
+    // checked when reading/writing metabox data, so the `edit_posts` capability
+    // should be considered as the least restrictive capability that can be used.
+    // The available Capabilities vs Roles table can be found here:
+    //     http://codex.wordpress.org/Roles_and_Capabilities
+    // To disable a box, simply add a very restrictive capability like `create_users`.
+    //
+    $permissions = array(
+        // Minimum capability for the metabox to appear in the editing
+        // screen of the supported post types.
+        'global_metabox_capability' => 'edit_posts',
+        // The following permissions have an effect only if they are stricter
+        // than the permission of the `global_metabox_capability` setting.
+        // Edit these, only if you want to further restrict access to
+        // specific boxes, for example the `full metatags` box.
+        'description_box_capability' => 'edit_posts',
+        'keywords_box_capability' => 'edit_posts',
+        'title_box_capability' => 'edit_posts',
+        'news_keywords_box_capability' => 'edit_posts',
+        'full_metatags_box_capability' => 'edit_posts',
+        'referenced_list_box_capability' => 'edit_posts'
+    );
+
+    return $permissions;
+}
+add_filter( 'amt_metadata_metabox_permissions', 'amt_custom_metadata_metabox_permissions', 10, 1 );
 `
 This code can be placed inside your theme's `functions.php` file.
 

@@ -500,6 +500,21 @@ add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
  * See the amt_get_post_types_for_metabox() docstring for more info on the supported types.
  */
 function amt_add_metadata_box() {
+
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
+    // Global Metadata metabox permission check (can be user customized via filter).
+    if ( ! current_user_can( $metabox_permissions['global_metabox_capability'] ) ) {
+        return;
+    }
+
+    // Global Metadata metabox permission check (internal - `edit_posts` is the minimum capability).
+    if ( ! current_user_can( 'edit_posts' ) ) {
+        return;
+    }
+
+    // Get an array of post types that support the addition of the metabox.
     $supported_types = amt_get_post_types_for_metabox();
 
     // Add an Add-Meta-Tags meta box to all supported types
@@ -595,6 +610,9 @@ function amt_inner_metadata_box( $post ) {
     // Use a nonce field for verification
     wp_nonce_field( plugin_basename( __FILE__ ), 'amt_noncename' );
 
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
     // Get the post type. Will be used to customize the displayed notes.
     $post_type = get_post_type( $post->ID );
 
@@ -602,140 +620,175 @@ function amt_inner_metadata_box( $post ) {
 
     // Custom description
     
-    // Retrieve the field data from the database.
-    $custom_description_value = amt_get_post_meta_description( $post->ID );
+    // Description box permission check (can be user customized via filter).
+    if ( current_user_can( $metabox_permissions['description_box_capability'] ) ) {
 
-    print('
-        <p>
-            <label for="amt_custom_description"><strong>'.__('Description', 'add-meta-tags').'</strong>:</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_description_value ) ) . '</textarea>
-            <br>
-            '.__('Enter a custom description of 30-50 words (based on an average word length of 5 characters).', 'add-meta-tags').'
-        </p>
-    ');
-    // Different notes based on post type
-    if ( $post_type == 'post' ) {
+        // Retrieve the field data from the database.
+        $custom_description_value = amt_get_post_meta_description( $post->ID );
+
         print('
             <p>
-                '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content.', 'add-meta-tags').'
+                <label for="amt_custom_description"><strong>'.__('Description', 'add-meta-tags').'</strong>:</label>
+                <textarea class="code" style="width: 99%" id="amt_custom_description" name="amt_custom_description" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_description_value ) ) . '</textarea>
+                <br>
+                '.__('Enter a custom description of 30-50 words (based on an average word length of 5 characters).', 'add-meta-tags').'
             </p>
         ');
-    } elseif ( $post_type == 'page' ) {
-        print('
-            <p>
-                '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.', 'add-meta-tags').'
-            </p>
-        ');
-    } else {    // Custom post types
-        print('
-            <p>
-                '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.', 'add-meta-tags').'
-            </p>
-        ');
+        // Different notes based on post type
+        if ( $post_type == 'post' ) {
+            print('
+                <p>
+                    '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content.', 'add-meta-tags').'
+                </p>
+            ');
+        } elseif ( $post_type == 'page' ) {
+            print('
+                <p>
+                    '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.', 'add-meta-tags').'
+                </p>
+            ');
+        } else {    // Custom post types
+            print('
+                <p>
+                    '.__('If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content.', 'add-meta-tags').'
+                </p>
+            ');
+        }
+
     }
+
 
     // Custom keywords
 
-    // Retrieve the field data from the database.
-    $custom_keywords_value = amt_get_post_meta_keywords( $post->ID );
+    // Keywords box permission check (can be user customized via filter).
+    if ( current_user_can( $metabox_permissions['keywords_box_capability'] ) ) {
 
-    // Alt input:  <input type="text" class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" value="'.$custom_keywords_value.'" />
-    print('
-        <p>
-            <label for="amt_custom_keywords"><strong>'.__('Keywords', 'add-meta-tags').'</strong>:</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_keywords_value ) ) . '</textarea>
-            <br>
-            '.__('Enter keywords separated with commas.', 'add-meta-tags').'
-        </p>
-    ');
-    // Different notes based on post type
-    if ( $post_type == 'post' ) {
+        // Retrieve the field data from the database.
+        $custom_keywords_value = amt_get_post_meta_keywords( $post->ID );
+
+        // Alt input:  <input type="text" class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" value="'.$custom_keywords_value.'" />
         print('
             <p>
-                '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories and tags in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively.', 'add-meta-tags').'
-                <br />
-                '.__('Example', 'add-meta-tags').': <code>keyword1, keyword2, %cats%, keyword3, %tags%, keyword4</code>
+                <label for="amt_custom_keywords"><strong>'.__('Keywords', 'add-meta-tags').'</strong>:</label>
+                <textarea class="code" style="width: 99%" id="amt_custom_keywords" name="amt_custom_keywords" cols="30" rows="2" >' . esc_attr( stripslashes( $custom_keywords_value ) ) . '</textarea>
+                <br>
+                '.__('Enter keywords separated with commas.', 'add-meta-tags').'
             </p>
         ');
-    } elseif ( $post_type == 'page' ) {
-        print('
-            <p>
-                '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
-            </p>
-        ');
-    } else {    // Custom post types
-        print('
-            <p>
-                '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
-            </p>
-        ');
+        // Different notes based on post type
+        if ( $post_type == 'post' ) {
+            print('
+                <p>
+                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories and tags in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively.', 'add-meta-tags').'
+                    <br />
+                    '.__('Example', 'add-meta-tags').': <code>keyword1, keyword2, %cats%, keyword3, %tags%, keyword4</code>
+                </p>
+            ');
+        } elseif ( $post_type == 'page' ) {
+            print('
+                <p>
+                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
+                </p>
+            ');
+        } else {    // Custom post types
+            print('
+                <p>
+                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
+                </p>
+            ');
+        }
+
     }
+
 
     // Advanced options
 
     // Custom title tag
 
-    // Retrieve the field data from the database.
-    $custom_title_value = amt_get_post_meta_title( $post->ID );
+    // Custom title box permission check (can be user customized via filter).
+    if ( current_user_can( $metabox_permissions['title_box_capability'] ) ) {
 
-    print('
-        <p>
-            <label for="amt_custom_title"><strong>'.__('Title', 'add-meta-tags').'</strong>:</label>
-            <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="' . esc_attr( stripslashes( $custom_title_value ) ) . '" />
-            <br>
-            '.__('Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title.', 'add-meta-tags').'
-        </p>
-    ');
+        // Retrieve the field data from the database.
+        $custom_title_value = amt_get_post_meta_title( $post->ID );
+
+        print('
+            <p>
+                <label for="amt_custom_title"><strong>'.__('Title', 'add-meta-tags').'</strong>:</label>
+                <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="' . esc_attr( stripslashes( $custom_title_value ) ) . '" />
+                <br>
+                '.__('Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title.', 'add-meta-tags').'
+            </p>
+        ');
+
+    }
+
 
     // 'news_keywords' meta tag
     
-    // Retrieve the field data from the database.
-    $custom_newskeywords_value = amt_get_post_meta_newskeywords( $post->ID );
+    // 'news_keywords' box permission check (can be user customized via filter).
+    if ( current_user_can( $metabox_permissions['news_keywords_box_capability'] ) ) {
 
-    print('
-        <p>
-            <label for="amt_custom_newskeywords"><strong>'.__('News Keywords', 'add-meta-tags').'</strong>:</label>
-            <input type="text" class="code" style="width: 99%" id="amt_custom_newskeywords" name="amt_custom_newskeywords" value="' . esc_attr( stripslashes( $custom_newskeywords_value ) ) . '" />
-            <br>
-            '.__('Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.', 'add-meta-tags').'
-        </p>
-    ');
+        // Retrieve the field data from the database.
+        $custom_newskeywords_value = amt_get_post_meta_newskeywords( $post->ID );
+
+        print('
+            <p>
+                <label for="amt_custom_newskeywords"><strong>'.__('News Keywords', 'add-meta-tags').'</strong>:</label>
+                <input type="text" class="code" style="width: 99%" id="amt_custom_newskeywords" name="amt_custom_newskeywords" value="' . esc_attr( stripslashes( $custom_newskeywords_value ) ) . '" />
+                <br>
+                '.__('Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">Google help page</a>.', 'add-meta-tags').'
+            </p>
+        ');
+
+    }
+
 
     // per post full meta tags
     
-    // Retrieve the field data from the database.
-    $custom_full_metatags_value = amt_get_post_meta_full_metatags( $post->ID );
+    // Full meta tags box permission check (can be user customized via filter).
+    if ( current_user_can( $metabox_permissions['full_metatags_box_capability'] ) ) {
 
-    print('
-        <p>
-            <label for="amt_custom_full_metatags"><strong>'.__('Full meta tags', 'add-meta-tags').'</strong>:</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="4" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
-            <br>
-            '.__('Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">META HTML element</a> on Wikipedia).', 'add-meta-tags').'
-        </p>
-        <p>
-            '.__('For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:', 'add-meta-tags').'
-            <br /><code>&lt;meta name="robots" content="noarchive" /&gt;</code>
-        </p>
+        // Retrieve the field data from the database.
+        $custom_full_metatags_value = amt_get_post_meta_full_metatags( $post->ID );
 
-        <p>
-            '.__('Important note: for security reasons only <code>meta</code> elements are allowed in this box. All other HTML elements are automatically removed.', 'add-meta-tags').'
-        </p>
-    ');
+        print('
+            <p>
+                <label for="amt_custom_full_metatags"><strong>'.__('Full meta tags', 'add-meta-tags').'</strong>:</label>
+                <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="4" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
+                <br>
+                '.__('Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">META HTML element</a> on Wikipedia).', 'add-meta-tags').'
+            </p>
+            <p>
+                '.__('For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:', 'add-meta-tags').'
+                <br /><code>&lt;meta name="robots" content="noarchive" /&gt;</code>
+            </p>
+
+            <p>
+                '.__('Important note: for security reasons only <code>meta</code> elements are allowed in this box. All other HTML elements are automatically removed.', 'add-meta-tags').'
+            </p>
+        ');
+
+    }
+
 
     // List of URLs of items referenced in the post.
 
-    // Retrieve the field data from the database.
-    $custom_referenced_list_value = amt_get_post_meta_referenced_list( $post->ID );
+    // Referenced items box permission check (can be user customized via filter).
+    if ( current_user_can( $metabox_permissions['referenced_list_box_capability'] ) ) {
 
-    print('
-        <p>
-            <label for="amt_custom_referenced_list"><strong>'.__('URLs of referenced items', 'add-meta-tags').'</strong>:</label>
-            <textarea class="code" style="width: 99%" id="amt_custom_referenced_list" name="amt_custom_referenced_list" cols="30" rows="4" >'. stripslashes( $custom_referenced_list_value ) .'</textarea>
-            <br>
-            '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').' (<span style="color:red;">EXPERIMENTAL</span>)
-        </p>
-    ');
+        // Retrieve the field data from the database.
+        $custom_referenced_list_value = amt_get_post_meta_referenced_list( $post->ID );
+
+        print('
+            <p>
+                <label for="amt_custom_referenced_list"><strong>'.__('URLs of referenced items', 'add-meta-tags').'</strong>:</label>
+                <textarea class="code" style="width: 99%" id="amt_custom_referenced_list" name="amt_custom_referenced_list" cols="30" rows="4" >'. stripslashes( $custom_referenced_list_value ) .'</textarea>
+                <br>
+                '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').' (<span style="color:red;">EXPERIMENTAL</span>)
+            </p>
+        ');
+
+    }
 
 }
 
@@ -759,6 +812,14 @@ function amt_save_postdata( $post_id, $post ) {
     if ( !isset($_POST['amt_noncename']) || !wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( __FILE__ ) ) )
         return;
 
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
+    // Global Metadata metabox permission check (can be user customized via filter).
+    if ( ! current_user_can( $metabox_permissions['global_metabox_capability'] ) ) {
+        return;
+    }
+
     /* Get the post type object. */
 	$post_type_obj = get_post_type_object( $post->post_type );
 
@@ -774,17 +835,29 @@ function amt_save_postdata( $post_id, $post ) {
 
     //
     // Description
-    $description_value = sanitize_text_field( amt_sanitize_description( stripslashes( $_POST['amt_custom_description'] ) ) );
+    if ( isset( $_POST['amt_custom_description'] ) ) {
+        $description_value = sanitize_text_field( amt_sanitize_description( stripslashes( $_POST['amt_custom_description'] ) ) );
+    }
     // Keywords - sanitize_text_field() removes '%ca' part of '%cats%', so we enclose 'sanitize_text_field()' in amt_(convert|revert)_placeholders()
-    $keywords_value = amt_sanitize_keywords(amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $_POST['amt_custom_keywords'] ) ) ) ) );
+    if ( isset( $_POST['amt_custom_keywords'] ) ) {
+        $keywords_value = amt_sanitize_keywords(amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $_POST['amt_custom_keywords'] ) ) ) ) );
+    }
     // Title
-    $title_value = amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $_POST['amt_custom_title'] ) ) ) );
+    if ( isset( $_POST['amt_custom_title'] ) ) {
+        $title_value = amt_revert_placeholders( sanitize_text_field( amt_convert_placeholders( stripslashes( $_POST['amt_custom_title'] ) ) ) );
+    }
     // News keywords
-    $newskeywords_value = sanitize_text_field( amt_sanitize_keywords( stripslashes( $_POST['amt_custom_newskeywords'] ) ) );
-    // Full metatags - We allow only <meta> elements. 
-    $full_metatags_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_full_metatags'] ), amt_get_allowed_html_kses() ) );
+    if ( isset( $_POST['amt_custom_newskeywords'] ) ) {
+        $newskeywords_value = sanitize_text_field( amt_sanitize_keywords( stripslashes( $_POST['amt_custom_newskeywords'] ) ) );
+    }
+    // Full metatags - We allow only <meta> elements.
+    if ( isset( $_POST['amt_custom_full_metatags'] ) ) {
+        $full_metatags_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_full_metatags'] ), amt_get_allowed_html_kses() ) );
+    }
     // List of referenced items - We allow no HTML elements.
-    $referenced_list_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_referenced_list'] ), array() ) );
+    if ( isset( $_POST['amt_custom_referenced_list'] ) ) {
+        $referenced_list_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_referenced_list'] ), array() ) );
+    }
 
     // If a value has not been entered we try to delete existing data from the database
     // If the user has entered data, store it in the database.
@@ -797,54 +870,69 @@ function amt_save_postdata( $post_id, $post ) {
     $amt_full_metatags_field_name = '_amt_full_metatags';
     $amt_referenced_list_field_name = '_amt_referenced_list';
 
+    // As an extra security measure, here we also check the user-defined per box
+    // permissions before we save any data in the database.
+
     // Description
-    if ( empty($description_value) ) {
-        delete_post_meta($post_id, $amt_description_field_name);
-        // Also clean up old description field
-        delete_post_meta($post_id, 'description');
-    } else {
-        update_post_meta($post_id, $amt_description_field_name, $description_value);
-        // Also clean up again old description field - no need to exist any more since the new field is used.
-        delete_post_meta($post_id, 'description');
+    if ( current_user_can( $metabox_permissions['description_box_capability'] ) ) {
+        if ( empty($description_value) ) {
+            delete_post_meta($post_id, $amt_description_field_name);
+            // Also clean up old description field
+            delete_post_meta($post_id, 'description');
+        } else {
+            update_post_meta($post_id, $amt_description_field_name, $description_value);
+            // Also clean up again old description field - no need to exist any more since the new field is used.
+            delete_post_meta($post_id, 'description');
+        }
     }
 
     // Keywords
-    if ( empty($keywords_value) ) {
-        delete_post_meta($post_id, $amt_keywords_field_name);
-        // Also clean up old keywords field
-        delete_post_meta($post_id, 'keywords');
-    } else {
-        update_post_meta($post_id, $amt_keywords_field_name, $keywords_value);
-        // Also clean up again old keywords field - no need to exist any more since the new field is used.
-        delete_post_meta($post_id, 'keywords');
+    if ( current_user_can( $metabox_permissions['keywords_box_capability'] ) ) {
+        if ( empty($keywords_value) ) {
+            delete_post_meta($post_id, $amt_keywords_field_name);
+            // Also clean up old keywords field
+            delete_post_meta($post_id, 'keywords');
+        } else {
+            update_post_meta($post_id, $amt_keywords_field_name, $keywords_value);
+            // Also clean up again old keywords field - no need to exist any more since the new field is used.
+            delete_post_meta($post_id, 'keywords');
+        }
     }
 
     // Title
-    if ( empty($title_value) ) {
-        delete_post_meta($post_id, $amt_title_field_name);
-    } else {
-        update_post_meta($post_id, $amt_title_field_name, $title_value);
+    if ( current_user_can( $metabox_permissions['title_box_capability'] ) ) {
+        if ( empty($title_value) ) {
+            delete_post_meta($post_id, $amt_title_field_name);
+        } else {
+            update_post_meta($post_id, $amt_title_field_name, $title_value);
+        }
     }
 
     // 'news_keywords'
-    if ( empty($newskeywords_value) ) {
-        delete_post_meta($post_id, $amt_newskeywords_field_name);
-    } else {
-        update_post_meta($post_id, $amt_newskeywords_field_name, $newskeywords_value);
+    if ( current_user_can( $metabox_permissions['news_keywords_box_capability'] ) ) {
+        if ( empty($newskeywords_value) ) {
+            delete_post_meta($post_id, $amt_newskeywords_field_name);
+        } else {
+            update_post_meta($post_id, $amt_newskeywords_field_name, $newskeywords_value);
+        }
     }
 
     // per post full meta tags
-    if ( empty($full_metatags_value) ) {
-        delete_post_meta($post_id, $amt_full_metatags_field_name);
-    } else {
-        update_post_meta($post_id, $amt_full_metatags_field_name, $full_metatags_value);
+    if ( current_user_can( $metabox_permissions['full_metatags_box_capability'] ) ) {
+        if ( empty($full_metatags_value) ) {
+            delete_post_meta($post_id, $amt_full_metatags_field_name);
+        } else {
+            update_post_meta($post_id, $amt_full_metatags_field_name, $full_metatags_value);
+        }
     }
 
     // Referenced list
-    if ( empty($referenced_list_value) ) {
-        delete_post_meta($post_id, $amt_referenced_list_field_name);
-    } else {
-        update_post_meta($post_id, $amt_referenced_list_field_name, $referenced_list_value);
+    if ( current_user_can( $metabox_permissions['referenced_list_box_capability'] ) ) {
+        if ( empty($referenced_list_value) ) {
+            delete_post_meta($post_id, $amt_referenced_list_field_name);
+        } else {
+            update_post_meta($post_id, $amt_referenced_list_field_name, $referenced_list_value);
+        }
     }
     
 }
