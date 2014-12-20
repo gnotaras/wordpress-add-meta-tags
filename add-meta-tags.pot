@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.5.3\n"
+"Project-Id-Version: add-meta-tags 2.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-20 04:33+0200\n"
+"POT-Creation-Date: 2014-12-20 18:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Metadata Settings"
 msgstr ""
 
-#: amt-admin-panel.php:50 amt-admin-panel.php:509
+#: amt-admin-panel.php:50 amt-admin-panel.php:524
 msgid "Metadata"
 msgstr ""
 
@@ -120,7 +120,7 @@ msgid "Enter a comma-delimited list of keywords for your blog. These keywords wi
 msgstr ""
 
 #: amt-admin-panel.php:209 amt-admin-panel.php:228 amt-admin-panel.php:232
-#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:657
+#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:684
 msgid "Example"
 msgstr ""
 
@@ -310,75 +310,75 @@ msgstr ""
 msgid "Reset to defaults"
 msgstr ""
 
-#: amt-admin-panel.php:610
+#: amt-admin-panel.php:631
 msgid "Description"
 msgstr ""
 
-#: amt-admin-panel.php:613
+#: amt-admin-panel.php:634
 msgid "Enter a custom description of 30-50 words (based on an average word length of 5 characters)."
 msgstr ""
 
-#: amt-admin-panel.php:620
+#: amt-admin-panel.php:641
 msgid "If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content."
 msgstr ""
 
-#: amt-admin-panel.php:626 amt-admin-panel.php:632
+#: amt-admin-panel.php:647 amt-admin-panel.php:653
 msgid "If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content."
 msgstr ""
 
-#: amt-admin-panel.php:645
+#: amt-admin-panel.php:672
 msgid "Keywords"
 msgstr ""
 
-#: amt-admin-panel.php:648
+#: amt-admin-panel.php:675
 msgid "Enter keywords separated with commas."
 msgstr ""
 
-#: amt-admin-panel.php:655
-msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post's categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post's categories and tags in that list by using the special placeholders <code>%cats%</code> and <code>%tags%</code> respectively."
+#: amt-admin-panel.php:682
+msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post's categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post's categories, tags and custom taxonomy terms in that list by using the special placeholders <code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> respectively."
 msgstr ""
 
-#: amt-admin-panel.php:663 amt-admin-panel.php:669
+#: amt-admin-panel.php:690 amt-admin-panel.php:696
 msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated."
 msgstr ""
 
-#: amt-admin-panel.php:683
+#: amt-admin-panel.php:716
 msgid "Title"
 msgstr ""
 
-#: amt-admin-panel.php:686
-msgid "Enter a custom title to be used in the <em>title</em> tag. <code>%title%</code> is expanded to the current title."
-msgstr ""
-
-#: amt-admin-panel.php:697
-msgid "News Keywords"
-msgstr ""
-
-#: amt-admin-panel.php:700
-msgid "Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">Google help page</a>."
-msgstr ""
-
-#: amt-admin-panel.php:711
-msgid "Full meta tags"
-msgstr ""
-
-#: amt-admin-panel.php:714
-msgid "Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
-msgstr ""
-
-#: amt-admin-panel.php:717
-msgid "For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:"
-msgstr ""
-
-#: amt-admin-panel.php:722
-msgid "Important note: for security reasons only <code>meta</code> elements are allowed in this box. All other HTML elements are automatically removed."
-msgstr ""
-
-#: amt-admin-panel.php:733
-msgid "URLs of referenced items"
+#: amt-admin-panel.php:719
+msgid "Enter a custom title to be used in the <em>title</em> tag."
 msgstr ""
 
 #: amt-admin-panel.php:736
+msgid "News Keywords"
+msgstr ""
+
+#: amt-admin-panel.php:739
+msgid "Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">Google help page</a>."
+msgstr ""
+
+#: amt-admin-panel.php:756
+msgid "Full meta tags"
+msgstr ""
+
+#: amt-admin-panel.php:759
+msgid "Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
+msgstr ""
+
+#: amt-admin-panel.php:762
+msgid "For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:"
+msgstr ""
+
+#: amt-admin-panel.php:767
+msgid "Important note: for security reasons only <code>meta</code> elements are allowed in this box. All other HTML elements are automatically removed."
+msgstr ""
+
+#: amt-admin-panel.php:784
+msgid "URLs of referenced items"
+msgstr ""
+
+#: amt-admin-panel.php:787
 msgid "Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated."
 msgstr ""
 

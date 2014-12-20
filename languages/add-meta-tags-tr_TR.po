@@ -20,14 +20,14 @@
 # 
 # 
 # Translators:
-# Burak Yavuz, 2013
+# Burak Yavuz, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-20 01:47+0200\n"
-"PO-Revision-Date: 2014-12-19 23:48+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
+"POT-Creation-Date: 2014-12-20 04:33+0200\n"
+"PO-Revision-Date: 2014-12-20 09:14+0000\n"
+"Last-Translator: Burak Yavuz\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,7 +92,7 @@ msgid ""
 "Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The "
 "plugin also supports some extra SEO related functionality that helps you "
 "fine tune your web site."
-msgstr ""
+msgstr "Add-Meta-Tags \"<em>Çok işe yarıyor</em>\" esasını takip etmeye çalışır. Varsayılan olarak <em>description (açıklama)</em> ve <em>keywords (anahtar kelimeler)</em> meta etiketleri ön sayfaya, yazılara, sayfalara, ortak özel yazı türlerine, ek sayfalarına, kategori, etiket, özel sınıflandırma ve yazar tabanlı arşivlere eklenir. Bundan başka, <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> ve <em>Schema.org</em> metadata üretiminin etkinleştirilmesi mümkündür. Eklenti ayrıca web sitenize ince ayar yapmada yardımcı olan bazı fazladan SEO ile ilgili işlevselliği destekler."
 
 #: amt-admin-panel.php:118
 msgid ""
@@ -382,7 +382,7 @@ msgstr "Etiket tabanlı arşivler."
 
 #: amt-admin-panel.php:395
 msgid "Custom taxonomy based archives."
-msgstr ""
+msgstr "Özel sınıflandırma tabanlı arşivler."
 
 #: amt-admin-panel.php:401
 msgid "Author based archives."
@@ -421,7 +421,7 @@ msgid ""
 "administrator privileges see a box (right above the post's content) "
 "containing the metadata exactly as it is added in the HTML head and body. "
 "The box is displayed for posts, pages, attachments and custom post types."
-msgstr ""
+msgstr "<em>Metadata Gözden Geçirme Kipi</em>'ni etkinleştir. Etkinleştirildiğinde, yönetici yetkileri olan WordPress kullanıcıları, HTML başlığına olduğu gibi eklenen metadata içeren bir kutu (yazının içeriğinin üzerinde sağda) görürler. Kutu yazılar, sayfalar, ekler ve özel sayfa türleri için görüntülenir."
 
 #: amt-admin-panel.php:459 amt-admin-panel.php:462
 msgid "Donations"
@@ -539,7 +539,7 @@ msgstr "Önemli not: güvenlik nedenlerinden dolayı bu kutuda sadece <code>meta
 
 #: amt-admin-panel.php:733
 msgid "URLs of referenced items"
-msgstr ""
+msgstr "Kaynak gösterilen öğelerin URL'leri"
 
 #: amt-admin-panel.php:736
 msgid ""
@@ -550,7 +550,7 @@ msgid ""
 "if OpenGraph/Schema.org metadata is enabled, then the relevant "
 "<code>og:referenced</code> and <code>referencedItem</code> meta tags will be"
 " generated."
-msgstr ""
+msgstr "İçerikte kaynak gösterilen öğelerin kuralsal URL'lerinin (satır başına bir tane) bir listesini girin. Kaynak gösterilen sayfanın içerikle aynı etki alnında olması gerekir. Örneğin, bir ürünün satın alınabileceği bir sayfa ya da başka bir yeri tarif eden bir sayfa kaynak gösterilebilir. Böyle kaynaklar veriliyorsa ve OpenGraph/Schema.org metadata etkinleştirilmişse, o zaman ilgili <code>og:referenced</code> ve <code>referencedItem</code> meta etiketleri oluşturulacaktır."
 
 #: amt-settings.php:225
 msgid "Add-Meta-Tags options saved"
