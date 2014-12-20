@@ -129,6 +129,10 @@ function amt_sanitize_description($desc) {
     //$desc = str_replace("'", ' ', $desc);
     //$desc = str_replace('&#039;', ' ', $desc);
     //$desc = str_replace("&apos;", ' ', $desc);
+    //$desc = str_replace("&#8216;", ' ', $desc);
+    //$desc = str_replace("&#8217;", ' ', $desc);
+    // Finally, convert double space to single space.
+    //$desc = str_replace('  ', ' ', $desc);
 
     return $desc;
 }
