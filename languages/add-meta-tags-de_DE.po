@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-18 20:08+0200\n"
-"PO-Revision-Date: 2014-12-18 18:11+0000\n"
+"POT-Creation-Date: 2014-12-20 01:47+0200\n"
+"PO-Revision-Date: 2014-12-19 23:48+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/add-meta-tags/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -536,6 +536,21 @@ msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Wichtig: Aus Sicherheitsgründen sind hier nur Elemente der Art <code>meta</code> erlaubt. Andere Elemente werden automatisch gelöscht."
+
+#: amt-admin-panel.php:733
+msgid "URLs of referenced items"
+msgstr ""
+
+#: amt-admin-panel.php:736
+msgid ""
+"Enter a list of canonical URLs (one per line) of items referenced in the "
+"content. The page referenced need not be on the same domain as the content. "
+"For example, you might reference a page where a product can be purchased or "
+"a page that further describes a place. If such references are provided and "
+"if OpenGraph/Schema.org metadata is enabled, then the relevant "
+"<code>og:referenced</code> and <code>referencedItem</code> meta tags will be"
+" generated."
+msgstr ""
 
 #: amt-settings.php:225
 msgid "Add-Meta-Tags options saved"

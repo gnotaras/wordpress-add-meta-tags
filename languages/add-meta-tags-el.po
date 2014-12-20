@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-19 18:52+0200\n"
-"PO-Revision-Date: 2014-12-19 21:18+0000\n"
+"POT-Creation-Date: 2014-12-20 01:47+0200\n"
+"PO-Revision-Date: 2014-12-20 02:27+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -536,6 +536,21 @@ msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Σημαντική σημείωση: για λόγους ασφαλείας μόνον στοιχεία <code>meta</code> επιτρέπονται σ' αυτό το πλαίσιο. Όλα τα άλλα στοιχεία HTML αφαιρούνται αυτόματα."
+
+#: amt-admin-panel.php:733
+msgid "URLs of referenced items"
+msgstr "Διευθύνσεις αντικειμένων αναφοράς"
+
+#: amt-admin-panel.php:736
+msgid ""
+"Enter a list of canonical URLs (one per line) of items referenced in the "
+"content. The page referenced need not be on the same domain as the content. "
+"For example, you might reference a page where a product can be purchased or "
+"a page that further describes a place. If such references are provided and "
+"if OpenGraph/Schema.org metadata is enabled, then the relevant "
+"<code>og:referenced</code> and <code>referencedItem</code> meta tags will be"
+" generated."
+msgstr "Εισάγετε μια λίστα κανονικών διευθύνσεων (μια σε κάθε σειρά) αντικειμένων που αναφέρονται μέσα στο περιεχόμενο. Η αναφερόμενη σελίδα δεν χρειάζεται να βρίσκεται στον ίδιο ιστοχώρο με το περιεχόμενο. Για παράδειγμα, μπορείτε να εισάγετε αναφορά για μια σελίδα από όπου ένα προϊόν μπορεί να αγοραστεί ή μια σελίδα η οποία περιέχει εκτεταμένη περιγραφή για μια τοποθεσία. Αν τέτοιες αναφορές εισαχθούν και αν τα μεταδεδομένα OpenGraph/Schema.org έχουν ενεργοποιηθεί, τότε τα σχετικά <code>og:referenced</code> και <code>referencedItem</code> meta tags θα δημιουργηθούν."
 
 #: amt-settings.php:225
 msgid "Add-Meta-Tags options saved"
