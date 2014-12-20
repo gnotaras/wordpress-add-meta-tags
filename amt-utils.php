@@ -178,6 +178,7 @@ function amt_sanitize_keywords( $text ) {
 function amt_convert_placeholders( $data ) {
     $data = str_replace('%cats%', '#cats#', $data);
     $data = str_replace('%tags%', '#tags#', $data);
+    $data = str_replace('%terms%', '#terms#', $data);
     $data = str_replace('%contentkw%', '#contentkw#', $data);
     $data = str_replace('%title%', '#title#', $data);
     return $data;
@@ -192,6 +193,7 @@ function amt_convert_placeholders( $data ) {
 function amt_revert_placeholders( $data ) {
     $data = str_replace('#cats#', '%cats%', $data);
     $data = str_replace('#tags#', '%tags%', $data);
+    $data = str_replace('#terms#', '%terms%', $data);
     $data = str_replace('#contentkw#', '%contentkw%', $data);
     $data = str_replace('#title#', '%title%', $data);
     return $data;
@@ -339,6 +341,42 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
     $amt_excerpt = apply_filters( 'amt_get_the_excerpt', $amt_excerpt, $post );
 
     return $amt_excerpt;
+}
+
+
+/**
+ * Returns a comma-delimited list of a post's terms that belong to custom taxonomies.
+ */
+function amt_get_keywords_from_custom_taxonomies( $post ) {
+    // Array to hold all terms of custom taxonomies.
+    $keywords_arr = array();
+
+    // Get the custom taxonomy names.
+    // Arguments in order to retrieve all public custom taxonomies
+    // (excluding the builtin categories, tags and post formats.)
+    $args = array(
+        'public'   => true,
+        '_builtin' => false
+    );
+    $output = 'names'; // or objects
+    $operator = 'and'; // 'and' or 'or'
+    $taxonomies = get_taxonomies( $args, $output, $operator );
+
+    // Get the terms of each taxonomy and append to $keywords_arr
+    foreach ( $taxonomies  as $taxonomy ) {
+        $terms = get_the_terms( $post->ID, $taxonomy );
+        if ( $terms && is_array($terms) ) {
+            foreach ( $terms as $term ) {
+                $keywords_arr[] = $term->name;
+            }
+        }
+    }
+
+    if ( ! empty( $keywords_arr ) ) {
+        return implode(', ', $keywords_arr);
+    } else {
+        return '';
+    }
 }
 
 
@@ -535,9 +573,11 @@ function amt_get_content_keywords($post, $auto=true) {
     $content_keywords = '';
 
     /*
-     * Custom post field "keywords" overrides post's categories and tags (tags exist in WordPress 2.3 or newer).
+     * Custom post field "keywords" overrides post's categories, tags (tags exist in WordPress 2.3 or newer)
+     * and custom taxonomy terms (custom taxonomies exist since WP version 2.8).
      * %cats% is replaced by the post's categories.
-     * %tags% us replaced by the post's tags.
+     * %tags% is replaced by the post's tags.
+     * %terms% is replaced by the post's custom taxonomy terms.
      */
     if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
@@ -546,42 +586,65 @@ function amt_get_content_keywords($post, $auto=true) {
         // If there is a custom field, use it
         if ( !empty($keyw_fld_content) ) {
             
-            // On single posts, expand the %cats% and %tags% placeholders
+            // On single posts, expand the %cats%, %tags% and %terms% placeholders.
+            // This should not take place in pages (no categories, no tags by default)
+            // or custom post types, the support of which for categories and tags is unknown.
+
             if ( is_single() ) {
 
                 // Here we sanitize the provided keywords for safety
                 $keywords_from_post_cats = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_post_cats($post) ) );
-                $keyw_fld_content = str_replace("%cats%", $keywords_from_post_cats, $keyw_fld_content);
+                if ( ! empty($keywords_from_post_cats) ) {
+                    $keyw_fld_content = str_replace("%cats%", $keywords_from_post_cats, $keyw_fld_content);
+                }
 
-                // Also, the %tags% tag is replaced by the post's tags (WordPress 2.3 or newer)
+                // Also, the %tags% placeholder is replaced by the post's tags (WordPress 2.3 or newer)
                 if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
                     // Here we sanitize the provided keywords for safety
                     $keywords_from_post_tags = sanitize_text_field( amt_sanitize_keywords( amt_get_post_tags($post) ) );
-                    $keyw_fld_content = str_replace("%tags%", $keywords_from_post_tags, $keyw_fld_content);
+                    if ( ! empty($keywords_from_post_tags) ) {
+                        $keyw_fld_content = str_replace("%tags%", $keywords_from_post_tags, $keyw_fld_content);
+                    }
+                }
+
+                // Also, the %terms% placeholder is replaced by the post's custom taxonomy terms (WordPress 2.8 or newer)
+                if ( version_compare( get_bloginfo('version'), '2.8', '>=' ) ) {
+                    // Here we sanitize the provided keywords for safety
+                    $keywords_from_post_terms = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_custom_taxonomies($post) ) );
+                    if ( ! empty($keywords_from_post_terms) ) {
+                        $keyw_fld_content = str_replace("%terms%", $keywords_from_post_terms, $keyw_fld_content);
+                    }
                 }
             }
             $content_keywords .= $keyw_fld_content;
 
-        // Otherwise, generate the keywords from categories and tags
+        // Otherwise, generate the keywords from categories, tags and custom taxonomy terms.
         // Note:
-        // Here we use is_singular(), so that pages are checked for categories and tags.
+        // Here we use is_singular(), so that pages are also checked for categories and tags.
         // By default, pages do not support categories and tags, but enabling such
         // functionality is trivial. See #1206 for more details.
+
         } elseif ( is_singular() ) {
             if ($auto) {
                 /*
                  * Add keywords automatically.
-                 * Keywords consist of the post's categories and the post's tags (tags exist in WordPress 2.3 or newer).
+                 * Keywords consist of the post's categories, the post's tags (tags exist in WordPress 2.3 or newer)
+                 * and the terms of the custom taxonomies to which the post belongs (since WordPress 2.8).
                  */
-                // Here we sanitize the provided keywords for safety
+                // Categories - Here we sanitize the provided keywords for safety
                 $keywords_from_post_cats = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_post_cats($post) ) );
                 if (!empty($keywords_from_post_cats)) {
                     $content_keywords .= $keywords_from_post_cats;
                 }
-                // Here we sanitize the provided keywords for safety
+                // Tags - Here we sanitize the provided keywords for safety
                 $keywords_from_post_tags = sanitize_text_field( amt_sanitize_keywords( amt_get_post_tags($post) ) );
                 if (!empty($keywords_from_post_tags)) {
                     $content_keywords .= ", " . $keywords_from_post_tags;
+                }
+                // Custom taxonomy terms - Here we sanitize the provided keywords for safety
+                $keywords_from_post_custom_taxonomies = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_custom_taxonomies($post) ) );
+                if (!empty($keywords_from_post_custom_taxonomies)) {
+                    $content_keywords .= ", " . $keywords_from_post_custom_taxonomies;
                 }
             }
         }
