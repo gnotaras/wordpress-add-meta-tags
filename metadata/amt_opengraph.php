@@ -358,10 +358,10 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
     // Note: content might be multipage. Process with amt_process_paged() wherever needed.
     } elseif ( is_singular() ) {
 
-        // Type
-        $metadata_arr[] = '<meta property="og:type" content="article" />';
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Type
+        $metadata_arr[] = '<meta property="og:type" content="article" />';
         // Title
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
@@ -378,6 +378,50 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Dates
         $metadata_arr[] = '<meta property="article:published_time" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
         $metadata_arr[] = '<meta property="article:modified_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
+
+        // Author
+        // If a Facebook author profile URL has been provided, it has priority,
+        // Otherwise fall back to the WordPress author archive.
+        $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $post->post_author);
+        if ( !empty($fb_author_url) ) {
+            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
+        } else {
+            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+        }
+
+        // Publisher
+        // If a Facebook publisher profile URL has been provided, it has priority,
+        // Otherwise fall back to the WordPress blog home url.
+        $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
+        if ( !empty($fb_publisher_url) ) {
+            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
+        } else {
+            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
+        }
+
+        /*
+        // article:section: We use the first category as the section.
+        $first_cat = amt_get_first_category($post);
+        if ( ! empty( $first_cat ) ) {
+            $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $first_cat ) . '" />';
+        }
+        */
+        // article:section: We use print an ``article:section`` meta tag for each of the post's categories.
+        foreach( get_the_category($post->ID) as $cat ) {
+            $section = trim( $cat->cat_name );
+            if ( ! empty( $section ) ) {
+                $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $section ) . '" />';
+            }
+        }
+        
+        // article:tag: Keywords are listed as post tags
+        $keywords = explode(',', amt_get_content_keywords($post));
+        foreach ($keywords as $tag) {
+            $tag = trim( $tag );
+            if (!empty($tag)) {
+                $metadata_arr[] = '<meta property="article:tag" content="' . esc_attr( $tag ) . '" />';
+            }
+        }
 
 
         // We store the featured image ID in this variable so that it can easily be excluded
@@ -470,50 +514,6 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Scope BEGIN: ImageObject: http://schema.org/ImageObject
         if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-        }
-
-        // Author
-        // If a Facebook author profile URL has been provided, it has priority,
-        // Otherwise fall back to the WordPress author archive.
-        $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $post->post_author);
-        if ( !empty($fb_author_url) ) {
-            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
-        } else {
-            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
-        }
-
-        // Publisher
-        // If a Facebook publisher profile URL has been provided, it has priority,
-        // Otherwise fall back to the WordPress blog home url.
-        $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
-        if ( !empty($fb_publisher_url) ) {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
-        } else {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
-        }
-
-        /*
-        // article:section: We use the first category as the section.
-        $first_cat = amt_get_first_category($post);
-        if ( ! empty( $first_cat ) ) {
-            $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $first_cat ) . '" />';
-        }
-        */
-        // article:section: We use print an ``article:section`` meta tag for each of the post's categories.
-        foreach( get_the_category($post->ID) as $cat ) {
-            $section = trim( $cat->cat_name );
-            if ( ! empty( $section ) ) {
-                $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $section ) . '" />';
-            }
-        }
-        
-        // article:tag: Keywords are listed as post tags
-        $keywords = explode(',', amt_get_content_keywords($post));
-        foreach ($keywords as $tag) {
-            $tag = trim( $tag );
-            if (!empty($tag)) {
-                $metadata_arr[] = '<meta property="article:tag" content="' . esc_attr( $tag ) . '" />';
-            }
         }
 
         // og:referenced
