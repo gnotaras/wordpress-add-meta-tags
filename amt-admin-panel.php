@@ -733,7 +733,7 @@ function amt_inner_metadata_box( $post ) {
             <label for="amt_custom_referenced_list"><strong>'.__('URLs of referenced items', 'add-meta-tags').'</strong>:</label>
             <textarea class="code" style="width: 99%" id="amt_custom_referenced_list" name="amt_custom_referenced_list" cols="30" rows="4" >'. stripslashes( $custom_referenced_list_value ) .'</textarea>
             <br>
-            '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').'
+            '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').' (<span style="color:red;">EXPERIMENTAL</span>)
         </p>
     ');
 

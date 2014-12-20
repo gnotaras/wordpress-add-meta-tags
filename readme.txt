@@ -121,7 +121,7 @@ For more info about the *news_keywords* metatag, please read this <a target="_bl
 
 It is possible to assign custom full meta tags to single posts (posts, pages, custom post types).
 
-**Per post referenced items**
+**Per post referenced items** (EXPERIMENTAL)
 
 It is possible to enter URLs of referenced items in each single post (posts, pages, custom post types), which results in the generation of the relevant `og:referenced` (OpenGraph) and `referencedItem` (Schema.org) meta tags.
 
