@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -556,6 +556,11 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.5.4](http://www.codetrax.org/versions/191)
+ - Added `amt_metadata_metabox_permissions` filter, which can be used to customize the permissions that control whether the `Metadata` metabox as a whole or each individual box is displayed in the post, page and custom post type's editing screen depending on the user's capabilities. See Example 10 in the plugin description page for the details.
+ - Customizable video player size information in Twitter Player Cards (`amt_twitter_cards_video_player_size` filter).
+ - The automatically generated `keywords` meta tag now also includes the terms of all public non-builtin taxonomies.
+ - Updated translations.
 - [2.5.3](http://www.codetrax.org/versions/199)
  - Clearly marked the referenced items functionality as experimental.
  - Re-arrange OpenGraph metadata.
