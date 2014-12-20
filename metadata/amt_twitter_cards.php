@@ -355,8 +355,9 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             //$metadata_arr[] = '<meta property="twitter:width" content="' . esc_attr( $width ) . '" />';
             //$metadata_arr[] = '<meta property="twitter:height" content="' . esc_attr( $height ) . '" />';
             // Mode 2: Size hard coded
-            $metadata_arr[] = '<meta property="twitter:width" content="640" />';
-            $metadata_arr[] = '<meta property="twitter:height" content="480" />';
+            $video_player_size = apply_filters( 'amt_twitter_cards_video_player_size', array(640, 480) );
+            $metadata_arr[] = sprintf( '<meta property="twitter:width" content="%d" />', $video_player_size[0] );
+            $metadata_arr[] = sprintf( '<meta property="twitter:height" content="%d" />', $video_player_size[1] );
             // image
             if ( ! empty( $embedded_item['thumbnail'] ) ) {
                 $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
