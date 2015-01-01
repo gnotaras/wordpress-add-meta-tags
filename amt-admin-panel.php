@@ -556,11 +556,11 @@ function amt_metadata_box_css_js () {
     wp_enqueue_script('jquery-ui-widget');
     wp_enqueue_script('jquery-ui-tabs');
 
-    //wp_register_style( 'amt-jquery-ui-core', plugins_url('css/jquery.ui.core.css', __FILE__) );
+    //wp_register_style( 'amt-jquery-ui-core', plugins_url('css/jquery.ui.core.css', AMT_PLUGIN_FILE) );
     //wp_enqueue_style( 'amt-jquery-ui-core' );
-    //wp_register_style( 'amt-jquery-ui-tabs', plugins_url('css/jquery.ui.tabs.css', __FILE__) );
+    //wp_register_style( 'amt-jquery-ui-tabs', plugins_url('css/jquery.ui.tabs.css', AMT_PLUGIN_FILE) );
     //wp_enqueue_style( 'amt-jquery-ui-tabs' );
-    wp_register_style( 'amt-metabox-tabs', plugins_url('css/amt-metabox-tabs.css', __FILE__) );
+    wp_register_style( 'amt-metabox-tabs', plugins_url('css/amt-metabox-tabs.css', AMT_PLUGIN_FILE) );
     wp_enqueue_style( 'amt-metabox-tabs' );
 
 }
@@ -615,7 +615,7 @@ function amt_inner_metadata_box( $post ) {
     */
 
     // Use a nonce field for verification
-    wp_nonce_field( plugin_basename( __FILE__ ), 'amt_noncename' );
+    wp_nonce_field( plugin_basename( AMT_PLUGIN_FILE ), 'amt_noncename' );
 
     // Get the Metadata metabox permissions (filtered)
     $metabox_permissions = amt_get_metadata_metabox_permissions();
@@ -816,7 +816,7 @@ function amt_save_postdata( $post_id, $post ) {
     /* Verify the nonce before proceeding. */
     // Verify this came from the our screen and with proper authorization,
     // because save_post can be triggered at other times
-    if ( !isset($_POST['amt_noncename']) || !wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( __FILE__ ) ) )
+    if ( !isset($_POST['amt_noncename']) || !wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( AMT_PLUGIN_FILE ) ) )
         return;
 
     // Get the Metadata metabox permissions (filtered)
