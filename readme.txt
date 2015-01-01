@@ -362,9 +362,9 @@ add_filter( 'amt_extended_image_tags', 'amt_generate_extended_image_tags', 10, 1
 `
 This code can be placed inside your theme's `functions.php` file.
 
-**Example 8**: Customize the generic descriptions in the category, tag and custom taxonomy archives.
+**Example 8**: Customize the generic descriptions in the category, tag, custom taxonomy and author archives.
 
-This can easily be done by hooking custom functions to the `amt_generic_description_category_archive`, `amt_generic_description_tag_archive` and `amt_generic_description_taxonomy_archive` filters:
+This can easily be done by hooking custom functions to the `amt_generic_description_category_archive`, `amt_generic_description_tag_archive`, `amt_generic_description_taxonomy_archive` and `amt_generic_description_author_archive` filters:
 
 `
 function amt_custom_category_archive_description( $default ) {
