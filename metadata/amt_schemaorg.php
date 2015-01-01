@@ -46,6 +46,13 @@
  * Module containing functions related to Schema.org Metadata
  */
 
+// Prevent direct access to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    echo 'This file should not be accessed directly!';
+    exit; // Exit if accessed directly
+}
+
 
 /**
  * Add contact method for Google+ for author and publisher.

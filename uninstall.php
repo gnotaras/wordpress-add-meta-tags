@@ -36,9 +36,12 @@
  *  The NOTICE file contains additional licensing and copyright information.
  */
 
-if ( !defined( 'ABSPATH') && !defined('WP_UNINSTALL_PLUGIN') ) {
-    exit();
- }
+// Prevent direct access to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    echo 'This file should not be accessed directly!';
+    exit; // Exit if accessed directly
+}
 
 delete_option('add_meta_tags_opts');
 

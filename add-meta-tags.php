@@ -48,6 +48,12 @@ Domain Path: /languages/
  *  The NOTICE file contains additional licensing and copyright information.
  */
 
+// Prevent direct access to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    echo 'This file should not be accessed directly!';
+    exit; // Exit if accessed directly
+}
 
 // Store plugin directory
 define('AMT_DIR', dirname(__FILE__));

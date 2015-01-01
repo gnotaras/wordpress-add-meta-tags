@@ -43,6 +43,13 @@
  * Module containing functions related to Basic Metadata
  */
 
+// Prevent direct access to this file.
+if ( ! defined( 'ABSPATH' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    echo 'This file should not be accessed directly!';
+    exit; // Exit if accessed directly
+}
+
 
 /**
  * Generates basic metadata for the head area.
