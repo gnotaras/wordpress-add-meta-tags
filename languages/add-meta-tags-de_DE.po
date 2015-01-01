@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-20 01:47+0200\n"
-"PO-Revision-Date: 2014-12-19 23:48+0000\n"
+"POT-Creation-Date: 2014-12-20 18:00+0200\n"
+"PO-Revision-Date: 2014-12-20 16:01+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/add-meta-tags/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Einstellungen"
 msgid "Metadata Settings"
 msgstr "Metadata Einstellungen"
 
-#: amt-admin-panel.php:50 amt-admin-panel.php:509
+#: amt-admin-panel.php:50 amt-admin-panel.php:524
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -163,7 +163,7 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:209 amt-admin-panel.php:228 amt-admin-panel.php:232
-#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:657
+#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:684
 msgid "Example"
 msgstr "Beispiel"
 
@@ -442,17 +442,17 @@ msgstr "Änderungen speichern"
 msgid "Reset to defaults"
 msgstr "Auf Standardwerte zurücksetzen"
 
-#: amt-admin-panel.php:610
+#: amt-admin-panel.php:631
 msgid "Description"
 msgstr "Beschreibung"
 
-#: amt-admin-panel.php:613
+#: amt-admin-panel.php:634
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "Geben Sie die passende Beschreibung mit 30-50 Wörtern (150-250 Buchstaben) ein."
 
-#: amt-admin-panel.php:620
+#: amt-admin-panel.php:641
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -460,52 +460,51 @@ msgid ""
 "content."
 msgstr "Wird keine <em>Beschreibung</em> angegebenen, so wird diese <strong>automatisch</strong> erzeugt. Falls vorhanden, wird dazu der Auszug verwendet. Andernfalls der erste Absatz des Inhalts."
 
-#: amt-admin-panel.php:626 amt-admin-panel.php:632
+#: amt-admin-panel.php:647 amt-admin-panel.php:653
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "Wird keine <em>Beschreibung</em> angegebenen, so wird diese <strong>automatisch</strong> aus dem ersten Absatz des Inhalts erzeugt."
 
-#: amt-admin-panel.php:645
+#: amt-admin-panel.php:672
 msgid "Keywords"
 msgstr "Stichwörter"
 
-#: amt-admin-panel.php:648
+#: amt-admin-panel.php:675
 msgid "Enter keywords separated with commas."
 msgstr "Geben Sie die Stichwörter getrennt durch Kommas ein."
 
-#: amt-admin-panel.php:655
+#: amt-admin-panel.php:682
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and tags in that "
-"list by using the special placeholders <code>%cats%</code> and "
-"<code>%tags%</code> respectively."
-msgstr "Wenn das <em>Stichwörter</em>-Feld leer ist, wird ein <em>Stichwörter</em>-Meta Tag <strong>automatisch</strong> von den Kategorien und Tags der Posts erstellt. Wenn Sie eine benutzerdefinierte Liste der Stichwörter für diesen Post setzen möchtest, können Sie einfach die Kategorien und Tags in die Liste dieses Posts einfügen, indem Sie die speziellen Platzhalter <code>%cats%</code> und <code>%tags%</code> verwenden."
+" it is possible to easily include the post's categories, tags and custom "
+"taxonomy terms in that list by using the special placeholders "
+"<code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> "
+"respectively."
+msgstr ""
 
-#: amt-admin-panel.php:663 amt-admin-panel.php:669
+#: amt-admin-panel.php:690 amt-admin-panel.php:696
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "<strong>will not be automatically</strong> generated."
 msgstr "Werden keine <em>Stichwörter</em> angegebenen, so werden diese <strong>automatisch</strong> erzeugt."
 
-#: amt-admin-panel.php:683
+#: amt-admin-panel.php:716
 msgid "Title"
 msgstr "Titel"
 
-#: amt-admin-panel.php:686
-msgid ""
-"Enter a custom title to be used in the <em>title</em> tag. "
-"<code>%title%</code> is expanded to the current title."
-msgstr "Geben Sie einen alternativen Text für den Seitentitel (<em>title</em>-Tag) an oder lassen Sie die Angabe leer um den normalen Seitentitel zu verwenden.  Mittels dem Platzhalter <code>%title%</code> können Sie den normalen Seitentitel in einen anderen Text einfügen."
+#: amt-admin-panel.php:719
+msgid "Enter a custom title to be used in the <em>title</em> tag."
+msgstr ""
 
-#: amt-admin-panel.php:697
+#: amt-admin-panel.php:736
 msgid "News Keywords"
 msgstr "News Stichwörter"
 
-#: amt-admin-panel.php:700
+#: amt-admin-panel.php:739
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -513,11 +512,11 @@ msgid ""
 " help page</a>."
 msgstr "Geben Sie durch Kommas getrennt die Stichwörter für Google News ein. Für weitere Informationen lesen Sie bitte in der <a target=\"_blank\" href=\"https://support.google.com/news/publisher/answer/68297?hl=de\">Google Hilfe</a>."
 
-#: amt-admin-panel.php:711
+#: amt-admin-panel.php:756
 msgid "Full meta tags"
 msgstr "Vollständige Meta-Tags"
 
-#: amt-admin-panel.php:714
+#: amt-admin-panel.php:759
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -525,23 +524,23 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "XHTML-Code mit zusätzlichen META-Elementen (siehe <a href=\"http://de.wikipedia.org/wiki/Meta-Element\" target=\"_blank\">Meta-Elementen</a> auf Wikipedia)."
 
-#: amt-admin-panel.php:717
+#: amt-admin-panel.php:762
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Um beispielsweise zu verhindern, dass dieser Inhalt von Suchmaschinen archiviert wird, können Sie folgendes notieren:"
 
-#: amt-admin-panel.php:722
+#: amt-admin-panel.php:767
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Wichtig: Aus Sicherheitsgründen sind hier nur Elemente der Art <code>meta</code> erlaubt. Andere Elemente werden automatisch gelöscht."
 
-#: amt-admin-panel.php:733
+#: amt-admin-panel.php:784
 msgid "URLs of referenced items"
 msgstr ""
 
-#: amt-admin-panel.php:736
+#: amt-admin-panel.php:787
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "

@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-20 04:33+0200\n"
-"PO-Revision-Date: 2014-12-20 09:14+0000\n"
+"POT-Creation-Date: 2014-12-20 18:00+0200\n"
+"PO-Revision-Date: 2014-12-20 16:10+0000\n"
 "Last-Translator: Burak Yavuz\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Ayarlar"
 msgid "Metadata Settings"
 msgstr "Metadata Ayarları"
 
-#: amt-admin-panel.php:50 amt-admin-panel.php:509
+#: amt-admin-panel.php:50 amt-admin-panel.php:524
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -163,7 +163,7 @@ msgid ""
 msgstr "Blog'unuz için anahtar kelimelerin virgülle ayrılmış bir listesini girin. Bu anahtar kelimeler <strong>ana sayfadaki</strong> <em>keywords (anahtar kelimeler)</em> meta etiketinde kullanılacaktır. Eğer bu alan boş bırakılırsa, o zaman blog'unuzun tüm <a href=\"edit-tags.php?taxonomy=category\">kategorileri</a> <em>keywords (anahtar kelimeler)</em> meta etiketi için anahtar kelimeler olarak kullanılacaktır."
 
 #: amt-admin-panel.php:209 amt-admin-panel.php:228 amt-admin-panel.php:232
-#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:657
+#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:684
 msgid "Example"
 msgstr "Örnek"
 
@@ -442,17 +442,17 @@ msgstr "Değişiklikleri kaydet"
 msgid "Reset to defaults"
 msgstr "Varsayılanlara sıfırla"
 
-#: amt-admin-panel.php:610
+#: amt-admin-panel.php:631
 msgid "Description"
 msgstr "Description (Açıklama)"
 
-#: amt-admin-panel.php:613
+#: amt-admin-panel.php:634
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "30-50 kelimelik özel bir açıklama girin (ortalama 5 karakterlik kelime uzunluğuna dayalıdır)."
 
-#: amt-admin-panel.php:620
+#: amt-admin-panel.php:641
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -460,52 +460,51 @@ msgid ""
 "content."
 msgstr "<em>Açıklama</em> alanı boş bırakılırsa, <em>description (açıklama)</em> meta etiketi <strong>otomatik olarak</strong> alıntıdan ya da, eğer bir alıntı ayarlanmamışsa, doğrudan içeriğin ilk paragrafından üretilecektir."
 
-#: amt-admin-panel.php:626 amt-admin-panel.php:632
+#: amt-admin-panel.php:647 amt-admin-panel.php:653
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "<em>Açıklama</em> alanı boş bırakılırsa, <em>description (açıklama)</em> meta etiketi <strong>otomatik olarak</strong> içeriğin ilk paragrafından üretilecektir."
 
-#: amt-admin-panel.php:645
+#: amt-admin-panel.php:672
 msgid "Keywords"
 msgstr "Keywords (Anahtar Kelimeler)"
 
-#: amt-admin-panel.php:648
+#: amt-admin-panel.php:675
 msgid "Enter keywords separated with commas."
 msgstr "Anahtar kelimeleri virgülle ayırarak girin."
 
-#: amt-admin-panel.php:655
+#: amt-admin-panel.php:682
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and tags in that "
-"list by using the special placeholders <code>%cats%</code> and "
-"<code>%tags%</code> respectively."
-msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi <strong>otomatik olarak</strong> yazının kategorilerinden ve etiketlerinden üretilecektir. Bu yazı için anahtar kelimelerin özel bir listesini ayarlamaya karar verdiğiniz takdirde, <code>%cats%</code> ve <code>%tags%</code> özel yer tutucularını bu listede kullanarak yazıların kategorilerini ve etiketlerini kolayca dahil etmek mümkündür."
+" it is possible to easily include the post's categories, tags and custom "
+"taxonomy terms in that list by using the special placeholders "
+"<code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> "
+"respectively."
+msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi <strong>otomatik olarak</strong> yazının kategorilerinden ve etiketlerinden üretilecektir. Bu yazı için anahtar kelimelerin özel bir listesini ayarlamaya karar verdiğiniz takdirde, <code>%cats%</code>, <code>%tags%</code> ve <code>%terms%</code> özel yer tutucularını bu listede kullanarak yazıların kategorilerini, etiketlerini ve özel sınıflandırma terimlerini kolayca dahil etmek mümkündür."
 
-#: amt-admin-panel.php:663 amt-admin-panel.php:669
+#: amt-admin-panel.php:690 amt-admin-panel.php:696
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "<strong>will not be automatically</strong> generated."
 msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi <strong>otomatik olarak üretilmeyecektir</strong>."
 
-#: amt-admin-panel.php:683
+#: amt-admin-panel.php:716
 msgid "Title"
 msgstr "Title (Başlık)"
 
-#: amt-admin-panel.php:686
-msgid ""
-"Enter a custom title to be used in the <em>title</em> tag. "
-"<code>%title%</code> is expanded to the current title."
-msgstr "<em>Title</em> etiketinde kullanılmak üzere bir başlık girin. <code>%title%</code>, şu anki başlığı genişletir."
+#: amt-admin-panel.php:719
+msgid "Enter a custom title to be used in the <em>title</em> tag."
+msgstr "<em>title</em> etiketinde kullanılması için özel bir başlık girin."
 
-#: amt-admin-panel.php:697
+#: amt-admin-panel.php:736
 msgid "News Keywords"
 msgstr "News Keywords (Haber Anahtar Kelimeleri)"
 
-#: amt-admin-panel.php:700
+#: amt-admin-panel.php:739
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -513,11 +512,11 @@ msgid ""
 " help page</a>."
 msgstr "<strong>Haber anahtar kelimelerinin</strong> virgülle ayrılmış bir listesini girin. Bu meta etiketi hakkında daha fazla bilgi için lütfen bu <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">Google yardım sayfasına</a> bakın."
 
-#: amt-admin-panel.php:711
+#: amt-admin-panel.php:756
 msgid "Full meta tags"
 msgstr "Tam meta etiketleri"
 
-#: amt-admin-panel.php:714
+#: amt-admin-panel.php:759
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -525,23 +524,23 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Bu içeriğe eklemek istediğiniz ekstra META öğelerinin tam XHTML kodunu sağlar (Vikipedi'de <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML öğeleri</a> hakkında daha fazlasını okuyun)."
 
-#: amt-admin-panel.php:717
+#: amt-admin-panel.php:762
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Örneğin, arama motoru sonuçlarında mevcut olan bu içeriğin önbelleklenmiş bir kopyasını önlemek için aşağıdaki meta etiketini ekleyebilirsiniz:"
 
-#: amt-admin-panel.php:722
+#: amt-admin-panel.php:767
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Önemli not: güvenlik nedenlerinden dolayı bu kutuda sadece <code>meta</code> öğelerine izin verilir. Tüm diğer HTML öğeleri otomatik olarak kaldırılır."
 
-#: amt-admin-panel.php:733
+#: amt-admin-panel.php:784
 msgid "URLs of referenced items"
 msgstr "Kaynak gösterilen öğelerin URL'leri"
 
-#: amt-admin-panel.php:736
+#: amt-admin-panel.php:787
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "

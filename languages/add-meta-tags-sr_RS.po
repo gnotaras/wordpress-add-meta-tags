@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-20 01:47+0200\n"
-"PO-Revision-Date: 2014-12-19 23:48+0000\n"
+"POT-Creation-Date: 2014-12-20 18:00+0200\n"
+"PO-Revision-Date: 2014-12-20 16:01+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/projects/p/add-meta-tags/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Postavke"
 msgid "Metadata Settings"
 msgstr "Metadata postavke"
 
-#: amt-admin-panel.php:50 amt-admin-panel.php:509
+#: amt-admin-panel.php:50 amt-admin-panel.php:524
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -163,7 +163,7 @@ msgid ""
 msgstr "Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\"edit-tags.php?taxonomy=category\">categories</a> will be used as keywords for the <em>keywords</em> meta tag."
 
 #: amt-admin-panel.php:209 amt-admin-panel.php:228 amt-admin-panel.php:232
-#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:657
+#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:684
 msgid "Example"
 msgstr "primer"
 
@@ -442,17 +442,17 @@ msgstr "Sačuvaj promene"
 msgid "Reset to defaults"
 msgstr "Restuj na default"
 
-#: amt-admin-panel.php:610
+#: amt-admin-panel.php:631
 msgid "Description"
 msgstr "Opis"
 
-#: amt-admin-panel.php:613
+#: amt-admin-panel.php:634
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "Unesite custom opis 30-50 reči (bazirano na prosečnoj dužini reči od 5 karaktera)"
 
-#: amt-admin-panel.php:620
+#: amt-admin-panel.php:641
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -460,52 +460,51 @@ msgid ""
 "content."
 msgstr "Ako je <em>description</em>  polje ostavljeno prazno,  <em>description</em> meta tag će <strong>automatski</strong> generisati iz excerpta ako excerpt još uvek nije namešten, direktno iz prvog paragrafa sadržaja."
 
-#: amt-admin-panel.php:626 amt-admin-panel.php:632
+#: amt-admin-panel.php:647 amt-admin-panel.php:653
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "Ako je <em>description</em>  polje ostavljeno prazno,  <em>description</em> meta tag će <strong>automatski</strong>  generisati iz prvog paragrafa sadržaja."
 
-#: amt-admin-panel.php:645
+#: amt-admin-panel.php:672
 msgid "Keywords"
 msgstr "Keywords"
 
-#: amt-admin-panel.php:648
+#: amt-admin-panel.php:675
 msgid "Enter keywords separated with commas."
 msgstr "Unesite keywords odvojene zarezima."
 
-#: amt-admin-panel.php:655
+#: amt-admin-panel.php:682
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and tags in that "
-"list by using the special placeholders <code>%cats%</code> and "
-"<code>%tags%</code> respectively."
+" it is possible to easily include the post's categories, tags and custom "
+"taxonomy terms in that list by using the special placeholders "
+"<code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> "
+"respectively."
 msgstr ""
 
-#: amt-admin-panel.php:663 amt-admin-panel.php:669
+#: amt-admin-panel.php:690 amt-admin-panel.php:696
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "<strong>will not be automatically</strong> generated."
 msgstr "Ako je <em>keywords</em> polje ostavljeno prazno, <em>keywords</em> meta tag <strong>neće biti automatski</strong> generisan."
 
-#: amt-admin-panel.php:683
+#: amt-admin-panel.php:716
 msgid "Title"
 msgstr "Naslov"
 
-#: amt-admin-panel.php:686
-msgid ""
-"Enter a custom title to be used in the <em>title</em> tag. "
-"<code>%title%</code> is expanded to the current title."
-msgstr "Unesite custom naslov da bi se koristio u <em>title</em> tagu.<code>%title%</code> je proširen u trenutnom fajlu."
+#: amt-admin-panel.php:719
+msgid "Enter a custom title to be used in the <em>title</em> tag."
+msgstr ""
 
-#: amt-admin-panel.php:697
+#: amt-admin-panel.php:736
 msgid "News Keywords"
 msgstr "News Keywords"
 
-#: amt-admin-panel.php:700
+#: amt-admin-panel.php:739
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -513,11 +512,11 @@ msgid ""
 " help page</a>."
 msgstr "Unesite listu podeljenu zarezima <strong>news keywords</strong>. Za više informacija o meta tag-u, molimo vas pogledjte<a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\"> Google stranicu za pomoć</a>."
 
-#: amt-admin-panel.php:711
+#: amt-admin-panel.php:756
 msgid "Full meta tags"
 msgstr "Celi meta tagovi"
 
-#: amt-admin-panel.php:714
+#: amt-admin-panel.php:759
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -525,23 +524,23 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Omogućite ceo XHTML kod za ekstra META elemente koje biste želeli da dodate na ovaj sadržaj (pročitaj vipe o ovome<a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
 
-#: amt-admin-panel.php:717
+#: amt-admin-panel.php:762
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Npr da biste sprečili DA cached kopijA ovog sadržaja bude dostupna u rezultatima pretraživača, možete da dodate sledeći metatag:"
 
-#: amt-admin-panel.php:722
+#: amt-admin-panel.php:767
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Važna beleška: iz bezbednosnih razloga samo <code>meta</code> elementi su dozvoljeni u ovom kvadratu. Svi ostali HTML elementi su automatski uklonjeni."
 
-#: amt-admin-panel.php:733
+#: amt-admin-panel.php:784
 msgid "URLs of referenced items"
 msgstr ""
 
-#: amt-admin-panel.php:736
+#: amt-admin-panel.php:787
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "

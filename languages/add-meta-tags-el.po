@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-20 01:47+0200\n"
-"PO-Revision-Date: 2014-12-20 02:27+0000\n"
+"POT-Creation-Date: 2014-12-20 18:00+0200\n"
+"PO-Revision-Date: 2014-12-20 16:01+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Ρυθμίσεις"
 msgid "Metadata Settings"
 msgstr "Ρυθμίσεις Μεταδεδομένων"
 
-#: amt-admin-panel.php:50 amt-admin-panel.php:509
+#: amt-admin-panel.php:50 amt-admin-panel.php:524
 msgid "Metadata"
 msgstr "Μεταδεδομένα"
 
@@ -163,7 +163,7 @@ msgid ""
 msgstr "Εισάγετε μια λίστα λέξεων-κλειδιών για το ιστολόγιό σας. Αυτές οι λέξεις-κλειδιά θα χρησιμοποιηθούν στο metatag <em>keywords</em> στην <strong>πρώτη σελίδα</strong>. Αν αυτό το πεδίο παραμείνει κενό, τότε όλες οι <a href=\"edit-tags.php?taxonomy=category\">κατηγορίες</a> του ιστολογίου σας θα χρησιμοποιηθούν ως λέξεις-κλειδιά για το metatag <em>keywords</em>."
 
 #: amt-admin-panel.php:209 amt-admin-panel.php:228 amt-admin-panel.php:232
-#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:657
+#: amt-admin-panel.php:419 amt-admin-panel.php:436 amt-admin-panel.php:684
 msgid "Example"
 msgstr "Παράδειγμα"
 
@@ -442,17 +442,17 @@ msgstr "Αποθήκευση αλλαγών"
 msgid "Reset to defaults"
 msgstr "Επαναφορά αρχικών ρυθμίσεων"
 
-#: amt-admin-panel.php:610
+#: amt-admin-panel.php:631
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: amt-admin-panel.php:613
+#: amt-admin-panel.php:634
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "Εισάγετε μια προσαρμοσμένη περιγραφή 30-50 λέξεων (βασιμένο σε μήκος λέξεων των 5 χαρακτήρων κατά μέσο όρο)."
 
-#: amt-admin-panel.php:620
+#: amt-admin-panel.php:641
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -460,52 +460,51 @@ msgid ""
 "content."
 msgstr "Αν το πεδίο <em>περιγραφή</em> παραμείνει κενό, το metatag <em>description</em> θα δημιουργηθεί <strong>αυτόματα</strong> από την περίληψη ή, αν η περίληψη δεν έχει οριστεί, απ'ευθείας από την πρώτη παράγραφο του περιεχομένου."
 
-#: amt-admin-panel.php:626 amt-admin-panel.php:632
+#: amt-admin-panel.php:647 amt-admin-panel.php:653
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "Αν το πεδίο <em>περιγραφή</em> παραμείνει κενό, το metatag <em>description</em> θα δημιουργηθεί <strong>αυτόματα</strong> από την πρώτη παράγραφο του περιεχομένου."
 
-#: amt-admin-panel.php:645
+#: amt-admin-panel.php:672
 msgid "Keywords"
 msgstr "Λέξεις-κλειδιά"
 
-#: amt-admin-panel.php:648
+#: amt-admin-panel.php:675
 msgid "Enter keywords separated with commas."
 msgstr "Εισάγετε λέξεις-κλειδιά χωρισμένες με κόμμα."
 
-#: amt-admin-panel.php:655
+#: amt-admin-panel.php:682
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories "
 "and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories and tags in that "
-"list by using the special placeholders <code>%cats%</code> and "
-"<code>%tags%</code> respectively."
-msgstr "Αν το πεδίο <em>λέξεις-κλειδιά</em> παραμείνει κενό, το metatag <em>keywords</em> θα δημιουργηθεί <strong>αυτόματα</strong> από τις κατηγορίες και τις ετικέτες του άρθρου. Στην περίπτωση που επιλέξετε να ορίσετε μια προσαρμοσμένη λίστα λέξεων-κλειδιών γι' αυτό το άρθρο, είναι δυνατόν εύκολα να συμπεριλάβετε τις κατηγορίες και τις ετικέτες του άρθρου χρησιμοποιώντας τους ειδικούς αντικαταστάτες <code>%cats%</code> και <code>%tags%</code> αντίστοιχα."
+" it is possible to easily include the post's categories, tags and custom "
+"taxonomy terms in that list by using the special placeholders "
+"<code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> "
+"respectively."
+msgstr ""
 
-#: amt-admin-panel.php:663 amt-admin-panel.php:669
+#: amt-admin-panel.php:690 amt-admin-panel.php:696
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "<strong>will not be automatically</strong> generated."
 msgstr "Αν το πεδίο <em>λέξεις-κλειδιά</em> παραμείνει κενό, το metatag <em>keywords</em> <strong>δεν θα δημιουργηθεί αυτόματα</strong>."
 
-#: amt-admin-panel.php:683
+#: amt-admin-panel.php:716
 msgid "Title"
 msgstr "Τίτλος"
 
-#: amt-admin-panel.php:686
-msgid ""
-"Enter a custom title to be used in the <em>title</em> tag. "
-"<code>%title%</code> is expanded to the current title."
-msgstr "Εισάγετε έναν προσαρμοσμένο τίτλο ο οποίος θα χρησιμοποιηθεί στο στοιχείο <em>title</em>. Το <code>%title%</code> εκπτύσσεται στον τρέχοντα τίτλο."
+#: amt-admin-panel.php:719
+msgid "Enter a custom title to be used in the <em>title</em> tag."
+msgstr ""
 
-#: amt-admin-panel.php:697
+#: amt-admin-panel.php:736
 msgid "News Keywords"
 msgstr "Λέξεις-κλειδιά νέων"
 
-#: amt-admin-panel.php:700
+#: amt-admin-panel.php:739
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -513,11 +512,11 @@ msgid ""
 " help page</a>."
 msgstr "Εισάγετε μια λίστα <strong>λέξεων-κλειδιών νέων</strong>. Για περισσότερες πληροφορίες σχετικά με αυτό το metatag, παρακαλώ δείτε αυτή την <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">σελίδα βοήθειας στη Google</a>."
 
-#: amt-admin-panel.php:711
+#: amt-admin-panel.php:756
 msgid "Full meta tags"
 msgstr "Ολόκληρα meta tags"
 
-#: amt-admin-panel.php:714
+#: amt-admin-panel.php:759
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -525,23 +524,23 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Εισάγετε ολόκληρο τον XHTML κώδικα των επιπλέον στοιχείων META τα οποία θα θέλατε να προσθέσετε σ' αυτό το περιεχόμενο (διαβάστε περισσότερα για το <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">στοιχείο HTML META</a> στην Wikipedia)."
 
-#: amt-admin-panel.php:717
+#: amt-admin-panel.php:762
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Για παράδειγμα, προκειμένου να εμποδίσετε ένα αποθηκευμένο αντίγραφο αυτού του περιεχομένου από το είναι διαθέσιμο στα αποτελέσματα των μηχανών αναζήτησης, μπορείτε να προσθέσετε το παρακάτω metatag:"
 
-#: amt-admin-panel.php:722
+#: amt-admin-panel.php:767
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Σημαντική σημείωση: για λόγους ασφαλείας μόνον στοιχεία <code>meta</code> επιτρέπονται σ' αυτό το πλαίσιο. Όλα τα άλλα στοιχεία HTML αφαιρούνται αυτόματα."
 
-#: amt-admin-panel.php:733
+#: amt-admin-panel.php:784
 msgid "URLs of referenced items"
 msgstr "Διευθύνσεις αντικειμένων αναφοράς"
 
-#: amt-admin-panel.php:736
+#: amt-admin-panel.php:787
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "
