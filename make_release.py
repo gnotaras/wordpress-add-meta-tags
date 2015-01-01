@@ -8,6 +8,7 @@ REL_FILES = [
     'amt-settings.php',
     'amt-template-tags.php',
     'amt-utils.php',
+    'index.php',
     'AUTHORS',
     #'CONTRIBUTORS',
 	'LICENSE',
