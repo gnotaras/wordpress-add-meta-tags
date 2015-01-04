@@ -95,9 +95,10 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // See why we do not use strstr(): http://www.codetrax.org/issues/1091
         $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
+        // Images
         if ( 'image' == $attachment_type ) {
             
-            // $post is an image object
+            // $post is an image attachment
 
             // Image attachments
             //$image_meta = wp_get_attachment_metadata( $post->ID );   // contains info about all sizes
@@ -124,12 +125,48 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
             }
 
-        } elseif ( 'video' == $attachment_type ) {
-            // No player card for local video.
-            // Will require a page like http://player.vimeo.com/video/VIDEO_ID
-        } elseif ( 'audio' == $attachment_type ) {
-            // No player card for local audio.
-            // Will require a page like http://player.vimeo.com/video/VIDEO_ID
+        // Audio & Video
+        } elseif ( $options["tc_enable_player_card_local"] == "1" && in_array( $attachment_type, array( 'video', 'audio' ) ) ) {
+            // Create player card for local video and audio attachments.
+
+            // $post is an audio or video attachment
+
+            // Type
+            $metadata_arr[] = '<meta property="twitter:card" content="player" />';
+            // Author and Publisher
+            $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
+            // Title
+            $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+            // Description - We use the description defined by Add-Meta-Tags
+            $content_desc = amt_get_content_description($post);
+            if ( !empty($content_desc) ) {
+                $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( $content_desc ) . '" />';
+            }
+
+            // twitter:player
+            $metadata_arr[] = sprintf( '<meta property="twitter:player" content="%s" />', esc_url_raw( amt_make_https( amt_embed_get_container_url( $post->ID ) ) ) );
+
+            // Player size
+            if ( 'video' == $attachment_type ) {
+                // Player size (this should be considered irrelevant of the video size)
+                $player_size = apply_filters( 'amt_twitter_cards_video_player_size', array(640, 480) );
+            } elseif ( 'audio' == $attachment_type ) {
+                $player_size = apply_filters( 'amt_twitter_cards_audio_player_size', array(320, 30) );
+            }
+            // twitter:player:width
+            $metadata_arr[] = sprintf( '<meta property="twitter:player:width" content="%d" />', esc_attr( $player_size[0] ) );
+            // twitter:player:height
+            $metadata_arr[] = sprintf( '<meta property="twitter:player:height" content="%d" />', esc_attr( $player_size[1] ) );
+            // twitter:image
+            $preview_image_url = amt_embed_get_preview_image( $post->ID );
+            if ( ! empty( $preview_image_url ) ) {
+                $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( amt_make_https( $preview_image_url ) ) . '" />';
+            }
+            // twitter:player:stream
+            $metadata_arr[] = '<meta property="twitter:player:stream" content="' . esc_url_raw( amt_make_https( amt_embed_get_stream_url( $post->ID ) ) ) . '" />';
+            // twitter:player:stream:content_type
+            $metadata_arr[] = '<meta property="twitter:player:stream:content_type" content="' . esc_attr( $mime_type ) . '" />';
+            //$metadata_arr[] = '<meta property="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">';
         }
 
 
@@ -306,74 +343,144 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
     // Content
     // - video/audio format (creates player card)
+    // Note: The ``tc_enable_player_card_local`` option is checked after this initial check,
+    // because 'player' twitter cards are always generated for embedded audio and video.
     } elseif ( get_post_format($post->ID) == 'video' || get_post_format($post->ID) == 'audio' ) {
 
-        // Render a player card.
+        $post_format = get_post_format($post->ID);
 
-        // Type
-        $metadata_arr[] = '<meta property="twitter:card" content="player" />';
-        // Author and Publisher
-        $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
-        // Title
-        // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
-        // Description - We use the description defined by Add-Meta-Tags
-        // Note: Contains multipage information through amt_process_paged()
-        $content_desc = amt_get_content_description($post);
-        if ( !empty($content_desc) ) {
-            $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+        $audio_video_metatags_complete = false;
+
+        // Process local media only if it is allowed by the user.
+        if ( $audio_video_metatags_complete === false && $options["tc_enable_player_card_local"] == "1" ) {
+
+            // Local media - Process all attachments and add metatags for the first video
+            foreach( $attachments as $attachment ) {
+
+                $mime_type = get_post_mime_type( $attachment->ID );
+                //$attachment_type = strstr( $mime_type, '/', true );
+                // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+                $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+                // Get attachment metadata from WordPress
+                $attachment_metadata = wp_get_attachment_metadata( $attachment->ID );
+
+                // We create player cards for video and audio attachments.
+                // The post might have attachments of other types.
+                if ( ! in_array( $attachment_type, array( 'video', 'audio' ) ) ) {
+                    continue;
+                } elseif ( $attachment_type != $post_format ) {
+                    continue;
+                }
+
+                // Render a player card for the first attached audio or video.
+
+                // twitter:card
+                $metadata_arr[] = '<meta property="twitter:card" content="player" />';
+                // Author and Publisher
+                $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
+                // twitter:title
+                // Title - Note: Contains multipage information through amt_process_paged()
+                $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+                // twitter:description
+                // Description - We use the description defined by Add-Meta-Tags
+                // Note: Contains multipage information through amt_process_paged()
+                $content_desc = amt_get_content_description($post);
+                if ( !empty($content_desc) ) {
+                    $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+                }
+
+                // twitter:player
+                $metadata_arr[] = sprintf( '<meta property="twitter:player" content="%s" />', esc_url_raw( amt_make_https( amt_embed_get_container_url( $attachment->ID ) ) ) );
+
+                // Player size
+                if ( $post_format == 'video' ) {
+                    // Player size (this should be considered irrelevant of the video size)
+                    $player_size = apply_filters( 'amt_twitter_cards_video_player_size', array(640, 480) );
+                } elseif ( $post_format == 'audio' ) {
+                    $player_size = apply_filters( 'amt_twitter_cards_audio_player_size', array(320, 30) );
+                }
+                // twitter:player:width
+                $metadata_arr[] = sprintf( '<meta property="twitter:player:width" content="%d" />', esc_attr( $player_size[0] ) );
+                // twitter:player:height
+                $metadata_arr[] = sprintf( '<meta property="twitter:player:height" content="%d" />', esc_attr( $player_size[1] ) );
+                // twitter:image
+                $preview_image_url = amt_embed_get_preview_image( $attachment->ID );
+                if ( ! empty( $preview_image_url ) ) {
+                    $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( amt_make_https( $preview_image_url ) ) . '" />';
+                }
+                // twitter:player:stream
+                $metadata_arr[] = '<meta property="twitter:player:stream" content="' . esc_url_raw( amt_make_https( amt_embed_get_stream_url( $attachment->ID ) ) ) . '" />';
+                // twitter:player:stream:content_type
+                $metadata_arr[] = '<meta property="twitter:player:stream:content_type" content="' . esc_attr( $mime_type ) . '" />';
+                //$metadata_arr[] = '<meta property="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">';
+
+                $audio_video_metatags_complete = true;
+
+                break;
+            }
         }
 
-        // 
-        $video_metatags_set = false;
+        // Process embedded media only if a twitter player card has not been generated.
+        if ( $audio_video_metatags_complete === false ) {
 
-        /** LOCAL VIDEO/AUDIO ATTACHMENTS NOT SUPPORTED AT THIS TIME
-        // Process all attachments and add metatags for the first video
-        foreach( $attachments as $attachment ) {
+            // Determine the relevant array (videos or sounds)
+            if ( $post_format == 'video' ) {
+                $embedded_items = $embedded_media['videos'];
+            } elseif ( $post_format == 'audio' ) {
+                $embedded_items = $embedded_media['sounds'];
+            }
 
-            $mime_type = get_post_mime_type( $attachment->ID );
-            //$attachment_type = strstr( $mime_type, '/', true );
-            // See why we do not use strstr(): http://www.codetrax.org/issues/1091
-            $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+            // Embedded Media
+            foreach( $embedded_items as $embedded_item ) {
 
-            if ( 'video' == $attachment_type ) {
-                // Video tags
-                $metadata_arr[] = '<meta property="twitter:player" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
-                <meta property="twitter:player" content="https://example.com/embed/a">
-                <meta property="twitter:player:width" content="435">
-                <meta property="twitter:player:height" content="251">
-                <meta property="twitter:player:stream" content="https://example.com/raw-stream/a.mp4">
-                <meta property="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E1, mp4a.40.2&quot;">
+                // Render a player card for the first embedded video.
+
+                // twitter:card
+                $metadata_arr[] = '<meta property="twitter:card" content="player" />';
+                // Author and Publisher
+                $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $post ) );
+                // twitter:title
+                // Title - Note: Contains multipage information through amt_process_paged()
+                $metadata_arr[] = '<meta property="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+                // twitter:description
+                // Description - We use the description defined by Add-Meta-Tags
+                // Note: Contains multipage information through amt_process_paged()
+                $content_desc = amt_get_content_description($post);
+                if ( !empty($content_desc) ) {
+                    $metadata_arr[] = '<meta property="twitter:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+                }
+
+                // twitter:player
+                $metadata_arr[] = '<meta property="twitter:player" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                // Player size
+                // Mode 1: Size uses  $content_width
+                //global $content_width;
+                //$width = $content_width;
+                //$height = absint(absint($content_width)*3/4);
+                //$metadata_arr[] = '<meta property="twitter:width" content="' . esc_attr( $width ) . '" />';
+                //$metadata_arr[] = '<meta property="twitter:height" content="' . esc_attr( $height ) . '" />';
+                // Mode 2: Size hard coded but filtered.
+                // Player size
+                if ( $post_format == 'video' ) {
+                    // Player size (this should be considered irrelevant of the video size)
+                    $player_size = apply_filters( 'amt_twitter_cards_video_player_size', array(640, 480) );
+                } elseif ( $post_format == 'audio' ) {
+                    $player_size = apply_filters( 'amt_twitter_cards_audio_player_size', array(320, 30) );
+                }
+                // twitter:player:width
+                $metadata_arr[] = sprintf( '<meta property="twitter:player:width" content="%d" />', $player_size[0] );
+                // twitter:player:height
+                $metadata_arr[] = sprintf( '<meta property="twitter:player:height" content="%d" />', $player_size[1] );
+                // twitter:image
+                if ( ! empty( $embedded_item['thumbnail'] ) ) {
+                    $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
+                }
+
                 //
-                $video_metatags_set = true;
+                $audio_video_metatags_complete = true;
+
+                break;
             }
-        }
-        */
-
-        // Embedded Media
-        foreach( $embedded_media['videos'] as $embedded_item ) {
-            // player
-            $metadata_arr[] = '<meta property="twitter:player" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
-            // Player size
-            // Mode 1: Size uses  $content_width
-            //global $content_width;
-            //$width = $content_width;
-            //$height = absint(absint($content_width)*3/4);
-            //$metadata_arr[] = '<meta property="twitter:width" content="' . esc_attr( $width ) . '" />';
-            //$metadata_arr[] = '<meta property="twitter:height" content="' . esc_attr( $height ) . '" />';
-            // Mode 2: Size hard coded
-            $video_player_size = apply_filters( 'amt_twitter_cards_video_player_size', array(640, 480) );
-            $metadata_arr[] = sprintf( '<meta property="twitter:width" content="%d" />', $video_player_size[0] );
-            $metadata_arr[] = sprintf( '<meta property="twitter:height" content="%d" />', $video_player_size[1] );
-            // image
-            if ( ! empty( $embedded_item['thumbnail'] ) ) {
-                $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
-            }
-
-            //
-            $video_metatags_set = true;
-
-            break;
         }
 
     }
@@ -401,4 +508,5 @@ function amt_get_twitter_cards_author_publisher_metatags( $post ) {
     }
     return $metadata_arr;
 }
+
 

@@ -65,6 +65,7 @@ require_once( AMT_PLUGIN_DIR . 'amt-settings.php' );
 require_once( AMT_PLUGIN_DIR . 'amt-admin-panel.php' );
 require_once( AMT_PLUGIN_DIR . 'amt-utils.php' );
 require_once( AMT_PLUGIN_DIR . 'amt-template-tags.php' );
+require_once( AMT_PLUGIN_DIR . 'amt-embed.php' );
 require_once( AMT_PLUGIN_DIR . 'metadata/amt_basic.php' );
 require_once( AMT_PLUGIN_DIR . 'metadata/amt_twitter_cards.php' );
 require_once( AMT_PLUGIN_DIR . 'metadata/amt_opengraph.php' );

@@ -1141,6 +1141,7 @@ function amt_get_embedded_media( $post ) {
     // Keys:
     // page - URL to a HTML page that contains the object.
     // player - URL to the player that can be used in an iframe.
+    // thumbnail - URL to a preview image
 
     // Youtube
     // Supported:
@@ -1161,6 +1162,9 @@ function amt_get_embedded_media( $post ) {
                 // Since we can construct the video thumbnail from the ID, we add it
                 'thumbnail' => 'http://img.youtube.com/vi/' . $youtube_video_id . '/0.jpg'
                 // TODO: check http://i1.ytimg.com/vi/FTnqYIkjSjQ/maxresdefault.jpg    MAXRES
+                // http://img.youtube.com/vi/rr6H-MJCNw0/hqdefault.jpg  480x360
+                // http://img.youtube.com/vi/rr6H-MJCNw0/sddefault.jpg  640x480
+                // See more here: http://stackoverflow.com/a/2068371
             );
             array_unshift( $embedded_media_urls['videos'], $item );
         }
@@ -1192,6 +1196,7 @@ function amt_get_embedded_media( $post ) {
     // Keys:
     // page - URL to a HTML page that contains the object.
     // player - URL to the player that can be used in an iframe.
+    // thumbnail - URL to a preview image -= ALWAYS EMPTY, but needed for the player twitter card.
 
     // Soundcloud
     // Supported:
@@ -1207,7 +1212,8 @@ function amt_get_embedded_media( $post ) {
         foreach( $matches[0] as $soundcloud_url ) {
             $item = array(
                 'page' => $soundcloud_url,
-                'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url
+                'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url,
+                'thumbnail' => ''
             );
             array_unshift( $embedded_media_urls['sounds'], $item );
         }
@@ -1343,5 +1349,16 @@ function amt_metatag_highlighter( $metatags ) {
     //$metatags = str_replace('/>', '/&gt;', $metatags);
 
     return $metatags;
+}
+
+
+// Accepts a URL and converts the protocol to https. Returns the processed URL.
+function amt_make_https( $url ) {
+    return preg_replace( '#^http://#' , 'https://', $url );
+}
+
+
+function amt_return_false() {
+    return false;
 }
 

@@ -88,7 +88,7 @@ function amt_options_page() {
     // Get the options from the DB.
     $options = get_option("add_meta_tags_opts");
 
-    // var_dump($options);
+    //var_dump($options);
 
     /*
     Configuration Page
@@ -313,6 +313,13 @@ function amt_options_page() {
                 '.__('Automatically generate Twitter Cards meta tags for content and attachments. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'
                 </label>
                 <br />
+
+                <input id="tc_enable_player_card_local" type="checkbox" value="1" name="tc_enable_player_card_local" '. (($options["tc_enable_player_card_local"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="tc_enable_player_card_local">
+                '.__('Enable the generation of <em>player</em> cards for locally hosted audio and video attachments or for posts with their post format set to audio or video. In the latter case, an audio or video is expected to be attached to the post respectively. A mandatory requirement for this feature, as outlined in the Twitter Cards specifications, is secure access to your web site over the HTTPS protocol. If secure access to your web site has not been configured properly, the player cards will not be rendered by the Twitter service. Moreover, using self-signed certificates could cause problems which might be hard to identify. This feature should be considered experimental.', 'add-meta-tags').'
+                </label>
+                <br />
+
                 <strong>'.__('Important Notes', 'add-meta-tags').'</strong>:
                 <br /> &raquo; '
                 .__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>.', 'add-meta-tags').'

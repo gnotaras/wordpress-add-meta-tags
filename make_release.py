@@ -8,6 +8,7 @@ REL_FILES = [
     'amt-settings.php',
     'amt-template-tags.php',
     'amt-utils.php',
+    'amt-embed.php',
     'index.php',
     'AUTHORS',
     #'CONTRIBUTORS',
@@ -23,6 +24,7 @@ REL_FILES = [
 ]
 
 REL_DIRS = [
+    'templates',
     'metadata',
     'languages',
     'css',
@@ -105,6 +107,9 @@ for rf in REL_FILES:
 for rf in os.listdir('metadata'):
     if rf.endswith('.php'):
         args.append( os.path.join( 'metadata', rf ) )
+for rf in os.listdir('templates'):
+    if rf.endswith('.php'):
+        args.append( os.path.join( 'templates', rf ) )
 print (' ').join(args)
 
 p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
