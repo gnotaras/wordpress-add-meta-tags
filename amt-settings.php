@@ -161,7 +161,8 @@ function amt_plugin_upgrade() {
     update_option("add_meta_tags_opts", $stored_options);
 
 }
-add_action('plugins_loaded', 'amt_plugin_upgrade');
+//add_action('plugins_loaded', 'amt_plugin_upgrade');
+// Called in function amt_admin_init() in amt-admin-panel.php
 
 
 /**

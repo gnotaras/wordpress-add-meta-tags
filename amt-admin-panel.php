@@ -59,10 +59,50 @@ function amt_show_info_msg($msg) {
  * Administration Panel - Add-Meta-Tags Settings
  */
 
-function amt_add_pages() {
-    add_options_page(__('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page');
+function amt_admin_init() {
+
+    // Here we just add some dummy variables that contain the plugin name and
+    // the description exactly as they appear in the plugin metadata, so that
+    // they can be translated.
+    $amt_plugin_name = __('Add Meta Tags', 'add-meta-tags');
+    $amt_plugin_description = __('Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and Dublin Core metadata to optimize your web site for better SEO.', 'add-meta-tags');
+
+    // Perform automatic settings upgrade based on settings version.
+    // Also creates initial default settings automatically.
+    amt_plugin_upgrade();
+
+    // Register scripts and styles
+
+    /* Register our script for the color picker. */
+    // wp_register_script( 'myPluginScript', plugins_url( 'script.js', AMT_PLUGIN_FILE ) );
+    /* Register our stylesheet. */
+    // wp_register_style( 'myPluginStylesheet', plugins_url( 'stylesheet.css', AMT_PLUGIN_FILE ) );
+
 }
-add_action('admin_menu', 'amt_add_pages');
+add_action( 'admin_init', 'amt_admin_init' );
+
+
+function amt_admin_menu() {
+    /* Register our plugin page */
+    add_options_page( __('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page' );
+}
+add_action( 'admin_menu', 'amt_admin_menu');
+
+
+/** Enqueue scripts and styles
+ *  From: http://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts#Example:_Target_a_Specific_Admin_Page
+ */
+function amt_enqueue_admin_scripts_and_styles( $hook ) {
+    //var_dump($hook);
+    if ( 'settings_page_add-meta-tags-options' != $hook ) {
+        return;
+    }
+    // Enqueue script and style for the color picker.
+    //wp_enqueue_script( 'myPluginScript' );
+    //wp_enqueue_style( 'myPluginStylesheet' );
+}
+add_action( 'admin_enqueue_scripts', 'amt_enqueue_admin_scripts_and_styles' );
+// Note: `admin_print_styles` should not be used to enqueue styles or scripts on the admin pages. Use `admin_enqueue_scripts` instead. 
 
 
 function amt_options_page() {
@@ -86,7 +126,6 @@ function amt_options_page() {
 
     // Get the options from the DB.
     $options = get_option("add_meta_tags_opts");
-
     //var_dump($options);
 
     /*
