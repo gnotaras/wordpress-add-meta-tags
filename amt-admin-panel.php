@@ -116,7 +116,11 @@ function amt_options_page() {
 
     if (isset($_POST['info_update'])) {
 
+        // Save the Add-Meta-Tags settings
         amt_save_settings($_POST);
+        // Also, since it may happen that the rewrite rules have not been flushed
+        // this is a good place to do it.
+        flush_rewrite_rules();
 
     } elseif (isset($_POST["info_reset"])) {
 
