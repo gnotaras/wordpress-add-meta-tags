@@ -49,6 +49,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+// Display information message
+function amt_show_info_msg($msg) {
+    echo '<div id="message" class="updated fade"><p>' . esc_attr( $msg ) . '</p></div>';
+}
+
+
 /**
  * Administration Panel - Add-Meta-Tags Settings
  */
@@ -57,13 +63,6 @@ function amt_add_pages() {
     add_options_page(__('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page');
 }
 add_action('admin_menu', 'amt_add_pages');
-
-
-function amt_show_info_msg($msg) {
-    echo '<div id="message" class="updated fade"><p>' . esc_attr( $msg ) . '</p></div>';
-}
-
-
 
 
 function amt_options_page() {
