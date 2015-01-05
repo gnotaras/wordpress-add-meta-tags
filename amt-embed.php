@@ -112,9 +112,7 @@ function amt_embed_template_redirect() {
             // This happens only if the `woocommerce_unforce_ssl_checkout` option is checked.
             // Fortunatelly the WooCommerce developers have added a filter for easy resolution
             // of any issues. See the `class-wc-https.php` of the WooCommerce plugin.
-            add_filter( 'woocommerce_unforce_ssl_checkout', function() {
-                return false;
-            });
+            add_filter( 'woocommerce_unforce_ssl_checkout', 'amt_return_false' );
         }
     }
 }
