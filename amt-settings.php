@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function amt_get_default_options() {
     return array(
-        "settings_version"  => 6,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
+        "settings_version"  => 7,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -73,6 +73,12 @@ function amt_get_default_options() {
         "noindex_tag_archives"       => "0",
         "noindex_taxonomy_archives"  => "0",
         "noindex_author_archives"    => "0",
+        "metabox_enable_description"     => "1",
+        "metabox_enable_keywords"        => "1",
+        "metabox_enable_title"           => "1",
+        "metabox_enable_news_keywords"   => "0",
+        "metabox_enable_full_metatags"   => "0",
+        "metabox_enable_referenced_list" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
         "review_mode"       => "0",
@@ -149,6 +155,15 @@ function amt_plugin_upgrade() {
     // Added ``tc_enable_player_card_local``
     // No migrations required. Addition takes place in (1).
 
+    // Version 2.6.0 (settings_version 6->7)
+    // Added "metabox_enable_description"
+    // Added "metabox_enable_keywords"
+    // Added "metabox_enable_title"
+    // Added "metabox_enable_news_keywords"
+    // Added "metabox_enable_full_metatags"
+    // Added "metabox_enable_referenced_list"
+    // No migrations required. Addition takes place in (1).
+
     // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {
         if ( !array_key_exists($opt, $default_options) ) {
@@ -212,10 +227,12 @@ function amt_save_settings($post_payload) {
 
             // The following settings have a default value of 1, so they can never be
             // deactivated, unless the following check takes place.
-            if (
-                $def_key == 'auto_description' ||
-                $def_key == 'auto_keywords' ||
-                $def_key == 'noindex_search_results'
+            if (   $def_key == 'auto_description'
+                || $def_key == 'auto_keywords'
+                || $def_key == 'noindex_search_results'
+                || $def_key == 'metabox_enable_description'
+                || $def_key == 'metabox_enable_keywords'
+                || $def_key == 'metabox_enable_title'
             ) {
                 if( !isset($post_payload[$def_key]) ){
                     $add_meta_tags_opts[$def_key] = "0";

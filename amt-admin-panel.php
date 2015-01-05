@@ -403,6 +403,50 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Metabox Features', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Metabox Features', 'add-meta-tags').'</span></legend>
+
+                <p>'.__('It is possible to partially customize the generated metadata on a per post basis through the <em>Metadata</em> metabox which exists in the post editing screen. Below you can choose which metabox features should be enabled. Enabling or disabling these features has no effect on the custom data that has been stored for each post.', 'add-meta-tags').'</p>
+
+                <p><input id="metabox_enable_description" type="checkbox" value="1" name="metabox_enable_description" '. (($options["metabox_enable_description"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_description">
+                '.__('Custom description (<em>Recommended</em>).', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_enable_keywords" type="checkbox" value="1" name="metabox_enable_keywords" '. (($options["metabox_enable_keywords"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_keywords">
+                '.__('Custom keywords (<em>Recommended</em>).', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_enable_title" type="checkbox" value="1" name="metabox_enable_title" '. (($options["metabox_enable_title"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_title">
+                '.__('Custom content of the <code>title</code> HTML element.', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_enable_news_keywords" type="checkbox" value="1" name="metabox_enable_news_keywords" '. (($options["metabox_enable_news_keywords"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_news_keywords">
+                '.__('Custom news keywords. (<a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">more info</a>)', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_enable_full_metatags" type="checkbox" value="1" name="metabox_enable_full_metatags" '. (($options["metabox_enable_full_metatags"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_full_metatags">
+                '.__('Full meta tags box.', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_enable_referenced_list" type="checkbox" value="1" name="metabox_enable_referenced_list" '. (($options["metabox_enable_referenced_list"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_referenced_list">
+                '.__('Referenced items. (Experimental feature. Not recommended.)', 'add-meta-tags').'
+                </label></p>
+
+                <p>'.__('The metabox feature selection above affects all users. Advanced customization of the availability of these features on a per user basis or depending upon each user\'s permissions, is possible through the <code>amt_metadata_metabox_permissions</code> filter.', 'add-meta-tags').'</p>
+
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Extra SEO Options', 'add-meta-tags').'</th>
             <td>
             <fieldset>
@@ -668,12 +712,18 @@ function amt_inner_metadata_box( $post ) {
     // Get the post type. Will be used to customize the displayed notes.
     $post_type = get_post_type( $post->ID );
 
+    // Get the Add-Meta-Tags options.
+    $options = get_option("add_meta_tags_opts");
+
     // Display the meta box HTML code.
+
+    $metabox_has_features = false;
 
     // Custom description
     
     // Description box permission check (can be user customized via filter).
-    if ( current_user_can( $metabox_permissions['description_box_capability'] ) ) {
+    if ( $options['metabox_enable_description'] == '1' && current_user_can( $metabox_permissions['description_box_capability'] ) ) {
+        $metabox_has_features = true;
 
         // Retrieve the field data from the database.
         $custom_description_value = amt_get_post_meta_description( $post->ID );
@@ -713,7 +763,8 @@ function amt_inner_metadata_box( $post ) {
     // Custom keywords
 
     // Keywords box permission check (can be user customized via filter).
-    if ( current_user_can( $metabox_permissions['keywords_box_capability'] ) ) {
+    if ( $options['metabox_enable_keywords'] == '1' && current_user_can( $metabox_permissions['keywords_box_capability'] ) ) {
+        $metabox_has_features = true;
 
         // Retrieve the field data from the database.
         $custom_keywords_value = amt_get_post_meta_keywords( $post->ID );
@@ -758,7 +809,8 @@ function amt_inner_metadata_box( $post ) {
     // Custom title tag
 
     // Custom title box permission check (can be user customized via filter).
-    if ( current_user_can( $metabox_permissions['title_box_capability'] ) ) {
+    if ( $options['metabox_enable_title'] == '1' && current_user_can( $metabox_permissions['title_box_capability'] ) ) {
+        $metabox_has_features = true;
 
         // Retrieve the field data from the database.
         $custom_title_value = amt_get_post_meta_title( $post->ID );
@@ -778,7 +830,8 @@ function amt_inner_metadata_box( $post ) {
     // 'news_keywords' meta tag
     
     // 'news_keywords' box permission check (can be user customized via filter).
-    if ( current_user_can( $metabox_permissions['news_keywords_box_capability'] ) ) {
+    if ( $options['metabox_enable_news_keywords'] == '1' && current_user_can( $metabox_permissions['news_keywords_box_capability'] ) ) {
+        $metabox_has_features = true;
 
         // Retrieve the field data from the database.
         $custom_newskeywords_value = amt_get_post_meta_newskeywords( $post->ID );
@@ -798,7 +851,8 @@ function amt_inner_metadata_box( $post ) {
     // per post full meta tags
     
     // Full meta tags box permission check (can be user customized via filter).
-    if ( current_user_can( $metabox_permissions['full_metatags_box_capability'] ) ) {
+    if ( $options['metabox_enable_full_metatags'] == '1' && current_user_can( $metabox_permissions['full_metatags_box_capability'] ) ) {
+        $metabox_has_features = true;
 
         // Retrieve the field data from the database.
         $custom_full_metatags_value = amt_get_post_meta_full_metatags( $post->ID );
@@ -826,7 +880,8 @@ function amt_inner_metadata_box( $post ) {
     // List of URLs of items referenced in the post.
 
     // Referenced items box permission check (can be user customized via filter).
-    if ( current_user_can( $metabox_permissions['referenced_list_box_capability'] ) ) {
+    if ( $options['metabox_enable_referenced_list'] == '1' && current_user_can( $metabox_permissions['referenced_list_box_capability'] ) ) {
+        $metabox_has_features = true;
 
         // Retrieve the field data from the database.
         $custom_referenced_list_value = amt_get_post_meta_referenced_list( $post->ID );
@@ -840,6 +895,14 @@ function amt_inner_metadata_box( $post ) {
             </p>
         ');
 
+    }
+
+
+    // If no features have been enabled, print an informative message
+    if ( $metabox_has_features === false ) {
+        print('
+            <p>'.__('No features have been enabled for this metabox in the Add-Meta-Tags plugin <a href="' . admin_url( 'options-general.php?page=add-meta-tags-options' ) . '">settings</a> or you do not have enough permissions to access the available features.', 'add-meta-tags').'</p>
+        ');
     }
 
 }
@@ -871,6 +934,9 @@ function amt_save_postdata( $post_id, $post ) {
     if ( ! current_user_can( $metabox_permissions['global_metabox_capability'] ) ) {
         return;
     }
+
+    // Get the Add-Meta-Tags options.
+    $options = get_option("add_meta_tags_opts");
 
     /* Get the post type object. */
 	$post_type_obj = get_post_type_object( $post->post_type );
@@ -926,7 +992,7 @@ function amt_save_postdata( $post_id, $post ) {
     // permissions before we save any data in the database.
 
     // Description
-    if ( current_user_can( $metabox_permissions['description_box_capability'] ) ) {
+    if ( $options['metabox_enable_description'] == '1' && current_user_can( $metabox_permissions['description_box_capability'] ) ) {
         if ( empty($description_value) ) {
             delete_post_meta($post_id, $amt_description_field_name);
             // Also clean up old description field
@@ -939,7 +1005,7 @@ function amt_save_postdata( $post_id, $post ) {
     }
 
     // Keywords
-    if ( current_user_can( $metabox_permissions['keywords_box_capability'] ) ) {
+    if ( $options['metabox_enable_keywords'] == '1' && current_user_can( $metabox_permissions['keywords_box_capability'] ) ) {
         if ( empty($keywords_value) ) {
             delete_post_meta($post_id, $amt_keywords_field_name);
             // Also clean up old keywords field
@@ -952,7 +1018,7 @@ function amt_save_postdata( $post_id, $post ) {
     }
 
     // Title
-    if ( current_user_can( $metabox_permissions['title_box_capability'] ) ) {
+    if ( $options['metabox_enable_title'] == '1' && current_user_can( $metabox_permissions['title_box_capability'] ) ) {
         if ( empty($title_value) ) {
             delete_post_meta($post_id, $amt_title_field_name);
         } else {
@@ -961,7 +1027,7 @@ function amt_save_postdata( $post_id, $post ) {
     }
 
     // 'news_keywords'
-    if ( current_user_can( $metabox_permissions['news_keywords_box_capability'] ) ) {
+    if ( $options['metabox_enable_news_keywords'] == '1' && current_user_can( $metabox_permissions['news_keywords_box_capability'] ) ) {
         if ( empty($newskeywords_value) ) {
             delete_post_meta($post_id, $amt_newskeywords_field_name);
         } else {
@@ -970,7 +1036,7 @@ function amt_save_postdata( $post_id, $post ) {
     }
 
     // per post full meta tags
-    if ( current_user_can( $metabox_permissions['full_metatags_box_capability'] ) ) {
+    if ( $options['metabox_enable_full_metatags'] == '1' && current_user_can( $metabox_permissions['full_metatags_box_capability'] ) ) {
         if ( empty($full_metatags_value) ) {
             delete_post_meta($post_id, $amt_full_metatags_field_name);
         } else {
@@ -979,7 +1045,7 @@ function amt_save_postdata( $post_id, $post ) {
     }
 
     // Referenced list
-    if ( current_user_can( $metabox_permissions['referenced_list_box_capability'] ) ) {
+    if ( $options['metabox_enable_referenced_list'] == '1' && current_user_can( $metabox_permissions['referenced_list_box_capability'] ) ) {
         if ( empty($referenced_list_value) ) {
             delete_post_meta($post_id, $amt_referenced_list_field_name);
         } else {
