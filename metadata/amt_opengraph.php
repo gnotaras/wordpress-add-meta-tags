@@ -183,7 +183,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
         } elseif (get_bloginfo('description')) {
             // Alternatively use a generic description
-            $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged( "An index of the lastest content." ) . '" />';
+            $metadata_arr[] = '<meta property="og:description" content="' . amt_process_paged( "An index of the latest content." ) . '" />';
         }
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', get_bloginfo('language')) ) . '" />';
