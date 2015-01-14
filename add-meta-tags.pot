@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-meta-tags 2.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-06 09:50+0200\n"
+"POT-Creation-Date: 2015-01-14 18:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -464,10 +464,6 @@ msgstr ""
 
 #: amt-admin-panel.php:903
 msgid "Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated."
-msgstr ""
-
-#: amt-admin-panel.php:913
-msgid "No features have been enabled for this metabox in the Add-Meta-Tags plugin <a href=\""
 msgstr ""
 
 #: amt-settings.php:254
