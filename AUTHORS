@@ -34,7 +34,10 @@ feature requests at:
    - http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
    - http://www.g-loaded.eu/2006/01/05/add-meta-tags-legacy/
 
- * bug tracker at CodeTRAX: http://www.codetrax.org/projects/wp-add-meta-tags/issues
+ * bug trackers at:
+     - CodeTRAX: http://www.codetrax.org/projects/wp-add-meta-tags/issues
+     - Bitbucket: https://bitbucket.org/gnotaras/wordpress-add-meta-tags/overview
+     - Github: https://github.com/gnotaras/wordpress-add-meta-tags
 
  * the Community support forums at WordPress.org:
    - http://wordpress.org/support/plugin/add-meta-tags
