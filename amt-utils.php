@@ -659,19 +659,45 @@ function amt_get_content_keywords($post, $auto=true) {
 
     /**
      * Finally, add the global keywords, if they are set in the administration panel.
-     * If $content_keywords is empty, then no global keyword processing takes place.
      */
-    if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
+    #if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
+    if ( $auto && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
+
         $options = get_option("add_meta_tags_opts");
         $global_keywords = $options["global_keywords"];
-        if (!empty($global_keywords)) {
-            if ( strpos($global_keywords, '%contentkw%') === false ) {
-                // The placeholder ``%contentkw%`` has not been used. Append the content keywords to the global keywords.
-                $content_keywords = $global_keywords . ', ' . $content_keywords;
+
+        if ( ! empty($global_keywords) ) {
+
+            // If we have $content_keywords so far
+            if ( ! empty($content_keywords) ) {
+                if ( strpos($global_keywords, '%contentkw%') === false ) {
+                    // The placeholder ``%contentkw%`` has not been used. Append the content keywords to the global keywords.
+                    $content_keywords = $global_keywords . ', ' . $content_keywords;
+                } else {
+                    // The user has used the placeholder ``%contentkw%``. Replace it with the content keywords.
+                    $content_keywords = str_replace('%contentkw%', $content_keywords, $global_keywords);
+                }
+
+            // If $content_keywords have not been found.
             } else {
-                // The user has used the placeholder ``%contentkw%``. Replace it with the content keywords.
-                $content_keywords = str_replace('%contentkw%', $content_keywords, $global_keywords);
+                if ( strpos($global_keywords, '%contentkw%') === false ) {
+                    // The placeholder ``%contentkw%`` has not been used. Just use the global keywords as is.
+                    $content_keywords = $global_keywords;
+                } else {
+                    // The user has used the placeholder ``%contentkw%``, but we do not have generated any content keywords => Delete the %contentkw% placeholder.
+                    $global_keywords_new = array();
+                    foreach ( explode(',', $global_keywords) as $g_keyword ) {
+                        $g_keyword = trim($g_keyword);
+                        if ( $g_keyword != '%contentkw%' ) {
+                            $global_keywords_new[] = $g_keyword;
+                        }
+                    }
+                    if ( ! empty($global_keywords_new) ) {
+                        $content_keywords = implode(', ', $global_keywords_new);
+                    }
+                }
             }
+
         }
     }
 
