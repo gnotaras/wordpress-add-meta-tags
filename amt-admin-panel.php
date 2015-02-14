@@ -791,7 +791,7 @@ function amt_inner_metadata_box( $post ) {
         if ( $post_type == 'post' ) {
             print('
                 <p>
-                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories and tags. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories, tags and custom taxonomy terms in that list by using the special placeholders <code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> respectively.', 'add-meta-tags').'
+                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post\'s categories, tags, custom taxonomy terms and global keywords (if any such global keywords have been set in the plugin settings). In case you decide to set a custom list of keywords for this post, it is possible to easily include the post\'s categories, tags and custom taxonomy terms in that list by using the special placeholders <code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> respectively.', 'add-meta-tags').'
                     <br />
                     '.__('Example', 'add-meta-tags').': <code>keyword1, keyword2, %cats%, keyword3, %tags%, keyword4</code>
                 </p>
@@ -799,13 +799,13 @@ function amt_inner_metadata_box( $post ) {
         } elseif ( $post_type == 'page' ) {
             print('
                 <p>
-                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
+                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will only be automatically generated from global keywords, if any such global keywords have been set in the plugin settings.', 'add-meta-tags').'
                 </p>
             ');
         } else {    // Custom post types
             print('
                 <p>
-                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag <strong>will not be automatically</strong> generated.', 'add-meta-tags').'
+                    '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will only be automatically generated from global keywords, if any such global keywords have been set in the plugin settings.', 'add-meta-tags').'
                 </p>
             ');
         }
