@@ -189,7 +189,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
                 // Add a filtered generic description.
-                $generic_description = apply_filters( 'amt_generic_description_category_archive', 'Content filed under the %s category.' );
+                $generic_description = apply_filters( 'amt_generic_description_category_archive', __('Content filed under the %s category.', 'add-meta-tags') );
                 $generic_description = sprintf( $generic_description, single_cat_title( $prefix='', $display=false ) );
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
@@ -216,7 +216,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
                 // Add a filtered generic description.
-                $generic_description = apply_filters( 'amt_generic_description_tag_archive', 'Content tagged with %s.' );
+                $generic_description = apply_filters( 'amt_generic_description_tag_archive', __('Content tagged with %s.', 'add-meta-tags') );
                 $generic_description = sprintf( $generic_description, single_tag_title( $prefix='', $display=false ) );
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
@@ -252,7 +252,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                 // Construct the filter name. Template: ``amt_generic_description_TAXONOMYSLUG_archive``
                 $taxonomy_description_filter_name = sprintf( 'amt_generic_description_%s_archive', $tax_term_object->taxonomy);
                 // var_dump($taxonomy_description_filter_name);
-                $generic_description = apply_filters( $taxonomy_description_filter_name, 'Content filed under the %s taxonomy.' );
+                $generic_description = apply_filters( $taxonomy_description_filter_name, __('Content filed under the %s taxonomy.', 'add-meta-tags') );
                 $generic_description = sprintf( $generic_description, single_term_title( $prefix='', $display=false ) );
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
@@ -292,7 +292,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             if ( empty( $author_description ) || is_paged() ) {
                 // Note: Contains multipage information through amt_process_paged()
                 // Add a filtered generic description.
-                $generic_description = apply_filters( 'amt_generic_description_author_archive', 'Content published by %s.' );
+                $generic_description = apply_filters( 'amt_generic_description_author_archive', __('Content published by %s.', 'add-meta-tags') );
                 $generic_description = sprintf( $generic_description, $author->display_name );
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
             } else {
