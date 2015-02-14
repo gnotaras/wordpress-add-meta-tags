@@ -1388,3 +1388,22 @@ function amt_return_false() {
     return false;
 }
 
+
+// Returns site language
+function amt_get_language_site() {
+    $language = get_bloginfo('language');
+    // Allow filtering of the site language
+    $language = apply_filters( 'amt_language_site', $language );
+    return $language;
+}
+
+
+// Returns content language
+function amt_get_language_content() {
+    $language = get_bloginfo('language');
+    // Allow filtering of the content language
+    $language = apply_filters( 'amt_language_content', $language );
+    return $language;
+}
+
+
