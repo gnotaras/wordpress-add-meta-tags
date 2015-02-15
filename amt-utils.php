@@ -1174,7 +1174,7 @@ function amt_get_embedded_media( $post ) {
     // - http://www.youtube.com/watch?v=VIDEO_ID
     //$pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
     //$pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=(\w*)#i';
-    $pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=([a-zA-Z0-9_-]+)#i';
+    $pattern = '#https?:\/\/(?:www.)?youtube.com\/.*v=([a-zA-Z0-9_-]+)#i';
     preg_match_all( $pattern, $post->post_content, $matches );
     //var_dump($matches);
     if ($matches) {
@@ -1183,10 +1183,10 @@ function amt_get_embedded_media( $post ) {
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $youtube_video_id ) {
             $item = array(
-                'page' => 'http://www.youtube.com/watch?v=' . $youtube_video_id,
-                'player' => 'http://youtube.com/v/' . $youtube_video_id,
+                'page' => 'https://www.youtube.com/watch?v=' . $youtube_video_id,
+                'player' => 'https://youtube.com/v/' . $youtube_video_id,
                 // Since we can construct the video thumbnail from the ID, we add it
-                'thumbnail' => 'http://img.youtube.com/vi/' . $youtube_video_id . '/0.jpg'
+                'thumbnail' => 'https://img.youtube.com/vi/' . $youtube_video_id . '/0.jpg'
                 // TODO: check http://i1.ytimg.com/vi/FTnqYIkjSjQ/maxresdefault.jpg    MAXRES
                 // http://img.youtube.com/vi/rr6H-MJCNw0/hqdefault.jpg  480x360
                 // http://img.youtube.com/vi/rr6H-MJCNw0/sddefault.jpg  640x480
@@ -1199,8 +1199,10 @@ function amt_get_embedded_media( $post ) {
     // Vimeo
     // Supported:
     // - http://vimeo.com/VIDEO_ID
+    // Check output of:  http://vimeo.com/api/v2/video/VIDEO_ID.xml
+    // INVALID METHOD: 'thumbnail' => 'https://i.vimeocdn.com/video/' . $vimeo_video_id . '_640.jpg'
     //$pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
-    $pattern = '#http:\/\/(?:www.)?vimeo.com\/(\d*)#i';
+    $pattern = '#https?:\/\/(?:www.)?vimeo.com\/(\d*)#i';
     preg_match_all( $pattern, $post->post_content, $matches );
     //var_dump($matches);
     if ($matches) {
@@ -1209,8 +1211,8 @@ function amt_get_embedded_media( $post ) {
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $vimeo_video_id ) {
             $item = array(
-                'page' => 'http://vimeo.com/' . $vimeo_video_id,
-                'player' => 'http://player.vimeo.com/video/' . $vimeo_video_id,
+                'page' => 'https://vimeo.com/' . $vimeo_video_id,
+                'player' => 'https://player.vimeo.com/video/' . $vimeo_video_id,
                 'thumbnail' => ''
             );
             array_unshift( $embedded_media_urls['videos'], $item );
