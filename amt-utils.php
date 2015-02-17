@@ -1193,7 +1193,8 @@ function amt_get_embedded_media( $post ) {
         foreach( $matches[1] as $youtube_video_id ) {
             $item = array(
                 'page' => 'https://www.youtube.com/watch?v=' . $youtube_video_id,
-                'player' => 'https://youtube.com/v/' . $youtube_video_id,
+                //'player' => 'https://youtube.com/v/' . $youtube_video_id,
+                'player' => 'https://www.youtube.com/embed/' . $youtube_video_id,
                 // Since we can construct the video thumbnail from the ID, we add it
                 'thumbnail' => 'https://img.youtube.com/vi/' . $youtube_video_id . '/' . apply_filters( 'amt_oembed_youtube_image_preview', 'sddefault.jpg' ),
                 // TODO: check http://i1.ytimg.com/vi/FTnqYIkjSjQ/maxresdefault.jpg    MAXRES
