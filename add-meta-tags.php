@@ -140,6 +140,10 @@ function amt_get_metadata_head() {
 
     $metadata_arr = array();
 
+    // No metadata for password protected posts.
+    if ( post_password_required() ) {
+        return $metadata_arr;
+    }
 
     // Robots Meta Tag content.
     $robots_content = '';
