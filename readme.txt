@@ -181,7 +181,7 @@ Add-Meta-Tags generates detailed metadata for the media that have been attached 
 
 Apart from attaching local media to the content, WordPress lets authors also <a href="http://codex.wordpress.org/Embeds">embed external media</a> by simply adding a link to those media inside the content or by using the `[embed]` shortcode. Several external services are supported.
 
-Add-Meta-Tags can detect some of those media and generate metadata for them. Currently, only links to Youtube and Vimeo videos, Soundcloud tracks and Flickr images are supported. So, even if you host your media externally on those services, this plugin can still generate metadata for them. This metadata is by no means as detailed as the metadata that is generated for local media, but it gives search engines a good idea about what external media are associated with your content.
+Add-Meta-Tags can detect some of those media and generate metadata for them. Currently, only links to Youtube, Vimeo and Vine videos, Soundcloud tracks and Flickr images are supported. So, even if you host your media externally on those services, this plugin can still generate metadata for them. This metadata is by no means as detailed as the metadata that is generated for local media, but it gives search engines a good idea about what external media are associated with your content.
 
 This feature relies entirely on the data WordPress has already cached for the embedded media. The plugin will never send any requests to external services attempting to get more detailed information about the embedded media as this would involve unacceptable overhead.
 
@@ -189,6 +189,7 @@ Here is what is supported:
 
 - Links to Youtube videos of the form: `http://www.youtube.com/watch?v=VIDEO_ID`
 - Links to Vimeo videos of the form: `http://vimeo.com/VIDEO_ID`
+- Links to Vine videos of the form: `https://vine.co/v/VIDEO_ID`
 - Links to Soundcloud tracks of the form: `https://soundcloud.com/USER_ID/TRACK_ID`
 - Links to Flickr images of the form: `http://www.flickr.com/photos/USER_ID/IMAGE_ID/`
 
