@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-14 07:27+0200\n"
-"PO-Revision-Date: 2015-02-14 05:29+0000\n"
+"POT-Creation-Date: 2015-02-15 01:09+0200\n"
+"PO-Revision-Date: 2015-02-14 23:10+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -666,6 +666,26 @@ msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags αποθ
 #: amt-settings.php:267
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags επανήλθαν στις αρχικές τιμές"
+
+#: metadata\amt_basic.php:192
+#, php-format
+msgid "Content filed under the %s category."
+msgstr ""
+
+#: metadata\amt_basic.php:219
+#, php-format
+msgid "Content tagged with %s."
+msgstr ""
+
+#: metadata\amt_basic.php:255
+#, php-format
+msgid "Content filed under the %s taxonomy."
+msgstr ""
+
+#: metadata\amt_basic.php:295
+#, php-format
+msgid "Content published by %s."
+msgstr ""
 
 #: metadata\amt_opengraph.php:61
 msgid "Facebook author profile URL"

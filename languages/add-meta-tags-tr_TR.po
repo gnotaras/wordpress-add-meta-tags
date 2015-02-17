@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-14 07:27+0200\n"
-"PO-Revision-Date: 2015-02-14 05:29+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
+"POT-Creation-Date: 2015-02-15 01:09+0200\n"
+"PO-Revision-Date: 2015-02-15 06:55+0000\n"
+"Last-Translator: Burak Yavuz\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -591,14 +591,14 @@ msgid ""
 "include the post's categories, tags and custom taxonomy terms in that list "
 "by using the special placeholders <code>%cats%</code>, <code>%tags%</code> "
 "and <code>%terms%</code> respectively."
-msgstr ""
+msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi <strong>otomatik olarak</strong> yazının kategorilerinden, etiketlerinden, özel sınıflandırma terimlerden ve genel anahtar kelimelerden üretilecektir, eğer bunun gibi her bir genel anahtar kelime, eklenti ayarlarında ayarlanmış ise. Bu yazı için anahtar kelimelerin özel bir listesini ayarlamaya karar verdiğiniz takdirde, bu listedeki sırasıyla <code>%cats%</code>, <code>%tags%</code> ve <code>%terms%</code> özel yer tutucularını kullanarak yazıların kategorilerini, etiketlerini ve özel sınıflandırma terimleri kolayca dahil etmek mümkündür."
 
 #: amt-admin-panel.php:802 amt-admin-panel.php:808
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will only be automatically generated from global keywords, if any such "
 "global keywords have been set in the plugin settings."
-msgstr ""
+msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi sadece genel anahtar kelimelerden otomatik olarak üretilecektir, eğer bunun gibi her bir genel anahtar kelime, eklenti ayarlarında ayarlanmış ise."
 
 #: amt-admin-panel.php:829
 msgid "Title"
@@ -666,6 +666,26 @@ msgstr "Add-Meta-Tags seçenekleri kaydedildi"
 #: amt-settings.php:267
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Add-Meta-Tags seçenekleri varsayılana sıfırlandı"
+
+#: metadata\amt_basic.php:192
+#, php-format
+msgid "Content filed under the %s category."
+msgstr "%s kategorisi altındaki içerik alanı."
+
+#: metadata\amt_basic.php:219
+#, php-format
+msgid "Content tagged with %s."
+msgstr "%s ile etiketlenmiş içerik."
+
+#: metadata\amt_basic.php:255
+#, php-format
+msgid "Content filed under the %s taxonomy."
+msgstr "%s sınıflandırması altındaki içerik alanı."
+
+#: metadata\amt_basic.php:295
+#, php-format
+msgid "Content published by %s."
+msgstr "İçeriği yayınlayan %s."
 
 #: metadata\amt_opengraph.php:61
 msgid "Facebook author profile URL"
