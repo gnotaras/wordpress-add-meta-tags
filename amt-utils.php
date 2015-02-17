@@ -1192,6 +1192,7 @@ function amt_get_embedded_media( $post ) {
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $youtube_video_id ) {
             $item = array(
+                'type' => 'youtube',
                 'page' => 'https://www.youtube.com/watch?v=' . $youtube_video_id,
                 //'player' => 'https://youtube.com/v/' . $youtube_video_id,
                 'player' => 'https://www.youtube.com/embed/' . $youtube_video_id,
@@ -1224,6 +1225,7 @@ function amt_get_embedded_media( $post ) {
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $vimeo_video_id ) {
             $item = array(
+                'type' => 'vimeo',
                 'page' => 'https://vimeo.com/' . $vimeo_video_id,
                 'player' => 'https://player.vimeo.com/video/' . $vimeo_video_id,
                 'thumbnail' => apply_filters( 'amt_oembed_vimeo_image_preview', '', $vimeo_video_id ),
@@ -1247,6 +1249,7 @@ function amt_get_embedded_media( $post ) {
         // Add matches to $embedded_media_urls
         foreach( $matches[1] as $vine_video_id ) {
             $item = array(
+                'type' => 'vine',
                 'page' => 'https://vine.co/v/' . $vine_video_id,
                 'player' => 'https://vine.co/v/' . $vine_video_id . '/embed/simple',
                 'thumbnail' => apply_filters( 'amt_oembed_vine_image_preview', '', $vine_video_id ),
@@ -1277,6 +1280,7 @@ function amt_get_embedded_media( $post ) {
         // Add matches to $embedded_media_urls
         foreach( $matches[0] as $soundcloud_url ) {
             $item = array(
+                'type' => 'soundcloud',
                 'page' => $soundcloud_url,
                 'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url,
                 'thumbnail' => apply_filters( 'amt_oembed_soundcloud_image_preview', '', $soundcloud_url ),
@@ -1341,6 +1345,7 @@ function amt_get_embedded_media( $post ) {
             //var_dump($img_info);
             if ( ! empty( $img_info ) ) {
                 $item = array(
+                    'type' => 'flickr',
                     'page' => $flick_page_url,
                     'player' => $flick_page_url . 'lightbox/',
                     'thumbnail' => str_replace( 'z.jpg', 'q.jpg', $img_info[1] ),   // size q   BEFORE CHANGING this check if the 150x150 is hardcoded into any metadata generator. It is in Twitter cards.
