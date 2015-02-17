@@ -1196,7 +1196,8 @@ function amt_get_embedded_media( $post ) {
                 //'player' => 'https://youtube.com/v/' . $youtube_video_id,
                 'player' => 'https://www.youtube.com/embed/' . $youtube_video_id,
                 // Since we can construct the video thumbnail from the ID, we add it
-                'thumbnail' => 'https://img.youtube.com/vi/' . $youtube_video_id . '/' . apply_filters( 'amt_oembed_youtube_image_preview', 'sddefault.jpg' ),
+                'thumbnail' => apply_filters( 'amt_oembed_youtube_image_preview', 'https://img.youtube.com/vi/' . $youtube_video_id . '/sddefault.jpg', $youtube_video_id ),
+                //'thumbnail' => apply_filters( 'amt_oembed_youtube_image_preview', '', $youtube_video_id ),
                 // TODO: check http://i1.ytimg.com/vi/FTnqYIkjSjQ/maxresdefault.jpg    MAXRES
                 // http://img.youtube.com/vi/rr6H-MJCNw0/hqdefault.jpg  480x360 (same as 0.jpg)
                 // http://img.youtube.com/vi/rr6H-MJCNw0/sddefault.jpg  640x480
@@ -1225,7 +1226,7 @@ function amt_get_embedded_media( $post ) {
             $item = array(
                 'page' => 'https://vimeo.com/' . $vimeo_video_id,
                 'player' => 'https://player.vimeo.com/video/' . $vimeo_video_id,
-                'thumbnail' => apply_filters( 'amt_oembed_vimeo_image_preview', '' ),
+                'thumbnail' => apply_filters( 'amt_oembed_vimeo_image_preview', '', $vimeo_video_id ),
                 'width' => apply_filters( 'amt_oembed_vimeo_player_width', '640' ),
                 'height' => apply_filters( 'amt_oembed_vimeo_player_height', '480' ),
             );
@@ -1248,7 +1249,7 @@ function amt_get_embedded_media( $post ) {
             $item = array(
                 'page' => 'https://vine.co/v/' . $vine_video_id,
                 'player' => 'https://vine.co/v/' . $vine_video_id . '/embed/simple',
-                'thumbnail' => apply_filters( 'amt_oembed_vine_image_preview', '' ),
+                'thumbnail' => apply_filters( 'amt_oembed_vine_image_preview', '', $vine_video_id ),
                 'width' => apply_filters( 'amt_oembed_vine_player_width', '600' ),
                 'height' => apply_filters( 'amt_oembed_vine_player_height', '600' ),
             );
@@ -1278,7 +1279,7 @@ function amt_get_embedded_media( $post ) {
             $item = array(
                 'page' => $soundcloud_url,
                 'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url,
-                'thumbnail' => apply_filters( 'amt_oembed_soundcloud_image_preview', '' ),
+                'thumbnail' => apply_filters( 'amt_oembed_soundcloud_image_preview', '', $soundcloud_url ),
                 'width' => apply_filters( 'amt_oembed_soundcloud_player_width', '640' ),
                 'height' => apply_filters( 'amt_oembed_soundcloud_player_height', '164' ),
             );
