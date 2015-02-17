@@ -657,6 +657,15 @@ function amt_get_content_keywords($post, $auto=true) {
         }
     }
 
+    // Add post format to the list of keywords
+    if ( is_singular() && get_post_format($post->ID) !== false ) {
+        if ( empty($content_keywords) ) {
+            $content_keywords .= get_post_format($post->ID);
+        } else {
+            $content_keywords .= ', ' . get_post_format($post->ID);
+        }
+    }
+
     /**
      * Finally, add the global keywords, if they are set in the administration panel.
      */
