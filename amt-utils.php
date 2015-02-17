@@ -1186,11 +1186,13 @@ function amt_get_embedded_media( $post ) {
                 'page' => 'https://www.youtube.com/watch?v=' . $youtube_video_id,
                 'player' => 'https://youtube.com/v/' . $youtube_video_id,
                 // Since we can construct the video thumbnail from the ID, we add it
-                'thumbnail' => 'https://img.youtube.com/vi/' . $youtube_video_id . '/sddefault.jpg'
+                'thumbnail' => 'https://img.youtube.com/vi/' . $youtube_video_id . '/' . apply_filters( 'amt_oembed_youtube_image_preview', 'sddefault.jpg' ),
                 // TODO: check http://i1.ytimg.com/vi/FTnqYIkjSjQ/maxresdefault.jpg    MAXRES
                 // http://img.youtube.com/vi/rr6H-MJCNw0/hqdefault.jpg  480x360 (same as 0.jpg)
                 // http://img.youtube.com/vi/rr6H-MJCNw0/sddefault.jpg  640x480
                 // See more here: http://stackoverflow.com/a/2068371
+                'width' => apply_filters( 'amt_oembed_youtube_player_width', '640' ),
+                'height' => apply_filters( 'amt_oembed_youtube_player_height', '480' ),
             );
             array_unshift( $embedded_media_urls['videos'], $item );
         }
@@ -1213,7 +1215,32 @@ function amt_get_embedded_media( $post ) {
             $item = array(
                 'page' => 'https://vimeo.com/' . $vimeo_video_id,
                 'player' => 'https://player.vimeo.com/video/' . $vimeo_video_id,
-                'thumbnail' => ''
+                'thumbnail' => apply_filters( 'amt_oembed_vimeo_image_preview', '' ),
+                'width' => apply_filters( 'amt_oembed_vimeo_player_width', '640' ),
+                'height' => apply_filters( 'amt_oembed_vimeo_player_height', '480' ),
+            );
+            array_unshift( $embedded_media_urls['videos'], $item );
+        }
+    }
+
+    // Vine
+    // Supported:
+    // - https://vine.co/v/VIDEO_ID
+    // Also check output of:  https://vine.co/v/bwBYItOUKrw/card
+    $pattern = '#https?:\/\/(?:www.)?vine.co\/v\/([a-zA-Z0-9_-]+)#i';
+    preg_match_all( $pattern, $post->post_content, $matches );
+    //var_dump($matches);
+    if ($matches) {
+        // $matches[0] contains a list of Vimeo video URLS
+        // $matches[1] contains a list of Vimeo video IDs
+        // Add matches to $embedded_media_urls
+        foreach( $matches[1] as $vine_video_id ) {
+            $item = array(
+                'page' => 'https://vine.co/v/' . $vine_video_id,
+                'player' => 'https://vine.co/v/' . $vine_video_id . '/embed/simple',
+                'thumbnail' => apply_filters( 'amt_oembed_vine_image_preview', '' ),
+                'width' => apply_filters( 'amt_oembed_vine_player_width', '600' ),
+                'height' => apply_filters( 'amt_oembed_vine_player_height', '600' ),
             );
             array_unshift( $embedded_media_urls['videos'], $item );
         }
@@ -1241,7 +1268,9 @@ function amt_get_embedded_media( $post ) {
             $item = array(
                 'page' => $soundcloud_url,
                 'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url,
-                'thumbnail' => ''
+                'thumbnail' => apply_filters( 'amt_oembed_soundcloud_image_preview', '' ),
+                'width' => apply_filters( 'amt_oembed_soundcloud_player_width', '640' ),
+                'height' => apply_filters( 'amt_oembed_soundcloud_player_height', '164' ),
             );
             array_unshift( $embedded_media_urls['sounds'], $item );
         }
@@ -1313,6 +1342,51 @@ function amt_get_embedded_media( $post ) {
             }
         }
     }
+
+    /**
+    // Instagram
+    //
+    // Supported:
+    // Embedded URLs MUST be of Format: https://instagram.com/p/IMAGE_ID/
+    //
+    $pattern = '#https?:\/\/(?:www.)?instagram.com\/p\/[^\/]+\/#i';
+    preg_match_all( $pattern, $post->post_content, $matches );
+    //var_dump($matches);
+    if ($matches) {
+        // $matches[0] contains a list of Flickr image page URLS
+        // Add matches to $embedded_media_urls
+        foreach( $matches[0] as $instagram_page_url ) {
+
+            // Get cached HTML data for embedded images.
+            // Do it like WordPress.
+            // See source code:
+            // - class-wp-embed.php: line 177 [[ $cachekey = '_oembed_' . md5( $url . serialize( $attr ) ); ]]
+            // - media.php: line 1332 [[ function wp_embed_defaults ]]
+            // If no attributes have been used in the [embed] shortcode, $attr is an empty string.
+            $attr = '';
+            $attr = wp_parse_args( $attr, wp_embed_defaults() );
+            $cachekey = '_oembed_' . md5( $instagram_page_url . serialize( $attr ) );
+            $cache = get_post_meta( $post->ID, $cachekey, true );
+            var_dump($cache);
+
+            // Get image info from the cached HTML
+            preg_match( '#target="_top">(.*)<\/a>#i', $cache, $img_info );
+            //var_dump($img_info);
+            if ( ! empty( $img_info ) ) {
+                $item = array(
+                    'page' => $instagram_page_url,
+                    'player' => $instagram_page_url . 'lightbox/',
+                    'thumbnail' => str_replace( 'z.jpg', 'q.jpg', $img_info[1] ),   // size q   BEFORE CHANGING this check if the 150x150 is hardcoded into any metadata generator. It is in Twitter cards.
+                    'image' => $img_info[1],    // size z
+                    'alt' => $img_info[1],
+                    'width' => '640',
+                    'height' => '640',
+                );
+                array_unshift( $embedded_media_urls['images'], $item );
+            }
+        }
+    }
+    */
 
     // Allow filtering of the embedded media array
     $embedded_media_urls = apply_filters( 'amt_embedded_media', $embedded_media_urls, $post->ID );

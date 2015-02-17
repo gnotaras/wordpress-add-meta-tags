@@ -543,6 +543,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
             // playerType
             $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
+            // size
+            $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+            $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
             // Scope END: VideoObject
             $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
         }

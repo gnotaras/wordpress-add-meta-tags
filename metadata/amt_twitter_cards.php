@@ -453,24 +453,16 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 // twitter:player
                 $metadata_arr[] = '<meta name="twitter:player" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
                 // Player size
-                // Mode 1: Size uses  $content_width
+                // Alt Method: Size uses  $content_width
                 //global $content_width;
                 //$width = $content_width;
                 //$height = absint(absint($content_width)*3/4);
                 //$metadata_arr[] = '<meta name="twitter:width" content="' . esc_attr( $width ) . '" />';
                 //$metadata_arr[] = '<meta name="twitter:height" content="' . esc_attr( $height ) . '" />';
-                // Mode 2: Size hard coded but filtered.
-                // Player size
-                if ( $post_format == 'video' ) {
-                    // Player size (this should be considered irrelevant of the video size)
-                    $player_size = apply_filters( 'amt_twitter_cards_video_player_size', array(640, 480) );
-                } elseif ( $post_format == 'audio' ) {
-                    $player_size = apply_filters( 'amt_twitter_cards_audio_player_size', array(320, 30) );
-                }
                 // twitter:player:width
-                $metadata_arr[] = sprintf( '<meta name="twitter:player:width" content="%d" />', $player_size[0] );
+                $metadata_arr[] = sprintf( '<meta name="twitter:player:width" content="%d" />', esc_attr( $embedded_item['width'] ) );
                 // twitter:player:height
-                $metadata_arr[] = sprintf( '<meta name="twitter:player:height" content="%d" />', $player_size[1] );
+                $metadata_arr[] = sprintf( '<meta name="twitter:player:height" content="%d" />', esc_attr( $embedded_item['height'] ) );
                 // twitter:image
                 if ( ! empty( $embedded_item['thumbnail'] ) ) {
                     $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
