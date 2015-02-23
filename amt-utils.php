@@ -257,14 +257,21 @@ function amt_process_paged( $data ) {
  *
  * MUST return sanitized text.
  */
-function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
+function amt_get_the_excerpt( $post, $init_text_len=500, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
     if ( empty($post->post_excerpt) || get_post_type( $post ) == 'attachment' ) {   // In attachments we always use $post->post_content to get a description
 
         // Here we generate an excerpt from $post->post_content
 
-        // Get the initial data for the excerpt
-        $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, $excerpt_max_len) ) );
+        // Get the initial text.
+        // We perform the sanitization of the text in two stages.
+        // First, we use a bigger amount of text and strip tags
+        $amt_excerpt = sanitize_text_field( substr($post->post_content, 0, $init_text_len) );
+        // Second, we use $excerpt_max_len characters of the text for the description.
+        $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($amt_excerpt, 0, $excerpt_max_len) ) );
+
+        // OLD (single step): Get the initial data for the excerpt
+        //$amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, $excerpt_max_len) ) );
 
         // Remove any URLs that may exist exactly at the beginning of the description.
         // This may happen if for example you put a youtube video url first thing in
