@@ -1169,6 +1169,20 @@ function amt_get_posts_page_id() {
  */
 function amt_get_embedded_media( $post ) {
 
+    // Post content pre-processing
+
+    // At this point we give devs the opportunity to inject raw URLs of
+    // supported embeddable media, so that they can be picked up by
+    // the algorithms below.
+    // Array of URLs of supported embeddable media.
+    $external_media_urls = apply_filters( 'amt_embedded_media_external', array(), $post );
+
+    // Store post body
+    $post_body = $post->post_content;
+    // Attach the external media URLs to the post content.
+    //$post_body .= sprintf( '\n%s\n', implode('\n', $external_media_urls) );
+    $post_body .= PHP_EOL . implode(PHP_EOL, $external_media_urls) . PHP_EOL;
+
     // Format of the array
     // Embeds are grouped by type images/videos/sounds
     // Embedded media are added to any group as an associative array.
@@ -1191,7 +1205,7 @@ function amt_get_embedded_media( $post ) {
     //$pattern = '#youtube.com/watch\?v=([-|~_0-9A-Za-z]+)#';
     //$pattern = '#http:\/\/(?:www.)?youtube.com\/.*v=(\w*)#i';
     $pattern = '#https?:\/\/(?:www.)?youtube.com\/.*v=([a-zA-Z0-9_-]+)#i';
-    preg_match_all( $pattern, $post->post_content, $matches );
+    preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
         // $matches[0] contains a list of YT video URLS
@@ -1224,7 +1238,7 @@ function amt_get_embedded_media( $post ) {
     // INVALID METHOD: 'thumbnail' => 'https://i.vimeocdn.com/video/' . $vimeo_video_id . '_640.jpg'
     //$pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
     $pattern = '#https?:\/\/(?:www.)?vimeo.com\/(\d*)#i';
-    preg_match_all( $pattern, $post->post_content, $matches );
+    preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
         // $matches[0] contains a list of Vimeo video URLS
@@ -1248,7 +1262,7 @@ function amt_get_embedded_media( $post ) {
     // - https://vine.co/v/VIDEO_ID
     // Also check output of:  https://vine.co/v/bwBYItOUKrw/card
     $pattern = '#https?:\/\/(?:www.)?vine.co\/v\/([a-zA-Z0-9_-]+)#i';
-    preg_match_all( $pattern, $post->post_content, $matches );
+    preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
         // $matches[0] contains a list of Vimeo video URLS
@@ -1280,7 +1294,7 @@ function amt_get_embedded_media( $post ) {
     // player:
     // https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/117455833
     $pattern = '#https?:\/\/(?:www.)?soundcloud.com\/[^/]+\/[a-zA-Z0-9_-]+#i';
-    preg_match_all( $pattern, $post->post_content, $matches );
+    preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
         // $matches[0] contains a list of Soundcloud URLS
@@ -1328,7 +1342,7 @@ function amt_get_embedded_media( $post ) {
     //
     $pattern = '#https?:\/\/(?:www.)?flickr.com\/photos\/[^\/]+\/[^\/]+\/#i';
     //$pattern = '#https?://(?:www.)?flickr.com/photos/[^/]+/[^/]+/#i';
-    preg_match_all( $pattern, $post->post_content, $matches );
+    preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
         // $matches[0] contains a list of Flickr image page URLS
@@ -1373,7 +1387,7 @@ function amt_get_embedded_media( $post ) {
     // Embedded URLs MUST be of Format: https://instagram.com/p/IMAGE_ID/
     //
     $pattern = '#https?:\/\/(?:www.)?instagram.com\/p\/[^\/]+\/#i';
-    preg_match_all( $pattern, $post->post_content, $matches );
+    preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
         // $matches[0] contains a list of Flickr image page URLS
