@@ -297,9 +297,17 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // First add metadata common to all attachment types.
 
         // Type
-        // Note: there is no specific type for images/videos/audio. We use article.
+        // Note: there is no specific type for images/audio. We use article amd video
         // TODO: Check whether we could use another type specific to each attachment type.
-        $metadata_arr[] = '<meta property="og:type" content="article" />';
+        if ( 'video' == $attachment_type ) {
+            // video.other og:type for video attachment pages
+            $og_type = 'video.other';
+        } else {
+            $og_type = 'article';
+        }
+        $og_type = apply_filters( 'amt_opengraph_og_type_attachment', $og_type );
+        $metadata_arr[] = '<meta property="og:type" content="' . esc_attr( $og_type ) . '" />';
+
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // Title
@@ -367,8 +375,17 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+
         // Type
-        $metadata_arr[] = '<meta property="og:type" content="article" />';
+        // og:type set to 'video.other' for posts with post format set to video
+        if ( get_post_format($post->ID) == 'video' ) {
+            $og_type = 'video.other';
+        } else {
+            $og_type = 'article';
+        }
+        $og_type = apply_filters( 'amt_opengraph_og_type_content', $og_type );
+        $metadata_arr[] = '<meta property="og:type" content="' . esc_attr( $og_type ) . '" />';
+
         // Title
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
