@@ -14,7 +14,7 @@ REL_FILES = [
     #'CONTRIBUTORS',
 	'LICENSE',
 	'NOTICE',
-	'README',
+	'README.rst',
     'readme.txt',
     'screenshot-1.png',
     'screenshot-2.png',
