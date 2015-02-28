@@ -272,6 +272,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
         }
         if ( ! empty($avatar_url) ) {
+            //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
             $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $avatar_url ) ) . '" />';
             if ( apply_filters( 'amt_extended_image_tags', true ) ) {

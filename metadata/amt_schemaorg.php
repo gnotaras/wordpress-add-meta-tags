@@ -754,6 +754,7 @@ function amt_get_schemaorg_author_metatags( $author_id ) {
         $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
     }
     if ( ! empty($avatar_url) ) {
+        //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
         $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
     }
 
