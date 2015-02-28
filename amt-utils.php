@@ -1234,7 +1234,7 @@ function amt_get_embedded_media( $post ) {
     // Check output of:  http://vimeo.com/api/v2/video/VIDEO_ID.xml
     // INVALID METHOD: 'thumbnail' => 'https://i.vimeocdn.com/video/' . $vimeo_video_id . '_640.jpg'
     //$pattern = '#vimeo.com/([-|~_0-9A-Za-z]+)#';
-    $pattern = '#https?:\/\/(?:www.)?vimeo.com\/(\d*)#i';
+    $pattern = '#https?:\/\/(?:www.)?vimeo.com\/(\d+)#i';
     preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
     if ($matches) {
