@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.6.10
+Stable tag: 2.6.11
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -573,7 +573,10 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.6.11](http://www.codetrax.org/versions/279)
+ - Final improvements of the description auto-generation algorithm. (props to TheAwesomer for all the useful feedback)
 - [2.6.10](http://www.codetrax.org/versions/278)
+ - Avatar URL that is used in Schema.org and Opengraph metadata no longer tied to the Gravatar service. (props to Nathan Hammond for ideas and sample code)
 - [2.6.9](http://www.codetrax.org/versions/277)
  - Added support for og:type=video in OpenGraph metadata. Please find more information in the 'Opengraph Metadata' section of the plugin's admin panel.
  - Added filter that makes it possible to manually add links of supported embeddable media.
