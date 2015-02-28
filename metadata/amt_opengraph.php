@@ -255,23 +255,34 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_content()) ) . '" />';
+
         // Profile Image
-        // Try to get the gravatar
-        // Note: We do not use the get_avatar() function since it returns an img element.
-        // Here we do not check if "Show Avatars" is unchecked in Settings > Discussion
         $author_email = sanitize_email( $author->user_email );
-        if ( !empty( $author_email ) ) {
-            // Contruct gravatar link
-            $gravatar_size = 128;
-            $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $gravatar_size;
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $gravatar_url ) . '" />';
-            $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $gravatar_url ) ) . '" />';
+        $avatar_size = apply_filters( 'amt_avatar_size', 128 );
+        $avatar_url = '';
+        // First try to get the avatar link by using get_avatar().
+        // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+        $avatar_img = get_avatar( get_the_author_meta('ID', $author->ID), $avatar_size, '', get_the_author_meta('display_name', $author->ID) );
+        if ( ! empty($avatar_img) ) {
+            if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                $avatar_url = $matches[1];
+            }
+        } elseif ( ! empty($author_email) ) {
+            // If the user has provided an email, we use it to construct a gravatar link.
+            $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
+        }
+        if ( ! empty($avatar_url) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
+            $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $avatar_url ) ) . '" />';
             if ( apply_filters( 'amt_extended_image_tags', true ) ) {
-                $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $gravatar_size ) . '" />';
-                $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $gravatar_size ) . '" />';
-                $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+                $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $avatar_size ) . '" />';
+                $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $avatar_size ) . '" />';
+                // Since we do not have a way to determine the image type, the following meta tag is commented out
+                // TODO: make a function that detects the image type from the file extension (if a file extension is available)
+                //$metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
             }
         }
+
         // Profile data (only on the 1st page of the archive)
         if ( ! is_paged() ) {
             // Profile first and last name

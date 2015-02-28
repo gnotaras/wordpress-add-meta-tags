@@ -737,18 +737,26 @@ function amt_get_schemaorg_author_metatags( $author_id ) {
     if ( !empty($author_description) ) {
         $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $author_description ) . '" />';
     }
+
     // Profile Image
-    // Note: Use the get_avatar() function since it could be custom-modified.
-    // Here we do not check if "Show Avatars" is unchecked in Settings > Discussion
-    $avatar_size = 128;
+    $author_email = sanitize_email( get_the_author_meta('user_email', $author_id) );
+    $avatar_size = apply_filters( 'amt_avatar_size', 128 );
+    $avatar_url = '';
+    // First try to get the avatar link by using get_avatar().
+    // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
     $avatar_img = get_avatar( get_the_author_meta('ID', $author_id), $avatar_size, '', get_the_author_meta('display_name', $author_id) );
-    if ( !empty( $avatar_img ) ) {
-        $output_array = array();
-        if ( preg_match('/src="([^"]*)"/', $avatar_img, $output_array) === 1 ) {
-            $avatar_url = $output_array[1];
-            $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
+    if ( ! empty($avatar_img) ) {
+        if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+            $avatar_url = $matches[1];
         }
+    } elseif ( ! empty($author_email) ) {
+        // If the user has provided an email, we use it to construct a gravatar link.
+        $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
     }
+    if ( ! empty($avatar_url) ) {
+        $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
+    }
+
     // url
     // If a Google+ author profile URL has been provided, it has priority,
     // Otherwise fall back to the WordPress author archive.
