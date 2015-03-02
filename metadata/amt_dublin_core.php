@@ -151,7 +151,7 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
         }
 
         // Finally add the hasFormat
-        $metadata_arr[] = '<meta name="dcterms.hasFormat" content="' . esc_url_raw( $post->guid ) . '" />';
+        $metadata_arr[] = '<meta name="dcterms.hasFormat" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
 
     } else {    // Default: Text
         $metadata_arr[] = '<meta name="dcterms.type" content="Text" />';

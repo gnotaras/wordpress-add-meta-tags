@@ -366,7 +366,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         } elseif ( 'video' == $attachment_type ) {
             
             // Video tags
-            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $post->guid ) . '" />';
+            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
             //$metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
             //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
             //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
@@ -375,7 +375,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         } elseif ( 'audio' == $attachment_type ) {
             
             // Audio tags
-            $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $post->guid ) . '" />';
+            $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
             //$metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
             $metadata_arr[] = '<meta property="og:audio:type" content="' . esc_attr( $mime_type ) . '" />';
         }
@@ -502,7 +502,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                 } elseif ( 'video' == $attachment_type ) {
                     
                     // Video tags
-                    $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $attachment->guid ) . '" />';
+                    $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                     //$metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
                     //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
                     //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
@@ -511,7 +511,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                 } elseif ( 'audio' == $attachment_type ) {
                     
                     // Audio tags
-                    $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $attachment->guid ) . '" />';
+                    $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                     //$metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
                     $metadata_arr[] = '<meta property="og:audio:type" content="' . esc_attr( $mime_type ) . '" />';
                 }

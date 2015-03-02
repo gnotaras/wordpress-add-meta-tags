@@ -309,7 +309,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Video specific metatags
             // URL (for attachments: links to attachment page)
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $post->guid ) . '" />';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
             // Add the post body here
             $metadata_arr[] = $post_body;
@@ -321,7 +321,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Audio specific metatags
             // URL (for attachments: links to attachment page)
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) ) . '" />';
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $post->guid ) . '" />';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
             // Add the post body here
             $metadata_arr[] = $post_body;
@@ -480,7 +480,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     // Video specific metatags
                     // URL (for attachments: links to attachment page)
                     $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $attachment->guid ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                     $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
                     // Scope END: VideoObject
                     $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
@@ -493,7 +493,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     // Audio specific metatags
                     // URL (for attachments: links to attachment page)
                     $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $attachment->guid ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                     $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
                     // Scope END: AudioObject
                     $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
