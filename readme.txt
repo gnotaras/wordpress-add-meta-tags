@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.6.11
+Stable tag: 2.7.0
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -573,6 +573,10 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.7.0](http://www.codetrax.org/versions/228)
+ - Updated Opengraph generator. (props to Noorhackim for ideas and useful feedback)
+ - The Opengraph generator now supports 'article' and 'video.other' objects. 'video.other' is automatically set on video attachment pages and on posts with their post format set to 'video'.
+ - Various minor improvements and fixes.
 - [2.6.11](http://www.codetrax.org/versions/279)
  - Final improvements of the description auto-generation algorithm. (props to TheAwesomer for all the useful feedback)
 - [2.6.10](http://www.codetrax.org/versions/278)
