@@ -536,6 +536,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         foreach( $embedded_media['videos'] as $embedded_item ) {
 
             $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+            $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
             $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
             $metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
             $metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
@@ -544,6 +545,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         foreach( $embedded_media['sounds'] as $embedded_item ) {
 
             $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+            $metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
             $metadata_arr[] = '<meta property="og:audio:type" content="application/x-shockwave-flash" />';
 
         }
