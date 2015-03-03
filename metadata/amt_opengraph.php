@@ -337,6 +337,9 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_content()) ) . '" />';
 
+        // og:updated_time
+        $metadata_arr[] = '<meta property="og:updated_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
+
         // Metadata specific to each attachment type
 
         if ( 'image' == $attachment_type ) {
@@ -417,6 +420,9 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_content()) ) . '" />';
+
+        // og:updated_time
+        $metadata_arr[] = '<meta property="og:updated_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
 
         // We store the featured image ID in this variable so that it can easily be excluded
         // when all images are parsed from the $attachments array.
