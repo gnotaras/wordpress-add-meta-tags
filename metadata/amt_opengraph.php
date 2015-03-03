@@ -531,52 +531,74 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
         // Article: meta tags
 
-        // Dates
-        $metadata_arr[] = '<meta property="article:published_time" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
-        $metadata_arr[] = '<meta property="article:modified_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
+        if ( $og_type == 'article' ) {
 
-        // Author
-        // If a Facebook author profile URL has been provided, it has priority,
-        // Otherwise fall back to the WordPress author archive.
-        $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $post->post_author);
-        if ( !empty($fb_author_url) ) {
-            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
-        } else {
-            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
-        }
+            // Dates
+            $metadata_arr[] = '<meta property="article:published_time" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+            $metadata_arr[] = '<meta property="article:modified_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
 
-        // Publisher
-        // If a Facebook publisher profile URL has been provided, it has priority,
-        // Otherwise fall back to the WordPress blog home url.
-        $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
-        if ( !empty($fb_publisher_url) ) {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
-        } else {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
-        }
-
-        /*
-        // article:section: We use the first category as the section.
-        $first_cat = amt_get_first_category($post);
-        if ( ! empty( $first_cat ) ) {
-            $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $first_cat ) . '" />';
-        }
-        */
-        // article:section: We use print an ``article:section`` meta tag for each of the post's categories.
-        foreach( get_the_category($post->ID) as $cat ) {
-            $section = trim( $cat->cat_name );
-            if ( ! empty( $section ) ) {
-                $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $section ) . '" />';
+            // Author
+            // If a Facebook author profile URL has been provided, it has priority,
+            // Otherwise fall back to the WordPress author archive.
+            $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $post->post_author);
+            if ( !empty($fb_author_url) ) {
+                $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
             }
-        }
-        
-        // article:tag: Keywords are listed as post tags
-        $keywords = explode(',', amt_get_content_keywords($post));
-        foreach ($keywords as $tag) {
-            $tag = trim( $tag );
-            if (!empty($tag)) {
-                $metadata_arr[] = '<meta property="article:tag" content="' . esc_attr( $tag ) . '" />';
+
+            // Publisher
+            // If a Facebook publisher profile URL has been provided, it has priority,
+            // Otherwise fall back to the WordPress blog home url.
+            $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
+            if ( !empty($fb_publisher_url) ) {
+                $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
             }
+
+            /*
+            // article:section: We use the first category as the section.
+            $first_cat = amt_get_first_category($post);
+            if ( ! empty( $first_cat ) ) {
+                $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $first_cat ) . '" />';
+            }
+            */
+            // article:section: We use print an ``article:section`` meta tag for each of the post's categories.
+            foreach( get_the_category($post->ID) as $cat ) {
+                $section = trim( $cat->cat_name );
+                if ( ! empty( $section ) ) {
+                    $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $section ) . '" />';
+                }
+            }
+            
+            // article:tag: Keywords are listed as post tags
+            $keywords = explode(',', amt_get_content_keywords($post));
+            foreach ($keywords as $tag) {
+                $tag = trim( $tag );
+                if (!empty($tag)) {
+                    $metadata_arr[] = '<meta property="article:tag" content="' . esc_attr( $tag ) . '" />';
+                }
+            }
+
+        }
+
+        // video.other meta tags
+
+        elseif ( $og_type == 'video.other' ) {
+
+            // Dates
+            $metadata_arr[] = '<meta property="video:release_date" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+
+            // video:tag: Keywords are listed as post tags
+            $keywords = explode(',', amt_get_content_keywords($post));
+            foreach ($keywords as $tag) {
+                $tag = trim( $tag );
+                if (!empty($tag)) {
+                    $metadata_arr[] = '<meta property="video:tag" content="' . esc_attr( $tag ) . '" />';
+                }
+            }
+
         }
 
     }
