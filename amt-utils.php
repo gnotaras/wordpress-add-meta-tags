@@ -1212,8 +1212,8 @@ function amt_get_embedded_media( $post ) {
             $item = array(
                 'type' => 'youtube',
                 'page' => 'https://www.youtube.com/watch?v=' . $youtube_video_id,
-                //'player' => 'https://youtube.com/v/' . $youtube_video_id,
-                'player' => 'https://www.youtube.com/embed/' . $youtube_video_id,
+                'player' => 'https://youtube.com/v/' . $youtube_video_id,
+                //'player' => 'https://www.youtube.com/embed/' . $youtube_video_id,
                 // Since we can construct the video thumbnail from the ID, we add it
                 'thumbnail' => apply_filters( 'amt_oembed_youtube_image_preview', 'https://img.youtube.com/vi/' . $youtube_video_id . '/sddefault.jpg', $youtube_video_id ),
                 //'thumbnail' => apply_filters( 'amt_oembed_youtube_image_preview', '', $youtube_video_id ),
