@@ -978,7 +978,11 @@ function amt_inner_metadata_box( $post ) {
     // If no features have been enabled, print an informative message
     if ( $metabox_has_features === false ) {
         print('
-            <p>'.__(sprintf( 'No features have been enabled for this metabox in the Add-Meta-Tags plugin <a href="%s">settings</a> or you do not have enough permissions to access the available features.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
+            <p>'.__(sprintf( 'No features have been enabled for this metabox in the Add-Meta-Tags <a href="%s">settings</a> or you do not have enough permissions to access the available features.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
+        ');
+    } else {
+        print('
+            <p style="font-size: 85%; text-align: right; margin-top: 10px;">'.__(sprintf( 'Note: more features for this metabox might be available in the Add-Meta-Tags <a href="%s">settings</a>.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
         ');
     }
 
