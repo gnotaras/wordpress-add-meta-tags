@@ -99,7 +99,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 // Type
                 $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
                 // Creator
-                //$metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
                 // Publisher
                 $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
                 // Title
