@@ -263,8 +263,12 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
 
         // Here we generate an excerpt from $post->post_content
 
+        // Early filter that lets dev define the post. This makes it possible to
+        // exclude specific parts of the post for the rest of the algorithm.
+        $initial_content = apply_filters( 'amt_get_the_excerpt_initial_content', $post->post_content, $post );
+
         // First strip all HTML tags
-        $plain_text = wp_kses( $post->post_content, array() );
+        $plain_text = wp_kses( $initial_content, array() );
 
         // Get the initial text.
         // We use $excerpt_max_len characters of the text for the description.
