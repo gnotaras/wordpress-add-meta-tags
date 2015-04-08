@@ -58,14 +58,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add contact method for Google+ for author and publisher.
  */
 function amt_add_googleplus_contactmethod( $contactmethods ) {
+
     // Add Google+ author profile URL
     if ( !isset( $contactmethods['amt_googleplus_author_profile_url'] ) ) {
         $contactmethods['amt_googleplus_author_profile_url'] = __('Google+ author profile URL', 'add-meta-tags') . ' (AMT)';
     }
-    // Add Google+ publisher profile URL
-    if ( !isset( $contactmethods['amt_googleplus_publisher_profile_url'] ) ) {
-        $contactmethods['amt_googleplus_publisher_profile_url'] = __('Google+ publisher page URL', 'add-meta-tags') . ' (AMT)';
+
+    // The publisher profile box in the WordPress user profile page can be deactivated via filtering.
+    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', true ) ) {
+        // Add Google+ publisher profile URL
+        if ( !isset( $contactmethods['amt_googleplus_publisher_profile_url'] ) ) {
+            $contactmethods['amt_googleplus_publisher_profile_url'] = __('Google+ publisher page URL', 'add-meta-tags') . ' (AMT)';
+        }
     }
+
     return $contactmethods;
 }
 add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
@@ -76,11 +82,6 @@ add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
  */
 function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
-    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
-        // Add these metatags on content pages only.
-        return array();
-    }
-
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
         return array();
@@ -88,14 +89,33 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, 
 
     $metadata_arr = array();
 
+    // The publisher link appears everywhere
+
+    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
+
+        // Add the publisher link only.
+        if ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
+            $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $options['social_main_googleplus_publisher_profile_url'], array('http', 'https') ) . '" />';
+        } else {
+            // Link to homepage
+            $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
+    }
+
+        return $metadata_arr;
+    }
+
+    // On content pages and static front/latest-posts page, add both links
+
     // Publisher
     $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
-    if ( empty( $googleplus_publisher_url ) ) {
-        // Link to homepage
-        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
-    } else {
+    if ( ! empty( $googleplus_publisher_url ) ) {
         // Link to Google+ publisher profile
         $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
+    } elseif ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
+        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $options['social_main_googleplus_publisher_profile_url'], array('http', 'https') ) . '" />';
+    } else {
+        // Link to homepage
+        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
     }
 
     // Author
@@ -710,6 +730,8 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $author_id);
         if ( ! empty( $googleplus_publisher_url ) ) {
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
+        } elseif ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
+            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $options['social_main_googleplus_publisher_profile_url'], array('http', 'https') ) . '" />';
         } else {
             $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         }

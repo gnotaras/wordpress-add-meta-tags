@@ -306,6 +306,73 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Publisher Settings', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Publisher Settings', 'add-meta-tags').'</span></legend>
+
+                <p>'.__('This section contains options related to your web site; the publisher of the content.', 'add-meta-tags').'</p>
+                <p>'.__('Filling in these settings is entirely optional.', 'add-meta-tags').'</p>
+
+                <h4>'.__('Facebook publisher profile URL', 'add-meta-tags').':</h4>
+
+                <input name="social_main_facebook_publisher_profile_url" type="text" id="social_main_facebook_publisher_profile_url" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_facebook_publisher_profile_url"] ) ) . '" size="100" maxlength="1024" />
+                <br />
+                <label for="social_main_facebook_publisher_profile_url">
+                '.__('Enter an absolute URL to the Facebook profile of the publisher. If this is filled in, it will be used in the <code>article:publisher</code> meta tag.', 'add-meta-tags').'
+                </label>
+                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>https://www.facebook.com/awesome.editors</code></p>
+                <br />
+
+                <!-- We currently let users add the full meta tags for fb:app_id and fb:admins in the site wide meta tags box.
+
+                <h4>'.__('Facebook App ID', 'add-meta-tags').':</h4>
+
+                <input name="social_main_facebook_app_id" type="text" id="social_main_facebook_app_id" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_facebook_app_id"] ) ) . '" size="100" maxlength="1024" />
+                <br />
+                <label for="social_main_facebook_app_id">
+                '.__('Enter the App ID for <a target="_blank" href="https://developers.facebook.com/docs/platforminsights">Facebook Insights</a>.', 'add-meta-tags').'
+                </label>
+                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>1234567890</code></p>
+                <br />
+
+                <h4>'.__('Facebook Admin ID list', 'add-meta-tags').':</h4>
+
+                <input name="social_main_facebook_admins" type="text" id="social_main_facebook_admins" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_facebook_admins"] ) ) . '" size="100" maxlength="1024" />
+                <br />
+                <label for="social_main_facebook_admins">
+                '.__('Enter a comma delimited list of numerical Facebook user IDs which will have access to <a target="_blank" href="https://developers.facebook.com/docs/platforminsights">Facebook Insights</a>.', 'add-meta-tags').'
+                </label>
+                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>1111111111,2222222222</code></p>
+                <br />
+
+                -->
+
+                <h4>'.__('Google+ publisher profile URL', 'add-meta-tags').':</h4>
+
+                <input name="social_main_googleplus_publisher_profile_url" type="text" id="social_main_googleplus_publisher_profile_url" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_googleplus_publisher_profile_url"] ) ) . '" size="100" maxlength="1024" />
+                <br />
+                <label for="social_main_googleplus_publisher_profile_url">
+                '.__('Enter an absolute URL to the Google+ profile of the publisher. If this is filled in, it will be used in the link with <code>rel="publisher"</code> in the HEAD area of the web page.', 'add-meta-tags').'
+                </label>
+                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>https://plus.google.com/+AwesomeEditors/</code></p>
+                <br />
+
+                <h4>'.__('Twitter publisher username', 'add-meta-tags').':</h4>
+
+                <input name="social_main_twitter_publisher_username" type="text" id="social_main_twitter_publisher_username" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_twitter_publisher_username"] ) ) . '" size="100" maxlength="1024" />
+                <br />
+                <label for="social_main_twitter_publisher_username">
+                '.__('Enter the Twitter username of the publisher (without @).', 'add-meta-tags').'
+                </label>
+                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>AwesomeEditors</code></p>
+                <br />
+
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Basic Metadata', 'add-meta-tags').'</th>
             <td>
             <fieldset>
@@ -337,7 +404,7 @@ function amt_options_page() {
 
                 <h4>'.__('Important Note', 'add-meta-tags').'</h4>
 
-                <p>'.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. Enter these settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. For example:', 'add-meta-tags').'</p>
+                <p>'.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above. For example:', 'add-meta-tags').'</p>
                 <blockquote>Facebook author profile URL (AMT): <code>https://www.facebook.com/john.smith</code></blockquote>
                 <blockquote>Facebook publisher profile URL (AMT): <code>https://www.facebook.com/awesome.editors</code></blockquote>
                 <p>'.__('It is possible to control the value of the <code>og:type</code> meta tag either by changing the post format or programmatically via a filter. By default, the <code>og:type</code> is set to <code>article</code> for all content, except for video attachment pages and posts whose post format has been set to <code>video</code>, on which <code>og:type</code> is set to <code>video.other</code>.', 'add-meta-tags').'</p>
@@ -362,7 +429,7 @@ function amt_options_page() {
 
                 <h4>'.__('Important Notes', 'add-meta-tags').'</h4>
 
-                <p>'.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>.', 'add-meta-tags').'</p>
+                <p>'.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>. Filling in the publisher username is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
                 <blockquote>Twitter author username (AMT): <code>JohnSmith</code></blockquote>
                 <blockquote>Twitter publisher username (AMT): <code>AwesomeEditors</code></blockquote>
 
@@ -402,7 +469,7 @@ function amt_options_page() {
 
                 <h4>'.__('Important Notes', 'add-meta-tags').'</h4>
 
-                <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>.', 'add-meta-tags').'</p>
+                <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
                 <blockquote>Google+ author profile URL (AMT): <code>https://plus.google.com/+JohnSmith/</code></blockquote>
                 <blockquote>Google+ publisher page URL (AMT): <code>https://plus.google.com/+AwesomeEditors/</code></blockquote>
 

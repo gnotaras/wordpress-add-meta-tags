@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function amt_get_default_options() {
     return array(
-        "settings_version"  => 7,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
+        "settings_version"  => 8,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -79,6 +79,11 @@ function amt_get_default_options() {
         "metabox_enable_news_keywords"   => "0",
         "metabox_enable_full_metatags"   => "0",
         "metabox_enable_referenced_list" => "0",
+        "social_main_facebook_publisher_profile_url" => "",
+        //"social_main_facebook_app_id" => "",
+        //"social_main_facebook_admins" => "",
+        "social_main_googleplus_publisher_profile_url" => "",
+        "social_main_twitter_publisher_username" => "",
         "copyright_url"     => "",
         "default_image_url" => "",
         "review_mode"       => "0",

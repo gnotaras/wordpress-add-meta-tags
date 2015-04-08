@@ -56,14 +56,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add contact method for Twitter username of author and publisher.
  */
 function amt_add_twitter_contactmethod( $contactmethods ) {
+
     // Add Twitter author username
     if ( !isset( $contactmethods['amt_twitter_author_username'] ) ) {
         $contactmethods['amt_twitter_author_username'] = __('Twitter author username', 'add-meta-tags') . ' (AMT)';
     }
-    // Add Twitter publisher username
-    if ( !isset( $contactmethods['amt_twitter_publisher_username'] ) ) {
-        $contactmethods['amt_twitter_publisher_username'] = __('Twitter publisher username', 'add-meta-tags') . ' (AMT)';
+
+    // The publisher profile box in the WordPress user profile page can be deactivated via filtering.
+    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', true ) ) {
+        // Add Twitter publisher username
+        if ( !isset( $contactmethods['amt_twitter_publisher_username'] ) ) {
+            $contactmethods['amt_twitter_publisher_username'] = __('Twitter publisher username', 'add-meta-tags') . ' (AMT)';
+        }
     }
+
     return $contactmethods;
 }
 add_filter( 'user_contactmethods', 'amt_add_twitter_contactmethod', 10, 1 );
@@ -79,13 +85,47 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         return array();
     }
 
-    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
-        // Twitter Cards are added to content pages and attachments only.
-        return array();
-    }
-
     $metadata_arr = array();
 
+    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
+
+        // Default front page containing latest posts
+        // Add a basic Twitter Card to the default home page that contains latest posts.
+        // If static pages are used as the front page or the latest-posts page,
+        // then they are treated as content and are processed below.
+        if ( amt_is_default_front_page() ) {
+            // Generate the card only if a publisher username has been set in the publisher settings
+            if ( ! empty($options['social_main_twitter_publisher_username']) ) {
+                // Type
+                $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
+                // Creator
+                //$metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                // Publisher
+                $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                // Title
+                // Note: Contains multipage information through amt_process_paged()
+                $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_bloginfo('name') ) ) . '" />';
+                // Site description - Note: Contains multipage information through amt_process_paged()
+                if ( ! empty( $options["site_description"] ) ) {
+                    $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $options["site_description"] ) ) . '" />';
+                } elseif ( get_bloginfo('description') ) {
+                    $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( get_bloginfo('description') ) ) . '" />';
+                }
+                // Image. Use the default image (if set).
+                if ( ! empty( $options["default_image_url"] ) ) {
+                    $image_url = apply_filters( 'amt_twitter_cards_image_url_index', $options["default_image_url"] );
+                    $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $image_url ) . '" />';
+                }
+            }
+
+        // Taxonomy archives
+        //} elseif ( is_taxonomy() ) {
+        //  TODO:
+        
+        }
+
+        return $metadata_arr;
+    }
 
     // Attachments
     if ( is_attachment() ) {
@@ -497,6 +537,8 @@ function amt_get_twitter_cards_author_publisher_metatags( $post ) {
     $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
     if ( !empty($twitter_publisher_username) ) {
         $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
+    } elseif ( ! empty($options['social_main_twitter_publisher_username']) ) {
+        $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
     }
     return $metadata_arr;
 }
