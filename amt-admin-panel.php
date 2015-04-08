@@ -312,7 +312,7 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Publisher Settings', 'add-meta-tags').'</span></legend>
 
                 <p>'.__('This section contains options related to your web site; the publisher of the content.', 'add-meta-tags').'</p>
-                <p>'.__('Filling in these settings is entirely optional.', 'add-meta-tags').'</p>
+                <p>'.__('The following publisher related settings are shared among all users. Filling in these settings is entirely optional.', 'add-meta-tags').'</p>
 
                 <h4>'.__('Facebook publisher profile URL', 'add-meta-tags').':</h4>
 
