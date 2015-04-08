@@ -296,7 +296,10 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( ! empty($avatar_url) ) {
             //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
-            $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $avatar_url ) ) . '" />';
+            // Add an og:imagesecure_url if the image URL uses HTTPS
+            if ( strpos($avatar_url, 'https://') !== false ) {
+                $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( $avatar_url ) . '" />';
+            }
             if ( apply_filters( 'amt_extended_image_tags', true ) ) {
                 $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $avatar_size ) . '" />';
                 $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $avatar_size ) . '" />';
