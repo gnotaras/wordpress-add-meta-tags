@@ -97,7 +97,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             // Generate the card only if a publisher username has been set in the publisher settings
             if ( ! empty($options['social_main_twitter_publisher_username']) ) {
                 // Type
-                $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
+                $metadata_arr[] = '<meta name="twitter:card" content="' . amt_get_default_twitter_card_type($options) . '" />';
                 // Creator
                 $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
                 // Publisher
@@ -211,16 +211,16 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
 
     // Content
-    // - standard format (post_format === false), aside, link, quote, status, chat (create summary card)
+    // - standard format (post_format === false), aside, link, quote, status, chat (create summary card or summary_large_image if enforced)
     // - photo format (creates (summary_large_image card)
     } elseif ( get_post_format($post->ID) === false || in_array( get_post_format($post->ID), array('image', 'aside', 'link', 'quote', 'status', 'chat') ) ) {
 
-        // Render a summary card if standard format.
+        // Render a summary card if standard format (or summary_large_image if enforced).
         // Render a summary_large_image card if image format.
 
         // Type
         if ( get_post_format($post->ID) === false || in_array( get_post_format($post->ID), array('aside', 'link', 'quote', 'status', 'chat') ) ) {
-            $metadata_arr[] = '<meta name="twitter:card" content="summary" />';
+            $metadata_arr[] = '<meta name="twitter:card" content="' . amt_get_default_twitter_card_type($options) . '" />';
             // Set the image size to use
             $image_size = apply_filters( 'amt_image_size_content', 'medium' );
         } elseif ( get_post_format($post->ID) == 'image' ) {

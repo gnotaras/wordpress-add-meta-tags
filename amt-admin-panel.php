@@ -423,6 +423,11 @@ function amt_options_page() {
                 <p>'.__('If this option is enabled, Twitter Cards metadata is automatically generated for content and attachments. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'</p>
                 <br />
 
+                <input id="tc_enforce_summary_large_image" type="checkbox" value="1" name="tc_enforce_summary_large_image" '. (($options["tc_enforce_summary_large_image"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="tc_enforce_summary_large_image">'.__('Enforce the use of <code>summary_large_image</code> as default card type.', 'add-meta-tags').'</label>
+                <p>'.__('If this setting is enabled, <code>summary_large_image</code> will be used as the default Twitter Card type instead of the <code>summary</code> card type.', 'add-meta-tags').'</p>
+                <br />
+
                 <input id="tc_enable_player_card_local" type="checkbox" value="1" name="tc_enable_player_card_local" '. (($options["tc_enable_player_card_local"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="tc_enable_player_card_local">'.__('Enable the generation of <em>player</em> cards for local media.', 'add-meta-tags').'</label>
                 <p>'.__('Enable the generation of <em>player</em> cards for locally hosted audio and video attachments or for posts with their post format set to audio or video. In the latter case, an audio or video is expected to be attached to the post respectively. A mandatory requirement for this feature, as outlined in the Twitter Cards specifications, is secure access to your web site over the HTTPS protocol. If secure access to your web site has not been configured properly, the player cards will not be rendered by the Twitter service. Moreover, using self-signed certificates could cause problems which might be hard to identify. This feature should be considered experimental.', 'add-meta-tags').'</p>

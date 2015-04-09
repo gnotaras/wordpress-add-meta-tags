@@ -65,6 +65,7 @@ function amt_get_default_options() {
         "auto_dublincore"   => "0",
         "auto_twitter"      => "0",     // Twitter Cards
         "tc_enable_player_card_local" => "0",   // Enable the player card for locally hosted audio and video attachments.
+        "tc_enforce_summary_large_image" => "0",   // Set summary_large_image as the default card.
         "auto_schemaorg"    => "0",
         "noodp_description" => "0",
         "noindex_search_results"     => "1",
