@@ -319,7 +319,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         if ( 'image' == $attachment_type ) {
 
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_attachment', 'large' );
+            $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
             // Get image metatags. $post is an image object.
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $post, $size=$image_size, $is_representative=true ) );
             // Add the post body here
@@ -457,7 +457,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
             $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_content', 'medium' );
+            $image_size = apply_filters( 'amt_image_size_content', 'full' );
             // Get image metatags.
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
             // metadata END
@@ -487,7 +487,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
                     $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
                     // Allow filtering of the image size.
-                    $image_size = apply_filters( 'amt_image_size_content', 'medium' );
+                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
                     // Get image metatags.
                     $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $attachment, $size=$image_size ) );
                     // metadata END

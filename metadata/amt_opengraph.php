@@ -181,7 +181,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Site Image
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_index', 'medium' );
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
         } elseif (!empty($options["default_image_url"])) {
             // Alternatively, use default image
@@ -221,7 +221,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Site Image
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_index', 'medium' );
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
         } elseif (!empty($options["default_image_url"])) {
             // Alternatively, use default image
@@ -379,7 +379,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( 'image' == $attachment_type ) {
 
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_attachment', 'large' );
+            $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, $post->ID, $size=$image_size ) );
 
         } elseif ( 'video' == $attachment_type ) {
@@ -475,7 +475,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Image
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_content', 'medium' );
+            $image_size = apply_filters( 'amt_image_size_content', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
             // Finally, set the $featured_image_id
             $featured_image_id = get_post_thumbnail_id( $post->ID );
@@ -498,7 +498,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
                     // Image tags
                     // Allow filtering of the image size.
-                    $image_size = apply_filters( 'amt_image_size_content', 'medium' );
+                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
                     $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, $attachment->ID, $size=$image_size ) );
 
                     // Images have been found.

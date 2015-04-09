@@ -144,7 +144,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             //$image_meta = wp_get_attachment_metadata( $post->ID );   // contains info about all sizes
             // We use wp_get_attachment_image_src() since it constructs the URLs
             // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_attachment', 'large' );
+            $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
             $main_size_meta = wp_get_attachment_image_src( $post->ID , $image_size );
 
             // Type
@@ -222,13 +222,13 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         if ( get_post_format($post->ID) === false || in_array( get_post_format($post->ID), array('aside', 'link', 'quote', 'status', 'chat') ) ) {
             $metadata_arr[] = '<meta name="twitter:card" content="' . amt_get_default_twitter_card_type($options) . '" />';
             // Set the image size to use
-            $image_size = apply_filters( 'amt_image_size_content', 'medium' );
+            $image_size = apply_filters( 'amt_image_size_content', 'full' );
         } elseif ( get_post_format($post->ID) == 'image' ) {
             $metadata_arr[] = '<meta name="twitter:card" content="summary_large_image" />';
             // Set the image size to use
             // Since we need a bigger image, here we filter the image size through 'amt_image_size_attachment',
             // which typically returns a size bigger than 'amt_image_size_content'.
-            $image_size = apply_filters( 'amt_image_size_attachment', 'large' );
+            $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
         }
 
         // Author and Publisher
@@ -363,7 +363,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             if ( 'image' == $attachment_type ) {
                 // Image tags
                 // Allow filtering of the image size.
-                $image_size = apply_filters( 'amt_image_size_content', 'medium' );
+                $image_size = apply_filters( 'amt_image_size_content', 'full' );
                 $main_size_meta = wp_get_attachment_image_src( $attachment->ID, $image_size );
                 $metadata_arr[] = '<meta name="twitter:image' . $k . '" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
 
