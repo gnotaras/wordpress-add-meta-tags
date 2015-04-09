@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.7.2
+Stable tag: 2.7.3
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -573,6 +573,13 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.7.3](http://www.codetrax.org/versions/231)
+ - Fixed bug with the sanitization of the publisher's Twitter username.
+ - Improved the generation of secure URLs in the OpenGraph generator.
+ - The size 'full' is now used for all images in metadata. (thank you all for feedback)
+ - Metadata (OpenGraph and Twitter Cards) is now generated for taxonomy archives. (props to sleepymonk for making me reconsider the implementation of this feature)
+ - Updated translations (props to BouRock for Turkish translation)
+ - Added option to make "summary with large image" the default Twitter Card. (props to Noorhackim for ideas and feedback)
 - [2.7.2](http://www.codetrax.org/versions/230)
  - Implemented shared publisher settings among authors. Check 'Publisher Settings' section in the settings page. (props to RichardS, Noorhackim, Fesarlis for ideas and feedback)
  - Improved code that determines the avatar URL (props to Nathan Hammond)
