@@ -87,7 +87,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
     $metadata_arr = array();
 
-    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
+    if ( ! is_singular() || is_front_page() || is_category() || is_tag() || is_tax() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
 
         // Default front page containing latest posts
         // Add a basic Twitter Card to the default home page that contains latest posts.
@@ -119,8 +119,59 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             }
 
         // Taxonomy archives
-        //} elseif ( is_taxonomy() ) {
-        //  TODO:
+        } elseif ( is_category() || is_tag() || is_tax() ) {
+            // Taxonomy term object.
+            // When viewing taxonomy archives, the $post object is the taxonomy term object. Check with: var_dump($post);
+            $tax_term_object = $post;
+            //var_dump($tax_term_object);
+
+            // Generate the card only if a publisher username has been set in the publisher settings
+            if ( ! empty($options['social_main_twitter_publisher_username']) ) {
+                // Type
+                $metadata_arr[] = '<meta name="twitter:card" content="' . amt_get_default_twitter_card_type($options) . '" />';
+                // Creator
+                $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                // Publisher
+                $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                // Title
+                // Note: Contains multipage information through amt_process_paged()
+                $metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( single_term_title( $prefix = '', $display = false ) ) ) . '" />';
+                // Description
+                // If set, the description of the custom taxonomy term is used in the 'description' metatag.
+                // Otherwise, a generic description is used.
+                // Here we sanitize the provided description for safety
+                $description_content = sanitize_text_field( amt_sanitize_description( term_description( $tax_term_object->term_id ) ) );
+                // Note: Contains multipage information through amt_process_paged()
+                if ( empty( $description_content ) ) {
+                    // Add a filtered generic description.
+                    // Filter name
+                    if ( is_category() ) {
+                        $generic_description = apply_filters( 'amt_generic_description_category_archive', __('Content filed under the %s category.', 'add-meta-tags') );
+                    } elseif ( is_tag() ) {
+                        $generic_description = apply_filters( 'amt_generic_description_tag_archive', __('Content tagged with %s.', 'add-meta-tags') );
+                    } elseif ( is_tax() ) {
+                        // Construct the filter name. Template: ``amt_generic_description_TAXONOMYSLUG_archive``
+                        $taxonomy_description_filter_name = sprintf( 'amt_generic_description_%s_archive', $tax_term_object->taxonomy);
+                        // var_dump($taxonomy_description_filter_name);
+                        // Generic description
+                        $generic_description = apply_filters( $taxonomy_description_filter_name, __('Content filed under the %s taxonomy.', 'add-meta-tags') );
+                    }
+                    // Final generic description
+                    $generic_description = sprintf( $generic_description, single_term_title( $prefix='', $display=false ) );
+                    $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
+                } else {
+                    $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
+                }
+                // Image. Use a user defined image via filter. Otherwise use default image.
+                // Construct the filter name. Template: ``amt_taxonomy_TAXONOMYSLUG_TERMSLUG_image_url``
+                $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
+                //var_dump($taxonomy_image_url_filter_name);
+                // The default image, if set, is used by default.
+                $taxonomy_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+                if ( ! empty( $taxonomy_image_url ) ) {
+                    $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $taxonomy_image_url ) . '" />';
+                }
+            }
         
         }
 
