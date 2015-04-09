@@ -263,19 +263,22 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject" itemref="comments">';
+            //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject" itemref="comments">';
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject">';
 
         } elseif ( 'video' == $attachment_type ) {
 
             // Scope BEGIN: VideoObject: http://schema.org/VideoObject
             $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject" itemref="comments">';
+            //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject" itemref="comments">';
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject">';
 
         } elseif ( 'audio' == $attachment_type ) {
 
             // Scope BEGIN: AudioObject: http://schema.org/AudioObject
             $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject" itemref="comments">';
+            //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject" itemref="comments">';
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject">';
 
         } else {
             // we do not currently support other attachment types, so we stop processing here
@@ -356,7 +359,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Scope BEGIN: Article: http://schema.org/Article
         $metadata_arr[] = '<!-- Scope BEGIN: Article -->';
-        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Article" itemref="comments">';
+        //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/Article" itemref="comments">';
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Article">';
 
         // Publisher
         // Scope BEGIN: Organization: http://schema.org/Organization
