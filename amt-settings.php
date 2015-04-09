@@ -221,6 +221,10 @@ function amt_save_settings($post_payload) {
                 $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } elseif ( $def_key == 'default_image_url' ) {
                 $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
+            } elseif ( $def_key == 'social_main_facebook_publisher_profile_url' ) {
+                $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
+            } elseif ( $def_key == 'social_main_googleplus_publisher_profile_url' ) {
+                $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } else {
                 $add_meta_tags_opts[$def_key] = sanitize_text_field( stripslashes( $post_payload[$def_key] ) );
             }
