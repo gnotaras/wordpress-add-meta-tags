@@ -360,7 +360,7 @@ function amt_options_page() {
 
                 <h4>'.__('Twitter publisher username', 'add-meta-tags').':</h4>
 
-                <input name="social_main_twitter_publisher_username" type="text" id="social_main_twitter_publisher_username" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_twitter_publisher_username"] ) ) . '" size="100" maxlength="1024" />
+                <input name="social_main_twitter_publisher_username" type="text" id="social_main_twitter_publisher_username" class="code" value="' . esc_attr( stripslashes( $options["social_main_twitter_publisher_username"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="social_main_twitter_publisher_username">
                 '.__('Enter the Twitter username of the publisher (without @).', 'add-meta-tags').'
