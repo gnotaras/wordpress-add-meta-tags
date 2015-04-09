@@ -182,7 +182,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_index', 'medium' );
-            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
         } elseif (!empty($options["default_image_url"])) {
             // Alternatively, use default image
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
@@ -222,7 +222,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_index', 'medium' );
-            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
         } elseif (!empty($options["default_image_url"])) {
             // Alternatively, use default image
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
@@ -380,7 +380,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_attachment', 'large' );
-            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $post->ID, $size=$image_size ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, $post->ID, $size=$image_size ) );
 
         } elseif ( 'video' == $attachment_type ) {
             
@@ -476,7 +476,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_content', 'medium' );
-            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
             // Finally, set the $featured_image_id
             $featured_image_id = get_post_thumbnail_id( $post->ID );
             // Images have been found.
@@ -499,7 +499,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                     // Image tags
                     // Allow filtering of the image size.
                     $image_size = apply_filters( 'amt_image_size_content', 'medium' );
-                    $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $attachment->ID, $size=$image_size ) );
+                    $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, $attachment->ID, $size=$image_size ) );
 
                     // Images have been found.
                     $has_images = true;
@@ -521,6 +521,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                     $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                     if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
                         $metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
+                    }
                     $metadata_arr[] = '<meta property="og:audio:type" content="' . esc_attr( $mime_type ) . '" />';
                 }
 
@@ -663,7 +664,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
  * provided post ID.
  * By default, returns metadata for the 'medium' sized version of the image.
  */
-function amt_get_opengraph_image_metatags( $post_id, $size='medium' ) {
+function amt_get_opengraph_image_metatags( $options, $post_id, $size='medium' ) {
     $metadata_arr = array();
     $image = get_post( $post_id );
     //$image_meta = wp_get_attachment_metadata( $image->ID );   // contains info about all sizes
