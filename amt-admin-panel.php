@@ -328,7 +328,7 @@ function amt_options_page() {
 
                 <h4>'.__('Facebook App ID', 'add-meta-tags').':</h4>
 
-                <input name="social_main_facebook_app_id" type="text" id="social_main_facebook_app_id" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_facebook_app_id"] ) ) . '" size="100" maxlength="1024" />
+                <input name="social_main_facebook_app_id" type="text" id="social_main_facebook_app_id" class="code" value=" . esc_url_raw( stripslashes( $options["social_main_facebook_app_id"] ) ) . " size="100" maxlength="1024" />
                 <br />
                 <label for="social_main_facebook_app_id">
                 '.__('Enter the App ID for <a target="_blank" href="https://developers.facebook.com/docs/platforminsights">Facebook Insights</a>.', 'add-meta-tags').'
@@ -338,7 +338,7 @@ function amt_options_page() {
 
                 <h4>'.__('Facebook Admin ID list', 'add-meta-tags').':</h4>
 
-                <input name="social_main_facebook_admins" type="text" id="social_main_facebook_admins" class="code" value="' . esc_url_raw( stripslashes( $options["social_main_facebook_admins"] ) ) . '" size="100" maxlength="1024" />
+                <input name="social_main_facebook_admins" type="text" id="social_main_facebook_admins" class="code" value=" . esc_url_raw( stripslashes( $options["social_main_facebook_admins"] ) ) . " size="100" maxlength="1024" />
                 <br />
                 <label for="social_main_facebook_admins">
                 '.__('Enter a comma delimited list of numerical Facebook user IDs which will have access to <a target="_blank" href="https://developers.facebook.com/docs/platforminsights">Facebook Insights</a>.', 'add-meta-tags').'
