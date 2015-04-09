@@ -232,6 +232,68 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
 
 
+    // Category, Tag, Taxonomy archives
+    } elseif ( is_category() || is_tag() || is_tax() ) {
+        // Taxonomy term object.
+        // When viewing taxonomy archives, the $post object is the taxonomy term object. Check with: var_dump($post);
+        $tax_term_object = $post;
+        //var_dump($tax_term_object);
+
+        // Type
+        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        // Site Name
+        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Title - Note: Contains multipage information through amt_process_paged()
+        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( single_term_title( $prefix = '', $display = false ) ) ) . '" />';
+        // URL - Note: different method to get the permalink on paged archives
+        $url = get_term_link($tax_term_object);
+        if ( is_paged() ) {
+            $url = trailingslashit( $url ) . get_query_var('paged') . '/';
+        }
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( $url ) . '" />';
+        // Description
+        // If set, the description of the custom taxonomy term is used in the 'description' metatag.
+        // Otherwise, a generic description is used.
+        // Here we sanitize the provided description for safety
+        $description_content = sanitize_text_field( amt_sanitize_description( term_description( $tax_term_object->term_id ) ) );
+        // Note: Contains multipage information through amt_process_paged()
+        if ( empty( $description_content ) ) {
+            // Add a filtered generic description.
+            // Filter name
+            if ( is_category() ) {
+                $generic_description = apply_filters( 'amt_generic_description_category_archive', __('Content filed under the %s category.', 'add-meta-tags') );
+            } elseif ( is_tag() ) {
+                $generic_description = apply_filters( 'amt_generic_description_tag_archive', __('Content tagged with %s.', 'add-meta-tags') );
+            } elseif ( is_tax() ) {
+                // Construct the filter name. Template: ``amt_generic_description_TAXONOMYSLUG_archive``
+                $taxonomy_description_filter_name = sprintf( 'amt_generic_description_%s_archive', $tax_term_object->taxonomy);
+                // var_dump($taxonomy_description_filter_name);
+                // Generic description
+                $generic_description = apply_filters( $taxonomy_description_filter_name, __('Content filed under the %s taxonomy.', 'add-meta-tags') );
+            }
+            // Final generic description
+            $generic_description = sprintf( $generic_description, single_term_title( $prefix='', $display=false ) );
+            $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
+        } else {
+            $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( $description_content ) ) . '" />';
+        }
+        // Locale
+        $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site()) ) . '" />';
+        // Site Image
+        // Image. Use a user defined image via filter. Otherwise use default image.
+        // Construct the filter name. Template: ``amt_taxonomy_TAXONOMYSLUG_TERMSLUG_image_url``
+        $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
+        //var_dump($taxonomy_image_url_filter_name);
+        // The default image, if set, is used by default.
+        $taxonomy_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+        if ( ! empty( $taxonomy_image_url ) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $taxonomy_image_url ) . '" />';
+            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $taxonomy_image_url ) ) . '" />';
+            }
+        }
+
+
     // Author archive. First page is considered a profile page.
     } elseif ( is_author() ) {
 
