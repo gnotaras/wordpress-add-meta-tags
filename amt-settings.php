@@ -84,6 +84,7 @@ function amt_get_default_options() {
         //"social_main_facebook_admins" => "",
         "social_main_googleplus_publisher_profile_url" => "",
         "social_main_twitter_publisher_username" => "",
+        "has_https_access" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
         "review_mode"       => "0",
