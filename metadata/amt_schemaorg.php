@@ -410,7 +410,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         */
         foreach( get_the_category($post->ID) as $cat ) {
             $section = trim( $cat->cat_name );
-            if ( ! empty( $section ) ) {
+            if ( ! empty( $section ) && $cat->slug != 'uncategorized' ) {
                 $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $section ) . '" />';
             }
         }

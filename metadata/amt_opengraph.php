@@ -593,7 +593,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             // article:section: We use print an ``article:section`` meta tag for each of the post's categories.
             foreach( get_the_category($post->ID) as $cat ) {
                 $section = trim( $cat->cat_name );
-                if ( ! empty( $section ) ) {
+                if ( ! empty( $section ) && $cat->slug != 'uncategorized' ) {
                     $metadata_arr[] = '<meta property="article:section" content="' . esc_attr( $section ) . '" />';
                 }
             }
