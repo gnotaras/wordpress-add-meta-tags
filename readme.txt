@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -573,6 +573,13 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.7.2](http://www.codetrax.org/versions/230)
+ - Implemented shared publisher settings among authors. Check 'Publisher Settings' section in the settings page. (props to RichardS, Noorhackim, Fesarlis for ideas and feedback)
+ - Improved code that determines the avatar URL (props to Nathan Hammond)
+ - A twitter card is now generated on the homepage (props to Noorhackim)
+ - Fixed category 'Uncategorized' sneaking into the keywords. (props to Nathan Hammond)
+ - Removed an itemref which appeared in the Schema.org metadata and caused validation error in some cases. (props to Sleepymonk for feedback)
+ - Added the 'amt_get_the_excerpt_initial_content' which can be used to preprocess the post content that is delivered to the auto-description generator. (props to Craigs85 for ideas and feedback)
 - [2.7.1](http://www.codetrax.org/versions/229)
  - Reverted back to old youtube player URL due to problems with Facebook streaming.
 - [2.7.0](http://www.codetrax.org/versions/228)
