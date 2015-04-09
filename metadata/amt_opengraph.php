@@ -559,7 +559,6 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
 
         // If no images have been found so far use the default image, if set.
-        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
         if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
             if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
