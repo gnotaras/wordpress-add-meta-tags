@@ -169,6 +169,17 @@ function amt_plugin_upgrade() {
     // Added "metabox_enable_referenced_list"
     // No migrations required. Addition takes place in (1).
 
+    // Version 2.7.2 (settings_version 7->8)
+    // Added "social_main_facebook_publisher_profile_url"
+    // Added "social_main_googleplus_publisher_profile_url"
+    // Added "social_main_twitter_publisher_username"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.7.3 (settings_version 8->9)
+    // Added "has_https_access"
+    // Added "tc_enforce_summary_large_image"
+    // No migrations required. Addition takes place in (1).
+
     // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {
         if ( !array_key_exists($opt, $default_options) ) {
