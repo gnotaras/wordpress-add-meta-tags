@@ -15,13 +15,16 @@ Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and 
 
 *Add-Meta-Tags* (<abbr title="Add-Meta-Tags Wordpress plugin">AMT</abbr>) adds metadata to your content, including the basic *description* and *keywords* meta tags, [Opengraph](http://ogp.me "Opengraph specification"), [Schema.org](http://schema.org/ "Schema.org Specification"), [Twitter Cards](https://dev.twitter.com/docs/cards "Twitter Cards Specification") and [Dublin Core](http://dublincore.org "Dublin Core Metadata Initiative") metadata. It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ "Official historical Add-Meta-Tags Homepage")).
 
+*Add-Meta-Tags* is one of the personal software projects of George Notaras. It is developed in his free time and provided to you as Free software.
+
 
 = Goals =
 
 The goals of the Add-Meta-Tags plugin are:
 
-- provide efficient, out-of-the-box search engine optimization (*SEO*) on a web site powered by WordPress.
-- be customizable, yet simple and easy to use and configure with minimal or no support.
+- be a free, yet high quality, SEO extension for the WordPress publishing platform.
+- provide efficient, out-of-the-box search engine optimization (*SEO*).
+- be customizable, yet simple and easy to use and configure, with minimal or no support.
 - be as lightweight as possible.
 - support advanced customization through the WordPress filter/action system (for developers and advanced users).
 
