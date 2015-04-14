@@ -533,9 +533,23 @@ No special requirements when upgrading.
 
 == Frequently Asked Questions ==
 
-= There is no amount set in the donation form! How much should I donate? =
+= Plugin X displays a warning about Add-Meta-Tags being incompatible! What should I do? =
 
-The amount of the donation is totally up to you. You can think of it like this: Are you happy with the plugin? Do you think it makes your life easier or adds value to your web site? If this is a yes and, if you feel like showing your appreciation, you could imagine buying me a cup of coffee at your favorite Cafe and <a href="http://bit.ly/HvUakt">make a donation</a> accordingly.
+Add-Meta-Tags is compatible with every plugin available for WordPress. It never affects the functionality of other plugins in any way.
+
+Please read our <a title="Add-Meta-Tags Compatibility Notice" href="https://wordpress.org/support/topic/compatibility-notice-apr-09-2015">Compatibility Notice</a>. Also, check out our <a href="https://wordpress.org/support/topic/about-the-warnings-issued-by-3rd-party-plugins-for-add-meta-tags-apr-11-2015">message</a> about warnings issued by 3rd parties.
+
+= I see duplicate meta tags in the HTML source! =
+
+Add-Meta-Tags does not generate duplicate meta tags. Moreover, it does not check the HTML head area for duplicate meta tags. This is the responsibility of the user. Please make sure no meta tags are hardcoded into your theme (usually the `header.php` template). Also, if you use multiple SEO plugins, make sure that similar features, eg Twitter Cards metadata, is not enabled in both plugins.
+
+= The blog title appears in the 'title' HTML element even if a custom title has been set! =
+
+Most probably this issue is related to your theme. Please try to reproduce the same behavior using one of the default themes. If it is reproducible, please let me know about it in the forums.
+
+= Metadata validation tools show the error [Error: Missing required field "updated"]! =
+
+This is an issue related to <a title="Microformats Specification" href="http://microformats.org/">Microformats</a> metadata, which is hard-coded into the theme. It is not related to Schema.org microdata and also not related to Add-Meta-Tags.
 
 = My meta tags do not show up! =
 
@@ -557,9 +571,17 @@ Keep in mind that in order to get helpful answers and eventually solve any probl
 
 Also, my email can be found in the `add-meta-tags.php` file. If possible, I'll help. Please note that it may take a while to get back to you.
 
+= I want to request a new feature! =
+
+Please, feel free to post your request in the forums. Please be descriptive! Providing **detailed feedback** about the requested feature is the best way to contribute.
+
 = Is there a bug tracker? =
 
 You can find the bug tracker at the [Add-Meta-Tags Development web site](http://www.codetrax.org/projects/wp-add-meta-tags).
+
+= There is no amount set in the donation form! How much should I donate? =
+
+The amount of the donation is totally up to you. You can think of it like this: Are you happy with the plugin? Do you think it makes your life easier or adds value to your web site? If this is a yes and, if you feel like showing your appreciation, you could imagine buying me a cup of coffee at your favorite Cafe and <a href="http://bit.ly/HvUakt">make a donation</a> accordingly.
 
 
 == Screenshots ==
