@@ -739,9 +739,9 @@ Using Mercurial:
 `
 hg clone https://bitbucket.org/gnotaras/wordpress-add-meta-tags
 cd wordpress-add-meta-tags
-# ... make changes ...
+ ... make changes ...
 hg commit -m "fix for bug"
-# create a patch for the last commit
+ create a patch for the last commit
 hg export --git tip > bug-fix.patch
 `
 
@@ -750,7 +750,7 @@ Using Git:
 `
 git clone https://github.com/gnotaras/wordpress-add-meta-tags
 cd wordpress-add-meta-tags
-# ... make changes to add-meta-tags.php or other file ...
+ ... make changes to add-meta-tags.php or other file ...
 git add add-meta-tags.php
 git commit -m "my fix"
 git show > bug-fix.patch
@@ -761,7 +761,7 @@ Using SVN:
 `
 svn co http://plugins.svn.wordpress.org/add-meta-tags/trunk/ add-meta-tags-trunk
 cd add-meta-tags-trunk
-# ... make changes ...
+ ... make changes ...
 svn diff > bug-fix.patch
 `
 
