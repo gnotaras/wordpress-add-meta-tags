@@ -763,7 +763,7 @@ hg clone https://bitbucket.org/gnotaras/wordpress-add-meta-tags
 cd wordpress-add-meta-tags
  ... make changes ...
 hg commit -m "fix for bug"
- create a patch for the last commit
+ ... create a patch for the last commit ...
 hg export --git tip > bug-fix.patch
 `
 
