@@ -430,10 +430,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     // Content
     } else {
 
+        // Allow filtering the main metadata object for content. By default this set to Article.
+        $main_content_object = apply_filters( 'amt_schemaorg_object_main', 'Article' );
+
         // Scope BEGIN: Article: http://schema.org/Article
-        $metadata_arr[] = '<!-- Scope BEGIN: Article -->';
-        //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/Article" itemref="comments">';
-        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Article">';
+        $metadata_arr[] = '<!-- Scope BEGIN: ' . esc_attr($main_content_object) . ' -->';
+        //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/' . esc_attr($main_content_object) . '" itemref="comments">';
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/' . esc_attr($main_content_object) . '">';
 
         // Publisher
         // Scope BEGIN: Organization: http://schema.org/Organization
@@ -674,7 +677,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // TODO: also check: comments, contributor, copyrightHolder, , creator, dateCreated, discussionUrl, editor, version (use post revision if possible)
 
         // Scope END: Article
-        $metadata_arr[] = '</div> <!-- Scope END: Article -->';
+        $metadata_arr[] = '</div> <!-- Scope END: ' . esc_attr($main_content_object) . ' -->';
 
         // Filtering of the generated Schema.org metadata
         $metadata_arr = apply_filters( 'amt_schemaorg_metadata_content', $metadata_arr );
