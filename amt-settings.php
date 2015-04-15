@@ -85,6 +85,7 @@ function amt_get_default_options() {
         //"social_main_facebook_admins" => "",
         "social_main_googleplus_publisher_profile_url" => "",
         "social_main_twitter_publisher_username" => "",
+        "global_locale" => "",
         "has_https_access" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
@@ -180,6 +181,10 @@ function amt_plugin_upgrade() {
     // Version 2.7.3 (settings_version 8->9)
     // Added "has_https_access"
     // Added "tc_enforce_summary_large_image"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.7.5 (settings_version 9->10)
+    // Added "global_locale"
     // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.

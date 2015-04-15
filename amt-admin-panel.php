@@ -578,6 +578,23 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Locale', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Locale', 'add-meta-tags').'</span></legend>
+
+                <input name="global_locale" type="text" id="global_locale" class="code" value="' . esc_attr( stripslashes( $options["global_locale"] ) ) . '" size="10" maxlength="24" />
+                <br />
+                <label for="global_locale">
+                '.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>.', 'add-meta-tags').'
+                </label>
+                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>en_US</code></p>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Secure Access', 'add-meta-tags').'</th>
             <td>
             <fieldset>

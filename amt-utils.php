@@ -1505,18 +1505,26 @@ function amt_return_false() {
 }
 
 
-// Returns site language
-function amt_get_language_site() {
+// Returns site locale
+function amt_get_language_site($options) {
     $language = get_bloginfo('language');
+    // If set, the 'global_locale' setting overrides WordPress.
+    if ( ! empty( $options["global_locale"] ) ) {
+        $language = $options["global_locale"];
+    }
     // Allow filtering of the site language
     $language = apply_filters( 'amt_language_site', $language );
     return $language;
 }
 
 
-// Returns content language
-function amt_get_language_content() {
+// Returns content locale
+function amt_get_language_content($options) {
     $language = get_bloginfo('language');
+    // If set, the 'global_locale' setting overrides WordPress.
+    if ( ! empty( $options["global_locale"] ) ) {
+        $language = $options["global_locale"];
+    }
     // Allow filtering of the content language
     $language = apply_filters( 'amt_language_content', $language );
     return $language;
