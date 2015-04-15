@@ -38,7 +38,6 @@ However, a significant amount of **time** and **energy** has been put into devel
 Donations in the following crypto currencies are also accepted and welcome. Send coins to the following addresses:
 
 - BitCoin (BTC): `1KkgpmaBKqQVk643VRhFRkL19Bbci4Mwn9`
-- LiteCoin (LTC): `LS8UF39LfLahzGo49y736ooRYBVT1zZ2Fa`
 
 Thank you in advance for **donating**!
 
