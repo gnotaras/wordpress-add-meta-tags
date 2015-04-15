@@ -6,11 +6,15 @@ This product includes software developed at:
 Copyright 2006-2013 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
 
 The following brand names must not appear in the names of products derived
-from this software without prior written permission of George Notaras:
+from this software or in the names of products that extend the functionality
+of this software without prior written permission of George Notaras:
 
   * add-meta-tags
   * CodeTRAX
   * G-Loaded Journal
+
+The officially recognized slug prefix for Add-Meta-Tags extensions is
+'amtext-' (Add-Meta-Tags extension).
 
 For licensing information, please read the LICENSE file.
 
