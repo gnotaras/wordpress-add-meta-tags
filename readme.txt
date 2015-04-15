@@ -22,7 +22,7 @@ Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and 
 
 The goals of the Add-Meta-Tags plugin are:
 
-- be a free, yet high quality, SEO extension for the WordPress publishing platform.
+- be a free, yet high quality, metadata extension for the WordPress publishing platform.
 - provide efficient, out-of-the-box search engine optimization (*SEO*).
 - be customizable, yet simple and easy to use and configure, with minimal or no support.
 - be as lightweight as possible.
