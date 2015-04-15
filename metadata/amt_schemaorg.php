@@ -682,9 +682,14 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Add articleBody to Artice
         // Now add the article. Remove last closing '</span>' tag, add articleBody and re-add the closing span afterwards.
         $closing_article_tag = array_pop($metadata_arr);
-        $metadata_arr[] = '<div itemprop="articleBody">';
+        // Use the 'text' itemprop by default for the main text body of the CreativeWork,
+        // so it can be used by more subtypes than Article.
+        // Allow filtering of the main text property.
+        //$main_text_property = apply_filters( 'amt_schemaorg_property_main_text', 'articleBody' );
+        $main_text_property = apply_filters( 'amt_schemaorg_property_main_text', 'text' );
+        $metadata_arr[] = '<div itemprop="' . esc_attr($main_text_property) . '">';
         $metadata_arr[] = $post_body;
-        $metadata_arr[] = '</div> <!-- Itemprop END: articleBody -->';
+        $metadata_arr[] = '</div> <!-- Itemprop END: ' . esc_attr($main_text_property) . ' -->';
         // Now add closing tag for Article
         $metadata_arr[] = $closing_article_tag;
     }
