@@ -65,6 +65,11 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
         return array();
     }
 
+    // The Dublin Core metadata generator does not support products or product groups.
+    if ( amt_is_product() || amt_is_product_group() ) {
+        return array();
+    }
+
     $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );
     if (!$do_auto_dublincore) {
         return array();

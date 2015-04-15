@@ -233,6 +233,9 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
 
     // Category, Tag, Taxonomy archives
+    // Note: product groups should pass the is_tax() validation, so no need for
+    // amt_is_product_group(). We do not support other product groups.
+    // amt_is_product_group() is used below to set the og:type to product.group.
     } elseif ( is_category() || is_tag() || is_tax() ) {
         // Taxonomy term object.
         // When viewing taxonomy archives, the $post object is the taxonomy term object. Check with: var_dump($post);
@@ -240,7 +243,12 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         //var_dump($tax_term_object);
 
         // Type
-        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        // In case of a product group taxonomy, we set the og:type to product.group
+        if ( amt_is_product_group() ) {
+            $metadata_arr[] = '<meta property="og:type" content="product.group" />';
+        } else {
+            $metadata_arr[] = '<meta property="og:type" content="website" />';
+        }
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // Title - Note: Contains multipage information through amt_process_paged()
@@ -504,6 +512,13 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // og:type set to 'video.other' for posts with post format set to video
         if ( get_post_format($post->ID) == 'video' ) {
             $og_type = 'video.other';
+        // og:type set to 'product' if amt_is_product() validates
+        // See:
+        //  * https://developers.facebook.com/docs/reference/opengraph/object-type/product/
+        //  * https://developers.facebook.com/docs/payments/product
+        } elseif ( amt_is_product() ) {
+            $og_type = 'product';
+        // In any other case 'article' is used as the og:type
         } else {
             $og_type = 'article';
         }
@@ -709,6 +724,17 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                     $metadata_arr[] = '<meta property="video:tag" content="' . esc_attr( $tag ) . '" />';
                 }
             }
+
+        }
+
+        // product meta tags
+        elseif ( $og_type == 'product' ) {
+
+            // Extend the current metadata with properties of the Product object.
+            // See:
+            //  * https://developers.facebook.com/docs/reference/opengraph/object-type/product/
+            //  * https://developers.facebook.com/docs/payments/product
+            $metadata_arr = apply_filters( 'amt_product_data_opengraph', $metadata_arr );
 
         }
 

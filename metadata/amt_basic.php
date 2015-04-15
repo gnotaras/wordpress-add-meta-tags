@@ -136,6 +136,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
 
     // Content pages and static pages used as "front page" and "posts page"
+    // This also supports products via is_singular()
     } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
 
         // Description
@@ -234,6 +235,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         }
 
     // Custom taxonomies - Should be after is_category() and is_tag(), as it would catch those taxonomies as well.
+    // This also supports product groups via is_tax(). Only product groups that are WordPress custom taxonomies are supported.
     } elseif ( is_tax() ) {
 
         // Taxonomy term object.

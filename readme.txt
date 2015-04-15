@@ -198,6 +198,10 @@ Here is what is supported:
 
 This feature should be considered experimental. This information might be changed in future versions of the plugin.
 
+= Metadata for products =
+
+Since v2.7.5 Add-Meta-Tags has generic product support. No 3rd party e-commerce plugin is auto detected by default, but the necessary filter hooks are provided
+in order to be able to easily detect product and product group pages. As soon, as a product page is detected, Add-Meta-Tags sets the base metadata object's type to 'product' (depends on the metadata generator) and sets any metadata attribute that can possibly be added without making guesses. Metadata regarding more specific product details can be added programmatically via product specific filtering functions. Please check example 
 
 = Translations =
 
@@ -468,6 +472,83 @@ function amt_custom_twitter_cards_video_player_size( $default ) {
     return array(320, 240);
 }
 add_filter( 'amt_twitter_cards_video_player_size', 'amt_custom_twitter_cards_video_player_size', 10, 1 );
+`
+This code can be placed inside your theme's `functions.php` file.
+
+**Example 12**: Generate product specific metadata.
+
+The following code assumes that e-commerce functionality is added by a plugin named **xcom** and aims to be an example about how to add Twitter Cards, Opengraph and Schema.org metadata to your product pages.
+
+`
+// Conditional tag that is true when our product page is displayed.
+// If such a conditional tag is provided by the e-commerce solution,
+// defining such a function is entirely optional.
+function is_xcom_product() {
+    // Check if xcom product page and return true;
+}
+
+// Conditional tag that is true when our product group page is displayed.
+// If such a conditional tag is provided by the e-commerce solution,
+// defining such a function is entirely optional.
+function is_xcom_product_group() {
+    // Check if xcom product group page and return true;
+}
+
+// Product page detection for Add-Meta-Tags
+function amt_detect_xcom_product() {
+    if ( is_xcom_product() ) {
+        return true;
+    }
+    return false;
+}
+add_filter( 'amt_is_product', 'amt_detect_xcom_product' );
+
+// Product group page detection for Add-Meta-Tags
+function amt_detect_xcom_product_group() {
+    if ( is_xcom_product_group() ) {
+        return true;
+    }
+    return false;
+}
+add_filter( 'amt_is_product_group', 'amt_detect_xcom_product_group' );
+
+// Twitter Cards for xcom products
+function amt_product_data_tc_xcom( $metatags ) {
+    if ( ! is_xcom_product() ) {
+        return $metatags;
+    }
+    $metatags[] = '<meta name="twitter:label1" content="Genre" />';
+    $metatags[] = '<meta name="twitter:data1" content="Classic Rock" />';
+    $metatags[] = '<meta name="twitter:label2" content="Location" />';
+    $metatags[] = '<meta name="twitter:data2" content="National" />';
+    return $metatags;
+}
+add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_xcom' );
+
+// Opengraph for xcom products
+function amt_product_data_og_xcom( $metatags ) {
+    if ( ! is_xcom_product() ) {
+        return $metatags;
+    }
+    $metatags[] = '<meta property="product:price:amount" content="0.30" />';
+    $metatags[] = '<meta property="product:price:currency" content="USD" />';
+    $metatags[] = '<meta property="product:price:amount" content="0.20" />';
+    $metatags[] = '<meta property="product:price:currency" content="GBP" />';
+    return $metatags;
+}
+add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_xcom' );
+
+// Schema.org for xcom products
+function amt_product_data_schemaorg_xcom( $metatags ) {
+    if ( ! is_xcom_product() ) {
+        return $metatags;
+    }
+    $metatags[] = '<meta itemprop="productID" content="isbn:123-456-789" />';
+    $metatags[] = '<meta itemprop="priceCurrency" content="USD" />';
+    $metatags[] = '<meta itemprop="price" content="100.00" />';
+    return $metatags;
+}
+add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_xcom' );
 `
 This code can be placed inside your theme's `functions.php` file.
 

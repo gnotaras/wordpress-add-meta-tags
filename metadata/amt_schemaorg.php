@@ -249,8 +249,81 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     //var_dump($embedded_media);
 
 
+    // Products
+    if ( amt_is_product() ) {
+
+        // Scope BEGIN: Product: http://schema.org/Product
+        $metadata_arr[] = '<!-- Scope BEGIN: Product -->';
+        //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product" itemref="comments">';
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product">';
+
+        // URL - Uses amt_get_permalink_for_multipage()
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
+
+        // name
+        // Note: Contains multipage information through amt_process_paged()
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+
+        // Description - We use the description defined by Add-Meta-Tags
+        // Note: Contains multipage information through amt_process_paged()
+        $content_desc = amt_get_content_description($post);
+        if ( empty($content_desc) ) {
+            // Use the post body as the description. Product objects do not support body text.
+            $content_desc = sanitize_text_field( amt_sanitize_description( $post_body ) );
+        }
+        if ( ! empty($content_desc) ) {
+            $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
+        }
+
+        // Dates
+        $metadata_arr[] = '<meta itemprop="releaseDate" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
+
+        // Set to true if any image attachments are found. Use to finally add the default image
+        // if no image attachments have been found.
+        $has_images = false;
+
+        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+        // Image - Featured image is checked first, so that it can be the first associated image.
+        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+            // Get the image attachment object
+            $image = get_post( get_post_thumbnail_id( $post->ID ) );
+            // metadata BEGIN
+            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+            // Allow filtering of the image size.
+            $image_size = apply_filters( 'amt_image_size_product', 'full' );
+            // Get image metatags.
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
+            // metadata END
+            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            // Images have been found.
+            $has_images = true;
+        }
+        // Scope END: ImageObject
+
+        // If no images have been found so far use the default image, if set.
+        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+        if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        }
+        // Scope END: ImageObject
+
+        // Extend the current metadata with properties of the Product object.
+        // See: http://schema.org/Product
+        $metadata_arr = apply_filters( 'amt_product_data_schemaorg', $metadata_arr );
+
+        // Scope END: Product
+        $metadata_arr[] = '</div> <!-- Scope END: Product -->';
+
+        // Filtering of the generated Schema.org metadata
+        $metadata_arr = apply_filters( 'amt_schemaorg_metadata_product', $metadata_arr );
+
+
     // Attachemnts
-    if ( is_attachment() ) {
+    } elseif ( is_attachment() ) {
 
         $mime_type = get_post_mime_type( $post->ID );
         //$attachment_type = strstr( $mime_type, '/', true );
