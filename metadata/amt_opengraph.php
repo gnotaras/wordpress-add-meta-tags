@@ -522,7 +522,9 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         } else {
             $og_type = 'article';
         }
+        // Allow filtering of og:type
         $og_type = apply_filters( 'amt_opengraph_og_type_content', $og_type );
+        // Set og:type meta tag.
         $metadata_arr[] = '<meta property="og:type" content="' . esc_attr( $og_type ) . '" />';
 
         // Title
