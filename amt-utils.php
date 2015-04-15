@@ -1533,10 +1533,13 @@ function amt_get_language_content($options) {
 
 // Returns the default Twitter Card type
 function amt_get_default_twitter_card_type($options) {
+    $default = 'summary';
     if ( $options["tc_enforce_summary_large_image"] == "1" ) {
-        return 'summary_large_image';
+        $default = 'summary_large_image';
     }
-    return 'summary';
+    // Allow filtering of the default card type
+    $default = apply_filters( 'amt_twitter_cards_default_card_type', $default );
+    return $default;
 }
 
 
