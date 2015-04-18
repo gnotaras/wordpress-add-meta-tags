@@ -674,7 +674,7 @@ function amt_get_content_keywords($post, $auto=true) {
     }
 
     // Add post format to the list of keywords
-    if ( is_singular() && get_post_format($post->ID) !== false ) {
+    if ( $auto && is_singular() && get_post_format($post->ID) !== false ) {
         if ( empty($content_keywords) ) {
             $content_keywords .= get_post_format($post->ID);
         } else {
