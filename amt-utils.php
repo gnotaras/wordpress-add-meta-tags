@@ -641,34 +641,32 @@ function amt_get_content_keywords($post, $auto=true) {
         // By default, pages do not support categories and tags, but enabling such
         // functionality is trivial. See #1206 for more details.
 
-        } elseif ( is_singular() ) {
-            if ($auto) {
-                /*
-                 * Add keywords automatically.
-                 * Keywords consist of the post's categories, the post's tags (tags exist in WordPress 2.3 or newer)
-                 * and the terms of the custom taxonomies to which the post belongs (since WordPress 2.8).
-                 */
-                // Categories - Here we sanitize the provided keywords for safety
-                $keywords_from_post_cats = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_post_cats($post) ) );
-                if (!empty($keywords_from_post_cats)) {
-                    $content_keywords .= $keywords_from_post_cats;
+        } elseif ( $auto && is_singular() ) {
+            /*
+             * Add keywords automatically.
+             * Keywords consist of the post's categories, the post's tags (tags exist in WordPress 2.3 or newer)
+             * and the terms of the custom taxonomies to which the post belongs (since WordPress 2.8).
+             */
+            // Categories - Here we sanitize the provided keywords for safety
+            $keywords_from_post_cats = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_post_cats($post) ) );
+            if (!empty($keywords_from_post_cats)) {
+                $content_keywords .= $keywords_from_post_cats;
+            }
+            // Tags - Here we sanitize the provided keywords for safety
+            $keywords_from_post_tags = sanitize_text_field( amt_sanitize_keywords( amt_get_post_tags($post) ) );
+            if (!empty($keywords_from_post_tags)) {
+                if ( ! empty($content_keywords) ) {
+                    $content_keywords .= ", ";
                 }
-                // Tags - Here we sanitize the provided keywords for safety
-                $keywords_from_post_tags = sanitize_text_field( amt_sanitize_keywords( amt_get_post_tags($post) ) );
-                if (!empty($keywords_from_post_tags)) {
-                    if ( ! empty($content_keywords) ) {
-                        $content_keywords .= ", ";
-                    }
-                    $content_keywords .= $keywords_from_post_tags;
+                $content_keywords .= $keywords_from_post_tags;
+            }
+            // Custom taxonomy terms - Here we sanitize the provided keywords for safety
+            $keywords_from_post_custom_taxonomies = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_custom_taxonomies($post) ) );
+            if (!empty($keywords_from_post_custom_taxonomies)) {
+                if ( ! empty($content_keywords) ) {
+                    $content_keywords .= ", ";
                 }
-                // Custom taxonomy terms - Here we sanitize the provided keywords for safety
-                $keywords_from_post_custom_taxonomies = sanitize_text_field( amt_sanitize_keywords( amt_get_keywords_from_custom_taxonomies($post) ) );
-                if (!empty($keywords_from_post_custom_taxonomies)) {
-                    if ( ! empty($content_keywords) ) {
-                        $content_keywords .= ", ";
-                    }
-                    $content_keywords .= $keywords_from_post_custom_taxonomies;
-                }
+                $content_keywords .= $keywords_from_post_custom_taxonomies;
             }
         }
     }
