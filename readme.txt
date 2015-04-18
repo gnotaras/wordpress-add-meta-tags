@@ -15,7 +15,7 @@ Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and 
 
 *Add-Meta-Tags* (<abbr title="Add-Meta-Tags Wordpress plugin">AMT</abbr>) adds metadata to your content, including the basic *description* and *keywords* meta tags, [Opengraph](http://ogp.me "Opengraph specification"), [Schema.org](http://schema.org/ "Schema.org Specification"), [Twitter Cards](https://dev.twitter.com/docs/cards "Twitter Cards Specification") and [Dublin Core](http://dublincore.org "Dublin Core Metadata Initiative") metadata. It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ "Official historical Add-Meta-Tags Homepage")).
 
-*Add-Meta-Tags* is one of the personal software projects of George Notaras. It is developed in his free time and provided to you as Free software. Although the development is not donation driven, donations in the form of appreciation of the effort and overall hard work are much appreciated.
+*Add-Meta-Tags* is one of the personal software projects of George Notaras. It is developed in his free time and provided to you as Free software. Although the development is not donation driven, appreciation of the effort and the overall hard work via donations is much appreciated.
 
 
 = Goals =
@@ -689,7 +689,7 @@ Please check out the changelog of each release by following the links below. You
  - New setting for locale that overrides the WordPress locale setting. (props to eduh12 for ideas and feedback)
  - New metabox feature: global image override. (props to eduh12 for ideas and feedback)
  - Filtering for default Twitter Card type. (props to KV92)
- - Added generic support for products. (received many requests. too many to mention here. thanks all!)
+ - Added generic support for products. More info at the description page. (received many requests. too many to mention here. thanks all!)
  - Fixed bug with extra comma in keywords when a post has no categories, no tags, but belongs to a custom taxonomy.
  - Updated translations.
 - [2.7.4](http://www.codetrax.org/versions/281)
