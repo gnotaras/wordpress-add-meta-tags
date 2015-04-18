@@ -179,7 +179,16 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_content($options)) ) . '" />';
         // Site Image
-        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+        // First check if a global image override URL has been entered.
+        // If yes, use this image URL and override all other images.
+        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        if ( ! empty( $global_image_override_url ) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+            }
+        // Then try the featured image, if exists.
+        } elseif ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_index', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
@@ -219,7 +228,16 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_content($options)) ) . '" />';
         // Site Image
-        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+        // First check if a global image override URL has been entered.
+        // If yes, use this image URL and override all other images.
+        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        if ( ! empty( $global_image_override_url ) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+            }
+        // Then try the featured image, if exists.
+        } elseif ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_index', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
@@ -544,106 +562,121 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // og:updated_time
         $metadata_arr[] = '<meta property="og:updated_time" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
 
-        // We store the featured image ID in this variable so that it can easily be excluded
-        // when all images are parsed from the $attachments array.
-        $featured_image_id = 0;
-        // Set to true if any image attachments are found. Use to finally add the default image
-        // if no image attachments have been found.
-        $has_images = false;
-
         // Image
-        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
-            // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_content', 'full' );
-            $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
-            // Finally, set the $featured_image_id
-            $featured_image_id = get_post_thumbnail_id( $post->ID );
-            // Images have been found.
-            $has_images = true;
-        }
 
-        // Process all attachments and add metatags (featured image will be excluded)
-        foreach( $attachments as $attachment ) {
+        // First check if a global image override URL has been entered.
+        // If yes, use this image URL and override all other images.
+        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        if ( ! empty( $global_image_override_url ) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+            }
 
-            // Excluded the featured image since 
-            if ( $attachment->ID != $featured_image_id ) {
-                
-                $mime_type = get_post_mime_type( $attachment->ID );
-                //$attachment_type = strstr( $mime_type, '/', true );
-                // See why we do not use strstr(): http://www.codetrax.org/issues/1091
-                $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+        // Further image processing
+        } else {
 
-                if ( 'image' == $attachment_type ) {
+            // We store the featured image ID in this variable so that it can easily be excluded
+            // when all images are parsed from the $attachments array.
+            $featured_image_id = 0;
+            // Set to true if any image attachments are found. Use to finally add the default image
+            // if no image attachments have been found.
+            $has_images = false;
 
-                    // Image tags
-                    // Allow filtering of the image size.
-                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
-                    $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, $attachment->ID, $size=$image_size ) );
+            if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+                // Allow filtering of the image size.
+                $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
+                // Finally, set the $featured_image_id
+                $featured_image_id = get_post_thumbnail_id( $post->ID );
+                // Images have been found.
+                $has_images = true;
+            }
 
-                    // Images have been found.
-                    $has_images = true;
+            // Process all attachments and add metatags (featured image will be excluded)
+            foreach( $attachments as $attachment ) {
+
+                // Excluded the featured image since 
+                if ( $attachment->ID != $featured_image_id ) {
                     
-                } elseif ( 'video' == $attachment_type ) {
-                    
-                    // Video tags
-                    $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
-                    if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                        $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
+                    $mime_type = get_post_mime_type( $attachment->ID );
+                    //$attachment_type = strstr( $mime_type, '/', true );
+                    // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+                    $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+
+                    if ( 'image' == $attachment_type ) {
+
+                        // Image tags
+                        // Allow filtering of the image size.
+                        $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                        $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, $attachment->ID, $size=$image_size ) );
+
+                        // Images have been found.
+                        $has_images = true;
+                        
+                    } elseif ( 'video' == $attachment_type ) {
+                        
+                        // Video tags
+                        $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
+                        if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                            $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
+                        }
+                        //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+                        //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+                        $metadata_arr[] = '<meta property="og:video:type" content="' . esc_attr( $mime_type ) . '" />';
+
+                    } elseif ( 'audio' == $attachment_type ) {
+                        
+                        // Audio tags
+                        $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
+                        if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                            $metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
+                        }
+                        $metadata_arr[] = '<meta property="og:audio:type" content="' . esc_attr( $mime_type ) . '" />';
                     }
-                    //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-                    //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
-                    $metadata_arr[] = '<meta property="og:video:type" content="' . esc_attr( $mime_type ) . '" />';
 
-                } elseif ( 'audio' == $attachment_type ) {
-                    
-                    // Audio tags
-                    $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
-                    if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                        $metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
-                    }
-                    $metadata_arr[] = '<meta property="og:audio:type" content="' . esc_attr( $mime_type ) . '" />';
+                }
+            }
+
+            // Embedded Media
+            foreach( $embedded_media['images'] as $embedded_item ) {
+
+                $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
+                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['image']) ) . '" />';
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                    $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
                 }
 
+                // Images have been found.
+                $has_images = true;
             }
-        }
+            foreach( $embedded_media['videos'] as $embedded_item ) {
 
-        // Embedded Media
-        foreach( $embedded_media['images'] as $embedded_item ) {
+                $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
+                $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
+                $metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                $metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
 
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
-            $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['image']) ) . '" />';
-            if ( apply_filters( 'amt_extended_image_tags', true ) ) {
-                $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-                $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-                $metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+            }
+            foreach( $embedded_media['sounds'] as $embedded_item ) {
+
+                $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                $metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
+                $metadata_arr[] = '<meta property="og:audio:type" content="application/x-shockwave-flash" />';
+
             }
 
-            // Images have been found.
-            $has_images = true;
-        }
-        foreach( $embedded_media['videos'] as $embedded_item ) {
-
-            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
-            $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
-            $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
-            $metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-            $metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-
-        }
-        foreach( $embedded_media['sounds'] as $embedded_item ) {
-
-            $metadata_arr[] = '<meta property="og:audio" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
-            $metadata_arr[] = '<meta property="og:audio:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
-            $metadata_arr[] = '<meta property="og:audio:type" content="application/x-shockwave-flash" />';
-
-        }
-
-        // If no images have been found so far use the default image, if set.
-        if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+            // If no images have been found so far use the default image, if set.
+            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+                $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+                }
             }
+
         }
 
         // og:referenced

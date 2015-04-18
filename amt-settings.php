@@ -79,6 +79,7 @@ function amt_get_default_options() {
         "metabox_enable_title"           => "1",
         "metabox_enable_news_keywords"   => "0",
         "metabox_enable_full_metatags"   => "0",
+        "metabox_enable_image_url"   => "0",
         "metabox_enable_referenced_list" => "0",
         "social_main_facebook_publisher_profile_url" => "",
         //"social_main_facebook_app_id" => "",
@@ -185,6 +186,7 @@ function amt_plugin_upgrade() {
 
     // Version 2.7.5 (settings_version 9->10)
     // Added "global_locale"
+    // Added "metabox_enable_image_url"
     // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.

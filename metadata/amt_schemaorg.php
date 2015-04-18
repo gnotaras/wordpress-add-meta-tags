@@ -278,38 +278,54 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Dates
         $metadata_arr[] = '<meta itemprop="releaseDate" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
 
-        // Set to true if any image attachments are found. Use to finally add the default image
-        // if no image attachments have been found.
-        $has_images = false;
+        // Images
 
-        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-        // Image - Featured image is checked first, so that it can be the first associated image.
-        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
-            // Get the image attachment object
-            $image = get_post( get_post_thumbnail_id( $post->ID ) );
-            // metadata BEGIN
+        // First check if a global image override URL has been entered.
+        // If yes, use this image URL and override all other images.
+        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        if ( ! empty( $global_image_override_url ) ) {
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
             $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-            // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_product', 'full' );
-            // Get image metatags.
-            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
-            // metadata END
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
             $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
-            // Images have been found.
-            $has_images = true;
-        }
-        // Scope END: ImageObject
 
-        // If no images have been found so far use the default image, if set.
-        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-        if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
-            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        // Further image processing
+        } else {
+
+            // Set to true if any image attachments are found. Use to finally add the default image
+            // if no image attachments have been found.
+            $has_images = false;
+
+            // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+            // Image - Featured image is checked first, so that it can be the first associated image.
+            if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+                // Get the image attachment object
+                $image = get_post( get_post_thumbnail_id( $post->ID ) );
+                // metadata BEGIN
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                // Allow filtering of the image size.
+                $image_size = apply_filters( 'amt_image_size_product', 'full' );
+                // Get image metatags.
+                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
+                // metadata END
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+                // Images have been found.
+                $has_images = true;
+            }
+            // Scope END: ImageObject
+
+            // If no images have been found so far use the default image, if set.
+            // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            }
+            // Scope END: ImageObject
+
         }
-        // Scope END: ImageObject
 
         // Extend the current metadata with properties of the Product object.
         // See: http://schema.org/Product
@@ -501,12 +517,6 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="keywords" content="' . esc_attr( $keywords ) . '" />';
         }
 
-        // Thumbnail URL
-        if ( function_exists('has_post_thumbnail') && has_post_thumbnail($post->ID) ) {
-            $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' );
-            $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
-        }
-
         // Referenced Items
         $referenced_url_list = amt_get_referenced_items($post);
         foreach ($referenced_url_list as $referenced_url) {
@@ -516,160 +526,180 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             }
         }
 
+        // Images
 
-        // We store the featured image ID in this variable so that it can easily be excluded
-        // when all images are parsed from the $attachments array.
-        $featured_image_id = 0;
-        // Set to true if any image attachments are found. Use to finally add the default image
-        // if no image attachments have been found.
-        $has_images = false;
-
-        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-        // Image - Featured image is checked first, so that it can be the first associated image.
-        if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
-            // Get the image attachment object
-            $image = get_post( get_post_thumbnail_id( $post->ID ) );
-            // metadata BEGIN
+        // First check if a global image override URL has been entered.
+        // If yes, use this image URL and override all other images.
+        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        if ( ! empty( $global_image_override_url ) ) {
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
-            // Allow filtering of the image size.
-            $image_size = apply_filters( 'amt_image_size_content', 'full' );
-            // Get image metatags.
-            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
-            // metadata END
+            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
             $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
-            // Finally, set the $featured_image_id
-            $featured_image_id = get_post_thumbnail_id( $post->ID );
-            // Images have been found.
-            $has_images = true;
-        }
-        // Scope END: ImageObject
 
+        // Further image processing
+        } else {
 
-        // Process all attachments and add metatags (featured image will be excluded)
-        foreach( $attachments as $attachment ) {
-
-            // Excluded the featured image since 
-            if ( $attachment->ID != $featured_image_id ) {
-                
-                $mime_type = get_post_mime_type( $attachment->ID );
-                //$attachment_type = strstr( $mime_type, '/', true );
-                // See why we do not use strstr(): http://www.codetrax.org/issues/1091
-                $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
-
-                if ( 'image' == $attachment_type ) {
-
-                    // metadata BEGIN
-                    $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                    $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
-                    // Allow filtering of the image size.
-                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
-                    // Get image metatags.
-                    $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $attachment, $size=$image_size ) );
-                    // metadata END
-                    $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
-
-                    // Images have been found.
-                    $has_images = true;
-                    
-                } elseif ( 'video' == $attachment_type ) {
-
-                    // Scope BEGIN: VideoObject: http://schema.org/VideoObject
-                    $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-                    $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">';
-                    // Video specific metatags
-                    // URL (for attachments: links to attachment page)
-                    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
-                    // Scope END: VideoObject
-                    $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
-
-                } elseif ( 'audio' == $attachment_type ) {
-
-                    // Scope BEGIN: AudioObject: http://schema.org/AudioObject
-                    $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-                    $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/AudioObject">';
-                    // Audio specific metatags
-                    // URL (for attachments: links to attachment page)
-                    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
-                    $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
-                    // Scope END: AudioObject
-                    $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
-
-                }
-            }
-        }
-
-        // Embedded Media
-        foreach( $embedded_media['images'] as $embedded_item ) {
+            // We store the featured image ID in this variable so that it can easily be excluded
+            // when all images are parsed from the $attachments array.
+            $featured_image_id = 0;
+            // Set to true if any image attachments are found. Use to finally add the default image
+            // if no image attachments have been found.
+            $has_images = false;
 
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
-            // name (title)
-            $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
-            // caption
-            $metadata_arr[] = '<meta itemprop="caption" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
-            // alt
-            $metadata_arr[] = '<meta itemprop="text" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
-            // URL (links to web page containing the image)
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
-            // thumbnail url
-            $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
-            // main image
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
-            if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+            // Image - Featured image is checked first, so that it can be the first associated image.
+            if ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
+                // Thumbnail URL
+                // First add the thumbnail URL of the featured image
+                $thumbnail_info = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail' );
+                $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $thumbnail_info[0] ) . '" />';
+                // Add full image object for featured image.
+                // Get the image attachment object
+                $image = get_post( get_post_thumbnail_id( $post->ID ) );
+                // metadata BEGIN
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                // Allow filtering of the image size.
+                $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                // Get image metatags.
+                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
+                // metadata END
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+                // Finally, set the $featured_image_id
+                $featured_image_id = get_post_thumbnail_id( $post->ID );
+                // Images have been found.
+                $has_images = true;
+            }
+            // Scope END: ImageObject
+
+
+            // Process all attachments and add metatags (featured image will be excluded)
+            foreach( $attachments as $attachment ) {
+
+                // Excluded the featured image since 
+                if ( $attachment->ID != $featured_image_id ) {
+                    
+                    $mime_type = get_post_mime_type( $attachment->ID );
+                    //$attachment_type = strstr( $mime_type, '/', true );
+                    // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+                    $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+
+                    if ( 'image' == $attachment_type ) {
+
+                        // metadata BEGIN
+                        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                        // Allow filtering of the image size.
+                        $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                        // Get image metatags.
+                        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $attachment, $size=$image_size ) );
+                        // metadata END
+                        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+
+                        // Images have been found.
+                        $has_images = true;
+                        
+                    } elseif ( 'video' == $attachment_type ) {
+
+                        // Scope BEGIN: VideoObject: http://schema.org/VideoObject
+                        $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
+                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">';
+                        // Video specific metatags
+                        // URL (for attachments: links to attachment page)
+                        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+                        $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
+                        $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
+                        // Scope END: VideoObject
+                        $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+
+                    } elseif ( 'audio' == $attachment_type ) {
+
+                        // Scope BEGIN: AudioObject: http://schema.org/AudioObject
+                        $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
+                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/AudioObject">';
+                        // Audio specific metatags
+                        // URL (for attachments: links to attachment page)
+                        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+                        $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
+                        $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
+                        // Scope END: AudioObject
+                        $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
+
+                    }
+                }
+            }
+
+            // Embedded Media
+            foreach( $embedded_media['images'] as $embedded_item ) {
+
+                // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                // name (title)
+                $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
+                // caption
+                $metadata_arr[] = '<meta itemprop="caption" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
+                // alt
+                $metadata_arr[] = '<meta itemprop="text" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
+                // URL (links to web page containing the image)
+                $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+                // thumbnail url
+                $metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
+                // main image
+                $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $embedded_item['image'] ) . '" />';
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+                }
+                // embedURL
+                $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                // Scope END: ImageObject
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+
+                // Images have been found.
+                $has_images = true;
+            }
+            foreach( $embedded_media['videos'] as $embedded_item ) {
+                // Scope BEGIN: VideoObject: http://schema.org/VideoObject
+                // See: http://googlewebmastercentral.blogspot.gr/2012/02/using-schemaorg-markup-for-videos.html
+                // See: https://support.google.com/webmasters/answer/2413309?hl=en
+                $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
+                $metadata_arr[] = '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
+                // Video Embed URL
+                $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                // playerType
+                $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
+                // size
                 $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
                 $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-                $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+                // Scope END: VideoObject
+                $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
             }
-            // embedURL
-            $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+            foreach( $embedded_media['sounds'] as $embedded_item ) {
+                // Scope BEGIN: AudioObject: http://schema.org/AudioObject
+                $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
+                $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
+                // Audio Embed URL
+                $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                // playerType
+                $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
+                // Scope END: AudioObject
+                $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
+            }
+
+            // If no images have been found so far use the default image, if set.
+            // Scope BEGIN: ImageObject: http://schema.org/ImageObject
+            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            }
             // Scope END: ImageObject
-            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
-            // Images have been found.
-            $has_images = true;
         }
-        foreach( $embedded_media['videos'] as $embedded_item ) {
-            // Scope BEGIN: VideoObject: http://schema.org/VideoObject
-            // See: http://googlewebmastercentral.blogspot.gr/2012/02/using-schemaorg-markup-for-videos.html
-            // See: https://support.google.com/webmasters/answer/2413309?hl=en
-            $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-            $metadata_arr[] = '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
-            // Video Embed URL
-            $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
-            // playerType
-            $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
-            // size
-            $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-            $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-            // Scope END: VideoObject
-            $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
-        }
-        foreach( $embedded_media['sounds'] as $embedded_item ) {
-            // Scope BEGIN: AudioObject: http://schema.org/AudioObject
-            $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-            $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
-            // Audio Embed URL
-            $metadata_arr[] = '<meta itemprop="embedURL" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
-            // playerType
-            $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
-            // Scope END: AudioObject
-            $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
-        }
-
-        // If no images have been found so far use the default image, if set.
-        // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-        if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
-            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
-        }
-        // Scope END: ImageObject
 
         // Article Body
         // The article body is added after filtering the generated microdata below.
