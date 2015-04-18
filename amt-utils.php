@@ -601,7 +601,7 @@ function amt_get_content_keywords($post, $auto=true) {
         $keyw_fld_content = amt_get_post_meta_keywords( $post->ID );
 
         // If there is a custom field, use it
-        if ( !empty($keyw_fld_content) ) {
+        if ( ! empty($keyw_fld_content) ) {
             
             // On single posts, expand the %cats%, %tags% and %terms% placeholders.
             // This should not take place in pages (no categories, no tags by default)
