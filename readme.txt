@@ -816,6 +816,15 @@ Please check out the changelog of each release by following the links below. You
 - [0.1](http://www.codetrax.org/versions/25)
 
 
+== Contributions ==
+
+Add-Meta-Tags is Free software. Contributions in form of source code, feedback or money donations are more than welcome.
+
+One of the project goals is to keep Add-Meta-Tags as simple as possible. Requests for new features must be accompanied by detailed information about the problems the new feature would resolve.
+
+For source code contributions, please see below.
+
+
 == How to contribute code ==
 
 This section contains information about how to contribute code to this project.
