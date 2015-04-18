@@ -71,6 +71,7 @@ require_once( AMT_PLUGIN_DIR . 'metadata/amt_twitter_cards.php' );
 require_once( AMT_PLUGIN_DIR . 'metadata/amt_opengraph.php' );
 require_once( AMT_PLUGIN_DIR . 'metadata/amt_dublin_core.php' );
 require_once( AMT_PLUGIN_DIR . 'metadata/amt_schemaorg.php' );
+require_once( AMT_PLUGIN_DIR . 'metadata/amt_extended.php' );
 
 /**
  * Translation Domain
