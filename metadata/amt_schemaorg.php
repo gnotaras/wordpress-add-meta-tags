@@ -729,9 +729,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
-        array_unshift( $metadata_arr, "<!-- BEGIN Microdata added by Add-Meta-Tags WordPress plugin -->" );
+        array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
         array_unshift( $metadata_arr, "" );   // Intentionaly left empty
-        array_push( $metadata_arr, "<!-- END Microdata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
         array_push( $metadata_arr, "" );   // Intentionaly left empty
     }
 
