@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-meta-tags 2.8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-19 00:03+0300\n"
+"POT-Creation-Date: 2015-04-19 02:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: add-meta-tags.php:88
+#: add-meta-tags.php:89
 msgid "Settings"
 msgstr ""
 
