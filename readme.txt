@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.7.4
+Stable tag: 2.8.0
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -682,6 +682,16 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.0](http://www.codetrax.org/versions/192)
+ - Updated the FAQ section.
+ - More default image URL adjustments for SSL connections.
+ - Improved Schema.org customization via filters. (props to Richard D'Angelo for ideas and feedback)
+ - New setting for locale that overrides the WordPress locale setting. (props to eduh12 for ideas and feedback)
+ - New metabox feature: global image override. (props to eduh12 for ideas and feedback)
+ - Filtering for default Twitter Card type. (props to KV92)
+ - Added generic support for products. (received many requests. too many to mention here. thanks all!)
+ - Fixed bug with extra comma in keywords when a post has no categories, no tags, but belongs to a custom taxonomy.
+ - Updated translations.
 - [2.7.4](http://www.codetrax.org/versions/281)
 - [2.7.3](http://www.codetrax.org/versions/231)
  - Fixed bug with the sanitization of the publisher's Twitter username.
