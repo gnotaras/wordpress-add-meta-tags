@@ -42,9 +42,7 @@
  *
  * Contains code that extends the generated metadata for:
  *  - WooCommerce
- *  - Easy Digital Downloads (planned)
- *  - bbPress (planned)
- *  - BuddyPress (planned)
+ *  - 
  */
 
 // Prevent direct access to this file.
