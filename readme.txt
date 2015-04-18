@@ -199,8 +199,9 @@ This feature should be considered experimental. This information might be change
 
 = Metadata for products =
 
-Since v2.7.5 Add-Meta-Tags has generic product support. No 3rd party e-commerce plugin is auto detected by default, but the necessary filter hooks are provided
-in order to be able to easily detect product and product group pages. As soon, as a product page is detected, Add-Meta-Tags sets the base metadata object's type to 'product' (depends on the metadata generator) and sets any metadata attribute that can possibly be added without making guesses. Metadata regarding more specific product details can be added programmatically via product specific filtering functions. Please check example 
+Add-Meta-Tags, since v2.8.0, supports the generation of OpenGraph, Schema.org and Twitter Cards metadata for products. Upcoming releases (2.8.1 and newer) will have internal support for *WooCommerce* and *Easy-Digital-Downloads*.
+
+Generic product support is also provided by the various product related filter hooks which can be used to easily detect product and product group pages and provide the product specific OpenGraph, Schema.org or Twitter Cards meta tags. Please check example 12 below for more information.
 
 = Translations =
 
@@ -550,6 +551,8 @@ function amt_product_data_schemaorg_xcom( $metatags ) {
 add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_xcom' );
 `
 This code can be placed inside your theme's `functions.php` file.
+
+Note that upcoming releases of Add-Meta-Tags will have internal support for *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins.
 
 
 = Custom Fields =
