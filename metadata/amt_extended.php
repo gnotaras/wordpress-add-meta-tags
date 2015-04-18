@@ -38,7 +38,7 @@
 
 
 /**
- * Extended  Metadata
+ * Extended  getadata generator.
  *
  * Contains code that extends the generated metadata for:
  *  - WooCommerce
