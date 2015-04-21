@@ -769,7 +769,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             // See:
             //  * https://developers.facebook.com/docs/reference/opengraph/object-type/product/
             //  * https://developers.facebook.com/docs/payments/product
-            $metadata_arr = apply_filters( 'amt_product_data_opengraph', $metadata_arr );
+            $metadata_arr = apply_filters( 'amt_product_data_opengraph', $metadata_arr, $post );
 
         }
 
