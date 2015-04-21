@@ -329,7 +329,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Extend the current metadata with properties of the Product object.
         // See: http://schema.org/Product
-        $metadata_arr = apply_filters( 'amt_product_data_schemaorg', $metadata_arr );
+        $metadata_arr = apply_filters( 'amt_product_data_schemaorg', $metadata_arr, $post );
 
         // Scope END: Product
         $metadata_arr[] = '</div> <!-- Scope END: Product -->';
