@@ -256,8 +256,8 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         //
         // The following filter is provided.
 
-        // Filtering of the generated Twitter Cards metadata
-        $metadata_arr = apply_filters( 'amt_product_data_twitter_cards', $metadata_arr );
+        // Filtering of the generated Twitter Cards metadata. $post is also passed.
+        $metadata_arr = apply_filters( 'amt_product_data_twitter_cards', $metadata_arr, $post );
 
 
     // Attachments
