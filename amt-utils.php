@@ -1597,19 +1597,7 @@ function amt_get_default_twitter_card_type($options) {
 
 // Determines if a Product page has been requested.
 function amt_is_product() {
-    // Currently no auto-detection of any e-Commerce solutions for WordPress.
-    $response = false;
-    // Consider adding very popular e-Commerce plugins:
-    //  * WooCommerce (http://docs.woothemes.com/document/conditional-tags/)
-//    if ( is_product() ) {
-//        $response = true;
-    //  * Easy Digital Downloads
-//    } elseif ( 'download' == get_post_type() ) {
-//        $response = true;
-//    }
-    // Allow filtering
-    $response = apply_filters( 'amt_is_product', $response );
-    return $response;
+    return apply_filters( 'amt_is_product', false );
 }
 
 
@@ -1621,22 +1609,7 @@ function amt_is_product_group() {
     // related taxonomy from a product related one (aka product group).
     // This is useful in case we need to set the metadata object type to a
     // group type, like it happens with Opengraph og:type=product.group.
-
-    // Currently no auto-detection of any e-Commerce solutions for WordPress.
-    $response = false;
-    // Consider adding very popular e-Commerce plugins:
-    //  * WooCommerce (http://docs.woothemes.com/document/conditional-tags/)
-    // Also validates with is_tax()
-//    if ( is_product_category() || is_product_tag() ) {
-//        $response = true;
-    //  * Easy Digital Downloads
-    // Also validates with is_tax()
-//    } elseif ( is_tax( array( 'download_category', 'download_tag' ) ) ) {
-//        $response = true;
-//    }
-    // Allow filtering
-    $response = apply_filters( 'amt_is_product_group', $response );
-    return $response;
+    return apply_filters( 'amt_is_product_group', false );
 }
 
 
