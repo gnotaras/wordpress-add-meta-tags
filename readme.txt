@@ -513,7 +513,7 @@ function amt_detect_xcom_product_group() {
 add_filter( 'amt_is_product_group', 'amt_detect_xcom_product_group' );
 
 // Twitter Cards for xcom products
-function amt_product_data_tc_xcom( $metatags ) {
+function amt_product_data_tc_xcom( $metatags, $post ) {
     if ( ! is_xcom_product() ) {
         return $metatags;
     }
@@ -523,10 +523,10 @@ function amt_product_data_tc_xcom( $metatags ) {
     $metatags[] = '<meta name="twitter:data2" content="National" />';
     return $metatags;
 }
-add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_xcom' );
+add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_xcom', 10, 2 );
 
 // Opengraph for xcom products
-function amt_product_data_og_xcom( $metatags ) {
+function amt_product_data_og_xcom( $metatags, $post ) {
     if ( ! is_xcom_product() ) {
         return $metatags;
     }
@@ -536,10 +536,10 @@ function amt_product_data_og_xcom( $metatags ) {
     $metatags[] = '<meta property="product:price:currency" content="GBP" />';
     return $metatags;
 }
-add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_xcom' );
+add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_xcom', 10, 2 );
 
 // Schema.org for xcom products
-function amt_product_data_schemaorg_xcom( $metatags ) {
+function amt_product_data_schemaorg_xcom( $metatags, $post ) {
     if ( ! is_xcom_product() ) {
         return $metatags;
     }
@@ -548,7 +548,7 @@ function amt_product_data_schemaorg_xcom( $metatags ) {
     $metatags[] = '<meta itemprop="price" content="100.00" />';
     return $metatags;
 }
-add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_xcom' );
+add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_xcom', 10, 2 );
 `
 This code can be placed inside your theme's `functions.php` file.
 
