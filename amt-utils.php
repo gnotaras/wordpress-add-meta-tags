@@ -1123,7 +1123,7 @@ function amt_get_permalink_for_multipage( $post ) {
     if ( $pagenum && $pagenum > 1 ) {
         // Not using clean URLs -> Add query argument to the URL (eg: ?page=2)
         if ( '' == get_option('permalink_structure') || in_array( $post->post_status, array('draft', 'pending')) ) {
-            return add_query_arg( 'page', $pagenum, get_permalink($post->ID) );
+            return esc_url( add_query_arg( 'page', $pagenum, get_permalink($post->ID) ) );
         // Using clean URLs
         } else {
             return trailingslashit( get_permalink($post->ID) ) . user_trailingslashit( $pagenum, 'single_paged');
