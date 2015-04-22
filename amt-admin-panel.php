@@ -1040,7 +1040,7 @@ function amt_inner_metadata_box( $post ) {
                 <label for="amt_custom_image_url"><strong>'.__('Image URL', 'add-meta-tags').'</strong>:</label>
                 <input type="text" class="code" style="width: 99%" id="amt_custom_image_url" name="amt_custom_image_url" value="' . esc_attr( stripslashes( $custom_image_url_value ) ) . '" />
                 <br>
-                '.__('Enter an image URL to override all other images of the content.', 'add-meta-tags').'
+                '.__('Enter an image URL to override all media related meta tags.', 'add-meta-tags').'
             </p>
         ');
 
