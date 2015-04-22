@@ -612,7 +612,7 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Secure Access', 'add-meta-tags').'</span></legend>
 
                 <input id="has_https_access" type="checkbox" value="1" name="has_https_access" '. (($options["has_https_access"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="has_https_access">'.__('Content and media are accessible over HTTPS.').'</label>
+                <label for="has_https_access">'.__('Media are accessible over HTTPS.').'</label>
                 <p>'.__('Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated.', 'add-meta-tags').'</p>
                 <br />
             </fieldset>
