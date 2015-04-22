@@ -220,15 +220,18 @@ function amt_product_data_schemaorg_edd( $metatags, $post ) {
 
 // Product page detection for Add-Meta-Tags
 function amt_detect_ecommerce_product() {
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+
     // WooCommerce product
-    if ( amt_is_woocommerce_product() ) {
+    if ( $options["extended_support_woocommerce"] == "1" && amt_is_woocommerce_product() ) {
         // Filter product data meta tags
         add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_woocommerce', 10, 2 );
         add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_woocommerce', 10, 2 );
         add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_woocommerce', 10, 2 );
         return true;
     // Easy-Digital-Downloads product
-    } elseif ( amt_is_edd_product() ) {
+    } elseif ( $options["extended_support_edd"] == "1" && amt_is_edd_product() ) {
         add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_edd', 10, 2 );
         add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_edd', 10, 2 );
         add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_edd', 10, 2 );
@@ -240,13 +243,17 @@ add_filter( 'amt_is_product', 'amt_detect_ecommerce_product', 10, 1 );
 
 // Product group page detection for Add-Meta-Tags
 function amt_detect_ecommerce_product_group() {
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+
     // WooCommerce product group
-    if ( amt_is_woocommerce_product_group() ) {
+    if ( $options["extended_support_woocommerce"] == "1" && amt_is_woocommerce_product_group() ) {
         return true;
     // Easy-Digital-Downloads product group
-    } elseif ( amt_is_edd_product_group() ) {
+    } elseif ( $options["extended_support_edd"] == "1" && amt_is_edd_product_group() ) {
         return true;
     }
+    return false;
 }
 add_filter( 'amt_is_product_group', 'amt_detect_ecommerce_product_group', 10, 1 );
 

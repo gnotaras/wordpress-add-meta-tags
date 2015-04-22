@@ -648,6 +648,31 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Extended Metadata Support', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Extended Metadata Support', 'add-meta-tags').'</span></legend>
+
+                <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following genrators of extended metadata.', 'add-meta-tags').'</p>
+
+                <p><input id="extended_support_woocommerce" type="checkbox" value="1" name="extended_support_woocommerce" '. (($options["extended_support_woocommerce"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="extended_support_woocommerce">
+                '.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)
+                </label></p>
+
+                <p><input id="extended_support_edd" type="checkbox" value="1" name="extended_support_edd" '. (($options["extended_support_edd"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="extended_support_edd">
+                '.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)
+                </label></p>
+
+                <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
+
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Review Mode', 'add-meta-tags').'</th>
             <td>
             <fieldset>

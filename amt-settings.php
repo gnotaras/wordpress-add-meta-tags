@@ -90,6 +90,8 @@ function amt_get_default_options() {
         "has_https_access" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
+        "extended_support_woocommerce"  => "0",
+        "extended_support_edd"          => "0",
         "review_mode"       => "0",
         "i_have_donated"    => "0",
         );
@@ -187,6 +189,11 @@ function amt_plugin_upgrade() {
     // Version 2.7.5 (settings_version 9->10)
     // Added "global_locale"
     // Added "metabox_enable_image_url"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.8.1 (settings_version 10->11)
+    // Added "extended_support_woocommerce"
+    // Added "extended_support_edd"
     // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.
