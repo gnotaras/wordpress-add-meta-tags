@@ -514,9 +514,6 @@ add_filter( 'amt_is_product_group', 'amt_detect_xcom_product_group' );
 
 // Twitter Cards for xcom products
 function amt_product_data_tc_xcom( $metatags, $post ) {
-    if ( ! is_xcom_product() ) {
-        return $metatags;
-    }
     $metatags[] = '<meta name="twitter:label1" content="Genre" />';
     $metatags[] = '<meta name="twitter:data1" content="Classic Rock" />';
     $metatags[] = '<meta name="twitter:label2" content="Location" />';
@@ -527,9 +524,6 @@ add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_xcom', 10, 2 
 
 // Opengraph for xcom products
 function amt_product_data_og_xcom( $metatags, $post ) {
-    if ( ! is_xcom_product() ) {
-        return $metatags;
-    }
     $metatags[] = '<meta property="product:price:amount" content="0.30" />';
     $metatags[] = '<meta property="product:price:currency" content="USD" />';
     $metatags[] = '<meta property="product:price:amount" content="0.20" />';
@@ -540,9 +534,6 @@ add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_xcom', 10, 2 );
 
 // Schema.org for xcom products
 function amt_product_data_schemaorg_xcom( $metatags, $post ) {
-    if ( ! is_xcom_product() ) {
-        return $metatags;
-    }
     $metatags[] = '<meta itemprop="productID" content="isbn:123-456-789" />';
     $metatags[] = '<meta itemprop="priceCurrency" content="USD" />';
     $metatags[] = '<meta itemprop="price" content="100.00" />';
