@@ -472,15 +472,17 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
         } elseif ( 'video' == $attachment_type ) {
             
-            // Video tags
-            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($post->ID)) ) . '" />';
+            if ( $options["og_omit_video_metadata"] != "1" ) {
+                // Video tags
+                $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
+                if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                    $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($post->ID)) ) . '" />';
+                }
+                //
+                //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+                //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+                $metadata_arr[] = '<meta property="og:video:type" content="' . esc_attr( $mime_type ) . '" />';
             }
-            //
-            //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-            //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
-            $metadata_arr[] = '<meta property="og:video:type" content="' . esc_attr( $mime_type ) . '" />';
 
         } elseif ( 'audio' == $attachment_type ) {
             
@@ -616,14 +618,16 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                         
                     } elseif ( 'video' == $attachment_type ) {
                         
-                        // Video tags
-                        $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
-                        if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                            $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
+                        if ( $options["og_omit_video_metadata"] != "1" ) {
+                            // Video tags
+                            $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
+                            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                                $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', wp_get_attachment_url($attachment->ID)) ) . '" />';
+                            }
+                            //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+                            //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+                            $metadata_arr[] = '<meta property="og:video:type" content="' . esc_attr( $mime_type ) . '" />';
                         }
-                        //$metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-                        //$metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
-                        $metadata_arr[] = '<meta property="og:video:type" content="' . esc_attr( $mime_type ) . '" />';
 
                     } elseif ( 'audio' == $attachment_type ) {
                         
@@ -654,11 +658,13 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             }
             foreach( $embedded_media['videos'] as $embedded_item ) {
 
-                $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
-                $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
-                $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
-                $metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-                $metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                if ( $options["og_omit_video_metadata"] != "1" ) {
+                    $metadata_arr[] = '<meta property="og:video" content="' . esc_url_raw( $embedded_item['player'] ) . '" />';
+                    $metadata_arr[] = '<meta property="og:video:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $embedded_item['player']) ) . '" />';
+                    $metadata_arr[] = '<meta property="og:video:type" content="application/x-shockwave-flash" />';
+                    $metadata_arr[] = '<meta property="og:video:width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="og:video:height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+                }
 
             }
             foreach( $embedded_media['sounds'] as $embedded_item ) {

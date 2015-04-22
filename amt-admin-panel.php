@@ -401,6 +401,12 @@ function amt_options_page() {
                 <input id="auto_opengraph" type="checkbox" value="1" name="auto_opengraph" '. (($options["auto_opengraph"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_opengraph">'.__('Automatically generate Opengraph meta tags.', 'add-meta-tags').'</label>
                 <p>'.__('If this option is enabled, Opengraph metadata is automatically generated for content, attachments and archives. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'</p>
+                <br />
+
+                <input id="og_omit_video_metadata" type="checkbox" value="1" name="og_omit_video_metadata" '. (($options["og_omit_video_metadata"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="og_omit_video_metadata">'.__('Omit <code>og:video</code> meta tags.', 'add-meta-tags').'</label>
+                <p>'.__('When a post containing a video is shared on Facebook, Facebook uses its own player to embed the video in the timeline. If this setting is enabled, <code>og:video</code> meta tags are no longer generated and Facebook, instead of embedding your video, links to your actual video post.', 'add-meta-tags').'</p>
+                <br />
 
                 <h4>'.__('Important Note', 'add-meta-tags').'</h4>
 
