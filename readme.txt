@@ -199,9 +199,9 @@ This feature should be considered experimental. This information might be change
 
 = Metadata for products =
 
-Add-Meta-Tags, since v2.8.0, supports the generation of OpenGraph, Schema.org and Twitter Cards metadata for products. Upcoming releases (2.8.1 and newer) will have internal support for *WooCommerce* and *Easy-Digital-Downloads*.
+Add-Meta-Tags, since v2.8.0, supports the generation of OpenGraph, Schema.org and Twitter Cards metadata for products. Please check *example 12* below for more information about how to make Add-Meta-Tags detect your product and product group pages.
 
-Generic product support is also provided by the various product related filter hooks which can be used to easily detect product and product group pages and provide the product specific OpenGraph, Schema.org or Twitter Cards meta tags. Please check example 12 below for more information.
+Moreover, since v2.8.1 internal support for the *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins for WordPress is available. By enabling them in the plugin settings page Add-Meta-Tags is able to autodetect the product and product group pages and generate OpenGraph, Schema.org and Twitter Cards metadata. Please check examples 13 & 14 below for more information about how to customize the metadata that is generated for WooCommerce and EDD products.
 
 = Translations =
 
