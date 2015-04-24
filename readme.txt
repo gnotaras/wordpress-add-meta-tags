@@ -477,6 +477,8 @@ This code can be placed inside your theme's `functions.php` file.
 
 **Example 12**: Generate product specific metadata.
 
+Please note that Add-Meta-Tags have internal support for *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins. Just enable them in the plugin settings.
+
 The following code assumes that e-commerce functionality is added by a plugin named **xcom** and aims to be an example about how to add Twitter Cards, Opengraph and Schema.org metadata to your product pages.
 
 `
@@ -543,7 +545,59 @@ add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_xcom', 10,
 `
 This code can be placed inside your theme's `functions.php` file.
 
-Note that upcoming releases of Add-Meta-Tags will have internal support for *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins.
+**Example 13**: Customize metadata for WooCommerce products.
+
+`
+// Twitter Cards for WooCommerce products
+function amt_custom_woocommerce_tc( $metatags, $post ) {
+    // Customize meta tags
+    return $metatags;
+}
+add_filter( 'amt_product_data_woocommerce_twitter_cards', 'amt_custom_woocommerce_tc', 10, 2 );
+
+// Opengraph for WooCommerce products
+function amt_custom_woocommerce_og( $metatags, $post ) {
+    // Customize meta tags
+    return $metatags;
+}
+add_filter( 'amt_product_data_woocommerce_opengraph', 'amt_custom_woocommerce_og', 10, 2 );
+
+// Schema.org for WooCommerce products
+function amt_custom_woocommerce_schema( $metatags, $post ) {
+    // Customize meta tags
+    return $metatags;
+}
+add_filter( 'amt_product_data_woocommerce_schemaorg', 'amt_custom_woocommerce_schema', 10, 2 );
+`
+
+This code can be placed inside your theme's `functions.php` file.
+
+**Example 14**: Customize metadata for Easy-Digital-Downloads products.
+
+`
+// Twitter Cards for EDD products
+function amt_custom_edd_tc( $metatags, $post ) {
+    // Customize meta tags
+    return $metatags;
+}
+add_filter( 'amt_product_data_woocommerce_twitter_cards', 'amt_custom_edd_tc', 10, 2 );
+
+// Opengraph for EDD products
+function amt_custom_edd_og( $metatags, $post ) {
+    // Customize meta tags
+    return $metatags;
+}
+add_filter( 'amt_product_data_edd_opengraph', 'amt_custom_edd_og', 10, 2 );
+
+// Schema.org for EDD products
+function amt_custom_edd_schema( $metatags, $post ) {
+    // Customize meta tags
+    return $metatags;
+}
+add_filter( 'amt_product_data_woocommerce_schemaorg', 'amt_custom_edd_schema', 10, 2 );
+`
+
+This code can be placed inside your theme's `functions.php` file.
 
 
 = Custom Fields =
