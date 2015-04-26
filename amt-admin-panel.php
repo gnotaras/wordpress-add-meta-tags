@@ -659,7 +659,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Extended Metadata Support', 'add-meta-tags').'</span></legend>
 
-                <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following genrators of extended metadata.', 'add-meta-tags').'</p>
+                <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
 
                 <p><input id="extended_support_woocommerce" type="checkbox" value="1" name="extended_support_woocommerce" '. (($options["extended_support_woocommerce"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_woocommerce">
