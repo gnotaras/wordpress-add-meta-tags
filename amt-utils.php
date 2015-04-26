@@ -126,6 +126,7 @@ function amt_sanitize_description($desc) {
     // Needs to be before cleaning double quotes as it may contain quoted settings.
     $pattern = get_shortcode_regex();
     //var_dump($pattern);
+    // TODO: Possibly this is not needed since shortcodes are stripped in amt_get_the_excerpt().
     $desc = preg_replace('#' . $pattern . '#s', '', $desc);
 
     // Clean double quotes
@@ -269,6 +270,9 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
 
         // First strip all HTML tags
         $plain_text = wp_kses( $initial_content, array() );
+
+        // Strip shortcodes
+        $plain_text = strip_shortcodes( $plain_text );
 
         // Get the initial text.
         // We use $excerpt_max_len characters of the text for the description.
