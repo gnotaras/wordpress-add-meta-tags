@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -729,6 +729,7 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.2](http://www.codetrax.org/versions/245)
 - [2.8.1](http://www.codetrax.org/versions/193)
  - Added new option to omit og:video OpenGraph meta tags. (props to Rika for feedback)
  - Added support for WooCommerce and Easy-Digital-Downloads product and product group page auto-detection. Need to be enabled in the settings. Currently, basic product metadata is generated. Time permitting it will be improved in future releases. Further customization is possible with filtering. See examples 13 and 14 in the description page. (thanks all for feedback)
