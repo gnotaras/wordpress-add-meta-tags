@@ -727,6 +727,11 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.1](http://www.codetrax.org/versions/193)
+ - Added new option to omit og:video OpenGraph meta tags. (props to Rika for feedback)
+ - Added support for WooCommerce and Easy-Digital-Downloads product and product group page auto-detection. Need to be enabled in the settings. Currently, basic product metadata is generated. Futher customization is possible with filtering. See examples 13 and 14 in the description page.
+ - Minor improvements of the README.
+ - Updated translations.
 - [2.8.0](http://www.codetrax.org/versions/192)
  - Updated the FAQ section.
  - More default image URL adjustments for SSL connections.
