@@ -337,6 +337,17 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Filtering of the generated Schema.org metadata
         $metadata_arr = apply_filters( 'amt_schemaorg_metadata_product', $metadata_arr );
 
+        // Add post body
+        // Remove last closing '</div>' tag, add post body and re-add the closing div afterwards.
+        $closing_product_tag = array_pop($metadata_arr);
+        // Product objects do not support a 'text' itemprop. We just add a div for now
+        // for consistency with Article objects.
+        // TODO: it should allow filtering '<div>'
+        $metadata_arr[] = '<div> <!-- Product text body: BEGIN -->';
+        $metadata_arr[] = $post_body;
+        $metadata_arr[] = '</div> <!-- Product text body: END -->';
+        // Now add closing tag for Article
+        $metadata_arr[] = $closing_product_tag;
 
     // Attachemnts
     } elseif ( is_attachment() ) {
