@@ -924,6 +924,9 @@ function amt_get_schemaorg_author_metatags( $author_id ) {
         $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $user_url, array('http', 'https') ) . '" />';
     }
 
+    // Allow filtering of the Author meta tags
+    $metadata_arr = apply_filters( 'amt_schemaorg_author_extra', $metadata_arr );
+
     return $metadata_arr;
 }
 
