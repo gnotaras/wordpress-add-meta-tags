@@ -131,7 +131,7 @@ function amt_sanitize_description($desc) {
 
     // Clean double quotes
     $desc = str_replace('"', '', $desc);
-    $desc = str_replace('&quot;', '', $desc);
+//    $desc = str_replace('&quot;', '', $desc);
 
     // Convert single quotes to space
     //$desc = str_replace("'", ' ', $desc);
