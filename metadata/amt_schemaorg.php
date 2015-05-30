@@ -515,7 +515,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $first_cat ) . '" />';
         }
         */
-        foreach( get_the_category($post->ID) as $cat ) {
+        $categories = get_the_category($post->ID);
+        $categories = apply_filters( 'amt_post_categories_for_schemaorg', $categories );
+        foreach( $categories as $cat ) {
             $section = trim( $cat->cat_name );
             if ( ! empty( $section ) && $cat->slug != 'uncategorized' ) {
                 $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $section ) . '" />';
