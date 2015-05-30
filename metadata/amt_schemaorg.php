@@ -863,6 +863,9 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         }
     }
 
+    // Allow filtering of the Publisher meta tags
+    $metadata_arr = apply_filters( 'amt_schemaorg_publisher_extra', $metadata_arr );
+
     return $metadata_arr;
 }
 
