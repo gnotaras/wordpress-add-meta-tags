@@ -307,7 +307,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
         // Site Image
         // Image. Use a user defined image via filter. Otherwise use default image.
-        // Construct the filter name. Template: ``amt_taxonomy_TAXONOMYSLUG_TERMSLUG_image_url``
+        // Construct the filter name. Template: ``amt_taxonomy_image_url_TAXONOMYSLUG_TERMSLUG``
         $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
         //var_dump($taxonomy_image_url_filter_name);
         // The default image, if set, is used by default.
