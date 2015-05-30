@@ -66,8 +66,10 @@ function amt_is_woocommerce_product() {
     // Check if woocommerce product page and return true;
     // WooCommerce (http://docs.woothemes.com/document/conditional-tags/)
     // Also validates with is_singular().
-    if ( is_product() ) {
-        return true;
+    if ( function_exists('is_product') ) {
+        if ( is_product() ) {
+            return true;
+        }
     }
 }
 
@@ -78,8 +80,10 @@ function amt_is_woocommerce_product_group() {
     // Check if woocommerce product group page and return true;
     // WooCommerce (http://docs.woothemes.com/document/conditional-tags/)
     // Also validates with is_tax().
-    if ( is_product_category() || is_product_tag() ) {
-        return true;
+    if ( function_exists('is_product_category') || function_exists('is_product_tag') ) {
+        if ( is_product_category() || is_product_tag() ) {
+            return true;
+        }
     }
 }
 
