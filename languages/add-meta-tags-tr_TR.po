@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-26 16:18+0300\n"
-"PO-Revision-Date: 2015-04-26 13:18+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
+"POT-Creation-Date: 2015-04-26 17:09+0300\n"
+"PO-Revision-Date: 2015-04-29 04:34+0000\n"
+"Last-Translator: BouRock\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "Meta Etiketleri Ekle"
 msgid ""
 "Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards "
 "and Dublin Core metadata to optimize your web site for better SEO."
-msgstr "Daha iyi bir SEO için web sitenizi iyi bir duruma getiren temel meta etiketlerini ve aynı zamanda Opengraph, Schema.org Microdata, Twitter Cards ve Dublin Core metadata'sı ekleyin."
+msgstr "Temel meta etiketleri ve aynı zamanda daha iyi bir SEO (Arama Motoru İyileştirmesi) için web sitenizi iyi bir duruma getiren Opengraph, Schema.org Microdata, Twitter Cards ve Dublin Core metadata'sı ekleyin."
 
 #: amt-admin-panel.php:87 amt-admin-panel.php:142
 msgid "Metadata Settings"
@@ -345,7 +345,7 @@ msgid ""
 "player to embed the video in the timeline. If this setting is enabled, "
 "<code>og:video</code> meta tags are no longer generated and Facebook, "
 "instead of embedding your video, links to your actual video post."
-msgstr ""
+msgstr "Yazı, Facebook üzerinde paylaşılan bir görüntüyü içerdiğinde, Facebook zaman tüneline görüntüyü gömmek için kendi oynatıcısını kullanır. Eğer bu ayar etkinleştirilirse, <code>og:video</code> meta etiketleri artık oluşturulmaz ve Facebook, görüntünüzü gömülü hale getirmek yerine, asıl görüntünüzün olduğu yere bağlantı verir."
 
 #: amt-admin-panel.php:411
 msgid "Important Note"
@@ -391,7 +391,7 @@ msgstr "Eğer bu seçenek etkinleştirilirse, Twitter Cards metadata içerik ve 
 #: amt-admin-panel.php:433
 msgid ""
 "Enforce the use of <code>summary_large_image</code> as default card type."
-msgstr "Varsayılan kart türü olarak <code>summary_large_image</code> kullanımına zorlar."
+msgstr "Varsayılan kart türü olarak <code>summary_large_image</code> kullanımına zorla."
 
 #: amt-admin-panel.php:434
 msgid ""
@@ -553,7 +553,7 @@ msgstr "Ekstra SEO Seçenekleri"
 msgid ""
 "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
 "tag."
-msgstr "<em>robots</em> meta etiketine <code>NOODP</code> ve <code>NOYDIR</code> ekleyin."
+msgstr "<em>robots</em> meta etiketine <code>NOODP</code> ve <code>NOYDIR</code> ekle."
 
 #: amt-admin-panel.php:551
 msgid ""
@@ -605,7 +605,7 @@ msgstr "Yazar tabanlı arşivler."
 
 #: amt-admin-panel.php:592 amt-admin-panel.php:595
 msgid "Locale"
-msgstr "Yerel ayar"
+msgstr "Yerel Ayar"
 
 #: amt-admin-panel.php:600
 msgid ""
@@ -635,7 +635,7 @@ msgstr "Şu anda bu seçenek, etkinleştirilirse, aktif bağlantı HTTPS kullanm
 
 #: amt-admin-panel.php:623 amt-admin-panel.php:626
 msgid "Copyright URL"
-msgstr "Telif hakkı URL'si"
+msgstr "Telif Hakkı URL'si"
 
 #: amt-admin-panel.php:631
 msgid ""
@@ -646,7 +646,7 @@ msgstr "İşinizle ilgili telif hakkı ve lisanslama bilgisi içeren bir belge i
 
 #: amt-admin-panel.php:640 amt-admin-panel.php:643
 msgid "Default Image"
-msgstr "Varsayılan resim"
+msgstr "Varsayılan Resim"
 
 #: amt-admin-panel.php:648
 msgid ""
@@ -665,7 +665,7 @@ msgid ""
 "Add-Meta-Tags supports the generation of metadata for products and other "
 "post types. Please enable any of the following generators of extended "
 "metadata."
-msgstr ""
+msgstr "Add-Meta-Tags, ürünler ve diğer yazı türleri için metadata üretimini destekler. Lütfen aşağıdaki herhangi bir gelişmiş metadata üreticisini etkinleştirin."
 
 #: amt-admin-panel.php:666
 msgid "Metadata for WooCommerce products and product groups."
@@ -680,7 +680,7 @@ msgid ""
 "Please note that if none of the supported products or other supported post "
 "types can be detected, the above settings do not affect the plugin's normal "
 "functionality."
-msgstr ""
+msgstr "Desteklenen ürünlerden ya da diğer desteklenen yazı türlerinden hiçbiri algılanamazsa, yukarıdaki ayarların eklentilerin normal işlevselliğini etkilemeyeceğini lütfen unutmayın."
 
 #: amt-admin-panel.php:682 amt-admin-panel.php:685
 msgid "Review Mode"
@@ -819,7 +819,7 @@ msgstr "Resim URL'si"
 
 #: amt-admin-panel.php:1043
 msgid "Enter an image URL to override all media related meta tags."
-msgstr ""
+msgstr "Meta etiketleriyle ilgili tüm ortamı geçersiz kılmak için bir resim URL'si girin."
 
 #: amt-admin-panel.php:1061
 msgid "URLs of referenced items"
@@ -842,7 +842,7 @@ msgstr "Add-Meta-Tags seçenekleri kaydedildi"
 
 #: amt-settings.php:305
 msgid "Add-Meta-Tags options were reset to defaults"
-msgstr "Add-Meta-Tags seçenekleri varsayılana sıfırlandı"
+msgstr "Add-Meta-Tags seçenekleri varsayılanlara sıfırlandı"
 
 #: metadata\amt_basic.php:193 metadata\amt_opengraph.php:290
 #: metadata\amt_twitter_cards.php:154
