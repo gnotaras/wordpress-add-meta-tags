@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.3
+Stable tag: 2.8.4
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -479,7 +479,7 @@ This code can be placed inside your theme's `functions.php` file.
 
 **Example 12**: Generate product specific metadata.
 
-Please note that Add-Meta-Tags have internal support for *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins. Just enable them in the plugin settings.
+Please note that Add-Meta-Tags has internal support for *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins. Just enable them in the plugin settings.
 
 The following code assumes that e-commerce functionality is added by a plugin named **xcom** and aims to be an example about how to add Twitter Cards, Opengraph and Schema.org metadata to your product pages.
 
@@ -729,6 +729,11 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.4](http://www.codetrax.org/versions/284)
+ - Filter hooks for extra Organization/Person related meta tags in the Schema.org generator. (props to Nicolaie Szabadkai for ideas and very useful feedback)
+ - Schema.org generator: articleSection should only be set in Article objects. (props to Richard D'Angelo and marketingisa3 for useful feedback)
+ - Updated Turkish translation (100%) by BouRock (big thanks).
+ - Several other minor bug fixes.
 - [2.8.3](http://www.codetrax.org/versions/246)
  - Fixed bug: Post body was not added properly when Schema.org metadata was generated for products. (props to pjv for useful feedback)
 - [2.8.2](http://www.codetrax.org/versions/245)
