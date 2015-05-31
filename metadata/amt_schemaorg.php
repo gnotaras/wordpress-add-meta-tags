@@ -215,6 +215,10 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
  */
 function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
+    if ( is_feed() ) {
+        return $post_body;
+    }
+
     if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // In this filter function we only deal with content and attachments.
         return $post_body;
