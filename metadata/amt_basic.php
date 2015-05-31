@@ -247,7 +247,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             // If set, the description of the custom taxonomy term is used in the 'description' metatag.
             // Otherwise, a generic description is used.
             // Here we sanitize the provided description for safety
-            $description_content = sanitize_text_field( amt_sanitize_description( term_description( $tax_term_object->term_id ) ) );
+            $description_content = sanitize_text_field( amt_sanitize_description( term_description( $tax_term_object->term_id, $tax_term_object->taxonomy ) ) );
             // Note: Contains multipage information through amt_process_paged()
             if ( empty( $description_content ) ) {
                 // Add a filtered generic description.
