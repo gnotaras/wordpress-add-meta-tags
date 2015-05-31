@@ -515,12 +515,15 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $first_cat ) . '" />';
         }
         */
-        $categories = get_the_category($post->ID);
-        $categories = apply_filters( 'amt_post_categories_for_schemaorg', $categories );
-        foreach( $categories as $cat ) {
-            $section = trim( $cat->cat_name );
-            if ( ! empty( $section ) && $cat->slug != 'uncategorized' ) {
-                $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $section ) . '" />';
+        // Add articleSection in Article object only.
+        if ( $main_content_object == 'Article' ) {
+            $categories = get_the_category($post->ID);
+            $categories = apply_filters( 'amt_post_categories_for_schemaorg', $categories );
+            foreach( $categories as $cat ) {
+                $section = trim( $cat->cat_name );
+                if ( ! empty( $section ) && $cat->slug != 'uncategorized' ) {
+                    $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $section ) . '" />';
+                }
             }
         }
 
