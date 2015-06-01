@@ -601,6 +601,22 @@ add_filter( 'amt_product_data_woocommerce_schemaorg', 'amt_custom_edd_schema', 1
 
 This code can be placed inside your theme's `functions.php` file.
 
+**Example 15**: Make metadata generators use category images added by external plugins.
+
+This can easily be done by hooking a custom function to the `amt_taxonomy_force_image_url` filter.
+
+`
+// Use category images added by the 'Categories Images' plugin.
+function use_taxonomy_images_by_categories_images() {
+    if ( is_category() && function_exists('z_taxonomy_image_url') ) {
+        return z_taxonomy_image_url();
+    }
+}
+add_filter( 'amt_taxonomy_force_image_url', 'use_taxonomy_images_by_categories_images', 100, 2 );
+`
+
+This code can be placed inside your theme's `functions.php` file.
+
 
 = Custom Fields =
 
