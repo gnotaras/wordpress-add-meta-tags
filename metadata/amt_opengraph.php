@@ -305,13 +305,18 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
-        // Site Image
-        // Image. Use a user defined image via filter. Otherwise use default image.
-        // Construct the filter name. Template: ``amt_taxonomy_image_url_TAXONOMYSLUG_TERMSLUG``
-        $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
-        //var_dump($taxonomy_image_url_filter_name);
-        // The default image, if set, is used by default.
-        $taxonomy_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+        // Image
+        // Use a user defined image via filter. Otherwise use default image.
+        // First filter using a term/taxonomy agnostic filter name.
+        $taxonomy_image_url = apply_filters( 'amt_taxonomy_force_image_url', '', $tax_term_object );
+        if ( empty($taxonomy_image_url) ) {
+            // Second filter (term/taxonomy dependent).
+            // Construct the filter name. Template: ``amt_taxonomy_image_url_TAXONOMYSLUG_TERMSLUG``
+            $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
+            //var_dump($taxonomy_image_url_filter_name);
+            // The default image, if set, is used by default.
+            $taxonomy_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+        }
         if ( ! empty( $taxonomy_image_url ) ) {
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $taxonomy_image_url ) . '" />';
             if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {

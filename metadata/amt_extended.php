@@ -147,6 +147,13 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
     return $metatags;
 }
 
+// Retrieves the WooCommerce product group's image URL, if any.
+function amt_product_group_image_url_woocommerce( $default_image_url, $tax_term_object ) {
+    $thumbnail_id = get_woocommerce_term_meta( $tax_term_object->term_id, 'thumbnail_id', true );
+    if ( ! empty($thumbnail_id) ) {
+        return wp_get_attachment_url( $thumbnail_id );
+    }
+}
 
 
 /*
@@ -215,6 +222,11 @@ function amt_product_data_schemaorg_edd( $metatags, $post ) {
     return $metatags;
 }
 
+// Retrieves the EDD product group's image URL, if any.
+function amt_product_group_image_url_edd( $term_id ) {
+    // Not supported
+    return '';
+}
 
 
 /*
@@ -250,8 +262,14 @@ function amt_detect_ecommerce_product_group() {
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
 
+    // Only product groups that validate as custom taxonomies are supported
+    if ( ! is_tax() ) {
+        return false;
+    }
+
     // WooCommerce product group
     if ( $options["extended_support_woocommerce"] == "1" && amt_is_woocommerce_product_group() ) {
+        add_filter( 'amt_taxonomy_force_image_url', 'amt_product_group_image_url_woocommerce', 10, 2 );
         return true;
     // Easy-Digital-Downloads product group
     } elseif ( $options["extended_support_edd"] == "1" && amt_is_edd_product_group() ) {
