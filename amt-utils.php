@@ -142,6 +142,9 @@ function amt_sanitize_description($desc) {
     // Finally, convert double space to single space.
     //$desc = str_replace('  ', ' ', $desc);
 
+    // Allow further filtering of description
+    $desc = apply_filters( 'amt_sanitize_description_extra', $desc );
+
     return $desc;
 }
 
