@@ -747,7 +747,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             }
             
             // article:tag: Keywords are listed as post tags
-            $keywords = explode(',', amt_get_content_keywords($post));
+            $keywords = explode(',', amt_get_content_keywords($post, $auto=true, $exclude_categories=true));
             foreach ($keywords as $tag) {
                 $tag = trim( $tag );
                 if (!empty($tag)) {
