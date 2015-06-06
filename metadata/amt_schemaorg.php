@@ -258,8 +258,14 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Scope BEGIN: Product: http://schema.org/Product
         $metadata_arr[] = '<!-- Scope BEGIN: Product -->';
-        //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product" itemref="comments">';
-        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product">';
+        // Construct itemref attribute. Should contain a comma delimited list of IDs.
+        $itemref = apply_filters( 'amt_schemaorg_itemref_product', '' );
+        if ( ! empty($itemref) ) {
+            $itemref_attrib = ' itemref="' . $itemref . '"';
+        } else {
+            $itemref_attrib = '';
+        }
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product"' . $itemref_attrib . '>';
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
@@ -367,22 +373,40 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
             $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject" itemref="comments">';
-            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject">';
+            // Construct itemref attribute. Should contain a comma delimited list of IDs.
+            $itemref = apply_filters( 'amt_schemaorg_itemref_attachment_image', '' );
+            if ( ! empty($itemref) ) {
+                $itemref_attrib = ' itemref="' . $itemref . '"';
+            } else {
+                $itemref_attrib = '';
+            }
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/ImageObject"' . $itemref_attrib . '>';
 
         } elseif ( 'video' == $attachment_type ) {
 
             // Scope BEGIN: VideoObject: http://schema.org/VideoObject
             $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-            //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject" itemref="comments">';
-            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject">';
+            // Construct itemref attribute. Should contain a comma delimited list of IDs.
+            $itemref = apply_filters( 'amt_schemaorg_itemref_attachment_video', '' );
+            if ( ! empty($itemref) ) {
+                $itemref_attrib = ' itemref="' . $itemref . '"';
+            } else {
+                $itemref_attrib = '';
+            }
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/VideoObject"' . $itemref_attrib . '>';
 
         } elseif ( 'audio' == $attachment_type ) {
 
             // Scope BEGIN: AudioObject: http://schema.org/AudioObject
             $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-            //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject" itemref="comments">';
-            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject">';
+            // Construct itemref attribute. Should contain a comma delimited list of IDs.
+            $itemref = apply_filters( 'amt_schemaorg_itemref_attachment_audio', '' );
+            if ( ! empty($itemref) ) {
+                $itemref_attrib = ' itemref="' . $itemref . '"';
+            } else {
+                $itemref_attrib = '';
+            }
+            $metadata_arr[] = '<div itemscope itemtype="http://schema.org/AudioObject"' . $itemref_attrib . '>';
 
         } else {
             // we do not currently support other attachment types, so we stop processing here
@@ -466,8 +490,14 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Scope BEGIN: Article: http://schema.org/Article
         $metadata_arr[] = '<!-- Scope BEGIN: ' . esc_attr($main_content_object) . ' -->';
-        //$metadata_arr[] = '<div itemscope itemtype="http://schema.org/' . esc_attr($main_content_object) . '" itemref="comments">';
-        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/' . esc_attr($main_content_object) . '">';
+        // Construct itemref attribute. Should contain a comma delimited list of IDs.
+        $itemref = apply_filters( 'amt_schemaorg_itemref_content', '' );
+        if ( ! empty($itemref) ) {
+            $itemref_attrib = ' itemref="' . $itemref . '"';
+        } else {
+            $itemref_attrib = '';
+        }
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/' . esc_attr($main_content_object) . '"' . $itemref_attrib . '>';
 
         // Publisher
         // Scope BEGIN: Organization: http://schema.org/Organization
