@@ -175,6 +175,9 @@ function amt_sanitize_keywords( $text ) {
     $text = str_replace('&#039;', ' ', $text);
     $text = str_replace("&apos;", ' ', $text);
 
+    // Allow further filtering of keywords
+    $text = apply_filters( 'amt_sanitize_keywords_extra', $text );
+
     return $text;
 }
 
