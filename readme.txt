@@ -730,6 +730,14 @@ You can find the bug tracker at the [Add-Meta-Tags Development web site](http://
 
 The amount of the donation is totally up to you. You can think of it like this: Are you happy with the plugin? Do you think it makes your life easier or adds value to your web site? If this is a yes and, if you feel like showing your appreciation, you could imagine buying me a cup of coffee at your favorite Cafe and <a href="http://bit.ly/HvUakt">make a donation</a> accordingly.
 
+= I've added a low star rating in order to motivate you! Why don't you help me or not implement the feature I want? =
+
+Time permitting, I generally try to do my best with providing free support for my plugins.
+
+But, if you try to force that with a low star rating, I can guarantee it will never happen. You are never going to get that help from me that way.
+
+If you have already made that mistake because you were not aware of the policy, that's not my problem. You are not getting any help.
+
 
 == Screenshots ==
 
