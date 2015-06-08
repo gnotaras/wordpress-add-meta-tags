@@ -1625,3 +1625,78 @@ function amt_is_product_group() {
 }
 
 
+// Generates a semantic (Schema.org) breadcrumb trail.
+// Accepts array
+function amt_get_breadcrumbs( $user_options ) {
+    // Default Options
+    $default_options = array(
+        // ID of list element.
+        'list_id' => 'breadcrumbs',
+        // Show breadcrumb item for the home page.
+        'show_home' => true,
+        // Text for the home link (requires show_home=true).
+        'home_link_text' => 'Home',
+        // Show breadcrumb item for the last page.
+        'show_last' => true,
+        // Show last breadcrumb as link (requires show_last=true).
+        'show_last_as_link' => true,
+        // Separator. Set to empty string for no separator.
+        'separator' => '>'
+    );
+    // Final options.
+    $options = array_merge( $default_options, $user_options );
+
+    $post = get_queried_object();
+
+    $bc_arr = array();
+    $bc_arr[] = '<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->';
+    $bc_arr[] = '<!-- Scope BEGIN: BreadcrumbList -->';
+    $bc_arr[] = '<ul id="' . $options['list_id'] . '" itemprop="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">';
+    // Item counter
+    $counter = 1;
+    // Home link
+    if ( $options['show_home'] ) {
+        $bc_arr['bc-home'] = '<li class="list-item list-item-' . $counter . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . '" itemprop="item" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '"><span itemprop="name">' . $options['home_link_text'] . '</span></a></li>';
+        $bc_arr['bc-home-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
+        $counter++;
+    }
+    // Generate breadcrumbs for parent pages, if any.
+    if ( $post->post_parent ) {
+        // Get the parent pages
+        $ancestors = get_post_ancestors( $post->ID );
+        // Set ancestors in reverse order
+        $ancestors = array_reverse( $ancestors );
+        // Generate items
+        foreach ( $ancestors as $ancestor ) {
+            // Add separator
+            if ( ! empty($options['separator']) ) {
+                $bc_arr['bc-sep-' . $counter] = '<span class="separator separator-' . $counter . '"> ' . esc_attr($options['separator']) . ' </span>';
+            }
+            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . '" itemprop="item" title="' . esc_attr( get_the_title($ancestor) ) . '" href="' . esc_url_raw( get_permalink($ancestor) ) . '"><span itemprop="name">' .esc_attr( get_the_title($ancestor) ) . '</span></a></li>';
+            $bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
+            $counter++;
+        }
+    }
+    // Last link
+    if ( $options['show_last'] ) {
+        // Add separator
+        if ( ! empty($options['separator']) ) {
+            $bc_arr['bc-sep-' . $counter] = '<span class="separator separator-' . $counter . ' separator-current"> ' . esc_attr($options['separator']) . ' </span>';
+        }
+        if ( $options['show_last_as_link'] ) {
+            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . ' breadcrumb-current" itemprop="item" title="' . esc_attr( get_the_title($post) ) . '" href="' . esc_url_raw( get_permalink($post) ) . '"><span itemprop="name">' .esc_attr( get_the_title($post) ) . '</span></a></li>';
+        } else {
+            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="item"><span itemprop="name">' .esc_attr( get_the_title($post) ) . '</span></span></li>';
+        }
+        $bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
+        $counter++;
+    }
+
+    $bc_arr[] = '<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->';
+
+    // Allow filtering of the generated
+    $bc_arr = apply_filters( 'amt_breadcrumbs', $bc_arr );
+
+    return PHP_EOL . implode(PHP_EOL, $bc_arr) . PHP_EOL . PHP_EOL;
+}
+

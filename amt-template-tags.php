@@ -78,3 +78,7 @@ function amt_metadata_review() {
     echo amt_get_metadata_inspect();
 }
 
+function amt_breadcrumbs( $user_options ) {
+    echo amt_get_breadcrumbs( $user_options );
+}
+
