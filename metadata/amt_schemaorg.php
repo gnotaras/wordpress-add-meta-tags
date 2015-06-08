@@ -485,8 +485,14 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     // Content
     } else {
 
-        // Allow filtering the main metadata object for content. By default this set to Article.
-        $main_content_object = apply_filters( 'amt_schemaorg_object_main', 'Article' );
+        // Set main metadata entity. By default this set to Article.
+        $main_content_object = 'Article';
+        // Main entity is set to WebPage on pages
+        if  ( is_page() ) {
+            $main_content_object = 'WebPage';
+        }
+        // Allow filtering the main metadata object for content.
+        $main_content_object = apply_filters( 'amt_schemaorg_object_main', $main_content_object );
 
         // Scope BEGIN: Article: http://schema.org/Article
         $metadata_arr[] = '<!-- Scope BEGIN: ' . esc_attr($main_content_object) . ' -->';
