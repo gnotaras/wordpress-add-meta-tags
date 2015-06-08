@@ -1657,7 +1657,7 @@ function amt_get_breadcrumbs( $user_options ) {
     // Home link
     if ( $options['show_home'] ) {
         $bc_arr['bc-home'] = '<li class="list-item list-item-' . $counter . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . '" itemprop="item" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '"><span itemprop="name">' . $options['home_link_text'] . '</span></a></li>';
-        $bc_arr['bc-home-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
+        //$bc_arr['bc-home-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
         $counter++;
     }
     // Generate breadcrumbs for parent pages, if any.
@@ -1673,7 +1673,7 @@ function amt_get_breadcrumbs( $user_options ) {
                 $bc_arr['bc-sep-' . $counter] = '<span class="separator separator-' . $counter . '"> ' . esc_attr($options['separator']) . ' </span>';
             }
             $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . '" itemprop="item" title="' . esc_attr( get_the_title($ancestor) ) . '" href="' . esc_url_raw( get_permalink($ancestor) ) . '"><span itemprop="name">' .esc_attr( get_the_title($ancestor) ) . '</span></a></li>';
-            $bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
+            //$bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
             $counter++;
         }
     }
@@ -1688,7 +1688,7 @@ function amt_get_breadcrumbs( $user_options ) {
         } else {
             $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="item"><span itemprop="name">' .esc_attr( get_the_title($post) ) . '</span></span></li>';
         }
-        $bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
+        //$bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
         $counter++;
     }
 
