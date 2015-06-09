@@ -975,3 +975,53 @@ function amt_get_schemaorg_author_metatags( $author_id ) {
     return $metadata_arr;
 }
 
+
+// Schema.org metadata generator for comments
+// Use with:
+// add_filter( 'comment_text', 'wwwmonk_comment_schemaorg_metadata', 99999, 1 );
+function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
+
+    global $post, $comment;
+
+    $metadata_arr[] = '<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->';
+
+    $metadata_arr[] = '<!-- Scope BEGIN: UserComments -->';
+    $metadata_arr[] = '<div itemprop="comment" itemscope itemtype="http://schema.org/UserComments">';
+
+    // Comment Author
+    $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
+    $metadata_arr[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person">';
+    // name
+    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $comment->comment_author ) . '" />';
+    // url
+    if ( ! empty( $comment->comment_author_url ) ) {
+        // $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $comment->comment_author_url ) . '" />';
+    }
+    // gravatar
+    if ( ! empty( $comment->comment_author_email ) ) {
+        // Contruct gravatar link
+        $gravatar_url = "http://www.gravatar.com/avatar/" . md5( $comment->comment_author_email ) . "?s=" . 44;
+        $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $gravatar_url ) . '" />';
+    }
+    // END
+    $metadata_arr[] = '</span> <!-- Scope END: Person -->';
+
+    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $post->ID ) . '#comment-' . get_comment_ID() ) . '" />';
+    $metadata_arr[] = '<meta itemprop="commentTime" content="' . esc_attr( get_comment_time( 'c' ) ) . '" />';
+    $metadata_arr[] = '<meta itemprop="replyToUrl" content="' . get_permalink( $post->ID ) . '?replytocom=' . $comment->comment_ID . '#respond' . '" />';
+
+    $metadata_arr[] = '<div itemprop="commentText">';
+    $metadata_arr[] = $comment_text;
+    $metadata_arr[] = '</div> <!-- itemprop.commentText -->';
+
+    $metadata_arr[] = '</div> <!-- Scope END: UserComments -->';
+
+    $metadata_arr[] = '<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->';
+
+    // Allow filtering of the generated metadata
+    $metadata_arr = apply_filters( 'amt_schemaorg_comments_extra', $metadata_arr, $post, $comment );
+
+    return PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    //return implode( '', $metadata_arr );
+}
+
