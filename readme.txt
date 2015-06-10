@@ -738,11 +738,15 @@ The amount of the donation is totally up to you. You can think of it like this: 
 
 = I've added a low star rating in order to motivate you! Why don't you help me or not implement the feature I want? =
 
-Time permitting, I generally try to do my best with providing free support for my plugins.
+Time permitting, the developer generally tries to do his best with providing free support for this plugin.
 
-But, if you try to force that with a low star rating, I can guarantee it will never happen. You are never going to get that help from me that way.
+But, if you try to force that support with a low star rating, it is guaranteed you are not going to get any help. Unfortunately, it's never going to work that way. So, please, do not do it. You are encouraged to provide detailed feedback in the forums and work closely with the dev in order to get problems fixed. Then, feel free to add your review.
 
-If you have already made that mistake because you were not aware of the policy, that's not my problem. You are not getting any help.
+= What should I always bare in mind before asking for support? =
+
+This plugin is Free software. It is developed in the author's free time and is offered without support of any kind. However, the developer tries to do his best to offer support for free in these forums.
+
+You are expected to *collaborate* and act as a *contributor*. Detailed feedback is almost always the key for the quick resolution of any issue. Give the developer time to respond. Acting and expressing demands as if you are the customer or as if the developer is your personal assistant or employee is not a good way to ask for support. In fact, there is very little tolerance for such kind of behavior. Please, do not do it. Fixing all potential issues is just a matter of good collaboration.
 
 
 == Screenshots ==
