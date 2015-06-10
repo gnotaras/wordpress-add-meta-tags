@@ -488,9 +488,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Set main metadata entity. By default this set to Article.
         $main_content_object = 'Article';
         // Main entity is set to WebPage on pages
-        if  ( is_page() ) {
-            $main_content_object = 'WebPage';
-        }
+        // DEV NOTE: Since many themes already set the WebPage itemscope on the
+        // body element of the web page, set it to WebPage automatically would
+        // result in duplicate entities. So this has to be done manually via
+        // a filtering function.
+//        if  ( is_page() ) {
+//            $main_content_object = 'WebPage';
+//        }
         // Allow filtering the main metadata object for content.
         $main_content_object = apply_filters( 'amt_schemaorg_object_main', $main_content_object );
 
