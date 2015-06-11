@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-27 17:43+0200\n"
-"PO-Revision-Date: 2015-02-27 15:46+0000\n"
+"POT-Creation-Date: 2015-06-01 23:38+0300\n"
+"PO-Revision-Date: 2015-06-09 17:55+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: add-meta-tags.php:88
+#: add-meta-tags.php:89
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
@@ -53,7 +53,7 @@ msgstr "Προσθέστε βασικά meta tags και επίσης Opengraph,
 msgid "Metadata Settings"
 msgstr "Ρυθμίσεις Μεταδεδομένων"
 
-#: amt-admin-panel.php:87 amt-admin-panel.php:630
+#: amt-admin-panel.php:87 amt-admin-panel.php:769
 msgid "Metadata"
 msgstr "Μεταδεδομένα"
 
@@ -173,7 +173,9 @@ msgid ""
 msgstr "Εισάγετε μια λίστα λέξεων-κλειδιών για το ιστολόγιό σας. Αυτές οι λέξεις-κλειδιά θα χρησιμοποιηθούν στο metatag <em>keywords</em> στην <strong>πρώτη σελίδα</strong>. Αν αυτό το πεδίο παραμείνει κενό, τότε όλες οι <a href=\"edit-tags.php?taxonomy=category\">κατηγορίες</a> του ιστολογίου σας θα χρησιμοποιηθούν ως λέξεις-κλειδιά για το metatag <em>keywords</em>."
 
 #: amt-admin-panel.php:259 amt-admin-panel.php:277 amt-admin-panel.php:280
-#: amt-admin-panel.php:519 amt-admin-panel.php:536 amt-admin-panel.php:797
+#: amt-admin-panel.php:324 amt-admin-panel.php:336 amt-admin-panel.php:346
+#: amt-admin-panel.php:358 amt-admin-panel.php:368 amt-admin-panel.php:602
+#: amt-admin-panel.php:633 amt-admin-panel.php:650 amt-admin-panel.php:936
 msgid "Example"
 msgstr "Παράδειγμα"
 
@@ -221,14 +223,82 @@ msgid "Examples"
 msgstr "Παραδείγματα"
 
 #: amt-admin-panel.php:309 amt-admin-panel.php:312
+msgid "Publisher Settings"
+msgstr "Ρυθμίσεις εκδότη"
+
+#: amt-admin-panel.php:314
+msgid ""
+"This section contains options related to your web site; the publisher of the"
+" content."
+msgstr "Αυτή η ενότητα περιέχει ρυθμίσεις για τον ιστοχώρο, τον εκδότη του περιεχομένου."
+
+#: amt-admin-panel.php:315
+msgid ""
+"The following publisher related settings are shared among all users. Filling"
+" in these settings is entirely optional."
+msgstr "Τα παρακάτω στοιχεία σχετικά με τον εκδότη είναι κοινά για όλους τους χρήστες. Η συμπλήρωση αυτών των πεδίων είναι προαιρετική."
+
+#: amt-admin-panel.php:317 metadata\amt_opengraph.php:72
+msgid "Facebook publisher profile URL"
+msgstr "Διεύθυνση σελίδας εκδότη στο Facebook"
+
+#: amt-admin-panel.php:322
+msgid ""
+"Enter an absolute URL to the Facebook profile of the publisher. If this is "
+"filled in, it will be used in the <code>article:publisher</code> meta tag."
+msgstr ""
+
+#: amt-admin-panel.php:329
+msgid "Facebook App ID"
+msgstr "Facebook App ID"
+
+#: amt-admin-panel.php:334
+msgid ""
+"Enter the App ID for <a target=\"_blank\" "
+"href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
+"Insights</a>."
+msgstr ""
+
+#: amt-admin-panel.php:339
+msgid "Facebook Admin ID list"
+msgstr "Facebook Admin ID list"
+
+#: amt-admin-panel.php:344
+msgid ""
+"Enter a comma delimited list of numerical Facebook user IDs which will have "
+"access to <a target=\"_blank\" "
+"href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
+"Insights</a>."
+msgstr ""
+
+#: amt-admin-panel.php:351
+msgid "Google+ publisher profile URL"
+msgstr ""
+
+#: amt-admin-panel.php:356
+msgid ""
+"Enter an absolute URL to the Google+ profile of the publisher. If this is "
+"filled in, it will be used in the link with <code>rel=\"publisher\"</code> "
+"in the HEAD area of the web page."
+msgstr ""
+
+#: amt-admin-panel.php:361 metadata\amt_twitter_cards.php:69
+msgid "Twitter publisher username"
+msgstr "Όνομα χρήστη του εκδότη στο Twitter"
+
+#: amt-admin-panel.php:366
+msgid "Enter the Twitter username of the publisher (without @)."
+msgstr ""
+
+#: amt-admin-panel.php:376 amt-admin-panel.php:379
 msgid "Basic Metadata"
 msgstr "Βασικά μεταδεδομένα"
 
-#: amt-admin-panel.php:315
+#: amt-admin-panel.php:382
 msgid "Automatically generate the <em>description</em> meta tag."
 msgstr "Αυτόματη δημιουργία του meta tag <em>description</em>."
 
-#: amt-admin-panel.php:316
+#: amt-admin-panel.php:383
 msgid ""
 "If this option is enabled, the <em>description</em> meta tag is "
 "automatically generated for the content, attachments and archives. "
@@ -236,11 +306,11 @@ msgid ""
 "<em>Metadata</em> box in the post editing screen."
 msgstr ""
 
-#: amt-admin-panel.php:320
+#: amt-admin-panel.php:387
 msgid "Automatically generate the <em>keywords</em> meta tag."
 msgstr "Αυτόματη δημιουργία του meta tag <em>keywords</em>."
 
-#: amt-admin-panel.php:321
+#: amt-admin-panel.php:388
 msgid ""
 "If this option is enabled, the <em>keywords</em> meta tag is automatically "
 "generated for the content and archives. Keywords are not generated "
@@ -249,37 +319,50 @@ msgid ""
 "the post editing screen."
 msgstr ""
 
-#: amt-admin-panel.php:329 amt-admin-panel.php:332
+#: amt-admin-panel.php:396 amt-admin-panel.php:399
 msgid "Opengraph Metadata"
 msgstr "Μεταδεδομένα Opengraph"
 
-#: amt-admin-panel.php:335
+#: amt-admin-panel.php:402
 msgid "Automatically generate Opengraph meta tags."
 msgstr "Αυτόματη παραγωγή μεταδεδομένων Opengraph."
 
-#: amt-admin-panel.php:336
+#: amt-admin-panel.php:403
 msgid ""
 "If this option is enabled, Opengraph metadata is automatically generated for"
 " content, attachments and archives. For more information, please refer to "
 "the <a href=\"http://ogp.me\">Opengraph specification</a>."
 msgstr ""
 
-#: amt-admin-panel.php:338
+#: amt-admin-panel.php:407
+msgid "Omit <code>og:video</code> meta tags."
+msgstr ""
+
+#: amt-admin-panel.php:408
+msgid ""
+"When a post containing a video is shared on Facebook, Facebook uses its own "
+"player to embed the video in the timeline. If this setting is enabled, "
+"<code>og:video</code> meta tags are no longer generated and Facebook, "
+"instead of embedding your video, links to your actual video post."
+msgstr ""
+
+#: amt-admin-panel.php:411
 msgid "Important Note"
 msgstr "Σημαντική Σημείωση"
 
-#: amt-admin-panel.php:340
+#: amt-admin-panel.php:413
 msgid ""
 "By default, this feature sets the URL of the front page of your web site to "
 "the <code>article:publisher</code> meta tag and the URL of the author "
 "archive to the <code>article:author</code> meta tag. In order to link to the"
 " publisher page and the author profile on Facebook, it is required to "
-"provide the respective URLs. Enter these settings can be added to your "
-"WordPress user <a href=\"profile.php\">profile page</a> under the section "
-"<em>Contact Info</em>. For example:"
+"provide the respective URLs. These settings can be added to your WordPress "
+"user <a href=\"profile.php\">profile page</a> under the section <em>Contact "
+"Info</em>. Filling in the publisher profile URL is not required, if it has "
+"already been entered in the <em>Publisher Settings</em> above. For example:"
 msgstr ""
 
-#: amt-admin-panel.php:343
+#: amt-admin-panel.php:416
 msgid ""
 "It is possible to control the value of the <code>og:type</code> meta tag "
 "either by changing the post format or programmatically via a filter. By "
@@ -289,26 +372,38 @@ msgid ""
 "<code>video.other</code>."
 msgstr ""
 
-#: amt-admin-panel.php:349 amt-admin-panel.php:352
+#: amt-admin-panel.php:422 amt-admin-panel.php:425
 msgid "Twitter Cards Metadata"
 msgstr "Μεταδεδομένα Twitter Cards"
 
-#: amt-admin-panel.php:355
+#: amt-admin-panel.php:428
 msgid "Automatically generate Twitter Cards meta tags."
 msgstr "Αυτόματη παραγωγή μεταδεδομένων Twitter Cards."
 
-#: amt-admin-panel.php:356
+#: amt-admin-panel.php:429
 msgid ""
 "If this option is enabled, Twitter Cards metadata is automatically generated"
 " for content and attachments. For more information, please refer to the <a "
 "href=\"https://dev.twitter.com/docs/cards\">Twitter Cards specification</a>."
 msgstr ""
 
-#: amt-admin-panel.php:360
+#: amt-admin-panel.php:433
+msgid ""
+"Enforce the use of <code>summary_large_image</code> as default card type."
+msgstr ""
+
+#: amt-admin-panel.php:434
+msgid ""
+"If this setting is enabled, <code>summary_large_image</code> will be used as"
+" the default Twitter Card type instead of the <code>summary</code> card "
+"type."
+msgstr ""
+
+#: amt-admin-panel.php:438
 msgid "Enable the generation of <em>player</em> cards for local media."
 msgstr "Ενεργοποίηση της δημιουργίας της κάρτας <em>player</em> για τοπικά media."
 
-#: amt-admin-panel.php:361
+#: amt-admin-panel.php:439
 msgid ""
 "Enable the generation of <em>player</em> cards for locally hosted audio and "
 "video attachments or for posts with their post format set to audio or video."
@@ -321,21 +416,23 @@ msgid ""
 " hard to identify. This feature should be considered experimental."
 msgstr ""
 
-#: amt-admin-panel.php:363 amt-admin-panel.php:403
+#: amt-admin-panel.php:441 amt-admin-panel.php:481
 msgid "Important Notes"
 msgstr "Σημαντικές Σημειώσεις"
 
-#: amt-admin-panel.php:365
+#: amt-admin-panel.php:443
 msgid ""
 "In order to generate the <code>twitter:site</code> and "
 "<code>twitter:creator</code> meta tags, it is required to provide the "
 "respective usernames of the Twitter account of the author and/or the "
 "publisher of the content. Update your WordPress user's <a "
 "href=\"profile.php\">profile page</a> and fill in the relevant usernames "
-"under the section <em>Contact Info</em>."
-msgstr "Προκειμένου να δημιουργηθούν τα metatags <code>twitter:site</code> και <code>twitter:creator</code>, είναι απαραίτητο να παρέχετε τα αντίστοιχα ονόματα χρήστη του λογαριασμού του συγγραφέα ή/και του εκδότη του περιεχομένου στο Twitter. Ενημερώστε τη <a href=\"profile.php\">σελίδα του προφίλ</a> του χρήστη σας στο WordPress και προσθέστε τα σχετικά ονόματα χρήστη στην ενότητα <em>Στοιχεία Επικοινωνίας</em>."
+"under the section <em>Contact Info</em>. Filling in the publisher username "
+"is not required, if it has already been entered in the <em>Publisher "
+"Settings</em> above."
+msgstr ""
 
-#: amt-admin-panel.php:369
+#: amt-admin-panel.php:447
 msgid ""
 "By default, a Twitter Card of type <em>summary</em> is generated for your "
 "content. If your theme supports <a "
@@ -344,30 +441,30 @@ msgid ""
 "specified post format. More specifically:"
 msgstr ""
 
-#: amt-admin-panel.php:380 amt-admin-panel.php:383
+#: amt-admin-panel.php:458 amt-admin-panel.php:461
 msgid "Dublin Core Metadata"
 msgstr "Μεταδεδομένα Dublin Core"
 
-#: amt-admin-panel.php:386
+#: amt-admin-panel.php:464
 msgid "Automatically generate Dublin Core metadata."
 msgstr "Αυτόματη παραγωγή μεταδεδομένων Dublin Core."
 
-#: amt-admin-panel.php:387
+#: amt-admin-panel.php:465
 msgid ""
 "If this option is enabled, Dublin Core metadata is automatically generated "
 "for your content and attachments. For more information, please refer to <a "
 "href=\"http://dublincore.org\">Dublin Core Metadata Initiative</a>."
 msgstr ""
 
-#: amt-admin-panel.php:394 amt-admin-panel.php:397
+#: amt-admin-panel.php:472 amt-admin-panel.php:475
 msgid "Schema.org Metadata"
 msgstr "Μεταδεδομένα Schema.org"
 
-#: amt-admin-panel.php:400
+#: amt-admin-panel.php:478
 msgid "Automatically generate and embed Schema.org Microdata."
 msgstr "Αυτόματη παραγωγή και ενσωμάτωση Μικροδεδομένων Schema.org."
 
-#: amt-admin-panel.php:401
+#: amt-admin-panel.php:479
 msgid ""
 "Automatically generate Schema.org Microdata and embed it to your content. "
 "This feature embeds <code>meta</code> elements inside the body of the web "
@@ -376,17 +473,18 @@ msgid ""
 " refer to <a href=\"http://schema.org\">Schema.org</a>."
 msgstr ""
 
-#: amt-admin-panel.php:405
+#: amt-admin-panel.php:483
 msgid ""
 "By default, this feature links the author and publisher objects to the "
 "author archive and to the front page of your web site respectively. In order"
 " to link to the author's profile and publisher's page on Google+, it is "
 "required to provide the respective URLs. These settings can be added to your"
 " WordPress user <a href=\"profile.php\">profile page</a> under the section "
-"<em>Contact Info</em>."
+"<em>Contact Info</em>. Filling in the publisher profile URL is not required,"
+" if it has already been entered in the <em>Publisher Settings</em> above."
 msgstr ""
 
-#: amt-admin-panel.php:409
+#: amt-admin-panel.php:487
 msgid ""
 "Once you have filled in the URLs to the author profile and the publisher "
 "page on Google+, the relevant link elements with the attributes "
@@ -394,11 +492,11 @@ msgid ""
 "automatically added to the head area of the web page."
 msgstr "Αφού ορίσετε τις διευθύνσεις για το προφίλ του συγγραφέα και τη σελίδα του εκδότη στο Google+, τα σχετικά στοιχεία link με ιδιότητες <code>rel=\"author\"</code> και <code>rel=\"publisher\"</code> θα προστεθούν αυτόματα στην περιοχή head της ιστοσελίδας."
 
-#: amt-admin-panel.php:416 amt-admin-panel.php:419
+#: amt-admin-panel.php:494 amt-admin-panel.php:497
 msgid "Metabox Features"
 msgstr "Χαρακτηριστικά του metabox"
 
-#: amt-admin-panel.php:421
+#: amt-admin-panel.php:499
 msgid ""
 "It is possible to partially customize the generated metadata on a per post "
 "basis through the <em>Metadata</em> metabox which exists in the post editing"
@@ -407,34 +505,38 @@ msgid ""
 "has been stored for each post."
 msgstr ""
 
-#: amt-admin-panel.php:425
+#: amt-admin-panel.php:503
 msgid "Custom description (<em>Recommended</em>)."
 msgstr "Προσαρμοσμένη περιγραφή (<em>Προτείνεται</em>)."
 
-#: amt-admin-panel.php:430
+#: amt-admin-panel.php:508
 msgid "Custom keywords (<em>Recommended</em>)."
 msgstr "Προσαρμοσμένες λέξεις-κλειδιά (<em>Προτείνεται</em>)."
 
-#: amt-admin-panel.php:435
+#: amt-admin-panel.php:513
 msgid "Custom content of the <code>title</code> HTML element."
 msgstr "Προσαρμοσμένο περιεχόμενο του HTML στοιχείου <code>title</code>."
 
-#: amt-admin-panel.php:440
+#: amt-admin-panel.php:518
 msgid ""
 "Custom news keywords. (<a target=\"_blank\" "
 "href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">more"
 " info</a>)"
 msgstr ""
 
-#: amt-admin-panel.php:445
+#: amt-admin-panel.php:523
 msgid "Full meta tags box."
 msgstr "Κουτί ολοκληρωμένων meta tags."
 
-#: amt-admin-panel.php:450
+#: amt-admin-panel.php:528
+msgid "Global image override."
+msgstr ""
+
+#: amt-admin-panel.php:533
 msgid "Referenced items. (Experimental feature. Not recommended.)"
 msgstr "Αναφερθέντα αντικείμενα (Πειραματικό χαρακτηριστικό. Δεν προτείνεται.)"
 
-#: amt-admin-panel.php:453
+#: amt-admin-panel.php:536
 msgid ""
 "The metabox feature selection above affects all users. Advanced "
 "customization of the availability of these features on a per user basis or "
@@ -442,17 +544,17 @@ msgid ""
 "<code>amt_metadata_metabox_permissions</code> filter."
 msgstr ""
 
-#: amt-admin-panel.php:461 amt-admin-panel.php:464
+#: amt-admin-panel.php:544 amt-admin-panel.php:547
 msgid "Extra SEO Options"
 msgstr "Επιπρόσθετες ρυθμίσεις SEO"
 
-#: amt-admin-panel.php:467
+#: amt-admin-panel.php:550
 msgid ""
 "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
 "tag."
 msgstr ""
 
-#: amt-admin-panel.php:468
+#: amt-admin-panel.php:551
 msgid ""
 "If checked, <code>NOODP</code> and <code>NOYDIR</code> are added to the "
 "<em>robots</em> meta tag on the front page, content and attachments. This "
@@ -463,59 +565,89 @@ msgid ""
 "description you set in the <em>description</em> meta tag."
 msgstr ""
 
-#: amt-admin-panel.php:471
+#: amt-admin-panel.php:554
 msgid ""
 "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following"
 " types of archives. This is an advanced setting that aims at reducing the "
 "amount of duplicate content that gets indexed by search engines:"
 msgstr "Προσθήκη των <code>NOINDEX,FOLLOW</code> στο <em>robots</em> meta tag στους ακόλουθους τύπους αρχείου. Αυτή είναι μια ρύθμιση για προχωρημένους η οποία στοχεύει στο να μειώσει την ποσότητα του διπλότυπου περιεχομένου που καταχωρείται από τις μηχανές αναζήτησης."
 
-#: amt-admin-panel.php:475
+#: amt-admin-panel.php:558
 msgid "Search results. (<em>Highly recommended</em>)"
 msgstr "Αποτελέσματα αναζήτησης. (<em>Προτείνεται ανεπιφύλαχτα</em>)"
 
-#: amt-admin-panel.php:480
+#: amt-admin-panel.php:563
 msgid "Date based archives. (<em>Recommended</em>)"
 msgstr "Αρχείο βάσει ημερομηνίας. (<em>Προτείνεται</em>)"
 
-#: amt-admin-panel.php:485
+#: amt-admin-panel.php:568
 msgid "Category based archives."
 msgstr "Αρχείο με βάση τις κατηγορίες."
 
-#: amt-admin-panel.php:485 amt-admin-panel.php:490 amt-admin-panel.php:495
-#: amt-admin-panel.php:500
+#: amt-admin-panel.php:568 amt-admin-panel.php:573 amt-admin-panel.php:578
+#: amt-admin-panel.php:583
 msgid ""
 "Even if checked, the first page of this type of archive is always indexed."
 msgstr "Ακόμη κι αν ενεργοποιηθεί, η πρώτη σελίδα του αρχείου ταξινομείται πάντοτε."
 
-#: amt-admin-panel.php:490
+#: amt-admin-panel.php:573
 msgid "Tag based archives."
 msgstr "Αρχείο με βάση τις ετικέτες."
 
-#: amt-admin-panel.php:495
+#: amt-admin-panel.php:578
 msgid "Custom taxonomy based archives."
 msgstr "Αρχεία βάσει προσαρμοσμένης ταξινόμησης."
 
-#: amt-admin-panel.php:500
+#: amt-admin-panel.php:583
 msgid "Author based archives."
 msgstr "Αρχείο με βάση τους συγγραφείς."
 
-#: amt-admin-panel.php:509 amt-admin-panel.php:512
+#: amt-admin-panel.php:592 amt-admin-panel.php:595
+msgid "Locale"
+msgstr ""
+
+#: amt-admin-panel.php:600
+msgid ""
+"Enter a locale which will be used globally in the generated metadata "
+"overriding the default locale as returned by WordPress. Filling in this "
+"setting is only recommended if WordPress does not return a locale in the "
+"form of <code>language_TERRITORY</code>."
+msgstr ""
+
+#: amt-admin-panel.php:609 amt-admin-panel.php:612
+msgid "Secure Access"
+msgstr "Ασφαλής Πρόσβαση"
+
+#: amt-admin-panel.php:615
+msgid "Media are accessible over HTTPS."
+msgstr ""
+
+#: amt-admin-panel.php:616
+msgid ""
+"Currently this option, if enabled, lets the plugin make decisions about "
+"whether to generate additional secure links even if the active connection "
+"does not use HTTPS. For instance, if the web site is accessed over HTTP and "
+"this options is enabled, additional <code>og:image:secure_url</code> meta "
+"tags will be generated for your local media. If the current connection uses "
+"HTTPS, then secure links are always generated."
+msgstr ""
+
+#: amt-admin-panel.php:623 amt-admin-panel.php:626
 msgid "Copyright URL"
 msgstr "Σύνδεσμος προς Πνευματικά Δικαιώματα"
 
-#: amt-admin-panel.php:517
+#: amt-admin-panel.php:631
 msgid ""
 "Enter an absolute URL to a document containing copyright and licensing "
 "information about your work. If this URL is set, the relevant meta tags will"
 " be added automatically on all the pages of your web site."
 msgstr "Εισάγετε την απόλυτη διεύθυνση προς τη σελίδα που περιέχει πληροφορίες σχετικά με τα πνευματικά δικαιώματα και την αδειοδότηση για το έργο σας. Αν αυτή η διεύθυνση οριστεί, τα σχετικά metatags θα προστεθούν αυτόματα σε όλες τις σελίδες του ιστότοπού σας."
 
-#: amt-admin-panel.php:526 amt-admin-panel.php:529
+#: amt-admin-panel.php:640 amt-admin-panel.php:643
 msgid "Default Image"
 msgstr "Εξ'ορισμού Εικόνα"
 
-#: amt-admin-panel.php:534
+#: amt-admin-panel.php:648
 msgid ""
 "Enter an absolute URL to an image that represents your website, for instance"
 " the logo. This image will be used in the metadata of the front page and "
@@ -523,15 +655,41 @@ msgid ""
 "images have been attached or embedded."
 msgstr "Εισάγετε την απόλυτη διεύθυνση προς τη φωτογραφία που αντιπροσωπεύει τον ιστότοπό σας, για παράδειγμα το λογότυπο. Αυτή η φωτογραφία θα χρησιμοποιηθεί στα μεταδεδομένα της πρώτης σελίδας κι επιπρόσθετα στα μεταδεδομένα του περιεχομένου σε περίπτωση που TODO"
 
-#: amt-admin-panel.php:543 amt-admin-panel.php:546
+#: amt-admin-panel.php:657 amt-admin-panel.php:660
+msgid "Extended Metadata Support"
+msgstr ""
+
+#: amt-admin-panel.php:662
+msgid ""
+"Add-Meta-Tags supports the generation of metadata for products and other "
+"post types. Please enable any of the following generators of extended "
+"metadata."
+msgstr ""
+
+#: amt-admin-panel.php:666
+msgid "Metadata for WooCommerce products and product groups."
+msgstr ""
+
+#: amt-admin-panel.php:671
+msgid "Metadata for Easy-Digital-Downloads products and product groups."
+msgstr ""
+
+#: amt-admin-panel.php:674
+msgid ""
+"Please note that if none of the supported products or other supported post "
+"types can be detected, the above settings do not affect the plugin's normal "
+"functionality."
+msgstr ""
+
+#: amt-admin-panel.php:682 amt-admin-panel.php:685
 msgid "Review Mode"
 msgstr "Λειτουργία Επισκόπησης"
 
-#: amt-admin-panel.php:549
+#: amt-admin-panel.php:688
 msgid "Enable <em>Metadata Review Mode</em>."
 msgstr "Ενεργοποίηση της <em>Λειτουργίας Επισκόπησης Μεταδεδομένων</em>."
 
-#: amt-admin-panel.php:550
+#: amt-admin-panel.php:689
 msgid ""
 "If enabled, WordPress users with administrator privileges see a box (right "
 "above the post's content) containing the metadata exactly as it is added in "
@@ -539,36 +697,36 @@ msgid ""
 "and custom post types."
 msgstr ""
 
-#: amt-admin-panel.php:557 amt-admin-panel.php:560
+#: amt-admin-panel.php:696 amt-admin-panel.php:699
 msgid "Donations"
 msgstr "Δωρεές"
 
-#: amt-admin-panel.php:563
+#: amt-admin-panel.php:702
 #, php-format
 msgid ""
 "If checked, the <em>message from the author</em> above goes away. Thanks for"
 " <a href=\"%s\">donating</a>!"
 msgstr ""
 
-#: amt-admin-panel.php:577
+#: amt-admin-panel.php:716
 msgid "Save Changes"
 msgstr "Αποθήκευση αλλαγών"
 
-#: amt-admin-panel.php:580
+#: amt-admin-panel.php:719
 msgid "Reset to defaults"
 msgstr "Επαναφορά αρχικών ρυθμίσεων"
 
-#: amt-admin-panel.php:743
+#: amt-admin-panel.php:882
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: amt-admin-panel.php:746
+#: amt-admin-panel.php:885
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "Εισάγετε μια προσαρμοσμένη περιγραφή 30-50 λέξεων (βασιμένο σε μήκος λέξεων των 5 χαρακτήρων κατά μέσο όρο)."
 
-#: amt-admin-panel.php:753
+#: amt-admin-panel.php:892
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -576,22 +734,22 @@ msgid ""
 "content."
 msgstr "Αν το πεδίο <em>περιγραφή</em> παραμείνει κενό, το metatag <em>description</em> θα δημιουργηθεί <strong>αυτόματα</strong> από την περίληψη ή, αν η περίληψη δεν έχει οριστεί, απ'ευθείας από την πρώτη παράγραφο του περιεχομένου."
 
-#: amt-admin-panel.php:759 amt-admin-panel.php:765
+#: amt-admin-panel.php:898 amt-admin-panel.php:904
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "Αν το πεδίο <em>περιγραφή</em> παραμείνει κενό, το metatag <em>description</em> θα δημιουργηθεί <strong>αυτόματα</strong> από την πρώτη παράγραφο του περιεχομένου."
 
-#: amt-admin-panel.php:785
+#: amt-admin-panel.php:924
 msgid "Keywords"
 msgstr "Λέξεις-κλειδιά"
 
-#: amt-admin-panel.php:788
+#: amt-admin-panel.php:927
 msgid "Enter keywords separated with commas."
 msgstr "Εισάγετε λέξεις-κλειδιά χωρισμένες με κόμμα."
 
-#: amt-admin-panel.php:795
+#: amt-admin-panel.php:934
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories,"
@@ -603,26 +761,26 @@ msgid ""
 "and <code>%terms%</code> respectively."
 msgstr ""
 
-#: amt-admin-panel.php:803 amt-admin-panel.php:809
+#: amt-admin-panel.php:942 amt-admin-panel.php:948
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will only be automatically generated from global keywords, if any such "
 "global keywords have been set in the plugin settings."
 msgstr ""
 
-#: amt-admin-panel.php:830
+#: amt-admin-panel.php:969
 msgid "Title"
 msgstr "Τίτλος"
 
-#: amt-admin-panel.php:833
+#: amt-admin-panel.php:972
 msgid "Enter a custom title to be used in the <em>title</em> tag."
 msgstr "Εισάγετε έναν προσαρμοσμένο τίτλο για να χρησιμοποιηθεί στο στοιχείο <em>title</em>."
 
-#: amt-admin-panel.php:851
+#: amt-admin-panel.php:990
 msgid "News Keywords"
 msgstr "Λέξεις-κλειδιά νέων"
 
-#: amt-admin-panel.php:854
+#: amt-admin-panel.php:993
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -630,11 +788,11 @@ msgid ""
 " help page</a>."
 msgstr "Εισάγετε μια λίστα <strong>λέξεων-κλειδιών νέων</strong>. Για περισσότερες πληροφορίες σχετικά με αυτό το metatag, παρακαλώ δείτε αυτή την <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">σελίδα βοήθειας στη Google</a>."
 
-#: amt-admin-panel.php:872
+#: amt-admin-panel.php:1011
 msgid "Full meta tags"
 msgstr "Ολόκληρα meta tags"
 
-#: amt-admin-panel.php:875
+#: amt-admin-panel.php:1014
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -642,23 +800,31 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Εισάγετε ολόκληρο τον XHTML κώδικα των επιπλέον στοιχείων META τα οποία θα θέλατε να προσθέσετε σ' αυτό το περιεχόμενο (διαβάστε περισσότερα για το <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">στοιχείο HTML META</a> στην Wikipedia)."
 
-#: amt-admin-panel.php:878
+#: amt-admin-panel.php:1017
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Για παράδειγμα, προκειμένου να εμποδίσετε ένα αποθηκευμένο αντίγραφο αυτού του περιεχομένου από το είναι διαθέσιμο στα αποτελέσματα των μηχανών αναζήτησης, μπορείτε να προσθέσετε το παρακάτω metatag:"
 
-#: amt-admin-panel.php:883
+#: amt-admin-panel.php:1022
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Σημαντική σημείωση: για λόγους ασφαλείας μόνον στοιχεία <code>meta</code> επιτρέπονται σ' αυτό το πλαίσιο. Όλα τα άλλα στοιχεία HTML αφαιρούνται αυτόματα."
 
-#: amt-admin-panel.php:901
+#: amt-admin-panel.php:1040
+msgid "Image URL"
+msgstr ""
+
+#: amt-admin-panel.php:1043
+msgid "Enter an image URL to override all media related meta tags."
+msgstr ""
+
+#: amt-admin-panel.php:1061
 msgid "URLs of referenced items"
 msgstr "Διευθύνσεις αντικειμένων αναφοράς"
 
-#: amt-admin-panel.php:904
+#: amt-admin-panel.php:1064
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "
@@ -669,54 +835,49 @@ msgid ""
 " generated."
 msgstr "Εισάγετε μια λίστα κανονικών διευθύνσεων (μια σε κάθε σειρά) αντικειμένων που αναφέρονται μέσα στο περιεχόμενο. Η αναφερόμενη σελίδα δεν χρειάζεται να βρίσκεται στον ίδιο ιστοχώρο με το περιεχόμενο. Για παράδειγμα, μπορείτε να εισάγετε αναφορά για μια σελίδα από όπου ένα προϊόν μπορεί να αγοραστεί ή μια σελίδα η οποία περιέχει εκτεταμένη περιγραφή για μια τοποθεσία. Αν τέτοιες αναφορές εισαχθούν και αν τα μεταδεδομένα OpenGraph/Schema.org έχουν ενεργοποιηθεί, τότε τα σχετικά <code>og:referenced</code> και <code>referencedItem</code> meta tags θα δημιουργηθούν."
 
-#: amt-settings.php:254
+#: amt-settings.php:292
 msgid "Add-Meta-Tags options saved"
 msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags αποθηκεύτηκαν"
 
-#: amt-settings.php:267
+#: amt-settings.php:305
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags επανήλθαν στις αρχικές τιμές"
 
-#: metadata\amt_basic.php:192
+#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:290
+#: metadata\amt_twitter_cards.php:154
 #, php-format
 msgid "Content filed under the %s category."
 msgstr "Περιεχόμενο καταχωρημένο στην %s κατηγορία."
 
-#: metadata\amt_basic.php:219
+#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:292
+#: metadata\amt_twitter_cards.php:156
 #, php-format
 msgid "Content tagged with %s."
 msgstr "Περιεχόμενο με ετικέτα %s."
 
-#: metadata\amt_basic.php:255
+#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:298
+#: metadata\amt_twitter_cards.php:162
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr "Περιεχόμενο καταχωρημένο στην ταξινόμηση %s."
 
-#: metadata\amt_basic.php:295
+#: metadata\amt_basic.php:297
 #, php-format
 msgid "Content published by %s."
 msgstr "Περιεχόμενο δημοσιευμένο από %s."
 
-#: metadata\amt_opengraph.php:61
+#: metadata\amt_opengraph.php:65
 msgid "Facebook author profile URL"
 msgstr "Διεύθυνση προφίλ συγγραφέα στο Facebook"
 
-#: metadata\amt_opengraph.php:65
-msgid "Facebook publisher profile URL"
-msgstr "Διεύθυνση σελίδας εκδότη στο Facebook"
-
-#: metadata\amt_schemaorg.php:63
+#: metadata\amt_schemaorg.php:64
 msgid "Google+ author profile URL"
 msgstr "Διεύθυνση προφίλ συγγραφέα στο Google+"
 
-#: metadata\amt_schemaorg.php:67
+#: metadata\amt_schemaorg.php:71
 msgid "Google+ publisher page URL"
 msgstr "Διεύθυνση σελίδας εκδότη στο Google+"
 
-#: metadata\amt_twitter_cards.php:61
+#: metadata\amt_twitter_cards.php:62
 msgid "Twitter author username"
 msgstr "Όνομα χρήστη του συγγραφέα στο Twitter"
-
-#: metadata\amt_twitter_cards.php:65
-msgid "Twitter publisher username"
-msgstr "Όνομα χρήστη του εκδότη στο Twitter"
