@@ -932,20 +932,23 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         $metadata_arr[] = '<meta itemprop="logo" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
     }
     // url
-    // NOTE: if no author id has been provided, use the blog url.
-    if ( $author_id === null ) {
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
-    } else {
-        // If a Google+ publisher profile URL has been provided, it has priority,
-        // Otherwise fall back to the WordPress blog home url.
-        $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $author_id);
-        if ( ! empty( $googleplus_publisher_url ) ) {
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
-        } elseif ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $options['social_main_googleplus_publisher_profile_url'], array('http', 'https') ) . '" />';
-        } else {
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
-        }
+    // The blog url is used by default. Google+, Facebook and Twitter profile URLs are added as sameAs.
+    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
+    // sameAs
+    // Social Profile Links are added as sameAs properties
+    // By default, those of the Publisher Settings  are used.
+    // WARNING: Publisher profile URLs from the user profile page are now deprecated.
+    // Google+ Publisher
+    if ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
+        $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $options['social_main_googleplus_publisher_profile_url'], array('http', 'https') ) . '" />';
+    }
+    // Facebook
+    if ( ! empty($options['social_main_facebook_publisher_profile_url']) ) {
+        $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $options['social_main_facebook_publisher_profile_url'], array('http', 'https') ) . '" />';
+    }
+    // Twitter
+    if ( ! empty($options['social_main_twitter_publisher_username']) ) {
+        $metadata_arr[] = '<meta itemprop="sameAs" content="https://twitter.com/' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
     }
 
     // Allow filtering of the Publisher meta tags
@@ -995,15 +998,27 @@ function amt_get_schemaorg_author_metatags( $author_id ) {
     }
 
     // url
-    // If a Google+ author profile URL has been provided, it has priority,
-    // Otherwise fall back to the WordPress author archive.
+    // The URL to the author archive is added as the url.
+    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_author_posts_url( $author_id ) ) . '" />';
+    // sameAs
+    // Social Profile Links are added as sameAs properties
+    // Those from the WordPress User Profile page are used.
+    // Google+ Author
     $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $author_id);
     if ( !empty($googleplus_author_url) ) {
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
-    } else {
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_author_posts_url( $author_id ) ) . '" />';
+        $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
     }
-    // second url as sameAs - Note: The get_the_author_meta('user_url', $author_id) is used in the sameAs itemprop.
+    // Facebook
+    $facebook_author_url = get_the_author_meta('amt_facebook_author_profile_url', $author_id);
+    if ( !empty($facebook_author_url) ) {
+        $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $facebook_author_url, array('http', 'https') ) . '" />';
+    }
+    // Twitter
+    $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $author_id);
+    if ( !empty($twitter_author_username) ) {
+        $metadata_arr[] = '<meta itemprop="sameAs" content="https://twitter.com/' . esc_attr( $twitter_author_username ) . '" />';
+    }
+    // The User URL as set by the user in the WordPress User Profile page.
     $user_url = get_the_author_meta( 'user_url', $author_id );
     if ( !empty($user_url) ) {
         $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( $user_url, array('http', 'https') ) . '" />';
