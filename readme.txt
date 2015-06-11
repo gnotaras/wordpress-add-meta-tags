@@ -684,6 +684,66 @@ add_filter( 'amt_taxonomy_force_image_url', 'use_taxonomy_images_by_categories_i
 
 This code can be placed inside your theme's `functions.php` file.
 
+**Example 16**: Extend the Organization properties.
+
+It would be impossible for Add-Meta-Tags to provide a web based interface for
+users to fill in even the most common Organization properties. Alternatively, it
+provides the `amt_schemaorg_publisher_extra` filter hook, which can be used in order
+to extend the default Organization properties (for the Person object use `amt_schemaorg_author_extra`).
+
+In the following example, a filtering function (`amt_schemaorg_publisher_extra_tags`) is
+attached to the `amt_schemaorg_publisher_extra` hook and adds:
+
+ * Extra social profile URLs (Youtube, LinkedIn).
+ * Adds a postal address object to the Organization object.
+ * Adds a 'sales' and a 'technical support' contact points to the Organization object.
+
+Sample code:
+
+`
+function amt_schemaorg_publisher_extra_tags( $metatags ) {
+    // Social profiles for LinkedIn, Youtube
+    $metatags[] = '<meta itemprop="sameAs" content="https://www.youtube.com/channel/abcdef" />';
+    $metatags[] = '<meta itemprop="sameAs" content="https://www.linkedin.com/in/abcdef" />';
+
+    // Organization Postal Address
+    $metatags[] = '<!-- Scope BEGIN: Organization Postal Address -->';
+    $metatags[] = '<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">';
+    $metatags[] = '<meta itemprop="streetAddress" content="WordPress Str. 123" />';
+    $metatags[] = '<meta itemprop="postalCode" content="12345" />';
+    $metatags[] = '<meta itemprop="addressLocality" content="City, Country" />';
+    $metatags[] = '</span> <!-- Scope END: Organization Postal Address -->';
+
+    // Sales
+    $metatags[] = '<!-- Scope BEGIN: ContactPoint - Sales -->';
+    $metatags[] = '<span itemprop="contactPoint" itemscope itemtype="http://schema.org/ContactPoint">';
+    $metatags[] = '<meta itemprop="contactType" content="sales" />';
+    $metatags[] = '<meta itemprop="telephone" content="+1-800-555-1212" />';
+    $metatags[] = '<meta itemprop="faxNumber" content="+1-800-555-1213" />';
+    $metatags[] = '<meta itemprop="email" content="sales(at)example.org" />';
+    $metatags[] = '<!-- Scope BEGIN: OpeningHoursSpecification -->';
+    $metatags[] = '<span itemprop="hoursAvailable" itemscope itemtype="http://schema.org/OpeningHoursSpecification">';
+    $metatags[] = '<meta itemprop="opens" content="09:00" />';
+    $metatags[] = '<meta itemprop="closes" content="21:00" />';
+    $metatags[] = '<meta itemprop="dayOfWeek" content="Monday,Tuesday,Wednesday,Thursday,Friday" />';
+    $metatags[] = '</span> <!-- Scope END: OpeningHoursSpecification -->';
+    $metatags[] = '</span> <!-- Scope END: ContactPoint - Sales -->';
+
+    // Technical Support
+    $metatags[] = '<!-- Scope BEGIN: ContactPoint - Technical Support -->';
+    $metatags[] = '<span itemprop="contactPoint" itemscope itemtype="http://schema.org/ContactPoint">';
+    $metatags[] = '<meta itemprop="contactType" content="technical support" />';
+    $metatags[] = '<meta itemprop="telephone" content="+1-800-555-1214" />';
+    $metatags[] = '<meta itemprop="faxNumber" content="+1-800-555-1215" />';
+    $metatags[] = '<meta itemprop="email" content="support(at)example.org" />';
+    $metatags[] = '</span> <!-- Scope END: ContactPoint - Sales -->';
+
+    return $metatags;
+}
+add_filter( 'amt_schemaorg_publisher_extra', 'amt_schemaorg_publisher_extra_tags' );
+`
+This code can be placed inside your theme's `functions.php` file.
+
 
 = Custom Fields =
 
