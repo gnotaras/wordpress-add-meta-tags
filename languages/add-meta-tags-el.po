@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-01 23:38+0300\n"
-"PO-Revision-Date: 2015-06-09 17:55+0000\n"
+"PO-Revision-Date: 2015-06-11 21:22+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -273,7 +273,7 @@ msgstr ""
 
 #: amt-admin-panel.php:351
 msgid "Google+ publisher profile URL"
-msgstr ""
+msgstr "Διεύθυνση σελίδας εκδότη στο Google+"
 
 #: amt-admin-panel.php:356
 msgid ""
@@ -288,7 +288,7 @@ msgstr "Όνομα χρήστη του εκδότη στο Twitter"
 
 #: amt-admin-panel.php:366
 msgid "Enter the Twitter username of the publisher (without @)."
-msgstr ""
+msgstr "Εισάγετε το όνομα χρήστη του λογαριασμού του εκδότη στο Twitter (χωρίς @)."
 
 #: amt-admin-panel.php:376 amt-admin-panel.php:379
 msgid "Basic Metadata"
@@ -336,7 +336,7 @@ msgstr ""
 
 #: amt-admin-panel.php:407
 msgid "Omit <code>og:video</code> meta tags."
-msgstr ""
+msgstr "Παράλειψη των <code>og:video</code> meta tags."
 
 #: amt-admin-panel.php:408
 msgid ""
@@ -390,7 +390,7 @@ msgstr ""
 #: amt-admin-panel.php:433
 msgid ""
 "Enforce the use of <code>summary_large_image</code> as default card type."
-msgstr ""
+msgstr "Επιβολή της χρήσης της <code>summary_large_image</code> ως προεπιλεγμένο τύπο κάρτας."
 
 #: amt-admin-panel.php:434
 msgid ""
@@ -530,7 +530,7 @@ msgstr "Κουτί ολοκληρωμένων meta tags."
 
 #: amt-admin-panel.php:528
 msgid "Global image override."
-msgstr ""
+msgstr "Ολική παράκαμψη εικόνας."
 
 #: amt-admin-panel.php:533
 msgid "Referenced items. (Experimental feature. Not recommended.)"
@@ -552,7 +552,7 @@ msgstr "Επιπρόσθετες ρυθμίσεις SEO"
 msgid ""
 "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
 "tag."
-msgstr ""
+msgstr "Προσθήκη του <code>NOODP</code> και του <code>NOYDIR</code> στο <em>robots</em> meta tag."
 
 #: amt-admin-panel.php:551
 msgid ""
@@ -604,7 +604,7 @@ msgstr "Αρχείο με βάση τους συγγραφείς."
 
 #: amt-admin-panel.php:592 amt-admin-panel.php:595
 msgid "Locale"
-msgstr ""
+msgstr "Ρυθμίσεις τοπικότητας"
 
 #: amt-admin-panel.php:600
 msgid ""
@@ -620,7 +620,7 @@ msgstr "Ασφαλής Πρόσβαση"
 
 #: amt-admin-panel.php:615
 msgid "Media are accessible over HTTPS."
-msgstr ""
+msgstr "Τα αρχεία πολυμέσων είναι προσβάσιμα μέσω HTTPS."
 
 #: amt-admin-panel.php:616
 msgid ""
@@ -657,22 +657,22 @@ msgstr "Εισάγετε την απόλυτη διεύθυνση προς τη 
 
 #: amt-admin-panel.php:657 amt-admin-panel.php:660
 msgid "Extended Metadata Support"
-msgstr ""
+msgstr "Εκτεταμένη υποστήριξη μεταδεδομένων"
 
 #: amt-admin-panel.php:662
 msgid ""
 "Add-Meta-Tags supports the generation of metadata for products and other "
 "post types. Please enable any of the following generators of extended "
 "metadata."
-msgstr ""
+msgstr "Το πρόσθετο Add-Meta-Tags υποστηρίζει την παραγωγή μεταδεδομένων για προϊόντα και άλλους τύπους δεδομένων. Παρακαλώ ενεργοποιήστε κάποιον παραγωγό εκτεταμένων μεταδεδομένων από τους παρακάτω."
 
 #: amt-admin-panel.php:666
 msgid "Metadata for WooCommerce products and product groups."
-msgstr ""
+msgstr "Μεταδεδομένα των προϊόντων και των ομάδων προϊόντων του πρόσθετου WooCommerce."
 
 #: amt-admin-panel.php:671
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
-msgstr ""
+msgstr "Μεταδεδομένα των προϊόντων και των ομάδων προϊόντων του πρόσθετου Easy-Digital-Downloads."
 
 #: amt-admin-panel.php:674
 msgid ""
@@ -814,11 +814,11 @@ msgstr "Σημαντική σημείωση: για λόγους ασφαλεί�
 
 #: amt-admin-panel.php:1040
 msgid "Image URL"
-msgstr ""
+msgstr "Διεύθυνση εικόνας"
 
 #: amt-admin-panel.php:1043
 msgid "Enter an image URL to override all media related meta tags."
-msgstr ""
+msgstr "Εισάγετε τη διεύθυνση της εικόνας που θα παρακάμψει τα μεταδεδομένα όλων των αρχείων πολυμέσων."
 
 #: amt-admin-panel.php:1061
 msgid "URLs of referenced items"
