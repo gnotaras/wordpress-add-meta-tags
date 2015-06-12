@@ -698,7 +698,8 @@ attached to the `amt_schemaorg_publisher_extra` hook and adds:
  * Adds a postal address object to the Organization object.
  * Adds a 'sales' and a 'technical support' contact points to the Organization object.
 
-Sample code:
+IMPORTANT NOTICE: The following code only adds the metadata for your Organization.
+Make sure this information is also visible to your visitors in the current page.
 
 `
 function amt_schemaorg_publisher_extra_tags( $metatags ) {
