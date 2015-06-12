@@ -528,6 +528,11 @@ function amt_options_page() {
                 '.__('Global image override.', 'add-meta-tags').'
                 </label></p>
 
+                <p><input id="metabox_enable_express_review" type="checkbox" value="1" name="metabox_enable_express_review" '. (($options["metabox_enable_express_review"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_express_review">
+                '.__('Express review. (Experimental feature. For advanced users only.)', 'add-meta-tags').'
+                </label></p>
+
                 <p><input id="metabox_enable_referenced_list" type="checkbox" value="1" name="metabox_enable_referenced_list" '. (($options["metabox_enable_referenced_list"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_referenced_list">
                 '.__('Referenced items. (Experimental feature. Not recommended.)', 'add-meta-tags').'
@@ -1046,6 +1051,27 @@ function amt_inner_metadata_box( $post ) {
 
     }
 
+    // Express review
+
+    // Express review box permission check (can be user customized via filter).
+    if ( $options['metabox_enable_express_review'] == '1' && current_user_can( $metabox_permissions['express_review_box_capability'] ) ) {
+        $metabox_has_features = true;
+
+        // Retrieve the field data from the database.
+        $custom_express_review_value = amt_get_post_meta_express_review( $post->ID );
+
+        print('
+            <p>
+                <label for="amt_custom_express_review"><strong>'.__('Express review', 'add-meta-tags').'</strong>:</label>
+                <textarea class="code" style="width: 99%" id="amt_custom_express_review" name="amt_custom_express_review" cols="30" rows="2" >'. stripslashes( $custom_express_review_value ) .'</textarea>
+                <br />
+                '.__('This field accepts special notation of review related information. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. This field must contain a <code>__</code> (double underscore) delimited list of the following information (all in one line): a rating, the name of a valid schema.org <a href="http://schema.org/Thing">Thing</a> derivative object, a title, and a URL. For instance:', 'add-meta-tags').'
+                <br />
+                '.__('<code>4.2__Book__On the Origin of Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>', 'add-meta-tags').'
+            </p>
+        ');
+
+    }
 
     // List of URLs of items referenced in the post.
 
@@ -1150,6 +1176,10 @@ function amt_save_postdata( $post_id, $post ) {
     if ( isset( $_POST['amt_custom_image_url'] ) ) {
         $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
     }
+    // Express review
+    if ( isset( $_POST['amt_custom_express_review'] ) ) {
+        $express_review_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_express_review'] ), array() ) );
+    }
     // List of referenced items - We allow no HTML elements.
     if ( isset( $_POST['amt_custom_referenced_list'] ) ) {
         $referenced_list_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_referenced_list'] ), array() ) );
@@ -1165,6 +1195,7 @@ function amt_save_postdata( $post_id, $post ) {
     $amt_newskeywords_field_name = '_amt_news_keywords';
     $amt_full_metatags_field_name = '_amt_full_metatags';
     $amt_image_url_field_name = '_amt_image_url';
+    $amt_express_review_field_name = '_amt_express_review';
     $amt_referenced_list_field_name = '_amt_referenced_list';
 
     // As an extra security measure, here we also check the user-defined per box
@@ -1229,6 +1260,15 @@ function amt_save_postdata( $post_id, $post ) {
             delete_post_meta($post_id, $amt_image_url_field_name);
         } else {
             update_post_meta($post_id, $amt_image_url_field_name, $image_url_value);
+        }
+    }
+
+    // Express review
+    if ( $options['metabox_enable_express_review'] == '1' && current_user_can( $metabox_permissions['express_review_box_capability'] ) ) {
+        if ( empty($express_review_value) ) {
+            delete_post_meta($post_id, $amt_express_review_field_name);
+        } else {
+            update_post_meta($post_id, $amt_express_review_field_name, $express_review_value);
         }
     }
 

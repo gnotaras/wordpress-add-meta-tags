@@ -81,6 +81,7 @@ function amt_get_default_options() {
         "metabox_enable_news_keywords"   => "0",
         "metabox_enable_full_metatags"   => "0",
         "metabox_enable_image_url"   => "0",
+        "metabox_enable_express_review" => "0",
         "metabox_enable_referenced_list" => "0",
         "social_main_facebook_publisher_profile_url" => "",
         //"social_main_facebook_app_id" => "",
@@ -196,6 +197,10 @@ function amt_plugin_upgrade() {
     // Added "extended_support_woocommerce"
     // Added "extended_support_edd"
     // Added "og_omit_video_metadata"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.8.1 (settings_version 11->12)
+    // Added "metabox_enable_express_review"
     // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.

@@ -756,6 +756,7 @@ Add-Meta-Tags uses the following internal custom fields to store data related to
 * `_amt_news_keywords` - the content's custom news keywords.
 * `_amt_full_metatags` - the content's full meta tag code.
 * `_amt_image_url` - URL of an image that overrides all other content images.
+* `_amt_express_review` - contains special notation of review related information.
 * `_amt_referenced_list` - list of URLs of items referenced in the post.
 
 The contact methods added by Add-Meta-Tags are:
