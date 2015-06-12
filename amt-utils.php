@@ -1661,6 +1661,63 @@ function amt_is_product_group() {
 }
 
 
+// Reviews
+
+// Returns an array containing review related data, only when the provided data is valid.
+function amt_get_review_data( $data ) {
+    if ( empty($data) ) {
+        return;
+    }
+    // Clean new line information
+    $data = preg_replace( '#[\r\n]+#', '', $data );
+    // Check if $data contains exactly 4 items in a '__' delimited list.
+    $parts = explode( '__', $data );
+    if ( count($parts) != 4 ) {
+        return;
+    }
+    // Return the array with review data
+    return array(
+        'rating' => trim($parts[0]),
+        'object' => trim($parts[1]),
+        'name' => trim($parts[2]),
+        'url' => trim($parts[3])
+    );
+}
+
+
+// Return the information text that should be attached to the post content.
+function amt_get_review_info_box( $review_data ) {
+    // Variables: #rating#, #bestrating#, #object#, #name#, #url#
+    $template = '
+<div id="review-info" class="review-info">
+    <p>This is a review of
+    <span itemprop="itemReviewed" itemscope itemtype="http://schema.org/#object#">
+        <a title="#object#: #name#" href="#url#" itemprop="sameAs"><span itemprop="name">#name#</span></a>
+    </span>, which has been rated with 
+    <span class="rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+        <span itemprop="ratingValue">#rating#</span>/<span itemprop="bestRating">#bestrating#</span>
+    </span> stars!</p>
+</div>
+';
+    // Allow filtering of the template
+    $template = apply_filters( 'amt_schemaorg_review_info_template', $template );
+    // Set variables
+    $bestrating = apply_filters( 'amt_schemaorg_review_bestrating', '5' );
+    // Replace placeholders
+    $output = $template;
+    $output = str_replace('#rating#', $review_data['rating'], $output);
+    $output = str_replace('#bestrating#', $bestrating, $output);
+    $output = str_replace('#object#', $review_data['object'], $output);
+    $output = str_replace('#name#', $review_data['name'], $output);
+    $output = str_replace('#url#', $review_data['url'], $output);
+    // Allow filtering of the output
+    $output = apply_filters( 'amt_schemaorg_review_info_output', $output );
+    return $output;
+}
+
+
+// Breadcrumbs
+
 // Generates a semantic (Schema.org) breadcrumb trail.
 // Accepts array
 function amt_get_breadcrumbs( $user_options ) {

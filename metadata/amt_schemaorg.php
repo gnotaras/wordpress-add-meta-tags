@@ -523,6 +523,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Set main metadata entity. By default this set to Article.
         $main_content_object = 'Article';
+        // Check for Page
         // Main entity is set to WebPage on pages
         // DEV NOTE: Since many themes already set the WebPage itemscope on the
         // body element of the web page, set it to WebPage automatically would
@@ -531,6 +532,15 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 //        if  ( is_page() ) {
 //            $main_content_object = 'WebPage';
 //        }
+        // Check for Review
+        $express_review_field_data = amt_get_post_meta_express_review( $post->ID );
+        $review_data = array();
+        if ( ! empty($express_review_field_data) ) {
+            $review_data = amt_get_review_data($express_review_field_data);
+            if ( ! empty($review_data) ) {
+                $main_content_object = 'Review';
+            }
+        }
         // Allow filtering the main metadata object for content.
         $main_content_object = apply_filters( 'amt_schemaorg_object_main', $main_content_object );
 
@@ -605,6 +615,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     $metadata_arr[] = '<meta itemprop="articleSection" content="' . esc_attr( $section ) . '" />';
                 }
             }
+        }
+
+        // Add review properties if Review
+        if ( $main_content_object == 'Review' ) {
+            $metadata_arr[] = '<!-- Review Information BEGIN -->';
+            $metadata_arr[] = amt_get_review_info_box( $review_data );
+            $metadata_arr[] = '<!-- Review Information END -->';
         }
 
         // Keywords - We use the keywords defined by Add-Meta-Tags
@@ -811,11 +828,20 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Add articleBody to Artice
         // Now add the article. Remove last closing '</span>' tag, add articleBody and re-add the closing span afterwards.
         $closing_article_tag = array_pop($metadata_arr);
+
         // Use the 'text' itemprop by default for the main text body of the CreativeWork,
         // so it can be used by more subtypes than Article.
+        // But set it explicitly to 'articleBody if the main entiry is 'Article'
+        // or 'reviewBody' if the main entity is a 'Review'.
+        $main_text_property = 'text';
+        if ( $main_content_object == 'Article' ) {
+            $main_text_property = 'articleBody';
+        } elseif ( $main_content_object == 'Review' ) {
+            $main_text_property = 'reviewBody';
+        }
         // Allow filtering of the main text property.
-        //$main_text_property = apply_filters( 'amt_schemaorg_property_main_text', 'articleBody' );
-        $main_text_property = apply_filters( 'amt_schemaorg_property_main_text', 'text' );
+        $main_text_property = apply_filters( 'amt_schemaorg_property_main_text', $main_text_property );
+
         $metadata_arr[] = '<div itemprop="' . esc_attr($main_text_property) . '">';
         $metadata_arr[] = $post_body;
         $metadata_arr[] = '</div> <!-- Itemprop END: ' . esc_attr($main_text_property) . ' -->';
