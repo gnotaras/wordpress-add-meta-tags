@@ -517,6 +517,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         }
 
+        // Filtering of the generated Schema.org metadata
+        $metadata_arr = apply_filters( 'amt_schemaorg_metadata_attachment', $metadata_arr );
+
 
     // Content
     } else {
