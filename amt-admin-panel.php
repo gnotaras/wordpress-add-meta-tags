@@ -1067,7 +1067,7 @@ function amt_inner_metadata_box( $post ) {
                 <br />
                 '.__('This field accepts special notation of review related information. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. This field must contain a <code>__</code> (double underscore) delimited list of the following information (all in one line): a rating, the name of a valid schema.org <a href="http://schema.org/Thing">Thing</a> derivative object, a title, and a URL. For instance:', 'add-meta-tags').'
                 <br />
-                '.__('<code>4.2__Book__On the Origin of Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>', 'add-meta-tags').'
+                <code>4.2__Book__On the Origin of Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>
             </p>
         ');
 
