@@ -711,7 +711,7 @@ function amt_get_content_keywords($post, $auto=true, $exclude_categories=false) 
     if ( $auto && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
 
         $options = get_option("add_meta_tags_opts");
-        $global_keywords = $options["global_keywords"];
+        $global_keywords = amt_get_site_global_keywords($options);
 
         if ( ! empty($global_keywords) ) {
 
@@ -1640,6 +1640,51 @@ function amt_get_default_twitter_card_type($options) {
     // Allow filtering of the default card type
     $default = apply_filters( 'amt_twitter_cards_default_card_type', $default );
     return $default;
+}
+
+
+// Function that returns the content of the Site Description setting of the
+// general Add-Meta-Tags settings.
+// This function allows filtering of the description, so that it can be set
+// programmatically, for instance in multilingual web sites.
+function amt_get_site_description($options) {
+    $output = '';
+    if ( array_key_exists('site_description', $options) ) {
+        $output = $options['site_description'];
+    }
+    // Allow filtering
+    $output = apply_filters( 'amt_settings_site_description', $output );
+    return $output;
+}
+
+
+// Function that returns the content of the Site Keywords setting of the
+// general Add-Meta-Tags settings.
+// This function allows filtering of the keywords, so that it can be set
+// programmatically, for instance in multilingual web sites.
+function amt_get_site_keywords($options) {
+    $output = '';
+    if ( array_key_exists('site_keywords', $options) ) {
+        $output = $options['site_keywords'];
+    }
+    // Allow filtering
+    $output = apply_filters( 'amt_settings_site_keywords', $output );
+    return $output;
+}
+
+
+// Function that returns the content of the Global Keywords setting of the
+// general Add-Meta-Tags settings.
+// This function allows filtering of the 'global keywords', so that it can be set
+// programmatically, for instance in multilingual web sites.
+function amt_get_site_global_keywords($options) {
+    $output = '';
+    if ( array_key_exists('global_keywords', $options) ) {
+        $output = $options['global_keywords'];
+    }
+    // Allow filtering
+    $output = apply_filters( 'amt_settings_global_keywords', $output );
+    return $output;
 }
 
 

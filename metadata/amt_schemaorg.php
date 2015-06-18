@@ -944,7 +944,7 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
     $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
     // description
     // First use the site description from the Add-Meta-Tags settings
-    $site_description = $options["site_description"];
+    $site_description = amt_get_site_description($options);
     if ( empty($site_description) ) {
         // Alternatively, use the blog description
         // Here we sanitize the provided description for safety
