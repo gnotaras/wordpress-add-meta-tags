@@ -168,7 +168,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
     if ( is_front_page() ) {
 
         // WebSite
-        // Scope BEGIN: Organization: http://schema.org/WebSite
+        // Scope BEGIN: WebSite: http://schema.org/WebSite
         $metadata_arr[] = '<!-- Scope BEGIN: WebSite -->';
         $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite">';
         // name
