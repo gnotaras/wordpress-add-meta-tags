@@ -1688,6 +1688,21 @@ function amt_get_site_global_keywords($options) {
 }
 
 
+// Function that returns an itemref attribute, ready to be placed in the HTML element.
+function amt_get_schemaorg_itemref( $object_type ) {
+    // Construct filter name, eg 'amt_schemaorg_itemref_organization'
+    $filter_name = 'amt_schemaorg_itemref_' . $object_type;
+    // Construct itemref attribute. Should contain a comma delimited list of IDs.
+    $itemref = apply_filters( $filter_name, '' );
+    if ( ! empty($itemref) ) {
+        $itemref_attrib = ' itemref="' . $itemref . '"';
+    } else {
+        $itemref_attrib = '';
+    }
+    return $itemref_attrib;
+}
+
+
 // Determines if a Product page has been requested.
 function amt_is_product() {
     return apply_filters( 'amt_is_product', false );

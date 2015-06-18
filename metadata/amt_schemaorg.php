@@ -205,7 +205,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // Organization
         // Scope BEGIN: Organization: http://schema.org/Organization
         $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">';
+        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
         // Get publisher metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
         // Scope END: Organization
@@ -229,7 +229,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // Person
         // Scope BEGIN: Person: http://schema.org/Person
         $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
-        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Person">';
+        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         
         // Get author metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID ) );
@@ -454,7 +454,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Publisher
         // Scope BEGIN: Organization: http://schema.org/Organization
         $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">';
+        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
         // Get publisher metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
         // Scope END: Organization
@@ -463,7 +463,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Author
         // Scope BEGIN: Person: http://schema.org/Person
         $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
-        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person">';
+        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get author metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
         // Scope END: Person
@@ -561,7 +561,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Publisher
         // Scope BEGIN: Organization: http://schema.org/Organization
         $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">';
+        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
         // Get publisher metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
         // Scope END: Organization
@@ -570,7 +570,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Author
         // Scope BEGIN: Person: http://schema.org/Person
         $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
-        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person">';
+        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get publisher metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
         // Scope END: Person
@@ -1074,7 +1074,7 @@ function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
 
     // Comment Author
     $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
-    $metadata_arr[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person">';
+    $metadata_arr[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_commenter') . '>';
     // name
     $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $comment->comment_author ) . '" />';
     // url
