@@ -1,0 +1,21 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="translate">_amt_description</custom-field>
+        <custom-field action="translate">_amt_keywords</custom-field>
+        <custom-field action="translate">_amt_title</custom-field>
+        <custom-field action="translate">_amt_news_keywords</custom-field>
+        <custom-field action="copy">_amt_full_metatags</custom-field>
+        <custom-field action="copy">_amt_image_url</custom-field>
+        <custom-field action="translate">_amt_express_review</custom-field>
+        <custom-field action="copy">_amt_referenced_list</custom-field>
+    </custom-fields>
+    <admin-texts>
+        <key name="add_meta_tags_opts">
+            <key name="site_description" />
+            <key name="site_keywords" />
+            <key name="global_keywords" />
+            <key name="copyright_url" />
+        </key>
+    </admin-texts>    
+</wpml-config>
+

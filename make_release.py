@@ -21,6 +21,7 @@ REL_FILES = [
     'screenshot-3.png',
     'screenshot-4.png',
     'uninstall.php',
+    'wpml-config.xml',
 ]
 
 REL_DIRS = [
