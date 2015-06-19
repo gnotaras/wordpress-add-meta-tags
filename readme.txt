@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.8
+Stable tag: 2.8.9
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -22,6 +22,7 @@ It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www
 
 = Highlights of the latest releases =
 
+- Since v2.8.9 experimental build-in support the popular multilingual plugins WPML and Polylang has been implemented.
 - Since v2.8.7 a basic template tag for the generation of a *semantic breadcrumb trail* for hierarchically structured content types, such as pages, is available for use in your themes ([more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Semantic_Breadcrumbs)).
 - Since v2.8.0 Add-Meta-Tags supports the generation of metadata for *product* and *product group* pages for the *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins ([more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-products)).
 
@@ -259,6 +260,9 @@ In 2.9 publisher social media profile links can no longer be set in the WordPres
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.9](http://www.codetrax.org/versions/289)
+ - Improved support for multilingual plugins WPML and Polylang. (props to Eduardo Molon for valuable feedback.)
+ - Various minor bug fixes and improvements.
 - [2.8.8](http://www.codetrax.org/versions/288)
  - New experimental metabox feature: Express Review (needs to be enabled in the settings). Adds a metabox field which accepts review related information in special notation and generates a schema.org Review instead of Article. Only for advanced users. Feedback is welcome.
 - [2.8.7](http://www.codetrax.org/versions/287)
