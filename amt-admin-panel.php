@@ -528,6 +528,11 @@ function amt_options_page() {
                 '.__('Global image override.', 'add-meta-tags').'
                 </label></p>
 
+                <p><input id="metabox_enable_content_locale" type="checkbox" value="1" name="metabox_enable_content_locale" '. (($options["metabox_enable_content_locale"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_enable_content_locale">
+                '.__('Content locale override.', 'add-meta-tags').'
+                </label></p>
+
                 <p><input id="metabox_enable_express_review" type="checkbox" value="1" name="metabox_enable_express_review" '. (($options["metabox_enable_express_review"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_express_review">
                 '.__('Express review. (Experimental feature. For advanced users only.)', 'add-meta-tags').'
@@ -1051,6 +1056,28 @@ function amt_inner_metadata_box( $post ) {
 
     }
 
+
+    // Content locale override
+    
+    // 'content_locale' box permission check (can be user customized via filter).
+    if ( $options['metabox_enable_content_locale'] == '1' && current_user_can( $metabox_permissions['content_locale_box_capability'] ) ) {
+        $metabox_has_features = true;
+
+        // Retrieve the field data from the database.
+        $custom_content_locale_value = amt_get_post_meta_content_locale( $post->ID );
+
+        print('
+            <p>
+                <label for="amt_custom_content_locale"><strong>'.__('Content locale', 'add-meta-tags').'</strong>:</label>
+                <input type="text" class="code" style="width: 99%" id="amt_custom_content_locale" name="amt_custom_content_locale" value="' . esc_attr( stripslashes( $custom_content_locale_value ) ) . '" />
+                <br>
+                '.__('Enter a custom locale for the content which overrides the default locale setting.', 'add-meta-tags').'
+            </p>
+        ');
+
+    }
+
+
     // Express review
 
     // Express review box permission check (can be user customized via filter).
@@ -1176,6 +1203,10 @@ function amt_save_postdata( $post_id, $post ) {
     if ( isset( $_POST['amt_custom_image_url'] ) ) {
         $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
     }
+    // Content locale
+    if ( isset( $_POST['amt_custom_content_locale'] ) ) {
+        $content_locale_value = esc_attr( stripslashes( $_POST['amt_custom_content_locale'] ) );
+    }
     // Express review
     if ( isset( $_POST['amt_custom_express_review'] ) ) {
         $express_review_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_express_review'] ), array() ) );
@@ -1195,6 +1226,7 @@ function amt_save_postdata( $post_id, $post ) {
     $amt_newskeywords_field_name = '_amt_news_keywords';
     $amt_full_metatags_field_name = '_amt_full_metatags';
     $amt_image_url_field_name = '_amt_image_url';
+    $amt_content_locale_field_name = '_amt_content_locale';
     $amt_express_review_field_name = '_amt_express_review';
     $amt_referenced_list_field_name = '_amt_referenced_list';
 
@@ -1260,6 +1292,15 @@ function amt_save_postdata( $post_id, $post ) {
             delete_post_meta($post_id, $amt_image_url_field_name);
         } else {
             update_post_meta($post_id, $amt_image_url_field_name, $image_url_value);
+        }
+    }
+
+    // Content locale
+    if ( $options['metabox_enable_content_locale'] == '1' && current_user_can( $metabox_permissions['content_locale_box_capability'] ) ) {
+        if ( empty($content_locale_value) ) {
+            delete_post_meta($post_id, $amt_content_locale_field_name);
+        } else {
+            update_post_meta($post_id, $amt_content_locale_field_name, $content_locale_value);
         }
     }
 

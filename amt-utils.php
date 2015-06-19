@@ -803,6 +803,7 @@ function amt_get_metadata_metabox_permissions() {
         'news_keywords_box_capability' => 'edit_posts',
         'full_metatags_box_capability' => 'edit_posts',
         'image_url_box_capability' => 'edit_posts',
+        'content_locale_box_capability' => 'edit_posts',
         'express_review_box_capability' => 'edit_posts',
         'referenced_list_box_capability' => 'edit_posts'
     );
@@ -1037,6 +1038,41 @@ function amt_get_post_meta_image_url($post_id) {
     // External fields - Allow filtering
     $external_fields = array();
     $external_fields = apply_filters( 'amt_external_image_url_fields', $external_fields, $post_id );
+    // Merge external fields to our supported custom fields
+    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
+
+    // Get an array of all custom fields names of the post
+    $custom_fields = get_post_custom_keys( $post_id );
+    if ( empty( $custom_fields ) ) {
+        // Just return an empty string if no custom fields have been associated with this content.
+        return '';
+    }
+
+    // Try our fields
+    foreach( $supported_custom_fields as $sup_field ) {
+        // If such a field exists in the db, return its content as the news keywords.
+        if ( in_array( $sup_field, $custom_fields ) ) {
+            return get_post_meta( $post_id, $sup_field, true );
+        }
+    }
+
+    //Return empty string if all fail
+    return '';
+}
+
+
+/**
+ * Helper function that returns the value of the custom field that contains
+ * a locale override for the content.
+ * The default field name for the 'content locale override' is ``_amt_content_locale``.
+ * No need to migrate from older field name.
+ */
+function amt_get_post_meta_content_locale($post_id) {
+    // Internal fields - order matters
+    $supported_custom_fields = array( '_amt_content_locale' );
+    // External fields - Allow filtering
+    $external_fields = array();
+    $external_fields = apply_filters( 'amt_external_content_locale_fields', $external_fields, $post_id );
     // Merge external fields to our supported custom fields
     $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
