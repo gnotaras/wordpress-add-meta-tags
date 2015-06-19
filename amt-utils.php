@@ -1688,6 +1688,21 @@ function amt_get_site_global_keywords($options) {
 }
 
 
+// Function that returns the content of the Copyright URL setting of the
+// general Add-Meta-Tags settings.
+// This function allows filtering of the 'copyright URL', so that it can be set
+// programmatically, for instance in multilingual web sites.
+function amt_get_site_copyright_url($options) {
+    $output = '';
+    if ( array_key_exists('copyright_url', $options) ) {
+        $output = $options['copyright_url'];
+    }
+    // Allow filtering
+    $output = apply_filters( 'amt_settings_copyright_url', $output );
+    return $output;
+}
+
+
 // Function that returns an itemref attribute, ready to be placed in the HTML element.
 function amt_get_schemaorg_itemref( $object_type ) {
     // Construct filter name, eg 'amt_schemaorg_itemref_organization'
