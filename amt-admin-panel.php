@@ -530,7 +530,7 @@ function amt_options_page() {
 
                 <p><input id="metabox_enable_content_locale" type="checkbox" value="1" name="metabox_enable_content_locale" '. (($options["metabox_enable_content_locale"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_content_locale">
-                '.__('Content locale override.', 'add-meta-tags').'
+                '.__('Content locale override. (Not to be used in conjunction with a multilingual plugin.) ', 'add-meta-tags').'
                 </label></p>
 
                 <p><input id="metabox_enable_express_review" type="checkbox" value="1" name="metabox_enable_express_review" '. (($options["metabox_enable_express_review"]=="1") ? 'checked="checked"' : '') .'" />
@@ -607,7 +607,7 @@ function amt_options_page() {
                 <input name="global_locale" type="text" id="global_locale" class="code" value="' . esc_attr( stripslashes( $options["global_locale"] ) ) . '" size="10" maxlength="24" />
                 <br />
                 <label for="global_locale">
-                '.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>.', 'add-meta-tags').'
+                '.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>. (Not to be used in conjunction with a multilingual plugin.)', 'add-meta-tags').'
                 </label>
                 <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>en_US</code></p>
                 <br />
@@ -1071,7 +1071,7 @@ function amt_inner_metadata_box( $post ) {
                 <label for="amt_custom_content_locale"><strong>'.__('Content locale', 'add-meta-tags').'</strong>:</label>
                 <input type="text" class="code" style="width: 99%" id="amt_custom_content_locale" name="amt_custom_content_locale" value="' . esc_attr( stripslashes( $custom_content_locale_value ) ) . '" />
                 <br>
-                '.__('Enter a custom locale for the content which overrides the default locale setting.', 'add-meta-tags').'
+                '.__('Override the default locale setting by entering a custom locale for this content in the form <code>language_TERRITORY</code>, for example: <code>en_US</code>.', 'add-meta-tags').'
             </p>
         ');
 
