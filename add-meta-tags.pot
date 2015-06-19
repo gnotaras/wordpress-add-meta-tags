@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.8.8\n"
+"Project-Id-Version: add-meta-tags 2.8.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 08:49+0300\n"
+"POT-Creation-Date: 2015-06-19 15:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -596,10 +596,6 @@ msgstr ""
 msgid "This field accepts special notation of review related information. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. This field must contain a <code>__</code> (double underscore) delimited list of the following information (all in one line): a rating, the name of a valid schema.org <a href=\"http://schema.org/Thing\">Thing</a> derivative object, a title, and a URL. For instance:"
 msgstr ""
 
-#: amt-admin-panel.php:1070
-msgid "<code>4.2__Book__On the Origin of Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>"
-msgstr ""
-
 #: amt-admin-panel.php:1087
 msgid "URLs of referenced items"
 msgstr ""
@@ -616,20 +612,20 @@ msgstr ""
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:290
-#: metadata\amt_twitter_cards.php:154
+#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:292
+#: metadata\amt_twitter_cards.php:156
 #, php-format
 msgid "Content filed under the %s category."
 msgstr ""
 
-#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:292
-#: metadata\amt_twitter_cards.php:156
+#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:294
+#: metadata\amt_twitter_cards.php:158
 #, php-format
 msgid "Content tagged with %s."
 msgstr ""
 
-#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:298
-#: metadata\amt_twitter_cards.php:162
+#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:300
+#: metadata\amt_twitter_cards.php:164
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr ""
