@@ -1655,14 +1655,20 @@ function amt_get_language_site($options) {
 
 
 // Returns content locale
-function amt_get_language_content($options) {
+// NOTE: SHOULD NOT BE USED ON ARCHIVES
+function amt_get_language_content($options, $post) {
     $language = get_bloginfo('language');
     // If set, the 'global_locale' setting overrides WordPress.
     if ( ! empty( $options["global_locale"] ) ) {
         $language = $options["global_locale"];
     }
+    // If set, the locale setting from the Metabox overrides all other local settings.
+    $metabox_locale = amt_get_post_meta_content_locale($post->ID);
+    if ( ! empty( $metabox_locale ) ) {
+        $language = $metabox_locale;
+    }
     // Allow filtering of the content language
-    $language = apply_filters( 'amt_language_content', $language );
+    $language = apply_filters( 'amt_language_content', $language, $post );
     return $language;
 }
 

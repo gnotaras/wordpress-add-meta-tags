@@ -111,7 +111,7 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
         }
     }
 
-    $metadata_arr[] = '<meta name="dcterms.language" content="' . esc_attr( amt_get_language_content($options) ) . '" />';
+    $metadata_arr[] = '<meta name="dcterms.language" content="' . esc_attr( amt_get_language_content($options, $post) ) . '" />';
     $metadata_arr[] = '<meta name="dcterms.publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
 
     // Copyright page
