@@ -111,7 +111,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                 $archive_day   = get_the_time('d'); 
                 $hreflang_url = get_day_link($archive_year, $archive_month, $archive_day);
             }
-            // Finally if paged, information
+            // If paged information is available
             if ( is_paged() ) {
                 //$hreflang_url = trailingslashit( $hreflang_url ) . get_query_var('paged') . '/';
                 $hreflang_url = get_pagenum_link( get_query_var('paged') );
