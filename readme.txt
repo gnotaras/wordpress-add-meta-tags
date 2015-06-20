@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.9
+Stable tag: 2.8.10
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -264,6 +264,12 @@ Note: Since v2.8.9, a WPML language configuration file ships with Add-Meta-Tags 
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.10](http://www.codetrax.org/versions/290)
+ - Improved support for multilingual web sites that do not use a multilingual plugin.
+ - Added new metabox feature: 'content locale override' (needs to be enabled in the settings), which can be used to override the locale on a per post basis. (Not to be used in conjunction with a multilingual plugin.) 
+ - Added option to generate a HTML link with the `hreflang` attribute based on the current locale. (Not to be used in conjunction with a multilingual plugin.)
+ - Added option to strip the region code from the value used in the hreflang attribute, in case your content is not targeted to users in specific region. Does not affect locale used in metadata. (Not to be used in conjunction with a multilingual plugin.)
+ - Updated translations.
 - [2.8.9](http://www.codetrax.org/versions/289)
  - Improved support for the multilingual plugins WPML and Polylang. (props to Eduardo Molon for valuable feedback.)
  - Various minor bug fixes and improvements.
