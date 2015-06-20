@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 08:49+0300\n"
-"PO-Revision-Date: 2015-06-12 05:51+0000\n"
+"POT-Creation-Date: 2015-06-19 15:51+0300\n"
+"PO-Revision-Date: 2015-06-19 12:52+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -839,12 +839,6 @@ msgid ""
 "a title, and a URL. For instance:"
 msgstr ""
 
-#: amt-admin-panel.php:1070
-msgid ""
-"<code>4.2__Book__On the Origin of "
-"Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>"
-msgstr ""
-
 #: amt-admin-panel.php:1087
 msgid "URLs of referenced items"
 msgstr "Διευθύνσεις αντικειμένων αναφοράς"
@@ -868,20 +862,20 @@ msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags αποθ
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Οι ρυθμίσεις του πρόσθετου Add-Meta-Tags επανήλθαν στις αρχικές τιμές"
 
-#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:290
-#: metadata\amt_twitter_cards.php:154
+#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:292
+#: metadata\amt_twitter_cards.php:156
 #, php-format
 msgid "Content filed under the %s category."
 msgstr "Περιεχόμενο καταχωρημένο στην %s κατηγορία."
 
-#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:292
-#: metadata\amt_twitter_cards.php:156
+#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:294
+#: metadata\amt_twitter_cards.php:158
 #, php-format
 msgid "Content tagged with %s."
 msgstr "Περιεχόμενο με ετικέτα %s."
 
-#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:298
-#: metadata\amt_twitter_cards.php:162
+#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:300
+#: metadata\amt_twitter_cards.php:164
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr "Περιεχόμενο καταχωρημένο στην ταξινόμηση %s."

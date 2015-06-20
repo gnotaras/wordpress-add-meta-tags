@@ -23,13 +23,14 @@
 # Bodo Kälberer <bk_transifex@kaelberer-aio.de>, 2015
 # Nicolaie Szabadkai <nicolaie@lynx-consulting.ch>, 2015
 # si.mueller1 <si.mueller1@web.de>, 2014
+# si.mueller1 <si.mueller1@web.de>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 08:49+0300\n"
-"PO-Revision-Date: 2015-06-12 05:51+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
+"POT-Creation-Date: 2015-06-19 15:51+0300\n"
+"PO-Revision-Date: 2015-06-20 09:27+0000\n"
+"Last-Translator: Nicolaie Szabadkai <nicolaie@lynx-consulting.ch>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/add-meta-tags/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +50,7 @@ msgstr "Add Meta Tags"
 msgid ""
 "Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards "
 "and Dublin Core metadata to optimize your web site for better SEO."
-msgstr "Definieren Sie zur SEO-Optimierung Ihrer Website die wichtigen Metadaten sowie Opengraph, Schema.org Microdata, Twitter Cards und Dublin Core."
+msgstr "Fügen Sie, zwecks SEO-Optimierung, die wichtigen Metadaten Ihrer Website hinzu, wie Beispielsweise Opengraph, Schema.org Microdata, Twitter Cards und Dublin Core."
 
 #: amt-admin-panel.php:87 amt-admin-panel.php:142
 msgid "Metadata Settings"
@@ -61,11 +62,11 @@ msgstr "Metadata"
 
 #: amt-admin-panel.php:111
 msgid "You do not have sufficient permissions to access this page."
-msgstr "Sie haben keine Rechte, um diese Seite aufzurufen."
+msgstr "Sie sind nicht berechtigt diese Seite aufzurufen."
 
 #: amt-admin-panel.php:143
 msgid "Welcome to the administration panel of the Add-Meta-Tags plugin."
-msgstr "Willkommen im Administrationsbereich von Add-Meta-Tags "
+msgstr "Willkommen im Admin-Bereich des „Add Meta Tags“-Plugins"
 
 #: amt-admin-panel.php:144
 msgid ""
@@ -80,15 +81,15 @@ msgid ""
 "it useful.  Good metadata facilitates this process and thus plays a "
 "significant role in achieving better rankings. This is what the Add-Meta-"
 "Tags plugin does."
-msgstr "Unter <em>Metadata</em> versteht man Informationen in einem computerfreundlichen Format. Suchmaschinen und andere Online-Dienste verwenden Metadata um Ihre Inhalte besser auswerten zu können . Metadata führt nicht automatisch zu einer besseren Bewertung Ihrer Website. Dazu müssen Ihre Inhalte weitere Qualitäts-Merkmale erfüllen. Genaue Metadata sind aber eine wesentliche Vorraussetzung dafür, dass Ihre Inhalte gut analysiert und interessierten Besuchern angeboten werden können. Genau dabei hilft Add-Meta-Tags."
+msgstr "Unter <em>Metadata</em> versteht man Informationen in einem Computer-verständlichen Format. Suchmaschinen und andere Online-Dienste verwenden immer mehr Metadaten um Ihre Inhalte besser auswerten zu können . Metadaten führen nicht automatisch zu einer besseren Bewertung Ihrer Website. Dazu müssen Ihre Inhalte weitere Qualitäts-Merkmale erfüllen. Genaue Metadaten sind aber eine wesentliche Voraussetzung dafür, dass Ihre Inhalte gut analysiert und interessierten Besuchern angeboten werden können. Dabei unterstützt Sie „Add-Meta-Tags“."
 
 #: amt-admin-panel.php:148
 msgid "Message from the author"
-msgstr "Mitteilung des Entwicklers"
+msgstr "Mitteilung des Authors"
 
 #: amt-admin-panel.php:159
 msgid "This message can be deactivated in the settings below."
-msgstr "Diese Meldnung kann in den Einstellungen abgestellt werden."
+msgstr "Diese Meldung können Sie in den Einstellungen weiter unten abstellen."
 
 #: amt-admin-panel.php:163
 msgid "How it works"
@@ -150,7 +151,7 @@ msgstr "<a href=\"%s\">Post editieren</a>"
 
 #: amt-admin-panel.php:235 amt-admin-panel.php:238
 msgid "Front Page Description"
-msgstr "Startseiten-Beschreibung"
+msgstr "Beschreibung Ihrer Startseiten"
 
 #: amt-admin-panel.php:243
 msgid ""
@@ -163,7 +164,7 @@ msgstr ""
 
 #: amt-admin-panel.php:251 amt-admin-panel.php:254
 msgid "Front Page Keywords"
-msgstr "Startseiten-Stichwörter"
+msgstr "Stichwörter auf Ihrer Startseite"
 
 #: amt-admin-panel.php:258
 msgid ""
@@ -187,7 +188,7 @@ msgstr "Stichwort1, Stichwort2, Stichwort3"
 
 #: amt-admin-panel.php:269 amt-admin-panel.php:272
 msgid "Global Keywords"
-msgstr "Allgemeine Stichwörter"
+msgstr "Globale Stichwörter"
 
 #: amt-admin-panel.php:276
 msgid ""
@@ -226,29 +227,29 @@ msgstr "Beispiele"
 
 #: amt-admin-panel.php:309 amt-admin-panel.php:312
 msgid "Publisher Settings"
-msgstr "Angaben zum Betreiber der Website"
+msgstr "Angaben zum Herausgeber der Website"
 
 #: amt-admin-panel.php:314
 msgid ""
 "This section contains options related to your web site; the publisher of the"
 " content."
-msgstr "Dieser Abschnitt befasst sich mit Angaben zur Website bzw. mit Ihnen als Betreiber derselben."
+msgstr "Dieser Abschnitt befasst sich mit Angaben zur Website bzw. mit Ihnen als Herausgeber derselben."
 
 #: amt-admin-panel.php:315
 msgid ""
 "The following publisher related settings are shared among all users. Filling"
 " in these settings is entirely optional."
-msgstr ""
+msgstr "Folgende Herausgeber-Einstellungen gelten für sämtliche Benutzer. Das Ausfüllen ist optional."
 
 #: amt-admin-panel.php:317 metadata\amt_opengraph.php:72
 msgid "Facebook publisher profile URL"
-msgstr "Url des Betreibers bei Facebook"
+msgstr "URL des Herausgebers bei Facebook"
 
 #: amt-admin-panel.php:322
 msgid ""
 "Enter an absolute URL to the Facebook profile of the publisher. If this is "
 "filled in, it will be used in the <code>article:publisher</code> meta tag."
-msgstr "Geben Sie die URL des Facebook-Profil des Betreibers an. Diese Angabe wird im Meta-Tag <code>article:publisher</code> verwendet."
+msgstr "Geben Sie die URL des Facebook-Profil des Herausgebers an. Diese Angabe wird im Meta-Tag <code>article:publisher</code> verwendet."
 
 #: amt-admin-panel.php:329
 msgid "Facebook App ID"
@@ -259,11 +260,11 @@ msgid ""
 "Enter the App ID for <a target=\"_blank\" "
 "href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
 "Insights</a>."
-msgstr ""
+msgstr "Geben Sie die App ID für <a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">Facebook Insights</a> an."
 
 #: amt-admin-panel.php:339
 msgid "Facebook Admin ID list"
-msgstr ""
+msgstr "Facebook Admin ID Liste."
 
 #: amt-admin-panel.php:344
 msgid ""
@@ -271,22 +272,22 @@ msgid ""
 "access to <a target=\"_blank\" "
 "href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
 "Insights</a>."
-msgstr ""
+msgstr "Geben Sie eine Komma-Separierte-Liste der numerischen Facebook-User-Isd, welche Zugang zum <a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">Facebook Insights</a> haben werden."
 
 #: amt-admin-panel.php:351
 msgid "Google+ publisher profile URL"
-msgstr "Url des Herausgebers bei Google+"
+msgstr "URL des Herausgebers bei Google+"
 
 #: amt-admin-panel.php:356
 msgid ""
 "Enter an absolute URL to the Google+ profile of the publisher. If this is "
 "filled in, it will be used in the link with <code>rel=\"publisher\"</code> "
 "in the HEAD area of the web page."
-msgstr "Geben Sie die Url zum Google+-Profil des Betreibers an. Diese Angabe wird im Quellcode Ihrer Website für <code>rel=\"publisher\"</code> verwendet."
+msgstr "Geben Sie die URL zum Google+-Profil des Herausgebers an. Diese Angabe wird im Quellcode Ihrer Website für <code>rel=\"publisher\"</code> verwendet."
 
 #: amt-admin-panel.php:361 metadata\amt_twitter_cards.php:69
 msgid "Twitter publisher username"
-msgstr "Benutzername des Betreibers bei Twitter"
+msgstr "Benutzername des Herausgebers bei Twitter"
 
 #: amt-admin-panel.php:366
 msgid "Enter the Twitter username of the publisher (without @)."
@@ -841,12 +842,6 @@ msgid ""
 "a title, and a URL. For instance:"
 msgstr ""
 
-#: amt-admin-panel.php:1070
-msgid ""
-"<code>4.2__Book__On the Origin of "
-"Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>"
-msgstr ""
-
 #: amt-admin-panel.php:1087
 msgid "URLs of referenced items"
 msgstr "URL referenzierter Elemente"
@@ -870,20 +865,20 @@ msgstr "Add-Meta-Tags Einstellungen gespeichert"
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Add-Meta-Tags Einstellungen wurden auf die Standardwerte zurückgesetzt"
 
-#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:290
-#: metadata\amt_twitter_cards.php:154
+#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:292
+#: metadata\amt_twitter_cards.php:156
 #, php-format
 msgid "Content filed under the %s category."
 msgstr "Inhalt abgelegt unter Kategorie %s."
 
-#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:292
-#: metadata\amt_twitter_cards.php:156
+#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:294
+#: metadata\amt_twitter_cards.php:158
 #, php-format
 msgid "Content tagged with %s."
 msgstr "Inhalt getaggt mit %s."
 
-#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:298
-#: metadata\amt_twitter_cards.php:162
+#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:300
+#: metadata\amt_twitter_cards.php:164
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr "Inhalt abgelegt unter Taxonomie %s."

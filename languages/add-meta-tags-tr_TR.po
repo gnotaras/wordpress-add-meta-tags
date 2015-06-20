@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 08:49+0300\n"
-"PO-Revision-Date: 2015-06-13 07:34+0000\n"
-"Last-Translator: BouRock\n"
+"POT-Creation-Date: 2015-06-19 15:51+0300\n"
+"PO-Revision-Date: 2015-06-19 12:52+0000\n"
+"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -840,12 +840,6 @@ msgid ""
 "a title, and a URL. For instance:"
 msgstr "Bu alan özel inceleme ile ilgili bilgilerin not edilmesini sağlar. Eğer bu bilgi doğru biçimde verilirse, o zaman Add-Meta-Tags bir öğenin incelemesi olarak içeriğinize bakar ve uygun Schema.org meta verisi oluşturur. Bu alan aşağıdaki bilgilerin (tümü bir satır içinde) listesini sınırlandıran bir <code>__</code> (çift altçizgi) içermek zorundadır: derecelendirme, geçerli bir schema.org adı <a href=\"http://schema.org/Thing\">Thing</a> türevi nesne, bir başlık ve bir URL. Mesela:"
 
-#: amt-admin-panel.php:1070
-msgid ""
-"<code>4.2__Book__On the Origin of "
-"Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>"
-msgstr ""
-
 #: amt-admin-panel.php:1087
 msgid "URLs of referenced items"
 msgstr "Kaynak gösterilen öğelerin URL'leri"
@@ -869,20 +863,20 @@ msgstr "Add-Meta-Tags seçenekleri kaydedildi"
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Add-Meta-Tags seçenekleri varsayılanlara sıfırlandı"
 
-#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:290
-#: metadata\amt_twitter_cards.php:154
+#: metadata\amt_basic.php:193 metadata\amt_opengraph.php:292
+#: metadata\amt_twitter_cards.php:156
 #, php-format
 msgid "Content filed under the %s category."
 msgstr "%s kategorisi altındaki içerik alanı."
 
-#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:292
-#: metadata\amt_twitter_cards.php:156
+#: metadata\amt_basic.php:220 metadata\amt_opengraph.php:294
+#: metadata\amt_twitter_cards.php:158
 #, php-format
 msgid "Content tagged with %s."
 msgstr "%s ile etiketlenmiş içerik."
 
-#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:298
-#: metadata\amt_twitter_cards.php:162
+#: metadata\amt_basic.php:257 metadata\amt_opengraph.php:300
+#: metadata\amt_twitter_cards.php:164
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr "%s sınıflandırması altındaki içerik alanı."
