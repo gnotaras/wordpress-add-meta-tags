@@ -1673,6 +1673,40 @@ function amt_get_language_content($options, $post) {
 }
 
 
+// Returns the hreflang attribute's value
+function amt_get_the_hreflang($locale, $options) {
+    $output = '';
+    // Convert underscore to dash
+    $locale = str_replace('_', '-', $locale);
+    // Return locale if no further processing is needed
+    if ( $options['hreflang_strip_region'] == '0' ) {
+        $output = $locale;
+    } else {
+        // Strip region code
+        $locale_parts = explode('-', $locale);
+        if ( count($locale_parts) == 1 ) {
+            $output = $locale;
+        } elseif ( count($locale_parts) > 2 ) {
+            $output = $locale_parts[0] . '-' . $locale_parts[1];
+        } elseif ( count($locale_parts) == 2 ) {
+            // In this case we need to understand whether locale is
+            // language_TERRITORY or language_Script_TERRITORY
+            // If the last part is a two letter string, we assume it's the region and strip it
+            if ( strlen($locale_parts[1]) == 2 ) {
+                // We assume this is a region code and strip it
+                $output = $locale_parts[0];
+            } else {
+                // We assume that the locale consist only of language_Script
+                $output = $locale_parts[0] . '-' . $locale_parts[1];
+            }
+        }
+    }
+    // Allow filtering
+    $output = apply_filters( 'amt_get_the_hreflang', $output );
+    return $output;
+}
+
+
 // Returns the default Twitter Card type
 function amt_get_default_twitter_card_type($options) {
     $default = 'summary';

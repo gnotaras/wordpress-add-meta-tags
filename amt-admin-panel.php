@@ -607,10 +607,22 @@ function amt_options_page() {
                 <input name="global_locale" type="text" id="global_locale" class="code" value="' . esc_attr( stripslashes( $options["global_locale"] ) ) . '" size="10" maxlength="24" />
                 <br />
                 <label for="global_locale">
-                '.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>. (Not to be used in conjunction with a multilingual plugin.)', 'add-meta-tags').'
+                '.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of meta tags with invalid locale.', 'add-meta-tags').'
                 </label>
                 <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>en_US</code></p>
                 <br />
+
+                <input id="generate_hreflang_links" type="checkbox" value="1" name="generate_hreflang_links" '. (($options["generate_hreflang_links"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="generate_hreflang_links">'.__('Enable the generation of a <code>link</code> element with the <code>hreflang</code> attribute.', 'add-meta-tags').'</label>
+                <p>'.__('If this feature is enabled, an HTML <code>link</code> element containing the proper hreflang attribute is added to the head section of the HTML page. The value of the hreflang attribute is determined by the locale of the content. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of invalid hreflang links.)', 'add-meta-tags').'</p>
+                <br />
+
+                <input id="hreflang_strip_region" type="checkbox" value="1" name="hreflang_strip_region" '. (($options["hreflang_strip_region"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="hreflang_strip_region">'.__('Strip region code from the hreflang attribute.', 'add-meta-tags').'</label>
+                <p>'.__('By default, Add-Meta-Tags uses the locale, which is usually required to be set in the form <code>language_TERRITORY</code> so as to comply with the various metadata specifications, as the value of the hreflang attribute. However, Google and possibly other services might interpret the regional information of the hreflang attribute as region targeting. If your content is not targeted to users in a specific region, it might be a good idea to strip regional information from this attribute by enabling this option.', 'add-meta-tags').'</p>
+                <p>'.__('For instance, if your locale is <code>en_US</code>, by enabling this option you force the hreflang attribute to be <code>en</code>. In the same way, if the locale is in the form <code>language_Script_TERRITORY</code>, for example <code>zh_Hans_TW</code>, by enabling this option the hreflang attribute becomes <code>zh-Hans</code>.', 'add-meta-tags').'</p>
+                <br />
+
             </fieldset>
             </td>
             </tr>

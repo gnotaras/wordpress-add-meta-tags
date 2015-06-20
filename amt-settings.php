@@ -90,6 +90,8 @@ function amt_get_default_options() {
         "social_main_googleplus_publisher_profile_url" => "",
         "social_main_twitter_publisher_username" => "",
         "global_locale" => "",
+        "generate_hreflang_links" => "0",
+        "hreflang_strip_region" => "0",
         "has_https_access" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
@@ -206,6 +208,8 @@ function amt_plugin_upgrade() {
 
     // Version 2.8.10 (settings_version 12->13)
     // Added "metabox_enable_content_locale"
+    // Added "generate_hreflang_links"
+    // Added "hreflang_strip_region"
     // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.

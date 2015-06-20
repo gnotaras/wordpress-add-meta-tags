@@ -80,6 +80,52 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     }
 
 
+    // hreflang link element
+    if ( $options['generate_hreflang_links'] == '1' ) {
+        if ( is_singular() ) {
+            $locale = amt_get_language_content($options, $post);
+            $hreflang = amt_get_the_hreflang($locale, $options);
+            $hreflang_url = amt_get_permalink_for_multipage($post);
+        } else {
+            $locale = amt_get_language_site($options);
+            $hreflang = amt_get_the_hreflang($locale, $options);
+            $hreflang_url = '';
+            if ( amt_is_default_front_page() ) {
+                $hreflang_url = trailingslashit( get_bloginfo('url') );
+            } elseif ( is_category() || is_tag() || is_tax() ) {
+                // $post is a term object
+                $hreflang_url = get_term_link($post);
+            } elseif ( is_author() ) {
+                // $post is an author object
+                $hreflang_url = get_author_posts_url( $post->ID );
+            } elseif ( is_year() ) {
+                $archive_year  = get_the_time('Y'); 
+                $hreflang_url = get_year_link($archive_year);
+            } elseif ( is_month() ) {
+                $archive_year  = get_the_time('Y'); 
+                $archive_month = get_the_time('m'); 
+                $hreflang_url = get_month_link($archive_year, $archive_month);
+            } elseif ( is_day() ) {
+                $archive_year  = get_the_time('Y'); 
+                $archive_month = get_the_time('m'); 
+                $archive_day   = get_the_time('d'); 
+                $hreflang_url = get_day_link($archive_year, $archive_month, $archive_day);
+            }
+            // Finally if paged, information
+            if ( is_paged() ) {
+                //$hreflang_url = trailingslashit( $hreflang_url ) . get_query_var('paged') . '/';
+                $hreflang_url = get_pagenum_link( get_query_var('paged') );
+            }
+        }
+        // Add link element
+        if ( ! empty($hreflang) && ! empty($hreflang_url) ) {
+            $metadata_arr[] = '<link rel="alternate" hreflang="' . esc_attr( $hreflang ) . '" href="' . esc_url_raw( $hreflang_url ) . '" />';
+        }
+    }
+
+
+    // Basic Meta Tags
+
     // Default front page displaying latest posts
     if ( amt_is_default_front_page() ) {
 
