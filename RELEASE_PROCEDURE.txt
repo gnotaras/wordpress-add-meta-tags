@@ -16,6 +16,8 @@ FINAL RELEASE
 
 3. Change stable tag in readme.txt and 'Tested up to' if required.
 
+3.1 If an upgrade notice applies to this version set the proper version in thew 'Upgrade Notice' section
+
 4. Add link to changelog in the relevant section in readme.txt
 
 5. Pull translations (only >80% completed):
