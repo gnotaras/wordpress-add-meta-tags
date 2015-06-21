@@ -136,14 +136,22 @@ add_filter('wp_title', 'amt_custom_title_tag', 1000);
  */
 function amt_set_html_lang_attribute( $lang ) {
     //var_dump($lang);
-    $locale = '';
     $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'manage_html_lang_attribute', $options) ) {
+        return $lang;
+    } elseif ( $options['manage_html_lang_attribute'] == '0' ) {
+        return $lang;
+    }
+    // Set the html lang attribute according to the locale
+    $locale = '';
     if ( is_singular() ) {
         $post = get_queried_object();
         $locale = str_replace( '_', '-', amt_get_language_content($options, $post) );
     } else {
         $locale = str_replace( '_', '-', amt_get_language_site($options) );
     }
+    // Allow filtering
+    $locale = apply_filters( 'amt_wordpress_lang', $locale );
     if ( ! empty($locale) ) {
         // Replace WordPress locale with ours. (even if it's the same)
         $lang = str_replace( get_bloginfo('language'), $locale, $lang );

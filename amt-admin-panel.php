@@ -614,6 +614,11 @@ function amt_options_page() {
                 <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>en_US</code></p>
                 <br />
 
+                <input id="manage_html_lang_attribute" type="checkbox" value="1" name="manage_html_lang_attribute" '. (($options["manage_html_lang_attribute"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="manage_html_lang_attribute">'.__('Automatically set the HTML document\'s <code>lang</code> attribute according to the locale of the content.', 'add-meta-tags').'</label>
+                <p>'.__('By enabling this feature, Add-Meta-Tags will automatically set the HTML document\'s <code>lang</code> attribute according to the content\'s locale. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of an invalid <code>lang</code> attribute.', 'add-meta-tags').'</p>
+                <br />
+
                 <input id="generate_hreflang_links" type="checkbox" value="1" name="generate_hreflang_links" '. (($options["generate_hreflang_links"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="generate_hreflang_links">'.__('Enable the generation of a <code>link</code> element with the <code>hreflang</code> attribute.', 'add-meta-tags').'</label>
                 <p>'.__('If this feature is enabled, an HTML <code>link</code> element containing the proper hreflang attribute is added to the head section of the HTML page. The value of the hreflang attribute is determined by the locale of the content. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of invalid hreflang links.)', 'add-meta-tags').'</p>

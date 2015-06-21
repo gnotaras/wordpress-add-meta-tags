@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function amt_get_default_options() {
     return array(
-        "settings_version"  => 13,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
+        "settings_version"  => 14,       // IMPORTANT: SETTINGS UPGRADE: Every time settings are added or removed this has to be incremented.
         "site_description"  => "",      // Front page description
         "site_keywords"     => "",      // Front page keywords
         "global_keywords"   => "",      // These keywords are added to the 'keywords' meta tag on all posts and pages
@@ -92,6 +92,7 @@ function amt_get_default_options() {
         "global_locale" => "",
         "generate_hreflang_links" => "0",
         "hreflang_strip_region" => "0",
+        "manage_html_lang_attribute" => "0",
         "has_https_access" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
@@ -210,6 +211,10 @@ function amt_plugin_upgrade() {
     // Added "metabox_enable_content_locale"
     // Added "generate_hreflang_links"
     // Added "hreflang_strip_region"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.8.12 (settings_version 13->14)
+    // Added "manage_html_lang_attribute"
     // No migrations required. Addition takes place in (1).
 
     // 3) Clean stored options.
