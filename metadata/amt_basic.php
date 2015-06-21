@@ -117,9 +117,17 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                 $hreflang_url = get_pagenum_link( get_query_var('paged') );
             }
         }
+        // hreflang links array
+        $hreflang_arr = array();
         // Add link element
         if ( ! empty($hreflang) && ! empty($hreflang_url) ) {
-            $metadata_arr[] = '<link rel="alternate" hreflang="' . esc_attr( $hreflang ) . '" href="' . esc_url_raw( $hreflang_url ) . '" />';
+            $hreflang_arr[] = '<link rel="alternate" hreflang="' . esc_attr( $hreflang ) . '" href="' . esc_url_raw( $hreflang_url ) . '" />';
+        }
+        // Allow filtering of the hreflang array
+        $hreflang_arr = apply_filters( 'amt_hreflang_links', $hreflang_arr, $hreflang, $hreflang_url );
+        // Add to to metadata array
+        foreach ( $hreflang_arr as $hreflang_link ) {
+            $metadata_arr[] = $hreflang_link;
         }
     }
 
