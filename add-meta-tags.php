@@ -131,6 +131,29 @@ add_filter('wp_title', 'amt_custom_title_tag', 1000);
 
 
 /**
+ * Sets the correct lang attribute of the html element of the page,
+ * according to the content's locale.
+ */
+function amt_set_html_lang_attribute( $lang ) {
+    //var_dump($lang);
+    $locale = '';
+    $options = get_option('add_meta_tags_opts');
+    if ( is_singular() ) {
+        $post = get_queried_object();
+        $locale = str_replace( '_', '-', amt_get_language_content($options, $post) );
+    } else {
+        $locale = str_replace( '_', '-', amt_get_language_site($options) );
+    }
+    if ( ! empty($locale) ) {
+        // Replace WordPress locale with ours. (even if it's the same)
+        $lang = str_replace( get_bloginfo('language'), $locale, $lang );
+    }
+    return $lang;
+}
+add_filter( 'language_attributes', 'amt_set_html_lang_attribute' );
+
+
+/**
  * Returns an array of all the generated metadata for the head area.
  */
 function amt_get_metadata_head() {
