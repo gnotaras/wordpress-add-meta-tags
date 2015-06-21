@@ -166,6 +166,8 @@ function amt_options_page() {
         
         <p>'.__('The automatically generated metadata can be further customized for each individual post, page, or any public custom post type directly from the <em>Metadata</em> box inside the post editing panel. If the <em>Metadata</em> box is not visible, you probably need to enable it at the <a href="http://en.support.wordpress.com/screen-options/">Screen Options</a> of the post editing panel.', 'add-meta-tags').'</p>
 
+        <p>'.__('Apart from the customization through the WordPress administration interface, the generated metadata and specific aspects of the plugin\'s functionality can be further customized to a great extent programmatically. Read the technical notes at the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki" title="Add-Meta-Tags Development web site">development web site</a> and find ready sample code snippets for commonly needed customizations in the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook" title="Add-Meta-Tags Cookbook">Add-Meta-Tags Cookbook</a>.', 'add-meta-tags').'</p>
+
     </div>
 
     <div class="wrap">
