@@ -857,6 +857,12 @@ function amt_get_post_types_for_metabox() {
  * old ``description`` custom field and also from the custom field of other plugins.
  */
 function amt_get_post_meta_description( $post_id ) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_description', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_description'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_description', 'description' );
     // External fields - Allow filtering
@@ -893,6 +899,12 @@ function amt_get_post_meta_description( $post_id ) {
  * old ``keywords`` custom field and also from the custom field of other plugins.
  */
 function amt_get_post_meta_keywords($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_keywords', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_keywords'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_keywords', 'keywords' );
     // External fields - Allow filtering
@@ -928,6 +940,12 @@ function amt_get_post_meta_keywords($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_title($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_title', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_title'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_title' );
     // External fields - Allow filtering
@@ -963,6 +981,12 @@ function amt_get_post_meta_title($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_newskeywords($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_news_keywords', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_news_keywords'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_news_keywords' );
     // External fields - Allow filtering
@@ -998,6 +1022,12 @@ function amt_get_post_meta_newskeywords($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_full_metatags($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_full_metatags', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_full_metatags'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_full_metatags' );
     // External fields - Allow filtering
@@ -1033,6 +1063,12 @@ function amt_get_post_meta_full_metatags($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_image_url($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_image_url', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_image_url'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_image_url' );
     // External fields - Allow filtering
@@ -1068,6 +1104,12 @@ function amt_get_post_meta_image_url($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_content_locale($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_content_locale', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_content_locale'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_content_locale' );
     // External fields - Allow filtering
@@ -1103,6 +1145,12 @@ function amt_get_post_meta_content_locale($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_express_review($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_express_review', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_express_review'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_express_review' );
     // External fields - Allow filtering
@@ -1138,6 +1186,12 @@ function amt_get_post_meta_express_review($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_referenced_list($post_id) {
+    $options = get_option('add_meta_tags_opts');
+    if ( ! array_key_exists( 'metabox_enable_referenced_list', $options) ) {
+        return '';
+    } elseif ( $options['metabox_enable_referenced_list'] == '0' ) {
+        return '';
+    }
     // Internal fields - order matters
     $supported_custom_fields = array( '_amt_referenced_list' );
     // External fields - Allow filtering
