@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail, multilingual, multilanguage, hreflang
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.13
+Stable tag: 2.8.14
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -259,7 +259,7 @@ Screenshots as of v2.4.0
 
 In 2.9 publisher social media profile links can no longer be set in the WordPress user profile page. Please move such information to the `Publisher Settings` section of Add-Meta-Tags settings page (Settings->Metadata).
 
-= 2.8.13 =
+= 2.8.14 =
 
 Note: Since v2.8.9, a WPML language configuration file ships with Add-Meta-Tags for out of the box interoperability with the WPML and Polylang multilingual plugins. Although not necessary, it is recommended to review the configuration of these plugins after upgrading Add-Meta-Tags.
 
@@ -268,6 +268,9 @@ Note: Since v2.8.9, a WPML language configuration file ships with Add-Meta-Tags 
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.14](http://www.codetrax.org/versions/295)
+ - A copyright link that points to the homepage is no longer generated automatically, but manually entering a URL in the relevant field in the settings is required.
+ - Added a notice about the experimental nature of the schema.org metadata generator, so as to prevent users from considering it as a replacement for schema.org enhanced themes.
 - [2.8.13](http://www.codetrax.org/versions/294)
  - Fixed issue with metabox feature checks. (props to Juan Sandro for reporting the issue.)
 - [2.8.12](http://www.codetrax.org/versions/293)
