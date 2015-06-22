@@ -477,8 +477,10 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Schema.org Metadata', 'add-meta-tags').'</span></legend>
 
                 <input id="auto_schemaorg" type="checkbox" value="1" name="auto_schemaorg" '. (($options["auto_schemaorg"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="auto_schemaorg">'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</label>
+                <label for="auto_schemaorg">'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</label> (Experimental feature)
                 <p>'.__('Automatically generate Schema.org Microdata and embed it to your content. This feature embeds <code>meta</code> elements inside the body of the web page. This is compatible with the HTML 5 standard, so, before enabling it, make sure your theme is HTML 5 ready. For information about Microdata please refer to <a href="http://schema.org">Schema.org</a>.', 'add-meta-tags').'</p>
+                <br />
+                <p>'.__('This metadata generator actually adds schema.org microdata around the post\'s content, because marking up the exact contents of the page in an automatic manner is technically impossible. Make no mistake, this is not the ideal way to insert microdata to your web pages. This generator should be considered as a workaround in case your theme lacks schema.org microdata markup in its templates and not as a replacement of schema.org enhanced themes.', 'add-meta-tags').'</p>
 
                 <h4>'.__('Important Notes', 'add-meta-tags').'</h4>
 
