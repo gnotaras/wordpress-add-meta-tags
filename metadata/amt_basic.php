@@ -374,9 +374,9 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
     // On every page print the copyright head link
     $copyright_url = amt_get_site_copyright_url($options);
-    if ( empty($copyright_url)) {
-        $copyright_url = trailingslashit( get_bloginfo('url') );
-    }
+    //if ( empty($copyright_url)) {
+    //    $copyright_url = trailingslashit( get_bloginfo('url') );
+    //}
     if ( ! empty($copyright_url) ) {
         $metadata_arr[] = '<link rel="copyright" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . ' Copyright Information" href="' . esc_url_raw( $copyright_url ) . '" />';
     }
