@@ -137,7 +137,9 @@ add_filter('wp_title', 'amt_custom_title_tag', 1000);
 function amt_set_html_lang_attribute( $lang ) {
     //var_dump($lang);
     $options = get_option('add_meta_tags_opts');
-    if ( ! array_key_exists( 'manage_html_lang_attribute', $options) ) {
+    if ( ! is_array($options) ) {
+        return $lang;
+    } elseif ( ! array_key_exists( 'manage_html_lang_attribute', $options) ) {
         return $lang;
     } elseif ( $options['manage_html_lang_attribute'] == '0' ) {
         return $lang;
