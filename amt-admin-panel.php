@@ -76,7 +76,7 @@ function amt_admin_init() {
     /* Register our script for the color picker. */
     // wp_register_script( 'myPluginScript', plugins_url( 'script.js', AMT_PLUGIN_FILE ) );
     /* Register our stylesheet. */
-    // wp_register_style( 'myPluginStylesheet', plugins_url( 'stylesheet.css', AMT_PLUGIN_FILE ) );
+    wp_register_style( 'amt_settings', plugins_url( 'css/amt-settings.css', AMT_PLUGIN_FILE ) );
 
 }
 add_action( 'admin_init', 'amt_admin_init' );
@@ -99,7 +99,7 @@ function amt_enqueue_admin_scripts_and_styles( $hook ) {
     }
     // Enqueue script and style for the color picker.
     //wp_enqueue_script( 'myPluginScript' );
-    //wp_enqueue_style( 'myPluginStylesheet' );
+    wp_enqueue_style( 'amt_settings' );
 }
 add_action( 'admin_enqueue_scripts', 'amt_enqueue_admin_scripts_and_styles' );
 // Note: `admin_print_styles` should not be used to enqueue styles or scripts on the admin pages. Use `admin_enqueue_scripts` instead. 
