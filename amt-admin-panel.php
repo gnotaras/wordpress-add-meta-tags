@@ -144,18 +144,26 @@ function amt_options_page() {
         <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
     </div>
 
-    <div class="wrap" style="background: #EEF6E6; padding: 1em 2em; border: 1px solid #E4E4E4;' . (($options["i_have_donated"]=="1") ? ' display: none;' : '') . '">
-        <h2>'.__('Message from the author', 'add-meta-tags').'</h2>
-        <p style="font-size: 1.2em; padding-left: 2em;"><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>Free software</strong>.</p>
-        <p style="font-size: 1.2em; padding-left: 2em;">However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
+    <div class="wrap amt-settings-notice">
+
+        <h3>'.__('Notice', 'add-meta-tags').'</h3>
+
+        <p>'.__('Press the <code>Help</code> button on the top right corner for an introduction to metadata and also for detailed documentation about the available settings and the metadata generators. All help texts and examples will gradually be moved to this integrated WordPress help system in order to reduce the size of the settings page and make it more user-friendly.', 'add-meta-tags').'</p>
+    </div>
+
+    <div class="wrap amt-settings-donations-msg" style="' . (($options["i_have_donated"]=="1") ? 'display: none;' : '') . '">
+
+        <h3>'.__('Message from the author', 'add-meta-tags').'</h3>
+
+        <p><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>Free software</strong>.</p>
+        <p>However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
         <!--
-        <p style="font-size: 1.2em; padding-left: 2em;">Donations in the following crypto currencies are also accepted and welcome. Send coins to the following addresses:</p>
-        <ul style="font-size: 1.2em; padding-left: 2em;">
-            <li style="padding-left: 1em;">- BitCoin (BTC): <code style="font-size: 1.2em;">1KkgpmaBKqQVk643VRhFRkL19Bbci4Mwn9</code></li>
-            <li style="padding-left: 1em;">- LiteCoin (LTC): <code style="font-size: 1.2em;">LS8UF39LfLahzGo49y736ooRYBVT1zZ2Fa</code></li>
+        <p">Donations in BitCoin (BTC) are also accepted and welcome. Send the donated coin to the following address:</p>
+        <ul>
+            <li style="margin-left: 1em;">BitCoin (BTC): <code>1KkgpmaBKqQVk643VRhFRkL19Bbci4Mwn9</code></li>
         </ul>
         -->
-        <p style="font-size: 1.2em; padding-left: 2em;">Thank you in advance,<br />George Notaras</p>
+        <p>Thank you in advance,<br />George Notaras</p>
         <div style="text-align: right;"><small>'.__('This message can be deactivated in the settings below.', 'add-meta-tags').'</small></div>
     </div>
 
