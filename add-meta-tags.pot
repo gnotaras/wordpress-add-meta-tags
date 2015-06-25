@@ -464,7 +464,7 @@ msgid "Enable the generation of a <code>link</code> element with the <code>hrefl
 msgstr ""
 
 #: amt-admin-panel.php:626
-msgid "If this feature is enabled, an HTML <code>link</code> element containing the proper hreflang attribute is added to the head section of the HTML page. The value of the hreflang attribute is determined by the locale of the content. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of invalid hreflang links.)"
+msgid "If this feature is enabled, an HTML <code>link</code> element containing the proper hreflang attribute is added to the head section of the HTML page. The value of the hreflang attribute is determined by the locale of the content. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of invalid hreflang links."
 msgstr ""
 
 #: amt-admin-panel.php:630
