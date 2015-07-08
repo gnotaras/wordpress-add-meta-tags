@@ -22,9 +22,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.8.14\n"
+"Project-Id-Version: add-meta-tags 2.8.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-22 18:18+0300\n"
+"POT-Creation-Date: 2015-07-08 19:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -593,7 +593,7 @@ msgid "Title"
 msgstr ""
 
 #: amt-admin-panel.php:1003
-msgid "Enter a custom title to be used in the <em>title</em> tag."
+msgid "Enter a custom title to be used in the <em>title</em> HTML element of the page."
 msgstr ""
 
 #: amt-admin-panel.php:1021
@@ -661,19 +661,19 @@ msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
 #: metadata\amt_basic.php:247 metadata\amt_opengraph.php:292
-#: metadata\amt_twitter_cards.php:156
+#: metadata\amt_twitter_cards.php:157
 #, php-format
 msgid "Content filed under the %s category."
 msgstr ""
 
 #: metadata\amt_basic.php:274 metadata\amt_opengraph.php:294
-#: metadata\amt_twitter_cards.php:158
+#: metadata\amt_twitter_cards.php:159
 #, php-format
 msgid "Content tagged with %s."
 msgstr ""
 
 #: metadata\amt_basic.php:311 metadata\amt_opengraph.php:300
-#: metadata\amt_twitter_cards.php:164
+#: metadata\amt_twitter_cards.php:165
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr ""

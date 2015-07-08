@@ -25,17 +25,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-05 06:09+0200\n"
-"PO-Revision-Date: 2015-01-05 04:10+0000\n"
+"POT-Creation-Date: 2015-06-22 18:18+0300\n"
+"PO-Revision-Date: 2015-06-25 10:56+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
-"Language-Team: Serbian (Serbia) (http://www.transifex.com/projects/p/add-meta-tags/language/sr_RS/)\n"
+"Language-Team: Serbian (Serbia) (http://www.transifex.com/p/add-meta-tags/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sr_RS\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: add-meta-tags.php:88
+#: add-meta-tags.php:89
 msgid "Settings"
 msgstr "Postavke"
 
@@ -49,11 +49,11 @@ msgid ""
 "and Dublin Core metadata to optimize your web site for better SEO."
 msgstr ""
 
-#: amt-admin-panel.php:87 amt-admin-panel.php:138
+#: amt-admin-panel.php:87 amt-admin-panel.php:142
 msgid "Metadata Settings"
 msgstr "Metadata postavke"
 
-#: amt-admin-panel.php:87 amt-admin-panel.php:620
+#: amt-admin-panel.php:87 amt-admin-panel.php:800
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -61,11 +61,11 @@ msgstr "Metadata"
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Nemate dovoljno dozvola da biste pristupili ovoj stranici. "
 
-#: amt-admin-panel.php:139
+#: amt-admin-panel.php:143
 msgid "Welcome to the administration panel of the Add-Meta-Tags plugin."
 msgstr "Dobrodošli u administracioni panel Add-Meta-Tags plugin."
 
-#: amt-admin-panel.php:140
+#: amt-admin-panel.php:144
 msgid ""
 "<em>Metadata</em> refers to information that describes the content in a "
 "machine-friendly way. Search engines and other online services use this "
@@ -80,19 +80,19 @@ msgid ""
 "Tags plugin does."
 msgstr "<em>Metadata</em> se odnosi na informacije koje opisuju sadržaj na mašinski prijateljski način . Pretraživači i druge onlajn usluge koriste ovaj metadata za bolje razumevanje sadržaja . Imajte na umu da metapodaci se automatski ne bi vaš blog rang bolje . Za ovo da se desisadržaj je i dalje potreban da zadovolji različite standarde kvaliteta . Međutim ,prisustvo tačne i adekvatne metapodataka daje pretraživačima i drugim službama šansu da zarade manje nagađanja o svom sadržaju , indeks i kategorizuje bolje i , konačno , dostavlja ga publici koja smatra da je korisno . Dobro metapodataka olakšava ovaj proces i tako igra značajnu ulogu u postizanju bolje rangiranje ."
 
-#: amt-admin-panel.php:144
+#: amt-admin-panel.php:148
 msgid "Message from the author"
 msgstr "Poruka od autora"
 
-#: amt-admin-panel.php:155
+#: amt-admin-panel.php:159
 msgid "This message can be deactivated in the settings below."
 msgstr "Ova poruka može biti deaktivirana u postavkama ispod."
 
-#: amt-admin-panel.php:159
+#: amt-admin-panel.php:163
 msgid "How it works"
 msgstr "Kako radi"
 
-#: amt-admin-panel.php:161
+#: amt-admin-panel.php:165
 msgid ""
 "Add-Meta-Tags tries to follow the \"<em>It just works</em>\" principal. By "
 "default, the <em>description</em> and <em>keywords</em> meta tags are added "
@@ -104,7 +104,7 @@ msgid ""
 "fine tune your web site."
 msgstr ""
 
-#: amt-admin-panel.php:163
+#: amt-admin-panel.php:167
 msgid ""
 "The automatically generated metadata can be further customized for each "
 "individual post, page, or any public custom post type directly from the "
@@ -114,21 +114,34 @@ msgid ""
 "Options</a> of the post editing panel."
 msgstr "Automatski generisan metadata može dalje biti customiziran za svaki individualni post, stranicu ili bilo kakav javni custom post tip direktno iz <em>Metadata</em> kvadrata unutar post editing panela. Ako <em>Metadata</em> kvadrat nije vidljiv, verovatno treba da ga omogućite na  <a href=\"http://en.support.wordpress.com/screen-options/\">Screen Options</a>post editing panelu."
 
-#: amt-admin-panel.php:168
+#: amt-admin-panel.php:169
+msgid ""
+"Apart from the customization through the WordPress administration interface,"
+" the generated metadata and specific aspects of the plugin's functionality "
+"can be further customized to a great extent programmatically. Read the "
+"technical notes at the <a href=\"http://www.codetrax.org/projects/wp-add-"
+"meta-tags/wiki\" title=\"Add-Meta-Tags Development web site\">development "
+"web site</a> and find ready sample code snippets for commonly needed "
+"customizations in the <a href=\"http://www.codetrax.org/projects/wp-add-"
+"meta-tags/wiki/Add-Meta-Tags_Cookbook\" title=\"Add-Meta-Tags Cookbook"
+"\">Add-Meta-Tags Cookbook</a>."
+msgstr ""
+
+#: amt-admin-panel.php:174
 msgid "Configuration"
 msgstr "Konfiguracija"
 
-#: amt-admin-panel.php:170
+#: amt-admin-panel.php:176
 msgid ""
 "This section contains global configuration options for the metadata that is "
 "added to your web site."
 msgstr "Ovaj deo sadrži opcije globalne konfiguracije za metadata koji su potrebni za vaš sajt"
 
-#: amt-admin-panel.php:205 amt-admin-panel.php:208
+#: amt-admin-panel.php:211 amt-admin-panel.php:214
 msgid "Front Page Metadata"
 msgstr "Metadata sa prednje stranice"
 
-#: amt-admin-panel.php:209
+#: amt-admin-panel.php:215
 msgid ""
 "It appears that you use static pages on the <em>front page</em> and the "
 "<em>latest posts page</em> of this web site. Please visit the editing panel "
@@ -136,21 +149,21 @@ msgid ""
 "<code>keywords</code> meta tags in the relevant Metadata box."
 msgstr "Izgleda da koristite statične stranice na  <em>prednja stranica</em> i  <em>stranica sa poslednjim postovima</em> ovog web sajta. Molim vas posetite editing panel ovih stranica i namestite <code>opis</code> i <code>ključne reči</code> meta tagovi u Metadata kvadratu."
 
-#: amt-admin-panel.php:214
+#: amt-admin-panel.php:220
 #, php-format
 msgid "Edit the <a href=\"%s\">front page</a>"
 msgstr "Edituj<a href=\"%s\">prednja stranica</a>"
 
-#: amt-admin-panel.php:218
+#: amt-admin-panel.php:224
 #, php-format
 msgid "Edit the <a href=\"%s\">posts page</a>"
 msgstr "Edituj <a href=\"%s\">postovane stranice</a>"
 
-#: amt-admin-panel.php:231 amt-admin-panel.php:234
+#: amt-admin-panel.php:237 amt-admin-panel.php:240
 msgid "Front Page Description"
 msgstr "Opis prednje stranice"
 
-#: amt-admin-panel.php:238
+#: amt-admin-panel.php:245
 msgid ""
 "Enter a short (150-250 characters long) description of your blog. This text "
 "will be used in the <em>description</em> and other similar metatags on the "
@@ -159,11 +172,11 @@ msgid ""
 "Options</a> will be used."
 msgstr "Unesite kratak (150-250 karaktera dugačak) opis vašeg bloga. Ovaj tekst će biti iskorišćen u <em>opis</em> i drugim sličnim metatagovima na<strong>prednjoj stranici</strong>. Ako se ovo ostavi prazno, blogova <em>Tagline</em> iz <a href=\"options-general.php\">General Options</a> će biti korišćena.."
 
-#: amt-admin-panel.php:245 amt-admin-panel.php:248
+#: amt-admin-panel.php:253 amt-admin-panel.php:256
 msgid "Front Page Keywords"
 msgstr "Ključne rečo prednje stranice"
 
-#: amt-admin-panel.php:252
+#: amt-admin-panel.php:260
 msgid ""
 "Enter a comma-delimited list of keywords for your blog. These keywords will "
 "be used in the <em>keywords</em> meta tag on the <strong>front "
@@ -172,26 +185,28 @@ msgid ""
 " for the <em>keywords</em> meta tag."
 msgstr "Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog's <a href=\"edit-tags.php?taxonomy=category\">categories</a> will be used as keywords for the <em>keywords</em> meta tag."
 
-#: amt-admin-panel.php:254 amt-admin-panel.php:273 amt-admin-panel.php:277
-#: amt-admin-panel.php:515 amt-admin-panel.php:532 amt-admin-panel.php:787
+#: amt-admin-panel.php:261 amt-admin-panel.php:279 amt-admin-panel.php:282
+#: amt-admin-panel.php:326 amt-admin-panel.php:338 amt-admin-panel.php:348
+#: amt-admin-panel.php:360 amt-admin-panel.php:370 amt-admin-panel.php:616
+#: amt-admin-panel.php:664 amt-admin-panel.php:681 amt-admin-panel.php:967
 msgid "Example"
 msgstr "primer"
 
-#: amt-admin-panel.php:254 amt-admin-panel.php:273
+#: amt-admin-panel.php:261 amt-admin-panel.php:279
 msgid "keyword1, keyword2, keyword3"
 msgstr "ključna reč1, ključna reč2, ključna reč3"
 
-#: amt-admin-panel.php:264 amt-admin-panel.php:267
+#: amt-admin-panel.php:271 amt-admin-panel.php:274
 msgid "Global Keywords"
 msgstr "Globalne ključne reči"
 
-#: amt-admin-panel.php:271
+#: amt-admin-panel.php:278
 msgid ""
 "Enter a comma-delimited list of global keywords which will be added before "
 "the keywords of <strong>all</strong> posts and pages."
 msgstr "Unesite zarezom odvojenu listu globalnih ključnih reči koja će biti dodata pre ključnih reči<strong>all</strong> posovo i stranice. "
 
-#: amt-admin-panel.php:275
+#: amt-admin-panel.php:281
 msgid ""
 "By default, these keywords are prepended to the post/page's keywords. For "
 "enhanced flexibility, it is possible to use the <code>%contentkw%</code> "
@@ -200,15 +215,15 @@ msgid ""
 "keywords to the <em>keywords</em> of your content."
 msgstr "Po defaultu, ove ključne reči su pripremljene za postove/stranicine ključne reči. Za povećanu fleksibilnost,moguće je koristiti <code>%contentkw%</code> placeholder, koji će biti pounjen sa autogenerisanim postovima/stranicama ili ključnim rečima definasnim korisnikom. Na ovaj nači možete globalno prependovati  i appendovati ključne reči <em>ključne reči</em> vašeg sadržaja."
 
-#: amt-admin-panel.php:277
+#: amt-admin-panel.php:282
 msgid "keyword1, keyword2, %contentkw%, keyword3"
 msgstr "ključna reč1, ključna reč2, %contentkw%, ključna reč3"
 
-#: amt-admin-panel.php:284 amt-admin-panel.php:287
+#: amt-admin-panel.php:289 amt-admin-panel.php:292
 msgid "Site-wide META tags"
 msgstr "Širom sajta META tagovi"
 
-#: amt-admin-panel.php:291
+#: amt-admin-panel.php:297
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "all the pages of your web site (read more about the <a "
@@ -216,46 +231,139 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Omogućite ceo XHTML kod ekstra META elemenata koje biste hteli da dodate svim stranicama vašeg sajta (čitajte više o<a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
 
-#: amt-admin-panel.php:293
+#: amt-admin-panel.php:299
 msgid "Examples"
 msgstr "Primeri"
 
-#: amt-admin-panel.php:303 amt-admin-panel.php:306
-msgid "Automatic Basic Metadata"
-msgstr "Automatski osnovni metadata"
-
-#: amt-admin-panel.php:310
-msgid ""
-"Automatically generate the <em>description</em> meta tag for the content, "
-"attachments and archives. Customization of the <em>description</em> meta tag"
-" is possible through the <em>Metadata</em> box in the editing panel of each "
-"post type."
-msgstr "Automatiski geneisan <em>description</em> meta tag za sadržaj, attachments i arhive. Customizacija <em>opis</em> meta tag je moguća kroz<em>Metadata</em> kvadrat u editing panelu svakog tipa posta."
+#: amt-admin-panel.php:311 amt-admin-panel.php:314
+msgid "Publisher Settings"
+msgstr ""
 
 #: amt-admin-panel.php:316
 msgid ""
-"Automatically generate the <em>keywords</em> meta tag for content and "
-"archives. Keywords are not generated automatically on pages and attachments."
-" Customization of the <em>keywords</em> meta tag is possible through the "
-"<em>Metadata</em> box in the editing panel of each post type."
-msgstr "Automatski generisan <em>ključne reči</em> meta tag za sadržaj i arhive. Ključne reči nisu generisane automatski na stranicama i attachmentima. Customizacija <em>ključne reči</em> meta tag je jednostavna kroz <em>Metadata</em> kvadrat u editing panelu za svaki tip posta.."
+"This section contains options related to your web site; the publisher of the"
+" content."
+msgstr ""
 
-#: amt-admin-panel.php:325 amt-admin-panel.php:328
-msgid "Automatic Opengraph Metadata"
-msgstr "Automatski Opengraph Metadata"
-
-#: amt-admin-panel.php:332
+#: amt-admin-panel.php:317
 msgid ""
-"Automatically generate Opengraph meta tags for content, attachments and "
-"archives. For more information, please refer to the <a "
-"href=\"http://ogp.me\">Opengraph specification</a>."
-msgstr "Automatski generisan Opengraph meta tagovi za sadržaj attachmenta i arhiva. Za više informacija, molimo vas obratite se<a href=\"http://ogp.me\"> Opengraph specifikaciji</a>."
+"The following publisher related settings are shared among all users. Filling"
+" in these settings is entirely optional."
+msgstr ""
 
-#: amt-admin-panel.php:335
+#: amt-admin-panel.php:319 metadata\amt_opengraph.php:72
+msgid "Facebook publisher profile URL"
+msgstr "Facebook URL profila izdavača"
+
+#: amt-admin-panel.php:324
+msgid ""
+"Enter an absolute URL to the Facebook profile of the publisher. If this is "
+"filled in, it will be used in the <code>article:publisher</code> meta tag."
+msgstr ""
+
+#: amt-admin-panel.php:331
+msgid "Facebook App ID"
+msgstr ""
+
+#: amt-admin-panel.php:336
+msgid ""
+"Enter the App ID for <a target=\"_blank\" "
+"href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
+"Insights</a>."
+msgstr ""
+
+#: amt-admin-panel.php:341
+msgid "Facebook Admin ID list"
+msgstr ""
+
+#: amt-admin-panel.php:346
+msgid ""
+"Enter a comma delimited list of numerical Facebook user IDs which will have "
+"access to <a target=\"_blank\" "
+"href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
+"Insights</a>."
+msgstr ""
+
+#: amt-admin-panel.php:353
+msgid "Google+ publisher profile URL"
+msgstr ""
+
+#: amt-admin-panel.php:358
+msgid ""
+"Enter an absolute URL to the Google+ profile of the publisher. If this is "
+"filled in, it will be used in the link with <code>rel=\"publisher\"</code> "
+"in the HEAD area of the web page."
+msgstr ""
+
+#: amt-admin-panel.php:363 metadata\amt_twitter_cards.php:69
+msgid "Twitter publisher username"
+msgstr "Twitter korisničko ime autora"
+
+#: amt-admin-panel.php:368
+msgid "Enter the Twitter username of the publisher (without @)."
+msgstr ""
+
+#: amt-admin-panel.php:378 amt-admin-panel.php:381
+msgid "Basic Metadata"
+msgstr ""
+
+#: amt-admin-panel.php:384
+msgid "Automatically generate the <em>description</em> meta tag."
+msgstr ""
+
+#: amt-admin-panel.php:385
+msgid ""
+"If this option is enabled, the <em>description</em> meta tag is "
+"automatically generated for the content, attachments and archives. "
+"Customization of the <em>description</em> meta tag is possible through the "
+"<em>Metadata</em> box in the post editing screen."
+msgstr ""
+
+#: amt-admin-panel.php:389
+msgid "Automatically generate the <em>keywords</em> meta tag."
+msgstr ""
+
+#: amt-admin-panel.php:390
+msgid ""
+"If this option is enabled, the <em>keywords</em> meta tag is automatically "
+"generated for the content and archives. Keywords are not generated "
+"automatically on pages and attachments. Customization of the "
+"<em>keywords</em> meta tag is possible through the <em>Metadata</em> box in "
+"the post editing screen."
+msgstr ""
+
+#: amt-admin-panel.php:398 amt-admin-panel.php:401
+msgid "Opengraph Metadata"
+msgstr ""
+
+#: amt-admin-panel.php:404
+msgid "Automatically generate Opengraph meta tags."
+msgstr ""
+
+#: amt-admin-panel.php:405
+msgid ""
+"If this option is enabled, Opengraph metadata is automatically generated for"
+" content, attachments and archives. For more information, please refer to "
+"the <a href=\"http://ogp.me\">Opengraph specification</a>."
+msgstr ""
+
+#: amt-admin-panel.php:409
+msgid "Omit <code>og:video</code> meta tags."
+msgstr ""
+
+#: amt-admin-panel.php:410
+msgid ""
+"When a post containing a video is shared on Facebook, Facebook uses its own "
+"player to embed the video in the timeline. If this setting is enabled, "
+"<code>og:video</code> meta tags are no longer generated and Facebook, "
+"instead of embedding your video, links to your actual video post."
+msgstr ""
+
+#: amt-admin-panel.php:413
 msgid "Important Note"
 msgstr "Važna beleška"
 
-#: amt-admin-panel.php:337
+#: amt-admin-panel.php:415
 msgid ""
 "By default, this feature sets the URL of the front page of your web site to "
 "the <code>article:publisher</code> meta tag and the URL of the author "
@@ -263,21 +371,52 @@ msgid ""
 " publisher page and the author profile on Facebook, it is required to "
 "provide the respective URLs. These settings can be added to your WordPress "
 "user <a href=\"profile.php\">profile page</a> under the section <em>Contact "
-"Info</em>."
-msgstr "Po defaultu, ova karakteristika namešta URL prednej stranice vašeg sajta <code>article:publisher</code> meta tag i URL arhive autora <code>article:author</code> meta tag. Da bi se povezali sa stranicom izdavača i Facebook profilom autora, neophodno je omogućiti zahtevane URLove . Ove postavke mogu biti dodate na vašu WordPress stranicu<a href=\"profile.php\"> korisničkog profila</a> pod delom the section <em>Kontakt Info</em>."
+"Info</em>. Filling in the publisher profile URL is not required, if it has "
+"already been entered in the <em>Publisher Settings</em> above. For example:"
+msgstr ""
 
-#: amt-admin-panel.php:344 amt-admin-panel.php:347
-msgid "Automatic Twitter Cards Metadata"
-msgstr "Automatski Twitter Cards Metadata"
-
-#: amt-admin-panel.php:351
+#: amt-admin-panel.php:418
 msgid ""
-"Automatically generate Twitter Cards meta tags for content and attachments. "
-"For more information, please refer to the <a "
-"href=\"https://dev.twitter.com/docs/cards\">Twitter Cards specification</a>."
-msgstr "Automatically generate Twitter Cards meta tags for content and attachments. For more information, please refer to the<a href=\"https://dev.twitter.com/docs/cards\"> Twitter Cards specification</a>."
+"It is possible to control the value of the <code>og:type</code> meta tag "
+"either by changing the post format or programmatically via a filter. By "
+"default, the <code>og:type</code> is set to <code>article</code> for all "
+"content, except for video attachment pages and posts whose post format has "
+"been set to <code>video</code>, on which <code>og:type</code> is set to "
+"<code>video.other</code>."
+msgstr ""
 
-#: amt-admin-panel.php:357
+#: amt-admin-panel.php:424 amt-admin-panel.php:427
+msgid "Twitter Cards Metadata"
+msgstr ""
+
+#: amt-admin-panel.php:430
+msgid "Automatically generate Twitter Cards meta tags."
+msgstr ""
+
+#: amt-admin-panel.php:431
+msgid ""
+"If this option is enabled, Twitter Cards metadata is automatically generated"
+" for content and attachments. For more information, please refer to the <a "
+"href=\"https://dev.twitter.com/docs/cards\">Twitter Cards specification</a>."
+msgstr ""
+
+#: amt-admin-panel.php:435
+msgid ""
+"Enforce the use of <code>summary_large_image</code> as default card type."
+msgstr ""
+
+#: amt-admin-panel.php:436
+msgid ""
+"If this setting is enabled, <code>summary_large_image</code> will be used as"
+" the default Twitter Card type instead of the <code>summary</code> card "
+"type."
+msgstr ""
+
+#: amt-admin-panel.php:440
+msgid "Enable the generation of <em>player</em> cards for local media."
+msgstr ""
+
+#: amt-admin-panel.php:441
 msgid ""
 "Enable the generation of <em>player</em> cards for locally hosted audio and "
 "video attachments or for posts with their post format set to audio or video."
@@ -290,68 +429,85 @@ msgid ""
 " hard to identify. This feature should be considered experimental."
 msgstr ""
 
-#: amt-admin-panel.php:361 amt-admin-panel.php:396
+#: amt-admin-panel.php:443 amt-admin-panel.php:485
 msgid "Important Notes"
 msgstr "Important Notes"
 
-#: amt-admin-panel.php:363
+#: amt-admin-panel.php:445
 msgid ""
 "In order to generate the <code>twitter:site</code> and "
 "<code>twitter:creator</code> meta tags, it is required to provide the "
 "respective usernames of the Twitter account of the author and/or the "
 "publisher of the content. Update your WordPress user's <a "
 "href=\"profile.php\">profile page</a> and fill in the relevant usernames "
-"under the section <em>Contact Info</em>."
-msgstr "In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user's <a href=\"profile.php\">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>."
+"under the section <em>Contact Info</em>. Filling in the publisher username "
+"is not required, if it has already been entered in the <em>Publisher "
+"Settings</em> above."
+msgstr ""
 
-#: amt-admin-panel.php:365
+#: amt-admin-panel.php:449
 msgid ""
 "By default, a Twitter Card of type <em>summary</em> is generated for your "
 "content. If your theme supports <a "
 "href=\"http://codex.wordpress.org/Post_Formats\">post formats</a>, then it "
-"is possible to generate Twitter Cards of type <em>summary_large_image</em>, "
-"<em>gallery</em> and <em>player</em>, by setting the post's format to "
-"<em>photo</em>, <em>gallery</em> and <em>audio/video</em> respectively. "
-"Currently, the <em>player</em> card can only be generated for embedded "
-"Youtube/Vimeo videos and Soundcloud tracks. Local audio and video "
-"attachments are not supported."
-msgstr "Po defaultu,  Twitter Card tipa <em>summary</em>je generisan za vaš sadržaj. Ako vaša tema podržava formate postova, onda je moguće generisati Twitter Cards tip <em>summary_large_image</em>, <em>gallery</em> i <em>player</em>, postavljanjem postova formatata<em>photo</em>, <em>gallery</em> i <em>audio/video</em> respectively. Trenutno <em>player</em>karta  može  generisati  samo Youtube/Vimeo videe i Soundcloud trake. Lokalne audio i video attachmenti nisu podržani."
+"is possible to generate Twitter Cards of various types according to the "
+"specified post format. More specifically:"
+msgstr ""
 
-#: amt-admin-panel.php:371 amt-admin-panel.php:374
-msgid "Automatic Dublin Core Metadata"
-msgstr "Automatski Dublin Core Metadata"
+#: amt-admin-panel.php:460 amt-admin-panel.php:463
+msgid "Dublin Core Metadata"
+msgstr ""
 
-#: amt-admin-panel.php:378
+#: amt-admin-panel.php:466
+msgid "Automatically generate Dublin Core metadata."
+msgstr ""
+
+#: amt-admin-panel.php:467
 msgid ""
-"Automatically generate Dublin Core metadata for your content and "
-"attachments. For more information, please refer to <a "
+"If this option is enabled, Dublin Core metadata is automatically generated "
+"for your content and attachments. For more information, please refer to <a "
 "href=\"http://dublincore.org\">Dublin Core Metadata Initiative</a>."
-msgstr "Automatski generisan Dublin Core metadata za vaš sadržaj i attachmente.  Za više informacija, molim vas obratite se<a href=\"http://dublincore.org\"> Dublin Core Metadata Initiative</a>."
+msgstr ""
 
-#: amt-admin-panel.php:386 amt-admin-panel.php:389
-msgid "Automatic Schema.org Metadata"
-msgstr "Automatski Schema.org Metadata"
+#: amt-admin-panel.php:474 amt-admin-panel.php:477
+msgid "Schema.org Metadata"
+msgstr ""
 
-#: amt-admin-panel.php:393
+#: amt-admin-panel.php:480
+msgid "Automatically generate and embed Schema.org Microdata."
+msgstr ""
+
+#: amt-admin-panel.php:481
 msgid ""
-"Automatically generate Microdata and embed it to your content. This feature "
-"embeds <code>meta</code> elements inside the body of the web page. This is "
-"compatible with the HTML 5 standard, so, before enabling it, make sure your "
-"theme is HTML 5 ready. For information about Microdata please refer to <a "
-"href=\"http://schema.org\">Schema.org</a>."
-msgstr "Automatsko generisanje Microdata i učitavanje u vaš sadržaj. Ova karakteristika učitava <code>meta</code> elemente unutar tela web stranice. Ovo je kompatibino sa standardnim  HTML 5 , tako da pre nego što ga učitate, proverite da li je vaša tema HTML 5 spremna. Za info o Microdata molimo vas obratite se  <a href=\"http://schema.org\">Schema.org</a>."
+"Automatically generate Schema.org Microdata and embed it to your content. "
+"This feature embeds <code>meta</code> elements inside the body of the web "
+"page. This is compatible with the HTML 5 standard, so, before enabling it, "
+"make sure your theme is HTML 5 ready. For information about Microdata please"
+" refer to <a href=\"http://schema.org\">Schema.org</a>."
+msgstr ""
 
-#: amt-admin-panel.php:398
+#: amt-admin-panel.php:483
+msgid ""
+"This metadata generator actually adds schema.org microdata around the post's"
+" content, because marking up the exact contents of the page in an automatic "
+"manner is technically impossible. Make no mistake, this is not the ideal way"
+" to insert microdata to your web pages. This generator should be considered "
+"as a workaround in case your theme lacks schema.org microdata markup in its "
+"templates and not as a replacement of schema.org enhanced themes."
+msgstr ""
+
+#: amt-admin-panel.php:487
 msgid ""
 "By default, this feature links the author and publisher objects to the "
-"author archive and the front page of your web site respectively. In order to"
-" link to the author's profile and publisher's page on Google+, it is "
+"author archive and to the front page of your web site respectively. In order"
+" to link to the author's profile and publisher's page on Google+, it is "
 "required to provide the respective URLs. These settings can be added to your"
 " WordPress user <a href=\"profile.php\">profile page</a> under the section "
-"<em>Contact Info</em>."
-msgstr "Po defaultu, ovi karakteristika povezuje autora u objekte izdavača u autorskoj arhivi i prednju stranicu na vašem sajtu. Da bi se povezao profil autora i stranica izdavača na  Google+, morate da obezbedite potrebne URLove. Ove postavke možete dodati na vašu WordPress stranicu<a href=\"profile.php\"> profila korisnika</a> pod sekcijom <em>Kontackt Info</em>."
+"<em>Contact Info</em>. Filling in the publisher profile URL is not required,"
+" if it has already been entered in the <em>Publisher Settings</em> above."
+msgstr ""
 
-#: amt-admin-panel.php:400
+#: amt-admin-panel.php:491
 msgid ""
 "Once you have filled in the URLs to the author profile and the publisher "
 "page on Google+, the relevant link elements with the attributes "
@@ -359,11 +515,11 @@ msgid ""
 "automatically added to the head area of the web page."
 msgstr "Jednom kada uneset eURLove u profil autora i stranicu izdavača na Google+,   relevantni link elementi sa atributima <code>rel=\"author\"</code> i<code>rel=\"publisher\"</code>  su automatski dodati u glavnu oblast stranice."
 
-#: amt-admin-panel.php:406 amt-admin-panel.php:409
+#: amt-admin-panel.php:498 amt-admin-panel.php:501
 msgid "Metabox Features"
 msgstr ""
 
-#: amt-admin-panel.php:411
+#: amt-admin-panel.php:503
 msgid ""
 "It is possible to partially customize the generated metadata on a per post "
 "basis through the <em>Metadata</em> metabox which exists in the post editing"
@@ -372,34 +528,48 @@ msgid ""
 "has been stored for each post."
 msgstr ""
 
-#: amt-admin-panel.php:415
+#: amt-admin-panel.php:507
 msgid "Custom description (<em>Recommended</em>)."
 msgstr ""
 
-#: amt-admin-panel.php:420
+#: amt-admin-panel.php:512
 msgid "Custom keywords (<em>Recommended</em>)."
 msgstr ""
 
-#: amt-admin-panel.php:425
+#: amt-admin-panel.php:517
 msgid "Custom content of the <code>title</code> HTML element."
 msgstr ""
 
-#: amt-admin-panel.php:430
+#: amt-admin-panel.php:522
 msgid ""
 "Custom news keywords. (<a target=\"_blank\" "
 "href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">more"
 " info</a>)"
 msgstr ""
 
-#: amt-admin-panel.php:435
+#: amt-admin-panel.php:527
 msgid "Full meta tags box."
 msgstr ""
 
-#: amt-admin-panel.php:440
+#: amt-admin-panel.php:532
+msgid "Global image override."
+msgstr ""
+
+#: amt-admin-panel.php:537
+msgid ""
+"Content locale override. (Not to be used in conjunction with a multilingual "
+"plugin.) "
+msgstr ""
+
+#: amt-admin-panel.php:542
+msgid "Express review. (Experimental feature. For advanced users only.)"
+msgstr ""
+
+#: amt-admin-panel.php:547
 msgid "Referenced items. (Experimental feature. Not recommended.)"
 msgstr ""
 
-#: amt-admin-panel.php:443
+#: amt-admin-panel.php:550
 msgid ""
 "The metabox feature selection above affects all users. Advanced "
 "customization of the availability of these features on a per user basis or "
@@ -407,74 +577,166 @@ msgid ""
 "<code>amt_metadata_metabox_permissions</code> filter."
 msgstr ""
 
-#: amt-admin-panel.php:450 amt-admin-panel.php:453
+#: amt-admin-panel.php:558 amt-admin-panel.php:561
 msgid "Extra SEO Options"
 msgstr "Ekstra SEO opcije"
 
-#: amt-admin-panel.php:457
+#: amt-admin-panel.php:564
 msgid ""
 "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
-"tag on the front page, content and attachments. This setting will prevent "
-"all search engines (at least those that support the meta tag) from "
-"displaying information from the <a href=\"http://www.dmoz.org/\">Open "
-"Directory Project</a> or the <a href=\"http://dir.yahoo.com/\">Yahoo "
-"Directory</a> instead of the description you set in the <em>description</em>"
-" meta tag."
-msgstr "Dodaj <code>NOODP</code> i <code>NOYDIR</code> u <em>robots</em> meta tag na prednjoj stranici, sadržaju i attachmentu. Ove postavke će sprečiti sve pretraživače (makar one koji podržavaju meta tag) da prikazuju info o <a href=\"http://www.dmoz.org/\">Open Directory Project</a>   ili<a href=\"http://dir.yahoo.com/\"> Yahoo Directory</a>  umesto opisa koji ste podesili u <em>opis</em> meta tag."
+"tag."
+msgstr ""
 
-#: amt-admin-panel.php:462
+#: amt-admin-panel.php:565
+msgid ""
+"If checked, <code>NOODP</code> and <code>NOYDIR</code> are added to the "
+"<em>robots</em> meta tag on the front page, content and attachments. This "
+"setting will prevent all search engines (at least those that support the "
+"meta tag) from displaying information from the <a "
+"href=\"http://www.dmoz.org/\">Open Directory Project</a> or the <a "
+"href=\"http://dir.yahoo.com/\">Yahoo Directory</a> instead of the "
+"description you set in the <em>description</em> meta tag."
+msgstr ""
+
+#: amt-admin-panel.php:568
 msgid ""
 "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following"
 " types of archives. This is an advanced setting that aims at reducing the "
 "amount of duplicate content that gets indexed by search engines:"
 msgstr "Dodaj<code>NOINDEX,FOLLOW</code> u <em>robots</em> meta tag na sledeće tipove arhive.Ovo je unapredjena postavka koja cilja na smanjivanje količine dupliranog sadržaja koji je indeksovan od strne pretraživača:"
 
-#: amt-admin-panel.php:467
+#: amt-admin-panel.php:572
 msgid "Search results. (<em>Highly recommended</em>)"
 msgstr "Rezultati pretrage. (<em>veoma preporučljivo</em>)"
 
-#: amt-admin-panel.php:473
+#: amt-admin-panel.php:577
 msgid "Date based archives. (<em>Recommended</em>)"
 msgstr "Arhive bazirane na podacima. (<em>Preporučeno</em>)"
 
-#: amt-admin-panel.php:479
+#: amt-admin-panel.php:582
 msgid "Category based archives."
 msgstr "Arhive bazirane na kategoriji."
 
-#: amt-admin-panel.php:479 amt-admin-panel.php:485 amt-admin-panel.php:491
-#: amt-admin-panel.php:497
+#: amt-admin-panel.php:582 amt-admin-panel.php:587 amt-admin-panel.php:592
+#: amt-admin-panel.php:597
 msgid ""
 "Even if checked, the first page of this type of archive is always indexed."
 msgstr ""
 
-#: amt-admin-panel.php:485
+#: amt-admin-panel.php:587
 msgid "Tag based archives."
 msgstr "Arhive bazirane na tagu."
 
-#: amt-admin-panel.php:491
+#: amt-admin-panel.php:592
 msgid "Custom taxonomy based archives."
 msgstr ""
 
-#: amt-admin-panel.php:497
+#: amt-admin-panel.php:597
 msgid "Author based archives."
 msgstr "Arhive bazirane na autoru."
 
-#: amt-admin-panel.php:506 amt-admin-panel.php:509
+#: amt-admin-panel.php:606 amt-admin-panel.php:609
+msgid "Locale"
+msgstr ""
+
+#: amt-admin-panel.php:614
+msgid ""
+"Enter a locale which will be used globally in the generated metadata "
+"overriding the default locale as returned by WordPress. Filling in this "
+"setting is only recommended if WordPress does not return a locale in the "
+"form of <code>language_TERRITORY</code>. This feature should not be used in "
+"conjunction with a multilingual plugin in order to avoid the potential "
+"generation of meta tags with invalid locale."
+msgstr ""
+
+#: amt-admin-panel.php:620
+msgid ""
+"Automatically set the HTML document's <code>lang</code> attribute according "
+"to the locale of the content."
+msgstr ""
+
+#: amt-admin-panel.php:621
+msgid ""
+"By enabling this feature, Add-Meta-Tags will automatically set the HTML "
+"document's <code>lang</code> attribute according to the content's locale. "
+"This feature should not be used in conjunction with a multilingual plugin in"
+" order to avoid the potential generation of an invalid <code>lang</code> "
+"attribute."
+msgstr ""
+
+#: amt-admin-panel.php:625
+msgid ""
+"Enable the generation of a <code>link</code> element with the "
+"<code>hreflang</code> attribute."
+msgstr ""
+
+#: amt-admin-panel.php:626
+msgid ""
+"If this feature is enabled, an HTML <code>link</code> element containing the"
+" proper hreflang attribute is added to the head section of the HTML page. "
+"The value of the hreflang attribute is determined by the locale of the "
+"content. This feature should not be used in conjunction with a multilingual "
+"plugin in order to avoid the potential generation of invalid hreflang links."
+msgstr ""
+
+#: amt-admin-panel.php:630
+msgid "Strip region code from the hreflang attribute."
+msgstr ""
+
+#: amt-admin-panel.php:631
+msgid ""
+"By default, Add-Meta-Tags uses the locale, which is usually required to be "
+"set in the form <code>language_TERRITORY</code> so as to comply with the "
+"various metadata specifications, as the value of the hreflang attribute. "
+"However, Google and possibly other services might interpret the regional "
+"information of the hreflang attribute as region targeting. If your content "
+"is not targeted to users in a specific region, it might be a good idea to "
+"strip regional information from this attribute by enabling this option."
+msgstr ""
+
+#: amt-admin-panel.php:632
+msgid ""
+"For instance, if your locale is <code>en_US</code>, by enabling this option "
+"you force the hreflang attribute to be <code>en</code>. In the same way, if "
+"the locale is in the form <code>language_Script_TERRITORY</code>, for "
+"example <code>zh_Hans_TW</code>, by enabling this option the hreflang "
+"attribute becomes <code>zh-Hans</code>."
+msgstr ""
+
+#: amt-admin-panel.php:640 amt-admin-panel.php:643
+msgid "Secure Access"
+msgstr ""
+
+#: amt-admin-panel.php:646
+msgid "Media are accessible over HTTPS."
+msgstr ""
+
+#: amt-admin-panel.php:647
+msgid ""
+"Currently this option, if enabled, lets the plugin make decisions about "
+"whether to generate additional secure links even if the active connection "
+"does not use HTTPS. For instance, if the web site is accessed over HTTP and "
+"this options is enabled, additional <code>og:image:secure_url</code> meta "
+"tags will be generated for your local media. If the current connection uses "
+"HTTPS, then secure links are always generated."
+msgstr ""
+
+#: amt-admin-panel.php:654 amt-admin-panel.php:657
 msgid "Copyright URL"
 msgstr "Copyright URL"
 
-#: amt-admin-panel.php:513
+#: amt-admin-panel.php:662
 msgid ""
 "Enter an absolute URL to a document containing copyright and licensing "
 "information about your work. If this URL is set, the relevant meta tags will"
 " be added automatically on all the pages of your web site."
 msgstr "Unesite URL na dokument koji sadrži  copyright i linformacije o licenci o vašem radu. Ako je ovaj URLnamešten,  relevantni meta tagovi će biti automatski dodati na svim stranicama vašeg sajta.  "
 
-#: amt-admin-panel.php:523 amt-admin-panel.php:526
+#: amt-admin-panel.php:671 amt-admin-panel.php:674
 msgid "Default Image"
 msgstr "Defaultslika"
 
-#: amt-admin-panel.php:530
+#: amt-admin-panel.php:679
 msgid ""
 "Enter an absolute URL to an image that represents your website, for instance"
 " the logo. This image will be used in the metadata of the front page and "
@@ -482,48 +744,78 @@ msgid ""
 "images have been attached or embedded."
 msgstr "Unesite URL na sliku koja predstavlja vaš sajt, npr. logo. Ova slika će se iskoristiti u metadata prednje stranice kao i u metadata sadržaja, u slučaju se da trenutna slika ili druge slike attach-uju ili unesu."
 
-#: amt-admin-panel.php:540 amt-admin-panel.php:543
+#: amt-admin-panel.php:688 amt-admin-panel.php:691
+msgid "Extended Metadata Support"
+msgstr ""
+
+#: amt-admin-panel.php:693
+msgid ""
+"Add-Meta-Tags supports the generation of metadata for products and other "
+"post types. Please enable any of the following generators of extended "
+"metadata."
+msgstr ""
+
+#: amt-admin-panel.php:697
+msgid "Metadata for WooCommerce products and product groups."
+msgstr ""
+
+#: amt-admin-panel.php:702
+msgid "Metadata for Easy-Digital-Downloads products and product groups."
+msgstr ""
+
+#: amt-admin-panel.php:705
+msgid ""
+"Please note that if none of the supported products or other supported post "
+"types can be detected, the above settings do not affect the plugin's normal "
+"functionality."
+msgstr ""
+
+#: amt-admin-panel.php:713 amt-admin-panel.php:716
 msgid "Review Mode"
 msgstr "Režim za pregled"
 
-#: amt-admin-panel.php:547
-msgid ""
-"Enable <em>Metadata Review Mode</em>. When enabled, WordPress users with "
-"administrator privileges see a box (right above the post's content) "
-"containing the metadata exactly as it is added in the HTML head and body. "
-"The box is displayed for posts, pages, attachments and custom post types."
+#: amt-admin-panel.php:719
+msgid "Enable <em>Metadata Review Mode</em>."
 msgstr ""
 
-#: amt-admin-panel.php:555 amt-admin-panel.php:558
+#: amt-admin-panel.php:720
+msgid ""
+"If enabled, WordPress users with administrator privileges see a box (right "
+"above the post's content) containing the metadata exactly as it is added in "
+"the HTML head and body. The box is displayed for posts, pages, attachments "
+"and custom post types."
+msgstr ""
+
+#: amt-admin-panel.php:727 amt-admin-panel.php:730
 msgid "Donations"
 msgstr "Donacije"
 
-#: amt-admin-panel.php:562
+#: amt-admin-panel.php:733
 #, php-format
 msgid ""
-"By checking this, the <em>message from the author</em> above goes away. "
-"Thanks for <a href=\"%s\">donating</a>!"
-msgstr "Čekiranjem ovoga,  <em> poruka od autora </em> iznad nestaje. Hvala vanm na<a href=\"%s\">donating</a>!"
+"If checked, the <em>message from the author</em> above goes away. Thanks for"
+" <a href=\"%s\">donating</a>!"
+msgstr ""
 
-#: amt-admin-panel.php:573
-msgid "Save changes"
-msgstr "Sačuvaj promene"
+#: amt-admin-panel.php:747
+msgid "Save Changes"
+msgstr ""
 
-#: amt-admin-panel.php:574
+#: amt-admin-panel.php:750
 msgid "Reset to defaults"
 msgstr "Restuj na default"
 
-#: amt-admin-panel.php:733
+#: amt-admin-panel.php:913
 msgid "Description"
 msgstr "Opis"
 
-#: amt-admin-panel.php:736
+#: amt-admin-panel.php:916
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "Unesite custom opis 30-50 reči (bazirano na prosečnoj dužini reči od 5 karaktera)"
 
-#: amt-admin-panel.php:743
+#: amt-admin-panel.php:923
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -531,51 +823,53 @@ msgid ""
 "content."
 msgstr "Ako je <em>description</em>  polje ostavljeno prazno,  <em>description</em> meta tag će <strong>automatski</strong> generisati iz excerpta ako excerpt još uvek nije namešten, direktno iz prvog paragrafa sadržaja."
 
-#: amt-admin-panel.php:749 amt-admin-panel.php:755
+#: amt-admin-panel.php:929 amt-admin-panel.php:935
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "Ako je <em>description</em>  polje ostavljeno prazno,  <em>description</em> meta tag će <strong>automatski</strong>  generisati iz prvog paragrafa sadržaja."
 
-#: amt-admin-panel.php:775
+#: amt-admin-panel.php:955
 msgid "Keywords"
 msgstr "Keywords"
 
-#: amt-admin-panel.php:778
+#: amt-admin-panel.php:958
 msgid "Enter keywords separated with commas."
 msgstr "Unesite keywords odvojene zarezima."
 
-#: amt-admin-panel.php:785
+#: amt-admin-panel.php:965
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
-"will be <strong>automatically</strong> generated from the post's categories "
-"and tags. In case you decide to set a custom list of keywords for this post,"
-" it is possible to easily include the post's categories, tags and custom "
-"taxonomy terms in that list by using the special placeholders "
-"<code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> "
-"respectively."
+"will be <strong>automatically</strong> generated from the post's categories,"
+" tags, custom taxonomy terms and from the global keywords, if any such "
+"global keywords have been set in the plugin settings. In case you decide to "
+"set a custom list of keywords for this post, it is possible to easily "
+"include the post's categories, tags and custom taxonomy terms in that list "
+"by using the special placeholders <code>%cats%</code>, <code>%tags%</code> "
+"and <code>%terms%</code> respectively."
 msgstr ""
 
-#: amt-admin-panel.php:793 amt-admin-panel.php:799
+#: amt-admin-panel.php:973 amt-admin-panel.php:979
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
-"<strong>will not be automatically</strong> generated."
-msgstr "Ako je <em>keywords</em> polje ostavljeno prazno, <em>keywords</em> meta tag <strong>neće biti automatski</strong> generisan."
+"will only be automatically generated from global keywords, if any such "
+"global keywords have been set in the plugin settings."
+msgstr ""
 
-#: amt-admin-panel.php:820
+#: amt-admin-panel.php:1000
 msgid "Title"
 msgstr "Naslov"
 
-#: amt-admin-panel.php:823
+#: amt-admin-panel.php:1003
 msgid "Enter a custom title to be used in the <em>title</em> tag."
 msgstr ""
 
-#: amt-admin-panel.php:841
+#: amt-admin-panel.php:1021
 msgid "News Keywords"
 msgstr "News Keywords"
 
-#: amt-admin-panel.php:844
+#: amt-admin-panel.php:1024
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -583,11 +877,11 @@ msgid ""
 " help page</a>."
 msgstr "Unesite listu podeljenu zarezima <strong>news keywords</strong>. Za više informacija o meta tag-u, molimo vas pogledjte<a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\"> Google stranicu za pomoć</a>."
 
-#: amt-admin-panel.php:862
+#: amt-admin-panel.php:1042
 msgid "Full meta tags"
 msgstr "Celi meta tagovi"
 
-#: amt-admin-panel.php:865
+#: amt-admin-panel.php:1045
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -595,23 +889,57 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Omogućite ceo XHTML kod za ekstra META elemente koje biste želeli da dodate na ovaj sadržaj (pročitaj vipe o ovome<a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML element</a> on Wikipedia)."
 
-#: amt-admin-panel.php:868
+#: amt-admin-panel.php:1048
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Npr da biste sprečili DA cached kopijA ovog sadržaja bude dostupna u rezultatima pretraživača, možete da dodate sledeći metatag:"
 
-#: amt-admin-panel.php:873
+#: amt-admin-panel.php:1053
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Važna beleška: iz bezbednosnih razloga samo <code>meta</code> elementi su dozvoljeni u ovom kvadratu. Svi ostali HTML elementi su automatski uklonjeni."
 
-#: amt-admin-panel.php:891
+#: amt-admin-panel.php:1071
+msgid "Image URL"
+msgstr ""
+
+#: amt-admin-panel.php:1074
+msgid "Enter an image URL to override all media related meta tags."
+msgstr ""
+
+#: amt-admin-panel.php:1092
+msgid "Content locale"
+msgstr ""
+
+#: amt-admin-panel.php:1095
+msgid ""
+"Override the default locale setting by entering a custom locale for this "
+"content in the form <code>language_TERRITORY</code>, for example: "
+"<code>en_US</code>."
+msgstr ""
+
+#: amt-admin-panel.php:1113
+msgid "Express review"
+msgstr ""
+
+#: amt-admin-panel.php:1116
+msgid ""
+"This field accepts special notation of review related information. If this "
+"info is provided in the correct form, then Add-Meta-Tags treats your content"
+" as being a review of an item and generates proper Schema.org metadata. This"
+" field must contain a <code>__</code> (double underscore) delimited list of "
+"the following information (all in one line): a rating, the name of a valid "
+"schema.org <a href=\"http://schema.org/Thing\">Thing</a> derivative object, "
+"a title, and a URL. For instance:"
+msgstr ""
+
+#: amt-admin-panel.php:1135
 msgid "URLs of referenced items"
 msgstr ""
 
-#: amt-admin-panel.php:894
+#: amt-admin-panel.php:1138
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "
@@ -622,40 +950,49 @@ msgid ""
 " generated."
 msgstr ""
 
-#: amt-admin-panel.php:904
-msgid ""
-"No features have been enabled for this metabox in the Add-Meta-Tags plugin "
-"<a href=\""
-msgstr ""
-
-#: amt-settings.php:254
+#: amt-settings.php:311
 msgid "Add-Meta-Tags options saved"
 msgstr "Dodaj-Meta-Tags opcije sačuvane"
 
-#: amt-settings.php:267
+#: amt-settings.php:324
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Dodaj-Meta-Tags options were reset to defaults"
 
-#: metadata\amt_opengraph.php:61
+#: metadata\amt_basic.php:247 metadata\amt_opengraph.php:292
+#: metadata\amt_twitter_cards.php:156
+#, php-format
+msgid "Content filed under the %s category."
+msgstr ""
+
+#: metadata\amt_basic.php:274 metadata\amt_opengraph.php:294
+#: metadata\amt_twitter_cards.php:158
+#, php-format
+msgid "Content tagged with %s."
+msgstr ""
+
+#: metadata\amt_basic.php:311 metadata\amt_opengraph.php:300
+#: metadata\amt_twitter_cards.php:164
+#, php-format
+msgid "Content filed under the %s taxonomy."
+msgstr ""
+
+#: metadata\amt_basic.php:351
+#, php-format
+msgid "Content published by %s."
+msgstr ""
+
+#: metadata\amt_opengraph.php:65
 msgid "Facebook author profile URL"
 msgstr "Facebook URL profila autora"
 
-#: metadata\amt_opengraph.php:65
-msgid "Facebook publisher profile URL"
-msgstr "Facebook URL profila izdavača"
-
-#: metadata\amt_schemaorg.php:63
+#: metadata\amt_schemaorg.php:64
 msgid "Google+ author profile URL"
 msgstr "Google+ URL profila autora"
 
-#: metadata\amt_schemaorg.php:67
+#: metadata\amt_schemaorg.php:71
 msgid "Google+ publisher page URL"
 msgstr "Google+ URL stranice izdavača"
 
-#: metadata\amt_twitter_cards.php:61
+#: metadata\amt_twitter_cards.php:62
 msgid "Twitter author username"
-msgstr "Twitter korisničko ime autora"
-
-#: metadata\amt_twitter_cards.php:65
-msgid "Twitter publisher username"
 msgstr "Twitter korisničko ime autora"
