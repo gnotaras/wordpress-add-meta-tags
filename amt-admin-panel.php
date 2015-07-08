@@ -1000,7 +1000,7 @@ function amt_inner_metadata_box( $post ) {
                 <label for="amt_custom_title"><strong>'.__('Title', 'add-meta-tags').'</strong>:</label>
                 <input type="text" class="code" style="width: 99%" id="amt_custom_title" name="amt_custom_title" value="' . esc_attr( stripslashes( $custom_title_value ) ) . '" />
                 <br>
-                '.__('Enter a custom title to be used in the <em>title</em> tag.', 'add-meta-tags').'
+                '.__('Enter a custom title to be used in the <em>title</em> HTML element of the page.', 'add-meta-tags').'
             </p>
         ');
 
