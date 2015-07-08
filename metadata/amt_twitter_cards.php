@@ -87,7 +87,8 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
     $metadata_arr = array();
 
-    if ( ! is_singular() || is_front_page() || is_category() || is_tag() || is_tax() ) {
+    if ( (! is_singular() && ! amt_is_static_home() && ! amt_is_static_front_page())
+                || amt_is_default_front_page() || is_category() || is_tag() || is_tax() ) {
     // Note1: is_front_page() is used for the case in which a static page is used as the front page.
     // Note2: product groups should pass the is_tax() validation, so no need for
     // amt_is_product_group(). We do not support other product groups.
