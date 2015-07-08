@@ -269,7 +269,7 @@ Note: Since v2.8.9, a WPML language configuration file ships with Add-Meta-Tags 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
 - [2.8.14](http://www.codetrax.org/versions/295)
- - A copyright link that points to the homepage is no longer generated automatically, but manually entering a URL in the relevant field in the settings is required.
+ - A copyright link element in the `head` section that points to the homepage is no longer generated automatically, but manually entering a URL in the relevant field in the settings is required.
  - Added a notice about the experimental nature of the schema.org metadata generator, so as to prevent users from considering it as a replacement for schema.org enhanced themes.
 - [2.8.13](http://www.codetrax.org/versions/294)
  - Fixed issue with metabox feature checks. (props to Juan Sandro for reporting the issue.)
