@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail, multilingual, multilanguage, hreflang
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.14
+Stable tag: 2.8.15
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -268,6 +268,10 @@ Note: Since v2.8.9, a WPML language configuration file ships with Add-Meta-Tags 
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.15](http://www.codetrax.org/versions/296)
+ - Fixed issue: Twitter Cards not generated on static front page. (props to Jeff McNeill and codyleach for useful feedback.)
+ - Fixed a PHP warning due to incomplete array key check. (props to icryptic for useful feedback.)
+ - Updated translations.
 - [2.8.14](http://www.codetrax.org/versions/295)
  - A copyright link that points to the homepage is no longer generated automatically, but manually entering a URL in the relevant field in the settings is required.
  - Added a notice about the experimental nature of the schema.org metadata generator, so as to prevent users from considering it as a replacement for schema.org enhanced themes.
