@@ -1708,6 +1708,10 @@ function amt_make_https( $url ) {
 }
 
 
+function amt_return_true() {
+    return true;
+}
+
 function amt_return_false() {
     return false;
 }
