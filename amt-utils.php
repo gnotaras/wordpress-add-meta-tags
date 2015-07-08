@@ -1797,7 +1797,7 @@ function amt_get_default_twitter_card_type($options) {
 // programmatically, for instance in multilingual web sites.
 function amt_get_site_description($options) {
     $output = '';
-    if ( array_key_exists('site_description', $options) ) {
+    if ( is_array($options) && array_key_exists('site_description', $options) ) {
         $output = $options['site_description'];
     }
     // Allow filtering
@@ -1812,7 +1812,7 @@ function amt_get_site_description($options) {
 // programmatically, for instance in multilingual web sites.
 function amt_get_site_keywords($options) {
     $output = '';
-    if ( array_key_exists('site_keywords', $options) ) {
+    if ( is_array($options) && array_key_exists('site_keywords', $options) ) {
         $output = $options['site_keywords'];
     }
     // Allow filtering
@@ -1827,7 +1827,7 @@ function amt_get_site_keywords($options) {
 // programmatically, for instance in multilingual web sites.
 function amt_get_site_global_keywords($options) {
     $output = '';
-    if ( array_key_exists('global_keywords', $options) ) {
+    if ( is_array($options) && array_key_exists('global_keywords', $options) ) {
         $output = $options['global_keywords'];
     }
     // Allow filtering
@@ -1842,7 +1842,7 @@ function amt_get_site_global_keywords($options) {
 // programmatically, for instance in multilingual web sites.
 function amt_get_site_copyright_url($options) {
     $output = '';
-    if ( array_key_exists('copyright_url', $options) ) {
+    if ( is_array($options) && array_key_exists('copyright_url', $options) ) {
         $output = $options['copyright_url'];
     }
     // Allow filtering
