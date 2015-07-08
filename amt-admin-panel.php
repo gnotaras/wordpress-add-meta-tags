@@ -84,7 +84,10 @@ add_action( 'admin_init', 'amt_admin_init' );
 
 function amt_admin_menu() {
     /* Register our plugin page */
-    add_options_page( __('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page' );
+    $amt_options_page = add_options_page( __('Metadata Settings', 'add-meta-tags'), __('Metadata', 'add-meta-tags'), 'manage_options', 'add-meta-tags-options', 'amt_options_page' );
+
+    // Add help tabs when the Add-Meta-Tags admin page loads
+    add_action( 'load-' . $amt_options_page, 'amt_admin_help_tabs' );
 }
 add_action( 'admin_menu', 'amt_admin_menu');
 
@@ -105,6 +108,311 @@ add_action( 'admin_enqueue_scripts', 'amt_enqueue_admin_scripts_and_styles' );
 // Note: `admin_print_styles` should not be used to enqueue styles or scripts on the admin pages. Use `admin_enqueue_scripts` instead. 
 
 
+/**
+ * Function that adds the help tabs for the options.
+ */
+function amt_admin_help_tabs() {
+    // Get current screen
+    $screen = get_current_screen();
+
+    // Starting
+    $help_text = '
+    <p>'.__('Welcome to the Add-Meta-Tags Documentation.', 'add-meta-tags').'</p>
+
+    <p>'.__('This help system contains detailed information about the available configuration settings. The documentation is divided into sections. Each section contains information about the relevant configuration options.', 'add-meta-tags').'</p>
+
+    <p>'.__('Select the <strong>Introduction</strong> section for more information about what metadata is and how Add-Meta-Tags works.', 'add-meta-tags').'</p>
+
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_starting',
+        'title'	=> __('Starting'),
+        'content'	=> $help_text,
+    ) );
+
+    // Introduction
+    $help_text = '
+    <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
+
+    <h2>'.__('How it works', 'add-meta-tags').'</h2>
+        
+    <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to the front page, posts, pages, public custom post types, attachment pages, category, tag, custom taxonomy and author based archives. Furthermore, it is possible to enable the generation of <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The plugin also supports some extra SEO related functionality that helps you fine tune your web site.', 'add-meta-tags').'</p>
+    
+    <p>'.__('The automatically generated metadata can be further customized for each individual post, page, or any public custom post type directly from the <em>Metadata</em> box inside the post editing panel. If the <em>Metadata</em> box is not visible, you probably need to enable it at the <a href="http://en.support.wordpress.com/screen-options/">Screen Options</a> of the post editing panel.', 'add-meta-tags').'</p>
+
+    <p>'.__('Apart from the customization through the WordPress administration interface, the generated metadata and specific aspects of the plugin\'s functionality can be further customized to a great extent programmatically. Read the technical notes at the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki" title="Add-Meta-Tags Development web site">development web site</a> and find ready sample code snippets for commonly needed customizations in the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook" title="Add-Meta-Tags Cookbook">Add-Meta-Tags Cookbook</a>.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_introduction',
+        'title'	=> __('Introduction'),
+        'content'	=> $help_text,
+    ) );
+
+    // General Settings
+    $help_text = '
+
+    <h3>'.__('Front Page Description', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> and other similar metatags on the <strong>front page</strong>. If this is left empty, then the blog\'s <em>Tagline</em> from the <a href="options-general.php">General Options</a> will be used.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Front Page Keywords', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code></p>
+
+    <h3>'.__('Global Keywords', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enter a comma-delimited list of global keywords which will be added before the keywords of <strong>all</strong> posts and pages.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code></p>
+    <p>'.__('By default, these keywords are prepended to the post/page\'s keywords. For enhanced flexibility, it is possible to use the <code>%contentkw%</code> placeholder, which will be populated with the post/page\'s autogenerated or user-defined keywords. This way you can globally both prepend and append keywords to the <em>keywords</em> of your content.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, %contentkw%, keyword3', 'add-meta-tags').'</code></p>
+
+    <h3>'.__('Site-wide META tags', 'add-meta-tags').'</h3>
+
+    <p>'.__('Provide the full XHTML code of extra META elements you would like to add to all the pages of your web site (read more about the <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">META HTML element</a> on Wikipedia).', 'add-meta-tags').'</p>
+    <p><strong>'.__('Examples', 'add-meta-tags').'</strong>:</p>
+    <p><code>&lt;meta name="google-site-verification" content="1234567890" /&gt;</code></p>
+    <p><code>&lt;meta name="msvalidate.01" content="1234567890" /&gt;</code></p>
+    <p><code>&lt;meta name="robots" content="noimageindex" /&gt;</code></p>
+    <p><code>&lt;meta property="fb:admins" content="1234" /&gt;</code></p>
+    <p><code>&lt;meta property="fb:app_id" content="4321" /&gt;</code></p>
+
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_general',
+        'title'	=> __('General settings'),
+        'content'	=> $help_text,
+    ) );
+
+    // Publisher Settings
+    $help_text = '
+    <p>'.__('This section contains options related to your web site; the publisher of the content.', 'add-meta-tags').'</p>
+    <p>'.__('The following publisher related settings are shared among all users. Filling in these settings is entirely optional.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Facebook publisher profile URL', 'add-meta-tags').':</h3>
+
+    <p>'.__('Enter an absolute URL to the Facebook profile of the publisher. If this is filled in, it will be used in the <code>article:publisher</code> meta tag.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>https://www.facebook.com/awesome.editors</code></p>
+
+    <h3>'.__('Google+ publisher profile URL', 'add-meta-tags').':</h3>
+
+    <p>'.__('Enter an absolute URL to the Google+ profile of the publisher. If this is filled in, it will be used in the link with <code>rel="publisher"</code> in the HEAD area of the web page.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>https://plus.google.com/+AwesomeEditors/</code></p>
+
+    <h3>'.__('Twitter publisher username', 'add-meta-tags').':</h3>
+
+    <p>'.__('Enter the Twitter username of the publisher (without @).', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>AwesomeEditors</code></p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_publisher',
+        'title'	=> __('Publisher Settings'),
+        'content'	=> $help_text,
+    ) );
+
+    // Basic Meta Tags
+    // Open Graph Generator
+    $help_text = '
+    <h3>'.__('Automatically generate the <em>description</em> meta tag.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this option is enabled, the <em>description</em> meta tag is automatically generated for the content, attachments and archives. Customization of the <em>description</em> meta tag is possible through the <em>Metadata</em> box in the post editing screen.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Automatically generate the <em>keywords</em> meta tag.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this option is enabled, the <em>keywords</em> meta tag is automatically generated for the content and archives. Keywords are not generated automatically on pages and attachments. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the post editing screen.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metadata_basic',
+        'title'	=> __('Basic meta tags'),
+        'content'	=> $help_text,
+    ) );
+
+    // Open Graph Generator
+    $help_text = '
+    <h3>'.__('Automatically generate Opengraph meta tags.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this option is enabled, Opengraph metadata is automatically generated for content, attachments and archives. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Omit <code>og:video</code> meta tags.', 'add-meta-tags').'</h3>
+
+    <p>'.__('When a post containing a video is shared on Facebook, Facebook uses its own player to embed the video in the timeline. If this setting is enabled, <code>og:video</code> meta tags are no longer generated and Facebook, instead of embedding your video, links to your actual video post.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Important Note', 'add-meta-tags').'</h3>
+
+    <p>'.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above. For example:', 'add-meta-tags').'</p>
+    <blockquote>Facebook author profile URL (AMT): <code>https://www.facebook.com/john.smith</code></blockquote>
+    <blockquote>Facebook publisher profile URL (AMT): <code>https://www.facebook.com/awesome.editors</code></blockquote>
+    <p>'.__('It is possible to control the value of the <code>og:type</code> meta tag either by changing the post format or programmatically via a filter. By default, the <code>og:type</code> is set to <code>article</code> for all content, except for video attachment pages and posts whose post format has been set to <code>video</code>, on which <code>og:type</code> is set to <code>video.other</code>.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metadata_opengraph',
+        'title'	=> __('Opengraph'),
+        'content'	=> $help_text,
+    ) );
+
+    // Twitter Cards Generator
+    $help_text = '
+    <h3>'.__('Automatically generate Twitter Cards meta tags.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this option is enabled, Twitter Cards metadata is automatically generated for content and attachments. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Enforce the use of <code>summary_large_image</code> as default card type.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this setting is enabled, <code>summary_large_image</code> will be used as the default Twitter Card type instead of the <code>summary</code> card type.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Enable the generation of <em>player</em> cards for local media.', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enable the generation of <em>player</em> cards for locally hosted audio and video attachments or for posts with their post format set to audio or video. In the latter case, an audio or video is expected to be attached to the post respectively. A mandatory requirement for this feature, as outlined in the Twitter Cards specifications, is secure access to your web site over the HTTPS protocol. If secure access to your web site has not been configured properly, the player cards will not be rendered by the Twitter service. Moreover, using self-signed certificates could cause problems which might be hard to identify. This feature should be considered experimental.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Important Notes', 'add-meta-tags').'</h3>
+
+    <p>'.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>. Filling in the publisher username is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
+    <blockquote>Twitter author username (AMT): <code>JohnSmith</code></blockquote>
+    <blockquote>Twitter publisher username (AMT): <code>AwesomeEditors</code></blockquote>
+
+    <p>'.__('By default, a Twitter Card of type <em>summary</em> is generated for your content. If your theme supports <a href="http://codex.wordpress.org/Post_Formats">post formats</a>, then it is possible to generate Twitter Cards of various types according to the specified post format. More specifically:', 'add-meta-tags').'</p>
+    <blockquote>A <code>summary</code> card is generated for posts with one of the <code>standard</code>, <code>aside</code>, <code>link</code>, <code>quote</code>, <code>status</code> and <code>chat</code> formats.</blockquote>
+    <blockquote>A <code>summary_large_image</code> card is generated for posts with the <code>image</code> format. An image is expected to be attached or embedded to the post.</blockquote>
+    <blockquote>A <code>gallery</code> card is generated for posts with the <code>gallery</code> format. At least one image is expected to be attached or embedded to the post.</blockquote>
+    <blockquote>A <code>photo</code> card is generated for image attachment pages.</blockquote>
+    <blockquote>A <code>player</code> card is generated for posts with the <code>audio</code> or <code>video</code> format and for audio or video attachment pages. Regarding posts, an audio or video is expected to be attached or embedded to the post.</blockquote>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metadata_twitter_cards',
+        'title'	=> __('Twitter Cards'),
+        'content'	=> $help_text,
+    ) );
+
+    // Dublin Core Generator
+    $help_text = '
+        <h3>'.__('Automatically generate Dublin Core metadata.', 'add-meta-tags').'</h3>
+
+        <p>'.__('If this option is enabled, Dublin Core metadata is automatically generated for your content and attachments. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metadata_dublin_core',
+        'title'	=> __('Dublin Core'),
+        'content'	=> $help_text,
+    ) );
+
+    // Schema.org Generator
+    $help_text = '
+    <h3>'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</h3>
+    
+    <p>'.__('Automatically generate Schema.org Microdata and embed it to your content. This feature embeds <code>meta</code> elements inside the body of the web page. This is compatible with the HTML 5 standard, so, before enabling it, make sure your theme is HTML 5 ready. For information about Microdata please refer to <a href="http://schema.org">Schema.org</a>.', 'add-meta-tags').'</p>
+
+    <p>'.__('This metadata generator actually adds schema.org microdata around the post\'s content, because marking up the exact contents of the page in an automatic manner is technically impossible. Make no mistake, this is not the ideal way to insert microdata to your web pages. This generator should be considered as a workaround in case your theme lacks schema.org microdata markup in its templates and not as a replacement of schema.org enhanced themes.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Important Notes', 'add-meta-tags').'</h3>
+
+    <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
+    <blockquote>Google+ author profile URL (AMT): <code>https://plus.google.com/+JohnSmith/</code></blockquote>
+    <blockquote>Google+ publisher page URL (AMT): <code>https://plus.google.com/+AwesomeEditors/</code></blockquote>
+
+    <p>'.__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the attributes <code>rel="author"</code> and <code>rel="publisher"</code> are automatically added to the head area of the web page.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metadata_schemaorg',
+        'title'	=> __('Schema.org'),
+        'content'	=> $help_text,
+    ) );
+
+    // Locale
+    $help_text = '
+    <h3>'.__('Enter a locale which will be used globally.', 'add-meta-tags').'</h3>
+    <p>'.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of meta tags with invalid locale.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>en_US</code></p>
+
+    <h3>'.__('Automatically set the HTML document\'s <code>lang</code> attribute according to the locale of the content.', 'add-meta-tags').'</h3>
+
+    <p>'.__('By enabling this feature, Add-Meta-Tags will automatically set the HTML document\'s <code>lang</code> attribute according to the content\'s locale. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of an invalid <code>lang</code> attribute.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Enable the generation of a <code>link</code> element with the <code>hreflang</code> attribute.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this feature is enabled, an HTML <code>link</code> element containing the proper hreflang attribute is added to the head section of the HTML page. The value of the hreflang attribute is determined by the locale of the content. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of invalid hreflang links.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Strip region code from the hreflang attribute.', 'add-meta-tags').'</h3>
+
+    <p>'.__('By default, Add-Meta-Tags uses the locale, which is usually required to be set in the form <code>language_TERRITORY</code> so as to comply with the various metadata specifications, as the value of the hreflang attribute. However, Google and possibly other services might interpret the regional information of the hreflang attribute as region targeting. If your content is not targeted to users in a specific region, it might be a good idea to strip regional information from this attribute by enabling this option.', 'add-meta-tags').'</p>
+    <p>'.__('For instance, if your locale is <code>en_US</code>, by enabling this option you force the hreflang attribute to be <code>en</code>. In the same way, if the locale is in the form <code>language_Script_TERRITORY</code>, for example <code>zh_Hans_TW</code>, by enabling this option the hreflang attribute becomes <code>zh-Hans</code>.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_locale',
+        'title'	=> __('Locale'),
+        'content'	=> $help_text,
+    ) );
+
+    // Metabox features
+    $help_text = '
+    <p>'.__('It is possible to partially customize the generated metadata on a per post basis through the <em>Metadata</em> metabox which exists in the post editing screen. Below you can choose which metabox features should be enabled. Enabling or disabling these features has no effect on the custom data that has been stored for each post.', 'add-meta-tags').'</p>
+
+    <ul>
+    <li>'.__('Custom description (<em>Recommended</em>).', 'add-meta-tags').'</li>
+    <li>'.__('Custom keywords (<em>Recommended</em>).', 'add-meta-tags').'</li>
+    <li>'.__('Custom content of the <code>title</code> HTML element.', 'add-meta-tags').'</li>
+    <li>'.__('Custom news keywords. (<a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">more info</a>)', 'add-meta-tags').'</li>
+    <li>'.__('Full meta tags box.', 'add-meta-tags').'</li>
+    <li>'.__('Global image override.', 'add-meta-tags').'</li>
+    <li>'.__('Content locale override. (Not to be used in conjunction with a multilingual plugin.) ', 'add-meta-tags').'</li>
+    <li>'.__('Express review. (Experimental feature. For advanced users only.)', 'add-meta-tags').'</li>
+    <li>'.__('Referenced items. (Experimental feature. Not recommended.)', 'add-meta-tags').'</li>
+    </ul>
+    <p>'.__('The metabox feature selection above affects all users. Advanced customization of the availability of these features on a per user basis or depending upon each user\'s permissions, is possible through the <code>amt_metadata_metabox_permissions</code> filter.', 'add-meta-tags').'</p>
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metabox_features',
+        'title'	=> __('Metabox Features'),
+        'content'	=> $help_text,
+    ) );
+
+    // Extra Settings
+    $help_text = '
+    <p>'.__('This section contains information about the general Add-Meta-Tags settings.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If checked, <code>NOODP</code> and <code>NOYDIR</code> are added to the <em>robots</em> meta tag on the front page, content and attachments. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> or the <a href="http://dir.yahoo.com/">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives.', 'add-meta-tags').'</h2>
+
+    <p>'.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives: search results, date, tag, custom taxonomy, author archives. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines', 'add-meta-tags').'</p>
+
+    <h3>'.__('Copyright URL', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enter an absolute URL to a document containing copyright and licensing information about your work. If this URL is set, the relevant meta tags will be added automatically on all the pages of your web site.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/copyright.html</code></p>
+
+    <h3>'.__('Default Image', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded.', 'add-meta-tags').'</p>
+    <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/logo.png</code></p>
+
+    <h3>'.__('Secure Access', 'add-meta-tags').'</h3>
+
+    <p>'.__('Media are accessible over HTTPS.', 'add-meta-tags').'</p>
+
+    <p>'.__('Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Extended Metadata Support', 'add-meta-tags').'</h3>
+
+    <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
+
+    <ul>
+    <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)</li>
+    <li>'.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)</li>
+    </ul>
+    <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Review Mode', 'add-meta-tags').'</h3>
+
+    <p>'.__('If enabled, WordPress users with administrator privileges see a box (right above the post\'s content) containing the metadata exactly as it is added in the HTML head and body. The box is displayed for posts, pages, attachments and custom post types.', 'add-meta-tags').'</p>
+
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_extra',
+        'title'	=> __('Extra settings'),
+        'content'	=> $help_text,
+    ) );
+
+
+}
+
+
+/**
+ * Function that adds the help tabs for the options.
+ */
 function amt_options_page() {
     // Permission Check
     if ( !current_user_can( 'manage_options' ) )  {
@@ -140,23 +448,28 @@ function amt_options_page() {
     <div class="wrap">
         <div id="icon-options-general" class="icon32"><br /></div>
         <h2>'.__('Metadata Settings', 'add-meta-tags').'</h2>
+
         <p>'.__('Welcome to the administration panel of the Add-Meta-Tags plugin.', 'add-meta-tags').'</p>
-        <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
+
     </div>
 
     <div class="wrap amt-settings-notice">
 
-        <h3>'.__('Notice', 'add-meta-tags').'</h3>
+        <!-- <h3>'.__('Notice', 'add-meta-tags').'</h3> -->
 
-        <p>'.__('Press the <code>Help</code> button on the top right corner for an introduction to metadata and also for detailed documentation about the available settings and the metadata generators. All help texts and examples will gradually be moved to this integrated WordPress help system in order to reduce the size of the settings page and make it more user-friendly.', 'add-meta-tags').'</p>
+        <p>'.__('Press the <strong>Help</strong> button on the top right corner for an introduction to metadata and also for detailed documentation about the available settings and the metadata generators. All help texts will gradually be moved to this integrated WordPress help system in order to reduce the size of this page and make it more user-friendly.', 'add-meta-tags').'</p>
+
+        <p>'.__('Moreover, it is no longer possible to enter the URLs of the Publisher\'s social media profiles in the WordPress user profile page. Instead, this information should be entered in the relevant fields of the <strong>Publisher Settings</strong> section below.', 'add-meta-tags').'</p>
+
     </div>
 
     <div class="wrap amt-settings-donations-msg" style="' . (($options["i_have_donated"]=="1") ? 'display: none;' : '') . '">
 
         <h3>'.__('Message from the author', 'add-meta-tags').'</h3>
 
-        <p><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>Free software</strong>.</p>
-        <p>However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into developing this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
+        <p><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>Free software</strong>. It is actively maintained and supported free of charge since 2006.</p>
+
+        <p>However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into the development of this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
         <!--
         <p">Donations in BitCoin (BTC) are also accepted and welcome. Send the donated coin to the following address:</p>
         <ul>
@@ -168,28 +481,18 @@ function amt_options_page() {
     </div>
 
     <div class="wrap">
-        <h2>'.__('How it works', 'add-meta-tags').'</h2>
-        
-        <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to the front page, posts, pages, public custom post types, attachment pages, category, tag, custom taxonomy and author based archives. Furthermore, it is possible to enable the generation of <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The plugin also supports some extra SEO related functionality that helps you fine tune your web site.', 'add-meta-tags').'</p>
-        
-        <p>'.__('The automatically generated metadata can be further customized for each individual post, page, or any public custom post type directly from the <em>Metadata</em> box inside the post editing panel. If the <em>Metadata</em> box is not visible, you probably need to enable it at the <a href="http://en.support.wordpress.com/screen-options/">Screen Options</a> of the post editing panel.', 'add-meta-tags').'</p>
-
-        <p>'.__('Apart from the customization through the WordPress administration interface, the generated metadata and specific aspects of the plugin\'s functionality can be further customized to a great extent programmatically. Read the technical notes at the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki" title="Add-Meta-Tags Development web site">development web site</a> and find ready sample code snippets for commonly needed customizations in the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook" title="Add-Meta-Tags Cookbook">Add-Meta-Tags Cookbook</a>.', 'add-meta-tags').'</p>
-
-    </div>
-
-    <div class="wrap">
         <h2>'.__('Configuration', 'add-meta-tags').'</h2>
 
         <p>'.__('This section contains global configuration options for the metadata that is added to your web site.', 'add-meta-tags').'</p>
-
-        
 
         <form name="formamt" method="post" action="' . admin_url( 'options-general.php?page=add-meta-tags-options' ) . '">
 
         <table class="form-table">
         <tbody>
     ');
+
+
+    // General Settings
 
     if ( amt_has_page_on_front() ) {
 
@@ -315,6 +618,11 @@ function amt_options_page() {
             </td>
             </tr>
 
+    ');
+
+    // Publisher Settings
+
+    print('
             <tr valign="top">
             <th scope="row">'.__('Publisher Settings', 'add-meta-tags').'</th>
             <td>
@@ -381,7 +689,11 @@ function amt_options_page() {
             </fieldset>
             </td>
             </tr>
+    ');
 
+    // Basic Metadata
+
+    print('
             <tr valign="top">
             <th scope="row">'.__('Basic Metadata', 'add-meta-tags').'</th>
             <td>
@@ -390,12 +702,10 @@ function amt_options_page() {
 
                 <input id="auto_description" type="checkbox" value="1" name="auto_description" '. (($options["auto_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_description">'.__('Automatically generate the <em>description</em> meta tag.', 'add-meta-tags').'</label>
-                <p>'.__('If this option is enabled, the <em>description</em> meta tag is automatically generated for the content, attachments and archives. Customization of the <em>description</em> meta tag is possible through the <em>Metadata</em> box in the post editing screen.', 'add-meta-tags').'</p>
                 <br />
 
                 <input id="auto_keywords" type="checkbox" value="1" name="auto_keywords" '. (($options["auto_keywords"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_keywords">'.__('Automatically generate the <em>keywords</em> meta tag.', 'add-meta-tags').'</label>
-                <p>'.__('If this option is enabled, the <em>keywords</em> meta tag is automatically generated for the content and archives. Keywords are not generated automatically on pages and attachments. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the post editing screen.', 'add-meta-tags').'</p>
                 <br />
 
             </fieldset>
@@ -410,20 +720,12 @@ function amt_options_page() {
 
                 <input id="auto_opengraph" type="checkbox" value="1" name="auto_opengraph" '. (($options["auto_opengraph"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_opengraph">'.__('Automatically generate Opengraph meta tags.', 'add-meta-tags').'</label>
-                <p>'.__('If this option is enabled, Opengraph metadata is automatically generated for content, attachments and archives. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'</p>
                 <br />
 
                 <input id="og_omit_video_metadata" type="checkbox" value="1" name="og_omit_video_metadata" '. (($options["og_omit_video_metadata"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="og_omit_video_metadata">'.__('Omit <code>og:video</code> meta tags.', 'add-meta-tags').'</label>
-                <p>'.__('When a post containing a video is shared on Facebook, Facebook uses its own player to embed the video in the timeline. If this setting is enabled, <code>og:video</code> meta tags are no longer generated and Facebook, instead of embedding your video, links to your actual video post.', 'add-meta-tags').'</p>
                 <br />
 
-                <h4>'.__('Important Note', 'add-meta-tags').'</h4>
-
-                <p>'.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above. For example:', 'add-meta-tags').'</p>
-                <blockquote>Facebook author profile URL (AMT): <code>https://www.facebook.com/john.smith</code></blockquote>
-                <blockquote>Facebook publisher profile URL (AMT): <code>https://www.facebook.com/awesome.editors</code></blockquote>
-                <p>'.__('It is possible to control the value of the <code>og:type</code> meta tag either by changing the post format or programmatically via a filter. By default, the <code>og:type</code> is set to <code>article</code> for all content, except for video attachment pages and posts whose post format has been set to <code>video</code>, on which <code>og:type</code> is set to <code>video.other</code>.', 'add-meta-tags').'</p>
             </fieldset>
             </td>
             </tr>
@@ -436,30 +738,16 @@ function amt_options_page() {
 
                 <input id="auto_twitter" type="checkbox" value="1" name="auto_twitter" '. (($options["auto_twitter"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_twitter">'.__('Automatically generate Twitter Cards meta tags.', 'add-meta-tags').'</label>
-                <p>'.__('If this option is enabled, Twitter Cards metadata is automatically generated for content and attachments. For more information, please refer to the <a href="https://dev.twitter.com/docs/cards">Twitter Cards specification</a>.', 'add-meta-tags').'</p>
                 <br />
 
                 <input id="tc_enforce_summary_large_image" type="checkbox" value="1" name="tc_enforce_summary_large_image" '. (($options["tc_enforce_summary_large_image"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="tc_enforce_summary_large_image">'.__('Enforce the use of <code>summary_large_image</code> as default card type.', 'add-meta-tags').'</label>
-                <p>'.__('If this setting is enabled, <code>summary_large_image</code> will be used as the default Twitter Card type instead of the <code>summary</code> card type.', 'add-meta-tags').'</p>
                 <br />
 
                 <input id="tc_enable_player_card_local" type="checkbox" value="1" name="tc_enable_player_card_local" '. (($options["tc_enable_player_card_local"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="tc_enable_player_card_local">'.__('Enable the generation of <em>player</em> cards for local media.', 'add-meta-tags').'</label>
-                <p>'.__('Enable the generation of <em>player</em> cards for locally hosted audio and video attachments or for posts with their post format set to audio or video. In the latter case, an audio or video is expected to be attached to the post respectively. A mandatory requirement for this feature, as outlined in the Twitter Cards specifications, is secure access to your web site over the HTTPS protocol. If secure access to your web site has not been configured properly, the player cards will not be rendered by the Twitter service. Moreover, using self-signed certificates could cause problems which might be hard to identify. This feature should be considered experimental.', 'add-meta-tags').'</p>
+                <br />
 
-                <h4>'.__('Important Notes', 'add-meta-tags').'</h4>
-
-                <p>'.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>. Filling in the publisher username is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
-                <blockquote>Twitter author username (AMT): <code>JohnSmith</code></blockquote>
-                <blockquote>Twitter publisher username (AMT): <code>AwesomeEditors</code></blockquote>
-
-                <p>'.__('By default, a Twitter Card of type <em>summary</em> is generated for your content. If your theme supports <a href="http://codex.wordpress.org/Post_Formats">post formats</a>, then it is possible to generate Twitter Cards of various types according to the specified post format. More specifically:', 'add-meta-tags').'</p>
-                <blockquote>A <code>summary</code> card is generated for posts with one of the <code>standard</code>, <code>aside</code>, <code>link</code>, <code>quote</code>, <code>status</code> and <code>chat</code> formats.</blockquote>
-                <blockquote>A <code>summary_large_image</code> card is generated for posts with the <code>image</code> format. An image is expected to be attached or embedded to the post.</blockquote>
-                <blockquote>A <code>gallery</code> card is generated for posts with the <code>gallery</code> format. At least one image is expected to be attached or embedded to the post.</blockquote>
-                <blockquote>A <code>photo</code> card is generated for image attachment pages.</blockquote>
-                <blockquote>A <code>player</code> card is generated for posts with the <code>audio</code> or <code>video</code> format and for audio or video attachment pages. Regarding posts, an audio or video is expected to be attached or embedded to the post.</blockquote>
             </fieldset>
             </td>
             </tr>
@@ -472,8 +760,8 @@ function amt_options_page() {
 
                 <input id="auto_dublincore" type="checkbox" value="1" name="auto_dublincore" '. (($options["auto_dublincore"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_dublincore">'.__('Automatically generate Dublin Core metadata.', 'add-meta-tags').'</label>
-                <p>'.__('If this option is enabled, Dublin Core metadata is automatically generated for your content and attachments. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'</p>
                 <br />
+
             </fieldset>
             </td>
             </tr>
@@ -486,18 +774,36 @@ function amt_options_page() {
 
                 <input id="auto_schemaorg" type="checkbox" value="1" name="auto_schemaorg" '. (($options["auto_schemaorg"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_schemaorg">'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</label> (Experimental feature)
-                <p>'.__('Automatically generate Schema.org Microdata and embed it to your content. This feature embeds <code>meta</code> elements inside the body of the web page. This is compatible with the HTML 5 standard, so, before enabling it, make sure your theme is HTML 5 ready. For information about Microdata please refer to <a href="http://schema.org">Schema.org</a>.', 'add-meta-tags').'</p>
+
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Locale', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Locale', 'add-meta-tags').'</span></legend>
+
+                <input name="global_locale" type="text" id="global_locale" class="code" value="' . esc_attr( stripslashes( $options["global_locale"] ) ) . '" size="20" maxlength="32" />
                 <br />
-                <p>'.__('This metadata generator actually adds schema.org microdata around the post\'s content, because marking up the exact contents of the page in an automatic manner is technically impossible. Make no mistake, this is not the ideal way to insert microdata to your web pages. This generator should be considered as a workaround in case your theme lacks schema.org microdata markup in its templates and not as a replacement of schema.org enhanced themes.', 'add-meta-tags').'</p>
-
-                <h4>'.__('Important Notes', 'add-meta-tags').'</h4>
-
-                <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
-                <blockquote>Google+ author profile URL (AMT): <code>https://plus.google.com/+JohnSmith/</code></blockquote>
-                <blockquote>Google+ publisher page URL (AMT): <code>https://plus.google.com/+AwesomeEditors/</code></blockquote>
-
-                <p>'.__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the attributes <code>rel="author"</code> and <code>rel="publisher"</code> are automatically added to the head area of the web page.', 'add-meta-tags').'</p>
+                <label for="global_locale">
+                '.__('Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, which will be used globally in the generated metadata overriding the default locale as returned by WordPress.', 'add-meta-tags').'
+                </label>
                 <br />
+
+                <input id="manage_html_lang_attribute" type="checkbox" value="1" name="manage_html_lang_attribute" '. (($options["manage_html_lang_attribute"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="manage_html_lang_attribute">'.__('Automatically set the HTML document\'s <code>lang</code> attribute according to the locale of the content.', 'add-meta-tags').'</label>
+                <br />
+
+                <input id="generate_hreflang_links" type="checkbox" value="1" name="generate_hreflang_links" '. (($options["generate_hreflang_links"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="generate_hreflang_links">'.__('Enable the generation of a <code>link</code> element with the <code>hreflang</code> attribute.', 'add-meta-tags').'</label>
+                <br />
+
+                <input id="hreflang_strip_region" type="checkbox" value="1" name="hreflang_strip_region" '. (($options["hreflang_strip_region"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="hreflang_strip_region">'.__('Strip region code from the hreflang attribute.', 'add-meta-tags').'</label>
+                <br />
+
             </fieldset>
             </td>
             </tr>
@@ -611,54 +917,6 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
-            <th scope="row">'.__('Locale', 'add-meta-tags').'</th>
-            <td>
-            <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Locale', 'add-meta-tags').'</span></legend>
-
-                <input name="global_locale" type="text" id="global_locale" class="code" value="' . esc_attr( stripslashes( $options["global_locale"] ) ) . '" size="20" maxlength="32" />
-                <br />
-                <label for="global_locale">
-                '.__('Enter a locale which will be used globally in the generated metadata overriding the default locale as returned by WordPress. Filling in this setting is only recommended if WordPress does not return a locale in the form of <code>language_TERRITORY</code>. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of meta tags with invalid locale.', 'add-meta-tags').'
-                </label>
-                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>en_US</code></p>
-                <br />
-
-                <input id="manage_html_lang_attribute" type="checkbox" value="1" name="manage_html_lang_attribute" '. (($options["manage_html_lang_attribute"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="manage_html_lang_attribute">'.__('Automatically set the HTML document\'s <code>lang</code> attribute according to the locale of the content.', 'add-meta-tags').'</label>
-                <p>'.__('By enabling this feature, Add-Meta-Tags will automatically set the HTML document\'s <code>lang</code> attribute according to the content\'s locale. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of an invalid <code>lang</code> attribute.', 'add-meta-tags').'</p>
-                <br />
-
-                <input id="generate_hreflang_links" type="checkbox" value="1" name="generate_hreflang_links" '. (($options["generate_hreflang_links"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="generate_hreflang_links">'.__('Enable the generation of a <code>link</code> element with the <code>hreflang</code> attribute.', 'add-meta-tags').'</label>
-                <p>'.__('If this feature is enabled, an HTML <code>link</code> element containing the proper hreflang attribute is added to the head section of the HTML page. The value of the hreflang attribute is determined by the locale of the content. This feature should not be used in conjunction with a multilingual plugin in order to avoid the potential generation of invalid hreflang links.)', 'add-meta-tags').'</p>
-                <br />
-
-                <input id="hreflang_strip_region" type="checkbox" value="1" name="hreflang_strip_region" '. (($options["hreflang_strip_region"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="hreflang_strip_region">'.__('Strip region code from the hreflang attribute.', 'add-meta-tags').'</label>
-                <p>'.__('By default, Add-Meta-Tags uses the locale, which is usually required to be set in the form <code>language_TERRITORY</code> so as to comply with the various metadata specifications, as the value of the hreflang attribute. However, Google and possibly other services might interpret the regional information of the hreflang attribute as region targeting. If your content is not targeted to users in a specific region, it might be a good idea to strip regional information from this attribute by enabling this option.', 'add-meta-tags').'</p>
-                <p>'.__('For instance, if your locale is <code>en_US</code>, by enabling this option you force the hreflang attribute to be <code>en</code>. In the same way, if the locale is in the form <code>language_Script_TERRITORY</code>, for example <code>zh_Hans_TW</code>, by enabling this option the hreflang attribute becomes <code>zh-Hans</code>.', 'add-meta-tags').'</p>
-                <br />
-
-            </fieldset>
-            </td>
-            </tr>
-
-            <tr valign="top">
-            <th scope="row">'.__('Secure Access', 'add-meta-tags').'</th>
-            <td>
-            <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Secure Access', 'add-meta-tags').'</span></legend>
-
-                <input id="has_https_access" type="checkbox" value="1" name="has_https_access" '. (($options["has_https_access"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="has_https_access">'.__('Media are accessible over HTTPS.').'</label>
-                <p>'.__('Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated.', 'add-meta-tags').'</p>
-                <br />
-            </fieldset>
-            </td>
-            </tr>
-
-            <tr valign="top">
             <th scope="row">'.__('Copyright URL', 'add-meta-tags').'</th>
             <td>
             <fieldset>
@@ -687,6 +945,20 @@ function amt_options_page() {
                 '.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded.', 'add-meta-tags').'
                 </label>
                 <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/logo.png</code></p>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Secure Access', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Secure Access', 'add-meta-tags').'</span></legend>
+
+                <input id="has_https_access" type="checkbox" value="1" name="has_https_access" '. (($options["has_https_access"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="has_https_access">'.__('Media are accessible over HTTPS.').'</label>
+                <p>'.__('Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated.', 'add-meta-tags').'</p>
                 <br />
             </fieldset>
             </td>
