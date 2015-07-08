@@ -7,10 +7,12 @@
  * the Add-Meta-Tags distribution package.
  */
 .amt-settings-notice {
-    border-left: 4px solid #7AD03A;
+    /* border-left: 4px solid #7AD03A; */
+    border-left: 4px solid #00CCFF;
     padding: 1px 12px;
     /* background-color: #FFF; */
-    background-color: #FFFFE1;
+    background-color: #F6FBFD;
+    /* background-color: #FFFFE1; */
     -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
