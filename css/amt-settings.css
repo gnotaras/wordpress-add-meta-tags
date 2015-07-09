@@ -1,0 +1,27 @@
+/**
+ * This file is part of the Add-Meta-Tags plugin for WordPress.
+ *
+ * Contains style information for the Add-Meta-Tags administration interface.
+ *
+ * For licensing information, please check the LICENSE file that ships with
+ * the Add-Meta-Tags distribution package.
+ */
+.amt-settings-notice {
+    /* border-left: 4px solid #7AD03A; */
+    border-left: 4px solid #00CCFF;
+    padding: 1px 12px;
+    /* background-color: #FFF; */
+    background-color: #F6FBFD;
+    /* background-color: #FFFFE1; */
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.amt-settings-donations-msg {
+    border-left: 4px solid #7AD03A;
+    padding: 1px 12px;
+    background-color: #FFF;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
