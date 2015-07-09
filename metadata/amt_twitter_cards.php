@@ -192,6 +192,11 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         return $metadata_arr;
     }
 
+    // Further check (required in some reported cases)
+    // Go no further if the content type does not validate is_singular().
+    if ( ! is_singular() ) {
+        return array();
+    }
 
     // Products
     // A 'product' Twitter Card is generated. See: https://dev.twitter.com/cards/types/product
