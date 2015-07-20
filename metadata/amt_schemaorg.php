@@ -1574,7 +1574,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         }
 
         // Images
-        $metadata_arr['associatedMedia'] = array();
+        $metadata_arr['image'] = array();
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
@@ -1585,7 +1585,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             $current_image_obj = array();
             $current_image_obj['@type'] = 'ImageObject';
             $current_image_obj['contentUrl'] = esc_url_raw( $global_image_override_url );
-            $metadata_arr['associatedMedia'][] = $current_image_obj;
+            $metadata_arr['image'][] = $current_image_obj;
 //            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
 //            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -1611,12 +1611,12 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 $image = get_post( get_post_thumbnail_id( $post->ID ) );
                 // metadata BEGIN
 //                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-//                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+//                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 // Allow filtering of the image size.
                 $image_size = apply_filters( 'amt_image_size_content', 'full' );
                 // Get image metatags.
 //                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
-                $metadata_arr['associatedMedia'][] = amt_get_jsonld_schemaorg_image_array( $image, $size=$image_size );
+                $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $image, $size=$image_size );
                 // metadata END
 //                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
                 // Finally, set the $featured_image_id
@@ -1642,12 +1642,12 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
                         // metadata BEGIN
 //                        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-//                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+//                        $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                         // Allow filtering of the image size.
                         $image_size = apply_filters( 'amt_image_size_content', 'full' );
                         // Get image metatags.
 //                        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $attachment, $size=$image_size ) );
-                        $metadata_arr['associatedMedia'][] = amt_get_jsonld_schemaorg_image_array( $attachment, $size=$image_size );
+                        $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $attachment, $size=$image_size );
                         // metadata END
 //                        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -1658,7 +1658,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
                         // Scope BEGIN: VideoObject: http://schema.org/VideoObject
 //                        $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-//                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">';
+//                        $metadata_arr[] = '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
                         // Video specific metatags
                         // URL (for attachments: links to attachment page)
                         $current_video_obj = array();
@@ -1666,7 +1666,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         $current_video_obj['url'] = esc_url_raw( get_permalink( $attachment->ID ) );
                         $current_video_obj['contentUrl'] = esc_url_raw( wp_get_attachment_url($attachment->ID) );
                         $current_video_obj['encodingFormat'] = esc_attr( $mime_type );
-                        $metadata_arr['associatedMedia'][] = $current_video_obj;
+                        $metadata_arr['video'][] = $current_video_obj;
                         // Scope END: VideoObject
 //                        $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
 
@@ -1674,7 +1674,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
                         // Scope BEGIN: AudioObject: http://schema.org/AudioObject
 //                        $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-//                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/AudioObject">';
+//                        $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
                         // Audio specific metatags
                         // URL (for attachments: links to attachment page)
                         $current_audio_obj = array();
@@ -1682,7 +1682,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         $current_audio_obj['url'] = esc_url_raw( get_permalink( $attachment->ID ) );
                         $current_audio_obj['contentUrl'] = esc_url_raw( wp_get_attachment_url($attachment->ID) );
                         $current_audio_obj['encodingFormat'] = esc_attr( $mime_type );
-                        $metadata_arr['associatedMedia'][] = $current_audio_obj;
+                        $metadata_arr['audio'][] = $current_audio_obj;
                         // Scope END: AudioObject
 //                        $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
 
@@ -1695,7 +1695,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
                 // Scope BEGIN: ImageObject: http://schema.org/ImageObject
 //                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-//                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+//                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 $current_image_obj = array();
                 $current_image_obj['@type'] = 'ImageObject';
                 // name (title)
@@ -1717,7 +1717,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 }
                 // embedURL
                 $current_image_obj['embedURL'] = esc_url_raw( $embedded_item['player'] );
-                $metadata_arr['associatedMedia'][] = $current_image_obj;
+                $metadata_arr['image'][] = $current_image_obj;
                 // Scope END: ImageObject
 //                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -1738,7 +1738,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 // size
                 $current_video_obj['width'] = esc_attr( $embedded_item['width'] );
                 $current_video_obj['height'] = esc_attr( $embedded_item['height'] );
-                $metadata_arr['associatedMedia'][] = $current_video_obj;
+                $metadata_arr['video'][] = $current_video_obj;
                 // Scope END: VideoObject
 //                $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
             }
@@ -1751,7 +1751,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 $current_audio_obj['embedURL'] = esc_url_raw( $embedded_item['player'] );
                 // playerType
                 $current_audio_obj['playerType'] = 'application/x-shockwave-flash';
-                $metadata_arr['associatedMedia'][] = $current_audio_obj;
+                $metadata_arr['audio'][] = $current_audio_obj;
                 // Scope END: AudioObject
 //                $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
             }
@@ -1760,11 +1760,11 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
             if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
 //                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-//                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+//                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 $current_image_obj = array();
                 $current_image_obj['@type'] = 'ImageObject';
                 $current_image_obj['contentUrl'] = esc_url_raw( $options["default_image_url"] );
-                $metadata_arr['associatedMedia'][] = $current_image_obj;
+                $metadata_arr['image'][] = $current_image_obj;
 //                $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
 //                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
             }
