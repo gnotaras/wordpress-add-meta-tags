@@ -640,7 +640,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                 $image = get_post( get_post_thumbnail_id( $post->ID ) );
                 // metadata BEGIN
                 $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 // Allow filtering of the image size.
                 $image_size = apply_filters( 'amt_image_size_content', 'full' );
                 // Get image metatags.
@@ -670,7 +670,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
                         // metadata BEGIN
                         $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                        $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                         // Allow filtering of the image size.
                         $image_size = apply_filters( 'amt_image_size_content', 'full' );
                         // Get image metatags.
@@ -685,7 +685,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
                         // Scope BEGIN: VideoObject: http://schema.org/VideoObject
                         $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
-                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/VideoObject">';
+                        $metadata_arr[] = '<span itemprop="video" itemscope itemtype="http://schema.org/VideoObject">';
                         // Video specific metatags
                         // URL (for attachments: links to attachment page)
                         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
@@ -698,7 +698,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
                         // Scope BEGIN: AudioObject: http://schema.org/AudioObject
                         $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
-                        $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/AudioObject">';
+                        $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
                         // Audio specific metatags
                         // URL (for attachments: links to attachment page)
                         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
@@ -716,7 +716,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
                 // Scope BEGIN: ImageObject: http://schema.org/ImageObject
                 $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 // name (title)
                 $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $embedded_item['alt'] ) . '" />';
                 // caption
@@ -774,7 +774,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
             if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
                 $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                $metadata_arr[] = '<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
                 $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
             }
