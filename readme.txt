@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail, multilingual, multilanguage, hreflang
 Requires at least: 3.1.0
 Tested up to: 4.2
-Stable tag: 2.8.16
+Stable tag: 2.8.17
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -264,6 +264,8 @@ In 2.9 publisher social media profile links can no longer be set in the WordPres
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.8.17](http://www.codetrax.org/versions/308)
+ - Use the `image`/`video`/`audio` properties instead of the associatedMedia property in schema.org generator to comply with Google's new structured data validation rules. (props to Nicolaie Szabadkai and ditad for reporting the issue.)
 - [2.8.16](http://www.codetrax.org/versions/307)
 - [2.8.15](http://www.codetrax.org/versions/296)
  - Fixed issue: Twitter Cards not generated on static front page. (props to Jeff McNeill and codyleach for useful feedback.)
