@@ -254,6 +254,8 @@ function amt_get_metadata_head() {
         $metadata_arr = array_merge( $metadata_arr, amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media, $options ) );
         // Add Google+ Author/Publisher links
         $metadata_arr = array_merge( $metadata_arr, amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) );
+        // Add JSON+LD Schema.org
+        $metadata_arr = array_merge( $metadata_arr, amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) );
     }
 
     // Allow filtering of the all the generated metatags
