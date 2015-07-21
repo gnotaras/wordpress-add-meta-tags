@@ -126,7 +126,7 @@ function amt_admin_help_tabs() {
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_starting',
-        'title'	=> __('Starting'),
+        'title'	=> __('Starting', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -143,7 +143,7 @@ function amt_admin_help_tabs() {
     <p>'.__('Apart from the customization through the WordPress administration interface, the generated metadata and specific aspects of the plugin\'s functionality can be further customized to a great extent programmatically. Read the technical notes at the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki" title="Add-Meta-Tags Development web site">development web site</a> and find ready sample code snippets for commonly needed customizations in the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook" title="Add-Meta-Tags Cookbook">Add-Meta-Tags Cookbook</a>.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_introduction',
-        'title'	=> __('Introduction'),
+        'title'	=> __('Introduction', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -179,7 +179,7 @@ function amt_admin_help_tabs() {
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_general',
-        'title'	=> __('General settings'),
+        'title'	=> __('General settings', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -204,7 +204,7 @@ function amt_admin_help_tabs() {
     <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>AwesomeEditors</code></p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_publisher',
-        'title'	=> __('Publisher Settings'),
+        'title'	=> __('Publisher Settings', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -220,7 +220,7 @@ function amt_admin_help_tabs() {
     <p>'.__('If this option is enabled, the <em>keywords</em> meta tag is automatically generated for the content and archives. Keywords are not generated automatically on pages and attachments. Customization of the <em>keywords</em> meta tag is possible through the <em>Metadata</em> box in the post editing screen.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_basic',
-        'title'	=> __('Basic meta tags'),
+        'title'	=> __('Basic meta tags', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -242,7 +242,7 @@ function amt_admin_help_tabs() {
     <p>'.__('It is possible to control the value of the <code>og:type</code> meta tag either by changing the post format or programmatically via a filter. By default, the <code>og:type</code> is set to <code>article</code> for all content, except for video attachment pages and posts whose post format has been set to <code>video</code>, on which <code>og:type</code> is set to <code>video.other</code>.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_opengraph',
-        'title'	=> __('Opengraph'),
+        'title'	=> __('Opengraph', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -274,7 +274,7 @@ function amt_admin_help_tabs() {
     <blockquote>A <code>player</code> card is generated for posts with the <code>audio</code> or <code>video</code> format and for audio or video attachment pages. Regarding posts, an audio or video is expected to be attached or embedded to the post.</blockquote>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_twitter_cards',
-        'title'	=> __('Twitter Cards'),
+        'title'	=> __('Twitter Cards', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -285,7 +285,7 @@ function amt_admin_help_tabs() {
         <p>'.__('If this option is enabled, Dublin Core metadata is automatically generated for your content and attachments. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_dublin_core',
-        'title'	=> __('Dublin Core'),
+        'title'	=> __('Dublin Core', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -306,7 +306,7 @@ function amt_admin_help_tabs() {
     <p>'.__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the attributes <code>rel="author"</code> and <code>rel="publisher"</code> are automatically added to the head area of the web page.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_schemaorg',
-        'title'	=> __('Schema.org'),
+        'title'	=> __('Schema.org', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -330,7 +330,7 @@ function amt_admin_help_tabs() {
     <p>'.__('For instance, if your locale is <code>en_US</code>, by enabling this option you force the hreflang attribute to be <code>en</code>. In the same way, if the locale is in the form <code>language_Script_TERRITORY</code>, for example <code>zh_Hans_TW</code>, by enabling this option the hreflang attribute becomes <code>zh-Hans</code>.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_locale',
-        'title'	=> __('Locale'),
+        'title'	=> __('Locale', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -353,7 +353,7 @@ function amt_admin_help_tabs() {
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metabox_features',
-        'title'	=> __('Metabox Features'),
+        'title'	=> __('Metabox Features', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -402,10 +402,19 @@ function amt_admin_help_tabs() {
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_extra',
-        'title'	=> __('Extra settings'),
+        'title'	=> __('Extra settings', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
+    // Advanced Customization
+    $help_text = '
+    <p>'.__('Add-Meta-Tags can be customized to a great extent programmatically. Please read the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook" target="_blank">Add-Meta-Tags Cookbook</a> for more information.', 'add-meta-tags').'</p>
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_advanced',
+        'title'	=> __('Advanced', 'add-meta-tags'),
+        'content'	=> $help_text,
+    ) );
 
 }
 
@@ -459,7 +468,11 @@ function amt_options_page() {
 
         <p>'.__('Press the <strong>Help</strong> button on the top right corner for an introduction to metadata and also for detailed documentation about the available settings and the metadata generators. All help texts will gradually be moved to this integrated WordPress help system in order to reduce the size of this page and make it more user-friendly.', 'add-meta-tags').'</p>
 
-        <p>'.__('Moreover, it is no longer possible to enter the URLs of the Publisher\'s social media profiles in the WordPress user profile page. Instead, this information should be entered in the relevant fields of the <strong>Publisher Settings</strong> section below.', 'add-meta-tags').'</p>
+    </div>
+
+    <div class="wrap amt-settings-notice">
+
+        <p>'.__('It is no longer possible to enter the URLs of the Publisher\'s social media profiles in the WordPress user profile page. Instead, this information should be entered in the relevant fields of the <strong>Publisher Settings</strong> section below.', 'add-meta-tags').'</p>
 
     </div>
 
@@ -553,7 +566,7 @@ function amt_options_page() {
                 <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . esc_attr( stripslashes( amt_get_site_description($options) ) ) . '</textarea>
                 <br />
                 <label for="site_description">
-                    '.__('Enter a short (150-250 characters long) description of your blog. This text will be used in the <em>description</em> and other similar metatags on the <strong>front page</strong>. If this is left empty, then the blog\'s <em>Tagline</em> from the <a href="options-general.php">General Options</a> will be used.', 'add-meta-tags').'
+                    '.__('Enter a short description of your blog (150-250 characters).', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
@@ -568,8 +581,7 @@ function amt_options_page() {
                 
                 <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( amt_get_site_keywords($options) ) ) . '</textarea>
                 <br />
-                <label for="site_keywords">'.__('Enter a comma-delimited list of keywords for your blog. These keywords will be used in the <em>keywords</em> meta tag on the <strong>front page</strong>. If this field is left empty, then all of your blog\'s <a href="edit-tags.php?taxonomy=category">categories</a> will be used as keywords for the <em>keywords</em> meta tag.', 'add-meta-tags').'</label>
-                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code></p>
+                <label for="site_keywords">'.__('Enter a comma-delimited list of keywords for your blog.', 'add-meta-tags').'</label>
                 <br />
             </fieldset>
             </td>
@@ -586,11 +598,7 @@ function amt_options_page() {
                 
                 <textarea name="global_keywords" id="global_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( amt_get_site_global_keywords($options) ) ) . '</textarea>
                 <br />
-                <label for="global_keywords">'.__('Enter a comma-delimited list of global keywords which will be added before the keywords of <strong>all</strong> posts and pages.', 'add-meta-tags').'</label>
-                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, keyword3', 'add-meta-tags').'</code></p>
-                <br />
-                <p>'.__('By default, these keywords are prepended to the post/page\'s keywords. For enhanced flexibility, it is possible to use the <code>%contentkw%</code> placeholder, which will be populated with the post/page\'s autogenerated or user-defined keywords. This way you can globally both prepend and append keywords to the <em>keywords</em> of your content.', 'add-meta-tags').'</p>
-                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>'.__('keyword1, keyword2, %contentkw%, keyword3', 'add-meta-tags').'</code></p>
+                <label for="global_keywords">'.__('Enter a comma-delimited list of global keywords.', 'add-meta-tags').'</label>
                 <br />
             </fieldset>
             </td>
@@ -605,14 +613,8 @@ function amt_options_page() {
                 <textarea name="site_wide_meta" id="site_wide_meta" cols="100" rows="10" class="code">' . stripslashes( $options["site_wide_meta"] ) . '</textarea>
                 <br />
                 <label for="site_wide_meta">
-                '.__('Provide the full XHTML code of extra META elements you would like to add to all the pages of your web site (read more about the <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">META HTML element</a> on Wikipedia).', 'add-meta-tags').'
+                '.__('Enter complete <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">meta tags</a> which will appear on all web pages.', 'add-meta-tags').'
                 </label>
-                <p><strong>'.__('Examples', 'add-meta-tags').'</strong>:</p>
-                <p><code>&lt;meta name="google-site-verification" content="1234567890" /&gt;</code></p>
-                <p><code>&lt;meta name="msvalidate.01" content="1234567890" /&gt;</code></p>
-                <p><code>&lt;meta name="robots" content="noimageindex" /&gt;</code></p>
-                <p><code>&lt;meta property="fb:admins" content="1234" /&gt;</code></p>
-                <p><code>&lt;meta property="fb:app_id" content="4321" /&gt;</code></p>
                 <br />
             </fieldset>
             </td>
@@ -861,8 +863,6 @@ function amt_options_page() {
                 '.__('Referenced items. (Experimental feature. Not recommended.)', 'add-meta-tags').'
                 </label></p>
 
-                <p>'.__('The metabox feature selection above affects all users. Advanced customization of the availability of these features on a per user basis or depending upon each user\'s permissions, is possible through the <code>amt_metadata_metabox_permissions</code> filter.', 'add-meta-tags').'</p>
-
                 <br />
             </fieldset>
             </td>
@@ -876,10 +876,9 @@ function amt_options_page() {
 
                 <input id="noodp_description" type="checkbox" value="1" name="noodp_description" '. (($options["noodp_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noodp_description">'.__('Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag.', 'add-meta-tags').'</label>
-                <p>'.__('If checked, <code>NOODP</code> and <code>NOYDIR</code> are added to the <em>robots</em> meta tag on the front page, content and attachments. This setting will prevent all search engines (at least those that support the meta tag) from displaying information from the <a href="http://www.dmoz.org/">Open Directory Project</a> or the <a href="http://dir.yahoo.com/">Yahoo Directory</a> instead of the description you set in the <em>description</em> meta tag.', 'add-meta-tags').'</p>
                 <br />
 
-                <p>'.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines:', 'add-meta-tags').'</p>
+                <p>'.__('Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives:', 'add-meta-tags').'</p>
 
                 <p><input id="noindex_search_results" type="checkbox" value="1" name="noindex_search_results" '. (($options["noindex_search_results"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_search_results">
@@ -925,9 +924,8 @@ function amt_options_page() {
                 <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . esc_url_raw( stripslashes( amt_get_site_copyright_url($options) ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="copyright_url">
-                '.__('Enter an absolute URL to a document containing copyright and licensing information about your work. If this URL is set, the relevant meta tags will be added automatically on all the pages of your web site.', 'add-meta-tags').'
+                '.__('Enter an absolute URL to a document containing copyright and licensing information about your work.', 'add-meta-tags').'
                 </label>
-                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/copyright.html</code></p>
                 <br />
             </fieldset>
             </td>
@@ -942,9 +940,8 @@ function amt_options_page() {
                 <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . esc_url_raw( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="default_image_url">
-                '.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded.', 'add-meta-tags').'
+                '.__('Enter an absolute URL to an image that represents your website, for instance the logo.', 'add-meta-tags').'
                 </label>
-                <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/logo.png</code></p>
                 <br />
             </fieldset>
             </td>
@@ -958,7 +955,6 @@ function amt_options_page() {
 
                 <input id="has_https_access" type="checkbox" value="1" name="has_https_access" '. (($options["has_https_access"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="has_https_access">'.__('Media are accessible over HTTPS.').'</label>
-                <p>'.__('Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated.', 'add-meta-tags').'</p>
                 <br />
             </fieldset>
             </td>
@@ -982,8 +978,6 @@ function amt_options_page() {
                 '.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)
                 </label></p>
 
-                <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
-
                 <br />
             </fieldset>
             </td>
@@ -997,7 +991,6 @@ function amt_options_page() {
 
                 <input id="review_mode" type="checkbox" value="1" name="review_mode" '. (($options["review_mode"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="review_mode">'.__('Enable <em>Metadata Review Mode</em>.').'</label>
-                <p>'.__('If enabled, WordPress users with administrator privileges see a box (right above the post\'s content) containing the metadata exactly as it is added in the HTML head and body. The box is displayed for posts, pages, attachments and custom post types.', 'add-meta-tags').'</p>
                 <br />
             </fieldset>
             </td>
