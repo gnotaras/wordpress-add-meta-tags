@@ -66,7 +66,7 @@ function amt_add_facebook_contactmethod( $contactmethods ) {
     }
 
     // The publisher profile box in the WordPress user profile page can be deactivated via filtering.
-    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', true ) ) {
+    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', false ) ) {
         // Add Facebook Publisher Profile URL
         if ( !isset( $contactmethods['amt_facebook_publisher_profile_url'] ) ) {
             $contactmethods['amt_facebook_publisher_profile_url'] = __('Facebook publisher profile URL', 'add-meta-tags') . ' (AMT)';
@@ -518,10 +518,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Publisher
         // If a Facebook publisher profile URL has been provided, it has priority.
         // Otherwise fall back to the WordPress blog home url.
-        $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
-        if ( !empty($fb_publisher_url) ) {
-            $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
-        } elseif ( ! empty($options['social_main_facebook_publisher_profile_url']) ) {
+        if ( ! empty($options['social_main_facebook_publisher_profile_url']) ) {
             $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $options['social_main_facebook_publisher_profile_url'], array('http', 'https', 'mailto') ) . '" />';
         } else {
             $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
@@ -722,10 +719,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             // Publisher
             // If a Facebook publisher profile URL has been provided, it has priority.
             // Otherwise fall back to the WordPress blog home url.
-            $fb_publisher_url = get_the_author_meta('amt_facebook_publisher_profile_url', $post->post_author);
-            if ( !empty($fb_publisher_url) ) {
-                $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $fb_publisher_url, array('http', 'https', 'mailto') ) . '" />';
-            } elseif ( ! empty($options['social_main_facebook_publisher_profile_url']) ) {
+            if ( ! empty($options['social_main_facebook_publisher_profile_url']) ) {
                 $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( $options['social_main_facebook_publisher_profile_url'], array('http', 'https', 'mailto') ) . '" />';
             } else {
                 $metadata_arr[] = '<meta property="article:publisher" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';

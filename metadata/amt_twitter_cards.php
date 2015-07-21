@@ -63,7 +63,7 @@ function amt_add_twitter_contactmethod( $contactmethods ) {
     }
 
     // The publisher profile box in the WordPress user profile page can be deactivated via filtering.
-    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', true ) ) {
+    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', false ) ) {
         // Add Twitter publisher username
         if ( !isset( $contactmethods['amt_twitter_publisher_username'] ) ) {
             $contactmethods['amt_twitter_publisher_username'] = __('Twitter publisher username', 'add-meta-tags') . ' (AMT)';
@@ -723,10 +723,7 @@ function amt_get_twitter_cards_author_publisher_metatags( $options, $post ) {
     if ( !empty($twitter_author_username) ) {
         $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
     }
-    $twitter_publisher_username = get_the_author_meta('amt_twitter_publisher_username', $post->post_author);
-    if ( !empty($twitter_publisher_username) ) {
-        $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
-    } elseif ( ! empty($options['social_main_twitter_publisher_username']) ) {
+    if ( ! empty($options['social_main_twitter_publisher_username']) ) {
         $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
     }
     return $metadata_arr;

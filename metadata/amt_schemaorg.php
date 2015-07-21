@@ -65,7 +65,7 @@ function amt_add_googleplus_contactmethod( $contactmethods ) {
     }
 
     // The publisher profile box in the WordPress user profile page can be deactivated via filtering.
-    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', true ) ) {
+    if ( apply_filters( 'amt_allow_publisher_settings_in_user_profiles', false ) ) {
         // Add Google+ publisher profile URL
         if ( !isset( $contactmethods['amt_googleplus_publisher_profile_url'] ) ) {
             $contactmethods['amt_googleplus_publisher_profile_url'] = __('Google+ publisher page URL', 'add-meta-tags') . ' (AMT)';
@@ -107,11 +107,7 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, 
     // On content pages and static front/latest-posts page, add both links
 
     // Publisher
-    $googleplus_publisher_url = get_the_author_meta('amt_googleplus_publisher_profile_url', $post->post_author);
-    if ( ! empty( $googleplus_publisher_url ) ) {
-        // Link to Google+ publisher profile
-        $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $googleplus_publisher_url, array('http', 'https') ) . '" />';
-    } elseif ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
+    if ( ! empty($options['social_main_googleplus_publisher_profile_url']) ) {
         $metadata_arr[] = '<link rel="publisher" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . '" href="' . esc_url_raw( $options['social_main_googleplus_publisher_profile_url'], array('http', 'https') ) . '" />';
     } else {
         // Link to homepage
