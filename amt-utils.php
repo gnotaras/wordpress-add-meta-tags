@@ -1422,7 +1422,32 @@ function amt_get_embedded_media( $post ) {
         // $matches[0] contains a list of YT video URLS
         // $matches[1] contains a list of YT video IDs
         // Add matches to $embedded_media_urls
-        foreach( $matches[1] as $youtube_video_id ) {
+        foreach( $matches[0] as $youtube_video_url ) {
+
+            // First we verify that this is an embedded Youtube video and not
+            // one that is just linked. We confirm this by checking if the
+            // relevant oembed custom field has been created.
+
+            // Get cached HTML data for embedded youtube videos.
+            // Do it like WordPress.
+            // See source code:
+            // - class-wp-embed.php: line 177 [[ $cachekey = '_oembed_' . md5( $url . serialize( $attr ) ); ]]
+            // - media.php: line 1332 [[ function wp_embed_defaults ]]
+            // If no attributes have been used in the [embed] shortcode, $attr is an empty string.
+            $attr = '';
+            $attr = wp_parse_args( $attr, wp_embed_defaults() );
+            $cachekey = '_oembed_' . md5( $youtube_video_url . serialize( $attr ) );
+            $cache = get_post_meta( $post->ID, $cachekey, true );
+            //var_dump($cache);
+            if ( empty($cache) ) {
+                continue;
+            }
+
+            // Get image info from the cached HTML
+            preg_match( '#.*v=([a-zA-Z0-9_-]+)#', $youtube_video_url, $video_url_info );
+            //var_dump($video_url_info);
+            $youtube_video_id = $video_url_info[1];
+
             $item = array(
                 'type' => 'youtube',
                 'page' => 'https://www.youtube.com/watch?v=' . $youtube_video_id,
@@ -1438,7 +1463,8 @@ function amt_get_embedded_media( $post ) {
                 'width' => apply_filters( 'amt_oembed_youtube_player_width', '640' ),
                 'height' => apply_filters( 'amt_oembed_youtube_player_height', '480' ),
             );
-            array_unshift( $embedded_media_urls['videos'], $item );
+            //array_unshift( $embedded_media_urls['videos'], $item );
+            array_push( $embedded_media_urls['videos'], $item );
         }
     }
 
@@ -1455,7 +1481,32 @@ function amt_get_embedded_media( $post ) {
         // $matches[0] contains a list of Vimeo video URLS
         // $matches[1] contains a list of Vimeo video IDs
         // Add matches to $embedded_media_urls
-        foreach( $matches[1] as $vimeo_video_id ) {
+        foreach( $matches[0] as $vimeo_video_url ) {
+
+            // First we verify that this is an embedded Vimeo video and not
+            // one that is just linked. We confirm this by checking if the
+            // relevant oembed custom field has been created.
+
+            // Get cached HTML data for embedded Vimeo videos.
+            // Do it like WordPress.
+            // See source code:
+            // - class-wp-embed.php: line 177 [[ $cachekey = '_oembed_' . md5( $url . serialize( $attr ) ); ]]
+            // - media.php: line 1332 [[ function wp_embed_defaults ]]
+            // If no attributes have been used in the [embed] shortcode, $attr is an empty string.
+            $attr = '';
+            $attr = wp_parse_args( $attr, wp_embed_defaults() );
+            $cachekey = '_oembed_' . md5( $vimeo_video_url . serialize( $attr ) );
+            $cache = get_post_meta( $post->ID, $cachekey, true );
+            //var_dump($cache);
+            if ( empty($cache) ) {
+                continue;
+            }
+
+            // Get image info from the cached HTML
+            preg_match( '#.*vimeo.com\/(\d+)#', $vimeo_video_url, $video_url_info );
+            //var_dump($video_url_info);
+            $vimeo_video_id = $video_url_info[1];
+
             $item = array(
                 'type' => 'vimeo',
                 'page' => 'https://vimeo.com/' . $vimeo_video_id,
@@ -1464,7 +1515,7 @@ function amt_get_embedded_media( $post ) {
                 'width' => apply_filters( 'amt_oembed_vimeo_player_width', '640' ),
                 'height' => apply_filters( 'amt_oembed_vimeo_player_height', '480' ),
             );
-            array_unshift( $embedded_media_urls['videos'], $item );
+            array_push( $embedded_media_urls['videos'], $item );
         }
     }
 
@@ -1479,7 +1530,32 @@ function amt_get_embedded_media( $post ) {
         // $matches[0] contains a list of Vimeo video URLS
         // $matches[1] contains a list of Vimeo video IDs
         // Add matches to $embedded_media_urls
-        foreach( $matches[1] as $vine_video_id ) {
+        foreach( $matches[0] as $vine_video_url ) {
+
+            // First we verify that this is an embedded Vine video and not
+            // one that is just linked. We confirm this by checking if the
+            // relevant oembed custom field has been created.
+
+            // Get cached HTML data for embedded Vine videos.
+            // Do it like WordPress.
+            // See source code:
+            // - class-wp-embed.php: line 177 [[ $cachekey = '_oembed_' . md5( $url . serialize( $attr ) ); ]]
+            // - media.php: line 1332 [[ function wp_embed_defaults ]]
+            // If no attributes have been used in the [embed] shortcode, $attr is an empty string.
+            $attr = '';
+            $attr = wp_parse_args( $attr, wp_embed_defaults() );
+            $cachekey = '_oembed_' . md5( $vine_video_url . serialize( $attr ) );
+            $cache = get_post_meta( $post->ID, $cachekey, true );
+            //var_dump($cache);
+            if ( empty($cache) ) {
+                continue;
+            }
+
+            // Get id info from the cached HTML
+            preg_match( '#.*vine.co\/v\/([a-zA-Z0-9_-]+)#', $vine_video_url, $video_url_info );
+            //var_dump($video_url_info);
+            $vine_video_id = $video_url_info[1];
+
             $item = array(
                 'type' => 'vine',
                 'page' => 'https://vine.co/v/' . $vine_video_id,
@@ -1488,7 +1564,7 @@ function amt_get_embedded_media( $post ) {
                 'width' => apply_filters( 'amt_oembed_vine_player_width', '600' ),
                 'height' => apply_filters( 'amt_oembed_vine_player_height', '600' ),
             );
-            array_unshift( $embedded_media_urls['videos'], $item );
+            array_push( $embedded_media_urls['videos'], $item );
         }
     }
 
@@ -1511,6 +1587,26 @@ function amt_get_embedded_media( $post ) {
         // $matches[0] contains a list of Soundcloud URLS
         // Add matches to $embedded_media_urls
         foreach( $matches[0] as $soundcloud_url ) {
+
+            // First we verify that this is an embedded Soundcloud audio and not
+            // one that is just linked. We confirm this by checking if the
+            // relevant oembed custom field has been created.
+
+            // Get cached HTML data for embedded Soundcloud audios.
+            // Do it like WordPress.
+            // See source code:
+            // - class-wp-embed.php: line 177 [[ $cachekey = '_oembed_' . md5( $url . serialize( $attr ) ); ]]
+            // - media.php: line 1332 [[ function wp_embed_defaults ]]
+            // If no attributes have been used in the [embed] shortcode, $attr is an empty string.
+            $attr = '';
+            $attr = wp_parse_args( $attr, wp_embed_defaults() );
+            $cachekey = '_oembed_' . md5( $soundcloud_url . serialize( $attr ) );
+            $cache = get_post_meta( $post->ID, $cachekey, true );
+            //var_dump($cache);
+            if ( empty($cache) ) {
+                continue;
+            }
+
             $item = array(
                 'type' => 'soundcloud',
                 'page' => $soundcloud_url,
@@ -1519,7 +1615,7 @@ function amt_get_embedded_media( $post ) {
                 'width' => apply_filters( 'amt_oembed_soundcloud_player_width', '640' ),
                 'height' => apply_filters( 'amt_oembed_soundcloud_player_height', '164' ),
             );
-            array_unshift( $embedded_media_urls['sounds'], $item );
+            array_push( $embedded_media_urls['sounds'], $item );
         }
     }
 
@@ -1571,6 +1667,9 @@ function amt_get_embedded_media( $post ) {
             $cachekey = '_oembed_' . md5( $flick_page_url . serialize( $attr ) );
             $cache = get_post_meta( $post->ID, $cachekey, true );
             //var_dump($cache);
+            if ( empty($cache) ) {
+                continue;
+            }
 
             // Get image info from the cached HTML
             preg_match( '#<img src="([^"]+)" alt="([^"]+)" width="([\d]+)" height="([\d]+)" \/>#i', $cache, $img_info );
@@ -1586,7 +1685,7 @@ function amt_get_embedded_media( $post ) {
                     'width' => $img_info[3],
                     'height' => $img_info[4]
                 );
-                array_unshift( $embedded_media_urls['images'], $item );
+                array_push( $embedded_media_urls['images'], $item );
             }
         }
     }
