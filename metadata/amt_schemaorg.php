@@ -1881,9 +1881,9 @@ function amt_get_jsonld_schemaorg_image_array( $image, $size='medium', $is_repre
     // main image
     $metadata_arr['contentUrl'] = esc_url_raw( $main_size_meta[0] );
     if ( apply_filters( 'amt_extended_image_tags', true ) ) {
-        $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
-        $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
-        $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( get_post_mime_type( $image->ID ) ) . '" />';
+        $metadata_arr['width'] = esc_attr( $main_size_meta[1] );
+        $metadata_arr['height'] = esc_attr( $main_size_meta[2] );
+        $metadata_arr['encodingFormat'] = esc_attr( get_post_mime_type( $image->ID ) );
     }
 
     // caption
