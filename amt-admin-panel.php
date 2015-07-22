@@ -389,6 +389,12 @@ function amt_admin_help_tabs() {
 
     <p>'.__('Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated.', 'add-meta-tags').'</p>
 
+    <h3>'.__('Media Limit', 'add-meta-tags').'</h3>
+
+    <p>'.__('Do not generate metadata for more than one media file of each type (image, video, audio).', 'add-meta-tags').'</p>
+
+    <p>'.__('By default, metadata is generated for all media files that have been attached or embedded in the content. By enabling this option Add-Meta-Tags will generate metadata only for the first media file of each type (image, video, audio) it encounters. This limit does not affect the <code>gallery</code> Twitter Card, which always contains all the attached images.', 'add-meta-tags').'</p>
+
     <h3>'.__('Extended Metadata Support', 'add-meta-tags').'</h3>
 
     <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
@@ -963,7 +969,20 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Secure Access', 'add-meta-tags').'</span></legend>
 
                 <input id="has_https_access" type="checkbox" value="1" name="has_https_access" '. (($options["has_https_access"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="has_https_access">'.__('Media are accessible over HTTPS.').'</label>
+                <label for="has_https_access">'.__('Media are accessible over HTTPS.', 'add-meta-tags').'</label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Media Limit', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Media Limit', 'add-meta-tags').'</span></legend>
+
+                <input id="force_media_limit" type="checkbox" value="1" name="force_media_limit" '. (($options["force_media_limit"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="force_media_limit">'.__('Do not generate metadata for more than one media file of each type (image, video, audio).', 'add-meta-tags').'</label>
                 <br />
             </fieldset>
             </td>

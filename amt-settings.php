@@ -95,6 +95,7 @@ function amt_get_default_options() {
         "hreflang_strip_region" => "0",
         "manage_html_lang_attribute" => "0",
         "has_https_access" => "0",
+        "force_media_limit" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
         "extended_support_woocommerce"  => "0",
@@ -220,6 +221,7 @@ function amt_plugin_upgrade() {
 
     // Version 2.9.0 (settings_version 14->15)
     // Added "schemaorg_force_jsonld"
+    // Added "force_media_limit"
     // No migrations required. Addition takes place in (1).
 
 

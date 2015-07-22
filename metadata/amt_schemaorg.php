@@ -627,6 +627,16 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Further image processing
         } else {
 
+            // Media Limits
+            $image_limit = amt_metadata_get_image_limit($options);
+            $video_limit = amt_metadata_get_video_limit($options);
+            $audio_limit = amt_metadata_get_audio_limit($options);
+
+            // Counters
+            $ic = 0;    // image counter
+            $vc = 0;    // video counter
+            $ac = 0;    // audio counter
+
             // We store the featured image ID in this variable so that it can easily be excluded
             // when all images are parsed from the $attachments array.
             $featured_image_id = 0;
@@ -657,6 +667,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                 $featured_image_id = get_post_thumbnail_id( $post->ID );
                 // Images have been found.
                 $has_images = true;
+                // Increase image counter
+                $ic++;
             }
             // Scope END: ImageObject
 
@@ -672,7 +684,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                     // See why we do not use strstr(): http://www.codetrax.org/issues/1091
                     $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
-                    if ( 'image' == $attachment_type ) {
+                    if ( 'image' == $attachment_type && $ic < $image_limit ) {
 
                         // metadata BEGIN
                         $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
@@ -686,8 +698,10 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
                         // Images have been found.
                         $has_images = true;
+                        // Increase image counter
+                        $ic++;
                         
-                    } elseif ( 'video' == $attachment_type ) {
+                    } elseif ( 'video' == $attachment_type && $vc < $video_limit ) {
 
                         // Scope BEGIN: VideoObject: http://schema.org/VideoObject
                         $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
@@ -700,7 +714,10 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                         // Scope END: VideoObject
                         $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
 
-                    } elseif ( 'audio' == $attachment_type ) {
+                        // Increase video counter
+                        $vc++;
+
+                    } elseif ( 'audio' == $attachment_type && $ac < $audio_limit ) {
 
                         // Scope BEGIN: AudioObject: http://schema.org/AudioObject
                         $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
@@ -713,12 +730,19 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                         // Scope END: AudioObject
                         $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
 
+                        // Increase audio counter
+                        $ac++;
+
                     }
                 }
             }
 
             // Embedded Media
             foreach( $embedded_media['images'] as $embedded_item ) {
+
+                if ( $ic == $image_limit ) {
+                    break;
+                }
 
                 // Scope BEGIN: ImageObject: http://schema.org/ImageObject
                 $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
@@ -747,8 +771,16 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
                 // Images have been found.
                 $has_images = true;
+                // Increase image counter
+                $ic++;
+
             }
             foreach( $embedded_media['videos'] as $embedded_item ) {
+
+                if ( $vc == $video_limit ) {
+                    break;
+                }
+
                 // Scope BEGIN: VideoObject: http://schema.org/VideoObject
                 // See: http://googlewebmastercentral.blogspot.gr/2012/02/using-schemaorg-markup-for-videos.html
                 // See: https://support.google.com/webmasters/answer/2413309?hl=en
@@ -763,8 +795,17 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                 $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
                 // Scope END: VideoObject
                 $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+
+                // Increase video counter
+                $vc++;
+
             }
             foreach( $embedded_media['sounds'] as $embedded_item ) {
+
+                if ( $ac == $audio_limit ) {
+                    break;
+                }
+
                 // Scope BEGIN: AudioObject: http://schema.org/AudioObject
                 $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
                 $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
@@ -774,6 +815,10 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                 $metadata_arr[] = '<meta itemprop="playerType" content="application/x-shockwave-flash" />';
                 // Scope END: AudioObject
                 $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
+
+                // Increase audio counter
+                $ac++;
+
             }
 
             // If no images have been found so far use the default image, if set.
@@ -1588,6 +1633,16 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Further image processing
         } else {
 
+            // Media Limits
+            $image_limit = amt_metadata_get_image_limit($options);
+            $video_limit = amt_metadata_get_video_limit($options);
+            $audio_limit = amt_metadata_get_audio_limit($options);
+
+            // Counters
+            $ic = 0;    // image counter
+            $vc = 0;    // video counter
+            $ac = 0;    // audio counter
+
             // We store the featured image ID in this variable so that it can easily be excluded
             // when all images are parsed from the $attachments array.
             $featured_image_id = 0;
@@ -1619,6 +1674,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 $featured_image_id = get_post_thumbnail_id( $post->ID );
                 // Images have been found.
                 $has_images = true;
+                // Increase image counter
+                $ic++;
             }
             // Scope END: ImageObject
 
@@ -1634,7 +1691,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                     // See why we do not use strstr(): http://www.codetrax.org/issues/1091
                     $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
 
-                    if ( 'image' == $attachment_type ) {
+                    if ( 'image' == $attachment_type && $ic < $image_limit ) {
 
                         // metadata BEGIN
 //                        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
@@ -1649,8 +1706,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
                         // Images have been found.
                         $has_images = true;
+                        // Increase image counter
+                        $ic++;
                         
-                    } elseif ( 'video' == $attachment_type ) {
+                    } elseif ( 'video' == $attachment_type && $vc < $video_limit ) {
 
                         // Scope BEGIN: VideoObject: http://schema.org/VideoObject
 //                        $metadata_arr[] = '<!-- Scope BEGIN: VideoObject -->';
@@ -1665,8 +1724,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         $metadata_arr['video'][] = $current_video_obj;
                         // Scope END: VideoObject
 //                        $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+                        // Increase video counter
+                        $vc++;
 
-                    } elseif ( 'audio' == $attachment_type ) {
+                    } elseif ( 'audio' == $attachment_type && $ac < $audio_limit ) {
 
                         // Scope BEGIN: AudioObject: http://schema.org/AudioObject
 //                        $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
@@ -1681,6 +1742,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         $metadata_arr['audio'][] = $current_audio_obj;
                         // Scope END: AudioObject
 //                        $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
+                        // Increase audio counter
+                        $ac++;
 
                     }
                 }
@@ -1688,6 +1751,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
             // Embedded Media
             foreach( $embedded_media['images'] as $embedded_item ) {
+
+                if ( $ic == $image_limit ) {
+                    break;
+                }
 
                 // Scope BEGIN: ImageObject: http://schema.org/ImageObject
 //                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
@@ -1719,8 +1786,16 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
                 // Images have been found.
                 $has_images = true;
+                // Increase image counter
+                $ic++;
+
             }
             foreach( $embedded_media['videos'] as $embedded_item ) {
+
+                if ( $vc == $video_limit ) {
+                    break;
+                }
+
                 // Scope BEGIN: VideoObject: http://schema.org/VideoObject
                 // See: http://googlewebmastercentral.blogspot.gr/2012/02/using-schemaorg-markup-for-videos.html
                 // See: https://support.google.com/webmasters/answer/2413309?hl=en
@@ -1737,8 +1812,17 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 $metadata_arr['video'][] = $current_video_obj;
                 // Scope END: VideoObject
 //                $metadata_arr[] = '</span> <!-- Scope END: VideoObject -->';
+
+                // Increase video counter
+                $vc++;
+
             }
             foreach( $embedded_media['sounds'] as $embedded_item ) {
+
+                if ( $ac == $audio_limit ) {
+                    break;
+                }
+
                 // Scope BEGIN: AudioObject: http://schema.org/AudioObject
 //                $metadata_arr[] = '<!-- Scope BEGIN: AudioObject -->';
 //                $metadata_arr[] = '<span itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">';
@@ -1750,6 +1834,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 $metadata_arr['audio'][] = $current_audio_obj;
                 // Scope END: AudioObject
 //                $metadata_arr[] = '</span> <!-- Scope END: AudioObject -->';
+
+                // Increase audio counter
+                $ac++;
+
             }
 
             // If no images have been found so far use the default image, if set.

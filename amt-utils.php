@@ -1888,6 +1888,35 @@ function amt_is_product_group() {
 }
 
 
+// Media Limits
+
+function amt_metadata_get_default_media_limit($options) {
+    $limit = 10;
+    if ( is_array($options) && array_key_exists('force_media_limit', $options) && $options['force_media_limit'] == '1' ) {
+        $limit = 1;
+    }
+    return $limit;
+}
+
+function amt_metadata_get_image_limit($options) {
+    $limit = amt_metadata_get_default_media_limit($options);
+    $limit = apply_filters( 'amt_metadata_image_limit', $limit );
+    return absint($limit);
+}
+
+function amt_metadata_get_video_limit($options) {
+    $limit = amt_metadata_get_default_media_limit($options);
+    $limit = apply_filters( 'amt_metadata_video_limit', $limit );
+    return absint($limit);
+}
+
+function amt_metadata_get_audio_limit($options) {
+    $limit = amt_metadata_get_default_media_limit($options);
+    $limit = apply_filters( 'amt_metadata_audio_limit', $limit );
+    return absint($limit);
+}
+
+
 // Reviews
 
 // Returns an array containing review related data, only when the provided data is valid.
