@@ -297,6 +297,10 @@ function amt_admin_help_tabs() {
 
     <p>'.__('This metadata generator actually adds schema.org microdata around the post\'s content, because marking up the exact contents of the page in an automatic manner is technically impossible. Make no mistake, this is not the ideal way to insert microdata to your web pages. This generator should be considered as a workaround in case your theme lacks schema.org microdata markup in its templates and not as a replacement of schema.org enhanced themes.', 'add-meta-tags').'</p>
 
+    <h3>'.__('Enforce the generation of schema.org metadata as JSON-LD data.', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this option is enabled, the schema.org metadata is generated as a JSON+LD script and added to the head section of the HTML page, instead of being added as microdata within the content.', 'add-meta-tags').'</p>
+
     <h3>'.__('Important Notes', 'add-meta-tags').'</h3>
 
     <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
@@ -776,6 +780,11 @@ function amt_options_page() {
 
                 <input id="auto_schemaorg" type="checkbox" value="1" name="auto_schemaorg" '. (($options["auto_schemaorg"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_schemaorg">'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</label> (Experimental feature)
+                <br />
+
+                <input id="schemaorg_force_jsonld" type="checkbox" value="1" name="schemaorg_force_jsonld" '. (($options["schemaorg_force_jsonld"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="schemaorg_force_jsonld">'.__('Enforce the generation of schema.org metadata as JSON-LD data.', 'add-meta-tags').'</label> (<span style="color:red;">For testing only</span>)
+                <br />
 
             </fieldset>
             </td>

@@ -144,7 +144,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
     }
 
     // Check if the microdata or the JSON-LD schema.org generator should be used.
-    if ( apply_filters( 'amt_schemaorg_force_jsonld', false ) ) {
+    if ( $options["schemaorg_force_jsonld"] == "1" ) {
         return array();
     }
 
@@ -269,7 +269,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     }
 
     // Check if the microdata or the JSON-LD schema.org generator should be used.
-    if ( apply_filters( 'amt_schemaorg_force_jsonld', false ) ) {
+    if ( $options["schemaorg_force_jsonld"] == "1" ) {
         return $post_body;
     }
 
@@ -1104,7 +1104,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
     }
 
     // Check if the microdata or the JSON-LD schema.org generator should be used.
-    if ( ! apply_filters( 'amt_schemaorg_force_jsonld', false ) ) {
+    if ( $options["schemaorg_force_jsonld"] == "0" ) {
         return array();
     }
 
