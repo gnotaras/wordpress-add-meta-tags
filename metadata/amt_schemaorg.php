@@ -2057,7 +2057,7 @@ function amt_get_jsonld_schemaorg_publisher_array( $options, $author_id=null ) {
  * the content. Accepts the $post object as argument.
  */
 function amt_get_jsonld_schemaorg_author_array( $author_id ) {
-//$author_obj = get_user_by( 'id', $author_id );
+    //$author_obj = get_user_by( 'id', $author_id );
 
     $metadata_arr = array();
     // Schema.org type
@@ -2126,6 +2126,5 @@ function amt_get_jsonld_schemaorg_author_array( $author_id ) {
 
     return $metadata_arr;
 }
-
 
 
