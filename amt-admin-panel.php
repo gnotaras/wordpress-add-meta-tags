@@ -470,7 +470,7 @@ function amt_options_page() {
 
         <!-- <h3>'.__('Notice', 'add-meta-tags').'</h3> -->
 
-        <p>'.__('Press the <strong>Help</strong> button on the top right corner for an introduction to metadata and also for detailed documentation about the available settings and the metadata generators. All help texts will gradually be moved to this integrated WordPress help system in order to reduce the size of this page and make it more user-friendly.', 'add-meta-tags').'</p>
+        <p>'.__('Press the <code>Help</code> button on the top right corner for an introduction to metadata and also for detailed <strong>documentation</strong> about the available settings and the metadata generators. All help texts will gradually be moved to this integrated WordPress help system in order to reduce the size of this page and make it more user-friendly.', 'add-meta-tags').'</p>
 
     </div>
 
