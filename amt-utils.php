@@ -2148,3 +2148,92 @@ function amt_get_breadcrumbs( $user_options ) {
     return PHP_EOL . implode(PHP_EOL, $bc_arr) . PHP_EOL . PHP_EOL;
 }
 
+
+// Full Meta Tag Sets
+
+function amt_get_full_meta_tag_sets() {
+
+    $html_WORKS = '
+<select id="full_meta_tag_sets_selector" name="full_meta_tag_sets_selector">
+<option value="1">Option 1</option>
+<option value="2">Option 2</option>
+</select>
+
+<script>
+jQuery(document).ready(function(){
+    jQuery("#full_meta_tag_sets_selector").change(function(){
+        jQuery("#amt_custom_full_metatags").val(jQuery(this).val());
+    });
+});
+</script>
+    ';
+
+    $html_WORKS_2 = '
+<select id="full_meta_tag_sets_selector" name="full_meta_tag_sets_selector">
+<option value="1">Option 1</option>
+<option value="2">Option 2</option>
+</select>
+
+<script>
+jQuery(document).ready(function(){
+    jQuery("#full_meta_tag_sets_selector").change(function(){
+        var selection = jQuery(this).val();
+        if (selection == "1") {
+            var output = \' \
+                <meta_name="author_email" content=""/> \
+            \';
+        } else if (selection == "2") {
+            var output = \' \
+                <meta name="citation_issue" content=""/> \
+            \';
+        }
+        jQuery("#amt_custom_full_metatags").val(output);
+    });
+});
+</script>
+    ';
+
+
+    $meta_tag_sets = apply_filters( 'amt_full_meta_tag_sets', array() );
+    if ( empty($meta_tag_sets) ) {
+        return;
+    }
+
+    $html = PHP_EOL . '<select id="full_meta_tag_sets_selector" name="full_meta_tag_sets_selector">' . PHP_EOL;
+    $html .= PHP_EOL . '<option value="0">Select a set</option>' . PHP_EOL;
+    foreach ( array_keys($meta_tag_sets) as $key ) {
+        $key_slug = str_replace(' ', '_', strtolower($key));
+        $html .= '<option value="'.$key_slug.'">'.$key.'</option>' . PHP_EOL;
+    }
+    $html .= PHP_EOL . '</select>' . PHP_EOL;
+
+    $html .='
+<script>
+jQuery(document).ready(function(){
+    jQuery("#full_meta_tag_sets_selector").change(function(){
+        var selection = jQuery(this).val();
+        if (selection == "0") {
+            var output = \'\';
+    ';
+
+    foreach ( $meta_tag_sets as $key => $value ) {
+        $key_slug = str_replace(' ', '_', strtolower($key));
+        $html .= '
+        } else if (selection == "'.$key_slug.'") {
+            var output = \''.implode('\'+"\n"+\'', $value).'\';
+        ';
+    }
+
+    $html .='
+        }
+        jQuery("#amt_custom_full_metatags").val(output);
+    });
+});
+</script>
+    ';
+
+
+    return $html;
+}
+
+
