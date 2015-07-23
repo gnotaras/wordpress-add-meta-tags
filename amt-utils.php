@@ -2159,7 +2159,7 @@ function amt_get_full_meta_tag_sets() {
     }
 
     $html = PHP_EOL . '<select id="full_meta_tag_sets_selector" name="full_meta_tag_sets_selector">' . PHP_EOL;
-    $html .= PHP_EOL . '<option value="0">Select a set</option>' . PHP_EOL;
+    $html .= PHP_EOL . '<option value="0">'.__('Select a meta tag group', 'add-meta-tags').'</option>' . PHP_EOL;
     foreach ( array_keys($meta_tag_sets) as $key ) {
         $key_slug = str_replace(' ', '_', strtolower($key));
         $html .= '<option value="'.$key_slug.'">'.$key.'</option>' . PHP_EOL;
@@ -2191,7 +2191,7 @@ jQuery(document).ready(function(){
 </script>
     ';
 
-    return $html;
+    return '<br />' . __('Replace meta tags with:', 'add-meta-tags') . $html . '<br />';
 }
 
 

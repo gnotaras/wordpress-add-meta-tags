@@ -1341,9 +1341,11 @@ function amt_inner_metadata_box( $post ) {
         print('
             <p>
                 <label for="amt_custom_full_metatags"><strong>'.__('Full meta tags', 'add-meta-tags').'</strong>:</label>
-                <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="4" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
+                ' . amt_get_full_meta_tag_sets() . '
+                <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="6" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
                 <br>
                 '.__('Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">META HTML element</a> on Wikipedia).', 'add-meta-tags').'
+                '.__('Find out how to create <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-Meta-Tag-Sets">pre-defined sets</a> of the meta tags you use often.', 'add-meta-tags').'
             </p>
             <p>
                 '.__('For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:', 'add-meta-tags').'
