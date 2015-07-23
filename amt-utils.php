@@ -2149,51 +2149,10 @@ function amt_get_breadcrumbs( $user_options ) {
 }
 
 
-// Full Meta Tag Sets
-
+// Meta Tag Sets
 function amt_get_full_meta_tag_sets() {
 
-    $html_WORKS = '
-<select id="full_meta_tag_sets_selector" name="full_meta_tag_sets_selector">
-<option value="1">Option 1</option>
-<option value="2">Option 2</option>
-</select>
-
-<script>
-jQuery(document).ready(function(){
-    jQuery("#full_meta_tag_sets_selector").change(function(){
-        jQuery("#amt_custom_full_metatags").val(jQuery(this).val());
-    });
-});
-</script>
-    ';
-
-    $html_WORKS_2 = '
-<select id="full_meta_tag_sets_selector" name="full_meta_tag_sets_selector">
-<option value="1">Option 1</option>
-<option value="2">Option 2</option>
-</select>
-
-<script>
-jQuery(document).ready(function(){
-    jQuery("#full_meta_tag_sets_selector").change(function(){
-        var selection = jQuery(this).val();
-        if (selection == "1") {
-            var output = \' \
-                <meta_name="author_email" content=""/> \
-            \';
-        } else if (selection == "2") {
-            var output = \' \
-                <meta name="citation_issue" content=""/> \
-            \';
-        }
-        jQuery("#amt_custom_full_metatags").val(output);
-    });
-});
-</script>
-    ';
-
-
+    // Check if we have any meta tag sets.
     $meta_tag_sets = apply_filters( 'amt_full_meta_tag_sets', array() );
     if ( empty($meta_tag_sets) ) {
         return;
@@ -2231,7 +2190,6 @@ jQuery(document).ready(function(){
 });
 </script>
     ';
-
 
     return $html;
 }
