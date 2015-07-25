@@ -1417,7 +1417,7 @@ function amt_inner_metadata_box( $post ) {
                 ' . amt_get_sample_review_sets() . '
                 <textarea class="code" style="width: 99%" id="amt_custom_express_review" name="amt_custom_express_review" cols="30" rows="12" >'. stripslashes( $custom_express_review_value ) .'</textarea>
                 <br />
-                '.__('This field accepts review related information using INI file syntax (<code>property = value</code> pairs, <code>;</code> designates a comment). If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews" target="_blank">Read more</a> about the correct syntax of the review information.', 'add-meta-tags').'
+                '.__('This field accepts review related information using INI file syntax. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews" target="_blank">Read more</a> about the correct syntax of the review information.', 'add-meta-tags').'
                 <br />
             </p>
         ');
