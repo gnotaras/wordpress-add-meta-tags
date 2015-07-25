@@ -3,8 +3,8 @@ Contributors: gnotaras
 Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail, multilingual, multilanguage, hreflang
 Requires at least: 3.1.0
-Tested up to: 4.2
-Stable tag: 2.8.17
+Tested up to: 4.3
+Stable tag: 2.9.0
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -255,85 +255,25 @@ Screenshots as of v2.4.0
 
 == Upgrade Notice ==
 
-= 2.9 =
+= 2.9.0 =
 
-In 2.9 publisher social media profile links can no longer be set in the WordPress user profile page. Please move such information to the `Publisher Settings` section of Add-Meta-Tags settings page (Settings->Metadata).
+In 2.9.0 publisher social media profile links can no longer be set in the WordPress user profile pages. Please move such data to the 'Publisher Settings' section of the Add-Meta-Tags settings page (Settings->Metadata).
 
 
 == Changelog ==
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
-- [2.8.17](http://www.codetrax.org/versions/308)
- - Use the `image`/`video`/`audio` properties instead of the associatedMedia property in schema.org generator to comply with Google's new structured data validation rules. (props to Nicolaie Szabadkai and ditad for reporting the issue.)
-- [2.8.16](http://www.codetrax.org/versions/307)
-- [2.8.15](http://www.codetrax.org/versions/296)
- - Fixed issue: Twitter Cards not generated on static front page. (props to Jeff McNeill and codyleach for useful feedback.)
- - Fixed a PHP warning due to incomplete array key check. (props to icryptic for useful feedback.)
- - Updated translations.
-- [2.8.14](http://www.codetrax.org/versions/295)
- - A copyright link element in the `head` section that points to the homepage is no longer generated automatically, but manually entering a URL in the relevant field in the settings is required.
- - Added a notice about the experimental nature of the schema.org metadata generator, so as to prevent users from considering it as a replacement for schema.org enhanced themes.
-- [2.8.13](http://www.codetrax.org/versions/294)
- - Fixed issue with metabox feature checks. (props to Juan Sandro for reporting the issue.)
-- [2.8.12](http://www.codetrax.org/versions/293)
- - Added option that activates/deactivates the automatic management of the html `lang` attribute. (Not to be used in conjunction with a multilingual plugin.) (props to Tom [ecdltf] for valuable feedback.)
- - Allow filtering of the array containing the hreflang link(s).
-- [2.8.11](http://www.codetrax.org/versions/292)
- - The `lang` attribute of the `html` element of the web page is now set according to the content's locale. (props to Tom [ecdltf] for valuable feedback.)
- - Custom field data is no longer used if the relevant metabox feature has been deactivated. (props to Tom [ecdltf] for ideas and feedback.)
- - Minor other improvements.
-- [2.8.10](http://www.codetrax.org/versions/290)
- - Improved support for multilingual web sites that do not use a multilingual plugin.
- - Added new metabox feature: 'content locale override' (needs to be enabled in the settings), which can be used to override the locale on a per post basis. (Not to be used in conjunction with a multilingual plugin.) 
- - Added option to generate a HTML link with the `hreflang` attribute based on the current locale. (Not to be used in conjunction with a multilingual plugin.)
- - Added option to strip the region code from the value used in the hreflang attribute, in case your content is not targeted to users in specific region. Does not affect locale used in metadata. (Not to be used in conjunction with a multilingual plugin.)
- - Updated translations.
-- [2.8.9](http://www.codetrax.org/versions/289)
- - Improved support for the multilingual plugins WPML and Polylang. (props to Eduardo Molon for valuable feedback.)
- - Various minor bug fixes and improvements.
-- [2.8.8](http://www.codetrax.org/versions/288)
- - New experimental metabox feature: Express Review (needs to be enabled in the settings). Adds a metabox field which accepts review related information in special notation and generates a schema.org Review instead of Article. Only for advanced users. Feedback is welcome.
-- [2.8.7](http://www.codetrax.org/versions/287)
- - DEPRECATION WARNING: In Add-Meta-Tags v2.9 the ability to store Publisher social profile URLs in the user's Profile Page (Publisher related AMT fields) will no longer be enabled by default. It is highly recommended to set the Publisher's social profile URLs in the plugin settings page (Publisher Settings section).
- - FUNCTIONALITY CHANGE: The Schema.org microdata generator has been improved in 2.8.7. It is highly recommended to check your pages using Google's [Structured Data Testing Tool](https://developers.google.com/structured-data/testing-tool/) or the [Structured Data Validator](https://webmaster.yandex.com/microtest.xml) by Yandex. Some important changes can be found in the entries that follow.
- - Social profile links for the `Organization` and `Person` objects are now automatically added as `sameAs` Schema.org properties to the aforementioned objects.
- - The main Schema.org object of the front page has been changed to `WebSite` and the `Organization` object has been added to it as the `publisher` property.
- - Added support for the [Sitelinks Search Box](https://developers.google.com/structured-data/slsb-overview).
- - A new **template tag** that generates a *semantic breadcrumb trail* (contains Schema.org microdata) has been implemented. Please check the description page for more information about how to use the template tag. (props to Nicolaie Szabadkai for ideas and feedback)
- - Added support for the customization (via filter) of the `itemref` attribute of the main Schema.org object. This way other entities, such as a semantic breadcrumb trail or semantic comments/reviews, can be connected to the main Schema.org entity of the web page. Check the information about the breadcrumbs on the description page, which also has all the itemref relevant information.
- - Added [example](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Customization#Extend-the-Organization-properties) to help users add extra social profile links, a postal address and some contact points to the `Organization` object. Make sure you check it out.
-- [2.8.6](http://www.codetrax.org/versions/286)
- - Added filter `amt_sanitize_description_extra` filter hook for user-defined description sanitization filtering.
- - Added filter `amt_sanitize_keywords_extra` filter hook for user-defined keywords sanitization filtering.
- - Fixed issue with categories appearing in 'article:tag' Open Graph meta tags. (props to Andrew Arthur Dawson for reporting the issue)
-- [2.8.5](http://www.codetrax.org/versions/285)
- - Fixed: term_description() requires the taxonomy slug in order to properly return the term description. (props to pjv for reporting the issue and providing valuable feedback)
- - Auto-detect WooCommerce product group images and use them in the metadata of product group archives.
- - Make it possible to use taxonomy images added by external plugins. See [example 15](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook#Example-15-Use-external-category-images) about how to actually do it.
-- [2.8.4](http://www.codetrax.org/versions/284)
- - Filter hooks for extra Organization/Person related meta tags in the Schema.org generator. (props to Nicolaie Szabadkai for ideas and very useful feedback)
- - Schema.org generator: articleSection should only be set in Article objects. (props to Richard D'Angelo and marketingisa3 for useful feedback)
- - Updated Turkish translation (100%) by BouRock (big thanks).
- - Several other minor bug fixes.
-- [2.8.3](http://www.codetrax.org/versions/246)
- - Fixed bug: Post body was not added properly when Schema.org metadata was generated for products. (props to pjv for useful feedback)
-- [2.8.2](http://www.codetrax.org/versions/245)
-- [2.8.1](http://www.codetrax.org/versions/193)
- - Added new option to omit og:video OpenGraph meta tags. (props to Rika for feedback)
- - Added support for WooCommerce and Easy-Digital-Downloads product and product group page auto-detection. Need to be enabled in the settings. Currently, basic product metadata is generated. Time permitting it will be improved in future releases. Further customization is possible with filtering. See examples [13](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook#Example-13-Customize-metadata-for-WooCommerce-products) & [14](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook#Example-14-Customize-metadata-for-Easy-Digital-Downloads-products). (thanks all for feedback)
- - Minor improvements of the README.
- - Updated translations.
-- [2.8.0](http://www.codetrax.org/versions/192)
- - Updated the FAQ section.
- - More default image URL adjustments for SSL connections.
- - Improved Schema.org customization via filters. (props to Richard D'Angelo for ideas and feedback)
- - New setting for locale that overrides the WordPress locale setting. (props to eduh12 for ideas and feedback)
- - New metabox feature: global image override. (props to eduh12 for ideas and feedback)
- - Filtering for default Twitter Card type. (props to KV92)
- - Added generic support for products. More info at the description page. (received many requests. too many to mention here. thanks all!)
- - Fixed bug with extra comma in keywords when a post has no categories, no tags, but belongs to a custom taxonomy.
- - Updated translations.
+- [2.9.0](http://www.codetrax.org/versions/297)
+ - **IMPORTANT NOTICE 1**: All help text messages and examples of the settings page have been moved to the integrated WordPress help system. This has been done in order to make the settings page easier to navigate. While at the settings page, press the `HELP` button on the top right corner and browse through the various sections in order to get detailed information about the available settings.
+ - **IMPORTANT NOTICE 2**: It is no longer possible to enter the URLs of the Publisher's social media profiles in the WordPress user profile pages. Instead, publisher information should be entered in the relevant fields of the **Publisher Settings** section of the settings page.
+ - The administration interface has been reworked.
+ - Removed publisher related settings from user profile pages.
+ - Improved the algorithm that collects the embedded media so that it excludes media which are just linked from the content and not embedded into the content.
+ - Added option that limits the generated media metadata to one media file of each media type (image, video, audio). See `Media Limit` in the settings page. (thanks all for providing feedback about this feature - too many to list here)
+ - Added support for pre-defined full meta tag sets, which can be used in the 'Full Meta Tags' box ([more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-Meta-Tag-Sets)). (props to aferguson for ideas and feedback)
+ - Re-invented the 'Express Review' feature. Admittedly, creating a review has become a little more complex, but the new way of creating reviews is as simple as it can possibly get without sacrificing flexibility. If you have an idea about how to make it even simpler, please let me know.
+ - This release contains an alpha version of JSON-LD schema.org metadata generator. By enabling it in the settings, schema.org metadata is added in the head section of the web page as an `application/ld+json` script, instead of embedded microdata in the content. This feature currently exists only for testing. Your feedbackis welcome.
 
 Changelog information for older releases can be found in the ChangeLog file or at the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") on the [Add-Meta-Tags development web site](http://www.codetrax.org/projects/wp-add-meta-tags).
 
