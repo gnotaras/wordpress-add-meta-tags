@@ -1903,7 +1903,12 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $main_text_property = apply_filters( 'amt_schemaorg_property_main_text', $main_text_property );
 
 //        $metadata_arr[] = '<div itemprop="' . esc_attr($main_text_property) . '">';
-        $metadata_arr[ esc_attr($main_text_property) ] = $post->post_content;
+
+
+        // Add main content
+        //$metadata_arr[ esc_attr($main_text_property) ] = $post->post_content;
+
+
 //        $metadata_arr[] = $post_body;
 //        $metadata_arr[] = '</div> <!-- Itemprop END: ' . esc_attr($main_text_property) . ' -->';
         // Now add closing tag for Article
