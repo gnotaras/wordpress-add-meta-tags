@@ -514,13 +514,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 //            $main_content_object = 'WebPage';
 //        }
         // Check for Review
-        $express_review_field_data = amt_get_post_meta_express_review( $post->ID );
-        $review_data = array();
-        if ( ! empty($express_review_field_data) ) {
-            $review_data = amt_get_review_data($express_review_field_data);
-            if ( ! empty($review_data) ) {
-                $main_content_object = 'Review';
-            }
+        $review_data = amt_get_review_data($post);
+        if ( ! empty($review_data) ) {
+            $main_content_object = 'Review';
         }
         // Allow filtering the main metadata object for content.
         $main_content_object = apply_filters( 'amt_schemaorg_object_main', $main_content_object );
@@ -1498,13 +1494,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //            $main_content_object = 'WebPage';
 //        }
         // Check for Review
-        $express_review_field_data = amt_get_post_meta_express_review( $post->ID );
-        $review_data = array();
-        if ( ! empty($express_review_field_data) ) {
-            $review_data = amt_get_review_data($express_review_field_data);
-            if ( ! empty($review_data) ) {
-                $main_content_object = 'Review';
-            }
+        $review_data = amt_get_review_data($post);
+        if ( ! empty($review_data) ) {
+            $main_content_object = 'Review';
         }
         // Allow filtering the main metadata object for content.
         $main_content_object = apply_filters( 'amt_schemaorg_object_main', $main_content_object );
@@ -1584,14 +1576,40 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //            $metadata_arr[] = '<!-- Review Information BEGIN -->';
 //            $metadata_arr[] = amt_get_review_info_box( $review_data );
 //            $metadata_arr[] = '<!-- Review Information END -->';
+            // Reviewed Item
             $metadata_arr['itemReviewed'] = array();
-            $metadata_arr['itemReviewed']['@type'] = $review_data['object'];
-            $metadata_arr['itemReviewed']['name'] = $review_data['name'];
-            $metadata_arr['itemReviewed']['sameAs'] = $review_data['url'];
+            $metadata_arr['itemReviewed']['@type'] = esc_attr($review_data['object']);
+            $metadata_arr['itemReviewed']['name'] = esc_attr($review_data['name']);
+            $metadata_arr['itemReviewed']['sameAs'] = esc_url_raw($review_data['sameAs']);
+            // Extra properties of reviewed item
+            foreach ( $review_data['extra'] as $key => $value ) {
+                if ( is_array($value) ) {
+                    // Add sub entity
+                    // If it is an array, the 'object' property is mandatory
+                    if ( ! array_key_exists( 'object', $value ) ) {
+                        continue;
+                    }
+                    $metadata_arr['itemReviewed'][esc_attr($key)] = array();
+                    $metadata_arr['itemReviewed'][esc_attr($key)]['@type'] = esc_attr($value['object']);
+                    foreach ( $value as $subkey => $subvalue ) {
+                        if ( $subkey != 'object' ) {
+                            if ( in_array( $subkey, array('url', 'sameAs') ) ) {
+                                $metadata_arr['itemReviewed'][esc_attr($key)][esc_attr($subkey)] = esc_url_raw($subvalue);
+                            } else {
+                               $metadata_arr['itemReviewed'][esc_attr($key)][esc_attr($subkey)] = esc_attr($subvalue);
+                            }
+                        }
+                    }
+                } else {
+                    // Add simple meta element
+                    $metadata_arr['itemReviewed'][esc_attr($key)] = esc_attr($value);
+                }
+            }
+
             // Rating
             $metadata_arr['reviewRating'] = array();
             $metadata_arr['reviewRating']['@type'] = 'Rating';
-            $metadata_arr['reviewRating']['ratingValue'] = $review_data['rating'];
+            $metadata_arr['reviewRating']['ratingValue'] = $review_data['ratingValue'];
             $bestrating = apply_filters( 'amt_schemaorg_review_bestrating', '5' );
             $metadata_arr['reviewRating']['bestRating'] = $bestrating;
         }

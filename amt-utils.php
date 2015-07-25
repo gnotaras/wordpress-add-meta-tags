@@ -2018,39 +2018,59 @@ function amt_metadata_get_audio_limit($options) {
 
 // Reviews
 
+
 // Returns an array containing review related data, only when the provided data is valid.
-function amt_get_review_data( $data ) {
+function amt_get_review_data( $post ) {
+    // Get review information from custom field
+    $data = amt_get_post_meta_express_review( $post->ID );
     if ( empty($data) ) {
         return;
     }
-    // Clean new line information
-    $data = preg_replace( '#[\r\n]+#', '', $data );
-    // Check if $data contains exactly 4 items in a '__' delimited list.
-    $parts = explode( '__', $data );
-    if ( count($parts) != 4 ) {
+    // Parse as INI
+    $review_data_raw = parse_ini_string( $data, true, INI_SCANNER_RAW );
+    //var_dump($review_data_raw);
+    // Check for mandatory properties
+    if ( ! array_key_exists('ratingValue', $review_data_raw) ) {
+        return;
+    } elseif ( ! array_key_exists('object', $review_data_raw) ) {
+        return;
+    } elseif ( ! array_key_exists('name', $review_data_raw) ) {
+        return;
+    } elseif ( ! array_key_exists('sameAs', $review_data_raw) ) {
         return;
     }
-    // Return the array with review data
-    return array(
-        'rating' => trim($parts[0]),
-        'object' => trim($parts[1]),
-        'name' => trim($parts[2]),
-        'url' => trim($parts[3])
-    );
+    // Construct final review data array.
+    // Extra properties are collected into ['extraprop'] sub array.
+    $review_data = array();
+    $review_data['extra'] = array();
+    $mandatory_arr = array( 'ratingValue', 'object', 'name', 'sameAs' );
+    // Add extra properties
+    foreach ( $review_data_raw as $key => $value ) {
+        if ( in_array( $key, $mandatory_arr ) ) {
+            $review_data[$key] = $value;
+        } else {
+            $review_data['extra'][$key] = $value;
+        }
+    }
+    //var_dump($review_data);
+
+    return $review_data;
 }
 
 
 // Return the information text that should be attached to the post content.
 function amt_get_review_info_box( $review_data ) {
-    // Variables: #rating#, #bestrating#, #object#, #name#, #url#
+    // Variables: #ratingValue#, #bestrating#, #object#, #name#, #sameAs#, #extra#
+    // #extra# contains meta elements containing the extra properties of the reviewed item.
     $template = '
 <div id="review-info" class="review-info">
     <p>This is a review of
     <span itemprop="itemReviewed" itemscope itemtype="http://schema.org/#object#">
-        <a title="#object#: #name#" href="#url#" itemprop="sameAs"><span itemprop="name">#name#</span></a>
+        <a title="#object#: #name#" href="#sameAs#" itemprop="sameAs"><span itemprop="name">#name#</span></a>
+#extra#
     </span>, which has been rated with 
     <span class="rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-        <span itemprop="ratingValue">#rating#</span>/<span itemprop="bestRating">#bestrating#</span>
+        <span itemprop="ratingValue">#ratingValue#</span>/<span itemprop="bestRating">#bestrating#</span>
     </span> stars!</p>
 </div>
 ';
@@ -2060,15 +2080,136 @@ function amt_get_review_info_box( $review_data ) {
     $bestrating = apply_filters( 'amt_schemaorg_review_bestrating', '5' );
     // Replace placeholders
     $output = $template;
-    $output = str_replace('#rating#', $review_data['rating'], $output);
-    $output = str_replace('#bestrating#', $bestrating, $output);
-    $output = str_replace('#object#', $review_data['object'], $output);
-    $output = str_replace('#name#', $review_data['name'], $output);
-    $output = str_replace('#url#', $review_data['url'], $output);
+    $output = str_replace('#ratingValue#', esc_attr($review_data['ratingValue']), $output);
+    $output = str_replace('#bestrating#', esc_attr($bestrating), $output);
+    $output = str_replace('#object#', esc_attr($review_data['object']), $output);
+    $output = str_replace('#name#', esc_attr($review_data['name']), $output);
+    $output = str_replace('#sameAs#', esc_url_raw($review_data['sameAs']), $output);
+    // Extra properties
+    $extra_arr = array();
+    foreach ( $review_data['extra'] as $key => $value ) {
+        if ( is_array($value) ) {
+            // Add sub entity
+            // If it is an array, the 'object' property is mandatory
+            if ( ! array_key_exists( 'object', $value ) ) {
+                continue;
+            }
+            $extra_arr[] = '<span itemprop="' . esc_attr($key) . '" itemscope itemtype="http://schema.org/' . esc_attr($value['object']) . '">';
+            foreach ( $value as $subkey => $subvalue ) {
+                if ( $subkey != 'object' ) {
+                    if ( in_array( $subkey, array('url', 'sameAs') ) ) {
+                        $extra_arr[] = '<meta itemprop="' . esc_attr($subkey) . '" content="' . esc_url_raw($subvalue) . '" />';
+                    } else {
+                        $extra_arr[] = '<meta itemprop="' . esc_attr($subkey) . '" content="' . esc_attr($subvalue) . '" />';
+                    }
+                }
+            }
+            $extra_arr[] = '</span>';
+        } else {
+            // Add simple meta element
+            $extra_arr[] = '<meta itemprop="' . esc_attr($key) . '" content="' . esc_attr($value) . '" />';
+        }
+    }
+    $output = str_replace('#extra#', implode(PHP_EOL, $extra_arr), $output);
     // Allow filtering of the output
     $output = apply_filters( 'amt_schemaorg_review_info_output', $output );
     return $output;
 }
+
+// Sample review sets
+function amt_get_sample_review_sets() {
+
+    // Default review sets
+    $review_sets = array(
+        'Book' => array(
+            '; Review rating (required)',
+            'ratingValue = 4.2',
+            '; Mandatory reviewed item properties (required)',
+            'object = Book',
+            'name = On the Origin of Species',
+            'sameAs = http://en.wikipedia.org/wiki/On_the_Origin_of_Species',
+            '; Extra reviewed item properties (optional)',
+            'isbn = 123456',
+            '[author]',
+            'object = Person',
+            'name = Charles Darwin',
+            'sameAs = https://en.wikipedia.org/wiki/Charles_Darwin',
+        ),
+        'Movie' => array(
+            '; Review rating (required)',
+            'ratingValue = 4.2',
+            '; Mandatory reviewed item properties (required)',
+            'object = Movie',
+            'name = Reservoir Dogs',
+            'sameAs = http://www.imdb.com/title/tt0105236/',
+            '; Extra reviewed item properties (optional)',
+            ';datePublished = 1992-01-21T00:00',
+            '[director]',
+            'object = Person',
+            'name = Quentin Tarantino',
+            'sameAs = https://en.wikipedia.org/wiki/Quentin_Tarantino',
+            '[actor]',
+            'object = Person',
+            'name = Harvey Keitel',
+            'sameAs = https://en.wikipedia.org/wiki/Harvey_Keitel',
+        ),
+        'Article' => array(
+            '; Review rating (required)',
+            'ratingValue = 4.2',
+            '; Mandatory reviewed item properties (required)',
+            'object = Article',
+            'name = Structured Data',
+            'sameAs = https://developers.google.com/structured-data/',
+            '; Extra reviewed item properties (optional)',
+            'datePublished = 2015-07-21T00:00',
+            'headline = Promote Your Content with Structured Data Markup',
+            'image = https://developers.google.com/structured-data/images/reviews-mobile.png',
+        ),
+    );
+
+    // Check if we have any meta tag sets.
+    $review_sets = apply_filters( 'amt_sample_review_sets', $review_sets );
+    if ( empty($review_sets) ) {
+        return;
+    }
+
+    $html = PHP_EOL . '<select id="sample_review_sets_selector" name="sample_review_sets_selector">' . PHP_EOL;
+    $html .= PHP_EOL . '<option value="0">'.__('Select a sample review', 'add-meta-tags').'</option>' . PHP_EOL;
+    foreach ( array_keys($review_sets) as $key ) {
+        $key_slug = str_replace(' ', '_', strtolower($key));
+        $html .= '<option value="'.$key_slug.'">'.$key.'</option>' . PHP_EOL;
+    }
+    $html .= PHP_EOL . '</select>' . PHP_EOL;
+
+    $html .='
+<script>
+jQuery(document).ready(function(){
+    jQuery("#sample_review_sets_selector").change(function(){
+        var selection = jQuery(this).val();
+        if (selection == "0") {
+            var output = \'\';
+    ';
+
+    foreach ( $review_sets as $key => $value ) {
+        $key_slug = str_replace(' ', '_', strtolower($key));
+        $html .= '
+        } else if (selection == "'.$key_slug.'") {
+            var output = \''.implode('\'+"\n"+\'', $value).'\';
+        ';
+    }
+
+    $html .='
+        }
+        jQuery("#amt_custom_express_review").val(output);
+    });
+});
+</script>
+    ';
+
+    return '<br />' . __('Use sample review data:', 'add-meta-tags') . $html . '<br />';
+}
+
+
 
 
 // Breadcrumbs

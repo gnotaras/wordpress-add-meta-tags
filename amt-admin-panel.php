@@ -1414,12 +1414,41 @@ function amt_inner_metadata_box( $post ) {
         print('
             <p>
                 <label for="amt_custom_express_review"><strong>'.__('Express review', 'add-meta-tags').'</strong>:</label>
-                <textarea class="code" style="width: 99%" id="amt_custom_express_review" name="amt_custom_express_review" cols="30" rows="2" >'. stripslashes( $custom_express_review_value ) .'</textarea>
+                ' . amt_get_sample_review_sets() . '
+                <textarea class="code" style="width: 99%" id="amt_custom_express_review" name="amt_custom_express_review" cols="30" rows="12" >'. stripslashes( $custom_express_review_value ) .'</textarea>
                 <br />
-                '.__('This field accepts special notation of review related information. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. This field must contain a <code>__</code> (double underscore) delimited list of the following information (all in one line): a rating, the name of a valid schema.org <a href="http://schema.org/Thing">Thing</a> derivative object, a title, and a URL. For instance:', 'add-meta-tags').'
+                '.__('This field accepts review related information using INI file syntax (<code>property = value</code> pairs, <code>;</code> designates a comment). If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews" target="_blank">Read more</a> about the correct syntax of the review information.', 'add-meta-tags').'
                 <br />
-                <code>4.2__Book__On the Origin of Species__http://en.wikipedia.org/wiki/On_the_Origin_of_Species</code>
             </p>
+        ');
+
+        // Add javascipt to fill textarea with sample review data.
+        // CURRENTLY NOT USED
+        print('
+<script>
+// To click on a link like:
+// <a id="amt_fill_sample_review" href="#">Click here</a>
+// and replace the textarea data.
+jQuery(document).ready(function() {
+    jQuery("#amt_fill_sample_review").click(function(event) {
+        event.preventDefault();
+        //jQuery("#amt_fill_sample_review").live(\'click\',function(e){
+        var samplereview = "; Review rating (required)\n\
+ratingValue = 4.2\n\
+; Mandatory reviewed item properties (required)\n\
+object = Book\n\
+name = On the Origin of Species\n\
+sameAs = http://en.wikipedia.org/wiki/On_the_Origin_of_Species\n\
+; Extra reviewed item properties (optional)\n\
+;isbn = 123456\n\
+;[author]\n\
+;object = Person\n\
+;name = Charles Darwin\n\
+;sameAs = https://en.wikipedia.org/wiki/Charles_Darwin";
+        jQuery("#amt_custom_express_review").val(samplereview);
+    });
+});
+</script>
         ');
 
     }
