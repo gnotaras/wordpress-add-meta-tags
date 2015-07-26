@@ -1348,7 +1348,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // Extend the current metadata with properties of the Product object.
         // See: http://schema.org/Product
-        $metadata_arr = apply_filters( 'amt_product_data_schemaorg', $metadata_arr, $post );
+        $metadata_arr = apply_filters( 'amt_product_data_jsonld_schemaorg', $metadata_arr, $post );
 
         // Scope END: Product
 //        $metadata_arr[] = '</div> <!-- Scope END: Product -->';

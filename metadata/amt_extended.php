@@ -147,6 +147,27 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
     return $metatags;
 }
 
+// JSON-LD Schema.org for woocommerce products
+function amt_product_data_jsonld_schemaorg_woocommerce( $metatags, $post ) {
+    // Get the product object
+    $product = get_product($post->ID);
+
+    // Price
+    $metatags['price'] = $product->get_price();
+    // Currency
+    $metatags['priceCurrency'] = get_woocommerce_currency();
+
+    // TODO: Check these:
+    // itemCondition
+    // productID
+    // review (check first example)
+    // offers (check first example)
+    // sku
+
+    $metatags = apply_filters( 'amt_product_data_woocommerce_jsonld_schemaorg', $metatags );
+    return $metatags;
+}
+
 // Retrieves the WooCommerce product group's image URL, if any.
 function amt_product_group_image_url_woocommerce( $default_image_url, $tax_term_object ) {
     $thumbnail_id = get_woocommerce_term_meta( $tax_term_object->term_id, 'thumbnail_id', true );
@@ -222,6 +243,18 @@ function amt_product_data_schemaorg_edd( $metatags, $post ) {
     return $metatags;
 }
 
+// JSON-LD Schema.org for edd products
+function amt_product_data_jsonld_schemaorg_edd( $metatags, $post ) {
+
+    // Price
+    $metatags['price'] = edd_get_download_price($post->ID);
+    // Currency
+    $metatags['priceCurrency'] = edd_get_currency();
+
+    $metatags = apply_filters( 'amt_product_data_edd_jsonld_schemaorg', $metatags );
+    return $metatags;
+}
+
 // Retrieves the EDD product group's image URL, if any.
 function amt_product_group_image_url_edd( $term_id ) {
     // Not supported
@@ -244,13 +277,21 @@ function amt_detect_ecommerce_product() {
         // Filter product data meta tags
         add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_woocommerce', 10, 2 );
         add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_woocommerce', 10, 2 );
-        add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_woocommerce', 10, 2 );
+        if ( $options["schemaorg_force_jsonld"] == "0" ) {
+            add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_woocommerce', 10, 2 );
+        } else {
+            add_filter( 'amt_product_data_jsonld_schemaorg', 'amt_product_data_jsonld_schemaorg_woocommerce', 10, 2 );
+        }
         return true;
     // Easy-Digital-Downloads product
     } elseif ( $options["extended_support_edd"] == "1" && amt_is_edd_product() ) {
         add_filter( 'amt_product_data_twitter_cards', 'amt_product_data_tc_edd', 10, 2 );
         add_filter( 'amt_product_data_opengraph', 'amt_product_data_og_edd', 10, 2 );
-        add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_edd', 10, 2 );
+        if ( $options["schemaorg_force_jsonld"] == "0" ) {
+            add_filter( 'amt_product_data_schemaorg', 'amt_product_data_schemaorg_edd', 10, 2 );
+        } else {
+            add_filter( 'amt_product_data_jsonld_schemaorg', 'amt_product_data_jsonld_schemaorg_edd', 10, 2 );
+        }
         return true;
     }
     return false;
