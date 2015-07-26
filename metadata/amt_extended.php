@@ -92,12 +92,32 @@ function amt_product_data_tc_woocommerce( $metatags, $post ) {
     // Get the product object
     $product = get_product($post->ID);
 
+    // WC API: http://docs.woothemes.com/wc-apidocs/class-WC_Product.html
+    // Twitter product card: https://dev.twitter.com/cards/types/product
+
+    // In this generator we only add the price. So, the WC product types that are
+    // supported are those having a single price: simple, external
+    // Not supported: grouped (no price), variable (multiple prices)
+    $product_type = $product->product_type;
+    if ( ! in_array( $product_type, array('simple', 'external') ) ) {
+        $metatags = apply_filters( 'amt_product_data_woocommerce_twitter_cards', $metatags );
+        return $metatags;
+    }
+
     // Price
-    $metatags['twitter:label1'] = '<meta name="twitter:label1" content="Price" />';
-    $metatags['twitter:data1'] = '<meta name="twitter:data1" content="' . $product->get_price() . '" />';
-    // Currency
-    $metatags['twitter:label2'] = '<meta name="twitter:label2" content="Currency" />';
-    $metatags['twitter:data2'] = '<meta name="twitter:data2" content="' . get_woocommerce_currency() . '" />';
+    // get_regular_price
+    // get_sale_price
+    // get_price    <-- active price
+    // is_on_sale()
+    // is_purchasable()
+    $active_price = $product->get_price();
+    if ( ! empty($active_price) ) {
+        $metatags['twitter:label1'] = '<meta name="twitter:label1" content="Price" />';
+        $metatags['twitter:data1'] = '<meta name="twitter:data1" content="' . esc_attr($active_price) . '" />';
+        // Currency
+        $metatags['twitter:label2'] = '<meta name="twitter:label2" content="Currency" />';
+        $metatags['twitter:data2'] = '<meta name="twitter:data2" content="' . esc_attr(get_woocommerce_currency()) . '" />';
+    }
 
     $metatags = apply_filters( 'amt_product_data_woocommerce_twitter_cards', $metatags );
     return $metatags;
