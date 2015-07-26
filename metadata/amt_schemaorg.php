@@ -1480,7 +1480,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
 
     // Content
-    } else {
+    // Posts, pages, custom content types (attachments excluded, caught in previous clause)
+    // Note: content might be multipage. Process with amt_process_paged() wherever needed.
+    } elseif ( is_singular() ) {
 
         // Set main metadata entity. By default this set to Article.
         $main_content_object = 'Article';
