@@ -107,7 +107,7 @@ function amt_product_data_tc_woocommerce( $metatags, $post ) {
     // Price
     // get_regular_price
     // get_sale_price
-    // get_price    <-- active price
+    // get_price    <-- active price (if product is on sale, the sale price is retrieved)
     // is_on_sale()
     // is_purchasable()
     $active_price = $product->get_price();
