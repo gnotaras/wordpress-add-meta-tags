@@ -400,7 +400,7 @@ function amt_admin_help_tabs() {
     <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
 
     <ul>
-    <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)</li>
+    <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').' (<span style="color:red;">Ready for testing</span>)</li>
     <li>'.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)</li>
     </ul>
     <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
