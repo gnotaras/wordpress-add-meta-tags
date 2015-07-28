@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail, multilingual, multilanguage, hreflang
 Requires at least: 3.1.0
 Tested up to: 4.3
-Stable tag: 2.9.0
+Stable tag: 2.9.1
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -255,7 +255,7 @@ Screenshots as of v2.4.0
 
 == Upgrade Notice ==
 
-= 2.9.0 =
+= 2.9.1 =
 
 In 2.9.0 publisher social media profile links can no longer be set in the WordPress user profile pages. Please move such data to the 'Publisher Settings' section of the Add-Meta-Tags settings page (Settings->Metadata).
 
@@ -264,6 +264,12 @@ In 2.9.0 publisher social media profile links can no longer be set in the WordPr
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.1](http://www.codetrax.org/versions/298)
+ - The Twitter Cards, Opengraph and Schema.org microdata and JSON+LD generators for WooCommerce products have been greatly improved and are ready for general testing.
+ - Updated the Turkish translation. (props to BouRock for tirelessly maintaining the Turkish translation)
+ - Fixed issues of the JSON-LD generator with product and product group metadata. (props to Justin Flores for valuable feedback)
+ - Review mode box no longer shows message about microdata when the JSON+LD generator is enabled. (props to Eduardo Molon for providing feedback)
+ - Various other minor fixes and enhancements.
 - [2.9.0](http://www.codetrax.org/versions/297)
  - **IMPORTANT NOTICE 1**: All help text messages and examples of the settings page have been moved to the integrated WordPress help system. This has been done in order to make the settings page easier to navigate. While at the settings page, press the `HELP` button on the top right corner and browse through the various sections in order to get detailed information about the available settings.
  - **IMPORTANT NOTICE 2**: It is no longer possible to enter the URLs of the Publisher's social media profiles in the WordPress user profile pages. Instead, publisher information should be entered in the relevant fields of the **Publisher Settings** section of the settings page.
