@@ -649,7 +649,7 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
 
                 // Attributes
                 foreach ( $variation_info['attributes'] as $variation_attribute_name => $variation_attribute_value ) {
-                    $variation_attribute_name = str_replace('attribute_pa', '', $variation_attribute_name);
+                    $variation_attribute_name = str_replace('attribute_pa_', '', $variation_attribute_name);
                     $variation_attribute_name = str_replace('attribute_', '', $variation_attribute_name);
                     if ( ! empty($variation_attribute_value) ) {
                         $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:'.$variation_attribute_name.':start'] = '<span itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">';
@@ -1042,7 +1042,7 @@ function amt_product_data_jsonld_schemaorg_woocommerce( $metatags, $post ) {
                 // Attributes
                 $offer['itemOffered']['additionalProperty'] = array();
                 foreach ( $variation_info['attributes'] as $variation_attribute_name => $variation_attribute_value ) {
-                    $variation_attribute_name = str_replace('attribute_pa', '', $variation_attribute_name);
+                    $variation_attribute_name = str_replace('attribute_pa_', '', $variation_attribute_name);
                     $variation_attribute_name = str_replace('attribute_', '', $variation_attribute_name);
                     if ( ! empty($variation_attribute_value) ) {
                         $additional_property = array();
