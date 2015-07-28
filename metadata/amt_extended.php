@@ -337,20 +337,384 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     return $metatags;
 }
 
-// Schema.org for woocommerce products
+
+// Schema.org microdata for woocommerce products
 function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
     // Get the product object
     $product = get_product($post->ID);
 
-    //$variations = $product->get_available_variations();
-    //var_dump($variations);
-    var_dump($product->product_type);
-    // variable, simple, grouped, external
+    // WC API:
+    // http://docs.woothemes.com/wc-apidocs/class-WC_Product.html
+    // http://docs.woothemes.com/wc-apidocs/class-WC_Product_Variable.html
+    // http://docs.woothemes.com/wc-apidocs/class-WC_Product_Variation.html
+    // Schema.org:
+    // http://schema.org/Product
+    // http://schema.org/IndividualProduct
+    // http://schema.org/ProductModel
+    // http://schema.org/Offer
+    // http://schema.org/Review
+    // http://schema.org/AggregateRating
 
-    // Price
-    $metatags[] = '<meta itemprop="price" content="' . $product->get_price() . '" />';
-    // Currency
-    $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+    // Currently, the schema.org microdata WC generator supports all product types.
+    // simple, external, grouped (no price), variable (multiple prices)
+    // The relevant meta tags are generated only if the relevant data can be retrieved
+    // from the product object.
+    $product_type = $product->product_type;
+    //if ( ! in_array( $product_type, array('simple', 'external') ) ) {
+    //    $metatags = apply_filters( 'amt_product_data_woocommerce_opengraph', $metatags );
+    //    return $metatags;
+    //}
+
+    // Variations (only in variable products)
+    $variations = null;
+    if ( $product_type == 'variable' ) {
+        $variations = $product->get_available_variations();
+    }
+    //var_dump($variations);
+
+    // Variation attributes
+    $variation_attributes = null;
+    if ( $product_type == 'variable' ) {
+        $variation_attributes = $product->get_variation_attributes();
+    }
+    //var_dump($variation_attributes);
+
+    // Schema.org property to WooCommerce attribute map
+    $property_map = array(
+    'brand' => 'brand',
+    'color' => 'color',
+    'condition' => 'condition',
+    'mpn' => 'mpn',
+    'gtin' => 'gtin',
+    );
+    $property_map = apply_filters( 'amt_schemaorg_woocommerce_property_map', $property_map );
+
+    // Counters
+    // Offers counter
+    $oc = 0;
+    // Review counter
+    $rc = 0;
+
+
+    // Product category
+    $product_cats = wp_get_post_terms( $post->ID, 'product_cat' );
+    $product_category = array_shift($product_cats);
+    if ( ! empty($product_category) ) {
+        $metatags[] = '<meta itemprop="category" content="' . esc_attr($product_category->name) . '" />';
+    }
+
+    // Brand
+    $brand = $product->get_attribute( $property_map['brand'] );
+    if ( ! empty($brand ) ) {
+        $metatags[] = '<meta itemprop="brand" content="' . esc_attr($brand) . '" />';
+    }
+
+    // Weight
+    $weight_unit = apply_filters( 'amt_woocommerce_default_weight_unit', 'kg' );
+    $weight = wc_get_weight( $product->get_weight(), $weight_unit );
+    if ( ! empty($weight) ) {
+        $metatags[] = '<span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags[] = '<meta itemprop="value" content="' . esc_attr($weight) . '" />';
+        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($weight_unit) . '" />';
+        $metatags[] = '</span>';
+    }
+
+    // Dimensions
+    // Schema.org has: width(length), depth(width), height(height)
+    $dimension_unit = get_option( 'woocommerce_dimension_unit' );
+    if ( ! empty($product->length) ) {
+        $metatags[] = '<span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags[] = '<meta itemprop="value" content="' . esc_attr($product->length) . '" />';
+        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+        $metatags[] = '</span>';
+    }
+    if ( ! empty($product->width) ) {
+        $metatags[] = '<span itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags[] = '<meta itemprop="value" content="' . esc_attr($product->width) . '" />';
+        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+        $metatags[] = '</span>';
+    }
+    if ( ! empty($product->height) ) {
+        $metatags[] = '<span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags[] = '<meta itemprop="value" content="' . esc_attr($product->height) . '" />';
+        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+        $metatags[] = '</span>';
+    }
+
+    // Color
+    $color = $product->get_attribute( $property_map['color'] );
+    if ( ! empty($color) ) {
+        $metatags[] = '<meta itemprop="color" content="' . esc_attr($color) . '" />';
+    }
+
+    // Condition
+    $condition = $product->get_attribute( $property_map['condition'] );
+    if ( ! empty($condition) ) {
+        if ( in_array($age_group, array('new', 'refurbished', 'used') ) ) {
+            $schema_org_condition_map = array(
+                'new' => 'NewCondition',
+                'refurbished' => 'RefurbishedCondition',
+                'used' => 'UsedCondition',
+            );
+            $metatags[] = '<meta itemprop="itemCondition" content="' . esc_attr($schema_org_condition_map[$condition]) . '" />';
+        }
+    } else {
+        $metatags[] = '<meta itemprop="itemCondition" content="http://schema.org/NewCondition" />';
+    }
+
+    // Codes
+
+    // SKU (product:retailer_part_no?)
+    // By convention we use the SKU as the product:retailer_part_no. TODO: check this
+    $sku = $product->get_sku();
+    if ( ! empty($sku) ) {
+        $metatags[] = '<meta itemprop="sku" content="' . esc_attr($sku) . '" />';
+    }
+
+    // GTIN: A Global Trade Item Number, which encompasses UPC, EAN, JAN, and ISBN
+    $gtin = $product->get_attribute( $property_map['gtin'] );
+    if ( ! empty($gtin) ) {
+        $metatags[] = '<meta itemprop="gtin14" content="' . esc_attr($gtin) . '" />';
+    }
+
+    // MPN: A manufacturer's part number for the item
+    $mpn = $product->get_attribute( $property_map['mpn'] );
+    if ( ! empty($mpn) ) {
+        $metatags[] = '<meta itemprop="mpn" content="' . esc_attr($mpn) . '" />';
+    }
+
+    // Aggregated Rating
+    $avg_rating = $product->get_average_rating();
+    $rating_count = $product->get_rating_count();
+    $review_count = $product->get_review_count();
+    if ( $rating_count > 0 ) {
+        // Scope BEGIN: AggregateRating: http://schema.org/AggregateRating
+        $metatags[] = '<!-- Scope BEGIN: AggregateRating -->';
+        $metatags[] = '<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
+        // Rating value
+        if ( ! empty($avg_rating) ) {
+            $metatags[] = '<meta itemprop="ratingValue" content="' . esc_attr($avg_rating) . '" />';
+        }
+        // Rating count
+        if ( ! empty($rating_count) ) {
+            $metatags[] = '<meta itemprop="ratingCount" content="' . $rating_count . '" />';
+        }
+        // Review count
+        if ( ! empty($review_count) ) {
+            $metatags[] = '<meta itemprop="reviewCount" content="' . $review_count . '" />';
+        }
+        // Scope END: AggregateRating
+        $metatags[] = '</span> <!-- Scope END: AggregateRating -->';
+
+        // Reviews
+        // TODO: check how default reviews are generated by WC
+        //$metatags[] = '<!-- Scope BEGIN: UserComments -->';
+        //$metatags[] = '<span itemprop="review" itemscope itemtype="http://schema.org/Review">';
+        //$metatags[] = '</span>';
+    }
+
+
+    // Offers
+
+    if ( empty($variations) ) {
+
+        // Availability
+        $availability = '';
+        if ( $product->is_in_stock() ) {
+            $availability = 'InStock';
+        //} elseif ( $product->backorders_allowed() ) {
+        //    $availability = 'pending';
+        } else {
+            $availability = 'OutOfStock';
+        }
+
+        // Regular Price Offer
+
+        // Scope BEGIN: Offer: http://schema.org/Offer
+        $metatags[] = '<!-- Scope BEGIN: Offer -->';
+        $metatags[] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
+        // Availability
+        if ( ! empty($availability) ) {
+            $metatags[] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
+        }
+        // Regular Price
+        $regular_price = $product->get_regular_price();
+        if ( ! empty($regular_price) ) {
+            $metatags[] = '<meta itemprop="price" content="' . $regular_price . '" />';
+            // Currency
+            $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+        }
+        // Scope END: Offer
+        $metatags[] = '</span> <!-- Scope END: Offer -->';
+
+        // Sale Price Offer
+        if ( $product->is_on_sale() ) {
+            // Scope BEGIN: Offer: http://schema.org/Offer
+            $metatags[] = '<!-- Scope BEGIN: Offer -->';
+            $metatags[] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
+            // Availability
+            if ( ! empty($availability) ) {
+                $metatags[] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
+            }
+            // Sale Price
+            $sale_price = $product->get_sale_price();
+            if ( ! empty($sale_price) ) {
+                $metatags[] = '<meta itemprop="price" content="' . $sale_price . '" />';
+                // Currency
+                $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+                // Sale price to date
+                $sale_price_date_to = get_post_meta( $post->ID, '_sale_price_dates_to', true );
+                if ( ! empty($sale_price_date_to) ) {
+                    $metatags[] = '<meta itemprop="priceValidUntil" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
+                }
+            }
+            // Scope END: Offer
+            $metatags[] = '</span> <!-- Scope END: Offer -->';
+        }
+
+    // Offers for variations (Variable Products)
+    } else {
+
+        foreach ( $variations as $variation_info ) {
+
+            foreach ( array('regular', 'sale') as $offer_type ) {
+
+                // Get the variation object
+                $variation = $product->get_child($variation_info['variation_id']);
+                //var_dump($variation);
+
+                if ( $offer_type == 'sale' && ! $variation->is_on_sale() ) {
+                    continue;
+                }
+
+                // Availability
+                $availability = '';
+                if ( $variation->is_in_stock() ) {
+                    $availability = 'InStock';
+                //} elseif ( $variation->backorders_allowed() ) {
+                //    $availability = 'pending';
+                } else {
+                    $availability = 'OutOfStock';
+                }
+
+                // Scope BEGIN: Offer: http://schema.org/Offer
+                $metatags[] = '<!-- Scope BEGIN: Offer -->';
+                $metatags[] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
+
+                // Availability
+                if ( ! empty($availability) ) {
+                    $metatags[] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
+                }
+
+                // Regular Price Offer
+
+                if ( $offer_type == 'regular' ) {
+
+                    // Regular Price
+                    $regular_price = $variation->get_regular_price();
+                    if ( ! empty($regular_price) ) {
+                        $metatags[] = '<meta itemprop="price" content="' . $regular_price . '" />';
+                        // Currency
+                        $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+                    }
+
+                } elseif ( $offer_type == 'sale' ) {
+
+                    // Sale Price Offer
+                    if ( $variation->is_on_sale() ) {
+                        // Sale Price
+                        $sale_price = $variation->get_sale_price();
+                        if ( ! empty($sale_price) ) {
+                            $metatags[] = '<meta itemprop="price" content="' . $sale_price . '" />';
+                            // Currency
+                            $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+                            // Sale price to date
+                            $sale_price_date_to = get_post_meta( $variation->variation_id, '_sale_price_dates_to', true );
+                            if ( ! empty($sale_price_date_to) ) {
+                                $metatags[] = '<meta itemprop="priceValidUntil" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
+                            }
+                        }
+                    }
+
+                }
+
+                // Item Offered
+
+                // Check whether you should use 'IndividualProduct)
+                // Scope BEGIN: Product: http://schema.org/Product
+                $metatags[] = '<!-- Scope BEGIN: Product -->';
+                $metatags[] = '<span itemprop="itemOffered" itemscope itemtype="http://schema.org/Product">';
+
+                // Attributes
+                foreach ( $variation_info['attributes'] as $variation_attribute_name => $variation_attribute_value ) {
+                    $variation_attribute_name = str_replace('attribute_pa', '', $variation_attribute_name);
+                    $variation_attribute_name = str_replace('attribute_', '', $variation_attribute_name);
+                    if ( ! empty($variation_attribute_value) ) {
+                        $metatags[] = '<span itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">';
+                        $metatags[] = '<meta itemprop="name" content="' . esc_attr($variation_attribute_name) . '" />';
+                        $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation_attribute_value) . '" />';
+                        $metatags[] = '</span>';
+                    }
+                }
+
+                // Weight
+                $variation_weight = wc_get_weight( $variation->get_weight(), $weight_unit );
+                if ( ! empty($variation_weight) && $variation_weight != $weight ) {
+                    $metatags[] = '<span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation_weight) . '" />';
+                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($weight_unit) . '" />';
+                    $metatags[] = '</span>';
+                }
+
+                // Dimensions
+                // Schema.org has: width(length), depth(width), height(height)
+                if ( ! empty($variation->length) && $variation->length != $product->length ) {
+                    $metatags[] = '<span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation->length) . '" />';
+                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+                    $metatags[] = '</span>';
+                }
+                if ( ! empty($variation->width) && $variation->width != $product->width ) {
+                    $metatags[] = '<span itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation->width) . '" />';
+                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+                    $metatags[] = '</span>';
+                }
+                if ( ! empty($variation->height) && $variation->height != $product->height ) {
+                    $metatags[] = '<span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation->height) . '" />';
+                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+                    $metatags[] = '</span>';
+                }
+
+                // Image
+                $parent_image_id = $product->get_image_id();
+                $variation_image_id = $variation->get_image_id();
+                if ( ! empty($variation_image_id) && $variation_image_id != $parent_image_id ) {
+                    $metatags[] = '<meta itemprop="image" content="' . esc_url_raw( wp_get_attachment_url($variation_image_id) ) . '" />';
+                }
+
+                // Codes
+
+                // SKU
+                $variation_sku = $variation->get_sku();
+                if ( ! empty($variation_sku) && $variation_sku != $sku ) {
+                    $metatags[] = '<meta itemprop="sku" content="' . esc_attr($variation_sku) . '" />';
+                }
+
+                // Scope END: Product
+                $metatags[] = '</span> <!-- Scope END: Item Offered - Product -->';
+
+                // Scope END: Offer
+                $metatags[] = '</span> <!-- Scope END: Offer -->';
+                
+            }
+        }
+    }
+
+
+// productID
+//model
 
     // TODO: Check these:
     // itemCondition
