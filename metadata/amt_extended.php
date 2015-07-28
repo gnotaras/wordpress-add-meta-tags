@@ -381,70 +381,64 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
 
     // Schema.org property to WooCommerce attribute map
     $property_map = array(
-    'brand' => 'brand',
-    'color' => 'color',
-    'condition' => 'condition',
-    'mpn' => 'mpn',
-    'gtin' => 'gtin',
+        'brand' => 'brand',
+        'color' => 'color',
+        'condition' => 'condition',
+        'mpn' => 'mpn',
+        'gtin' => 'gtin',
     );
     $property_map = apply_filters( 'amt_schemaorg_woocommerce_property_map', $property_map );
-
-    // Counters
-    // Offers counter
-    $oc = 0;
-    // Review counter
-    $rc = 0;
 
 
     // Product category
     $product_cats = wp_get_post_terms( $post->ID, 'product_cat' );
     $product_category = array_shift($product_cats);
     if ( ! empty($product_category) ) {
-        $metatags[] = '<meta itemprop="category" content="' . esc_attr($product_category->name) . '" />';
+        $metatags['microdata:product:category'] = '<meta itemprop="category" content="' . esc_attr($product_category->name) . '" />';
     }
 
     // Brand
     $brand = $product->get_attribute( $property_map['brand'] );
     if ( ! empty($brand ) ) {
-        $metatags[] = '<meta itemprop="brand" content="' . esc_attr($brand) . '" />';
+        $metatags['microdata:product:brand'] = '<meta itemprop="brand" content="' . esc_attr($brand) . '" />';
     }
 
     // Weight
     $weight_unit = apply_filters( 'amt_woocommerce_default_weight_unit', 'kg' );
     $weight = wc_get_weight( $product->get_weight(), $weight_unit );
     if ( ! empty($weight) ) {
-        $metatags[] = '<span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">';
-        $metatags[] = '<meta itemprop="value" content="' . esc_attr($weight) . '" />';
-        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($weight_unit) . '" />';
-        $metatags[] = '</span>';
+        $metatags['microdata:product:weight:start'] = '<span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags['microdata:product:weight:value'] = '<meta itemprop="value" content="' . esc_attr($weight) . '" />';
+        $metatags['microdata:product:weight:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($weight_unit) . '" />';
+        $metatags['microdata:product:weight:end'] = '</span>';
     }
 
     // Dimensions
     // Schema.org has: width(length), depth(width), height(height)
     $dimension_unit = get_option( 'woocommerce_dimension_unit' );
     if ( ! empty($product->length) ) {
-        $metatags[] = '<span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue">';
-        $metatags[] = '<meta itemprop="value" content="' . esc_attr($product->length) . '" />';
-        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
-        $metatags[] = '</span>';
+        $metatags['microdata:product:width:start'] = '<span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags['microdata:product:width:value'] = '<meta itemprop="value" content="' . esc_attr($product->length) . '" />';
+        $metatags['microdata:product:width:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+        $metatags['microdata:product:width:end'] = '</span>';
     }
     if ( ! empty($product->width) ) {
-        $metatags[] = '<span itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue">';
-        $metatags[] = '<meta itemprop="value" content="' . esc_attr($product->width) . '" />';
-        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
-        $metatags[] = '</span>';
+        $metatags['microdata:product:depth:start'] = '<span itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags['microdata:product:depth:value'] = '<meta itemprop="value" content="' . esc_attr($product->width) . '" />';
+        $metatags['microdata:product:depth:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+        $metatags['microdata:product:depth:end'] = '</span>';
     }
     if ( ! empty($product->height) ) {
-        $metatags[] = '<span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue">';
-        $metatags[] = '<meta itemprop="value" content="' . esc_attr($product->height) . '" />';
-        $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
-        $metatags[] = '</span>';
+        $metatags['microdata:product:height:start'] = '<span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue">';
+        $metatags['microdata:product:height:value'] = '<meta itemprop="value" content="' . esc_attr($product->height) . '" />';
+        $metatags['microdata:product:height:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+        $metatags['microdata:product:height:end'] = '</span>';
     }
 
     // Color
     $color = $product->get_attribute( $property_map['color'] );
     if ( ! empty($color) ) {
-        $metatags[] = '<meta itemprop="color" content="' . esc_attr($color) . '" />';
+        $metatags['microdata:product:color'] = '<meta itemprop="color" content="' . esc_attr($color) . '" />';
     }
 
     // Condition
@@ -456,10 +450,10 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
                 'refurbished' => 'RefurbishedCondition',
                 'used' => 'UsedCondition',
             );
-            $metatags[] = '<meta itemprop="itemCondition" content="' . esc_attr($schema_org_condition_map[$condition]) . '" />';
+            $metatags['microdata:product:itemCondition'] = '<meta itemprop="itemCondition" content="' . esc_attr($schema_org_condition_map[$condition]) . '" />';
         }
     } else {
-        $metatags[] = '<meta itemprop="itemCondition" content="http://schema.org/NewCondition" />';
+        $metatags['microdata:product:itemCondition'] = '<meta itemprop="itemCondition" content="http://schema.org/NewCondition" />';
     }
 
     // Codes
@@ -468,19 +462,19 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
     // By convention we use the SKU as the product:retailer_part_no. TODO: check this
     $sku = $product->get_sku();
     if ( ! empty($sku) ) {
-        $metatags[] = '<meta itemprop="sku" content="' . esc_attr($sku) . '" />';
+        $metatags['microdata:product:sku'] = '<meta itemprop="sku" content="' . esc_attr($sku) . '" />';
     }
 
     // GTIN: A Global Trade Item Number, which encompasses UPC, EAN, JAN, and ISBN
     $gtin = $product->get_attribute( $property_map['gtin'] );
     if ( ! empty($gtin) ) {
-        $metatags[] = '<meta itemprop="gtin14" content="' . esc_attr($gtin) . '" />';
+        $metatags['microdata:product:gtin14'] = '<meta itemprop="gtin14" content="' . esc_attr($gtin) . '" />';
     }
 
     // MPN: A manufacturer's part number for the item
     $mpn = $product->get_attribute( $property_map['mpn'] );
     if ( ! empty($mpn) ) {
-        $metatags[] = '<meta itemprop="mpn" content="' . esc_attr($mpn) . '" />';
+        $metatags['microdata:product:mpn'] = '<meta itemprop="mpn" content="' . esc_attr($mpn) . '" />';
     }
 
     // Aggregated Rating
@@ -489,24 +483,26 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
     $review_count = $product->get_review_count();
     if ( $rating_count > 0 ) {
         // Scope BEGIN: AggregateRating: http://schema.org/AggregateRating
-        $metatags[] = '<!-- Scope BEGIN: AggregateRating -->';
-        $metatags[] = '<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
+        $metatags['microdata:product:AggregateRating:start:comment'] = '<!-- Scope BEGIN: AggregateRating -->';
+        $metatags['microdata:product:AggregateRating:start'] = '<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
         // Rating value
         if ( ! empty($avg_rating) ) {
-            $metatags[] = '<meta itemprop="ratingValue" content="' . esc_attr($avg_rating) . '" />';
+            $metatags['microdata:product:AggregateRating:ratingValue'] = '<meta itemprop="ratingValue" content="' . esc_attr($avg_rating) . '" />';
         }
         // Rating count
         if ( ! empty($rating_count) ) {
-            $metatags[] = '<meta itemprop="ratingCount" content="' . $rating_count . '" />';
+            $metatags['microdata:product:AggregateRating:ratingCount'] = '<meta itemprop="ratingCount" content="' . $rating_count . '" />';
         }
         // Review count
         if ( ! empty($review_count) ) {
-            $metatags[] = '<meta itemprop="reviewCount" content="' . $review_count . '" />';
+            $metatags['microdata:product:AggregateRating:reviewCount'] = '<meta itemprop="reviewCount" content="' . $review_count . '" />';
         }
         // Scope END: AggregateRating
-        $metatags[] = '</span> <!-- Scope END: AggregateRating -->';
+        $metatags['microdata:product:AggregateRating:end'] = '</span> <!-- Scope END: AggregateRating -->';
 
         // Reviews
+        // Review counter
+        //$rc = 0;
         // TODO: check how default reviews are generated by WC
         //$metatags[] = '<!-- Scope BEGIN: UserComments -->';
         //$metatags[] = '<span itemprop="review" itemscope itemtype="http://schema.org/Review">';
@@ -531,49 +527,52 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
         // Regular Price Offer
 
         // Scope BEGIN: Offer: http://schema.org/Offer
-        $metatags[] = '<!-- Scope BEGIN: Offer -->';
-        $metatags[] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
+        $metatags['microdata:product:Offer:regular:start:comment'] = '<!-- Scope BEGIN: Offer -->';
+        $metatags['microdata:product:Offer:regular:start'] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
         // Availability
         if ( ! empty($availability) ) {
-            $metatags[] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
+            $metatags['microdata:product:Offer:regular:availability'] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
         }
         // Regular Price
         $regular_price = $product->get_regular_price();
         if ( ! empty($regular_price) ) {
-            $metatags[] = '<meta itemprop="price" content="' . $regular_price . '" />';
+            $metatags['microdata:product:Offer:regular:price'] = '<meta itemprop="price" content="' . $regular_price . '" />';
             // Currency
-            $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+            $metatags['microdata:product:Offer:regular:priceCurrency'] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
         }
         // Scope END: Offer
-        $metatags[] = '</span> <!-- Scope END: Offer -->';
+        $metatags['microdata:product:Offer:regular:end'] = '</span> <!-- Scope END: Offer -->';
 
         // Sale Price Offer
         if ( $product->is_on_sale() ) {
             // Scope BEGIN: Offer: http://schema.org/Offer
-            $metatags[] = '<!-- Scope BEGIN: Offer -->';
-            $metatags[] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
+            $metatags['microdata:product:Offer:sale:start:comment'] = '<!-- Scope BEGIN: Offer -->';
+            $metatags['microdata:product:Offer:sale:start'] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
             // Availability
             if ( ! empty($availability) ) {
-                $metatags[] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
+                $metatags['microdata:product:Offer:sale:availability'] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
             }
             // Sale Price
             $sale_price = $product->get_sale_price();
             if ( ! empty($sale_price) ) {
-                $metatags[] = '<meta itemprop="price" content="' . $sale_price . '" />';
+                $metatags['microdata:product:Offer:sale:price'] = '<meta itemprop="price" content="' . $sale_price . '" />';
                 // Currency
-                $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+                $metatags['microdata:product:Offer:sale:priceCurrency'] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
                 // Sale price to date
                 $sale_price_date_to = get_post_meta( $post->ID, '_sale_price_dates_to', true );
                 if ( ! empty($sale_price_date_to) ) {
-                    $metatags[] = '<meta itemprop="priceValidUntil" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
+                    $metatags['microdata:product:Offer:sale:priceValidUntil'] = '<meta itemprop="priceValidUntil" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
                 }
             }
             // Scope END: Offer
-            $metatags[] = '</span> <!-- Scope END: Offer -->';
+            $metatags['microdata:product:Offer:sale:end'] = '</span> <!-- Scope END: Offer -->';
         }
 
     // Offers for variations (Variable Products)
     } else {
+
+        // Variation offers counter
+        $oc = 0;
 
         foreach ( $variations as $variation_info ) {
 
@@ -587,6 +586,9 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
                     continue;
                 }
 
+                // Increase the Offer counter
+                $oc++;
+
                 // Availability
                 $availability = '';
                 if ( $variation->is_in_stock() ) {
@@ -598,12 +600,12 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
                 }
 
                 // Scope BEGIN: Offer: http://schema.org/Offer
-                $metatags[] = '<!-- Scope BEGIN: Offer -->';
-                $metatags[] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
+                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':start:comment'] = '<!-- Scope BEGIN: Offer -->';
+                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':start'] = '<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">';
 
                 // Availability
                 if ( ! empty($availability) ) {
-                    $metatags[] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':availability'] = '<meta itemprop="availability" content="http://schema.org/' . esc_attr($availability) . '" />';
                 }
 
                 // Regular Price Offer
@@ -613,9 +615,9 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
                     // Regular Price
                     $regular_price = $variation->get_regular_price();
                     if ( ! empty($regular_price) ) {
-                        $metatags[] = '<meta itemprop="price" content="' . $regular_price . '" />';
+                        $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':price'] = '<meta itemprop="price" content="' . $regular_price . '" />';
                         // Currency
-                        $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+                        $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':priceCurrency'] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
                     }
 
                 } elseif ( $offer_type == 'sale' ) {
@@ -625,13 +627,13 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
                         // Sale Price
                         $sale_price = $variation->get_sale_price();
                         if ( ! empty($sale_price) ) {
-                            $metatags[] = '<meta itemprop="price" content="' . $sale_price . '" />';
+                            $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':price'] = '<meta itemprop="price" content="' . $sale_price . '" />';
                             // Currency
-                            $metatags[] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
+                            $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':priceCurrency'] = '<meta itemprop="priceCurrency" content="' . get_woocommerce_currency() . '" />';
                             // Sale price to date
                             $sale_price_date_to = get_post_meta( $variation->variation_id, '_sale_price_dates_to', true );
                             if ( ! empty($sale_price_date_to) ) {
-                                $metatags[] = '<meta itemprop="priceValidUntil" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
+                                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':priceValidUntil'] = '<meta itemprop="priceValidUntil" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
                             }
                         }
                     }
@@ -642,56 +644,56 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
 
                 // Check whether you should use 'IndividualProduct)
                 // Scope BEGIN: Product: http://schema.org/Product
-                $metatags[] = '<!-- Scope BEGIN: Product -->';
-                $metatags[] = '<span itemprop="itemOffered" itemscope itemtype="http://schema.org/Product">';
+                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:start:comment'] = '<!-- Scope BEGIN: Product -->';
+                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:start'] = '<span itemprop="itemOffered" itemscope itemtype="http://schema.org/Product">';
 
                 // Attributes
                 foreach ( $variation_info['attributes'] as $variation_attribute_name => $variation_attribute_value ) {
                     $variation_attribute_name = str_replace('attribute_pa', '', $variation_attribute_name);
                     $variation_attribute_name = str_replace('attribute_', '', $variation_attribute_name);
                     if ( ! empty($variation_attribute_value) ) {
-                        $metatags[] = '<span itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">';
-                        $metatags[] = '<meta itemprop="name" content="' . esc_attr($variation_attribute_name) . '" />';
-                        $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation_attribute_value) . '" />';
-                        $metatags[] = '</span>';
+                        $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:'.$variation_attribute_name.':start'] = '<span itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">';
+                        $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:'.$variation_attribute_name.':name'] = '<meta itemprop="name" content="' . esc_attr($variation_attribute_name) . '" />';
+                        $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:'.$variation_attribute_name.':value'] = '<meta itemprop="value" content="' . esc_attr($variation_attribute_value) . '" />';
+                        $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:'.$variation_attribute_name.':end'] = '</span>';
                     }
                 }
 
                 // Weight
                 $variation_weight = wc_get_weight( $variation->get_weight(), $weight_unit );
                 if ( ! empty($variation_weight) && $variation_weight != $weight ) {
-                    $metatags[] = '<span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">';
-                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation_weight) . '" />';
-                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($weight_unit) . '" />';
-                    $metatags[] = '</span>';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:weight:start'] = '<span itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:weight:value'] = '<meta itemprop="value" content="' . esc_attr($variation_weight) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:weight:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($weight_unit) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:weight:end'] = '</span>';
                 }
 
                 // Dimensions
                 // Schema.org has: width(length), depth(width), height(height)
                 if ( ! empty($variation->length) && $variation->length != $product->length ) {
-                    $metatags[] = '<span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue">';
-                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation->length) . '" />';
-                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
-                    $metatags[] = '</span>';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:width:start'] = '<span itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:width:value'] = '<meta itemprop="value" content="' . esc_attr($variation->length) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:width:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:width:end'] = '</span>';
                 }
                 if ( ! empty($variation->width) && $variation->width != $product->width ) {
-                    $metatags[] = '<span itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue">';
-                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation->width) . '" />';
-                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
-                    $metatags[] = '</span>';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:depth:start'] = '<span itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:depth:value'] = '<meta itemprop="value" content="' . esc_attr($variation->width) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:depth:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:depth:end'] = '</span>';
                 }
                 if ( ! empty($variation->height) && $variation->height != $product->height ) {
-                    $metatags[] = '<span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue">';
-                    $metatags[] = '<meta itemprop="value" content="' . esc_attr($variation->height) . '" />';
-                    $metatags[] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
-                    $metatags[] = '</span>';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:height:start'] = '<span itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue">';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:height:value'] = '<meta itemprop="value" content="' . esc_attr($variation->height) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:height:unitText'] = '<meta itemprop="unitText" content="' . esc_attr($dimension_unit) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:height:end'] = '</span>';
                 }
 
                 // Image
                 $parent_image_id = $product->get_image_id();
                 $variation_image_id = $variation->get_image_id();
                 if ( ! empty($variation_image_id) && $variation_image_id != $parent_image_id ) {
-                    $metatags[] = '<meta itemprop="image" content="' . esc_url_raw( wp_get_attachment_url($variation_image_id) ) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:image'] = '<meta itemprop="image" content="' . esc_url_raw( wp_get_attachment_url($variation_image_id) ) . '" />';
                 }
 
                 // Codes
@@ -699,14 +701,14 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
                 // SKU
                 $variation_sku = $variation->get_sku();
                 if ( ! empty($variation_sku) && $variation_sku != $sku ) {
-                    $metatags[] = '<meta itemprop="sku" content="' . esc_attr($variation_sku) . '" />';
+                    $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:sku'] = '<meta itemprop="sku" content="' . esc_attr($variation_sku) . '" />';
                 }
 
                 // Scope END: Product
-                $metatags[] = '</span> <!-- Scope END: Item Offered - Product -->';
+                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':itemOffered:end'] = '</span> <!-- Scope END: Item Offered - Product -->';
 
                 // Scope END: Offer
-                $metatags[] = '</span> <!-- Scope END: Offer -->';
+                $metatags['microdata:product:Offer:'.$oc.':'.$offer_type.':end'] = '</span> <!-- Scope END: Offer -->';
                 
             }
         }
