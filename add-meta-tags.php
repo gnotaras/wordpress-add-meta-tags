@@ -357,7 +357,7 @@ add_action('wp_footer', 'amt_add_metadata_footer', 0);
  * Review mode
  */
 
-function amt_get_metadata_review() {
+function amt_get_metadata_review($options) {
     //
     //  TODO: FIX THIS MESS
     //
@@ -368,7 +368,9 @@ function amt_get_metadata_review() {
     $msg_body = '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body.</span>';
     $metadata = '<pre>';
     $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head()) ) . PHP_EOL;
-    $metadata .= PHP_EOL . $msg_body . PHP_EOL . PHP_EOL . amt_metatag_highlighter( amt_add_schemaorg_metadata_content_filter('') ) . PHP_EOL;
+    if ( $options["schemaorg_force_jsonld"] == "0" ) {
+        $metadata .= PHP_EOL . $msg_body . PHP_EOL . PHP_EOL . amt_metatag_highlighter( amt_add_schemaorg_metadata_content_filter('') ) . PHP_EOL;
+    }
     $metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_footer()) ) . PHP_EOL;
     $metadata .= '</pre>';
     return $metadata;
@@ -399,7 +401,7 @@ function amt_add_metadata_review($post_body) {
 
         // Only administrators can see the review box.
         if ( current_user_can( 'create_users' ) ) {
-            $post_body = amt_get_metadata_review() . '<br /><br />' . $post_body;
+            $post_body = amt_get_metadata_review($options) . '<br /><br />' . $post_body;
         }
 
     }
