@@ -729,26 +729,384 @@ function amt_product_data_schemaorg_woocommerce( $metatags, $post ) {
     return $metatags;
 }
 
+
 // JSON-LD Schema.org for woocommerce products
 function amt_product_data_jsonld_schemaorg_woocommerce( $metatags, $post ) {
     // Get the product object
     $product = get_product($post->ID);
 
-    // Price
-    $metatags['price'] = $product->get_price();
-    // Currency
-    $metatags['priceCurrency'] = get_woocommerce_currency();
+        // WC API:
+    // http://docs.woothemes.com/wc-apidocs/class-WC_Product.html
+    // http://docs.woothemes.com/wc-apidocs/class-WC_Product_Variable.html
+    // http://docs.woothemes.com/wc-apidocs/class-WC_Product_Variation.html
+    // Schema.org:
+    // http://schema.org/Product
+    // http://schema.org/IndividualProduct
+    // http://schema.org/ProductModel
+    // http://schema.org/Offer
+    // http://schema.org/Review
+    // http://schema.org/AggregateRating
 
-    // TODO: Check these:
-    // itemCondition
-    // productID
-    // review (check first example)
-    // offers (check first example)
-    // sku
+    // Currently, the schema.org JSON-LD WC generator supports all product types.
+    // simple, external, grouped (no price), variable (multiple prices)
+    // The relevant meta tags are generated only if the relevant data can be retrieved
+    // from the product object.
+    $product_type = $product->product_type;
+    //if ( ! in_array( $product_type, array('simple', 'external') ) ) {
+    //    $metatags = apply_filters( 'amt_product_data_woocommerce_opengraph', $metatags );
+    //    return $metatags;
+    //}
+
+    // Variations (only in variable products)
+    $variations = null;
+    if ( $product_type == 'variable' ) {
+        $variations = $product->get_available_variations();
+    }
+    //var_dump($variations);
+
+    // Variation attributes
+    $variation_attributes = null;
+    if ( $product_type == 'variable' ) {
+        $variation_attributes = $product->get_variation_attributes();
+    }
+    //var_dump($variation_attributes);
+
+    // Schema.org property to WooCommerce attribute map
+    $property_map = array(
+        'brand' => 'brand',
+        'color' => 'color',
+        'condition' => 'condition',
+        'mpn' => 'mpn',
+        'gtin' => 'gtin',
+    );
+    $property_map = apply_filters( 'amt_schemaorg_woocommerce_property_map', $property_map );
+
+
+    // Product category
+    $product_cats = wp_get_post_terms( $post->ID, 'product_cat' );
+    $product_category = array_shift($product_cats);
+    if ( ! empty($product_category) ) {
+        $metatags['category'] = esc_attr($product_category->name);
+    }
+
+    // Brand
+    $brand = $product->get_attribute( $property_map['brand'] );
+    if ( ! empty($brand ) ) {
+        $metatags['brand'] = esc_attr($brand);
+    }
+
+    // Weight
+    $weight_unit = apply_filters( 'amt_woocommerce_default_weight_unit', 'kg' );
+    $weight = wc_get_weight( $product->get_weight(), $weight_unit );
+    if ( ! empty($weight) ) {
+        $metatags['weight'] = array();
+        $metatags['weight']['@type'] = 'QuantitativeValue';
+        $metatags['weight']['value'] = esc_attr($weight);
+        $metatags['weight']['unitText'] = esc_attr($weight_unit);
+    }
+
+    // Dimensions
+    // Schema.org has: width(length), depth(width), height(height)
+    $dimension_unit = get_option( 'woocommerce_dimension_unit' );
+    if ( ! empty($product->length) ) {
+        $metatags['width'] = array();
+        $metatags['width']['@type'] = 'QuantitativeValue';
+        $metatags['width']['value'] = esc_attr($product->length);
+        $metatags['width']['unitText'] = esc_attr($dimension_unit);
+    }
+    if ( ! empty($product->width) ) {
+        $metatags['depth'] = array();
+        $metatags['depth']['@type'] = 'QuantitativeValue';
+        $metatags['depth']['value'] = esc_attr($product->width);
+        $metatags['depth']['unitText'] = esc_attr($dimension_unit);
+    }
+    if ( ! empty($product->height) ) {
+        $metatags['height'] = array();
+        $metatags['height']['@type'] = 'QuantitativeValue';
+        $metatags['height']['value'] = esc_attr($product->height);
+        $metatags['height']['unitText'] = esc_attr($dimension_unit);
+    }
+
+    // Color
+    $color = $product->get_attribute( $property_map['color'] );
+    if ( ! empty($color) ) {
+        $metatags['color'] = esc_attr($color);
+    }
+
+    // Condition
+    $condition = $product->get_attribute( $property_map['condition'] );
+    if ( ! empty($condition) ) {
+        if ( in_array($age_group, array('new', 'refurbished', 'used') ) ) {
+            $schema_org_condition_map = array(
+                'new' => 'NewCondition',
+                'refurbished' => 'RefurbishedCondition',
+                'used' => 'UsedCondition',
+            );
+            $metatags['itemCondition'] = esc_attr($schema_org_condition_map[$condition]);
+        }
+    } else {
+        $metatags['itemCondition'] = 'NewCondition';
+    }
+
+    // Codes
+
+    // SKU (product:retailer_part_no?)
+    // By convention we use the SKU as the product:retailer_part_no. TODO: check this
+    $sku = $product->get_sku();
+    if ( ! empty($sku) ) {
+        $metatags['sku'] = esc_attr($sku);
+    }
+
+    // GTIN: A Global Trade Item Number, which encompasses UPC, EAN, JAN, and ISBN
+    $gtin = $product->get_attribute( $property_map['gtin'] );
+    if ( ! empty($gtin) ) {
+        $metatags['gtin14'] = esc_attr($gtin);
+    }
+
+    // MPN: A manufacturer's part number for the item
+    $mpn = $product->get_attribute( $property_map['mpn'] );
+    if ( ! empty($mpn) ) {
+        $metatags['mpn'] = esc_attr($mpn);
+    }
+
+    // Aggregated Rating
+    $avg_rating = $product->get_average_rating();
+    $rating_count = $product->get_rating_count();
+    $review_count = $product->get_review_count();
+    if ( $rating_count > 0 ) {
+        $metatags['aggregateRating'] = array();
+        $metatags['aggregateRating']['@type'] = 'AggregateRating';
+        // Rating value
+        if ( ! empty($avg_rating) ) {
+            $metatags['aggregateRating']['ratingValue'] = esc_attr($avg_rating);
+        }
+        // Rating count
+        if ( ! empty($rating_count) ) {
+            $metatags['aggregateRating']['ratingCount'] = esc_attr($rating_count);
+        }
+        // Review count
+        if ( ! empty($review_count) ) {
+            $metatags['aggregateRating']['reviewCount'] = esc_attr($review_count);
+        }
+
+        // Reviews
+        // Review counter
+        //$rc = 0;
+        // TODO: check how default reviews are generated by WC
+        //$metatags[] = '<!-- Scope BEGIN: UserComments -->';
+        //$metatags[] = '<span itemprop="review" itemscope itemtype="http://schema.org/Review">';
+        //$metatags[] = '</span>';
+    }
+
+
+    // Offers
+
+    $metatags['offers'] = array();
+
+    if ( empty($variations) ) {
+
+        // Availability
+        $availability = '';
+        if ( $product->is_in_stock() ) {
+            $availability = 'InStock';
+        //} elseif ( $product->backorders_allowed() ) {
+        //    $availability = 'pending';
+        } else {
+            $availability = 'OutOfStock';
+        }
+
+        // Regular Price Offer
+
+        $offer = array();
+        $offer['@type'] = 'Offer';
+
+        // Availability
+        if ( ! empty($availability) ) {
+            $offer['availability'] = 'http://schema.org/' . esc_attr($availability);
+        }
+        // Regular Price
+        $regular_price = $product->get_regular_price();
+        if ( ! empty($regular_price) ) {
+            $offer['price'] = esc_attr($regular_price);
+            // Currency
+            $offer['priceCurrency'] = esc_attr(get_woocommerce_currency());
+        }
+
+        $metatags['offers'][] = $offer;
+
+        // Sale Price Offer
+        if ( $product->is_on_sale() ) {
+
+            $offer = array();
+            $offer['@type'] = 'Offer';
+
+            // Availability
+            if ( ! empty($availability) ) {
+                $offer['availability'] = 'http://schema.org/' . esc_attr($availability);
+            }
+            // Sale Price
+            $sale_price = $product->get_sale_price();
+            if ( ! empty($sale_price) ) {
+                $offer['price'] = esc_attr($sale_price);
+                // Currency
+                $offer['priceCurrency'] = esc_attr(get_woocommerce_currency());
+                // Sale price to date
+                $sale_price_date_to = get_post_meta( $post->ID, '_sale_price_dates_to', true );
+                if ( ! empty($sale_price_date_to) ) {
+                    $offer['priceValidUntil'] = esc_attr(date_i18n('Y-m-d', $sale_price_date_to));
+                }
+            }
+
+            $metatags['offers'][] = $offer;
+
+        }
+
+    // Offers for variations (Variable Products)
+    } else {
+
+        // Variation offers counter
+        $oc = 0;
+
+        foreach ( $variations as $variation_info ) {
+
+            foreach ( array('regular', 'sale') as $offer_type ) {
+
+                // Get the variation object
+                $variation = $product->get_child($variation_info['variation_id']);
+                //var_dump($variation);
+
+                if ( $offer_type == 'sale' && ! $variation->is_on_sale() ) {
+                    continue;
+                }
+
+                // Increase the Offer counter
+                $oc++;
+
+                // Availability
+                $availability = '';
+                if ( $variation->is_in_stock() ) {
+                    $availability = 'InStock';
+                //} elseif ( $variation->backorders_allowed() ) {
+                //    $availability = 'pending';
+                } else {
+                    $availability = 'OutOfStock';
+                }
+
+                $offer = array();
+                $offer['@type'] = 'Offer';
+
+                // Availability
+                if ( ! empty($availability) ) {
+                    $offer['availability'] = 'http://schema.org/' . esc_attr($availability);
+                }
+
+                // Regular Price Offer
+
+                if ( $offer_type == 'regular' ) {
+
+                    // Regular Price
+                    $regular_price = $variation->get_regular_price();
+                    if ( ! empty($regular_price) ) {
+                        $offer['price'] = esc_attr($regular_price);
+                        // Currency
+                        $offer['priceCurrency'] = esc_attr(get_woocommerce_currency());
+                    }
+
+                } elseif ( $offer_type == 'sale' ) {
+
+                    // Sale Price Offer
+                    if ( $variation->is_on_sale() ) {
+                        // Sale Price
+                        $sale_price = $variation->get_sale_price();
+                        if ( ! empty($sale_price) ) {
+                            $offer['price'] = esc_attr($sale_price);
+                            // Currency
+                            $offer['priceCurrency'] = esc_attr(get_woocommerce_currency());
+                            // Sale price to date
+                            $sale_price_date_to = get_post_meta( $variation->variation_id, '_sale_price_dates_to', true );
+                            if ( ! empty($sale_price_date_to) ) {
+                                $offer['priceValidUntil'] = esc_attr(date_i18n('Y-m-d', $sale_price_date_to));
+                            }
+                        }
+                    }
+
+                }
+
+                // Item Offered
+
+                $offer['itemOffered'] = array();
+                $offer['itemOffered']['@type'] = 'Product';
+
+                // Check whether you should use 'IndividualProduct)
+
+                // Attributes
+                $offer['itemOffered']['additionalProperty'] = array();
+                foreach ( $variation_info['attributes'] as $variation_attribute_name => $variation_attribute_value ) {
+                    $variation_attribute_name = str_replace('attribute_pa', '', $variation_attribute_name);
+                    $variation_attribute_name = str_replace('attribute_', '', $variation_attribute_name);
+                    if ( ! empty($variation_attribute_value) ) {
+                        $additional_property = array();
+                        $additional_property['@type'] = 'PropertyValue';
+                        $additional_property['name'] = esc_attr($variation_attribute_name);
+                        $additional_property['value'] = esc_attr($variation_attribute_value);
+                        $offer['itemOffered']['additionalProperty'][] = $additional_property;
+                    }
+                }
+
+                // Weight
+                $variation_weight = wc_get_weight( $variation->get_weight(), $weight_unit );
+                if ( ! empty($variation_weight) && $variation_weight != $weight ) {
+                    $offer['itemOffered']['weight'] = array();
+                    $offer['itemOffered']['weight']['@type'] = 'QuantitativeValue';
+                    $offer['itemOffered']['weight']['value'] = esc_attr($variation_weight);
+                    $offer['itemOffered']['weight']['unitText'] = esc_attr($weight_unit);
+                }
+
+                // Dimensions
+                // Schema.org has: width(length), depth(width), height(height)
+                if ( ! empty($variation->length) && $variation->length != $product->length ) {
+                    $offer['itemOffered']['width'] = array();
+                    $offer['itemOffered']['width']['@type'] = 'QuantitativeValue';
+                    $offer['itemOffered']['width']['value'] = esc_attr($variation->length);
+                    $offer['itemOffered']['width']['unitText'] = esc_attr($dimension_unit);
+                }
+                if ( ! empty($variation->width) && $variation->width != $product->width ) {
+                    $offer['itemOffered']['depth'] = array();
+                    $offer['itemOffered']['depth']['@type'] = 'QuantitativeValue';
+                    $offer['itemOffered']['depth']['value'] = esc_attr($variation->width);
+                    $offer['itemOffered']['depth']['unitText'] = esc_attr($dimension_unit);
+                }
+                if ( ! empty($variation->height) && $variation->height != $product->height ) {
+                    $offer['itemOffered']['height'] = array();
+                    $offer['itemOffered']['height']['@type'] = 'QuantitativeValue';
+                    $offer['itemOffered']['height']['value'] = esc_attr($variation->height);
+                    $offer['itemOffered']['height']['unitText'] = esc_attr($dimension_unit);
+                }
+
+                // Image
+                $parent_image_id = $product->get_image_id();
+                $variation_image_id = $variation->get_image_id();
+                if ( ! empty($variation_image_id) && $variation_image_id != $parent_image_id ) {
+                    $offer['itemOffered']['image'] = esc_url_raw( wp_get_attachment_url($variation_image_id) );
+                }
+
+                // Codes
+
+                // SKU
+                $variation_sku = $variation->get_sku();
+                if ( ! empty($variation_sku) && $variation_sku != $sku ) {
+                    $offer['itemOffered']['sku'] = esc_attr($variation_sku);
+                }
+
+                $metatags['offers'][] = $offer;
+            }
+        }
+    }
 
     $metatags = apply_filters( 'amt_product_data_woocommerce_jsonld_schemaorg', $metatags );
     return $metatags;
 }
+
 
 // Retrieves the WooCommerce product group's image URL, if any.
 function amt_product_group_image_url_woocommerce( $default_image_url, $tax_term_object ) {
@@ -757,6 +1115,7 @@ function amt_product_group_image_url_woocommerce( $default_image_url, $tax_term_
         return wp_get_attachment_url( $thumbnail_id );
     }
 }
+
 
 
 /*
