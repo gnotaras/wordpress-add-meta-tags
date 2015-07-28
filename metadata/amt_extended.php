@@ -170,7 +170,7 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
         $availability = 'oos';
     }
     if ( ! empty($availability) ) {
-        $metatags['product:availability'] = '<meta property="product:availability" content="' . esc_attr($availability) . '" />';
+        $metatags['og:product:availability'] = '<meta property="product:availability" content="' . esc_attr($availability) . '" />';
     }
 
     // Price
@@ -178,9 +178,9 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     // Active price
     $active_price = $product->get_price();
     if ( ! empty($active_price) ) {
-        $metatags['product:price:amount'] = '<meta property="product:price:amount" content="' . $active_price . '" />';
+        $metatags['og:product:price:amount'] = '<meta property="product:price:amount" content="' . $active_price . '" />';
         // Currency
-        $metatags['product:price:currency'] = '<meta property="product:price:currency" content="' . get_woocommerce_currency() . '" />';
+        $metatags['og:product:price:currency'] = '<meta property="product:price:currency" content="' . get_woocommerce_currency() . '" />';
     }
 
     // Regular Price
@@ -191,9 +191,9 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     // is_purchasable()
     $regular_price = $product->get_regular_price();
     if ( ! empty($regular_price) ) {
-        $metatags['product:original_price:amount'] = '<meta property="product:original_price:amount" content="' . $regular_price . '" />';
+        $metatags['og:product:original_price:amount'] = '<meta property="product:original_price:amount" content="' . $regular_price . '" />';
         // Currency
-        $metatags['product:original_price:currency'] = '<meta property="product:original_price:currency" content="' . get_woocommerce_currency() . '" />';
+        $metatags['og:product:original_price:currency'] = '<meta property="product:original_price:currency" content="' . get_woocommerce_currency() . '" />';
     }
 
     // Sale Price
@@ -205,19 +205,19 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     //var_dump( $product->is_on_sale() );
     $sale_price = $product->get_sale_price();
     if ( ! empty($sale_price) ) {
-        $metatags['product:sale_price:amount'] = '<meta property="product:sale_price:amount" content="' . $sale_price . '" />';
+        $metatags['og:product:sale_price:amount'] = '<meta property="product:sale_price:amount" content="' . $sale_price . '" />';
         // Currency
-        $metatags['product:sale_price:currency'] = '<meta property="product:sale_price:currency" content="' . get_woocommerce_currency() . '" />';
+        $metatags['og:product:sale_price:currency'] = '<meta property="product:sale_price:currency" content="' . get_woocommerce_currency() . '" />';
     }
     // Sale price from date
     $sale_price_date_from = get_post_meta( $post->ID, '_sale_price_dates_from', true );
     if ( ! empty($sale_price_date_from) ) {
-        $metatags['product:sale_price_dates:start'] = '<meta property="product:sale_price_dates:start" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_from)) . '" />';
+        $metatags['og:product:sale_price_dates:start'] = '<meta property="product:sale_price_dates:start" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_from)) . '" />';
     }
     // Sale price to date
     $sale_price_date_to = get_post_meta( $post->ID, '_sale_price_dates_to', true );
     if ( ! empty($sale_price_date_to) ) {
-        $metatags['product:sale_price_dates:end'] = '<meta property="product:sale_price_dates:end" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
+        $metatags['og:product:sale_price_dates:end'] = '<meta property="product:sale_price_dates:end" content="' . esc_attr(date_i18n('Y-m-d', $sale_price_date_to)) . '" />';
     }
 
     // Product Data
@@ -226,13 +226,13 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     $product_cats = wp_get_post_terms( $post->ID, 'product_cat' );
     $product_category = array_shift($product_cats);
     if ( ! empty($product_category) ) {
-        $metatags['product:category'] = '<meta property="product:category" content="' . esc_attr($product_category->name) . '" />';
+        $metatags['og:product:category'] = '<meta property="product:category" content="' . esc_attr($product_category->name) . '" />';
     }
 
     // Brand
     $brand = $product->get_attribute( $property_map['product:brand'] );
     if ( ! empty($brand ) ) {
-        $metatags['product:brand'] = '<meta property="product:brand" content="' . esc_attr($brand) . '" />';
+        $metatags['og:product:brand'] = '<meta property="product:brand" content="' . esc_attr($brand) . '" />';
     }
 
     // Weight
@@ -250,41 +250,41 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     // Do not confuse this with the product size LxWxH. This is an attribute.
     $size = $product->get_attribute( $property_map['product:size'] );
     if ( ! empty($size) ) {
-        $metatags['product:size'] = '<meta property="product:size" content="' . esc_attr($size) . '" />';
+        $metatags['og:product:size'] = '<meta property="product:size" content="' . esc_attr($size) . '" />';
     }
 
     // Color
     $color = $product->get_attribute( $property_map['product:color'] );
     if ( ! empty($color) ) {
-        $metatags['product:color'] = '<meta property="product:color" content="' . esc_attr($color) . '" />';
+        $metatags['og:product:color'] = '<meta property="product:color" content="' . esc_attr($color) . '" />';
     }
 
     // Material
     $material = $product->get_attribute( $property_map['product:material'] );
     if ( ! empty($material) ) {
-        $metatags['product:material'] = '<meta property="product:material" content="' . esc_attr($material) . '" />';
+        $metatags['og:product:material'] = '<meta property="product:material" content="' . esc_attr($material) . '" />';
     }
 
     // Condition
     $condition = $product->get_attribute( $property_map['product:condition'] );
     if ( ! empty($condition) ) {
         if ( in_array($age_group, array('new', 'refurbished', 'used') ) ) {
-            $metatags['product:condition'] = '<meta property="product:condition" content="' . esc_attr($condition) . '" />';
+            $metatags['og:product:condition'] = '<meta property="product:condition" content="' . esc_attr($condition) . '" />';
         }
     } else {
-        $metatags['product:condition'] = '<meta property="product:condition" content="new" />';
+        $metatags['og:product:condition'] = '<meta property="product:condition" content="new" />';
     }
 
     // Target gender
     $target_gender = $product->get_attribute( $property_map['product:target_gender'] );
     if ( ! empty($target_gender) && in_array($target_gender, array('male', 'female', 'unisex')) ) {
-        $metatags['product:target_gender'] = '<meta property="product:target_gender" content="' . esc_attr($target_gender) . '" />';
+        $metatags['og:product:target_gender'] = '<meta property="product:target_gender" content="' . esc_attr($target_gender) . '" />';
     }
 
     // Age group
     $age_group = $product->get_attribute( $property_map['product:age_group'] );
     if ( ! empty($age_group) && in_array($age_group, array('kids', 'adult')) ) {
-        $metatags['product:age_group'] = '<meta property="product:age_group" content="' . esc_attr($age_group) . '" />';
+        $metatags['og:product:age_group'] = '<meta property="product:age_group" content="' . esc_attr($age_group) . '" />';
     }
 
     // Codes
@@ -292,38 +292,38 @@ function amt_product_data_og_woocommerce( $metatags, $post ) {
     // EAN
     $ean = $product->get_attribute( $property_map['product:ean'] );
     if ( ! empty($ean) ) {
-        $metatags['product:ean'] = '<meta property="product:ean" content="' . esc_attr($ean) . '" />';
+        $metatags['og:product:ean'] = '<meta property="product:ean" content="' . esc_attr($ean) . '" />';
     }
 
     // ISBN
     $isbn = $product->get_attribute( $property_map['product:isbn'] );
     if ( ! empty($isbn) ) {
-        $metatags['product:isbn'] = '<meta property="product:isbn" content="' . esc_attr($isbn) . '" />';
+        $metatags['og:product:isbn'] = '<meta property="product:isbn" content="' . esc_attr($isbn) . '" />';
     }
 
     // MPN: A manufacturer's part number for the item
     $mpn = $product->get_attribute( $property_map['product:mfr_part_no'] );
     if ( ! empty($mpn) ) {
-        $metatags['product:mfr_part_no'] = '<meta property="product:mfr_part_no" content="' . esc_attr($mpn) . '" />';
+        $metatags['og:product:mfr_part_no'] = '<meta property="product:mfr_part_no" content="' . esc_attr($mpn) . '" />';
     }
 
     // SKU (product:retailer_part_no?)
     // By convention we use the SKU as the product:retailer_part_no. TODO: check this
     $sku = $product->get_sku();
     if ( ! empty($sku) ) {
-        $metatags['product:retailer_part_no'] = '<meta property="product:retailer_part_no" content="' . esc_attr($sku) . '" />';
+        $metatags['og:product:retailer_part_no'] = '<meta property="product:retailer_part_no" content="' . esc_attr($sku) . '" />';
     }
 
     // GTIN: A Global Trade Item Number, which encompasses UPC, EAN, JAN, and ISBN
     $gtin = $product->get_attribute( $property_map['product:gtin'] );
     if ( ! empty($gtin) ) {
-        $metatags['product:gtin'] = '<meta property="product:gtin" content="' . esc_attr($gtin) . '" />';
+        $metatags['og:product:gtin'] = '<meta property="product:gtin" content="' . esc_attr($gtin) . '" />';
     }
 
     // UPC: A Universal Product Code (UPC) for the product
     $upc = $product->get_attribute( $property_map['product:upc'] );
     if ( ! empty($upc) ) {
-        $metatags['product:upc'] = '<meta property="product:upc" content="' . esc_attr($upc) . '" />';
+        $metatags['og:product:upc'] = '<meta property="product:upc" content="' . esc_attr($upc) . '" />';
     }
 
     // Retailer data
