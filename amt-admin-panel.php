@@ -236,9 +236,9 @@ function amt_admin_help_tabs() {
 
     <h3>'.__('Important Note', 'add-meta-tags').'</h3>
 
-    <p>'.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above. For example:', 'add-meta-tags').'</p>
-    <blockquote>Facebook author profile URL (AMT): <code>https://www.facebook.com/john.smith</code></blockquote>
-    <blockquote>Facebook publisher profile URL (AMT): <code>https://www.facebook.com/awesome.editors</code></blockquote>
+    <p>'.__('By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. The profile URL of the publisher can be entered in this page under the <em>Publisher Settings</em> section. The profile URL of the author can be entered in the WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. For example:', 'add-meta-tags').'</p>
+    <blockquote>'.__('Facebook author profile URL', 'add-meta-tags').' (AMT): <code>https://www.facebook.com/john.smith</code></blockquote>
+    <blockquote>'.__('Facebook publisher profile URL', 'add-meta-tags').' (AMT): <code>https://www.facebook.com/awesome.editors</code></blockquote>
     <p>'.__('It is possible to control the value of the <code>og:type</code> meta tag either by changing the post format or programmatically via a filter. By default, the <code>og:type</code> is set to <code>article</code> for all content, except for video attachment pages and posts whose post format has been set to <code>video</code>, on which <code>og:type</code> is set to <code>video.other</code>.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_opengraph',
@@ -262,16 +262,16 @@ function amt_admin_help_tabs() {
 
     <h3>'.__('Important Notes', 'add-meta-tags').'</h3>
 
-    <p>'.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user\'s <a href="profile.php">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>. Filling in the publisher username is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
-    <blockquote>Twitter author username (AMT): <code>JohnSmith</code></blockquote>
-    <blockquote>Twitter publisher username (AMT): <code>AwesomeEditors</code></blockquote>
+    <p>'.__('In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. The username of the publisher can be entered in this page under the <em>Publisher Settings</em> section. The username of the author can be entered in the WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. For example:', 'add-meta-tags').'</p>
+    <blockquote>'.__('Twitter author username', 'add-meta-tags').' (AMT): <code>JohnSmith</code></blockquote>
+    <blockquote>'.__('Twitter publisher username', 'add-meta-tags').' (AMT): <code>AwesomeEditors</code></blockquote>
 
     <p>'.__('By default, a Twitter Card of type <em>summary</em> is generated for your content. If your theme supports <a href="http://codex.wordpress.org/Post_Formats">post formats</a>, then it is possible to generate Twitter Cards of various types according to the specified post format. More specifically:', 'add-meta-tags').'</p>
-    <blockquote>A <code>summary</code> card is generated for posts with one of the <code>standard</code>, <code>aside</code>, <code>link</code>, <code>quote</code>, <code>status</code> and <code>chat</code> formats.</blockquote>
-    <blockquote>A <code>summary_large_image</code> card is generated for posts with the <code>image</code> format. An image is expected to be attached or embedded to the post.</blockquote>
-    <blockquote>A <code>gallery</code> card is generated for posts with the <code>gallery</code> format. At least one image is expected to be attached or embedded to the post.</blockquote>
-    <blockquote>A <code>photo</code> card is generated for image attachment pages.</blockquote>
-    <blockquote>A <code>player</code> card is generated for posts with the <code>audio</code> or <code>video</code> format and for audio or video attachment pages. Regarding posts, an audio or video is expected to be attached or embedded to the post.</blockquote>';
+    <blockquote>'.__('A <code>summary</code> card is generated for posts with one of the <code>standard</code>, <code>aside</code>, <code>link</code>, <code>quote</code>, <code>status</code> and <code>chat</code> formats.', 'add-meta-tags').'</blockquote>
+    <blockquote>'.__('A <code>summary_large_image</code> card is generated for posts with the <code>image</code> format. An image is expected to be attached or embedded to the post.', 'add-meta-tags').'</blockquote>
+    <blockquote>'.__('A <code>gallery</code> card is generated for posts with the <code>gallery</code> format. At least one image is expected to be attached or embedded to the post.', 'add-meta-tags').'</blockquote>
+    <blockquote>'.__('A <code>photo</code> card is generated for image attachment pages.', 'add-meta-tags').'</blockquote>
+    <blockquote>'.__('A <code>player</code> card is generated for posts with the <code>audio</code> or <code>video</code> format and for audio or video attachment pages. Regarding posts, an audio or video is expected to be attached or embedded to the post.', 'add-meta-tags').'</blockquote>';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_twitter_cards',
         'title'	=> __('Twitter Cards', 'add-meta-tags'),
@@ -303,9 +303,9 @@ function amt_admin_help_tabs() {
 
     <h3>'.__('Important Notes', 'add-meta-tags').'</h3>
 
-    <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above.', 'add-meta-tags').'</p>
-    <blockquote>Google+ author profile URL (AMT): <code>https://plus.google.com/+JohnSmith/</code></blockquote>
-    <blockquote>Google+ publisher page URL (AMT): <code>https://plus.google.com/+AwesomeEditors/</code></blockquote>
+    <p>'.__('By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author\'s profile and publisher\'s page on Google+, it is required to provide the respective URLs. The profile URL of the publisher can be entered in this page under the <em>Publisher Settings</em> section. The profile URL of the author can be entered in the WordPress user <a href="profile.php">profile page</a> under the section <em>Contact Info</em>. For example:', 'add-meta-tags').'</p>
+    <blockquote>'.__('Google+ author profile URL', 'add-meta-tags').' (AMT): <code>https://plus.google.com/+JohnSmith/</code></blockquote>
+    <blockquote>'.__('Google+ publisher page URL', 'add-meta-tags').' (AMT): <code>https://plus.google.com/+AwesomeEditors/</code></blockquote>
 
     <p>'.__('Once you have filled in the URLs to the author profile and the publisher page on Google+, the relevant link elements with the attributes <code>rel="author"</code> and <code>rel="publisher"</code> are automatically added to the head area of the web page.', 'add-meta-tags').'</p>';
     $screen->add_help_tab( array(
@@ -343,15 +343,15 @@ function amt_admin_help_tabs() {
     <p>'.__('It is possible to partially customize the generated metadata on a per post basis through the <em>Metadata</em> metabox which exists in the post editing screen. Below you can choose which metabox features should be enabled. Enabling or disabling these features has no effect on the custom data that has been stored for each post.', 'add-meta-tags').'</p>
 
     <ul>
-    <li>'.__('Custom description (<em>Recommended</em>).', 'add-meta-tags').'</li>
-    <li>'.__('Custom keywords (<em>Recommended</em>).', 'add-meta-tags').'</li>
+    <li>'.__('Custom description.', 'add-meta-tags').' ('.__('Recommended', 'add-meta-tags').')</li>
+    <li>'.__('Custom keywords.', 'add-meta-tags').' ('.__('Recommended', 'add-meta-tags').')</li>
     <li>'.__('Custom content of the <code>title</code> HTML element.', 'add-meta-tags').'</li>
     <li>'.__('Custom news keywords. (<a target="_blank" href="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297">more info</a>)', 'add-meta-tags').'</li>
     <li>'.__('Full meta tags box.', 'add-meta-tags').'</li>
     <li>'.__('Global image override.', 'add-meta-tags').'</li>
     <li>'.__('Content locale override. (Not to be used in conjunction with a multilingual plugin.) ', 'add-meta-tags').'</li>
-    <li>'.__('Express review. (Experimental feature. For advanced users only.)', 'add-meta-tags').'</li>
-    <li>'.__('Referenced items. (Experimental feature. Not recommended.)', 'add-meta-tags').'</li>
+    <li>'.__('Express review.', 'add-meta-tags').' ('.__('For advanced users only', 'add-meta-tags').')</li>
+    <li>'.__('Referenced items.', 'add-meta-tags').' ('.__('Not recommended', 'add-meta-tags').')</li>
     </ul>
     <p>'.__('The metabox feature selection above affects all users. Advanced customization of the availability of these features on a per user basis or depending upon each user\'s permissions, is possible through the <code>amt_metadata_metabox_permissions</code> filter.', 'add-meta-tags').'</p>
     ';
@@ -400,8 +400,8 @@ function amt_admin_help_tabs() {
     <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
 
     <ul>
-    <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').' (<span style="color:red;">Ready for testing</span>)</li>
-    <li>'.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)</li>
+    <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').'</li>
+    <li>'.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
     </ul>
     <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
 
@@ -785,11 +785,11 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Schema.org Metadata', 'add-meta-tags').'</span></legend>
 
                 <input id="auto_schemaorg" type="checkbox" value="1" name="auto_schemaorg" '. (($options["auto_schemaorg"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="auto_schemaorg">'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</label> (Experimental feature)
+                <label for="auto_schemaorg">'.__('Automatically generate and embed Schema.org Microdata.', 'add-meta-tags').'</label>
                 <br />
 
                 <input id="schemaorg_force_jsonld" type="checkbox" value="1" name="schemaorg_force_jsonld" '. (($options["schemaorg_force_jsonld"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="schemaorg_force_jsonld">'.__('Enforce the generation of schema.org metadata as JSON-LD data.', 'add-meta-tags').'</label> (<span style="color:red;">For testing only</span>)
+                <label for="schemaorg_force_jsonld">'.__('Enforce the generation of schema.org metadata as JSON-LD data.', 'add-meta-tags').'</label> (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
                 <br />
 
             </fieldset>
@@ -835,12 +835,12 @@ function amt_options_page() {
 
                 <p><input id="metabox_enable_description" type="checkbox" value="1" name="metabox_enable_description" '. (($options["metabox_enable_description"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_description">
-                '.__('Custom description (<em>Recommended</em>).', 'add-meta-tags').'
+                '.__('Custom description.', 'add-meta-tags').' ('.__('Recommended', 'add-meta-tags').')
                 </label></p>
 
                 <p><input id="metabox_enable_keywords" type="checkbox" value="1" name="metabox_enable_keywords" '. (($options["metabox_enable_keywords"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_keywords">
-                '.__('Custom keywords (<em>Recommended</em>).', 'add-meta-tags').'
+                '.__('Custom keywords.', 'add-meta-tags').' ('.__('Recommended', 'add-meta-tags').')
                 </label></p>
 
                 <p><input id="metabox_enable_title" type="checkbox" value="1" name="metabox_enable_title" '. (($options["metabox_enable_title"]=="1") ? 'checked="checked"' : '') .'" />
@@ -870,12 +870,12 @@ function amt_options_page() {
 
                 <p><input id="metabox_enable_express_review" type="checkbox" value="1" name="metabox_enable_express_review" '. (($options["metabox_enable_express_review"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_express_review">
-                '.__('Express review. (Experimental feature. For advanced users only.)', 'add-meta-tags').'
+                '.__('Express review.', 'add-meta-tags').' ('.__('For advanced users only', 'add-meta-tags').')
                 </label></p>
 
                 <p><input id="metabox_enable_referenced_list" type="checkbox" value="1" name="metabox_enable_referenced_list" '. (($options["metabox_enable_referenced_list"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="metabox_enable_referenced_list">
-                '.__('Referenced items. (Experimental feature. Not recommended.)', 'add-meta-tags').'
+                '.__('Referenced items.', 'add-meta-tags').' ('.__('Not recommended', 'add-meta-tags').')
                 </label></p>
 
                 <br />
@@ -897,12 +897,12 @@ function amt_options_page() {
 
                 <p><input id="noindex_search_results" type="checkbox" value="1" name="noindex_search_results" '. (($options["noindex_search_results"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_search_results">
-                '.__('Search results. (<em>Highly recommended</em>)', 'add-meta-tags').'
+                '.__('Search results.', 'add-meta-tags').' ('.__('Highly recommended', 'add-meta-tags').')
                 </label></p>
 
                 <p><input id="noindex_date_archives" type="checkbox" value="1" name="noindex_date_archives" '. (($options["noindex_date_archives"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="noindex_date_archives">
-                '.__('Date based archives. (<em>Recommended</em>)', 'add-meta-tags').'
+                '.__('Date based archives.', 'add-meta-tags').' ('.__('Recommended', 'add-meta-tags').')
                 </label></p>
 
                 <p><input id="noindex_category_archives" type="checkbox" value="1" name="noindex_category_archives" '. (($options["noindex_category_archives"]=="1") ? 'checked="checked"' : '') .'" />
@@ -998,12 +998,12 @@ function amt_options_page() {
 
                 <p><input id="extended_support_woocommerce" type="checkbox" value="1" name="extended_support_woocommerce" '. (($options["extended_support_woocommerce"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_woocommerce">
-                '.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)
+                '.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').'
                 </label></p>
 
                 <p><input id="extended_support_edd" type="checkbox" value="1" name="extended_support_edd" '. (($options["extended_support_edd"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_edd">
-                '.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">Work in progress</span>)
+                '.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
                 </label></p>
 
                 <br />
@@ -1018,7 +1018,7 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Review Mode', 'add-meta-tags').'</span></legend>
 
                 <input id="review_mode" type="checkbox" value="1" name="review_mode" '. (($options["review_mode"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="review_mode">'.__('Enable <em>Metadata Review Mode</em>.').'</label>
+                <label for="review_mode">'.__('Enable <em>Metadata Review Mode</em>.', 'add-meta-tags').'</label>
                 <br />
             </fieldset>
             </td>
@@ -1467,7 +1467,7 @@ sameAs = http://en.wikipedia.org/wiki/On_the_Origin_of_Species\n\
                 <label for="amt_custom_referenced_list"><strong>'.__('URLs of referenced items', 'add-meta-tags').'</strong>:</label>
                 <textarea class="code" style="width: 99%" id="amt_custom_referenced_list" name="amt_custom_referenced_list" cols="30" rows="4" >'. stripslashes( $custom_referenced_list_value ) .'</textarea>
                 <br>
-                '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').' (<span style="color:red;">EXPERIMENTAL</span>)
+                '.__('Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated.', 'add-meta-tags').' (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
             </p>
         ');
 
