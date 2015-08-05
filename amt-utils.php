@@ -1990,7 +1990,7 @@ function amt_is_product_group() {
 // Media Limits
 
 function amt_metadata_get_default_media_limit($options) {
-    $limit = 10;
+    $limit = 16;
     if ( is_array($options) && array_key_exists('force_media_limit', $options) && $options['force_media_limit'] == '1' ) {
         $limit = 1;
     }
