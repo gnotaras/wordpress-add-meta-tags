@@ -166,20 +166,66 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
         $metadata_arr[] = '<meta name="dcterms.type" content="Text" />';
         $metadata_arr[] = '<meta name="dcterms.format" content="text/html" />';
 
+        // Add media files
+
+        // Media Limits
+        $image_limit = amt_metadata_get_image_limit($options);
+        $video_limit = amt_metadata_get_video_limit($options);
+        $audio_limit = amt_metadata_get_audio_limit($options);
+
+        // Counters
+        $ic = 0;    // image counter
+        $vc = 0;    // video counter
+        $ac = 0;    // audio counter
+
         // List attachments
         foreach( $attachments as $attachment ) {
-            $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+
+            $mime_type = get_post_mime_type( $attachment->ID );
+            //$attachment_type = strstr( $mime_type, '/', true );
+            // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+            $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+
+            if ( 'image' == $attachment_type && $ic < $image_limit ) {
+                $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+                // Increase image counter
+                $ic++;
+            } elseif ( 'video' == $attachment_type && $vc < $video_limit ) {
+                $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+                // Increase video counter
+                $vc++;
+            } elseif ( 'audio' == $attachment_type && $ac < $audio_limit ) {
+                $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( get_permalink( $attachment->ID ) ) . '" />';
+                // Increase audio counter
+                $ac++;
+            }
+            
         }
 
         // Embedded Media
         foreach( $embedded_media['images'] as $embedded_item ) {
+            if ( $ic == $image_limit ) {
+                break;
+            }
             $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+            // Increase image counter
+            $ic++;
         }
         foreach( $embedded_media['videos'] as $embedded_item ) {
+            if ( $vc == $video_limit ) {
+                break;
+            }
             $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+            // Increase video counter
+            $vc++;
         }
         foreach( $embedded_media['sounds'] as $embedded_item ) {
+            if ( $ac == $audio_limit ) {
+                break;
+            }
             $metadata_arr[] = '<meta name="dcterms.hasPart" content="' . esc_url_raw( $embedded_item['page'] ) . '" />';
+            // Increase audio counter
+            $ac++;
         }
     }
 
