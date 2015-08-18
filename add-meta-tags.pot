@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: add-meta-tags 2.9.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-28 13:18+0300\n"
+"POT-Creation-Date: 2015-08-05 20:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,7 +161,7 @@ msgstr ""
 msgid "The following publisher related settings are shared among all users. Filling in these settings is entirely optional."
 msgstr ""
 
-#: amt-admin-panel.php:191 amt-admin-panel.php:647
+#: amt-admin-panel.php:191 amt-admin-panel.php:241 amt-admin-panel.php:647
 #: metadata\amt_opengraph.php:72
 msgid "Facebook publisher profile URL"
 msgstr ""
@@ -178,7 +178,7 @@ msgstr ""
 msgid "Enter an absolute URL to the Google+ profile of the publisher. If this is filled in, it will be used in the link with <code>rel=\"publisher\"</code> in the HEAD area of the web page."
 msgstr ""
 
-#: amt-admin-panel.php:201 amt-admin-panel.php:691
+#: amt-admin-panel.php:201 amt-admin-panel.php:267 amt-admin-panel.php:691
 #: metadata\amt_twitter_cards.php:69
 msgid "Twitter publisher username"
 msgstr ""
@@ -232,7 +232,11 @@ msgid "Important Note"
 msgstr ""
 
 #: amt-admin-panel.php:239
-msgid "By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above. For example:"
+msgid "By default, this feature sets the URL of the front page of your web site to the <code>article:publisher</code> meta tag and the URL of the author archive to the <code>article:author</code> meta tag. In order to link to the publisher page and the author profile on Facebook, it is required to provide the respective URLs. The profile URL of the publisher can be entered in this page under the <em>Publisher Settings</em> section. The profile URL of the author can be entered in the WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>. For example:"
+msgstr ""
+
+#: amt-admin-panel.php:240 metadata\amt_opengraph.php:65
+msgid "Facebook author profile URL"
 msgstr ""
 
 #: amt-admin-panel.php:242
@@ -272,11 +276,35 @@ msgid "Important Notes"
 msgstr ""
 
 #: amt-admin-panel.php:265
-msgid "In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. Update your WordPress user's <a href=\"profile.php\">profile page</a> and fill in the relevant usernames under the section <em>Contact Info</em>. Filling in the publisher username is not required, if it has already been entered in the <em>Publisher Settings</em> above."
+msgid "In order to generate the <code>twitter:site</code> and <code>twitter:creator</code> meta tags, it is required to provide the respective usernames of the Twitter account of the author and/or the publisher of the content. The username of the publisher can be entered in this page under the <em>Publisher Settings</em> section. The username of the author can be entered in the WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>. For example:"
+msgstr ""
+
+#: amt-admin-panel.php:266 metadata\amt_twitter_cards.php:62
+msgid "Twitter author username"
 msgstr ""
 
 #: amt-admin-panel.php:269
 msgid "By default, a Twitter Card of type <em>summary</em> is generated for your content. If your theme supports <a href=\"http://codex.wordpress.org/Post_Formats\">post formats</a>, then it is possible to generate Twitter Cards of various types according to the specified post format. More specifically:"
+msgstr ""
+
+#: amt-admin-panel.php:270
+msgid "A <code>summary</code> card is generated for posts with one of the <code>standard</code>, <code>aside</code>, <code>link</code>, <code>quote</code>, <code>status</code> and <code>chat</code> formats."
+msgstr ""
+
+#: amt-admin-panel.php:271
+msgid "A <code>summary_large_image</code> card is generated for posts with the <code>image</code> format. An image is expected to be attached or embedded to the post."
+msgstr ""
+
+#: amt-admin-panel.php:272
+msgid "A <code>gallery</code> card is generated for posts with the <code>gallery</code> format. At least one image is expected to be attached or embedded to the post."
+msgstr ""
+
+#: amt-admin-panel.php:273
+msgid "A <code>photo</code> card is generated for image attachment pages."
+msgstr ""
+
+#: amt-admin-panel.php:274
+msgid "A <code>player</code> card is generated for posts with the <code>audio</code> or <code>video</code> format and for audio or video attachment pages. Regarding posts, an audio or video is expected to be attached or embedded to the post."
 msgstr ""
 
 #: amt-admin-panel.php:277
@@ -316,7 +344,15 @@ msgid "If this option is enabled, the schema.org metadata is generated as a JSON
 msgstr ""
 
 #: amt-admin-panel.php:306
-msgid "By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author's profile and publisher's page on Google+, it is required to provide the respective URLs. These settings can be added to your WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>. Filling in the publisher profile URL is not required, if it has already been entered in the <em>Publisher Settings</em> above."
+msgid "By default, this feature links the author and publisher objects to the author archive and to the front page of your web site respectively. In order to link to the author's profile and publisher's page on Google+, it is required to provide the respective URLs. The profile URL of the publisher can be entered in this page under the <em>Publisher Settings</em> section. The profile URL of the author can be entered in the WordPress user <a href=\"profile.php\">profile page</a> under the section <em>Contact Info</em>. For example:"
+msgstr ""
+
+#: amt-admin-panel.php:307 metadata\amt_schemaorg.php:64
+msgid "Google+ author profile URL"
+msgstr ""
+
+#: amt-admin-panel.php:308 metadata\amt_schemaorg.php:71
+msgid "Google+ publisher page URL"
 msgstr ""
 
 #: amt-admin-panel.php:310
@@ -372,11 +408,16 @@ msgid "It is possible to partially customize the generated metadata on a per pos
 msgstr ""
 
 #: amt-admin-panel.php:346 amt-admin-panel.php:838
-msgid "Custom description (<em>Recommended</em>)."
+msgid "Custom description."
+msgstr ""
+
+#: amt-admin-panel.php:346 amt-admin-panel.php:347 amt-admin-panel.php:838
+#: amt-admin-panel.php:843 amt-admin-panel.php:905
+msgid "Recommended"
 msgstr ""
 
 #: amt-admin-panel.php:347 amt-admin-panel.php:843
-msgid "Custom keywords (<em>Recommended</em>)."
+msgid "Custom keywords."
 msgstr ""
 
 #: amt-admin-panel.php:348 amt-admin-panel.php:848
@@ -400,11 +441,19 @@ msgid "Content locale override. (Not to be used in conjunction with a multilingu
 msgstr ""
 
 #: amt-admin-panel.php:353 amt-admin-panel.php:873
-msgid "Express review. (Experimental feature. For advanced users only.)"
+msgid "Express review."
+msgstr ""
+
+#: amt-admin-panel.php:353 amt-admin-panel.php:873
+msgid "For advanced users only"
 msgstr ""
 
 #: amt-admin-panel.php:354 amt-admin-panel.php:878
-msgid "Referenced items. (Experimental feature. Not recommended.)"
+msgid "Referenced items."
+msgstr ""
+
+#: amt-admin-panel.php:354 amt-admin-panel.php:878
+msgid "Not recommended"
 msgstr ""
 
 #: amt-admin-panel.php:356
@@ -489,6 +538,10 @@ msgstr ""
 
 #: amt-admin-panel.php:404 amt-admin-panel.php:1006
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
+msgstr ""
+
+#: amt-admin-panel.php:404 amt-admin-panel.php:1006
+msgid "Work in progress"
 msgstr ""
 
 #: amt-admin-panel.php:406
@@ -621,6 +674,10 @@ msgstr ""
 msgid "Schema.org Metadata"
 msgstr ""
 
+#: amt-admin-panel.php:792 amt-admin-panel.php:1470
+msgid "Experimental feature"
+msgstr ""
+
 #: amt-admin-panel.php:808
 msgid "Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, which will be used globally in the generated metadata overriding the default locale as returned by WordPress."
 msgstr ""
@@ -634,11 +691,15 @@ msgid "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on follow
 msgstr ""
 
 #: amt-admin-panel.php:900
-msgid "Search results. (<em>Highly recommended</em>)"
+msgid "Search results."
+msgstr ""
+
+#: amt-admin-panel.php:900
+msgid "Highly recommended"
 msgstr ""
 
 #: amt-admin-panel.php:905
-msgid "Date based archives. (<em>Recommended</em>)"
+msgid "Date based archives."
 msgstr ""
 
 #: amt-admin-panel.php:910
@@ -836,20 +897,4 @@ msgstr ""
 #: metadata\amt_basic.php:351
 #, php-format
 msgid "Content published by %s."
-msgstr ""
-
-#: metadata\amt_opengraph.php:65
-msgid "Facebook author profile URL"
-msgstr ""
-
-#: metadata\amt_schemaorg.php:64
-msgid "Google+ author profile URL"
-msgstr ""
-
-#: metadata\amt_schemaorg.php:71
-msgid "Google+ publisher page URL"
-msgstr ""
-
-#: metadata\amt_twitter_cards.php:62
-msgid "Twitter author username"
 msgstr ""
