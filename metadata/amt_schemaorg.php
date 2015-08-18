@@ -206,8 +206,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // Organization
         // Scope BEGIN: Organization: http://schema.org/Organization
         $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        // Get publisher metatags
+        $metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+        // Get publisher/mainEntity metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
         // Scope END: Organization
         $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
@@ -1222,9 +1222,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Organization
         // Scope BEGIN: Organization: http://schema.org/Organization
 //        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-//        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        $metadata_arr['publisher'] = amt_get_jsonld_schemaorg_publisher_array($options);
-        // Get publisher metatags
+//        $metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+        $metadata_arr['mainEntity'] = amt_get_jsonld_schemaorg_publisher_array($options);
+        // Get publisher/mainEntity metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
         // Scope END: Organization
 //        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
