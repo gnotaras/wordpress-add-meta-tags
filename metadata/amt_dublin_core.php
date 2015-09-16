@@ -79,7 +79,7 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
 
     // Title
     // Note: Contains multipage information through amt_process_paged()
-    $metadata_arr[] = '<meta name="dcterms.title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+    $metadata_arr['dcterms.title'] = '<meta name="dcterms.title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
 
     // Resource identifier - Uses amt_get_permalink_for_multipage()
     $metadata_arr[] = '<meta name="dcterms.identifier" content="' . esc_url_raw( amt_get_permalink_for_multipage( $post ) ) . '" />';

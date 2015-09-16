@@ -101,29 +101,20 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
  */
 function amt_custom_title_tag($title) {
 
-    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
-
-        // Get current post object
-        $post = get_queried_object();
-        if ( is_null( $post ) ) {
-            return $title;
-        }
-
-        // Check if metadata is supported on this content type.
-        $post_type = get_post_type( $post );
-        if ( ! in_array( $post_type, amt_get_supported_post_types() ) ) {
-            return $title;
-        }
-        
-        $custom_title = amt_get_post_meta_title( $post->ID );
-        if ( !empty($custom_title) ) {
-            $custom_title = str_replace('%title%', $title, $custom_title);
-            // Allow filtering of the custom title
-            $custom_title = apply_filters( 'amt_custom_title', $custom_title );
-            // Note: Contains multipage information through amt_process_paged()
-            return esc_attr( amt_process_paged( $custom_title ) );
-        }
+    if ( is_feed() ) {
+        return $title;
     }
+
+    // Get the options
+    $options = get_option('add_meta_tags_opts');
+    // Get current post object
+    $post = get_queried_object();
+
+    $processed_title = amt_get_title_for_title_element($options, $post);
+    if ( ! empty($processed_title) ) {
+        return esc_attr($processed_title);
+    }
+
     // WordPress adds multipage information if a custom title is not set.
     return $title;
 }

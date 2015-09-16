@@ -174,6 +174,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite">';
         // name
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // headline - contains title information
+        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // alternateName (The WordPress tag line is used.)
         // TODO: use tag line. Needs feedback!
         //$metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
@@ -232,6 +234,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
         $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         
+        // headline - contains title information
+        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $author) ) . '" />';
+
         // Get author metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID ) );
 
@@ -308,6 +313,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // name
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+
+        // headline - contains title information
+        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
@@ -447,6 +455,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Scope END: Person
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
+        // headline - contains title information
+        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+
         // Dates
         $metadata_arr[] = '<meta itemprop="datePublished" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
         $metadata_arr[] = '<meta itemprop="dateModified" content="' . esc_attr( amt_iso8601_date($post->post_modified) ) . '" />';
@@ -558,8 +569,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
 
-        // headline
-        $metadata_arr[] = '<meta itemprop="headline" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+        // headline - contains title information
+        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
@@ -1184,6 +1195,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // name
         $metadata_arr['name'] = esc_attr( get_bloginfo('name') );
+
+        // headline - contains title information
+        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
+
         // alternateName (The WordPress tag line is used.)
         // TODO: use tag line. Needs feedback!
         //$metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
@@ -1250,6 +1265,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         $metadata_arr['@type'] = 'Person';
 
+        // headline - contains title information
+        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $author) );
+
         // Get author metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID ) );
         $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_author_array( $author->ID ) );
@@ -1274,6 +1292,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // name
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr['name'] = esc_attr( amt_process_paged( get_the_title($post->ID) ) );
+
+        // headline - contains title information
+        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
@@ -1427,6 +1448,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
+        // headline - contains title information
+        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
+
         // Dates
         $metadata_arr['datePublished'] = esc_attr( amt_iso8601_date($post->post_date) );
         $metadata_arr['dateModified'] = esc_attr( amt_iso8601_date($post->post_modified) );
@@ -1544,8 +1568,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Note: Contains multipage information through amt_process_paged()
         $metadata_arr['name'] = esc_attr( amt_process_paged( get_the_title($post->ID) ) );
 
-        // headline
-        $metadata_arr['headline'] = esc_attr( get_the_title($post->ID) );
+        // headline - contains title information
+        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()

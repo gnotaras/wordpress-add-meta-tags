@@ -22,6 +22,7 @@ It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www
 
 = Highlights of the latest releases =
 
+- Since v2.9.2 advanced SEO title customization has been built into Add-Meta-Tags. ([learn more](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management))
 - Since v2.8.9 experimental build-in support for the popular multilingual plugins WPML and Polylang has been implemented.
 - Since v2.8.7 a basic template tag for the generation of a *semantic breadcrumb trail* for hierarchically structured content types, such as pages, is available for use in your themes ([more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Semantic_Breadcrumbs)).
 - Since v2.8.0 Add-Meta-Tags supports the generation of metadata for *product* and *product group* pages for the *WooCommerce* and *Easy-Digital-Downloads* e-commerce plugins ([more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-products)).
@@ -263,6 +264,13 @@ In 2.9.0 publisher social media profile links can no longer be set in the WordPr
 == Changelog ==
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
+
+- [2.9.2](http://www.codetrax.org/versions/298)
+ - Advanced SEO title management and customization has been built into Add-Meta-Tags. Needs to be enabled in the settings. Read [more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management) about how to customize the titles. This feature is currently marked as experimental. Your feedback is welcome.
+ - Option to force the use of the content's custom title, if one has been set in the post editing screen, in the titles within the metadata. (Props to fatherb, bolt24, vtinath, Craig Damon and others)
+ - Fixed several translatable strings. (Props to Burak Yavuz for valuable feedback.)
+ - Internal media limit (configurable via filter) increased from 10 to 16. (Props to Eduardo Molon for feedback.)
+ - Minor improvements of the schema.org metadata generators.
 
 - [2.9.1](http://www.codetrax.org/versions/298)
  - The Twitter Cards, Opengraph and Schema.org microdata and JSON+LD generators for WooCommerce products have been greatly improved and are ready for general testing.

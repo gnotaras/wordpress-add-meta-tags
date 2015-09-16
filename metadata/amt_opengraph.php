@@ -122,8 +122,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:type" content="website" />';
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
-        // Title - Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_bloginfo('name') ) ) . '" />';
+        // Title - Note: Contains multipage information
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // URL - Note: different method to get the permalink on paged archives
         if ( is_paged() ) {
             $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_pagenum_link( get_query_var('paged') ) ) . '" />';
@@ -161,8 +161,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:type" content="website" />';
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
-        // Title - Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        // Title - Note: Contains multipage information
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // URL - Note: different method to get the permalink on paged archives
         if ( is_paged() ) {
             $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_pagenum_link( get_query_var('paged') ) ) . '" />';
@@ -210,8 +210,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:type" content="website" />';
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
-        // Title - Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        // Title - Note: Contains multipage information
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // URL - Note: different method to get the permalink on paged archives
         if ( is_paged() ) {
             $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_pagenum_link( get_query_var('paged') ) ) . '" />';
@@ -271,8 +271,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
-        // Title - Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( single_term_title( $prefix = '', $display = false ) ) ) . '" />';
+        // Title - Note: Contains multipage information
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // URL - Note: different method to get the permalink on paged archives
         $url = get_term_link($tax_term_object);
         if ( is_paged() ) {
@@ -349,13 +349,15 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
-        // Title - Note: Contains multipage information through amt_process_paged()
-        if ( ! is_paged() ) {
-            // We treat the first page of the archive as a profile
-            $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( $author->display_name ) . ' profile page" />';
-        } else {
-            $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( "Content published by " . $author->display_name ) ) . '" />';
-        }
+        // Title - Note: Contains multipage information
+        //if ( ! is_paged() ) {
+        //    // We treat the first page of the archive as a profile
+        //    $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( $author->display_name ) . ' profile page" />';
+        //} else {
+        //    $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( "Content published by " . $author->display_name ) ) . '" />';
+        //}
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . ' profile page" />';
+
         // URL - Note: different method to get the permalink on paged archives
         // If a Facebook author profile URL has been provided, it has priority,
         // Otherwise fall back to the WordPress author archive.
@@ -455,7 +457,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // Title
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // URL
         $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_permalink($post->ID) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags
@@ -552,8 +554,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:type" content="' . esc_attr( $og_type ) . '" />';
 
         // Title
-        // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta property="og:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        // Note: Contains multipage information
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags

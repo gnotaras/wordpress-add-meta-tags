@@ -2336,3 +2336,499 @@ jQuery(document).ready(function(){
 }
 
 
+// Advanced Title Management
+
+// Returns the title that should be used in the title HTML element
+function amt_get_title_for_title_element($options, $post) {
+    
+    // Variables
+    // #entity_title#, #page#, #page_total#, #site_name#, #site_tagline#
+    
+    $default_title_element_title_templates = array(
+        // Default front page displaying the latest posts
+        'front_page_default'        => '#site_name# | #site_tagline#',
+        'front_page_default_paged'  => '#site_name# | Page #page# | #site_tagline#',
+        // Front page using static page
+        'front_page_static'         => '#site_name# | #site_tagline#',
+        //'front_page_static'         => '#entity_title# | #site_tagline#',
+        'front_page_static_paged'   => '#site_name# | Page #page# | #site_tagline#',
+        // Latest posts page using static page
+        'blog_index_static'         => '#entity_title# | #site_name#',
+        'blog_index_static_paged'   => '#entity_title# | Page #page# | #site_name#',
+        // Date Archives
+        // Date::Yearly
+        'archive_date_yearly'       => 'Year: #year# Archive | #site_name#',
+        'archive_date_yearly_paged' => 'Year: #year# Archive | Page #page# | #site_name#',
+        // Date::Monthly
+        'archive_date_monthly'      => '#month_name# #year# Archive | #site_name#',
+        'archive_date_monthly_paged'=> '#month_name# #year# Archive | Page #page# | #site_name#',
+        // Date::Daily
+        'archive_date_daily'      => '#month_name# #day#, #year# Archive | #site_name#',
+        'archive_date_daily_paged'=> '#month_name# #day#, #year# Archive | Page #page# | #site_name#',
+        // Taxonomy Archives
+        // Taxonomy::Category
+        'archive_taxonomy_category'        => '#entity_title# Archive | #site_name#',
+        'archive_taxonomy_category_paged'  => '#entity_title# Archive | Page #page# | #site_name#',
+        // Taxonomy::Tag
+        'archive_taxonomy_tag'        => '#entity_title# Archive | #site_name#',
+        'archive_taxonomy_tag_paged'  => '#entity_title# Archive | Page #page# | #site_name#',
+        // Taxonomy::Custom
+        'archive_taxonomy_CUSTOMSLUG'        => '#entity_title# Archive| #site_name#',
+        'archive_taxonomy_CUSTOMSLUG_paged'  => '#entity_title# Archive | Page #page# | #site_name#',
+        // Author Archives
+        'archive_author'        => '#entity_title# profile | #site_name#',
+        'archive_author_paged'  => 'Content published by #entity_title# | Page #page# | #site_name#',
+        // Content
+        // Content::Attachment
+        'content_attachment'        => '#entity_title# | #site_name#',
+        //'content_attachment_image'  => 'Image: #entity_title# | #site_name#',
+        //'content_attachment_video'  => 'Video: #entity_title# | #site_name#',
+        //'content_attachment_audio'  => 'Audio: #entity_title# | #site_name#',
+        // Content::Page
+        'content_page'        => '#entity_title# | #site_name#',
+        'content_page_paged'  => '#entity_title# | Page #page# | #site_name#',
+        // Content::Post
+        'content_post'        => '#entity_title# | #site_name#',
+        'content_post_paged'  => '#entity_title# | Page #page# | #site_name#',
+        // Post with format
+        //'content_post_image'  => 'Image: #entity_title# | #site_name#',
+        //'content_post_video'  => 'Video: #entity_title# | #site_name#',
+        //'content_post_audio'  => 'Audio: #entity_title# | #site_name#',
+        //'content_post_status'  => 'Status: #entity_title# | #site_name#',
+        //'content_post_gallery'  => 'Gallery: #entity_title# | #site_name#',
+        //'content_post_link'  => 'Link: #entity_title# | #site_name#',
+        //'content_post_quote'  => 'Quote: #entity_title# | #site_name#',
+        //'content_post_chat'  => 'Chat: #entity_title# | #site_name#',
+        // Content::Custom-Post-Type
+        'content_custom'        => '#entity_title# | #site_name#',
+        'content_custom_paged'  => '#entity_title# | Page #page# | #site_name#',
+        // is_error - TODO
+        // is_search - TODO
+    );
+
+    $title_element_title_templates = apply_filters('amt_titles_title_element_templates', $default_title_element_title_templates, $post);
+
+    // Always use custom title if it is set
+    return amt_internal_get_title($options, $post, $title_element_title_templates, $force_custom_title_if_set=true, $caller_is_metadata_generator=false);
+
+}
+
+
+// Returns the title that should be used in the title HTML element
+function amt_get_title_for_metadata($options, $post) {
+    
+    // Variables
+    // #entity_title#, #page#, #page_total#, #site_name#, #site_tagline#
+    
+    $default_metadata_title_templates = array(
+        // Default front page displaying the latest posts
+        'front_page_default'        => '#site_name#',
+        'front_page_default_paged'  => '#site_name# | Page #page#',
+        // Front page using static page
+        'front_page_static'         => '#site_name#',
+        'front_page_static_paged'   => '#site_name# | Page #page#',
+        // Latest posts page using static page
+        'blog_index_static'         => '#entity_title#',
+        'blog_index_static_paged'   => '#entity_title# | Page #page#',
+        // Date Archives
+        // Date::Yearly
+        //'archive_date_yearly'       => 'Year: #year# Archive',
+        //'archive_date_yearly_paged' => 'Year: #year# Archive | Page #page#',
+        // Date::Monthly
+        //'archive_date_monthly'      => '#month_name# #year# Archive',
+        //'archive_date_monthly_paged'=> '#month_name# #year# Archive | Page #page#',
+        // Date::Daily
+        //'archive_date_daily'      => '#month_name# #day#, #year# Archive',
+        //'archive_date_daily_paged'=> '#month_name# #day#, #year# Archive | Page #page#',
+        // Taxonomy Archives
+        // Taxonomy::Category
+        'archive_taxonomy_category'        => '#entity_title# Archive',
+        'archive_taxonomy_category_paged'  => '#entity_title# Archive | Page #page#',
+        // Taxonomy::Tag
+        'archive_taxonomy_tag'        => '#entity_title# Archive',
+        'archive_taxonomy_tag_paged'  => '#entity_title# Archive | Page #page#',
+        // Taxonomy::Custom
+        'archive_taxonomy_CUSTOMSLUG'        => '#entity_title# Archive',
+        'archive_taxonomy_CUSTOMSLUG_paged'  => '#entity_title# Archive | Page #page#',
+        // Author Archives
+        'archive_author'        => '#entity_title# profile',
+        'archive_author_paged'  => 'Content published by #entity_title# | Page #page#',
+        // Content
+        // Content::Attachment
+        'content_attachment'        => '#entity_title#',
+        //'content_attachment_image'  => '#entity_title#',
+        //'content_attachment_video'  => '#entity_title#',
+        //'content_attachment_audio'  => '#entity_title#',
+        // Content::Page
+        'content_page'        => '#entity_title#',
+        'content_page_paged'  => '#entity_title# | Page #page#',
+        // Content::Post
+        'content_post'        => '#entity_title#',
+        'content_post_paged'  => '#entity_title# | Page #page#',
+        // Post with format
+        //'content_post_image'  => 'Image: #entity_title#',
+        //'content_post_video'  => 'Video: #entity_title#',
+        //'content_post_audio'  => 'Audio: #entity_title#',
+        //'content_post_status'  => 'Status: #entity_title#',
+        //'content_post_gallery'  => 'Gallery: #entity_title#',
+        //'content_post_link'  => 'Link: #entity_title#',
+        //'content_post_quote'  => 'Quote: #entity_title#',
+        //'content_post_chat'  => 'Chat: #entity_title#',
+        // Content::Custom-Post-Type
+        'content_custom'        => '#entity_title#',
+        'content_custom_paged'  => '#entity_title# | Page #page#',
+        // is_error - TODO
+        // is_search - TODO
+    );
+
+    $metadata_title_templates = apply_filters('amt_titles_metadata_title_templates', $default_metadata_title_templates, $post);
+
+    $force_custom_title = false;
+    if ( is_array($options) && array_key_exists('enforce_custom_title_in_metadata', $options) && $options['enforce_custom_title_in_metadata'] == '1' ) {
+        $force_custom_title = true;
+    }
+
+    return amt_internal_get_title($options, $post, $metadata_title_templates, $force_custom_title_if_set=$force_custom_title, $caller_is_metadata_generator=true);
+}
+
+
+// Return the title after applying the proper title template, if advanced titles are turned on.
+function amt_internal_get_title($options, $post, $title_templates, $force_custom_title_if_set=false, $caller_is_metadata_generator=false) {
+
+    // EARLY PROCESSING
+
+    // First we check for a custom title whgich may have been inserted in the
+    // relevant Custom Field of the supported types.
+    $custom_title = '';
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+        if ( ! is_null( $post ) ) {
+            // Check if metadata is supported on this content type.
+            $post_type = get_post_type( $post );
+            if ( in_array( $post_type, amt_get_supported_post_types() ) ) {
+                // Store the custom title. Should be empty for post types which do not support a custom title or which have an empty custom title.
+                $custom_title = amt_get_post_meta_title( $post->ID );
+                //$custom_title = str_replace('%title%', $title, $custom_title);
+                // Allow filtering of the custom title
+                $custom_title = apply_filters( 'amt_custom_title', $custom_title );
+            }
+        }
+    }
+
+    // Early processing in case advanced title management is TURNED OFF
+    // This early processing takes place only for calls from the 'amt_get_title_for_title_element()' function.
+    // WordPress constructs its own titles for the 'title' HTML element, so we
+    // do not need to do further processing and title guessing here.
+    // This early processing is NOT performed for calls from the 'amt_get_title_for_metadata()' function,
+    // because the metadata generators 
+    if ( ! $caller_is_metadata_generator && array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '0' ) {
+        if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+
+            if ( ! empty($custom_title) ) {
+                return $custom_title;
+            } else {
+                // Else return nothing, so that the WP generated title is used.
+                return;
+            }
+            
+        }
+    }
+
+    // From now on Add-Meta-Tags generates the title.
+
+    // TEMPLATE VARIABLES
+    // Set template variable values
+
+    // #entity_title#, #page#, #page_total#, #site_name#, #site_tagline#, #year#, #month#, #month_name#, #day#
+
+    // Date variables
+    // Credit for the following here: http://wordpress.stackexchange.com/a/109674
+    // https://developer.wordpress.org/reference/classes/wp_locale/
+    $var_year = 0;
+    $var_month = 0;
+    $var_month_name = '';
+    $var_day = 0;
+    if ( is_date() ) {
+        // On date archives the following have a value. On the default front page are zero
+        $var_year = get_query_var( 'year' );
+        $var_month = get_query_var( 'monthnum' );
+        $var_month_name = '';
+        if ( $var_month ) {
+            $var_month_name = $GLOBALS['wp_locale']->get_month($var_month);
+        }
+        $var_day = get_query_var('day');
+    } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+        $var_year = mysql2date('Y', $post->post_date);
+        $var_month = mysql2date('m', $post->post_date);
+        $var_month_name = '';
+        if ( $var_month ) {
+            $var_month_name = $GLOBALS['wp_locale']->get_month($var_month);
+        }
+        $var_day = mysql2date('d', $post->post_date);
+    }
+
+    // #page_total#
+    global $wp_query;
+    $page_total = 1;
+    if ( isset( $wp_query->max_num_pages ) ) {
+        $page_total = $wp_query->max_num_pages;
+    }
+
+    // #page#
+    $page = 1;
+    // For paginated archives or paginated main page with latest posts.
+    if ( is_paged() ) {
+        $paged = get_query_var( 'paged' );  // paged
+        if ( $paged && $paged >= 2 ) {
+            $page = $paged;
+        }
+    // For a Post or Page that has been divided into pages using the <!--nextpage--> QuickTag
+    } else {
+        $paged = get_query_var( 'page' );  // page
+        if ( $paged && $paged >= 2 ) {
+            $page = $paged;
+        }
+    }
+
+    // #site_name#
+    $site_name = get_bloginfo('name');
+
+    // #site_tagline#
+    $site_tagline = get_bloginfo('description');
+
+
+    // MAIN PROCESSING
+    // 1) generate title, 2) determine title template
+
+    // #entity_title# and $entity_title_template
+    $entity_title = '';
+    $entity_title_template = '';
+
+    // Default front page displaying the latest posts
+    if ( amt_is_default_front_page() ) {
+        // Entity title
+        // $post is NULL
+        $entity_title = get_bloginfo('name');
+        // No custom title
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('front_page_default_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['front_page_default_paged'];
+            } elseif ( array_key_exists('front_page_default', $title_templates) ) {
+                $entity_title_template = $title_templates['front_page_default'];
+            }
+        }
+
+    // Front page using a static page
+    // Note: might also contain a listing of posts which may be paged, so use amt_process_paged()
+    } elseif ( amt_is_static_front_page() ) {
+        // Entity title
+        $entity_title = get_the_title($post->ID);
+        if ( ! empty($custom_title) && $force_custom_title_if_set ) {
+            $entity_title = $custom_title;
+        }
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('front_page_static_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['front_page_static_paged'];
+            } elseif ( array_key_exists('front_page_static', $title_templates) ) {
+                $entity_title_template = $title_templates['front_page_static'];
+            }
+        }
+
+    // The posts index page - a static page displaying the latest posts
+    } elseif ( amt_is_static_home() ) {
+        // Entity title
+        $entity_title = get_the_title($post->ID);
+        if ( ! empty($custom_title) && $force_custom_title_if_set ) {
+            $entity_title = $custom_title;
+        }
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('blog_index_static_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['blog_index_static_paged'];
+            } elseif ( array_key_exists('blog_index_static', $title_templates) ) {
+                $entity_title_template = $title_templates['blog_index_static'];
+            }
+        }
+
+    // Date Archives
+
+    // Yearly Archive
+    } elseif ( is_year() ) {
+        // Entity title
+        $entity_title = $var_year;
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('archive_date_yearly_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_date_yearly_paged'];
+            } elseif ( array_key_exists('archive_date_yearly', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_date_yearly'];
+            }
+        }
+
+    // Monthly Archive
+    } elseif ( is_month() ) {
+        // Entity title
+        $entity_title = $var_month_name;
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('archive_date_monthly_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_date_monthly_paged'];
+            } elseif ( array_key_exists('archive_date_monthly', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_date_monthly'];
+            }
+        }
+
+    // Daily Archive
+    } elseif ( is_day() ) {
+        // Entity title
+        $entity_title = $var_day;
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('archive_date_daily_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_date_daily_paged'];
+            } elseif ( array_key_exists('archive_date_daily', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_date_daily'];
+            }
+        }
+
+    // Taxonomy Archive
+    // $post is a taxonomy term object
+    } elseif ( is_category() || is_tag() || is_tax() ) {
+        // Entity title
+        $entity_title = single_term_title( $prefix='', $display=false );
+        // Entity title template
+        $template_name = 'archive_taxonomy_' . $post->taxonomy;
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists($template_name . '_paged', $title_templates) ) {
+                $entity_title_template = $title_templates[$template_name . '_paged'];
+            } elseif ( array_key_exists($template_name, $title_templates) ) {
+                $entity_title_template = $title_templates[$template_name];
+            }
+        }
+
+    // Author Archive
+    // $post is an author object
+    } elseif ( is_author() ) {
+        // Entity title
+        $entity_title = $post->display_name;
+        // Entity title template
+        if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+            if ( $page && $page >= 2 && array_key_exists('archive_author_paged', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_author_paged'];
+            } elseif ( array_key_exists('archive_author', $title_templates) ) {
+                $entity_title_template = $title_templates['archive_author'];
+            }
+        }
+
+    // Content
+
+    } elseif ( is_singular() ) {
+
+        // Entity title
+        $entity_title = get_the_title($post->ID);
+        if ( ! empty($custom_title) && $force_custom_title_if_set ) {
+            $entity_title = $custom_title;
+        }
+
+        // Attachments
+        if ( is_attachment() ) {
+            // Attachment type
+            $mime_type = get_post_mime_type( $post->ID );
+            //$attachment_type = strstr( $mime_type, '/', true );
+            // See why we do not use strstr(): http://www.codetrax.org/issues/1091
+            $attachment_type = preg_replace( '#\/[^\/]*$#', '', $mime_type );
+            $template_name = 'content_attachment';
+            if ( array_key_exists('content_attachment_' . $attachment_type, $title_templates) ) {
+                $template_name = 'content_attachment_' . $attachment_type;
+            }
+            // Entity title template
+            if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+                // No paging info
+                if ( array_key_exists($template_name, $title_templates) ) {
+                    $entity_title_template = $title_templates[$template_name];
+                }
+            }
+
+        // Page
+        } elseif ( is_page() ) {
+            // Entity title template
+            if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+                if ( $page && $page >= 2 && array_key_exists('content_page_paged', $title_templates) ) {
+                    $entity_title_template = $title_templates['content_page_paged'];
+                } elseif ( array_key_exists('content_page', $title_templates) ) {
+                    $entity_title_template = $title_templates['content_page'];
+                }
+            }
+
+        // Posts and custom post types (with post format checking)
+        } else {
+            $post_type = get_post_type($post);
+            $post_format = get_post_format($post->ID);
+            $template_name = 'content_' . $post_type;
+            if ( $post_format !== false && array_key_exists($template_name . '_' . $post_format, $title_templates) ) {
+                $template_name = $template_name . '_' . $post_format;
+            }
+            // Entity title template
+            if ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+                if ( $page && $page >= 2 && array_key_exists($template_name . '_paged', $title_templates) ) {
+                    $entity_title_template = $title_templates[$template_name . '_paged'];
+                } elseif ( array_key_exists($template_name, $title_templates) ) {
+                    $entity_title_template = $title_templates[$template_name];
+                }
+            }
+
+        }
+
+    }
+
+
+    // LATE PROCESSING
+
+    $title = '';
+
+    // Late processing in case advanced title management is TURNED OFF
+    // This late processing takes place only for calls from the 'amt_get_title_for_metadata()' function.
+    // The metadata generators do not construct a title, so this has to be done here (above $entity_title).
+    if ( $caller_is_metadata_generator && array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '0' ) {
+        if ( ! empty($entity_title) ) {
+            if ( $page && $page >= 2 ) {
+                $title = amt_process_paged($entity_title);
+            } else {
+                $title = $entity_title;
+            }
+        } else {
+            $title = 'NEEDS TITLE';
+        }
+
+    // If advanced title management is enabled
+    } elseif ( array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '1' ) {
+
+        $template_vars = array(
+            '#year#' => $var_year,
+            '#month#' => $var_month,
+            '#month_name#' => $var_month_name,
+            '#day#' => $var_day,
+            '#entity_title#' => $entity_title,
+            '#page#' => $page,
+            '#page_total#' => $page_total,
+            '#site_name#' => $site_name,
+            '#site_tagline#' => $site_tagline,
+        );
+        // Replace variables in the template
+        foreach ( $template_vars as $var_name=>$var_value ) {
+            $entity_title_template = str_replace( $var_name, $var_value, $entity_title_template );
+        }
+        $title = $entity_title_template;
+
+    } else {
+
+        $title = $entity_title;
+
+    }
+
+    return $title;
+
+}
+
+
