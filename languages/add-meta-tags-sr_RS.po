@@ -25,10 +25,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 07:56+0300\n"
-"PO-Revision-Date: 2015-07-25 04:57+0000\n"
+"POT-Creation-Date: 2015-08-05 20:17+0300\n"
+"PO-Revision-Date: 2015-08-05 17:18+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
-"Language-Team: Serbian (Serbia) (http://www.transifex.com/projects/p/add-meta-tags/language/sr_RS/)\n"
+"Language-Team: Serbian (Serbia) (http://www.transifex.com/codetrax/add-meta-tags/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -229,7 +229,7 @@ msgid ""
 " in these settings is entirely optional."
 msgstr ""
 
-#: amt-admin-panel.php:191 amt-admin-panel.php:647
+#: amt-admin-panel.php:191 amt-admin-panel.php:241 amt-admin-panel.php:647
 #: metadata\amt_opengraph.php:72
 msgid "Facebook publisher profile URL"
 msgstr "Facebook URL profila izdavača"
@@ -251,7 +251,7 @@ msgid ""
 "in the HEAD area of the web page."
 msgstr ""
 
-#: amt-admin-panel.php:201 amt-admin-panel.php:691
+#: amt-admin-panel.php:201 amt-admin-panel.php:267 amt-admin-panel.php:691
 #: metadata\amt_twitter_cards.php:69
 msgid "Twitter publisher username"
 msgstr "Twitter korisničko ime autora"
@@ -326,11 +326,16 @@ msgid ""
 "the <code>article:publisher</code> meta tag and the URL of the author "
 "archive to the <code>article:author</code> meta tag. In order to link to the"
 " publisher page and the author profile on Facebook, it is required to "
-"provide the respective URLs. These settings can be added to your WordPress "
-"user <a href=\"profile.php\">profile page</a> under the section <em>Contact "
-"Info</em>. Filling in the publisher profile URL is not required, if it has "
-"already been entered in the <em>Publisher Settings</em> above. For example:"
+"provide the respective URLs. The profile URL of the publisher can be entered"
+" in this page under the <em>Publisher Settings</em> section. The profile URL"
+" of the author can be entered in the WordPress user <a "
+"href=\"profile.php\">profile page</a> under the section <em>Contact "
+"Info</em>. For example:"
 msgstr ""
+
+#: amt-admin-panel.php:240 metadata\amt_opengraph.php:65
+msgid "Facebook author profile URL"
+msgstr "Facebook URL profila autora"
 
 #: amt-admin-panel.php:242
 msgid ""
@@ -395,12 +400,15 @@ msgid ""
 "In order to generate the <code>twitter:site</code> and "
 "<code>twitter:creator</code> meta tags, it is required to provide the "
 "respective usernames of the Twitter account of the author and/or the "
-"publisher of the content. Update your WordPress user's <a "
-"href=\"profile.php\">profile page</a> and fill in the relevant usernames "
-"under the section <em>Contact Info</em>. Filling in the publisher username "
-"is not required, if it has already been entered in the <em>Publisher "
-"Settings</em> above."
+"publisher of the content. The username of the publisher can be entered in "
+"this page under the <em>Publisher Settings</em> section. The username of the"
+" author can be entered in the WordPress user <a href=\"profile.php\">profile"
+" page</a> under the section <em>Contact Info</em>. For example:"
 msgstr ""
+
+#: amt-admin-panel.php:266 metadata\amt_twitter_cards.php:62
+msgid "Twitter author username"
+msgstr "Twitter korisničko ime autora"
 
 #: amt-admin-panel.php:269
 msgid ""
@@ -409,6 +417,39 @@ msgid ""
 "href=\"http://codex.wordpress.org/Post_Formats\">post formats</a>, then it "
 "is possible to generate Twitter Cards of various types according to the "
 "specified post format. More specifically:"
+msgstr ""
+
+#: amt-admin-panel.php:270
+msgid ""
+"A <code>summary</code> card is generated for posts with one of the "
+"<code>standard</code>, <code>aside</code>, <code>link</code>, "
+"<code>quote</code>, <code>status</code> and <code>chat</code> formats."
+msgstr ""
+
+#: amt-admin-panel.php:271
+msgid ""
+"A <code>summary_large_image</code> card is generated for posts with the "
+"<code>image</code> format. An image is expected to be attached or embedded "
+"to the post."
+msgstr ""
+
+#: amt-admin-panel.php:272
+msgid ""
+"A <code>gallery</code> card is generated for posts with the "
+"<code>gallery</code> format. At least one image is expected to be attached "
+"or embedded to the post."
+msgstr ""
+
+#: amt-admin-panel.php:273
+msgid "A <code>photo</code> card is generated for image attachment pages."
+msgstr ""
+
+#: amt-admin-panel.php:274
+msgid ""
+"A <code>player</code> card is generated for posts with the "
+"<code>audio</code> or <code>video</code> format and for audio or video "
+"attachment pages. Regarding posts, an audio or video is expected to be "
+"attached or embedded to the post."
 msgstr ""
 
 #: amt-admin-panel.php:277
@@ -469,11 +510,20 @@ msgid ""
 "By default, this feature links the author and publisher objects to the "
 "author archive and to the front page of your web site respectively. In order"
 " to link to the author's profile and publisher's page on Google+, it is "
-"required to provide the respective URLs. These settings can be added to your"
-" WordPress user <a href=\"profile.php\">profile page</a> under the section "
-"<em>Contact Info</em>. Filling in the publisher profile URL is not required,"
-" if it has already been entered in the <em>Publisher Settings</em> above."
+"required to provide the respective URLs. The profile URL of the publisher "
+"can be entered in this page under the <em>Publisher Settings</em> section. "
+"The profile URL of the author can be entered in the WordPress user <a "
+"href=\"profile.php\">profile page</a> under the section <em>Contact "
+"Info</em>. For example:"
 msgstr ""
+
+#: amt-admin-panel.php:307 metadata\amt_schemaorg.php:64
+msgid "Google+ author profile URL"
+msgstr "Google+ URL profila autora"
+
+#: amt-admin-panel.php:308 metadata\amt_schemaorg.php:71
+msgid "Google+ publisher page URL"
+msgstr "Google+ URL stranice izdavača"
 
 #: amt-admin-panel.php:310
 msgid ""
@@ -569,11 +619,16 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:346 amt-admin-panel.php:838
-msgid "Custom description (<em>Recommended</em>)."
+msgid "Custom description."
+msgstr ""
+
+#: amt-admin-panel.php:346 amt-admin-panel.php:347 amt-admin-panel.php:838
+#: amt-admin-panel.php:843 amt-admin-panel.php:905
+msgid "Recommended"
 msgstr ""
 
 #: amt-admin-panel.php:347 amt-admin-panel.php:843
-msgid "Custom keywords (<em>Recommended</em>)."
+msgid "Custom keywords."
 msgstr ""
 
 #: amt-admin-panel.php:348 amt-admin-panel.php:848
@@ -602,11 +657,19 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:353 amt-admin-panel.php:873
-msgid "Express review. (Experimental feature. For advanced users only.)"
+msgid "Express review."
+msgstr ""
+
+#: amt-admin-panel.php:353 amt-admin-panel.php:873
+msgid "For advanced users only"
 msgstr ""
 
 #: amt-admin-panel.php:354 amt-admin-panel.php:878
-msgid "Referenced items. (Experimental feature. Not recommended.)"
+msgid "Referenced items."
+msgstr ""
+
+#: amt-admin-panel.php:354 amt-admin-panel.php:878
+msgid "Not recommended"
 msgstr ""
 
 #: amt-admin-panel.php:356
@@ -735,6 +798,10 @@ msgstr ""
 
 #: amt-admin-panel.php:404 amt-admin-panel.php:1006
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
+msgstr ""
+
+#: amt-admin-panel.php:404 amt-admin-panel.php:1006
+msgid "Work in progress"
 msgstr ""
 
 #: amt-admin-panel.php:406
@@ -903,6 +970,10 @@ msgstr ""
 msgid "Schema.org Metadata"
 msgstr ""
 
+#: amt-admin-panel.php:792 amt-admin-panel.php:1470
+msgid "Experimental feature"
+msgstr ""
+
 #: amt-admin-panel.php:808
 msgid ""
 "Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, "
@@ -921,12 +992,16 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:900
-msgid "Search results. (<em>Highly recommended</em>)"
-msgstr "Rezultati pretrage. (<em>veoma preporučljivo</em>)"
+msgid "Search results."
+msgstr ""
+
+#: amt-admin-panel.php:900
+msgid "Highly recommended"
+msgstr ""
 
 #: amt-admin-panel.php:905
-msgid "Date based archives. (<em>Recommended</em>)"
-msgstr "Arhive bazirane na podacima. (<em>Preporučeno</em>)"
+msgid "Date based archives."
+msgstr ""
 
 #: amt-admin-panel.php:910
 msgid "Category based archives."
@@ -1185,19 +1260,3 @@ msgstr ""
 #, php-format
 msgid "Content published by %s."
 msgstr ""
-
-#: metadata\amt_opengraph.php:65
-msgid "Facebook author profile URL"
-msgstr "Facebook URL profila autora"
-
-#: metadata\amt_schemaorg.php:64
-msgid "Google+ author profile URL"
-msgstr "Google+ URL profila autora"
-
-#: metadata\amt_schemaorg.php:71
-msgid "Google+ publisher page URL"
-msgstr "Google+ URL stranice izdavača"
-
-#: metadata\amt_twitter_cards.php:62
-msgid "Twitter author username"
-msgstr "Twitter korisničko ime autora"

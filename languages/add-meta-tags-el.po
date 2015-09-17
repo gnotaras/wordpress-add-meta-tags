@@ -21,14 +21,15 @@
 # 
 # Translators:
 # George Notaras <gnot@g-loaded.eu>, 2013-2015
+# Michael Kotsarinis <mk73628@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-25 07:56+0300\n"
-"PO-Revision-Date: 2015-07-25 04:57+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/add-meta-tags/language/el/)\n"
+"POT-Creation-Date: 2015-08-05 20:17+0300\n"
+"PO-Revision-Date: 2015-09-16 16:59+0000\n"
+"Last-Translator: Michael Kotsarinis <mk73628@gmail.com>\n"
+"Language-Team: Greek (http://www.transifex.com/codetrax/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,24 +60,24 @@ msgstr "Μεταδεδομένα"
 
 #: amt-admin-panel.php:120
 msgid "Welcome to the Add-Meta-Tags Documentation."
-msgstr ""
+msgstr "Καλωσήλθατε στην Τεκμηρίωση του "
 
 #: amt-admin-panel.php:122
 msgid ""
 "This help system contains detailed information about the available "
 "configuration settings. The documentation is divided into sections. Each "
 "section contains information about the relevant configuration options."
-msgstr ""
+msgstr "Αυτό το σύστημα βοήθειας περιέχει λεπτομερείς πληροφορίες για τις διαθέσιμες ρυθμίσεις. Η τεκμηρίωση χωρίζεται σε ενότητες. Κάθε ενότητα περιέχει πληροφορίες για τις σχετικές επιλογές των ρυθμίσεων."
 
 #: amt-admin-panel.php:124
 msgid ""
 "Select the <strong>Introduction</strong> section for more information about "
 "what metadata is and how Add-Meta-Tags works."
-msgstr ""
+msgstr "Επιλέξτε την ενότητα <strong>Εισαγωγή</strong> για περισσότερες πληροφορίες σχετικά με το τι είναι τα μεταδεδομένα και πως δουλεύει το Add-Meta-Tags."
 
 #: amt-admin-panel.php:129
 msgid "Starting"
-msgstr ""
+msgstr "Ξεκινώντας"
 
 #: amt-admin-panel.php:135
 msgid ""
@@ -134,7 +135,7 @@ msgstr ""
 
 #: amt-admin-panel.php:146
 msgid "Introduction"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: amt-admin-panel.php:153 amt-admin-panel.php:571 amt-admin-panel.php:574
 msgid "Front Page Description"
@@ -215,7 +216,7 @@ msgstr "Παραδείγματα"
 
 #: amt-admin-panel.php:182
 msgid "General settings"
-msgstr ""
+msgstr "Γενικές ρυθμίσεις"
 
 #: amt-admin-panel.php:188 amt-admin-panel.php:644
 msgid ""
@@ -229,7 +230,7 @@ msgid ""
 " in these settings is entirely optional."
 msgstr "Τα παρακάτω στοιχεία σχετικά με τον εκδότη είναι κοινά για όλους τους χρήστες. Η συμπλήρωση αυτών των πεδίων είναι προαιρετική."
 
-#: amt-admin-panel.php:191 amt-admin-panel.php:647
+#: amt-admin-panel.php:191 amt-admin-panel.php:241 amt-admin-panel.php:647
 #: metadata\amt_opengraph.php:72
 msgid "Facebook publisher profile URL"
 msgstr "Διεύθυνση σελίδας εκδότη στο Facebook"
@@ -238,7 +239,7 @@ msgstr "Διεύθυνση σελίδας εκδότη στο Facebook"
 msgid ""
 "Enter an absolute URL to the Facebook profile of the publisher. If this is "
 "filled in, it will be used in the <code>article:publisher</code> meta tag."
-msgstr ""
+msgstr "Εισάγετε το απόλυτο URL του προφίλ του εκδότη στο Facebook. Αν συμπληρωθεί το πεδίο αυτό , θα χρησιμοποιηθεί στην ετικέτα μεταδεδομένων <code>article:publisher</code>."
 
 #: amt-admin-panel.php:196 amt-admin-panel.php:681
 msgid "Google+ publisher profile URL"
@@ -251,7 +252,7 @@ msgid ""
 "in the HEAD area of the web page."
 msgstr ""
 
-#: amt-admin-panel.php:201 amt-admin-panel.php:691
+#: amt-admin-panel.php:201 amt-admin-panel.php:267 amt-admin-panel.php:691
 #: metadata\amt_twitter_cards.php:69
 msgid "Twitter publisher username"
 msgstr "Όνομα χρήστη του εκδότη στο Twitter"
@@ -291,7 +292,7 @@ msgstr ""
 
 #: amt-admin-panel.php:223
 msgid "Basic meta tags"
-msgstr ""
+msgstr "Βασικά meta tags"
 
 #: amt-admin-panel.php:229 amt-admin-panel.php:734
 msgid "Automatically generate Opengraph meta tags."
@@ -326,11 +327,16 @@ msgid ""
 "the <code>article:publisher</code> meta tag and the URL of the author "
 "archive to the <code>article:author</code> meta tag. In order to link to the"
 " publisher page and the author profile on Facebook, it is required to "
-"provide the respective URLs. These settings can be added to your WordPress "
-"user <a href=\"profile.php\">profile page</a> under the section <em>Contact "
-"Info</em>. Filling in the publisher profile URL is not required, if it has "
-"already been entered in the <em>Publisher Settings</em> above. For example:"
+"provide the respective URLs. The profile URL of the publisher can be entered"
+" in this page under the <em>Publisher Settings</em> section. The profile URL"
+" of the author can be entered in the WordPress user <a "
+"href=\"profile.php\">profile page</a> under the section <em>Contact "
+"Info</em>. For example:"
 msgstr ""
+
+#: amt-admin-panel.php:240 metadata\amt_opengraph.php:65
+msgid "Facebook author profile URL"
+msgstr "Διεύθυνση προφίλ συγγραφέα στο Facebook"
 
 #: amt-admin-panel.php:242
 msgid ""
@@ -344,7 +350,7 @@ msgstr ""
 
 #: amt-admin-panel.php:245
 msgid "Opengraph"
-msgstr ""
+msgstr "Opengraph"
 
 #: amt-admin-panel.php:251 amt-admin-panel.php:752
 msgid "Automatically generate Twitter Cards meta tags."
@@ -395,12 +401,15 @@ msgid ""
 "In order to generate the <code>twitter:site</code> and "
 "<code>twitter:creator</code> meta tags, it is required to provide the "
 "respective usernames of the Twitter account of the author and/or the "
-"publisher of the content. Update your WordPress user's <a "
-"href=\"profile.php\">profile page</a> and fill in the relevant usernames "
-"under the section <em>Contact Info</em>. Filling in the publisher username "
-"is not required, if it has already been entered in the <em>Publisher "
-"Settings</em> above."
+"publisher of the content. The username of the publisher can be entered in "
+"this page under the <em>Publisher Settings</em> section. The username of the"
+" author can be entered in the WordPress user <a href=\"profile.php\">profile"
+" page</a> under the section <em>Contact Info</em>. For example:"
 msgstr ""
+
+#: amt-admin-panel.php:266 metadata\amt_twitter_cards.php:62
+msgid "Twitter author username"
+msgstr "Όνομα χρήστη του συγγραφέα στο Twitter"
 
 #: amt-admin-panel.php:269
 msgid ""
@@ -411,9 +420,42 @@ msgid ""
 "specified post format. More specifically:"
 msgstr ""
 
+#: amt-admin-panel.php:270
+msgid ""
+"A <code>summary</code> card is generated for posts with one of the "
+"<code>standard</code>, <code>aside</code>, <code>link</code>, "
+"<code>quote</code>, <code>status</code> and <code>chat</code> formats."
+msgstr ""
+
+#: amt-admin-panel.php:271
+msgid ""
+"A <code>summary_large_image</code> card is generated for posts with the "
+"<code>image</code> format. An image is expected to be attached or embedded "
+"to the post."
+msgstr ""
+
+#: amt-admin-panel.php:272
+msgid ""
+"A <code>gallery</code> card is generated for posts with the "
+"<code>gallery</code> format. At least one image is expected to be attached "
+"or embedded to the post."
+msgstr ""
+
+#: amt-admin-panel.php:273
+msgid "A <code>photo</code> card is generated for image attachment pages."
+msgstr ""
+
+#: amt-admin-panel.php:274
+msgid ""
+"A <code>player</code> card is generated for posts with the "
+"<code>audio</code> or <code>video</code> format and for audio or video "
+"attachment pages. Regarding posts, an audio or video is expected to be "
+"attached or embedded to the post."
+msgstr ""
+
 #: amt-admin-panel.php:277
 msgid "Twitter Cards"
-msgstr ""
+msgstr "Twitter Cards"
 
 #: amt-admin-panel.php:283 amt-admin-panel.php:774
 msgid "Automatically generate Dublin Core metadata."
@@ -469,11 +511,20 @@ msgid ""
 "By default, this feature links the author and publisher objects to the "
 "author archive and to the front page of your web site respectively. In order"
 " to link to the author's profile and publisher's page on Google+, it is "
-"required to provide the respective URLs. These settings can be added to your"
-" WordPress user <a href=\"profile.php\">profile page</a> under the section "
-"<em>Contact Info</em>. Filling in the publisher profile URL is not required,"
-" if it has already been entered in the <em>Publisher Settings</em> above."
+"required to provide the respective URLs. The profile URL of the publisher "
+"can be entered in this page under the <em>Publisher Settings</em> section. "
+"The profile URL of the author can be entered in the WordPress user <a "
+"href=\"profile.php\">profile page</a> under the section <em>Contact "
+"Info</em>. For example:"
 msgstr ""
+
+#: amt-admin-panel.php:307 metadata\amt_schemaorg.php:64
+msgid "Google+ author profile URL"
+msgstr "Διεύθυνση προφίλ συγγραφέα στο Google+"
+
+#: amt-admin-panel.php:308 metadata\amt_schemaorg.php:71
+msgid "Google+ publisher page URL"
+msgstr "Διεύθυνση σελίδας εκδότη στο Google+"
 
 #: amt-admin-panel.php:310
 msgid ""
@@ -485,7 +536,7 @@ msgstr "Αφού ορίσετε τις διευθύνσεις για το προ
 
 #: amt-admin-panel.php:313
 msgid "Schema.org"
-msgstr ""
+msgstr "Schema.org"
 
 #: amt-admin-panel.php:319
 msgid "Enter a locale which will be used globally."
@@ -569,12 +620,17 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:346 amt-admin-panel.php:838
-msgid "Custom description (<em>Recommended</em>)."
-msgstr "Προσαρμοσμένη περιγραφή (<em>Προτείνεται</em>)."
+msgid "Custom description."
+msgstr "Προσαρμοσμένη περιγραφή."
+
+#: amt-admin-panel.php:346 amt-admin-panel.php:347 amt-admin-panel.php:838
+#: amt-admin-panel.php:843 amt-admin-panel.php:905
+msgid "Recommended"
+msgstr "Προτείνεται"
 
 #: amt-admin-panel.php:347 amt-admin-panel.php:843
-msgid "Custom keywords (<em>Recommended</em>)."
-msgstr "Προσαρμοσμένες λέξεις-κλειδιά (<em>Προτείνεται</em>)."
+msgid "Custom keywords."
+msgstr "Προσαρμοσμένες λέξεις-κλειδιά."
 
 #: amt-admin-panel.php:348 amt-admin-panel.php:848
 msgid "Custom content of the <code>title</code> HTML element."
@@ -602,12 +658,20 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:353 amt-admin-panel.php:873
-msgid "Express review. (Experimental feature. For advanced users only.)"
+msgid "Express review."
+msgstr "Κριτική express."
+
+#: amt-admin-panel.php:353 amt-admin-panel.php:873
+msgid "For advanced users only"
+msgstr "Μόνο για προχωρημένους χρήστες"
+
+#: amt-admin-panel.php:354 amt-admin-panel.php:878
+msgid "Referenced items."
 msgstr ""
 
 #: amt-admin-panel.php:354 amt-admin-panel.php:878
-msgid "Referenced items. (Experimental feature. Not recommended.)"
-msgstr "Αναφερθέντα αντικείμενα (Πειραματικό χαρακτηριστικό. Δεν προτείνεται.)"
+msgid "Not recommended"
+msgstr "Δεν προτείνεται"
 
 #: amt-admin-panel.php:356
 msgid ""
@@ -700,7 +764,7 @@ msgstr ""
 
 #: amt-admin-panel.php:392 amt-admin-panel.php:979 amt-admin-panel.php:982
 msgid "Media Limit"
-msgstr ""
+msgstr "Όριο Πολυμέσων"
 
 #: amt-admin-panel.php:394 amt-admin-panel.php:985
 msgid ""
@@ -737,6 +801,10 @@ msgstr "Μεταδεδομένα των προϊόντων και των ομά�
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
 msgstr "Μεταδεδομένα των προϊόντων και των ομάδων προϊόντων του πρόσθετου Easy-Digital-Downloads."
 
+#: amt-admin-panel.php:404 amt-admin-panel.php:1006
+msgid "Work in progress"
+msgstr ""
+
 #: amt-admin-panel.php:406
 msgid ""
 "Please note that if none of the supported products or other supported post "
@@ -770,7 +838,7 @@ msgstr ""
 
 #: amt-admin-panel.php:425
 msgid "Advanced"
-msgstr ""
+msgstr "Για προχωρημένους"
 
 #: amt-admin-panel.php:438
 msgid "You do not have sufficient permissions to access this page."
@@ -782,7 +850,7 @@ msgstr "Καλωσήλθατε στον πίνακα ελέγχου του πρ�
 
 #: amt-admin-panel.php:477
 msgid "Notice"
-msgstr ""
+msgstr "Σημείωση"
 
 #: amt-admin-panel.php:479
 msgid ""
@@ -903,6 +971,10 @@ msgstr "Μεταδεδομένα Dublin Core"
 msgid "Schema.org Metadata"
 msgstr "Μεταδεδομένα Schema.org"
 
+#: amt-admin-panel.php:792 amt-admin-panel.php:1470
+msgid "Experimental feature"
+msgstr "Πειραματικό χαρακτηριστικό"
+
 #: amt-admin-panel.php:808
 msgid ""
 "Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, "
@@ -921,12 +993,16 @@ msgid ""
 msgstr ""
 
 #: amt-admin-panel.php:900
-msgid "Search results. (<em>Highly recommended</em>)"
-msgstr "Αποτελέσματα αναζήτησης. (<em>Προτείνεται ανεπιφύλαχτα</em>)"
+msgid "Search results."
+msgstr "Αποτελέσματα αναζήτησης"
+
+#: amt-admin-panel.php:900
+msgid "Highly recommended"
+msgstr "Προτείνεται ανεπιφύλαχτα"
 
 #: amt-admin-panel.php:905
-msgid "Date based archives. (<em>Recommended</em>)"
-msgstr "Αρχείο βάσει ημερομηνίας. (<em>Προτείνεται</em>)"
+msgid "Date based archives."
+msgstr ""
 
 #: amt-admin-panel.php:910
 msgid "Category based archives."
@@ -1111,7 +1187,7 @@ msgstr ""
 
 #: amt-admin-panel.php:1416
 msgid "Express review"
-msgstr ""
+msgstr "Κριτική express"
 
 #: amt-admin-panel.php:1420
 msgid ""
@@ -1185,19 +1261,3 @@ msgstr "Περιεχόμενο καταχωρημένο στην ταξινόμ�
 #, php-format
 msgid "Content published by %s."
 msgstr "Περιεχόμενο δημοσιευμένο από %s."
-
-#: metadata\amt_opengraph.php:65
-msgid "Facebook author profile URL"
-msgstr "Διεύθυνση προφίλ συγγραφέα στο Facebook"
-
-#: metadata\amt_schemaorg.php:64
-msgid "Google+ author profile URL"
-msgstr "Διεύθυνση προφίλ συγγραφέα στο Google+"
-
-#: metadata\amt_schemaorg.php:71
-msgid "Google+ publisher page URL"
-msgstr "Διεύθυνση σελίδας εκδότη στο Google+"
-
-#: metadata\amt_twitter_cards.php:62
-msgid "Twitter author username"
-msgstr "Όνομα χρήστη του συγγραφέα στο Twitter"
