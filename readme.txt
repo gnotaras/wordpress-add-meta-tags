@@ -267,7 +267,8 @@ Please check out the changelog of each release by following the links below. You
 
 - [2.9.2](http://www.codetrax.org/versions/298)
  - Advanced SEO title management and customization has been built into Add-Meta-Tags. Needs to be enabled in the settings. Read [more info](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management) about how to customize the titles. This feature is currently marked as experimental. Your feedback is welcome.
- - Option to force the use of the content's custom title, if one has been set in the post editing screen, in the titles within the metadata. (Props to fatherb, bolt24, vtinath, Craig Damon and others)
+ - Option to force the use of the content's custom title, if one has been set in the post editing screen, in the titles within the metadata. By default the custom title is used only for the 'title' HTML element. (Props to fatherb, bolt24, vtinath, Craig Damon and others)
+ - Fixed missing schema.org properties of video schema.org objects. (Props to Dragos for reporting the issue and for useful feedback)
  - Fixed several translatable strings. (Props to Burak Yavuz for valuable feedback.)
  - Internal media limit (configurable via filter) increased from 10 to 16. (Props to Eduardo Molon for feedback.)
  - Minor improvements of the schema.org metadata generators.
