@@ -270,9 +270,9 @@ Please check out the changelog of each release by following the links below. You
  - Option to force the use of the content's custom title, if one has been set in the post editing screen, in the titles within the metadata. By default the custom title is used only for the 'title' HTML element. (Props to fatherb, bolt24, vtinath, Craig Damon and others)
  - Fixed missing schema.org properties of video schema.org objects. (Props to Dragos for reporting the issue and for useful feedback)
  - Fixed several translatable strings. (Props to Burak Yavuz for valuable feedback.)
+ - Dublin Core generator follows media item limits. (Props to Eduardo Molon for feedback.)
  - Internal media limit (configurable via filter) increased from 10 to 16. (Props to Eduardo Molon for feedback.)
  - Minor improvements of the schema.org metadata generators.
-
 - [2.9.1](http://www.codetrax.org/versions/298)
  - The Twitter Cards, Opengraph and Schema.org microdata and JSON+LD generators for WooCommerce products have been greatly improved and are ready for general testing.
  - Updated the Turkish translation. (props to BouRock for tirelessly maintaining the Turkish translation)
