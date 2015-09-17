@@ -2357,21 +2357,21 @@ function amt_get_title_for_title_element($options, $post) {
         'blog_index_static_paged'   => '#entity_title# | Page #page# | #site_name#',
         // Date Archives
         // Date::Yearly
-        'archive_date_yearly'       => 'Year: #year# Archive | #site_name#',
-        'archive_date_yearly_paged' => 'Year: #year# Archive | Page #page# | #site_name#',
+        'archive_date_yearly'       => 'Yearly Archive: #year# | #site_name#',
+        'archive_date_yearly_paged' => 'Yearly Archive: #year# | Page #page# | #site_name#',
         // Date::Monthly
-        'archive_date_monthly'      => '#month_name# #year# Archive | #site_name#',
-        'archive_date_monthly_paged'=> '#month_name# #year# Archive | Page #page# | #site_name#',
+        'archive_date_monthly'      => 'Monthly Archive: #month_name# #year# | #site_name#',
+        'archive_date_monthly_paged'=> 'Monthly Archive: #month_name# #year# | Page #page# | #site_name#',
         // Date::Daily
-        'archive_date_daily'      => '#month_name# #day#, #year# Archive | #site_name#',
-        'archive_date_daily_paged'=> '#month_name# #day#, #year# Archive | Page #page# | #site_name#',
+        'archive_date_daily'      => 'Daily Archive: #month_name# #day#, #year# | #site_name#',
+        'archive_date_daily_paged'=> 'Daily Archive: #month_name# #day#, #year# | Page #page# | #site_name#',
         // Taxonomy Archives
         // Taxonomy::Category
-        'archive_taxonomy_category'        => '#entity_title# Archive | #site_name#',
-        'archive_taxonomy_category_paged'  => '#entity_title# Archive | Page #page# | #site_name#',
+        'archive_taxonomy_category'        => '#Entity_title# Archive | #site_name#',
+        'archive_taxonomy_category_paged'  => '#Entity_title# Archive | Page #page# | #site_name#',
         // Taxonomy::Tag
-        'archive_taxonomy_tag'        => '#entity_title# Archive | #site_name#',
-        'archive_taxonomy_tag_paged'  => '#entity_title# Archive | Page #page# | #site_name#',
+        'archive_taxonomy_post_tag'        => '#Entity_title# Archive | #site_name#',
+        'archive_taxonomy_post_tag_paged'  => '#Entity_title# Archive | Page #page# | #site_name#',
         // Taxonomy::Custom
         'archive_taxonomy_CUSTOMSLUG'        => '#entity_title# Archive| #site_name#',
         'archive_taxonomy_CUSTOMSLUG_paged'  => '#entity_title# Archive | Page #page# | #site_name#',
@@ -2432,21 +2432,21 @@ function amt_get_title_for_metadata($options, $post) {
         'blog_index_static_paged'   => '#entity_title# | Page #page#',
         // Date Archives
         // Date::Yearly
-        //'archive_date_yearly'       => 'Year: #year# Archive',
-        //'archive_date_yearly_paged' => 'Year: #year# Archive | Page #page#',
+        //'archive_date_yearly'       => 'Yearly Archive: #year#',
+        //'archive_date_yearly_paged' => 'Yearly Archive: #year# | Page #page#',
         // Date::Monthly
-        //'archive_date_monthly'      => '#month_name# #year# Archive',
-        //'archive_date_monthly_paged'=> '#month_name# #year# Archive | Page #page#',
+        //'archive_date_monthly'      => 'Monthly Archive: #month_name# #year#',
+        //'archive_date_monthly_paged'=> 'Monthly Archive: #month_name# #year# | Page #page#',
         // Date::Daily
-        //'archive_date_daily'      => '#month_name# #day#, #year# Archive',
-        //'archive_date_daily_paged'=> '#month_name# #day#, #year# Archive | Page #page#',
+        //'archive_date_daily'       => 'Daily Archive: #month_name# #day#, #year#',
+        //'archive_date_daily_paged' => 'Daily Archive: #month_name# #day#, #year# | Page #page#',
         // Taxonomy Archives
         // Taxonomy::Category
-        'archive_taxonomy_category'        => '#entity_title# Archive',
-        'archive_taxonomy_category_paged'  => '#entity_title# Archive | Page #page#',
+        'archive_taxonomy_category'        => '#Entity_title# Archive',
+        'archive_taxonomy_category_paged'  => '#Entity_title# Archive | Page #page#',
         // Taxonomy::Tag
-        'archive_taxonomy_tag'        => '#entity_title# Archive',
-        'archive_taxonomy_tag_paged'  => '#entity_title# Archive | Page #page#',
+        'archive_taxonomy_post_tag'        => '#Entity_title# Archive',
+        'archive_taxonomy_post_tag_paged'  => '#Entity_title# Archive | Page #page#',
         // Taxonomy::Custom
         'archive_taxonomy_CUSTOMSLUG'        => '#entity_title# Archive',
         'archive_taxonomy_CUSTOMSLUG_paged'  => '#entity_title# Archive | Page #page#',
@@ -2522,15 +2522,12 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
     // because the metadata generators 
     if ( ! $caller_is_metadata_generator && array_key_exists('enable_advanced_title_management', $options) && $options['enable_advanced_title_management'] == '0' ) {
         if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
-
             if ( ! empty($custom_title) ) {
-                return $custom_title;
-            } else {
-                // Else return nothing, so that the WP generated title is used.
-                return;
+                // Contains paging information
+                return amt_process_paged($custom_title);
             }
-            
         }
+        return;
     }
 
     // From now on Add-Meta-Tags generates the title.
@@ -2538,7 +2535,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
     // TEMPLATE VARIABLES
     // Set template variable values
 
-    // #entity_title#, #page#, #page_total#, #site_name#, #site_tagline#, #year#, #month#, #month_name#, #day#
+    // #entity_title#, #Entity_title#, #Entity_Title#, #page#, #page_total#, #site_name#, #site_tagline#, #year#, #month#, #month_name#, #day#
 
     // Date variables
     // Credit for the following here: http://wordpress.stackexchange.com/a/109674
@@ -2798,7 +2795,19 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
                 $title = $entity_title;
             }
         } else {
-            $title = 'NEEDS TITLE';
+            $title = 'PROGRAMMING ERROR - MISSING TITLE';
+        }
+
+    } elseif ( empty($entity_title_template) ) {
+
+        if ( $caller_is_metadata_generator ) {
+            // If a metadata generator requested a title, but a template was
+            // not found, return an error message as the title.
+            $title = 'TITLE TEMPLATE NOT FOUND';
+        } else {
+            // If the title was requested for the 'title' HTML element, but a template
+            //was not found, return an empty string, so that the default WordPress title is used.
+            $title = '';
         }
 
     // If advanced title management is enabled
@@ -2809,21 +2818,19 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
             '#month#' => $var_month,
             '#month_name#' => $var_month_name,
             '#day#' => $var_day,
-            '#entity_title#' => $entity_title,
             '#page#' => $page,
             '#page_total#' => $page_total,
             '#site_name#' => $site_name,
             '#site_tagline#' => $site_tagline,
+            '#entity_title#' => $entity_title,
+            '#Entity_title#' => ucfirst(strtolower($entity_title)),
+            '#Entity_Title#' => ucwords(strtolower($entity_title)),
         );
         // Replace variables in the template
         foreach ( $template_vars as $var_name=>$var_value ) {
             $entity_title_template = str_replace( $var_name, $var_value, $entity_title_template );
         }
         $title = $entity_title_template;
-
-    } else {
-
-        $title = $entity_title;
 
     }
 

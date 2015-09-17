@@ -101,7 +101,7 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
  */
 function amt_custom_title_tag($title) {
 
-    if ( is_feed() ) {
+    if ( is_feed() || is_search() || is_404() ) {
         return $title;
     }
 
