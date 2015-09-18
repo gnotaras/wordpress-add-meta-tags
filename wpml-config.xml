@@ -4,7 +4,7 @@
         <custom-field action="translate">_amt_keywords</custom-field>
         <custom-field action="translate">_amt_title</custom-field>
         <custom-field action="translate">_amt_news_keywords</custom-field>
-        <custom-field action="copy">_amt_full_metatags</custom-field>
+        <custom-field action="translate">_amt_full_metatags</custom-field>
         <custom-field action="copy">_amt_image_url</custom-field>
         <custom-field action="ignore">_amt_content_locale</custom-field>
         <custom-field action="translate">_amt_express_review</custom-field>
