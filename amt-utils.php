@@ -2621,6 +2621,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
         // Entity title
         $entity_title = get_the_title($post->ID);
         if ( ! empty($custom_title) && $force_custom_title_if_set ) {
+            $custom_title = str_replace('%title%', $entity_title, $custom_title);
             $entity_title = $custom_title;
         }
         // Entity title template
@@ -2637,6 +2638,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
         // Entity title
         $entity_title = get_the_title($post->ID);
         if ( ! empty($custom_title) && $force_custom_title_if_set ) {
+            $custom_title = str_replace('%title%', $entity_title, $custom_title);
             $entity_title = $custom_title;
         }
         // Entity title template
@@ -2725,6 +2727,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
         // Entity title
         $entity_title = get_the_title($post->ID);
         if ( ! empty($custom_title) && $force_custom_title_if_set ) {
+            $custom_title = str_replace('%title%', $entity_title, $custom_title);
             $entity_title = $custom_title;
         }
 

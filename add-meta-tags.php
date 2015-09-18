@@ -112,6 +112,7 @@ function amt_custom_title_tag($title) {
 
     $processed_title = amt_get_title_for_title_element($options, $post);
     if ( ! empty($processed_title) ) {
+        $processed_title = str_replace('%title%', $title, $processed_title);
         return esc_attr($processed_title);
     }
 
