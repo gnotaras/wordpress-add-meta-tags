@@ -632,6 +632,7 @@ function amt_options_page() {
                 <br />
                 <label for="site_wide_meta">
                 '.__('Enter complete <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">meta tags</a> which will appear on all web pages.', 'add-meta-tags').'
+                '.__('Please, do not enter keywords here.', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
