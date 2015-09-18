@@ -1329,6 +1329,9 @@ function amt_inner_metadata_box( $post ) {
                 <br>
                 '.__('Enter a custom title to be used in the <em>title</em> HTML element of the page.', 'add-meta-tags').'
             </p>
+            <p>
+                '.__('The <code>%title%</code> placeholder is automatically expanded to the current title of the content.', 'add-meta-tags').'
+            </p>
         ');
 
     }
