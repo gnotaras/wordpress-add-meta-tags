@@ -280,9 +280,12 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
         // Strip shortcodes
         $plain_text = strip_shortcodes( $plain_text );
 
+        // Late preprocessing filter. Content has no HTML tags and no properly registered shortcodes. Other shortcodes might still exist.
+        $plain_text_processed = apply_filters( 'amt_get_the_excerpt_plain_text', $plain_text, $post );
+
         // Get the initial text.
         // We use $excerpt_max_len characters of the text for the description.
-        $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($plain_text, 0, $excerpt_max_len) ) );
+        $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($plain_text_processed, 0, $excerpt_max_len) ) );
 
         // Remove any URLs that may exist exactly at the beginning of the description.
         // This may happen if for example you put a youtube video url first thing in
