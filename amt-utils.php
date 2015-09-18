@@ -357,7 +357,7 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
      *
      * Filter with:
      *
-     *  function customize_amt_excerpt( $post ) {
+     *  function customize_amt_excerpt( $amt_excerpt, $post ) {
      *      $amt_excerpt = ...
      *      return $amt_excerpt;
      *  }
