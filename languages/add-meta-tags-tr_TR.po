@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-17 05:52+0300\n"
-"PO-Revision-Date: 2015-09-17 02:54+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
+"POT-Creation-Date: 2015-09-18 07:14+0300\n"
+"PO-Revision-Date: 2015-09-19 09:52+0000\n"
+"Last-Translator: BouRock\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/codetrax/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +54,7 @@ msgstr "Temel meta etiketleri ve aynı zamanda daha iyi bir SEO (Arama Motoru İ
 msgid "Metadata Settings"
 msgstr "Metadata Ayarları"
 
-#: amt-admin-panel.php:87 amt-admin-panel.php:1126
+#: amt-admin-panel.php:87 amt-admin-panel.php:1127
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -166,8 +166,8 @@ msgstr "Blog'unuz için anahtar kelimelerin virgülle ayrılmış bir listesini 
 #: amt-admin-panel.php:160 amt-admin-panel.php:165 amt-admin-panel.php:167
 #: amt-admin-panel.php:194 amt-admin-panel.php:199 amt-admin-panel.php:204
 #: amt-admin-panel.php:321 amt-admin-panel.php:387 amt-admin-panel.php:392
-#: amt-admin-panel.php:662 amt-admin-panel.php:674 amt-admin-panel.php:684
-#: amt-admin-panel.php:696 amt-admin-panel.php:706 amt-admin-panel.php:1293
+#: amt-admin-panel.php:663 amt-admin-panel.php:675 amt-admin-panel.php:685
+#: amt-admin-panel.php:697 amt-admin-panel.php:707 amt-admin-panel.php:1294
 msgid "Example"
 msgstr "Örnek"
 
@@ -218,54 +218,54 @@ msgstr "Örnekler"
 msgid "General settings"
 msgstr "Genel ayarlar"
 
-#: amt-admin-panel.php:188 amt-admin-panel.php:652
+#: amt-admin-panel.php:188 amt-admin-panel.php:653
 msgid ""
 "This section contains options related to your web site; the publisher of the"
 " content."
 msgstr "Bu bölüm web sitenizle ilgili seçenekleri içeriyor; içeriğin yayıncısı."
 
-#: amt-admin-panel.php:189 amt-admin-panel.php:653
+#: amt-admin-panel.php:189 amt-admin-panel.php:654
 msgid ""
 "The following publisher related settings are shared among all users. Filling"
 " in these settings is entirely optional."
 msgstr "Belirtilen yayıncıyla ilgili ayarlar kullanıcıların tümünün arasında paylaşılır. Bu ayarları doldurmak tamamen isteğe bağlıdır."
 
-#: amt-admin-panel.php:191 amt-admin-panel.php:241 amt-admin-panel.php:655
+#: amt-admin-panel.php:191 amt-admin-panel.php:241 amt-admin-panel.php:656
 #: metadata\amt_opengraph.php:72
 msgid "Facebook publisher profile URL"
 msgstr "Facebook yayıncı profili URL'si"
 
-#: amt-admin-panel.php:193 amt-admin-panel.php:660
+#: amt-admin-panel.php:193 amt-admin-panel.php:661
 msgid ""
 "Enter an absolute URL to the Facebook profile of the publisher. If this is "
 "filled in, it will be used in the <code>article:publisher</code> meta tag."
 msgstr "Yayıncının Facebook profiline tam URL'yi girin. Eğer doldurulursa, <code>article:publisher</code> meta etiketinde kullanılacaktır."
 
-#: amt-admin-panel.php:196 amt-admin-panel.php:689
+#: amt-admin-panel.php:196 amt-admin-panel.php:690
 msgid "Google+ publisher profile URL"
 msgstr "Google+ yayıncı profili URL'si"
 
-#: amt-admin-panel.php:198 amt-admin-panel.php:694
+#: amt-admin-panel.php:198 amt-admin-panel.php:695
 msgid ""
 "Enter an absolute URL to the Google+ profile of the publisher. If this is "
 "filled in, it will be used in the link with <code>rel=\"publisher\"</code> "
 "in the HEAD area of the web page."
 msgstr "Yayıncının Google+ profiline tam URL'yi girin. Eğer doldurulursa, web sayfasının HEAD alanındaki <code>rel=\"publisher\"</code> ile bağlantıda kullanılacaktır."
 
-#: amt-admin-panel.php:201 amt-admin-panel.php:267 amt-admin-panel.php:699
+#: amt-admin-panel.php:201 amt-admin-panel.php:267 amt-admin-panel.php:700
 #: metadata\amt_twitter_cards.php:69
 msgid "Twitter publisher username"
 msgstr "Twitter yayıncı kullanıcı adı"
 
-#: amt-admin-panel.php:203 amt-admin-panel.php:704
+#: amt-admin-panel.php:203 amt-admin-panel.php:705
 msgid "Enter the Twitter username of the publisher (without @)."
 msgstr "Yayıncının Twitter kullanıcı adını girin (@ işareti olmadan)."
 
-#: amt-admin-panel.php:207 amt-admin-panel.php:647 amt-admin-panel.php:650
+#: amt-admin-panel.php:207 amt-admin-panel.php:648 amt-admin-panel.php:651
 msgid "Publisher Settings"
 msgstr "Yayıncı Ayarları"
 
-#: amt-admin-panel.php:214 amt-admin-panel.php:724
+#: amt-admin-panel.php:214 amt-admin-panel.php:725
 msgid "Automatically generate the <em>description</em> meta tag."
 msgstr "Otomatik olarak <em>description (açıklama)</em> meta etiketini üret."
 
@@ -277,7 +277,7 @@ msgid ""
 "<em>Metadata</em> box in the post editing screen."
 msgstr "Eğer bu seçenek etkinleştirilirse, <em>description (açıklama)</em> meta etiketi içerik, ekler ve arşivler için otomatik olarak üretilir. <em>Description (açıklama)</em> meta etiketinin özelleştirilmesi, yazı düzenleme ekranındaki <em>Metadata</em> kutusu aracılığıyla mümkündür."
 
-#: amt-admin-panel.php:218 amt-admin-panel.php:728
+#: amt-admin-panel.php:218 amt-admin-panel.php:729
 msgid "Automatically generate the <em>keywords</em> meta tag."
 msgstr "Otomatik olarak <em>keywords (anahtar kelimeler)</em> meta etiketini üret."
 
@@ -294,7 +294,7 @@ msgstr "Eğer bu seçenek etkinleştirilirse, <em>keywords (anahtar kelimeler)</
 msgid "Basic meta tags"
 msgstr "Temel meta etiketleri"
 
-#: amt-admin-panel.php:229 amt-admin-panel.php:742
+#: amt-admin-panel.php:229 amt-admin-panel.php:743
 msgid "Automatically generate Opengraph meta tags."
 msgstr "Otomatik olarak Opengraph meta etiketlerini üret."
 
@@ -305,7 +305,7 @@ msgid ""
 "the <a href=\"http://ogp.me\">Opengraph specification</a>."
 msgstr "Eğer bu seçenek etkinleştirilirse, Opengraph metadata içerik, ekler ve arşivler için otomatik olarak üretilir. Daha fazla bilgi için lütfen <a href=\"http://ogp.me\">Opengraph özelliğine</a> bakın."
 
-#: amt-admin-panel.php:233 amt-admin-panel.php:746
+#: amt-admin-panel.php:233 amt-admin-panel.php:747
 msgid "Omit <code>og:video</code> meta tags."
 msgstr "<code>og:video</code> meta etiketlerini gözardı et."
 
@@ -352,7 +352,7 @@ msgstr "Ya yazı biçimini değiştirerek ya da bir süzgeç aracılığıyla pr
 msgid "Opengraph"
 msgstr "Opengraph"
 
-#: amt-admin-panel.php:251 amt-admin-panel.php:760
+#: amt-admin-panel.php:251 amt-admin-panel.php:761
 msgid "Automatically generate Twitter Cards meta tags."
 msgstr "Otomatik olarak Twitter Cards meta etiketlerini üret."
 
@@ -363,7 +363,7 @@ msgid ""
 "href=\"https://dev.twitter.com/docs/cards\">Twitter Cards specification</a>."
 msgstr "Eğer bu seçenek etkinleştirilirse, Twitter Cards metadata içerik ve ekler için otomatik olarak üretilir. Daha fazla bilgi için lütfen <a href=\"https://dev.twitter.com/docs/cards\">Twitter Cards özelliğine</a> bakın."
 
-#: amt-admin-panel.php:255 amt-admin-panel.php:764
+#: amt-admin-panel.php:255 amt-admin-panel.php:765
 msgid ""
 "Enforce the use of <code>summary_large_image</code> as default card type."
 msgstr "Varsayılan kart türü olarak <code>summary_large_image</code> kullanımına zorla."
@@ -375,7 +375,7 @@ msgid ""
 "type."
 msgstr "Eğer etkinleştirilirse, <code>summary</code> kartı türü yerine varsayılan olarak Twitter Card türü <code>summary_large_image</code> kullanılacaktır."
 
-#: amt-admin-panel.php:259 amt-admin-panel.php:768
+#: amt-admin-panel.php:259 amt-admin-panel.php:769
 msgid "Enable the generation of <em>player</em> cards for local media."
 msgstr "Yerel ortam için <em>player (oynatıcı)</em> kartları oluşturmayı etkinleştir."
 
@@ -457,7 +457,7 @@ msgstr "<code>Player</code> kartı <code>audio</code> veya <code>video</code> bi
 msgid "Twitter Cards"
 msgstr "Twitter Cards"
 
-#: amt-admin-panel.php:283 amt-admin-panel.php:782
+#: amt-admin-panel.php:283 amt-admin-panel.php:783
 msgid "Automatically generate Dublin Core metadata."
 msgstr "Otomatik olarak Dublin Core metadata üret."
 
@@ -472,7 +472,7 @@ msgstr "Eğer bu seçenek etkinleştirilirse, Dublin Core metadata içeriğiniz 
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: amt-admin-panel.php:294 amt-admin-panel.php:796
+#: amt-admin-panel.php:294 amt-admin-panel.php:797
 msgid "Automatically generate and embed Schema.org Microdata."
 msgstr "Otomatik olarak Schema.org Microdata üret ve içine göm."
 
@@ -495,7 +495,7 @@ msgid ""
 "templates and not as a replacement of schema.org enhanced themes."
 msgstr "Aslında bu metadata üretici, yazının içeriği etrafına schema.org microdata ekler çünkü otomatik bir davranışta sayfanın tam içeriğini işaretlemesi teknik olarak imkansızdır. Hata yapmayın, web sayfalarınıza microdata yerleştirmenin uygun yolu bu değildir. Bu üretici, schema.org geliştirilmiş temalarının değiştirilmesi olarak değil, temanızın şablonlarındaki schema.org microdata işaretlemesinin eksik olduğu durumda bir geçici çözüm olarak düşünülmelidir."
 
-#: amt-admin-panel.php:300 amt-admin-panel.php:800
+#: amt-admin-panel.php:300 amt-admin-panel.php:801
 msgid "Enforce the generation of schema.org metadata as JSON-LD data."
 msgstr "Schema.org metadata'sını JSON-LD verisi olarak üretilmeye zorla."
 
@@ -552,7 +552,7 @@ msgid ""
 "generation of meta tags with invalid locale."
 msgstr "WordPress'in döndürdüğü gibi varsayılan yerel ayarı geçersiz kılan, üretilmiş metadata içinde genel olarak kullanılacak olan bir yerel ayar girin. Bu ayarı doldurmak sadece WordPress <code>language_TERRITORY</code> şeklinde bir yerel ayar döndürmezse önerilir. Bu özellik geçersiz yerel ayarı olan meta etiketlerinin olası üretimini önlemek için çok dilli bir eklenti ile birlikte kullanılmamalıdır."
 
-#: amt-admin-panel.php:323 amt-admin-panel.php:821
+#: amt-admin-panel.php:323 amt-admin-panel.php:822
 msgid ""
 "Automatically set the HTML document's <code>lang</code> attribute according "
 "to the locale of the content."
@@ -567,7 +567,7 @@ msgid ""
 "attribute."
 msgstr "Bu özelliği etkinleştirerek, Add-Meta-Tags HTML belgesinin <code>lang</code> özniteliğini, içeriğin yerel ayarına göre otomatik olarak ayarlayacak. Bu özellik geçersiz bir <code>lang</code> özniteliğinin olası üretimini önlemek için çok dilli bir eklenti ile birlikte kullanılmamalıdır."
 
-#: amt-admin-panel.php:327 amt-admin-panel.php:825
+#: amt-admin-panel.php:327 amt-admin-panel.php:826
 msgid ""
 "Enable the generation of a <code>link</code> element with the "
 "<code>hreflang</code> attribute."
@@ -582,7 +582,7 @@ msgid ""
 "plugin in order to avoid the potential generation of invalid hreflang links."
 msgstr "Eğer bu özellik etkinleştirilirse, uygun hreflang özniteliği içeren bir HTML <code>link</code> öğesi HTML sayfasının head bölümüne eklenir. Hreflang özniteliği, içeriğin yerel ayarı tarafından belirlenir. Bu özellik geçersiz hreflang bağlantılarının olası üretimini önlemek için çok dilli bir eklenti ile birlikte kullanılmamalıdır."
 
-#: amt-admin-panel.php:331 amt-admin-panel.php:829
+#: amt-admin-panel.php:331 amt-admin-panel.php:830
 msgid "Strip region code from the hreflang attribute."
 msgstr "Hreflang özniteliğinden bölge kodunu çıkar."
 
@@ -606,11 +606,11 @@ msgid ""
 "attribute becomes <code>zh-Hans</code>."
 msgstr "Örneğin, eğer yerel ayarınız <code>tr_TR</code> ise, bu seçeneği etkinleştirerek hreflang özniteliğini <code>tr</code> olması için zorlarsınız. Aynı yolla, eğer yerel ayar <code>language_Script_TERRITORY</code> biçiminde ise, örneğin <code>tr_Turk_TR</code>, bu seçeneği etkinleştirerek hreflang özniteliği <code>tr-Turk</code> olur."
 
-#: amt-admin-panel.php:337 amt-admin-panel.php:808 amt-admin-panel.php:811
+#: amt-admin-panel.php:337 amt-admin-panel.php:809 amt-admin-panel.php:812
 msgid "Locale"
 msgstr "Yerel Ayar"
 
-#: amt-admin-panel.php:343 amt-admin-panel.php:842
+#: amt-admin-panel.php:343 amt-admin-panel.php:843
 msgid ""
 "It is possible to partially customize the generated metadata on a per post "
 "basis through the <em>Metadata</em> metabox which exists in the post editing"
@@ -619,57 +619,57 @@ msgid ""
 "has been stored for each post."
 msgstr "Her bir yazıya dayalı oluşturulan metadata'yı, yazı düzenleme ekranında bulunan <em>Metadata</em> metabox aracılığıyla kısmen özelleştirmek mümkündür. Aşağıdan hangi metabox özelliklerinin etkinleştirilmesi gerektiğini seçebilirsiniz. Bu özellikleri etkinleştirmenin ya da etkisizleştirmenin, her yazı için saklanan özel veri üzerinde bir etkisi yoktur."
 
-#: amt-admin-panel.php:346 amt-admin-panel.php:846
+#: amt-admin-panel.php:346 amt-admin-panel.php:847
 msgid "Custom description."
 msgstr "Özel açıklama."
 
-#: amt-admin-panel.php:346 amt-admin-panel.php:347 amt-admin-panel.php:846
-#: amt-admin-panel.php:851 amt-admin-panel.php:914
+#: amt-admin-panel.php:346 amt-admin-panel.php:347 amt-admin-panel.php:847
+#: amt-admin-panel.php:852 amt-admin-panel.php:915
 msgid "Recommended"
 msgstr "Önerilir"
 
-#: amt-admin-panel.php:347 amt-admin-panel.php:851
+#: amt-admin-panel.php:347 amt-admin-panel.php:852
 msgid "Custom keywords."
 msgstr "Özel anahtar kelimeler."
 
-#: amt-admin-panel.php:348 amt-admin-panel.php:856
+#: amt-admin-panel.php:348 amt-admin-panel.php:857
 msgid "Custom content of the <code>title</code> HTML element."
 msgstr "<code>title</code> HTML öğesi özel içeriği."
 
-#: amt-admin-panel.php:349 amt-admin-panel.php:861
+#: amt-admin-panel.php:349 amt-admin-panel.php:862
 msgid ""
 "Custom news keywords. (<a target=\"_blank\" "
 "href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">more"
 " info</a>)"
 msgstr "Özel haber anahtar kelimeleri. (<a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">daha fazla bilgi</a>)"
 
-#: amt-admin-panel.php:350 amt-admin-panel.php:866
+#: amt-admin-panel.php:350 amt-admin-panel.php:867
 msgid "Full meta tags box."
 msgstr "Tam meta etiketleri kutusu."
 
-#: amt-admin-panel.php:351 amt-admin-panel.php:871
+#: amt-admin-panel.php:351 amt-admin-panel.php:872
 msgid "Global image override."
 msgstr "Genel resim geçersiz kılma."
 
-#: amt-admin-panel.php:352 amt-admin-panel.php:876
+#: amt-admin-panel.php:352 amt-admin-panel.php:877
 msgid ""
 "Content locale override. (Not to be used in conjunction with a multilingual "
 "plugin.) "
 msgstr "İçerik yerel ayarını geçersiz kılma. (Çok dilli bir eklenti ile birlikte kullanılmamalıdır.)"
 
-#: amt-admin-panel.php:353 amt-admin-panel.php:881
+#: amt-admin-panel.php:353 amt-admin-panel.php:882
 msgid "Express review."
 msgstr "Hızlı inceleme."
 
-#: amt-admin-panel.php:353 amt-admin-panel.php:881
+#: amt-admin-panel.php:353 amt-admin-panel.php:882
 msgid "For advanced users only"
 msgstr "Sadece ileri düzey kullanıcılar için"
 
-#: amt-admin-panel.php:354 amt-admin-panel.php:886
+#: amt-admin-panel.php:354 amt-admin-panel.php:887
 msgid "Referenced items."
 msgstr "Kaynak gösterilen öğeler."
 
-#: amt-admin-panel.php:354 amt-admin-panel.php:886
+#: amt-admin-panel.php:354 amt-admin-panel.php:887
 msgid "Not recommended"
 msgstr "Önerilmez"
 
@@ -681,7 +681,7 @@ msgid ""
 "<code>amt_metadata_metabox_permissions</code> filter."
 msgstr "Yukarıdan metabox özelliği seçimi tüm kullanıcıları etkiler. Her bir kullanıcıda bu özelliklerin kullanılabilirliğinin gelişmiş özelleştirmeye dayalı olması ya da her kullanıcının izinlerine bağlı olması <code>amt_metadata_metabox_permissions</code> süzgeci aracılığıyla mümkündür."
 
-#: amt-admin-panel.php:360 amt-admin-panel.php:837 amt-admin-panel.php:840
+#: amt-admin-panel.php:360 amt-admin-panel.php:838 amt-admin-panel.php:841
 msgid "Metabox Features"
 msgstr "Metabox Özellikleri"
 
@@ -690,7 +690,7 @@ msgid ""
 "This section contains information about the general Add-Meta-Tags settings."
 msgstr "Bu bölüm genel Add-Meta-Tags ayarları hakkında bilgiler içerir."
 
-#: amt-admin-panel.php:368 amt-admin-panel.php:901
+#: amt-admin-panel.php:368 amt-admin-panel.php:902
 msgid ""
 "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
 "tag."
@@ -721,10 +721,10 @@ msgid ""
 "duplicate content that gets indexed by search engines"
 msgstr "Şurada belirtilen arşiv türlerindeki <em>robots</em> meta etiketine <code>NOINDEX,FOLLOW</code> ekleyin: arama sonuçları, tarih, etiket, özel sınıflandırma, yazar arşivleri. Bu, arama motorları tarafından indekslenen kopya içeriğin miktarını azaltmak amacındaki gelişmiş bir ayardır"
 
-#: amt-admin-panel.php:376 amt-admin-panel.php:941
+#: amt-admin-panel.php:376 amt-admin-panel.php:942
 msgid ""
 "Enforce the use of the content's custom title in the generated metadata."
-msgstr ""
+msgstr "Üretilen metadata içinde içeriğin özel başlığını kullanmaya zorlar."
 
 #: amt-admin-panel.php:378
 msgid ""
@@ -737,11 +737,11 @@ msgid ""
 " If this option is enabled, then Add-Meta-Tags uses the custom title of the "
 "content, if such a custom title has been set, in the the generated meta "
 "data, instead of the default title."
-msgstr ""
+msgstr "Yazı düzenleme sayfasında 'Metadata' kutusunun ilgili alanındaki içerik için özel başlık ayarlamak mümkündür. Varsayılan olarak, bu özel başlık sadece <code>title</code> HTML öğesini değiştirmek için kullanılır. Add-Meta-Tags stili ilgili üretilen meta etiketlerindeki varsayılan içerik başlığını kullanır, örneğin <code>og:title</code>/<code>twitter:title</code>/<code>dcterms:title</code>. Eğer bu seçenek etkinleştirilirse, üretilen meta verisinde varsayılan başlık yerine böyle bir özel başlık ayarlanmışsa, o zaman Add-Meta-Tags içeriğin özel başlığını kullanır."
 
-#: amt-admin-panel.php:380 amt-admin-panel.php:948
+#: amt-admin-panel.php:380 amt-admin-panel.php:949
 msgid "Enable advanced SEO title management."
-msgstr ""
+msgstr "Gelişmiş SEO (Arama Motoru İyileştirmesi) başlığı yönetimini etkinleştirir."
 
 #: amt-admin-panel.php:382
 msgid ""
@@ -752,9 +752,9 @@ msgid ""
 "target=\"_blank\"  href=\"http://www.codetrax.org/projects/wp-add-meta-"
 "tags/wiki/Advanced_Title_Management\">how to customize the generated "
 "titles</a>."
-msgstr ""
+msgstr "Bu seçeneği etkinleştirerek, Add-Meta-Tags, <code>title</code> HTML öğesinde kullandığı başlığı ve aynı zamanda kullanıcı tanımlı şablonlara göre üretilen metadata boyunca kullanılan başlığı üretir. <em>Add-Meta-Tags Cookbook</em> <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management\">üretilen başlıkların nasıl özelleştirileceği</a> hakkında ihtiyacınız olan tüm bilgilere sahiptir."
 
-#: amt-admin-panel.php:384 amt-admin-panel.php:959 amt-admin-panel.php:962
+#: amt-admin-panel.php:384 amt-admin-panel.php:960 amt-admin-panel.php:963
 msgid "Copyright URL"
 msgstr "Telif Hakkı URL'si"
 
@@ -765,7 +765,7 @@ msgid ""
 " be added automatically on all the pages of your web site."
 msgstr "İşinizle ilgili telif hakkı ve lisanslama bilgisi içeren bir belge için tam bir URL girin. Eğer bu URL ayarlanırsa, konu ile ilgili meta etiketleri web sitenizin tüm sayfalarına otomatik olarak eklenecektir."
 
-#: amt-admin-panel.php:389 amt-admin-panel.php:975 amt-admin-panel.php:978
+#: amt-admin-panel.php:389 amt-admin-panel.php:976 amt-admin-panel.php:979
 msgid "Default Image"
 msgstr "Varsayılan Resim"
 
@@ -777,11 +777,11 @@ msgid ""
 "images have been attached or embedded."
 msgstr "Web sitenizi temsil eden bir resmin tam bir URL'sini girin, mesela logosunu. Özellikli resim ya da diğer resimler eklenmediği veya gömülmediği takdirde, bu resim ön sayfanın metadata'sında ve aynı zamanda içeriğin metadata'sında kulanılacaktır."
 
-#: amt-admin-panel.php:394 amt-admin-panel.php:991 amt-admin-panel.php:994
+#: amt-admin-panel.php:394 amt-admin-panel.php:992 amt-admin-panel.php:995
 msgid "Secure Access"
 msgstr "Güvenli Erişim"
 
-#: amt-admin-panel.php:396 amt-admin-panel.php:997
+#: amt-admin-panel.php:396 amt-admin-panel.php:998
 msgid "Media are accessible over HTTPS."
 msgstr "Ortam, HTTPS üzerinden erişilebilirdir."
 
@@ -795,11 +795,11 @@ msgid ""
 "HTTPS, then secure links are always generated."
 msgstr "Şu anda bu seçenek, etkinleştirilirse, aktif bağlantı HTTPS kullanmasa bile ek güvenli bağlantıların oluşturulup oluşturulmayacağı konusunda eklentinin kararlar vermesine izin verir. Örnek olarak, web sitenize HTTP üzerinden erişiliyorsa ve bu seçenek etkinleştirilirse, yerel ortamınız için ek <code>og:image:secure_url</code> meta etiketleri oluşturulacaktır. Eğer şu anki bağlantı HTTPS kullanıyorsa, o zaman güvenli bağlantılar her zaman oluşturulur."
 
-#: amt-admin-panel.php:400 amt-admin-panel.php:1004 amt-admin-panel.php:1007
+#: amt-admin-panel.php:400 amt-admin-panel.php:1005 amt-admin-panel.php:1008
 msgid "Media Limit"
 msgstr "Ortam Sınırı"
 
-#: amt-admin-panel.php:402 amt-admin-panel.php:1010
+#: amt-admin-panel.php:402 amt-admin-panel.php:1011
 msgid ""
 "Do not generate metadata for more than one media file of each type (image, "
 "video, audio)."
@@ -815,26 +815,26 @@ msgid ""
 "images."
 msgstr "Varsayılan olarak, içeriğe gömülmüş ya da eklenmiş tüm ortam dosyaları için metadata üretilir. Bu seçeneği etkinleştirerek Add-Meta-Tags, karşılaşılan her türde (resim, görüntü, ses) sadece ilk ortam dosyası için metadata üretecek. Bu sınır, her zaman tüm ekli resimleri içeren <code>gallery</code> Twitter Card'ı etkilemez."
 
-#: amt-admin-panel.php:406 amt-admin-panel.php:1017 amt-admin-panel.php:1020
+#: amt-admin-panel.php:406 amt-admin-panel.php:1018 amt-admin-panel.php:1021
 msgid "Extended Metadata Support"
 msgstr "Genişletilmiş Metadata Desteği"
 
-#: amt-admin-panel.php:408 amt-admin-panel.php:1022
+#: amt-admin-panel.php:408 amt-admin-panel.php:1023
 msgid ""
 "Add-Meta-Tags supports the generation of metadata for products and other "
 "post types. Please enable any of the following generators of extended "
 "metadata."
 msgstr "Add-Meta-Tags, ürünler ve diğer yazı türleri için metadata üretimini destekler. Lütfen aşağıdaki herhangi bir gelişmiş metadata üreticisini etkinleştirin."
 
-#: amt-admin-panel.php:411 amt-admin-panel.php:1026
+#: amt-admin-panel.php:411 amt-admin-panel.php:1027
 msgid "Metadata for WooCommerce products and product groups."
 msgstr "WooCommerce ürünleri ve ürün grupları için metadata."
 
-#: amt-admin-panel.php:412 amt-admin-panel.php:1031
+#: amt-admin-panel.php:412 amt-admin-panel.php:1032
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
 msgstr "Easy-Digital-Downloads ürünleri ve ürün grupları için metadata."
 
-#: amt-admin-panel.php:412 amt-admin-panel.php:1031
+#: amt-admin-panel.php:412 amt-admin-panel.php:1032
 msgid "Work in progress"
 msgstr "Yapım aşamasında"
 
@@ -845,7 +845,7 @@ msgid ""
 "functionality."
 msgstr "Desteklenen ürünlerden ya da diğer desteklenen yazı türlerinden hiçbiri algılanamazsa, yukarıdaki ayarların eklentilerin normal işlevselliğini etkilemeyeceğini lütfen unutmayın."
 
-#: amt-admin-panel.php:416 amt-admin-panel.php:1040 amt-admin-panel.php:1043
+#: amt-admin-panel.php:416 amt-admin-panel.php:1041 amt-admin-panel.php:1044
 msgid "Review Mode"
 msgstr "Gözden Geçirme Kipi"
 
@@ -961,22 +961,26 @@ msgid ""
 "target=\"_blank\">meta tags</a> which will appear on all web pages."
 msgstr "Tüm web sayfalarında görünecek olan tam <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">meta etiketlerini</a> girin."
 
-#: amt-admin-panel.php:667
+#: amt-admin-panel.php:635
+msgid "Please, do not enter keywords here."
+msgstr "Lütfen buraya anahtar kelimeleri girmeyin."
+
+#: amt-admin-panel.php:668
 msgid "Facebook App ID"
 msgstr "Facebook Uyg Kimliği"
 
-#: amt-admin-panel.php:672
+#: amt-admin-panel.php:673
 msgid ""
 "Enter the App ID for <a target=\"_blank\" "
 "href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
 "Insights</a>."
 msgstr "<a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">Facebook Insights</a> için Uyg Kimliğini girin."
 
-#: amt-admin-panel.php:677
+#: amt-admin-panel.php:678
 msgid "Facebook Admin ID list"
 msgstr "Facebook Yönetici Kimliği listesi"
 
-#: amt-admin-panel.php:682
+#: amt-admin-panel.php:683
 msgid ""
 "Enter a comma delimited list of numerical Facebook user IDs which will have "
 "access to <a target=\"_blank\" "
@@ -984,131 +988,131 @@ msgid ""
 "Insights</a>."
 msgstr "<a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">Facebook Insights</a> hesabına erişecek olan sayısal Facebook kullanıcısı kimliklerinin virgülle ayrılmış bir listesini girin."
 
-#: amt-admin-panel.php:718 amt-admin-panel.php:721
+#: amt-admin-panel.php:719 amt-admin-panel.php:722
 msgid "Basic Metadata"
 msgstr "Temel Metadata"
 
-#: amt-admin-panel.php:736 amt-admin-panel.php:739
+#: amt-admin-panel.php:737 amt-admin-panel.php:740
 msgid "Opengraph Metadata"
 msgstr "Opengraph Metadata"
 
-#: amt-admin-panel.php:754 amt-admin-panel.php:757
+#: amt-admin-panel.php:755 amt-admin-panel.php:758
 msgid "Twitter Cards Metadata"
 msgstr "Twitter Cards Metadata"
 
-#: amt-admin-panel.php:776 amt-admin-panel.php:779
+#: amt-admin-panel.php:777 amt-admin-panel.php:780
 msgid "Dublin Core Metadata"
 msgstr "Dublin Core Metadata"
 
-#: amt-admin-panel.php:790 amt-admin-panel.php:793
+#: amt-admin-panel.php:791 amt-admin-panel.php:794
 msgid "Schema.org Metadata"
 msgstr "Schema.org Metadata"
 
-#: amt-admin-panel.php:800 amt-admin-panel.php:950 amt-admin-panel.php:1495
+#: amt-admin-panel.php:801 amt-admin-panel.php:951 amt-admin-panel.php:1499
 msgid "Experimental feature"
 msgstr "Deneysel özellik"
 
-#: amt-admin-panel.php:816
+#: amt-admin-panel.php:817
 msgid ""
 "Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, "
 "which will be used globally in the generated metadata overriding the default"
 " locale as returned by WordPress."
 msgstr "WordPress tarafından döndürülen varsayılan yerel ayarı geçersiz kılan dünya genelinde oluşturulan metadata içinde kullanılacak olan, örneğin <code>en_US</code> ya da <code>tr_Turk_TR</code> gibi, bir yerel ayar girin."
 
-#: amt-admin-panel.php:895 amt-admin-panel.php:898
+#: amt-admin-panel.php:896 amt-admin-panel.php:899
 msgid "Extra SEO Options"
 msgstr "Ekstra SEO Seçenekleri"
 
-#: amt-admin-panel.php:905
+#: amt-admin-panel.php:906
 msgid ""
 "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following"
 " types of archives:"
 msgstr "Aşağıdaki arşiv türlerindeki <em>robots</em> meta etiketine <code>NOINDEX,FOLLOW</code> ekle:"
 
-#: amt-admin-panel.php:909
+#: amt-admin-panel.php:910
 msgid "Search results."
 msgstr "Arama sonuçları."
 
-#: amt-admin-panel.php:909
+#: amt-admin-panel.php:910
 msgid "Highly recommended"
 msgstr "Son derece önerilir"
 
-#: amt-admin-panel.php:914
+#: amt-admin-panel.php:915
 msgid "Date based archives."
 msgstr "Tarih tabanlı arşivler."
 
-#: amt-admin-panel.php:919
+#: amt-admin-panel.php:920
 msgid "Category based archives."
 msgstr "Kategori tabanlı arşivler."
 
-#: amt-admin-panel.php:919 amt-admin-panel.php:924 amt-admin-panel.php:929
-#: amt-admin-panel.php:934
+#: amt-admin-panel.php:920 amt-admin-panel.php:925 amt-admin-panel.php:930
+#: amt-admin-panel.php:935
 msgid ""
 "Even if checked, the first page of this type of archive is always indexed."
 msgstr "Etkinleştirilmiş olsa bile, arşivin bu türünün ilk sayfası her zaman indekslenir."
 
-#: amt-admin-panel.php:924
+#: amt-admin-panel.php:925
 msgid "Tag based archives."
 msgstr "Etiket tabanlı arşivler."
 
-#: amt-admin-panel.php:929
+#: amt-admin-panel.php:930
 msgid "Custom taxonomy based archives."
 msgstr "Özel sınıflandırma tabanlı arşivler."
 
-#: amt-admin-panel.php:934
+#: amt-admin-panel.php:935
 msgid "Author based archives."
 msgstr "Yazar tabanlı arşivler."
 
-#: amt-admin-panel.php:949
+#: amt-admin-panel.php:950
 msgid "Learn more"
-msgstr ""
+msgstr "Daha fazla bilgi edinin"
 
-#: amt-admin-panel.php:967
+#: amt-admin-panel.php:968
 msgid ""
 "Enter an absolute URL to a document containing copyright and licensing "
 "information about your work."
 msgstr "İşinizle ilgili telif hakkı ve lisanslama bilgisi içeren bir belge için tam bir URL girin."
 
-#: amt-admin-panel.php:983
+#: amt-admin-panel.php:984
 msgid ""
 "Enter an absolute URL to an image that represents your website, for instance"
 " the logo."
 msgstr "Mesela logonuz gibi web sitenizi temsil eden bir resim için tam bir URL girin."
 
-#: amt-admin-panel.php:1046
+#: amt-admin-panel.php:1047
 msgid "Enable <em>Metadata Review Mode</em>."
 msgstr "<em>Metadata Gözden Geçirme Kipi</em>'ni etkinleştir."
 
-#: amt-admin-panel.php:1053 amt-admin-panel.php:1056
+#: amt-admin-panel.php:1054 amt-admin-panel.php:1057
 msgid "Donations"
 msgstr "Bağışlar"
 
-#: amt-admin-panel.php:1059
+#: amt-admin-panel.php:1060
 #, php-format
 msgid ""
 "If checked, the <em>message from the author</em> above goes away. Thanks for"
 " <a href=\"%s\">donating</a>!"
 msgstr "Eğer işaretlenmişse, yukarıdaki <em>yazarın mesajı</em> kaybolur. <a href=\"%s\">Bağış</a> için teşekkürler!"
 
-#: amt-admin-panel.php:1073
+#: amt-admin-panel.php:1074
 msgid "Save Changes"
 msgstr "Değişiklikleri Kaydet"
 
-#: amt-admin-panel.php:1076
+#: amt-admin-panel.php:1077
 msgid "Reset to defaults"
 msgstr "Varsayılanlara sıfırla"
 
-#: amt-admin-panel.php:1239
+#: amt-admin-panel.php:1240
 msgid "Description"
 msgstr "Description (Açıklama)"
 
-#: amt-admin-panel.php:1242
+#: amt-admin-panel.php:1243
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "30-50 kelimelik özel bir açıklama girin (ortalama 5 karakterlik kelime uzunluğuna dayalıdır)."
 
-#: amt-admin-panel.php:1249
+#: amt-admin-panel.php:1250
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -1116,22 +1120,22 @@ msgid ""
 "content."
 msgstr "<em>Açıklama</em> alanı boş bırakılırsa, <em>description (açıklama)</em> meta etiketi <strong>otomatik olarak</strong> alıntıdan ya da, eğer bir alıntı ayarlanmamışsa, doğrudan içeriğin ilk paragrafından üretilecektir."
 
-#: amt-admin-panel.php:1255 amt-admin-panel.php:1261
+#: amt-admin-panel.php:1256 amt-admin-panel.php:1262
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "<em>Açıklama</em> alanı boş bırakılırsa, <em>description (açıklama)</em> meta etiketi <strong>otomatik olarak</strong> içeriğin ilk paragrafından üretilecektir."
 
-#: amt-admin-panel.php:1281
+#: amt-admin-panel.php:1282
 msgid "Keywords"
 msgstr "Keywords (Anahtar Kelimeler)"
 
-#: amt-admin-panel.php:1284
+#: amt-admin-panel.php:1285
 msgid "Enter keywords separated with commas."
 msgstr "Anahtar kelimeleri virgülle ayırarak girin."
 
-#: amt-admin-panel.php:1291
+#: amt-admin-panel.php:1292
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories,"
@@ -1143,28 +1147,34 @@ msgid ""
 "and <code>%terms%</code> respectively."
 msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi <strong>otomatik olarak</strong> yazının kategorilerinden, etiketlerinden, özel sınıflandırma terimlerden ve genel anahtar kelimelerden üretilecektir, eğer bunun gibi her bir genel anahtar kelime, eklenti ayarlarında ayarlanmış ise. Bu yazı için anahtar kelimelerin özel bir listesini ayarlamaya karar verdiğiniz takdirde, bu listedeki sırasıyla <code>%cats%</code>, <code>%tags%</code> ve <code>%terms%</code> özel yer tutucularını kullanarak yazıların kategorilerini, etiketlerini ve özel sınıflandırma terimleri kolayca dahil etmek mümkündür."
 
-#: amt-admin-panel.php:1299 amt-admin-panel.php:1305
+#: amt-admin-panel.php:1300 amt-admin-panel.php:1306
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will only be automatically generated from global keywords, if any such "
 "global keywords have been set in the plugin settings."
 msgstr "<em>Anahtar kelimeler</em> alanı boş bırakılırsa, <em>keywords (anahtar kelimeler)</em> meta etiketi sadece genel anahtar kelimelerden otomatik olarak üretilecektir, eğer bunun gibi her bir genel anahtar kelime, eklenti ayarlarında ayarlanmış ise."
 
-#: amt-admin-panel.php:1326
+#: amt-admin-panel.php:1327
 msgid "Title"
 msgstr "Title (Başlık)"
 
-#: amt-admin-panel.php:1329
+#: amt-admin-panel.php:1330
 msgid ""
 "Enter a custom title to be used in the <em>title</em> HTML element of the "
 "page."
 msgstr "Sayfanın <em>title</em> HTML öğesinde kullanılması için özel bir başlık girin."
 
-#: amt-admin-panel.php:1347
+#: amt-admin-panel.php:1333
+msgid ""
+"The <code>%title%</code> placeholder is automatically expanded to the "
+"current title of the content."
+msgstr "<code>%title%</code> yertutucusu otomatik olarak içeriğin şu anki başlığına genişletilir."
+
+#: amt-admin-panel.php:1351
 msgid "News Keywords"
 msgstr "News Keywords (Haber Anahtar Kelimeleri)"
 
-#: amt-admin-panel.php:1350
+#: amt-admin-panel.php:1354
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -1172,11 +1182,11 @@ msgid ""
 " help page</a>."
 msgstr "<strong>Haber anahtar kelimelerinin</strong> virgülle ayrılmış bir listesini girin. Bu meta etiketi hakkında daha fazla bilgi için lütfen bu <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">Google yardım sayfasına</a> bakın."
 
-#: amt-admin-panel.php:1368
+#: amt-admin-panel.php:1372
 msgid "Full meta tags"
 msgstr "Tam meta etiketleri"
 
-#: amt-admin-panel.php:1372
+#: amt-admin-panel.php:1376
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "this content (read more about the <a "
@@ -1184,49 +1194,49 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Bu içeriğe eklemek istediğiniz ekstra META öğelerinin tam XHTML kodunu sağlar (Vikipedi'de <a href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META HTML öğeleri</a> hakkında daha fazlasını okuyun)."
 
-#: amt-admin-panel.php:1373
+#: amt-admin-panel.php:1377
 msgid ""
 "Find out how to create <a href=\"http://www.codetrax.org/projects/wp-add-"
 "meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-"
 "Meta-Tag-Sets\">pre-defined sets</a> of the meta tags you use often."
 msgstr "Sık sık kullandığınız meta etiketlerinin <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-Meta-Tag-Sets\">ön tanımlı gruplarının</a> nasıl oluşturulduğunu öğrenin."
 
-#: amt-admin-panel.php:1376
+#: amt-admin-panel.php:1380
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Örneğin, arama motoru sonuçlarında mevcut olan bu içeriğin önbelleklenmiş bir kopyasını önlemek için aşağıdaki meta etiketini ekleyebilirsiniz:"
 
-#: amt-admin-panel.php:1381
+#: amt-admin-panel.php:1385
 msgid ""
 "Important note: for security reasons only <code>meta</code> elements are "
 "allowed in this box. All other HTML elements are automatically removed."
 msgstr "Önemli not: güvenlik nedenlerinden dolayı bu kutuda sadece <code>meta</code> öğelerine izin verilir. Tüm diğer HTML öğeleri otomatik olarak kaldırılır."
 
-#: amt-admin-panel.php:1399
+#: amt-admin-panel.php:1403
 msgid "Image URL"
 msgstr "Resim URL'si"
 
-#: amt-admin-panel.php:1402
+#: amt-admin-panel.php:1406
 msgid "Enter an image URL to override all media related meta tags."
 msgstr "Meta etiketleriyle ilgili tüm ortamı geçersiz kılmak için bir resim URL'si girin."
 
-#: amt-admin-panel.php:1420
+#: amt-admin-panel.php:1424
 msgid "Content locale"
 msgstr "Şu anki yerel ayar"
 
-#: amt-admin-panel.php:1423
+#: amt-admin-panel.php:1427
 msgid ""
 "Override the default locale setting by entering a custom locale for this "
 "content in the form <code>language_TERRITORY</code>, for example: "
 "<code>en_US</code>."
 msgstr "<code>language_TERRITORY</code> biçimindeki bu içerik için özel bir yerel ayar girerek varsayılan yerel ayarı geçersiz kılın, örneğin: <code>tr_TR</code>."
 
-#: amt-admin-panel.php:1441
+#: amt-admin-panel.php:1445
 msgid "Express review"
 msgstr "Hızlı inceleme"
 
-#: amt-admin-panel.php:1445
+#: amt-admin-panel.php:1449
 msgid ""
 "This field accepts review related information using INI file syntax. If this"
 " info is provided in the correct form, then Add-Meta-Tags treats your "
@@ -1237,11 +1247,11 @@ msgid ""
 "information."
 msgstr "Bu alan INI dosyası sözdizimi kullanarak inceleme ile ilgili bilgileri kabul eder. Eğer bu bilgi doğru biçimde verilirse, o zaman Add-Meta-Tags bir öğenin incelemesi olarak içeriğinize bakar ve uygun Schema.org metadata oluşturur. İnceleme bilgisinin doğru sözdizimi hakkında <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews\" target=\"_blank\">devamını okuyun</a>."
 
-#: amt-admin-panel.php:1492
+#: amt-admin-panel.php:1496
 msgid "URLs of referenced items"
 msgstr "Kaynak gösterilen öğelerin URL'leri"
 
-#: amt-admin-panel.php:1495
+#: amt-admin-panel.php:1499
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "
@@ -1260,19 +1270,19 @@ msgstr "Add-Meta-Tags seçenekleri kaydedildi"
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Add-Meta-Tags seçenekleri varsayılanlara sıfırlandı"
 
-#: amt-utils.php:2177
+#: amt-utils.php:2180
 msgid "Select a sample review"
 msgstr "Örnek bir inceleme seçin"
 
-#: amt-utils.php:2209
+#: amt-utils.php:2212
 msgid "Use sample review data:"
 msgstr "Örnek inceleme verisi kullan:"
 
-#: amt-utils.php:2303
+#: amt-utils.php:2306
 msgid "Select a meta tag group"
 msgstr "Bir meta etiketi grubu seçin"
 
-#: amt-utils.php:2335
+#: amt-utils.php:2338
 msgid "Replace meta tags with:"
 msgstr "Meta etiketleri şununla değiştir:"
 
