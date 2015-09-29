@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: amt, meta, metadata, seo, optimize, ranking, description, keywords, metatag, schema, opengraph, dublin core, schema.org, microdata, google, twitter cards, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, meta tags, product, woocommerce, edd, breadcrumbs, breadcrumb trail, multilingual, multilanguage, hreflang, json-ld
 Requires at least: 3.1.0
 Tested up to: 4.3
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -261,6 +261,8 @@ Screenshots as of v2.4.0
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.4](http://www.codetrax.org/versions/301)
+ - Included the complete Greek translation. Big thanks to Michael Kotsarinis for contributing to the project!
 - [2.9.3](http://www.codetrax.org/versions/300)
  - The full meta tags field is now set as translatable in the wpml-config.xml file. (props to Werner Grunberger for feedback)
  - Re-added the %title% tag expansion functionality in the custom title. (props to ndrwpvlv for feedback)
