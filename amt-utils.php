@@ -2460,8 +2460,8 @@ function amt_get_title_for_metadata($options, $post) {
         'archive_author'        => '#entity_title# profile',
         'archive_author_paged'  => 'Content published by #entity_title# | Page #page#',
         // Custom Post Type Archives
-        //'archive_posttype_POSTTYPESLUG'        => '#entity_title# Archive',
-        //'archive_posttype_POSTTYPESLUG_paged'  => '#entity_title# Archive | Page #page#',
+        'archive_posttype_POSTTYPESLUG'        => '#entity_title# Archive',
+        'archive_posttype_POSTTYPESLUG_paged'  => '#entity_title# Archive | Page #page#',
         // Content
         // Content::Attachment
         'content_attachment'        => '#entity_title#',
