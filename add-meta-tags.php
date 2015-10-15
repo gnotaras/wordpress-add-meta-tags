@@ -99,7 +99,7 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
 /**
  * Replaces the text to be used in the title element, if a replacement text has been set.
  */
-function amt_custom_title_tag($title) {
+function amt_custom_title_tag($title, $separator) {
 
     if ( is_feed() || is_search() || is_404() ) {
         return $title;
@@ -119,7 +119,7 @@ function amt_custom_title_tag($title) {
     // WordPress adds multipage information if a custom title is not set.
     return $title;
 }
-add_filter('wp_title', 'amt_custom_title_tag', 1000);
+add_filter('wp_title', 'amt_custom_title_tag', 1000, 2);
 
 
 /**
