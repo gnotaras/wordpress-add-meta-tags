@@ -381,6 +381,8 @@ function amt_admin_help_tabs() {
 
     <p>'.__('By enabling this option, Add-Meta-Tags generates the title that is used in the <code>title</code> HTML element and also the title that is used throughout the generated metadata according to user defined templates. The <em>Add-Meta-Tags Cookbook</em> has all the information you need about <a target="_blank"  href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management">how to customize the generated titles</a>.', 'add-meta-tags').'</p>
 
+    <p>'.__('Please make sure to check the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Requirements#Advanced-Title-Management" target="_blank">theme requirements</a> before enabling this feature.', 'add-meta-tags').'</p>
+
     <h3>'.__('Copyright URL', 'add-meta-tags').'</h3>
 
     <p>'.__('Enter an absolute URL to a document containing copyright and licensing information about your work. If this URL is set, the relevant meta tags will be added automatically on all the pages of your web site.', 'add-meta-tags').'</p>
