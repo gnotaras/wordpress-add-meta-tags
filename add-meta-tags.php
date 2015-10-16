@@ -403,4 +403,3 @@ function amt_add_metadata_review($post_body) {
 
 add_filter('the_content', 'amt_add_metadata_review', 9999);
 
-?>
