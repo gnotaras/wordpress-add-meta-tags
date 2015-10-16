@@ -277,8 +277,10 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
         // First strip all HTML tags
         $plain_text = wp_kses( $initial_content, array() );
 
-        // Strip shortcodes
+        // Strip properly registered shortcodes
         $plain_text = strip_shortcodes( $plain_text );
+        // Also strip any shortcodes (For example, required for the removal of Visual Composer shortcodes)
+        $plain_text = preg_replace('#\[[^\]]+\]#', '', $plain_text);
 
         // Late preprocessing filter. Content has no HTML tags and no properly registered shortcodes. Other shortcodes might still exist.
         $plain_text_processed = apply_filters( 'amt_get_the_excerpt_plain_text', $plain_text, $post );
