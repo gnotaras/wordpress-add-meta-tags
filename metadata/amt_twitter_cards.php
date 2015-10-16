@@ -108,7 +108,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
                 // Title
                 // Note: Contains multipage information
-                $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+                $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
                 // Site description - Note: Contains multipage information through amt_process_paged()
                 $site_description = amt_get_site_description($options);
                 if ( empty( $site_description ) ) {
@@ -143,7 +143,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
                 // Title
                 // Note: Contains multipage information
-                $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+                $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
                 // Description
                 // If set, the description of the custom taxonomy term is used in the 'description' metatag.
                 // Otherwise, a generic description is used.
@@ -205,7 +205,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
                 // Title
                 // Note: Contains multipage information
-                $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+                $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
                 // Description
                 // Note: Contains multipage information through amt_process_paged()
                 // Add a filtered generic description.
@@ -258,7 +258,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         // Title
         // Note: Contains multipage information
         //$metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
-        $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+        $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
@@ -347,7 +347,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             // Author and Publisher
             $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $options, $post ) );
             // Title
-            $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+            $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
             // Description - We use the description defined by Add-Meta-Tags
             $content_desc = amt_get_content_description( $post );
             if ( ! empty( $content_desc ) ) {
@@ -371,7 +371,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
             // Author and Publisher
             $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $options, $post ) );
             // Title
-            $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+            $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
             // Description - We use the description defined by Add-Meta-Tags
             $content_desc = amt_get_content_description($post);
             if ( !empty($content_desc) ) {
@@ -430,7 +430,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $options, $post ) );
         // Title
         // Note: Contains multipage information
-        $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+        $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
@@ -545,7 +545,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
         $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $options, $post ) );
         // Title
         // Note: Contains multipage information
-        $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+        $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
@@ -645,7 +645,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $options, $post ) );
                 // twitter:title
                 // Title - Note: Contains multipage information
-                $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+                $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
                 // twitter:description
                 // Description - We use the description defined by Add-Meta-Tags
                 // Note: Contains multipage information through amt_process_paged()
@@ -712,7 +712,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 $metadata_arr = array_merge( $metadata_arr, amt_get_twitter_cards_author_publisher_metatags( $options, $post ) );
                 // twitter:title
                 // Title - Note: Contains multipage information
-                $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+                $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
                 // twitter:description
                 // Description - We use the description defined by Add-Meta-Tags
                 // Note: Contains multipage information through amt_process_paged()

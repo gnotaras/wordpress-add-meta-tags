@@ -112,11 +112,11 @@ function amt_product_data_tc_woocommerce( $metatags, $post ) {
     // is_purchasable()
     $active_price = $product->get_price();
     if ( ! empty($active_price) ) {
-        $metatags['tc:twitter:label1'] = '<meta name="twitter:label1" content="Price" />';
-        $metatags['tc:twitter:data1'] = '<meta name="twitter:data1" content="' . esc_attr($active_price) . '" />';
+        $metatags['twitter:label1'] = '<meta name="twitter:label1" content="Price" />';
+        $metatags['twitter:data1'] = '<meta name="twitter:data1" content="' . esc_attr($active_price) . '" />';
         // Currency
-        $metatags['tc:twitter:label2'] = '<meta name="twitter:label2" content="Currency" />';
-        $metatags['tc:twitter:data2'] = '<meta name="twitter:data2" content="' . esc_attr(get_woocommerce_currency()) . '" />';
+        $metatags['twitter:label2'] = '<meta name="twitter:label2" content="Currency" />';
+        $metatags['twitter:data2'] = '<meta name="twitter:data2" content="' . esc_attr(get_woocommerce_currency()) . '" />';
     }
 
     $metatags = apply_filters( 'amt_product_data_woocommerce_twitter_cards', $metatags );
