@@ -402,7 +402,8 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
     // Add site wide meta tags
     if ( ! empty( $options["site_wide_meta"] ) ) {
-        $metadata_arr[] = html_entity_decode( stripslashes( $options["site_wide_meta"] ) );
+        $full_metatags_for_site = html_entity_decode( stripslashes( $options["site_wide_meta"] ) );
+        $metadata_arr[] = apply_filters('amt_full_metatags_site', $full_metatags_for_site);
     }
 
     // On every page print the copyright head link
