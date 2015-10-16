@@ -228,6 +228,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
         // per post full meta tags
         $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
+        $full_metatags_for_content = apply_filters('amt_full_metatags_post', $full_metatags_for_content);
         if ( ! empty( $full_metatags_for_content ) ) {
             $metadata_arr[] = html_entity_decode( stripslashes( $full_metatags_for_content ) );
         }
