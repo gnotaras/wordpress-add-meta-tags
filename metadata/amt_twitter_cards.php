@@ -88,7 +88,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
     $metadata_arr = array();
 
     if ( (! is_singular() && ! amt_is_static_home() && ! amt_is_static_front_page())
-                || amt_is_default_front_page() || is_category() || is_tag() || is_tax() ) {
+                || amt_is_default_front_page() || is_category() || is_tag() || is_tax() || is_post_type_archive() ) {
     // Note1: is_front_page() is used for the case in which a static page is used as the front page.
     // Note2: product groups should pass the is_tax() validation, so no need for
     // amt_is_product_group(). We do not support other product groups.
@@ -187,6 +187,53 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 }
             }
         
+        // Custom Post type Archives
+        } elseif ( is_post_type_archive() ) {
+
+            // Custom post type object.
+            // When viewing custom post type archives, the $post object is the custom post type object. Check with: var_dump($post);
+            $post_type_object = $post;
+            //var_dump($post_type_object);
+
+            // Generate the card only if a publisher username has been set in the publisher settings
+            if ( ! empty($options['social_main_twitter_publisher_username']) ) {
+                // Type
+                $metadata_arr[] = '<meta name="twitter:card" content="' . amt_get_default_twitter_card_type($options) . '" />';
+                // Creator
+                $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                // Publisher
+                $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $options['social_main_twitter_publisher_username'] ) . '" />';
+                // Title
+                // Note: Contains multipage information
+                $metadata_arr['tc:twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+                // Description
+                // Note: Contains multipage information through amt_process_paged()
+                // Add a filtered generic description.
+                // Construct the filter name. Template: ``amt_generic_description_posttype_POSTTYPESLUG_archive``
+                $custom_post_type_description_filter_name = sprintf( 'amt_generic_description_posttype_%s_archive', $post_type_object->name);
+                // var_dump($custom_post_type_description_filter_name);
+                // Generic description
+                $generic_description = apply_filters( $custom_post_type_description_filter_name, __('%s archive.', 'add-meta-tags') );
+                // Final generic description
+                $generic_description = sprintf( $generic_description, post_type_archive_title( $prefix='', $display=false ) );
+                $metadata_arr[] = '<meta name="twitter:description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
+                // Image
+                // Use a user defined image via filter. Otherwise use default image.
+                // First filter using a term/taxonomy agnostic filter name.
+                $posttype_image_url = apply_filters( 'amt_posttype_force_image_url', '', $post_type_object );
+                if ( empty($posttype_image_url) ) {
+                    // Second filter (post type dependent).
+                    // Construct the filter name. Template: ``amt_posttype_image_url_POSTTYPESLUG``
+                    $taxonomy_image_url_filter_name = sprintf( 'amt_posttype_image_url_%s', $post_type_object->name);
+                    //var_dump($taxonomy_image_url_filter_name);
+                    // The default image, if set, is used by default.
+                    $posttype_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+                }
+                if ( ! empty( $posttype_image_url ) ) {
+                    $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $posttype_image_url ) . '" />';
+                }
+            }
+
         }
 
         return $metadata_arr;

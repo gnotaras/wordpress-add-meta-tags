@@ -432,6 +432,58 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
 
 
+    // Custom Post Type archives
+    } elseif ( is_post_type_archive() ) {
+        // Custom post type object.
+        // When viewing custom post type archives, the $post object is the custom post type object. Check with: var_dump($post);
+        $post_type_object = $post;
+        //var_dump($post_type_object);
+
+        // Type
+        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        // Site Name
+        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Title - Note: Contains multipage information
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+        // URL - Note: different method to get the permalink on paged archives
+        $url = get_post_type_archive_link($post_type_object->name);
+        if ( is_paged() ) {
+            $url = trailingslashit( $url ) . get_query_var('paged') . '/';
+        }
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( $url ) . '" />';
+        // Description
+        // Note: Contains multipage information through amt_process_paged()
+        // Add a filtered generic description.
+        // Construct the filter name. Template: ``amt_generic_description_posttype_POSTTYPESLUG_archive``
+        $custom_post_type_description_filter_name = sprintf( 'amt_generic_description_posttype_%s_archive', $post_type_object->name);
+        // var_dump($custom_post_type_description_filter_name);
+        // Generic description
+        $generic_description = apply_filters( $custom_post_type_description_filter_name, __('%s archive.', 'add-meta-tags') );
+        // Final generic description
+        $generic_description = sprintf( $generic_description, post_type_archive_title( $prefix='', $display=false ) );
+        $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
+        // Locale
+        $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
+        // Image
+        // Use a user defined image via filter. Otherwise use default image.
+        // First filter using a term/taxonomy agnostic filter name.
+        $posttype_image_url = apply_filters( 'amt_posttype_force_image_url', '', $post_type_object );
+        if ( empty($posttype_image_url) ) {
+            // Second filter (post type dependent).
+            // Construct the filter name. Template: ``amt_posttype_image_url_POSTTYPESLUG``
+            $taxonomy_image_url_filter_name = sprintf( 'amt_posttype_image_url_%s', $post_type_object->name);
+            //var_dump($taxonomy_image_url_filter_name);
+            // The default image, if set, is used by default.
+            $posttype_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+        }
+        if ( ! empty( $posttype_image_url ) ) {
+            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $posttype_image_url ) . '" />';
+            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $posttype_image_url ) ) . '" />';
+            }
+        }
+
+
     // Attachments
     } elseif ( is_attachment() ) {
 

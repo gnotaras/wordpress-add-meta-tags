@@ -364,8 +364,40 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                 $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cats_from_loop ) . '" />';
             }
         }
+    
+    // Custom Post Type Archive
+    } elseif ( is_post_type_archive() ) {
+
+        // Custom post type object.
+        // When viewing custom post type archives, the $post object is the custom post type object. Check with: var_dump($post);
+        $post_type_object = $post;
+        //var_dump($post_type_object);
+
+        if ($do_description) {
+            // Description
+            // Note: Contains multipage information through amt_process_paged()
+            // Add a filtered generic description.
+            // Construct the filter name. Template: ``amt_generic_description_posttype_POSTTYPESLUG_archive``
+            $custom_post_type_description_filter_name = sprintf( 'amt_generic_description_posttype_%s_archive', $post_type_object->name);
+            // var_dump($custom_post_type_description_filter_name);
+            // Generic description
+            $generic_description = apply_filters( $custom_post_type_description_filter_name, __('%s archive.', 'add-meta-tags') );
+            // Final generic description
+            $generic_description = sprintf( $generic_description, post_type_archive_title( $prefix='', $display=false ) );
+            $metadata_arr[] = '<meta name="description" content="' . esc_attr( amt_process_paged( $generic_description ) ) . '" />';
+        }
+        
+        // For the keywords metatag use the categories of the posts that are listed in the current page.
+        if ($do_keywords) {
+            // Here we sanitize the provided keywords for safety
+            $cats_from_loop = sanitize_text_field( amt_sanitize_keywords( implode( ', ', amt_get_categories_from_loop() ) ) );
+            if ( ! empty( $cats_from_loop ) ) {
+                $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $cats_from_loop ) . '" />';
+            }
+        }
         
     }
+
 
     // Add site wide meta tags
     if ( ! empty( $options["site_wide_meta"] ) ) {
