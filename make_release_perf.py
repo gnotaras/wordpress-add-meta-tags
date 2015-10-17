@@ -70,6 +70,9 @@ PHP_FILES_TO_COMBINE = [
 
 PLUGIN_METADATA_FILE = 'add-meta-tags.php'
 
+# The line number after which the code starts in the PLUGIN_METADATA_FILE.
+CODE_STARTS_AFTER_LINE = 50
+
 POT_HEADER = """#  POT (Portable Object Template)
 #
 #  This file is part of the Add-Meta-Tags plugin for WordPress.
@@ -206,15 +209,44 @@ open('a1.php', 'wb').write(combined_file)
 tmp_out = []
 for n, line in enumerate(StringIO.StringIO(combined_file)):
     line_stripped = line.strip()
-    if n < 60:
+    if n < CODE_STARTS_AFTER_LINE:
         tmp_out.append(line)    # Add plugin metadata and license info
     elif not line_stripped.startswith('<?php') and not line_stripped.startswith('//') and not line_stripped.startswith('* ') and not line_stripped == '*':
         tmp_out.append(line)
 combined_file = ''.join(tmp_out)
 
+# Strip empty multiline comments
+combined_file = re.sub(r'/\*[\*\s]*?\*/', '', combined_file, 0, re.DOTALL)
+
+
+DIRECT_ACCESS_CODE = '''if ( ! defined( 'ABSPATH' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    echo 'This file should not be accessed directly!';
+    exit; // Exit if accessed directly
+}
+'''
+# Remove all instances of the DIRECT_ACCESS_CODE from the combined file
+combined_file = combined_file.replace(DIRECT_ACCESS_CODE, '')
+# Now add the DIRECT_ACCESS_CODE in the beginning
+tmp_out = []
+code_added = False
+for n, line in enumerate(StringIO.StringIO(combined_file)):
+    if not code_added and n + 1 > CODE_STARTS_AFTER_LINE:
+        tmp_out.append(DIRECT_ACCESS_CODE)
+        code_added = True
+    tmp_out.append(line)
+combined_file = ''.join(tmp_out)
+
 #$text = preg_replace('!/\*.*?\*/!s', '', $text);
 #$text = preg_replace('/\n\s*\n/', "\n", $text);
-combined_file = re.sub(r'/\*[\*\s]*?\*/', '', combined_file, 0, re.DOTALL)
+
+# More than two consecutive linefeeds become 2 consecutive linefeeds
+combined_file = re.sub(r'\n\n\n+', '\n\n', combined_file, 0)
+# Remove comments at the end of the line
+#combined_file = re.sub(r'(?:(?!:)//.*)$', '', combined_file, 0, re.MULTILINE)
+# Remove trailing spaces
+#combined_file = re.sub(r'\s+$', '', combined_file, 0, re.MULTILINE)
+
 open('a2.php', 'wb').write(combined_file)
 
 
