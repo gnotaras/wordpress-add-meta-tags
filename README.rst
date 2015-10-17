@@ -20,8 +20,8 @@ community as Free software.
 
 Please visit the `official Add-Meta-Tags development web site`_ for more information.
 
-It is actively maintained since 2006 (`historical Add-Meta-Tags home`_).
+It is actively maintained since 2006 (`historical Add-Meta-Tags homepage`_).
 
 .. _`official Add-Meta-Tags development web site`: http://www.codetrax.org/projects/wp-add-meta-tags
-.. _`Add-Meta-Tags home`: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
+.. _`historical Add-Meta-Tags homepage`: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 
