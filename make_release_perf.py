@@ -77,9 +77,11 @@ POT_HEADER = """#  POT (Portable Object Template)
 #
 #  This file is part of the Add-Meta-Tags plugin for WordPress.
 #
-#  http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
+#  Read more information about the Add-Meta-Tags translations at:
 #
-#  Copyright (C) 2006-2013 George Notaras <gnot@g-loaded.eu>
+#    http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Translations
+#
+#  Copyright (C) 2006-2015 George Notaras <gnot@g-loaded.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
