@@ -712,7 +712,7 @@ function amt_get_content_keywords($post, $auto=true, $exclude_categories=false) 
     /**
      * Finally, add the global keywords, if they are set in the administration panel.
      */
-    #if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
+    //if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
     if ( $auto && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
 
         $options = get_option("add_meta_tags_opts");
