@@ -25,3 +25,21 @@ It is actively maintained since 2006 (`historical Add-Meta-Tags homepage`_).
 .. _`official Add-Meta-Tags development web site`: http://www.codetrax.org/projects/wp-add-meta-tags
 .. _`historical Add-Meta-Tags homepage`: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 
+
+Legal Notice
+------------
+
+Add-Meta-Tags is Copyright (c) 2006-2015 George Notaras. All rights reserved.
+
+Permission is granted to use this software under the terms of the `Apache
+License version 2`_ and the NOTICE file that ships with the distribution package.
+
+.. _`Apache License version 2`: http://www.apache.org/licenses/LICENSE-2.0
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH
+THE SOFTWARE.
