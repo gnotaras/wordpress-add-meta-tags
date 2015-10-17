@@ -189,13 +189,14 @@ for po_file in os.listdir('languages'):
 print 'Complete'
 print
 
-# Create production release
+# Create combined main plugin file.
 
 # Combine php files
 # First get the main file that contains the plugin metadata
 tmp_out = []
 f = open(PLUGIN_METADATA_FILE)
 for line in f:
+    # Strip require lines
     if not line.startswith('require'):
         tmp_out.append(line)
 f.close()
@@ -205,7 +206,7 @@ for php_file_path_parts in PHP_FILES_TO_COMBINE:
     combined_file += '\n\n\n\n////////%s\n\n\n\n' % os.path.join(*php_file_path_parts)
     combined_file += open(os.path.join(*php_file_path_parts)).read()
 # Write files
-open('a1.php', 'wb').write(combined_file)
+#open('a1.php', 'wb').write(combined_file)
 
 # Strip comments and php tags
 tmp_out = []
@@ -220,6 +221,13 @@ combined_file = ''.join(tmp_out)
 # Strip empty multiline comments
 combined_file = re.sub(r'/\*[\*\s]*?\*/', '', combined_file, 0, re.DOTALL)
 
+COMBINED_FILE_NOTICE = '''
+
+// This file is part of the production release package.
+// You can find the development release packages at:
+//   http://www.codetrax.org/projects/wp-add-meta-tags/files
+
+'''
 
 DIRECT_ACCESS_CODE = '''if ( ! defined( 'ABSPATH' ) ) {
     header( 'HTTP/1.0 403 Forbidden' );
@@ -227,6 +235,7 @@ DIRECT_ACCESS_CODE = '''if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 '''
+
 # Remove all instances of the DIRECT_ACCESS_CODE from the combined file
 combined_file = combined_file.replace(DIRECT_ACCESS_CODE, '')
 # Now add the DIRECT_ACCESS_CODE in the beginning
@@ -234,6 +243,7 @@ tmp_out = []
 code_added = False
 for n, line in enumerate(StringIO.StringIO(combined_file)):
     if not code_added and n + 1 > CODE_STARTS_AFTER_LINE:
+        tmp_out.append(COMBINED_FILE_NOTICE)
         tmp_out.append(DIRECT_ACCESS_CODE)
         code_added = True
     tmp_out.append(line)
