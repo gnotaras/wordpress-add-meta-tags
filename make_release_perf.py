@@ -102,6 +102,7 @@ import shutil
 import subprocess
 import polib
 import StringIO
+import re
 
 def get_name_release():
     def get_data(cur_line):
@@ -183,50 +184,9 @@ for po_file in os.listdir('languages'):
 print 'Complete'
 print
 
-print 'Creating distribution package...'
-# Create release dir and move release files inside it
-package_name = name + '-dev'
-os.mkdir(package_name)
-# Copy files
-for p_file in REL_FILES:
-	shutil.copy(p_file, os.path.join(package_name, p_file))
-# Copy dirs
-for p_dir in REL_DIRS:
-    shutil.copytree(p_dir, os.path.join(package_name, p_dir))
-
-# Create distribution package
-
-d_package_path = '%s-%s.zip' % (package_name, release)
-d_package = zipfile.ZipFile(d_package_path, 'w', zipfile.ZIP_DEFLATED)
-
-# Append root files
-for p_file in REL_FILES:
-	d_package.write(os.path.join(package_name, p_file))
-# Append language directory
-for p_dir in REL_DIRS:
-    d_package.write(os.path.join(package_name, p_dir))
-    # Append files in that directory
-    for p_file in os.listdir(os.path.join(package_name, p_dir)):
-        d_package.write(os.path.join(package_name, p_dir, p_file))
-
-d_package.testzip()
-
-d_package.comment = 'Official packaging by CodeTRAX'
-
-d_package.printdir()
-
-d_package.close()
-
-
-# Remove the release dir
-
-shutil.rmtree(package_name)
-
-
 # Create production release
 
 # Combine php files
-combined_file = ''
 # First get the main file that contains the plugin metadata
 tmp_out = []
 f = open(PLUGIN_METADATA_FILE)
@@ -234,14 +194,15 @@ for line in f:
     if not line.startswith('require'):
         tmp_out.append(line)
 f.close()
-combined_file += ''.join(tmp_out)
+combined_file = ''.join(tmp_out)
 # Next combine the rest of files
 for php_file_path_parts in PHP_FILES_TO_COMBINE:
     combined_file += '\n\n\n\n////////%s\n\n\n\n' % os.path.join(*php_file_path_parts)
     combined_file += open(os.path.join(*php_file_path_parts)).read()
 # Write files
 open('a1.php', 'wb').write(combined_file)
-# Strip comments
+
+# Strip comments and php tags
 tmp_out = []
 for n, line in enumerate(StringIO.StringIO(combined_file)):
     line_stripped = line.strip()
@@ -249,51 +210,71 @@ for n, line in enumerate(StringIO.StringIO(combined_file)):
         tmp_out.append(line)    # Add plugin metadata and license info
     elif not line_stripped.startswith('<?php') and not line_stripped.startswith('//') and not line_stripped.startswith('* ') and not line_stripped == '*':
         tmp_out.append(line)
-open('a2.php', 'wb').write(''.join(tmp_out))
+combined_file = ''.join(tmp_out)
+
+#$text = preg_replace('!/\*.*?\*/!s', '', $text);
+#$text = preg_replace('/\n\s*\n/', "\n", $text);
+combined_file = re.sub(r'/\*[\*\s]*?\*/', '', combined_file, 0, re.DOTALL)
+open('a2.php', 'wb').write(combined_file)
 
 
-print 'Creating distribution package...'
-# Create release dir and move release files inside it
-package_name = name
-os.mkdir(package_name)
-# Put combined file
-open(os.path.join(package_name, PLUGIN_METADATA_FILE), 'wb').write(''.join(tmp_out))
-# Copy files
-for p_file in PROD_REL_FILES:
-	shutil.copy(p_file, os.path.join(package_name, p_file))
-# Copy dirs
-for p_dir in PROD_REL_DIRS:
-    shutil.copytree(p_dir, os.path.join(package_name, p_dir))
+for package_name in (name, name + '-dev'):
+    # Set some variables according to the package we are generating
+    # If this is the production package
+    if package_name == name:
+        print 'Creating the official production distribution package...'
+        FILE_LIST = PROD_REL_FILES
+        DIR_LIST = PROD_REL_DIRS
+        has_combined = True
+    else:
+        print 'Creating the official development distribution package...'
+        FILE_LIST = REL_FILES
+        DIR_LIST = REL_DIRS
+        has_combined = False
 
-# Create distribution package
+    # Create release dir and move release files inside it
+    os.mkdir(package_name)
 
-d_package_path = '%s-%s.zip' % (package_name, release)
-d_package = zipfile.ZipFile(d_package_path, 'w', zipfile.ZIP_DEFLATED)
+    # If this is the production package, add the combined file
+    if has_combined:
+        open(os.path.join(package_name, PLUGIN_METADATA_FILE), 'wb').write(''.join(tmp_out))
+    # Copy files
+    for p_file in FILE_LIST:
+        shutil.copy(p_file, os.path.join(package_name, p_file))
+    # Copy dirs
+    for p_dir in DIR_LIST:
+        shutil.copytree(p_dir, os.path.join(package_name, p_dir))
 
-# Add combined file
-d_package.write(os.path.join(package_name, PLUGIN_METADATA_FILE))
-# Append root files
-for p_file in PROD_REL_FILES:
-	d_package.write(os.path.join(package_name, p_file))
-# Append language directory
-for p_dir in PROD_REL_DIRS:
-    d_package.write(os.path.join(package_name, p_dir))
-    # Append files in that directory
-    for p_file in os.listdir(os.path.join(package_name, p_dir)):
-        d_package.write(os.path.join(package_name, p_dir, p_file))
+    # Create distribution package
 
-d_package.testzip()
+    d_package_path = '%s-%s.zip' % (package_name, release)
+    d_package = zipfile.ZipFile(d_package_path, 'w', zipfile.ZIP_DEFLATED)
 
-d_package.comment = 'Official packaging by CodeTRAX'
+    # If this is the production package, add the combined file
+    if has_combined:
+        d_package.write(os.path.join(package_name, PLUGIN_METADATA_FILE))
+    # Append root files
+    for p_file in FILE_LIST:
+        d_package.write(os.path.join(package_name, p_file))
+    # Append language directory
+    for p_dir in DIR_LIST:
+        d_package.write(os.path.join(package_name, p_dir))
+        # Append files in that directory
+        for p_file in os.listdir(os.path.join(package_name, p_dir)):
+            d_package.write(os.path.join(package_name, p_dir, p_file))
 
-d_package.printdir()
+    d_package.testzip()
 
-d_package.close()
+    d_package.comment = 'Official packaging by CodeTRAX'
+
+    d_package.printdir()
+
+    d_package.close()
 
 
-# Remove the release dir
+    # Remove the release dir
 
-shutil.rmtree(package_name)
+    shutil.rmtree(package_name)
 
 
 print 'Complete'
