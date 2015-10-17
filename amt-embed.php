@@ -145,7 +145,8 @@ function amt_embed_template_include( $default_template ) {
         //   - http://codex.wordpress.org/Function_Reference/get_stylesheet_directory
         $template_in_theme_dir = get_stylesheet_directory() . '/' . $embed_template;
         //var_dump($template_in_theme_dir);
-        $template_in_plugin_dir = AMT_PLUGIN_DIR . 'templates/' . $embed_template;
+        //$template_in_plugin_dir = AMT_PLUGIN_DIR . 'templates/' . $embed_template;
+        $template_in_plugin_dir = plugin_dir_path( AMT_PLUGIN_FILE ) . 'templates/' . $embed_template;
         //var_dump($template_in_plugin_dir);
         if ( file_exists( $template_in_theme_dir ) ) {
             return $template_in_theme_dir;

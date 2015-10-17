@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Store plugin directory
-define( 'AMT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+//define( 'AMT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 // Store plugin main file path
 define( 'AMT_PLUGIN_FILE', __FILE__ );
 
