@@ -1,0 +1,42 @@
+{
+    "name"       : "gnotaras/add-meta-tags",
+    "description": "Adds basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and Dublin Core metadata to your content and WooCommerce products for better SEO.",
+	"keywords"   : ["wordpress", "metadata", "meta tags"],
+    "homepage"   : "http://www.codetrax.org/projects/wp-add-meta-tags",
+    "type"       : "wordpress-plugin",
+    "license"    : "Apache-2.0",
+	"authors": [
+		{
+			"name"      : "George Notaras",
+			"email"     : "gnot@g-loaded.eu",
+			"homepage"  : "http://www.g-loaded.eu",
+            "role"      : "developer"
+		}
+	],
+    "repositories"  : [
+        {
+            "type"  : "hg",
+            "url"   : "https://bitbucket.org/gnotaras/wordpress-add-meta-tags"
+        },
+        {
+            "type"  : "git",
+            "url"   : "https://github.com/gnotaras/wordpress-add-meta-tags"
+        },
+        {
+            "type"  : "svn",
+            "url"   : "http://plugins.svn.wordpress.org/add-meta-tags/",
+            "trunk-path"    : "trunk",
+            "branches-path" : "branches",
+            "tags-path"     : "tags"
+        }
+    ],
+    "support": {
+        "wiki"      : "http://www.codetrax.org/projects/wp-add-meta-tags/wiki",
+        "docs"      : "http://www.codetrax.org/projects/wp-add-meta-tags/wiki",
+        "issues"    : "https://github.com/gnotaras/wordpress-add-meta-tags/issues",
+        "source"    : "https://bitbucket.org/gnotaras/wordpress-add-meta-tags/src"
+    },
+    "require"    : {
+        "composer/installers": "~1.0"
+    }
+}
