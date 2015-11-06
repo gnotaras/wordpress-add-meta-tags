@@ -61,17 +61,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'AMT_PLUGIN_FILE', __FILE__ );
 
 // Import modules
-require_once( AMT_PLUGIN_DIR . 'amt-settings.php' );
-require_once( AMT_PLUGIN_DIR . 'amt-admin-panel.php' );
-require_once( AMT_PLUGIN_DIR . 'amt-utils.php' );
-require_once( AMT_PLUGIN_DIR . 'amt-template-tags.php' );
-require_once( AMT_PLUGIN_DIR . 'amt-embed.php' );
-require_once( AMT_PLUGIN_DIR . 'metadata/amt_basic.php' );
-require_once( AMT_PLUGIN_DIR . 'metadata/amt_twitter_cards.php' );
-require_once( AMT_PLUGIN_DIR . 'metadata/amt_opengraph.php' );
-require_once( AMT_PLUGIN_DIR . 'metadata/amt_dublin_core.php' );
-require_once( AMT_PLUGIN_DIR . 'metadata/amt_schemaorg.php' );
-require_once( AMT_PLUGIN_DIR . 'metadata/amt_extended.php' );
+require( AMT_PLUGIN_DIR . 'amt-settings.php' );
+require( AMT_PLUGIN_DIR . 'amt-admin-panel.php' );
+require( AMT_PLUGIN_DIR . 'amt-utils.php' );
+require( AMT_PLUGIN_DIR . 'amt-template-tags.php' );
+require( AMT_PLUGIN_DIR . 'amt-embed.php' );
+require( AMT_PLUGIN_DIR . 'metadata/amt_basic.php' );
+require( AMT_PLUGIN_DIR . 'metadata/amt_twitter_cards.php' );
+require( AMT_PLUGIN_DIR . 'metadata/amt_opengraph.php' );
+require( AMT_PLUGIN_DIR . 'metadata/amt_dublin_core.php' );
+require( AMT_PLUGIN_DIR . 'metadata/amt_schemaorg.php' );
+require( AMT_PLUGIN_DIR . 'metadata/amt_extended.php' );
 
 /**
  * Translation Domain
