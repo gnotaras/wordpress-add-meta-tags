@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-18 07:14+0300\n"
-"PO-Revision-Date: 2015-09-21 09:45+0000\n"
+"PO-Revision-Date: 2015-10-08 05:57+0000\n"
 "Last-Translator: Michael Kotsarinis <mk73628@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/codetrax/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Add Meta Tags"
 msgid ""
 "Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards "
 "and Dublin Core metadata to optimize your web site for better SEO."
-msgstr "Προσθέστε βασικά meta tags και επίσης Opengraph, Schema.org, Twitter Cards και μεταδεδομένα Dublin Core για να βελτιστοποιήσετε τον ιστοχώρο σας για τις μηχανές αναζήτησης."
+msgstr "Προσθέστε βασικές ετικέτες μεταδεδομένων -meta tags- και επίσης μεταδεδομένα Opengraph, Schema.org, Twitter Cards και Dublin Core για να βελτιστοποιήσετε τον ιστότοπό σας για καλύτερη κατάταξη στις μηχανές αναζήτησης -SEO."
 
 #: amt-admin-panel.php:87 amt-admin-panel.php:477
 msgid "Metadata Settings"
@@ -60,7 +60,7 @@ msgstr "Μεταδεδομένα"
 
 #: amt-admin-panel.php:120
 msgid "Welcome to the Add-Meta-Tags Documentation."
-msgstr "Καλωσήλθατε στην Τεκμηρίωση του "
+msgstr "Καλωσήλθατε στην Τεκμηρίωση του Add-Meta-Tags"
 
 #: amt-admin-panel.php:122
 msgid ""
@@ -108,7 +108,7 @@ msgid ""
 "Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The "
 "plugin also supports some extra SEO related functionality that helps you "
 "fine tune your web site."
-msgstr "Το πρόσθετο Add-Meta-Tags προσπαθεί να ακολουθεί την Αρχή \"<em>Απλά δουλεύει</em>\". Εξ'ορισμού, τα meta tags <em>description</em> και <em>keywords</em> προστίθενται στην πρώτη σελίδα, τα άρθρα, τις σελίδες, τους δημόσιους προσαρμοσμένους τύπους άρθρων, τις σελίδες των συνημμένων, τα αρχεία βάσει κατηγορίας, ετικέτας, προσαρμοσμένης ταξινόμησης και συγγραφέα. Επιπρόσθετα, είναι δυνατό να ενεργοποιήσετε τη δημιουργία μεταδεδομένων <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> και <em>Schema.org</em>. Το πρόσθετο επίσης υποστηρίζει μερικές επιπλέον επιλογές SEO οι οποίες βοηθούν να βλτιώσετε τον ιστότοπό σας."
+msgstr "Το πρόσθετο Add-Meta-Tags προσπαθεί να ακολουθεί την αρχή \"<em>Απλά δουλεύει</em>\". Εξ'ορισμού, οι ετικέτες μεταδεδομένων <em>description</em> και <em>keywords</em> προστίθενται στην πρώτη σελίδα, τα άρθρα, τις σελίδες, τους δημόσιους προσαρμοσμένους τύπους άρθρων, τις σελίδες των συνημμένων, τα αρχεία βάσει κατηγορίας, ετικέτας, προσαρμοσμένης ταξινόμησης και συγγραφέα. Επιπρόσθετα, είναι δυνατό να ενεργοποιήσετε τη δημιουργία μεταδεδομένων <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> και <em>Schema.org</em>. Το πρόσθετο επίσης υποστηρίζει μερικές επιπλέον επιλογές SEO οι οποίες βοηθούν να βελτιώσετε τον ιστότοπό σας."
 
 #: amt-admin-panel.php:141
 msgid ""
@@ -118,7 +118,7 @@ msgid ""
 "<em>Metadata</em> box is not visible, you probably need to enable it at the "
 "<a href=\"http://en.support.wordpress.com/screen-options/\">Screen "
 "Options</a> of the post editing panel."
-msgstr "Τα μεταδεδομένα που δημιουργούνται αυτόματα μπορούν να προσαρμοστούν περαιτέρω για κάθε άρθρο ξεχωριστά ή για κάθε δημόσιο προσαρμοσμένο τύπο άρθρου απ'ευθείας από το πλάισιο <em>Μεταδεδομένα</em> στην οθόνη επεξεργασίας άρθρου. Αν το πλαίσιο <em>Μεταδεδομένα</em> δεν είναι ορατό, πιθανότατα χρειάζεται να το ενεργοποιήσετε στις <a href=\"http://en.support.wordpress.com/screen-options/\">Επιλογές Οθόνης</a> στην οθόνη επεξεργασίας άρθρου."
+msgstr "Τα μεταδεδομένα που δημιουργούνται αυτόματα μπορούν να προσαρμοστούν περαιτέρω για κάθε άρθρο ξεχωριστά ή για κάθε δημόσιο προσαρμοσμένο τύπο άρθρου απ'ευθείας από το πλαίσιο <em>Μεταδεδομένα</em> στην οθόνη επεξεργασίας άρθρου. Αν το πλαίσιο <em>Μεταδεδομένα</em> δεν είναι ορατό, πιθανότατα χρειάζεται να το ενεργοποιήσετε στις <a href=\"http://en.support.wordpress.com/screen-options/\">Επιλογές Οθόνης</a> στην οθόνη επεξεργασίας άρθρου."
 
 #: amt-admin-panel.php:143
 msgid ""
@@ -148,7 +148,7 @@ msgid ""
 "<strong>front page</strong>. If this is left empty, then the blog's "
 "<em>Tagline</em> from the <a href=\"options-general.php\">General "
 "Options</a> will be used."
-msgstr "Εισάγετε μια σύντομη (μήκους 150-250 χαρακτήρων) περιγραφή του ιστολογίου σας. Αυτό το κείμενο θα χρησιμοποιηθεί στο <em>description</em> και σε άλλα παρόμοια meta tags στην <strong>πρώτη σελίδα</strong>. Αν το πεδίο παραμείνει κενό, τότε θα χρησιμοποιηθεί η <em>Περιγραφή</em> του ιστολογίου από τις <a href=\"options-general.php\">Γενικές Ρυθμίσεις</a>."
+msgstr "Εισάγετε μια σύντομη (μήκους 150-250 χαρακτήρων) περιγραφή του ιστολογίου σας. Αυτό το κείμενο θα χρησιμοποιηθεί στο <em>description</em> και σε άλλες παρόμοιες ετικέτες μεταδεδομένων στην <strong>πρώτη σελίδα</strong>. Αν το πεδίο παραμείνει κενό, τότε θα χρησιμοποιηθεί η <em>Περιγραφή</em> του ιστολογίου από τις <a href=\"options-general.php\">Γενικές Ρυθμίσεις</a>."
 
 #: amt-admin-panel.php:157 amt-admin-panel.php:595 amt-admin-panel.php:598
 msgid "Front Page Keywords"
@@ -161,7 +161,7 @@ msgid ""
 "page</strong>. If this field is left empty, then all of your blog's <a href"
 "=\"edit-tags.php?taxonomy=category\">categories</a> will be used as keywords"
 " for the <em>keywords</em> meta tag."
-msgstr "Εισάγετε μια λίστα λέξεων-κλειδιών για το ιστολόγιό σας. Αυτές οι λέξεις-κλειδιά θα χρησιμοποιηθούν στο metatag <em>keywords</em> στην <strong>πρώτη σελίδα</strong>. Αν αυτό το πεδίο παραμείνει κενό, τότε όλες οι <a href=\"edit-tags.php?taxonomy=category\">κατηγορίες</a> του ιστολογίου σας θα χρησιμοποιηθούν ως λέξεις-κλειδιά για το metatag <em>keywords</em>."
+msgstr "Εισάγετε μια λίστα λέξεων-κλειδιών, χωρισμένων με κόμματα, για το ιστολόγιό σας. Αυτές οι λέξεις-κλειδιά θα χρησιμοποιηθούν στην ετικέτα μεταδεδομένων <em>keywords</em> στην <strong>πρώτη σελίδα</strong>. Αν αυτό το πεδίο παραμείνει κενό, τότε όλες οι <a href=\"edit-tags.php?taxonomy=category\">κατηγορίες</a> του ιστολογίου σας θα χρησιμοποιηθούν ως λέξεις-κλειδιά για την ετικέτα μεταδεδομένων <em>keywords</em>."
 
 #: amt-admin-panel.php:160 amt-admin-panel.php:165 amt-admin-panel.php:167
 #: amt-admin-panel.php:194 amt-admin-panel.php:199 amt-admin-panel.php:204
@@ -183,7 +183,7 @@ msgstr "Γενικές λέξεις-κλειδιά"
 msgid ""
 "Enter a comma-delimited list of global keywords which will be added before "
 "the keywords of <strong>all</strong> posts and pages."
-msgstr "Εισάγετε μια λίστα γενικών λέξεων-κλειδιών χωρισμένων με κόμμα οι οποίες θα προστεθούν πριν από τις λέξεις κλειδιά σε <strong>όλες</strong> τις αναρτήσεις και τις σελίδες."
+msgstr "Εισάγετε μια λίστα γενικών λέξεων-κλειδιών, χωρισμένων με κόμματα, οι οποίες θα προστεθούν πριν από τις λέξεις κλειδιά σε <strong>όλες</strong> τις αναρτήσεις και τις σελίδες."
 
 #: amt-admin-panel.php:166
 msgid ""
@@ -192,7 +192,7 @@ msgid ""
 "placeholder, which will be populated with the post/page's autogenerated or "
 "user-defined keywords. This way you can globally both prepend and append "
 "keywords to the <em>keywords</em> of your content."
-msgstr "Εξ'ορισμού, αυτές οι λέξεις-κλειδιά προστίθενται πριν από εκείνες του άρθρου ή της σελίδας. Για επιπρόσθετη προσαρμοστικότητα, είναι δυνατό να χρησιμοποιήσετε τον αντικαταστάτη <code>%contentkw%</code>, ο οποίος θα εκπτυχθεί στις λέξεις-κλειδιά του άρθρου ή της σελίδας, οι οποίες έχουν παραγθεί αυτόματα ή οριστεί από τον χρήστη. Με αυτόν τον τρόπο μπορείτε να προσθέτετε λέξεις-κλειδιά καθολικά, τόσο πριν όσο και μετά τις λέξεις-κλειδιά του περιεχομένου σας."
+msgstr "Εξ ορισμού, αυτές οι λέξεις-κλειδιά προστίθενται πριν από εκείνες του άρθρου ή της σελίδας. Για επιπρόσθετη ευελιξία, είναι δυνατό να χρησιμοποιήσετε τον αντικαταστάτη <code>%contentkw%</code>, ο οποίος θα αντικατασταθεί με τις λέξεις-κλειδιά του άρθρου ή της σελίδας, οι οποίες έχουν παραχθεί αυτόματα ή οριστεί από τον χρήστη. Με αυτόν τον τρόπο μπορείτε να προσθέτετε λέξεις-κλειδιά καθολικά, τόσο πριν όσο και μετά τις λέξεις-κλειδιά του περιεχομένου σας."
 
 #: amt-admin-panel.php:167
 msgid "keyword1, keyword2, %contentkw%, keyword3"
@@ -222,13 +222,13 @@ msgstr "Γενικές ρυθμίσεις"
 msgid ""
 "This section contains options related to your web site; the publisher of the"
 " content."
-msgstr "Αυτή η ενότητα περιέχει ρυθμίσεις για τον ιστοχώρο, τον εκδότη του περιεχομένου."
+msgstr "Αυτή η ενότητα περιέχει ρυθμίσεις σχετικές με τον ιστότοπο, τον εκδότη του περιεχομένου."
 
 #: amt-admin-panel.php:189 amt-admin-panel.php:654
 msgid ""
 "The following publisher related settings are shared among all users. Filling"
 " in these settings is entirely optional."
-msgstr "Τα παρακάτω στοιχεία σχετικά με τον εκδότη είναι κοινά για όλους τους χρήστες. Η συμπλήρωση αυτών των πεδίων είναι προαιρετική."
+msgstr "Οι παρακάτω ρυθμίσεις σχετικά με τον εκδότη είναι κοινές για όλους τους χρήστες. Η συμπλήρωση αυτών των πεδίων είναι προαιρετική."
 
 #: amt-admin-panel.php:191 amt-admin-panel.php:241 amt-admin-panel.php:656
 #: metadata\amt_opengraph.php:72
@@ -243,7 +243,7 @@ msgstr "Εισάγετε το απόλυτο URL του προφίλ του εκ
 
 #: amt-admin-panel.php:196 amt-admin-panel.php:690
 msgid "Google+ publisher profile URL"
-msgstr "Διεύθυνση σελίδας εκδότη στο Google+"
+msgstr "Διεύθυνση προφίλ εκδότη στο Google+"
 
 #: amt-admin-panel.php:198 amt-admin-panel.php:695
 msgid ""
@@ -263,7 +263,7 @@ msgstr "Εισάγετε το όνομα χρήστη του λογαριασμ�
 
 #: amt-admin-panel.php:207 amt-admin-panel.php:648 amt-admin-panel.php:651
 msgid "Publisher Settings"
-msgstr "Ρυθμίσεις εκδότη"
+msgstr "Ρυθμίσεις Εκδότη"
 
 #: amt-admin-panel.php:214 amt-admin-panel.php:725
 msgid "Automatically generate the <em>description</em> meta tag."
@@ -1031,7 +1031,7 @@ msgstr "Προσθήκη του <code>NOINDEX,FOLLOW</code> στην ετικέ�
 
 #: amt-admin-panel.php:910
 msgid "Search results."
-msgstr "Αποτελέσματα αναζήτησης"
+msgstr "Αποτελέσματα αναζήτησης."
 
 #: amt-admin-panel.php:910
 msgid "Highly recommended"

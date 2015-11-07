@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-18 07:14+0300\n"
-"PO-Revision-Date: 2015-09-19 09:52+0000\n"
+"PO-Revision-Date: 2015-10-01 05:05+0000\n"
 "Last-Translator: BouRock\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/codetrax/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -724,7 +724,7 @@ msgstr "Şurada belirtilen arşiv türlerindeki <em>robots</em> meta etiketine <
 #: amt-admin-panel.php:376 amt-admin-panel.php:942
 msgid ""
 "Enforce the use of the content's custom title in the generated metadata."
-msgstr "Üretilen metadata içinde içeriğin özel başlığını kullanmaya zorlar."
+msgstr "Üretilen metadata içinde içeriğin özel başlığını kullanmaya zorla."
 
 #: amt-admin-panel.php:378
 msgid ""
@@ -741,7 +741,7 @@ msgstr "Yazı düzenleme sayfasında 'Metadata' kutusunun ilgili alanındaki iç
 
 #: amt-admin-panel.php:380 amt-admin-panel.php:949
 msgid "Enable advanced SEO title management."
-msgstr "Gelişmiş SEO (Arama Motoru İyileştirmesi) başlığı yönetimini etkinleştirir."
+msgstr "Gelişmiş SEO (Arama Motoru İyileştirmesi) başlığı yönetimini etkinleştir."
 
 #: amt-admin-panel.php:382
 msgid ""
@@ -793,7 +793,7 @@ msgid ""
 "this options is enabled, additional <code>og:image:secure_url</code> meta "
 "tags will be generated for your local media. If the current connection uses "
 "HTTPS, then secure links are always generated."
-msgstr "Şu anda bu seçenek, etkinleştirilirse, aktif bağlantı HTTPS kullanmasa bile ek güvenli bağlantıların oluşturulup oluşturulmayacağı konusunda eklentinin kararlar vermesine izin verir. Örnek olarak, web sitenize HTTP üzerinden erişiliyorsa ve bu seçenek etkinleştirilirse, yerel ortamınız için ek <code>og:image:secure_url</code> meta etiketleri oluşturulacaktır. Eğer şu anki bağlantı HTTPS kullanıyorsa, o zaman güvenli bağlantılar her zaman oluşturulur."
+msgstr "Şu anda bu seçenek, etkinleştirildiyse, aktif bağlantı HTTPS kullanmasa bile ek güvenli bağlantıların oluşturulup oluşturulmayacağı konusunda eklentinin kararlar vermesine izin verir. Örnek olarak, web sitenize HTTP üzerinden erişiliyorsa ve bu seçenek etkinleştirilirse, yerel ortamınız için ek <code>og:image:secure_url</code> meta etiketleri oluşturulacaktır. Eğer şu anki bağlantı HTTPS kullanıyorsa, o zaman güvenli bağlantılar her zaman oluşturulur."
 
 #: amt-admin-panel.php:400 amt-admin-panel.php:1005 amt-admin-panel.php:1008
 msgid "Media Limit"
@@ -855,7 +855,7 @@ msgid ""
 "above the post's content) containing the metadata exactly as it is added in "
 "the HTML head and body. The box is displayed for posts, pages, attachments "
 "and custom post types."
-msgstr "Etkinleştirilmişse, yönetici yetkileri olan WordPress kullanıcıları, HTML başlığına (head) ve gövdesine (body) olduğu gibi eklenen metadata içeren bir kutu (yazının içeriğinin üzerinde sağda) görürler. Kutu; yazılar, sayfalar, ekler ve özel sayfa türleri için görüntülenir."
+msgstr "Etkinleştirildiyse, yönetici yetkileri olan WordPress kullanıcıları, HTML başlığına (head) ve gövdesine (body) olduğu gibi eklenen metadata içeren bir kutu (yazının içeriğinin üzerinde sağda) görürler. Kutu; yazılar, sayfalar, ekler ve özel sayfa türleri için görüntülenir."
 
 #: amt-admin-panel.php:423
 msgid "Extra settings"
