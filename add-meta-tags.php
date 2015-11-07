@@ -55,10 +55,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-// Store plugin directory
-//define( 'AMT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
 // Store plugin main file path
 define( 'AMT_PLUGIN_FILE', __FILE__ );
+// Store plugin directory
+// NOTE: TODO: Consider using __DIR__ (requires PHP >=5.3) instead of dirname.
+// See: http://stackoverflow.com/questions/2220443/whats-better-of-requiredirname-file-myparent-php-than-just-require#comment18170996_12129877
+//define( 'AMT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'AMT_PLUGIN_DIR', dirname(AMT_PLUGIN_FILE) . '/' );
 
 // Import modules
 require( AMT_PLUGIN_DIR . 'amt-settings.php' );
