@@ -69,7 +69,10 @@ function amt_admin_init() {
 
     // Perform automatic settings upgrade based on settings version.
     // Also creates initial default settings automatically.
-    amt_plugin_upgrade();
+    // NOTE: Reverted back to the test performed in amt-settings.php, because otherwise
+    // the ``is_array($options) && array_has_key('foo', $options)`` should be performed
+    // every time a setting value is retrieved from the settings array.
+    //amt_plugin_upgrade();
 
     // Register scripts and styles
 
