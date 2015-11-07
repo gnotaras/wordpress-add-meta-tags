@@ -3,8 +3,8 @@ Contributors: gnotaras
 Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, optimize, ranking, metatag, schema, google, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
-Tested up to: 4.3
-Stable tag: 2.9.4
+Tested up to: 4.4
+Stable tag: 2.9.5
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -107,6 +107,13 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.5](http://www.codetrax.org/versions/302)
+ - The *Advanced Titles* feature now properly supports the management of titles of custom post type archives.
+ - Metadata is now generated for archives of custom post types.
+ - Reverted back to the old check of the version of the plugin settings which properly upgrades the settings whever necessary without having to access the admin interface. (props to Eddie McHam for providing useful feedback about this issue)
+ - Updated the [theme requirements](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Requirements#Theme-Requirements).
+ - Added extra filter that removes shortcodes which have not been properly registered using the WordPress Shortcode API.
+ - Some minor modifications which should result in slightly better performance in some cases.
 - [2.9.4](http://www.codetrax.org/versions/301)
  - Updated translations. The plugin now ships with a complete Greek translation. Big thanks to Michael Kotsarinis for contributing to the project!
 - [2.9.3](http://www.codetrax.org/versions/300)
