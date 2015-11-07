@@ -101,11 +101,7 @@ No screenshots are available at this time.
 
 = IMPORTANT NOTICE ABOUT POLICY CHANGE =
 
-For some technical, but mostly for non-technical reasons, I no longer monitor, participate or provide support in the wordpress org forums. This decision is final. Please check the [description page](https://wordpress.org/plugins/add-meta-tags/) of the plugin for information about your free support options. Your detailed feedback is always welcome and much appreciated.
-
-Keep in mind that stable releases of this plugin will continue to be pushed to the subversion repository at wordpress org as usual, so that your self hosted wordpress sites can automatically receive updates from the default plugin repository.
-
-Rest assured that my plugins are actively and well maintained regardless of my involvement or non-involvement in the wordpress community. Development has always been taking place on an external facility anyway, so it is not affected in any way.
+For some technical, but mostly for non-technical reasons, I no longer monitor, participate or provide support in the wordpress org forums. Please post your support requests, issue reports and feature requests in the [issue tracker](https://github.com/gnotaras/wordpress-add-meta-tags/issues) at Github.
 
 = Changelog Entries =
 
