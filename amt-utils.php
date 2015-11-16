@@ -820,6 +820,37 @@ function amt_get_metadata_metabox_permissions() {
 
 
 /**
+ * Helper function that returns an array of the supported custom fields.
+ */
+function amt_get_post_custom_field_names() {
+    return array(
+        '_amt_description',
+        '_amt_keywords',
+        '_amt_title',
+        '_amt_news_keywords',
+        '_amt_full_metatags',
+        '_amt_image_url',
+        '_amt_content_locale',
+        '_amt_express_review',
+        '_amt_referenced_list',
+    );
+}
+
+/**
+ * Helper function that returns an array of the supported user contactinfos.
+ */
+function amt_get_user_contactinfo_field_names() {
+    return array(
+        'amt_facebook_author_profile_url',
+        'amt_facebook_publisher_profile_url',
+        'amt_googleplus_author_profile_url',
+        'amt_googleplus_publisher_profile_url',
+        'amt_twitter_author_username',
+        'amt_twitter_publisher_username',
+    );
+}
+
+/**
  * Helper function that returns an array containing the post types
  * on which the Metadata metabox should be added.
  *
