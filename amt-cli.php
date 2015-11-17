@@ -19,7 +19,7 @@
  *
  *  Licensing Information
  *
- *  Copyright 2006-2013 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
+ *  Copyright 2006-2015 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+if ( defined('WP_CLI') && WP_CLI ):
+
+
 /**
  * Implements the Add-Meta-Tags command line interface.
  *
@@ -59,33 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AMT_Command extends WP_CLI_Command {
 
     /**
-     * Prints information about Add-Meta-Tags.
-     * 
-     * ## OPTIONS
-     * 
-     * <name>
-     * : The name of the person to greet.
-     * 
-     * ## EXAMPLES
-     * 
-     *     wp amt info Newman
-     *
-     * @synopsis <name>
-     */
-    function info( $args, $assoc_args ) {
-        list( $name ) = $args;
-
-        // get_plugin_data( $plugin_file, $markup = true, $translate = true )
-        //$plugin info = get_plugin_data( AMT_PLUGIN_DIR . 'add-meta-tags.php', $markup = true, $translate = true );
-        // WP_CLI::line( ' ' );
-        // WP_CLI::line( count( $field_groups ) . ' field groups found for blog_id ' . $blog['blog_id'] );
-
-        // Print a success message
-        WP_CLI::success( "Hello, $name!" );
-    }
-
-    /**
-     * Prints status of Add-Meta-Tags on all blogs.
+     * Prints a status message about Add-Meta-Tags installation. (not implemented)
      * 
      * ## EXAMPLES
      * 
@@ -95,6 +72,7 @@ class AMT_Command extends WP_CLI_Command {
      */
     function status( $args, $assoc_args ) {
 
+/*
         if ( is_multisite() ) {
             $blog_list = get_blog_list( 0, 'all' );
         } else {
@@ -123,19 +101,52 @@ class AMT_Command extends WP_CLI_Command {
 
         // Print a success message
         WP_CLI::success( "Operation complete." );
+*/
+        WP_CLI::error('Not implemented');
     }
 
+
     /**
-     * Upgrades the Add-Meta-Tags settings.
+     * Upgrades the settings.
+     * 
+     * ## OPTIONS
+     * 
+     * [--network-wide]
+     * : Perform the settings upgrade on all blogs of the network.
      * 
      * ## EXAMPLES
      * 
-     *     wp amt upgrade-setting
+     *     wp amt upgrade
+     *     wp amt upgrade --network-wide
      *
-     * @synopsis
+     * @synopsis [--network-wide]
      */
     function upgrade( $args, $assoc_args ) {
 
+        // Multisite
+        if ( $assoc_args['network-wide'] ) {
+            if ( ! is_multisite() ) {
+                WP_CLI::error('No network detected. Please use \'--network-wide\' on network installations only.');
+            }
+            $blog_list = get_blog_list( 0, 'all' );
+            if ( empty($blog_list) ) {
+                WP_CLI::error('No blogs could be found.');
+            }
+            foreach ( $blog_list as $blog ) {
+                switch_to_blog( $blog['blog_id'] );
+                $plugin_info = get_plugin_data( plugin_dir_path( __FILE__ ) . 'add-meta-tags.php', $markup=true, $translate=true );
+                WP_CLI::line( 'Upgrading settings of: ' . get_bloginfo('name') . ' - (ID: ' . $blog['blog_id'] . ')' );
+                amt_plugin_upgrade();
+                restore_current_blog();
+            }
+            WP_CLI::success('Add-Meta-Tags settings have been upgraded network wide.');
+        }
+
+        // Single site installation
+        amt_plugin_upgrade();
+        WP_CLI::success('Add-Meta-Tags settings have been upgraded.');
+
+/*
         if ( is_multisite() ) {
             $blog_list = get_blog_list( 0, 'all' );
         } else {
@@ -154,7 +165,7 @@ class AMT_Command extends WP_CLI_Command {
                 restore_current_blog();
             }
         }
-
+*/
 
         // get_plugin_data( $plugin_file, $markup = true, $translate = true )
         //$plugin info = get_plugin_data( AMT_PLUGIN_DIR . 'add-meta-tags.php', $markup = true, $translate = true );
@@ -162,17 +173,17 @@ class AMT_Command extends WP_CLI_Command {
         // WP_CLI::line( count( $field_groups ) . ' field groups found for blog_id ' . $blog['blog_id'] );
 
         // Print a success message
-        WP_CLI::success( "Operation complete." );
+        //WP_CLI::success( "Operation complete." );
     }
 
 
     /**
-     * Exports settings and data.
+     * Export settings and data.
      * 
      * ## OPTIONS
      * 
      * <what>
-     * : The name of the person to greet.
+     * : The type of data to be exported. Supported: settings|postdata|userdata
      * 
      * ## EXAMPLES
      * 
@@ -180,7 +191,7 @@ class AMT_Command extends WP_CLI_Command {
      *     wp amt export postdata
      *     wp amt export userdata
      *
-     * @synopsis <what>
+     * @synopsis <settings|postdata|userdata>
      */
     function export( $args, $assoc_args ) {
         list( $what ) = $args;
@@ -255,12 +266,12 @@ class AMT_Command extends WP_CLI_Command {
 
 
     /**
-     * Imports settings and data.
+     * Import settings and data.
      * 
      * ## OPTIONS
      * 
      * <what>
-     * : The name of the person to greet.
+     * : The type of data to be imported. Supported: settings|postdata|userdata
      * 
      * ## EXAMPLES
      * 
@@ -268,7 +279,7 @@ class AMT_Command extends WP_CLI_Command {
      *     wp amt import postdata
      *     wp amt import userdata
      *
-     * @synopsis <what>
+     * @synopsis <settings|postdata|userdata>
      */
     function import( $args, $assoc_args ) {
         list( $what ) = $args;
@@ -332,12 +343,12 @@ class AMT_Command extends WP_CLI_Command {
 
 
     /**
-     * Cleans settings and data.
+     * Delete settings and data.
      * 
      * ## OPTIONS
      * 
      * <what>
-     * : Choose what kind of data you would like to delete.
+     * : The type of data to be removed. Supported: all|settings|postdata|userdata
      * 
      * ## EXAMPLES
      * 
@@ -419,4 +430,7 @@ class AMT_Command extends WP_CLI_Command {
 }
 
 WP_CLI::add_command( 'amt', 'AMT_Command' );
+
+
+endif;
 
