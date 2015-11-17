@@ -168,6 +168,16 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
     // Front page (default page with latest posts or static page used as the front page)
     if ( is_front_page() ) {
 
+        // Organization
+        // Scope BEGIN: Organization: http://schema.org/Organization
+        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+        //$metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+        // Get publisher/mainEntity metatags
+        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
+        // Scope END: Organization
+        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+
         // WebSite
         // Scope BEGIN: WebSite: http://schema.org/WebSite
         $metadata_arr[] = '<!-- Scope BEGIN: WebSite -->';
@@ -205,14 +215,6 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // Scope END: SearchAction
         $metadata_arr[] = '</span> <!-- Scope END: SearchAction -->';
 
-        // Organization
-        // Scope BEGIN: Organization: http://schema.org/Organization
-        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        // Get publisher/mainEntity metatags
-        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
-        // Scope END: Organization
-        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
         // Scope END: WebSite
         $metadata_arr[] = '</span> <!-- Scope END: WebSite -->';
     }
@@ -1251,65 +1253,71 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
     // Front page (default page with latest posts or static page used as the front page)
     if ( is_front_page() ) {
 
-        // WebSite
-        // Scope BEGIN: WebSite: http://schema.org/WebSite
-//        $metadata_arr[] = '<!-- Scope BEGIN: WebSite -->';
-//        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite">';
-        // Schema.org type
-        $metadata_arr['@type'] = 'WebSite';
+        // On the front page we are adding two top level entities, so we remove
+        // the existing context, as the entities need to be in an array and each
+        // array item needs its own context.
+        unset( $metadata_arr['@context'] );
 
+        // Organization
+        $organization_arr = array();
+        // Context
+        $organization_arr['@context'] = 'http://schema.org';
+        $organization_arr = array_merge($organization_arr, amt_get_jsonld_schemaorg_publisher_array($options));
+        // Get publisher/mainEntity metatags
+//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
+
+
+        // WebSite
+        $website_arr = array();
+        // Context
+        $website_arr['@context'] = 'http://schema.org';
+        // Type
+        $website_arr['@type'] = 'WebSite';
         // name
-        $metadata_arr['name'] = esc_attr( get_bloginfo('name') );
+        $website_arr['name'] = esc_attr( get_bloginfo('name') );
 
         // headline - contains title information
-        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
+        $website_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
 
         // alternateName (The WordPress tag line is used.)
         // TODO: use tag line. Needs feedback!
-        //$metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // url
-        $metadata_arr['url'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) );
+        $website_arr['url'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) );
 
         // SearchAction
         // Scope BEGIN: SearchAction: http://schema.org/SearchAction
 //        $metadata_arr[] = '<!-- Scope BEGIN: SearchAction -->';
 //        $metadata_arr[] = '<span itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">';
-        $metadata_arr['potentialAction'] = array();
-        $metadata_arr['potentialAction']['@type'] = 'SearchAction';
+        $website_arr['potentialAction'] = array();
+        $website_arr['potentialAction']['@type'] = 'SearchAction';
 
         // target
         // Scope BEGIN: EntryPoint: http://schema.org/EntryPoint
-        $metadata_arr['potentialAction']['target'] = array();
-        $metadata_arr['potentialAction']['target']['@type'] = 'EntryPoint';
+        $website_arr['potentialAction']['target'] = array();
+        $website_arr['potentialAction']['target']['@type'] = 'EntryPoint';
         // urlTemplate
-        $metadata_arr['potentialAction']['target']['urlTemplate'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '?s={search_term}';
+        $website_arr['potentialAction']['target']['urlTemplate'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '?s={search_term}';
         // Scope END: EntryPoint
 //        $metadata_arr[] = '</span> <!-- Scope END: EntryPoint -->';
         // query-input
         // Scope BEGIN: PropertyValueSpecification: http://schema.org/PropertyValueSpecification
         //$metadata_arr[] = '<span itemprop="query-input" itemscope itemtype="http://schema.org/PropertyValueSpecification">';
-        $metadata_arr['potentialAction']['query-input'] = array();
-        $metadata_arr['potentialAction']['query-input']['@type'] = 'PropertyValueSpecification';
+        $website_arr['potentialAction']['query-input'] = array();
+        $website_arr['potentialAction']['query-input']['@type'] = 'PropertyValueSpecification';
         // valueRequired
-        $metadata_arr['potentialAction']['query-input']['valueRequired'] = 'True';
+        $website_arr['potentialAction']['query-input']['valueRequired'] = 'True';
         // valueName
-        $metadata_arr['potentialAction']['query-input']['valueName'] = 'search_term';
+        $website_arr['potentialAction']['query-input']['valueName'] = 'search_term';
         // Scope END: PropertyValueSpecification
 //        $metadata_arr[] = '</span> <!-- Scope END: PropertyValueSpecification -->';
         // Scope END: SearchAction
 //        $metadata_arr[] = '</span> <!-- Scope END: SearchAction -->';
 
-        // Organization
-        // Scope BEGIN: Organization: http://schema.org/Organization
-//        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-//        $metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        $metadata_arr['mainEntity'] = amt_get_jsonld_schemaorg_publisher_array($options);
-        // Get publisher/mainEntity metatags
-//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
-        // Scope END: Organization
-//        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
         // Scope END: WebSite
 //        $metadata_arr[] = '</span> <!-- Scope END: WebSite -->';
+
+        $metadata_arr = array( $organization_arr, $website_arr );
+
     }
 
     elseif ( is_author() ) {
