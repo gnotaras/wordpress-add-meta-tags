@@ -77,9 +77,8 @@ require( AMT_PLUGIN_DIR . 'metadata/amt_dublin_core.php' );
 require( AMT_PLUGIN_DIR . 'metadata/amt_schemaorg.php' );
 require( AMT_PLUGIN_DIR . 'metadata/amt_extended.php' );
 // Command Line Interface via WPCLI
-if ( defined('WP_CLI') && WP_CLI ) {
-    require( AMT_PLUGIN_DIR . 'amt-cli.php' );
-}
+require( AMT_PLUGIN_DIR . 'amt-cli.php' );
+
 
 /**
  * Translation Domain
