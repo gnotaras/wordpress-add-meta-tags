@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.9.5\n"
+"Project-Id-Version: add-meta-tags 2.9.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-07 08:33+0200\n"
+"POT-Creation-Date: 2015-11-17 23:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: add-meta-tags.php:93
+#: add-meta-tags.php:97
 msgid "Settings"
 msgstr ""
 
@@ -894,19 +894,19 @@ msgstr ""
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: amt-utils.php:2182
+#: amt-utils.php:2213
 msgid "Select a sample review"
 msgstr ""
 
-#: amt-utils.php:2214
+#: amt-utils.php:2245
 msgid "Use sample review data:"
 msgstr ""
 
-#: amt-utils.php:2308
+#: amt-utils.php:2339
 msgid "Select a meta tag group"
 msgstr ""
 
-#: amt-utils.php:2340
+#: amt-utils.php:2371
 msgid "Replace meta tags with:"
 msgstr ""
 
