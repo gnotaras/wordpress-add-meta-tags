@@ -317,7 +317,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
 
         // headline - contains title information
-        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+        //$metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
@@ -1367,7 +1367,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $metadata_arr['name'] = esc_attr( amt_process_paged( get_the_title($post->ID) ) );
 
         // headline - contains title information
-        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
+        //$metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
 
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
