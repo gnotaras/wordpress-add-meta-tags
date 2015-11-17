@@ -125,21 +125,22 @@ class AMT_Command extends WP_CLI_Command {
 
         // Multisite
         if ( $assoc_args['network-wide'] ) {
-            if ( ! is_multisite() ) {
-                WP_CLI::error('No network detected. Please use \'--network-wide\' on network installations only.');
+            if ( is_multisite() ) {
+                $blog_list = get_blog_list( 0, 'all' );
+                if ( empty($blog_list) ) {
+                    WP_CLI::error('No blogs could be found.');
+                }
+                foreach ( $blog_list as $blog ) {
+                    switch_to_blog( $blog['blog_id'] );
+                    $plugin_info = get_plugin_data( plugin_dir_path( __FILE__ ) . 'add-meta-tags.php', $markup=true, $translate=true );
+                    WP_CLI::line( 'Upgrading settings of: ' . get_bloginfo('name') . ' - (ID: ' . $blog['blog_id'] . ')' );
+                    amt_plugin_upgrade();
+                    restore_current_blog();
+                }
+                WP_CLI::success('Add-Meta-Tags settings have been upgraded network wide.');
+            } else {
+                WP_CLI::warning('No network detected. Reverting to signle site settings upgrade.');
             }
-            $blog_list = get_blog_list( 0, 'all' );
-            if ( empty($blog_list) ) {
-                WP_CLI::error('No blogs could be found.');
-            }
-            foreach ( $blog_list as $blog ) {
-                switch_to_blog( $blog['blog_id'] );
-                $plugin_info = get_plugin_data( plugin_dir_path( __FILE__ ) . 'add-meta-tags.php', $markup=true, $translate=true );
-                WP_CLI::line( 'Upgrading settings of: ' . get_bloginfo('name') . ' - (ID: ' . $blog['blog_id'] . ')' );
-                amt_plugin_upgrade();
-                restore_current_blog();
-            }
-            WP_CLI::success('Add-Meta-Tags settings have been upgraded network wide.');
         }
 
         // Single site installation
