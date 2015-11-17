@@ -4,6 +4,7 @@
 REL_FILES = [
     'add-meta-tags.pot',
 	'add-meta-tags.php',
+    'amt-cli.php',
     'amt-admin-panel.php',
     'amt-settings.php',
     'amt-template-tags.php',
