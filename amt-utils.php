@@ -297,9 +297,9 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
 
         // If this was not enough, try to get some more clean data for the description (nasty hack)
         if ( strlen($amt_excerpt) < $desc_avg_length ) {
-            $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, (int) ($excerpt_max_len * 1.5)) ) );
+            $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($plain_text_processed, 0, (int) ($excerpt_max_len * 1.5)) ) );
             if ( strlen($amt_excerpt) < $desc_avg_length ) {
-                $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($post->post_content, 0, (int) ($excerpt_max_len * 2)) ) );
+                $amt_excerpt = sanitize_text_field( amt_sanitize_description( substr($plain_text_processed, 0, (int) ($excerpt_max_len * 2)) ) );
             }
         }
 
