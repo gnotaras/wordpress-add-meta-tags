@@ -60,6 +60,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
+    $metadata_arr = array();
+
+    $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );
+    if ( ! $do_auto_dublincore ) {
+        return $metadata_arr;
+    }
+
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_dublin_core', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_dublin_core', $metadata_arr, $post, $options, $attachments, $embedded_media );
+        return $metadata_arr;
+    }
+
     if ( !is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
         // Dublin Core metadata has a meaning for content only.
         return array();
@@ -69,13 +85,6 @@ function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media
     if ( amt_is_product() || amt_is_product_group() ) {
         return array();
     }
-
-    $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );
-    if (!$do_auto_dublincore) {
-        return array();
-    }
-
-    $metadata_arr = array();
 
     // Title
     // Note: Contains multipage information through amt_process_paged()

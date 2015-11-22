@@ -102,6 +102,7 @@ function amt_get_default_options() {
         "default_image_url" => "",
         "extended_support_woocommerce"  => "0",
         "extended_support_edd"          => "0",
+        "extended_support_buddypress"   => "0",
         "review_mode"       => "0",
         "i_have_donated"    => "0",
         );
@@ -229,6 +230,10 @@ function amt_plugin_upgrade() {
     // Version 2.9.2 (settings_version 15->16)
     // Added "enforce_custom_title_in_metadata"
     // Added "enable_advanced_title_management"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.9.7 (settings_version 16->17)
+    // Added "extended_support_buddypress"
     // No migrations required. Addition takes place in (1).
 
 

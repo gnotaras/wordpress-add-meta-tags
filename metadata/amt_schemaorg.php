@@ -165,8 +165,16 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
     }
 
 
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_schemaorg_footer', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_schemaorg_footer', $metadata_arr, $post, $options, $attachments, $embedded_media );
+        return $metadata_arr;
+
     // Front page (default page with latest posts or static page used as the front page)
-    if ( is_front_page() ) {
+    } elseif ( is_front_page() ) {
 
         // Organization
         // Scope BEGIN: Organization: http://schema.org/Organization
@@ -259,15 +267,6 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
  */
 function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
-    if ( is_feed() ) {
-        return $post_body;
-    }
-
-    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
-        // In this filter function we only deal with content and attachments.
-        return $post_body;
-    }
-
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
@@ -277,6 +276,15 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Check if the microdata or the JSON-LD schema.org generator should be used.
     if ( $options["schemaorg_force_jsonld"] == "1" ) {
+        return $post_body;
+    }
+
+    if ( is_feed() ) {
+        return $post_body;
+    }
+
+    if ( ! is_singular() || is_front_page() ) {  // is_front_page() is used for the case in which a static page is used as the front page.
+        // In this filter function we only deal with content and attachments.
         return $post_body;
     }
 
@@ -302,8 +310,15 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     //var_dump($embedded_media);
 
 
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_schemaorg_content_filter', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_schemaorg_content_filter', $metadata_arr, $post, $options, $attachments, $embedded_media );
+
     // Products
-    if ( amt_is_product() ) {
+    } elseif ( amt_is_product() ) {
 
         // Scope BEGIN: Product: http://schema.org/Product
         $metadata_arr[] = '<!-- Scope BEGIN: Product -->';
@@ -1250,8 +1265,15 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
     }
 
 
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_jsonld_schemaorg', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_jsonld_schemaorg', $metadata_arr, $post, $options, $attachments, $embedded_media );
+
     // Front page (default page with latest posts or static page used as the front page)
-    if ( is_front_page() ) {
+    } elseif ( is_front_page() ) {
 
         // On the front page we are adding two top level entities, so we remove
         // the existing context, as the entities need to be in an array and each

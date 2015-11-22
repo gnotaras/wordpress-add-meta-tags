@@ -1261,3 +1261,120 @@ function amt_detect_ecommerce_product_group() {
 }
 add_filter( 'amt_is_product_group', 'amt_detect_ecommerce_product_group', 10, 1 );
 
+
+
+
+
+//
+//
+//  BuddyPress Support
+//
+//
+
+
+// BuddyPress detection
+function amt_detect_buddypress( $post, $options ) {
+    // Process BuddyPress metadata, only if the BuddyPress extended metadata
+    // support has been enabled in the Add-Meta-Tags settings.
+    if ( $options["extended_support_buddypress"] == "1" ) {
+        // Perform this test in case BuddyPress is not installed/activated.
+        if ( ! function_exists('is_buddypress') || ! is_buddypress() ) {
+            return false;
+        }
+        // Insert metadata for BuddyPress pages
+        // Basic (description/keywords)
+        add_filter( 'amt_custom_metadata_basic', 'amt_buddypress_basic', 10, 5 );
+        // Opengraph
+        add_filter( 'amt_custom_metadata_opengraph', 'amt_buddypress_opengraph', 10, 5 );
+        // Twitter Cards
+        add_filter( 'amt_custom_metadata_twitter_cards', 'amt_buddypress_twitter_cards', 10, 5 );
+        // Dublin Core
+        add_filter( 'amt_custom_metadata_dublin_core', 'amt_buddypress_dublin_core', 10, 5 );
+        // Schema.org
+        if ( $options["schemaorg_force_jsonld"] == "0" ) {
+            // Microdata
+            // Non content pages via 'wp_footer' action
+            add_filter( 'amt_custom_metadata_schemaorg_footer', 'amt_buddypress_schemaorg_footer', 10, 5 );
+            // Content pages via 'the_content' filter
+            add_filter( 'amt_custom_metadata_schemaorg_content_filter', 'amt_buddypress_schemaorg_content_filter', 10, 5 );
+        } else {
+            add_filter( 'amt_custom_metadata_jsonld_schemaorg', 'amt_buddypress_jsonld_schemaorg', 10, 5 );
+        }
+        // Finally return true. BuddyPress detected.
+        return true;
+    }
+    return false;
+}
+add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 2 );
+
+
+function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    // We only support profile pages at this time.
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['basic'] = 'basic';
+    return $metadata_arr;
+}
+
+
+function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['opengraph'] = 'opengraph';
+    return $metadata_arr;
+}
+
+
+function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['tc'] = 'twitter cards';
+    return $metadata_arr;
+}
+
+
+function amt_buddypress_dublin_core( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['dc'] = 'dublin core';
+    return $metadata_arr;
+}
+
+
+function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['scorg footer'] = 'schema.org footer';
+    return $metadata_arr;
+}
+
+
+function amt_buddypress_schemaorg_content_filter( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['scorg content'] = 'schema.org content';
+    return $metadata_arr;
+}
+
+
+function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+// bp_is_user_profile()
+// bp_is_user()
+
+    $metadata_arr['scorg_json'] = 'schema.org json-ld';
+    return $metadata_arr;
+}
+

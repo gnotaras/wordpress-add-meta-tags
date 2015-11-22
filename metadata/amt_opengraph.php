@@ -115,8 +115,16 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
     //}
     // no publisher meta tag for facebook, unless it is content
 
+
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_opengraph', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_opengraph', $metadata_arr, $post, $options, $attachments, $embedded_media );
+
     // Default front page displaying the latest posts
-    if ( amt_is_default_front_page() ) {
+    } elseif ( amt_is_default_front_page() ) {
 
         // Type
         $metadata_arr[] = '<meta property="og:type" content="website" />';

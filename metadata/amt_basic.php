@@ -134,8 +134,15 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
     // Basic Meta Tags
 
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_basic', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_basic', $metadata_arr, $post, $options, $attachments, $embedded_media );
+
     // Default front page displaying latest posts
-    if ( amt_is_default_front_page() ) {
+    } elseif ( amt_is_default_front_page() ) {
 
         // Description and Keywords from the Add-Meta-Tags settings override
         // default behaviour.

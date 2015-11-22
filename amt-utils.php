@@ -2005,6 +2005,12 @@ function amt_get_schemaorg_itemref( $object_type ) {
 }
 
 
+// Determines if custom content has been requested.
+function amt_is_custom($post, $options) {
+    return apply_filters( 'amt_is_custom', $post, $options );
+}
+
+
 // Determines if a Product page has been requested.
 function amt_is_product() {
     return apply_filters( 'amt_is_product', false );

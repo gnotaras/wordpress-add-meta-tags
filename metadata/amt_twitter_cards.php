@@ -87,6 +87,16 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
     $metadata_arr = array();
 
+    // Custom content override
+    if ( amt_is_custom($post, $options) ) {
+        // Return metadata with:
+        // add_filter( 'amt_custom_metadata_twitter_cards', 'my_function', 10, 5 );
+        // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
+        $metadata_arr = apply_filters( 'amt_custom_metadata_twitter_cards', $metadata_arr, $post, $options, $attachments, $embedded_media );
+        return $metadata_arr;
+    }
+
+    // Front page and archives
     if ( (! is_singular() && ! amt_is_static_home() && ! amt_is_static_front_page())
                 || amt_is_default_front_page() || is_category() || is_tag() || is_tax() || is_post_type_archive() ) {
     // Note1: is_front_page() is used for the case in which a static page is used as the front page.
