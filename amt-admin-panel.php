@@ -416,6 +416,7 @@ function amt_admin_help_tabs() {
     <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').'</li>
     <li>'.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
     <li>'.__('Metadata for BuddyPress pages.', 'add-meta-tags').' '.__('Currently supports profile pages only.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
+    <li>'.__('Metadata for bbPress pages.', 'add-meta-tags').' '.__('Currently, only the base mechanism has been implemented. No metadata is generated.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
     </ul>
     <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
 
@@ -1041,6 +1042,11 @@ function amt_options_page() {
                 <p><input id="extended_support_buddypress" type="checkbox" value="1" name="extended_support_buddypress" '. (($options["extended_support_buddypress"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_buddypress">
                 '.__('Metadata for BuddyPress pages.', 'add-meta-tags').' '.__('Currently supports profile pages only.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
+                </label></p>
+
+                <p><input id="extended_support_bbpress" type="checkbox" value="1" name="extended_support_bbpress" '. (($options["extended_support_bbpress"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="extended_support_bbpress">
+                '.__('Metadata for bbPress pages.', 'add-meta-tags').' '.__('Currently, only the base mechanism has been implemented. No metadata is generated.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
                 </label></p>
 
                 <br />

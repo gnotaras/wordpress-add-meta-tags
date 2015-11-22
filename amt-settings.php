@@ -103,6 +103,7 @@ function amt_get_default_options() {
         "extended_support_woocommerce"  => "0",
         "extended_support_edd"          => "0",
         "extended_support_buddypress"   => "0",
+        "extended_support_bbpress"      => "0",
         "review_mode"       => "0",
         "i_have_donated"    => "0",
         );
@@ -234,6 +235,7 @@ function amt_plugin_upgrade() {
 
     // Version 2.9.7 (settings_version 16->17)
     // Added "extended_support_buddypress"
+    // Added "extended_support_bbpress"
     // No migrations required. Addition takes place in (1).
 
 

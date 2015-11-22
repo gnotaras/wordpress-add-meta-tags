@@ -1438,10 +1438,6 @@ add_filter( 'amt_is_custom', 'amt_detect_bbpress', 10, 2 );
 
 function amt_bbpress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-    // We only support profile pages at this time.
-// bp_is_user_profile()
-// bp_is_user()
-
     $metadata_arr = array();
 
     // Allow filtering of the generated metadata
