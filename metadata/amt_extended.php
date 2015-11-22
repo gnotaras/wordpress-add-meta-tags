@@ -1314,67 +1314,205 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
 // bp_is_user_profile()
 // bp_is_user()
 
-    $metadata_arr['basic'] = 'basic';
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_basic_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_basic_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
 
 function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-// bp_is_user_profile()
-// bp_is_user()
+    $metadata_arr = array();
 
-    $metadata_arr['opengraph'] = 'opengraph';
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_opengraph_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_opengraph_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
 
 function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-// bp_is_user_profile()
-// bp_is_user()
+    $metadata_arr = array();
 
-    $metadata_arr['tc'] = 'twitter cards';
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_twitter_cards_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_twitter_cards_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
 
 function amt_buddypress_dublin_core( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-// bp_is_user_profile()
-// bp_is_user()
+    $metadata_arr = array();
 
-    $metadata_arr['dc'] = 'dublin core';
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_dublin_core_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_dublin_core_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
 
 function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-// bp_is_user_profile()
-// bp_is_user()
+    $metadata_arr = array();
 
-    $metadata_arr['scorg footer'] = 'schema.org footer';
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_schemaorg_footer_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_schemaorg_footer_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
 
 function amt_buddypress_schemaorg_content_filter( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-// bp_is_user_profile()
-// bp_is_user()
+    $metadata_arr = array();
 
-    $metadata_arr['scorg content'] = 'schema.org content';
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_schemaorg_content_filter_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_schemaorg_content_filter_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
 
 function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_buddypress_jsonld_schemaorg_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_buddypress_jsonld_schemaorg_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+
+
+
+
+//
+//
+//  bbPress Support
+//
+//
+
+
+// bbPress detection
+function amt_detect_bbpress( $post, $options ) {
+    // Process bbPress metadata, only if the bbPress extended metadata
+    // support has been enabled in the Add-Meta-Tags settings.
+    if ( $options["extended_support_bbpress"] == "1" ) {
+        // Perform this test in case bbPress is not installed/activated.
+        if ( ! function_exists('is_bbpress') || ! is_bbpress() ) {
+            return false;
+        }
+        // Insert metadata for bbPress pages
+        // Basic (description/keywords)
+        add_filter( 'amt_custom_metadata_basic', 'amt_bbpress_basic', 10, 5 );
+        // Opengraph
+        add_filter( 'amt_custom_metadata_opengraph', 'amt_bbpress_opengraph', 10, 5 );
+        // Twitter Cards
+        add_filter( 'amt_custom_metadata_twitter_cards', 'amt_bbpress_twitter_cards', 10, 5 );
+        // Dublin Core
+        add_filter( 'amt_custom_metadata_dublin_core', 'amt_bbpress_dublin_core', 10, 5 );
+        // Schema.org
+        if ( $options["schemaorg_force_jsonld"] == "0" ) {
+            // Microdata
+            // Non content pages via 'wp_footer' action
+            add_filter( 'amt_custom_metadata_schemaorg_footer', 'amt_bbpress_schemaorg_footer', 10, 5 );
+            // Content pages via 'the_content' filter
+            add_filter( 'amt_custom_metadata_schemaorg_content_filter', 'amt_bbpress_schemaorg_content_filter', 10, 5 );
+        } else {
+            add_filter( 'amt_custom_metadata_jsonld_schemaorg', 'amt_bbpress_jsonld_schemaorg', 10, 5 );
+        }
+        // Finally return true. bbPress detected.
+        return true;
+    }
+    return false;
+}
+add_filter( 'amt_is_custom', 'amt_detect_bbpress', 10, 2 );
+
+
+function amt_bbpress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    // We only support profile pages at this time.
 // bp_is_user_profile()
 // bp_is_user()
 
-    $metadata_arr['scorg_json'] = 'schema.org json-ld';
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_basic_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_basic_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+function amt_bbpress_opengraph( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_opengraph_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_opengraph_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+function amt_bbpress_twitter_cards( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_twitter_cards_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_twitter_cards_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+function amt_bbpress_dublin_core( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_dublin_core_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_dublin_core_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+function amt_bbpress_schemaorg_footer( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_schemaorg_footer_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_schemaorg_footer_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+function amt_bbpress_schemaorg_content_filter( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_schemaorg_content_filter_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_schemaorg_content_filter_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
+    return $metadata_arr;
+}
+
+
+function amt_bbpress_jsonld_schemaorg( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
+
+    $metadata_arr = array();
+
+    // Allow filtering of the generated metadata
+    // Customize with: add_filter('amt_bbpress_jsonld_schemaorg_extra', 'my_function', 10, 5);
+    $metadata_arr = apply_filters( 'amt_bbpress_jsonld_schemaorg_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
     return $metadata_arr;
 }
 
