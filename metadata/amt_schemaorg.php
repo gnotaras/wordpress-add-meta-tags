@@ -173,8 +173,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $metadata_arr = apply_filters( 'amt_custom_metadata_schemaorg_footer', $metadata_arr, $post, $options, $attachments, $embedded_media );
         return $metadata_arr;
 
-    // Front page (default page with latest posts or static page used as the front page)
-    } elseif ( is_front_page() ) {
+    // Default fron tpage displaying the latest posts.
+
+    } elseif ( amt_is_default_front_page() ) {
 
         // Organization
         // Scope BEGIN: Organization: http://schema.org/Organization
@@ -225,9 +226,80 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
 
         // Scope END: WebSite
         $metadata_arr[] = '</span> <!-- Scope END: WebSite -->';
-    }
 
-    elseif ( is_author() ) {
+
+    // Front page using a static page
+
+    } elseif ( amt_is_static_front_page() ) {
+
+        if ( $options['author_profile_source'] == 'frontpage' ) {
+
+            // Author
+            // Scope BEGIN: Person: http://schema.org/Person
+            $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
+            $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
+            // Get author metatags
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
+            // Scope END: Person
+            $metadata_arr[] = '</span> <!-- Scope END: Person -->';
+
+        } else {
+
+            // Organization
+            // Scope BEGIN: Organization: http://schema.org/Organization
+            $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+            //$metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            // Get publisher/mainEntity metatags
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
+            // Scope END: Organization
+            $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+        }
+
+        // WebSite
+        // Scope BEGIN: WebSite: http://schema.org/WebSite
+        $metadata_arr[] = '<!-- Scope BEGIN: WebSite -->';
+        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite">';
+        // name
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // headline - contains title information
+        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
+        // alternateName (The WordPress tag line is used.)
+        // TODO: use tag line. Needs feedback!
+        //$metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // url
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
+
+        // SearchAction
+        // Scope BEGIN: SearchAction: http://schema.org/SearchAction
+        $metadata_arr[] = '<!-- Scope BEGIN: SearchAction -->';
+        $metadata_arr[] = '<span itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">';
+        // target
+        // Scope BEGIN: EntryPoint: http://schema.org/EntryPoint
+        $metadata_arr[] = '<span itemprop="target" itemscope itemtype="http://schema.org/EntryPoint">';
+        // urlTemplate
+        $metadata_arr[] = '<meta itemprop="urlTemplate" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '?s={search_term}" />';
+        // Scope END: EntryPoint
+        $metadata_arr[] = '</span> <!-- Scope END: EntryPoint -->';
+        // query-input
+        // Scope BEGIN: PropertyValueSpecification: http://schema.org/PropertyValueSpecification
+        $metadata_arr[] = '<span itemprop="query-input" itemscope itemtype="http://schema.org/PropertyValueSpecification">';
+        // valueRequired
+        $metadata_arr[] = '<meta itemprop="valueRequired" content="True" />';
+        // valueName
+        $metadata_arr[] = '<meta itemprop="valueName" content="search_term" />';
+        // Scope END: PropertyValueSpecification
+        $metadata_arr[] = '</span> <!-- Scope END: PropertyValueSpecification -->';
+        // Scope END: SearchAction
+        $metadata_arr[] = '</span> <!-- Scope END: SearchAction -->';
+
+        // Scope END: WebSite
+        $metadata_arr[] = '</span> <!-- Scope END: WebSite -->';
+
+
+    // Author archive
+
+    } elseif ( is_author() ) {
 
         // Author object
         // NOTE: Inside the author archives `$post->post_author` does not contain the author object.
@@ -1133,7 +1205,8 @@ function amt_get_schemaorg_author_metatags( $author_id ) {
 
     // url
     // The URL to the author archive is added as the url.
-    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_author_posts_url( $author_id ) ) . '" />';
+    //$metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_author_posts_url( $author_id ) ) . '" />';
+    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_local_author_profile_url( $author_id, $options ) ) . '" />';
     // sameAs
     // Social Profile Links are added as sameAs properties
     // Those from the WordPress User Profile page are used.
@@ -1272,8 +1345,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Return an array of meta tags. Array item format: ['key_can_be_whatever'] = '<meta name="foo" content="bar" />'
         $metadata_arr = apply_filters( 'amt_custom_metadata_jsonld_schemaorg', $metadata_arr, $post, $options, $attachments, $embedded_media );
 
-    // Front page (default page with latest posts or static page used as the front page)
-    } elseif ( is_front_page() ) {
+    // Default fron tpage displaying the latest posts.
+
+    } elseif ( amt_is_default_front_page() ) {
 
         // On the front page we are adding two top level entities, so we remove
         // the existing context, as the entities need to be in an array and each
@@ -1340,9 +1414,94 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         $metadata_arr = array( $organization_arr, $website_arr );
 
-    }
 
-    elseif ( is_author() ) {
+    // Front page using a static page
+
+    } elseif ( amt_is_static_front_page() ) {
+
+        // On the front page we are adding two top level entities, so we remove
+        // the existing context, as the entities need to be in an array and each
+        // array item needs its own context.
+        unset( $metadata_arr['@context'] );
+
+        $main_entity_arr = array();
+        // Context
+        $main_entity_arr['@context'] = 'http://schema.org';
+
+        if ( $options['author_profile_source'] == 'frontpage' ) {
+
+            // Author
+            // Scope BEGIN: Person: http://schema.org/Person
+            //        $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
+            //        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
+            // Get author metatags
+            $main_entity_arr = array_merge($main_entity_arr, amt_get_jsonld_schemaorg_author_array( $post->post_author, $options ));
+            // Scope END: Person
+            //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
+
+        } else {
+
+            // Organization
+            $main_entity_arr = array_merge($main_entity_arr, amt_get_jsonld_schemaorg_publisher_array($options));
+            // Get publisher/mainEntity metatags
+//            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
+        }
+
+        // WebSite
+        $website_arr = array();
+        // Context
+        $website_arr['@context'] = 'http://schema.org';
+        // Type
+        $website_arr['@type'] = 'WebSite';
+        // name
+        $website_arr['name'] = esc_attr( get_bloginfo('name') );
+
+        // headline - contains title information
+        $website_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
+
+        // alternateName (The WordPress tag line is used.)
+        // TODO: use tag line. Needs feedback!
+        // url
+        $website_arr['url'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) );
+
+        // SearchAction
+        // Scope BEGIN: SearchAction: http://schema.org/SearchAction
+//        $metadata_arr[] = '<!-- Scope BEGIN: SearchAction -->';
+//        $metadata_arr[] = '<span itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">';
+        $website_arr['potentialAction'] = array();
+        $website_arr['potentialAction']['@type'] = 'SearchAction';
+
+        // target
+        // Scope BEGIN: EntryPoint: http://schema.org/EntryPoint
+        $website_arr['potentialAction']['target'] = array();
+        $website_arr['potentialAction']['target']['@type'] = 'EntryPoint';
+        // urlTemplate
+        $website_arr['potentialAction']['target']['urlTemplate'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '?s={search_term}';
+        // Scope END: EntryPoint
+//        $metadata_arr[] = '</span> <!-- Scope END: EntryPoint -->';
+        // query-input
+        // Scope BEGIN: PropertyValueSpecification: http://schema.org/PropertyValueSpecification
+        //$metadata_arr[] = '<span itemprop="query-input" itemscope itemtype="http://schema.org/PropertyValueSpecification">';
+        $website_arr['potentialAction']['query-input'] = array();
+        $website_arr['potentialAction']['query-input']['@type'] = 'PropertyValueSpecification';
+        // valueRequired
+        $website_arr['potentialAction']['query-input']['valueRequired'] = 'True';
+        // valueName
+        $website_arr['potentialAction']['query-input']['valueName'] = 'search_term';
+        // Scope END: PropertyValueSpecification
+//        $metadata_arr[] = '</span> <!-- Scope END: PropertyValueSpecification -->';
+        // Scope END: SearchAction
+//        $metadata_arr[] = '</span> <!-- Scope END: SearchAction -->';
+
+        // Scope END: WebSite
+//        $metadata_arr[] = '</span> <!-- Scope END: WebSite -->';
+
+        $metadata_arr = array( $main_entity_arr, $website_arr );
+
+
+    // Author archive
+
+    } elseif ( is_author() ) {
 
         // Author object
         // NOTE: Inside the author archives `$post->post_author` does not contain the author object.
@@ -1365,7 +1524,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // Get author metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID ) );
-        $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_author_array( $author->ID ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_author_array( $author->ID, $options ) );
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -1539,7 +1698,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //        $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
 //        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get author metatags
-        $metadata_arr['author'] = amt_get_jsonld_schemaorg_author_array( $post->post_author );
+        $metadata_arr['author'] = amt_get_jsonld_schemaorg_author_array( $post->post_author, $options );
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -1668,7 +1827,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get author metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
-        $metadata_arr['author'] = amt_get_jsonld_schemaorg_author_array( $post->post_author );
+        $metadata_arr['author'] = amt_get_jsonld_schemaorg_author_array( $post->post_author, $options );
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -2266,7 +2425,7 @@ function amt_get_jsonld_schemaorg_publisher_array( $options, $author_id=null ) {
  * Return an array of Schema.org metatags suitable for the author object of
  * the content. Accepts the $post object as argument.
  */
-function amt_get_jsonld_schemaorg_author_array( $author_id ) {
+function amt_get_jsonld_schemaorg_author_array( $author_id, $options ) {
     //$author_obj = get_user_by( 'id', $author_id );
 
     $metadata_arr = array();
@@ -2305,7 +2464,8 @@ function amt_get_jsonld_schemaorg_author_array( $author_id ) {
 
     // url
     // The URL to the author archive is added as the url.
-    $metadata_arr['url'] = esc_url_raw( get_author_posts_url( $author_id ) );
+    //$metadata_arr['url'] = esc_url_raw( get_author_posts_url( $author_id ) );
+    $metadata_arr['url'] = esc_url_raw( amt_get_local_author_profile_url( $author_id, $options ) );
     // sameAs
     $metadata_arr['sameAs'] = array();
     // Social Profile Links are added as sameAs properties
