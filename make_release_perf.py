@@ -5,6 +5,7 @@ REL_FILES = [
     'add-meta-tags.pot',
 	'add-meta-tags.php',
     'amt-admin-panel.php',
+    'amt-cli.php',
     'amt-settings.php',
     'amt-template-tags.php',
     'amt-utils.php',
@@ -34,6 +35,7 @@ REL_DIRS = [
 
 PROD_REL_FILES = [
 	#'add-meta-tags.php',   # Do not include the main file. The combined file is auto added.
+    #'add-meta-tags.php.asc',    # GPG signature generated and added while packaging. DO NOT INCLUDE IT IN THIS LIST.
     'index.php',
     'AUTHORS',
 	'LICENSE',
@@ -55,6 +57,7 @@ PROD_REL_DIRS = [
 # Format: tuples of relative paths: ('path', 'to', 'file.php')
 PHP_FILES_TO_COMBINE = [
     #('add-meta-tags.php', ),    # Do not include the main file. Automatically taken from PLUGIN_METADATA_FILE
+    #('amt-cli.php', ),     # DO NOT INCLUDE amt-cli.php as it is ADDED MANUALLY below, since the comments are part of the help system.
     ('amt-admin-panel.php', ),
     ('amt-settings.php', ),
     ('amt-template-tags.php', ),
@@ -72,6 +75,9 @@ PLUGIN_METADATA_FILE = 'add-meta-tags.php'
 
 # The line number after which the code starts in the PLUGIN_METADATA_FILE.
 CODE_STARTS_AFTER_LINE = 50
+
+# Email address of the user that signs the plugin file
+GPG_USER = 'gnot@g-loaded.eu'
 
 POT_HEADER = """#  POT (Portable Object Template)
 #
@@ -259,7 +265,21 @@ combined_file = re.sub(r'\n\n\n+', '\n\n', combined_file, 0)
 # Remove trailing spaces
 #combined_file = re.sub(r'\s+$', '', combined_file, 0, re.MULTILINE)
 
+# Command Line Interface
+# Add amt-cli.php here
+amtcli_data = open('amt-cli.php').read()
+# Remove all instances of the DIRECT_ACCESS_CODE from the amtcli_data
+amtcli_data = amtcli_data.replace(DIRECT_ACCESS_CODE, '')
+amtcli_data = amtcli_data.replace('<?php', '')
+combined_file += '\n\n\n' + amtcli_data
+
+# FOR TESTING - DELETE THIS LINE
 open('a2.php', 'wb').write(combined_file)
+
+
+def gpg_sign_file(path):
+    cli_args = ['gpg', '--local-user', GPG_USER, '--armor', '--output', path + '.asc', '--detach-sig', path]
+    subprocess.call(cli_args)
 
 
 for package_name in (name, name + '-dev'):
@@ -276,12 +296,17 @@ for package_name in (name, name + '-dev'):
         DIR_LIST = REL_DIRS
         has_combined = False
 
+    # First delete any existing release dir
+    #shutil.rmtree(package_name)
+
     # Create release dir and move release files inside it
     os.mkdir(package_name)
 
     # If this is the production package, add the combined file
     if has_combined:
-        open(os.path.join(package_name, PLUGIN_METADATA_FILE), 'wb').write(''.join(tmp_out))
+        open(os.path.join(package_name, PLUGIN_METADATA_FILE), 'wb').write(combined_file)
+        # GPG signature
+        gpg_sign_file(os.path.join(package_name, PLUGIN_METADATA_FILE))
     # Copy files
     for p_file in FILE_LIST:
         shutil.copy(p_file, os.path.join(package_name, p_file))
@@ -297,6 +322,8 @@ for package_name in (name, name + '-dev'):
     # If this is the production package, add the combined file
     if has_combined:
         d_package.write(os.path.join(package_name, PLUGIN_METADATA_FILE))
+        # Add the GPG signature
+        d_package.write(os.path.join(package_name, PLUGIN_METADATA_FILE + '.asc'))
     # Append root files
     for p_file in FILE_LIST:
         d_package.write(os.path.join(package_name, p_file))
@@ -319,6 +346,9 @@ for package_name in (name, name + '-dev'):
     # Remove the release dir
 
     shutil.rmtree(package_name)
+
+# Remove the combined file signature
+#shutil.rm(PLUGIN_METADATA_FILE + '.asc')
 
 
 print 'Complete'
