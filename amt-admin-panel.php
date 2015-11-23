@@ -135,6 +135,8 @@ function amt_admin_help_tabs() {
 
     // Introduction
     $help_text = '
+    <h3>'.__('Introduction to metadata', 'add-meta-tags').'</h3>
+
     <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
 
     <h2>'.__('How it works', 'add-meta-tags').'</h2>
@@ -208,6 +210,34 @@ function amt_admin_help_tabs() {
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_publisher',
         'title'	=> __('Publisher Settings', 'add-meta-tags'),
+        'content'	=> $help_text,
+    ) );
+
+    // Author Settings
+    $help_text = '
+    <p>'.__('This section contains options related to the authors of the content.', 'add-meta-tags').'</p>
+
+    <h3>'.__('URLs of author profiles on social networks', 'add-meta-tags').':</h3>
+
+    <p>'.__('Each author may fill in the the URLs of the profiles on external social networks in the WordPress user profile page (fields marked with <em>AMT</em>).', 'add-meta-tags').'</p>
+
+    <h3>'.__('Main source of local author profiles', 'add-meta-tags').':</h3>
+
+    <p>'.__('WordPress does not have a dedicated page for author or user profiles. By convention, Add-Meta-Tags considers the first page of the author archive as the page of the local profile of each author.', 'add-meta-tags').'</p>
+
+    <p>'.__('It is possible to select alternative sources of local author profiles:', 'add-meta-tags').'</p>
+
+    <ul>
+    <li>'.__('First page of the author archive', 'add-meta-tags').' &mdash; '.__('This is the default option. The first page of the author archive is considered as the page of the local author profile on which a <em>Person</em> metadata entity is the top level metadata object. Moreover, the front page is considered the page on which the <em>Organization</em> metadata entity is the top level metadata object.', 'add-meta-tags').'</li>
+    <li>'.__('Front page', 'add-meta-tags').' &mdash; '.__('This option is only useful in personal web sites where there is a single author. If the front page is set as the source of the local author profile, then a <em>Person</em> metadata entity is the top level metadata object on the front page, instead of the <em>Organization</em> metadata object. Please note that profile metadata on the front page is generated automatically only when a static page has been set as the front page.', 'add-meta-tags').'</li>
+    <li>'.__('BuddyPress member page', 'add-meta-tags').' &mdash; '.__('This option is only useful if BuddyPress is used. In this case, the author\'s BuddyPress member page is considered as the source of the local author profile, instead of the first page of the author archive. The generation of metadata on BuddyPress pages by this plugin has to be enabled in the <em>Extended Metadata</em> settings.', 'add-meta-tags').'</li>
+    <li>'.__('Author web site URL', 'add-meta-tags').' &mdash; '.__('If this option is selected, then the URL of the <em>Website</em> field of the WordPress user profile is considered to be the URL of the local author profile, regardless of the fact that the URL may lead to a third party web site.', 'add-meta-tags').'</li>
+    </ul>
+
+    <p>'.__('This is considered an advanced option and should not be changed, unless you know exactly what you are doing.', 'add-meta-tags').'</p>';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_authors',
+        'title'	=> __('Author Settings', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -495,11 +525,13 @@ function amt_options_page() {
 
     </div>
 
+    <!--
     <div class="wrap amt-settings-notice">
 
         <p>'.__('It is no longer possible to enter the URLs of the Publisher\'s social media profiles in the WordPress user profile page. Instead, this information should be entered in the relevant fields of the <strong>Publisher Settings</strong> section below.', 'add-meta-tags').'</p>
 
     </div>
+    -->
 
     <div class="wrap amt-settings-donations-msg" style="' . (($options["i_have_donated"]=="1") ? 'display: none;' : '') . '">
 
@@ -718,6 +750,41 @@ function amt_options_page() {
             </td>
             </tr>
     ');
+
+    // Author Settings
+
+
+    print('
+            <tr valign="top">
+            <th scope="row">'.__('Author Settings', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Author Settings', 'add-meta-tags').'</span></legend>
+
+                <p>'.__('This section contains options related to the authors of the content.', 'add-meta-tags').'</p>
+
+                <h4>'.__('URLs of author profiles on social networks', 'add-meta-tags').':</h4>
+
+                <p>'.__('Each author may fill in the the URLs of the profiles on external social networks in the WordPress user profile page (fields marked with <em>AMT</em>).', 'add-meta-tags').'</p>
+
+                <h4>'.__('Main source of local author profiles', 'add-meta-tags').':</h4>
+
+                <select name="author_profile_source" type="text" id="author_profile_source" class="code">
+                    <option '. (($options["author_profile_source"]=="default") ? 'selected="selected"' : '') .' value="default">'.__('First page of the author archive', 'add-meta-tags').' '.__('(default)', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="frontpage") ? 'selected="selected"' : '') .' value="frontpage">'.__('Front page (with static page only)', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="buddypress") ? 'selected="selected"' : '') .' value="buddypress">'.__('BuddyPress member page', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="url") ? 'selected="selected"' : '') .' value="url">'.__('Author web site URL', 'add-meta-tags').'</option>
+                </select> 
+
+                <br /><br />
+                <p>'.__('This is an advanced option and should not be changed, unless you have consulted the integrated help for more information.', 'add-meta-tags').'</p>
+                <br />
+
+            </fieldset>
+            </td>
+            </tr>
+    ');
+
 
     // Basic Metadata
 

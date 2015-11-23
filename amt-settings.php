@@ -92,6 +92,7 @@ function amt_get_default_options() {
         //"social_main_facebook_admins" => "",
         "social_main_googleplus_publisher_profile_url" => "",
         "social_main_twitter_publisher_username" => "",
+        "author_profile_source" => "default",    // default/frontpage/buddypress/url
         "global_locale" => "",
         "generate_hreflang_links" => "0",
         "hreflang_strip_region" => "0",
@@ -236,6 +237,7 @@ function amt_plugin_upgrade() {
     // Version 2.9.7 (settings_version 16->17)
     // Added "extended_support_buddypress"
     // Added "extended_support_bbpress"
+    // Added "author_profile_source"
     // No migrations required. Addition takes place in (1).
 
 
@@ -295,6 +297,12 @@ function amt_save_settings($post_payload) {
                 $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } elseif ( $def_key == 'social_main_googleplus_publisher_profile_url' ) {
                 $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
+            } elseif ( $def_key == 'author_profile_source' ) {
+                $author_profile_source_value = sanitize_text_field( stripslashes( $post_payload[$def_key] ) );
+                if ( ! in_array( $author_profile_source_value, array('default', 'frontpage', 'buddypress', 'url') ) ) {
+                    $author_profile_source_value = 'default';
+                }
+                $add_meta_tags_opts[$def_key] = $author_profile_source_value;
             } else {
                 $add_meta_tags_opts[$def_key] = sanitize_text_field( stripslashes( $post_payload[$def_key] ) );
             }
