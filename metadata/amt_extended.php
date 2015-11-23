@@ -1277,7 +1277,7 @@ function amt_detect_buddypress( $post, $options ) {
     // Process BuddyPress metadata, only if the BuddyPress extended metadata
     // support has been enabled in the Add-Meta-Tags settings.
     if ( $options["extended_support_buddypress"] == "1" ) {
-        // Perform this test in case BuddyPress is not installed/activated.
+        // Perform the 'function_exists()' test in case BuddyPress is not installed/activated.
         if ( ! function_exists('is_buddypress') || ! is_buddypress() ) {
             return false;
         }
