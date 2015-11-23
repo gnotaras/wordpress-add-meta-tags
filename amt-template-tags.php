@@ -82,3 +82,18 @@ function amt_breadcrumbs( $user_options ) {
     echo amt_get_breadcrumbs( $user_options );
 }
 
+function amt_local_author_profile_url( $author_id=null ) {
+    $options = get_option("add_meta_tags_opts");
+    if ( empty($options) ) {
+        return '';
+    }
+    if ( is_null($author_id) ) {
+        $post = get_queried_object();
+        if ( is_null($post) ) {
+            return '';
+        }
+        $author_id = get_the_author_meta( 'ID', $post->post_author );
+    }
+    echo esc_url( amt_get_local_author_profile_url( $author_id, $options ) );
+}
+
