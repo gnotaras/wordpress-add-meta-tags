@@ -166,7 +166,13 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
     } elseif ( amt_is_static_front_page() ) {
 
         // Type
-        $metadata_arr[] = '<meta property="og:type" content="website" />';
+        if ( $options['author_profile_source'] == 'frontpage' ) {
+            // The front page is treated as the profile page.
+            $metadata_arr[] = '<meta property="og:type" content="profile" />';
+        } else {
+            $metadata_arr[] = '<meta property="og:type" content="website" />';
+        }
+
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // Title - Note: Contains multipage information
@@ -207,6 +213,19 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
             if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
                 $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+            }
+        }
+
+        // Profile data (only if the front page has been set as the source of profile.)
+        if ( $options['author_profile_source'] == 'frontpage' ) {
+            // Profile first and last name
+            $last_name = get_the_author_meta( 'last_name', $post->post_author );
+            if ( !empty($last_name) ) {
+                $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
+            }
+            $first_name = get_the_author_meta( 'first_name', $post->post_author );
+            if ( !empty($first_name) ) {
+                $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
             }
         }
 
@@ -349,8 +368,9 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $author = $post;
 
         // Type
-        if ( ! is_paged() ) {
-            // We treat the first page of the archive as a profile
+        if ( ! is_paged() &&  $options['author_profile_source'] == 'default' ) {
+            // We treat the first page of the archive as a profile, only if
+            // the profile source has been set to 'default'
             $metadata_arr[] = '<meta property="og:type" content="profile" />';
         } else {
             $metadata_arr[] = '<meta property="og:type" content="website" />';
@@ -377,6 +397,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
                 $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_pagenum_link( get_query_var('paged') ) ) . '" />';
             } else {
                 $metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( get_author_posts_url( $author->ID ) ) . '" />';
+                // The following makes no sense here. 'get_author_posts_url( $author->ID )' will do in all cases.
+                //$metadata_arr[] = '<meta property="og:url" content="' . esc_url_raw( amt_get_local_author_profile_url( $author->ID, $options ) ) . '" />';
             }
         }
         // description - Note: Contains multipage information through amt_process_paged()
@@ -427,7 +449,7 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         }
 
         // Profile data (only on the 1st page of the archive)
-        if ( ! is_paged() ) {
+        if ( ! is_paged() &&  $options['author_profile_source'] == 'default' ) {
             // Profile first and last name
             $last_name = $author->last_name;
             if ( !empty($last_name) ) {
@@ -575,7 +597,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         if ( !empty($fb_author_url) ) {
             $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
         } else {
-            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+            //$metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+            $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( amt_get_local_author_profile_url( get_the_author_meta( 'ID', $post->post_author ), $options ) ) . '" />';
         }
         // Publisher
         // If a Facebook publisher profile URL has been provided, it has priority.
@@ -816,7 +839,8 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             if ( !empty($fb_author_url) ) {
                 $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( $fb_author_url, array('http', 'https', 'mailto') ) . '" />';
             } else {
-                $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+                //$metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+                $metadata_arr[] = '<meta property="article:author" content="' . esc_url_raw( amt_get_local_author_profile_url( get_the_author_meta( 'ID', $post->post_author ), $options ) ) . '" />';
             }
 
             // Publisher
