@@ -1274,7 +1274,17 @@ add_filter( 'amt_is_product_group', 'amt_detect_ecommerce_product_group', 10, 1 
 
 
 // BuddyPress detection
-function amt_detect_buddypress( $post, $options ) {
+function amt_detect_buddypress( $default, $post, $options ) {
+    // First and important check.
+    // $default is a boolean variable which indicates if custom content has been
+    // detected by any previous filter.
+    // Check if custom content has already been detected by another filter.
+    // If such content has been detected, just return $default (should be true)
+    // and *do not* add any metadata filters.
+    // This check is mandatory in order the detection mechanism to work correctly.
+    if ( $default ) {
+        return $default;
+    }
     // Process BuddyPress metadata, only if the BuddyPress extended metadata
     // support has been enabled in the Add-Meta-Tags settings.
     if ( $options["extended_support_buddypress"] == "1" ) {
@@ -1306,7 +1316,7 @@ function amt_detect_buddypress( $post, $options ) {
     }
     return false;
 }
-add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 2 );
+add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 3 );
 
 
 function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
@@ -1402,7 +1412,17 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
 
 
 // bbPress detection
-function amt_detect_bbpress( $post, $options ) {
+function amt_detect_bbpress( $default, $post, $options ) {
+    // First and important check.
+    // $default is a boolean variable which indicates if custom content has been
+    // detected by any previous filter.
+    // Check if custom content has already been detected by another filter.
+    // If such content has been detected, just return $default (should be true)
+    // and *do not* add any metadata filters.
+    // This check is mandatory in order the detection mechanism to work correctly.
+    if ( $default ) {
+        return $default;
+    }
     // Process bbPress metadata, only if the bbPress extended metadata
     // support has been enabled in the Add-Meta-Tags settings.
     if ( $options["extended_support_bbpress"] == "1" ) {
@@ -1434,7 +1454,7 @@ function amt_detect_bbpress( $post, $options ) {
     }
     return false;
 }
-add_filter( 'amt_is_custom', 'amt_detect_bbpress', 10, 2 );
+add_filter( 'amt_is_custom', 'amt_detect_bbpress', 10, 3 );
 
 
 function amt_bbpress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
