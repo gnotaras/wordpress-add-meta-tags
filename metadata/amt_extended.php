@@ -1338,6 +1338,205 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
 
     $metadata_arr = array();
 
+    // User Profiles
+
+    // Determines if a BuddyPress user profile has been requested
+    if ( bp_is_user_profile() ) {
+        // https://codex.buddypress.org/developer/the-bp-global/
+        global $bp;
+        $user_id = $bp->displayed_user->id;
+        $user_domain = $bp->displayed_user->domain;
+        $user_fullname = $bp->displayed_user->fullname;
+        $wp_user_obj = get_user_by( 'id', $user_id );
+
+        // Type
+        // https://developers.facebook.com/docs/reference/opengraph/object-type/profile/
+        $metadata_arr[] = '<meta property="og:type" content="profile" />';
+        // Site Name
+        $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // URL
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url( $user_domain, array('http', 'https') ) . '" />';
+        // Locale
+        $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
+        // fb:profile_id
+        // The fb:profile_id field associates the object with a Facebook user.
+
+        // Related resources
+        // Perhaps add Facebook, Twitter, Google+ profile URLs in 'og:see_also' meta tags
+        // og:see_also
+
+        // Determines if Extended Profiles component is active.
+        if ( ! bp_is_active( 'xprofile' ) ) {
+
+            // Description
+            $author_description = sanitize_text_field( amt_sanitize_description( $wp_user_obj->description ) );
+            if ( empty($author_description) ) {
+                $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $wp_user_obj->display_name ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( $author_description ) . '" />';
+            }
+
+            // Profile Image
+            $author_email = sanitize_email( $wp_user_obj->user_email );
+            $avatar_size = apply_filters( 'amt_bp_avatar_size', array('width'=>50, 'height'=>50) );
+            $avatar_url = '';
+            // First try to get the avatar link by using get_avatar().
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_img = get_avatar( get_the_author_meta('ID', $wp_user_obj->ID), $avatar_size, '', get_the_author_meta('display_name', $wp_user_obj->ID) );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            } elseif ( ! empty($author_email) ) {
+                // If the user has provided an email, we use it to construct a gravatar link.
+                $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
+            }
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
+                // Add an og:imagesecure_url if the image URL uses HTTPS
+                if ( strpos($avatar_url, 'https://') !== false ) {
+                    $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( $avatar_url ) . '" />';
+                }
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $avatar_size['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $avatar_size['height'] ) . '" />';
+                    // Since we do not have a way to determine the image type, the following meta tag is commented out
+                    // TODO: make a function that detects the image type from the file extension (if a file extension is available)
+                    //$metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+                }
+            }
+
+            // Other Profile Data
+
+            // profile:last_name
+            $last_name = $wp_user_obj->last_name;
+            if ( !empty($last_name) ) {
+                $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
+            }
+            // profile:first_name
+            $first_name = $wp_user_obj->first_name;
+            if ( !empty($first_name) ) {
+                $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
+            }
+
+            // profile:gender
+            // profile:username
+
+        // Extended Profiles
+
+        } else {
+            // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
+
+            // Mappings of field names AMT understands to field names used on the actual web site.
+            $xprofile_field_map = array(
+                'first_name'        => array('first name'),
+                'last_name'         => array('last name'),
+                'description'       => array('description', 'bio', 'about'),
+                'gender'            => array('gender', 'sex'),
+            );
+            $extended_profile_field_map = apply_filters( 'amt_opengraph_buddypress_xprofile_field_map', $xprofile_field_map );
+
+            // Description
+            foreach ( $xprofile_field_map['description'] as $description_field ) {
+                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
+                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
+                if ( ! empty($author_description) ) {
+                    break;
+                }
+            }
+            if ( ! empty($author_description) ) {
+                $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( $author_description ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
+            }
+                
+            // Profile Image
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_size = apply_filters( 'amt_bp_avatar_size', array('width'=>50, 'height'=>50) );
+            $avatar_url = '';
+            $avatar_args = array(
+                'item_id'   => $user_id,
+                'width'     => $avatar_size['width'],
+                'height'    => $avatar_size['height'],
+            );
+            $avatar_img = bp_core_fetch_avatar( $avatar_args );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            }
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
+                // Add an og:imagesecure_url if the image URL uses HTTPS
+                if ( strpos($avatar_url, 'https://') !== false ) {
+                    $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( $avatar_url ) . '" />';
+                }
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $avatar_size['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $avatar_size['height'] ) . '" />';
+                    // Since we do not have a way to determine the image type, the following meta tag is commented out
+                    // TODO: make a function that detects the image type from the file extension (if a file extension is available)
+                    //$metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+                }
+            }
+
+            // Other Profile Data
+
+            // profile:last_name
+            foreach ( $xprofile_field_map['last_name'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $field_value = sanitize_text_field( $field_value );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
+                    break;
+                }
+            }
+
+            // profile:first_name
+            foreach ( $xprofile_field_map['first_name'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $field_value = sanitize_text_field( $field_value );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $last_name ) . '" />';
+                    break;
+                }
+            }
+
+            // profile:gender
+            foreach ( $xprofile_field_map['gender'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $field_value = sanitize_text_field( $field_value );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta property="profile:gender" content="' . esc_attr( $last_name ) . '" />';
+                    break;
+                }
+            }
+
+            // profile:username
+
+        }
+
+    }
+
+
+/*
+
+    if ( bp_is_current_component( 'xprofile' ) ) {
+        $metadata_arr[] = 'XPROFILE_IS_CURRENT_COMPONENT';
+    }
+    if ( bp_is_user() ) {
+        $metadata_arr[] = 'IS_USER';
+    }
+
+    if ( bp_is_profile_component() ) {
+        $metadata_arr[] = 'IS_PROFILE_COMPONENT';
+    }
+
+*/
+
+
     // Allow filtering of the generated metadata
     // Customize with: add_filter('amt_buddypress_opengraph_extra', 'my_function', 10, 5);
     $metadata_arr = apply_filters( 'amt_buddypress_opengraph_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
