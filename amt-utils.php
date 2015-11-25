@@ -2029,7 +2029,7 @@ function amt_get_local_author_profile_url( $author_id, $options ) {
 
 // Determines if custom content has been requested.
 function amt_is_custom($post, $options) {
-    return apply_filters( 'amt_is_custom', $post, $options );
+    return apply_filters( 'amt_is_custom', false, $post, $options );
 }
 
 
