@@ -1265,6 +1265,7 @@ add_filter( 'amt_is_product_group', 'amt_detect_ecommerce_product_group', 10, 1 
 
 
 
+
 //
 //
 //  BuddyPress Support
