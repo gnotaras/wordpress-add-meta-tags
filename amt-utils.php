@@ -2023,7 +2023,7 @@ function amt_get_local_author_profile_url( $author_id, $options ) {
         }
     }
     // Return the defaultif all else fails.
-    return get_author_posts_url( $author->ID );
+    return get_author_posts_url( $author_id );
 }
 
 
