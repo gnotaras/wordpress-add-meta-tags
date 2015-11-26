@@ -1307,7 +1307,7 @@ function amt_detect_buddypress( $default, $post, $options ) {
             // Non content pages via 'wp_footer' action
             add_filter( 'amt_custom_metadata_schemaorg_footer', 'amt_buddypress_schemaorg_footer', 10, 5 );
             // Content pages via 'the_content' filter
-            add_filter( 'amt_custom_metadata_schemaorg_content_filter', 'amt_buddypress_schemaorg_content_filter', 10, 5 );
+//            add_filter( 'amt_custom_metadata_schemaorg_content_filter', 'amt_buddypress_schemaorg_content_filter', 10, 5 );
         } else {
             add_filter( 'amt_custom_metadata_jsonld_schemaorg', 'amt_buddypress_jsonld_schemaorg', 10, 5 );
         }
