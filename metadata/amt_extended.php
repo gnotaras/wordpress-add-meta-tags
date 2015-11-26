@@ -2021,6 +2021,8 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
 
 function amt_buddypress_schemaorg_content_filter( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
+    // Currently not called. Possibly not needed.
+
     // Allow filtering of the generated metadata
     // Customize with: add_filter('amt_buddypress_schemaorg_content_filter_extra', 'my_function', 10, 5);
     $metadata_arr = apply_filters( 'amt_buddypress_schemaorg_content_filter_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
