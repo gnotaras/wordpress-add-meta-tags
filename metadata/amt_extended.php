@@ -1515,12 +1515,12 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
 
             // profile:last_name
             $last_name = $wp_user_obj->last_name;
-            if ( !empty($last_name) ) {
+            if ( ! empty($last_name) ) {
                 $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
             }
             // profile:first_name
             $first_name = $wp_user_obj->first_name;
-            if ( !empty($first_name) ) {
+            if ( ! empty($first_name) ) {
                 $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
             }
 
