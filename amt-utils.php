@@ -2883,7 +2883,9 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
                 $title = $entity_title;
             }
         } else {
-            $title = 'PROGRAMMING ERROR - MISSING TITLE';
+            // TODO: This appears in BuddyPress member pages. Maybe it should just set $title to an empty string.
+            //$title = 'PROGRAMMING ERROR - MISSING TITLE';
+            $title = '';
         }
 
     } elseif ( empty($entity_title_template) ) {
@@ -2891,10 +2893,14 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
         if ( $caller_is_metadata_generator ) {
             // If a metadata generator requested a title, but a template was
             // not found, return an error message as the title.
-            $title = 'TITLE TEMPLATE NOT FOUND';
+            //
+            // TODO: Maybe it should just set $title to an empty string.
+            //$title = 'TITLE TEMPLATE NOT FOUND';
+            $title = '';
         } else {
             // If the title was requested for the 'title' HTML element, but a template
             //was not found, return an empty string, so that the default WordPress title is used.
+            // TODO: Check if still required
             $title = '';
         }
 
