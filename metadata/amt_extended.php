@@ -1472,11 +1472,6 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $googleplus_author_url, array('http', 'https') ) . '" />';
         }
 
-        // profile:username
-        if ( ! empty($user_username) ) {
-            $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
-        }
-
         // Determines if Extended Profiles component is active.
 
         if ( ! bp_is_active( 'xprofile' ) ) {
@@ -1527,12 +1522,17 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             if ( ! empty($last_name) ) {
                 $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
             }
+
             // profile:first_name
             $first_name = $wp_user_obj->first_name;
             if ( ! empty($first_name) ) {
                 $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
             }
 
+            // profile:username
+            if ( ! empty($user_username) ) {
+                $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
+            }
             // profile:gender
             
 
@@ -1621,6 +1621,11 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
                 if ( ! empty($first_name) ) {
                     $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
                 }
+            }
+
+            // profile:username
+            if ( ! empty($user_username) ) {
+                $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
             }
 
             // profile:gender
