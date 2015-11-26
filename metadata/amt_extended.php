@@ -1570,9 +1570,9 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
 
             // profile:last_name
             foreach ( $xprofile_field_map['last_name'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $field_value = sanitize_text_field( $field_value );
-                if ( ! empty($field_value) ) {
+                $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $last_name = sanitize_text_field( $last_name );
+                if ( ! empty($last_name) ) {
                     $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
                     break;
                 }
@@ -1580,11 +1580,24 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
 
             // profile:first_name
             foreach ( $xprofile_field_map['first_name'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $field_value = sanitize_text_field( $field_value );
-                if ( ! empty($field_value) ) {
-                    $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $last_name ) . '" />';
+                $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $first_name = sanitize_text_field( $first_name );
+                if ( ! empty($first_name) ) {
+                    $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
                     break;
+                }
+            }
+
+            // Generate first and last name from full name if needed.
+            if ( empty($last_name) && empty($first_name) && ! empty($user_fullname) ) {
+                $parts = explode(' ', $user_fullname);
+                $last_name = sanitize_text_field( array_pop($parts) ); // Removes and returns the element off the end of array
+                if ( ! empty($last_name) ) {
+                    $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
+                }
+                $first_name = sanitize_text_field( implode(' ', $parts) );
+                if ( ! empty($first_name) ) {
+                    $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
                 }
             }
 
