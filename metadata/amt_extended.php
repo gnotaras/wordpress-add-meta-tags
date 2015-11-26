@@ -1607,7 +1607,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
                 $field_value = sanitize_text_field( $field_value );
                 if ( ! empty($field_value) ) {
-                    $metadata_arr[] = '<meta property="profile:gender" content="' . esc_attr( $last_name ) . '" />';
+                    $metadata_arr[] = '<meta property="profile:gender" content="' . esc_attr( $field_value ) . '" />';
                     break;
                 }
             }
