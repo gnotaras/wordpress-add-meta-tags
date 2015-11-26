@@ -1442,6 +1442,8 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         $metadata_arr[] = '<meta property="og:type" content="profile" />';
         // Site Name
         $metadata_arr[] = '<meta property="og:site_name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
+        // Title
+        $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $wp_user_obj->display_name ) . '" />';
         // URL
         $metadata_arr[] = '<meta property="og:url" content="' . esc_url( $user_domain, array('http', 'https') ) . '" />';
         // Locale
