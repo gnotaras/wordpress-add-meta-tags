@@ -1325,7 +1325,10 @@ function amt_buddypress_get_xprofile_field_map() {
         'keywords'          => array('keywords', 'skills', 'interests'),    // TODO: Future: add group names?
         'first_name'        => array('first name'),
         'last_name'         => array('last name'),
+        'nickname'          => array('nickname', 'alias', 'alternate name'),
         'gender'            => array('gender', 'sex'),
+        'website'           => array('website', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
+        'telephone'         => array('telephone', 'phone', 'tel'),
     );
     return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
 }
