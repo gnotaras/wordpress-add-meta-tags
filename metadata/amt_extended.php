@@ -1480,6 +1480,13 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
 
         if ( ! bp_is_active( 'xprofile' ) ) {
 
+            // Website
+            //$website_url = get_user_meta($user_id, 'amt_googleplus_author_profile_url', true);
+            $website_url = get_the_author_meta( 'user_url', $user_id );
+            if ( ! empty( $website_url ) ) {
+                $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $website_url, array('http', 'https') ) . '" />';
+            }
+
             // Description
             $author_description = sanitize_text_field( amt_sanitize_description( $wp_user_obj->description ) );
             if ( empty($author_description) ) {
@@ -1546,6 +1553,15 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
             $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+
+            // Website
+            foreach ( $xprofile_field_map['website'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                    break;
+                }
+            }
 
             // Description
             foreach ( $xprofile_field_map['description'] as $description_field ) {
