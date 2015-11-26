@@ -1348,11 +1348,13 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
-        // $user_fullname = $bp->displayed_user->fullname;
-        $user_fullname = bp_displayed_user_fullname();
+        $user_fullname = $bp->displayed_user->fullname;
+        // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
         $user_username = bp_get_displayed_user_username();
-        $wp_user_obj = get_user_by( 'id', $user_id );
+        //$wp_user_obj = get_user_by( 'id', $user_id );
+        $wp_user_obj = get_userdata( $user_id );
+        //var_dump($wp_user_obj);
 
         // Related resources
         // Perhaps add Facebook, Twitter, Google+ profile URLs in 'og:see_also' meta tags
@@ -1427,11 +1429,13 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
-        // $user_fullname = $bp->displayed_user->fullname;
-        $user_fullname = bp_displayed_user_fullname();
+        $user_fullname = $bp->displayed_user->fullname;
+        // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
         $user_username = bp_get_displayed_user_username();
-        $wp_user_obj = get_user_by( 'id', $user_id );
+        //$wp_user_obj = get_user_by( 'id', $user_id );
+        $wp_user_obj = get_userdata( $user_id );
+        //var_dump($wp_user_obj);
 
         // Type
         // https://developers.facebook.com/docs/reference/opengraph/object-type/profile/
@@ -1665,11 +1669,13 @@ function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachme
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
-        // $user_fullname = $bp->displayed_user->fullname;
-        $user_fullname = bp_displayed_user_fullname();
+        $user_fullname = $bp->displayed_user->fullname;
+        // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
         $user_username = bp_get_displayed_user_username();
-        $wp_user_obj = get_user_by( 'id', $user_id );
+        //$wp_user_obj = get_user_by( 'id', $user_id );
+        $wp_user_obj = get_userdata( $user_id );
+        //var_dump($wp_user_obj);
 
         // Generate a twitter card only if the user and the publisher have
         // filled in their Twitter usernames.
