@@ -1410,8 +1410,6 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
 
 function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-    $metadata_arr = array();
-
     // User Profiles
 
     // Determines if a BuddyPress user profile has been requested
@@ -1502,14 +1500,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         } else {
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
-            // Mappings of field names AMT understands to field names used on the actual web site.
-            $xprofile_field_map = array(
-                'first_name'        => array('first name'),
-                'last_name'         => array('last name'),
-                'description'       => array('description', 'bio', 'about'),
-                'gender'            => array('gender', 'sex'),
-            );
-            $extended_profile_field_map = apply_filters( 'amt_opengraph_buddypress_xprofile_field_map', $xprofile_field_map );
+            $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
 
             // Description
             foreach ( $xprofile_field_map['description'] as $description_field ) {
