@@ -1612,8 +1612,6 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
                 }
             }
 
-            // profile:username
-
         }
 
     }
