@@ -363,6 +363,12 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     // Get current post object
     $post = get_queried_object();
 
+    // Additional check to make sure we have a post.
+    if ( $post->ID == 0 ) {
+        // Can happen with some BuddyPress pages (eg member page)
+        return $post_body;
+    }
+
     $metadata_arr = array();
 
     // Since this is a function that is hooked to the 'the_content' filter
