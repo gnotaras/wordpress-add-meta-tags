@@ -1343,9 +1343,15 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
     if ( bp_is_user_profile() ) {
         // https://codex.buddypress.org/developer/the-bp-global/
         global $bp;
-        $user_id = $bp->displayed_user->id;
-        $user_domain = $bp->displayed_user->domain;
-        $user_fullname = $bp->displayed_user->fullname;
+        // $user_id = $bp->displayed_user->id;
+        $user_id = bp_displayed_user_id();
+        // $user_domain = $bp->displayed_user->domain;
+        // bp_core_get_user_domain( bp_displayed_user_id() )
+        $user_domain = bp_displayed_user_domain();
+        // $user_fullname = $bp->displayed_user->fullname;
+        $user_fullname = bp_displayed_user_fullname();
+        // $user_username = $bp->displayed_user->user_login;
+        $user_username = bp_get_displayed_user_username();
         $wp_user_obj = get_user_by( 'id', $user_id );
 
         // Related resources
@@ -1654,9 +1660,15 @@ function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachme
     if ( bp_is_user_profile() ) {
         // https://codex.buddypress.org/developer/the-bp-global/
         global $bp;
-        $user_id = $bp->displayed_user->id;
-        $user_domain = $bp->displayed_user->domain;
-        $user_fullname = $bp->displayed_user->fullname;
+        // $user_id = $bp->displayed_user->id;
+        $user_id = bp_displayed_user_id();
+        // $user_domain = $bp->displayed_user->domain;
+        // bp_core_get_user_domain( bp_displayed_user_id() )
+        $user_domain = bp_displayed_user_domain();
+        // $user_fullname = $bp->displayed_user->fullname;
+        $user_fullname = bp_displayed_user_fullname();
+        // $user_username = $bp->displayed_user->user_login;
+        $user_username = bp_get_displayed_user_username();
         $wp_user_obj = get_user_by( 'id', $user_id );
 
         // Generate a twitter card only if the user and the publisher have
