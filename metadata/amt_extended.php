@@ -1319,6 +1319,18 @@ function amt_detect_buddypress( $default, $post, $options ) {
 add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 3 );
 
 
+function amt_buddypress_get_xprofile_field_map() {
+    $xprofile_field_map = array(
+        'description'       => array('description', 'bio', 'about'),
+        'keywords'          => array('keywords', 'skills', 'interests'),
+        'first_name'        => array('first name'),
+        'last_name'         => array('last name'),
+        'gender'            => array('gender', 'sex'),
+    );
+    return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
+}
+
+
 function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
     // We only support profile pages at this time.
