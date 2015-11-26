@@ -1454,17 +1454,20 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         // Related resources as 'og:see_also meta' tags
         // Perhaps add Facebook, Twitter, Google+ profile URLs in 'og:see_also' meta tags
         // Facebook Profile
-        $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $wp_user_obj);
+        //$fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $user_id);
+        $fb_author_url = get_user_meta($user_id, 'amt_facebook_author_profile_url', true);
         if ( ! empty($fb_author_url) ) {
             $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $fb_author_url, array('http', 'https') ) . '" />';
         }
         // Twitter
-        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $wp_user_obj);
+        //$twitter_author_username = get_the_author_meta('amt_twitter_author_username', $user_id);
+        $twitter_author_username = get_user_meta($user_id, 'amt_twitter_author_username', true);
         if ( ! empty($twitter_author_username) ) {
-            $metadata_arr[] = '<meta property="og:see_also" content="https://twitter.com/' . esc_url( $twitter_author_username, array('http', 'https') ) . '" />';
+            $metadata_arr[] = '<meta property="og:see_also" content="https://twitter.com/' . esc_attr( $twitter_author_username ) . '" />';
         }
         // Google+
-        $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $wp_user_obj);
+        //$googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $wp_user_obj);
+        $googleplus_author_url = get_user_meta($user_id, 'amt_googleplus_author_profile_url', true);
         if ( ! empty( $googleplus_author_url ) ) {
             $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $googleplus_author_url, array('http', 'https') ) . '" />';
         }
