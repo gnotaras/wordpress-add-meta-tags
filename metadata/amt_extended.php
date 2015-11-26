@@ -1321,7 +1321,7 @@ add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 3 );
 
 function amt_buddypress_get_xprofile_field_map() {
     $xprofile_field_map = array(
-        'description'       => array('excerpt', 'description', 'bio', 'about'),
+        'description'       => array('excerpt', 'summary', 'description', 'bio', 'about'),
         'keywords'          => array('keywords', 'skills', 'interests'),    // TODO: Future: add group names?
         'first_name'        => array('first name'),
         'last_name'         => array('last name'),
