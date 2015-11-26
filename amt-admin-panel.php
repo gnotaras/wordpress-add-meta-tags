@@ -438,18 +438,6 @@ function amt_admin_help_tabs() {
 
     <p>'.__('By default, metadata is generated for all media files that have been attached or embedded in the content. By enabling this option Add-Meta-Tags will generate metadata only for the first media file of each type (image, video, audio) it encounters. This limit does not affect the <code>gallery</code> Twitter Card, which always contains all the attached images.', 'add-meta-tags').'</p>
 
-    <h3>'.__('Extended Metadata Support', 'add-meta-tags').'</h3>
-
-    <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
-
-    <ul>
-    <li>'.__('Metadata for WooCommerce products and product groups.', 'add-meta-tags').'</li>
-    <li>'.__('Metadata for Easy-Digital-Downloads products and product groups.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
-    <li>'.__('Metadata for BuddyPress pages.', 'add-meta-tags').' '.__('Currently supports profile pages only.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
-    <li>'.__('Metadata for bbPress pages.', 'add-meta-tags').' '.__('Currently, only the base mechanism has been implemented. No metadata is generated.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)</li>
-    </ul>
-    <p>'.__('Please note that if none of the supported products or other supported post types can be detected, the above settings do not affect the plugin\'s normal functionality.', 'add-meta-tags').'</p>
-
     <h3>'.__('Review Mode', 'add-meta-tags').'</h3>
 
     <p>'.__('If enabled, WordPress users with administrator privileges see a box (right above the post\'s content) containing the metadata exactly as it is added in the HTML head and body. The box is displayed for posts, pages, attachments and custom post types.', 'add-meta-tags').'</p>
@@ -458,6 +446,52 @@ function amt_admin_help_tabs() {
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_extra',
         'title'	=> __('Extra settings', 'add-meta-tags'),
+        'content'	=> $help_text,
+    ) );
+
+    // Extended Metadata
+    $help_text = '
+    <p>'.__('This section contains information about the metadata Add-Meta-Tags can generate for third party content.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Metadata for WooCommerce', 'add-meta-tags').'</h3>
+
+    <p>'.__('Add-Meta-Tags can generate metadata for WooCommerce products and product groups. The Basic, Opengraph, Twitter Cards, Schema.org microdata and Schema.org JSON+LD metadata generators have been implemented.', 'add-meta-tags').'</p>
+    <p>'.__('The generated metadata is complete and supports most of the properties of products and offers, except shipping related information. Product attributes are also supported. In some cases, you will have to override the associations between the names of product attributes the plugin expects and the names of product attributes that are actually used.', 'add-meta-tags').'</p>
+    <p>'.__('Products with regular and sales prices are supported. Variable products and pages of product groups are also supported.', 'add-meta-tags').'</p>
+    <p>'.__('The metadata generators for WooCommerce products should be considered stable. However, your comments and suggestions are welcome.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Metadata for Easy Digital Downloads', 'add-meta-tags').'</h3>
+
+    <p>'.__('Support for the products and product groups of the Easy Digital Downloads plugin is still work in progress.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Metadata for BuddyPress', 'add-meta-tags').'</h3>
+
+    <p>'.__('Add-Meta-Tags can generate metadata for BuddyPress member profile pages. The Basic, Opengraph, Twitter Cards, Schema.org microdata and Schema.org JSON+LD metadata generators have been implemented.', 'add-meta-tags').'</p>
+
+    <p>'.__('If the <em>Extended Profiles</em> component has not been activated in BuddyPress, then metadata is generated based on the information found in the WordPress user profile.', 'add-meta-tags').'</p>
+
+    <p>'.__('Please consult the documentation for more information about how to <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress" target="_blank">modify or extend</a> the generated metadata for BuddyPress.', 'add-meta-tags').'</p>
+
+    <p>'.__('How to fully take advantage of this feature:', 'add-meta-tags').'</p>
+
+    <ol>
+    <li>'.__('Enable BuddyPress support in the Add-Meta-Tags settings.', 'add-meta-tags').'</li>
+    <li>'.__('Set the source of local author profiles to <code>BuddyPress</code> in the Add-Meta-Tags settings.', 'add-meta-tags').' (<em>'.__('Optional', 'add-meta-tags').'</em>)</li>
+    <li>'.__('Use the <code>amt_local_author_profile_url()</code> template tag in your theme templates in order to generate a URL to the author\'s profile. This template tag takes your selection about the source of local author profiles into account.', 'add-meta-tags').' (<em>'.__('Optional', 'add-meta-tags').'</em>)</li>
+    </ol>
+
+    <p>'.__('This is a new feature and should be considered work in progress.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Metadata for bbPress', 'add-meta-tags').'</h3>
+
+    <p>'.__('Currently, only the base mechanism exists, which lets you <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress" target="_blank">modify or extend</a> metadata for bbPress forums and topics.', 'add-meta-tags').'</p>
+
+    <p>'.__('Please, don\'t forget to contribute your customizations to this project!', 'add-meta-tags').'</p>
+
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_extended_metadata',
+        'title'	=> __('Extended Metadata', 'add-meta-tags'),
         'content'	=> $help_text,
     ) );
 
@@ -1089,12 +1123,27 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Review Mode', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Review Mode', 'add-meta-tags').'</span></legend>
+
+                <input id="review_mode" type="checkbox" value="1" name="review_mode" '. (($options["review_mode"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="review_mode">'.__('Enable <em>Metadata Review Mode</em>.', 'add-meta-tags').'</label>
+                <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Extended Metadata Support', 'add-meta-tags').'</th>
             <td>
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Extended Metadata Support', 'add-meta-tags').'</span></legend>
 
                 <p>'.__('Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata.', 'add-meta-tags').'</p>
+
+                <br />
 
                 <p><input id="extended_support_woocommerce" type="checkbox" value="1" name="extended_support_woocommerce" '. (($options["extended_support_woocommerce"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_woocommerce">
@@ -1108,28 +1157,20 @@ function amt_options_page() {
 
                 <p><input id="extended_support_buddypress" type="checkbox" value="1" name="extended_support_buddypress" '. (($options["extended_support_buddypress"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_buddypress">
-                '.__('Metadata for BuddyPress pages.', 'add-meta-tags').' '.__('Currently supports profile pages only.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
+                '.__('Metadata for BuddyPress.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
                 </label></p>
 
                 <p><input id="extended_support_bbpress" type="checkbox" value="1" name="extended_support_bbpress" '. (($options["extended_support_bbpress"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_bbpress">
-                '.__('Metadata for bbPress pages.', 'add-meta-tags').' '.__('Currently, only the base mechanism has been implemented. No metadata is generated.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
+                '.__('Metadata for bbPress pages.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
                 </label></p>
 
                 <br />
-            </fieldset>
-            </td>
-            </tr>
 
-            <tr valign="top">
-            <th scope="row">'.__('Review Mode', 'add-meta-tags').'</th>
-            <td>
-            <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Review Mode', 'add-meta-tags').'</span></legend>
+                <p>'.__('Please consult the integrated help for more information about these features.', 'add-meta-tags').'</p>
 
-                <input id="review_mode" type="checkbox" value="1" name="review_mode" '. (($options["review_mode"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="review_mode">'.__('Enable <em>Metadata Review Mode</em>.', 'add-meta-tags').'</label>
                 <br />
+
             </fieldset>
             </td>
             </tr>
