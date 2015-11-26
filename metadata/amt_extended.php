@@ -1433,9 +1433,28 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         // fb:profile_id
         // The fb:profile_id field associates the object with a Facebook user.
 
-        // Related resources
+        // Related resources as 'og:see_also meta' tags
         // Perhaps add Facebook, Twitter, Google+ profile URLs in 'og:see_also' meta tags
-        // og:see_also
+        // Facebook Profile
+        $fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $wp_user_obj);
+        if ( ! empty($fb_author_url) ) {
+            $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $fb_author_url, array('http', 'https') ) . '" />';
+        }
+        // Twitter
+        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $wp_user_obj);
+        if ( ! empty($twitter_author_username) ) {
+            $metadata_arr[] = '<meta property="og:see_also" content="https://twitter.com/' . esc_url( $twitter_author_username, array('http', 'https') ) . '" />';
+        }
+        // Google+
+        $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $wp_user_obj);
+        if ( ! empty( $googleplus_author_url ) ) {
+            $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $googleplus_author_url, array('http', 'https') ) . '" />';
+        }
+
+        // profile:username
+        if ( ! empty($user_username) ) {
+            $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
+        }
 
         // Determines if Extended Profiles component is active.
         if ( ! bp_is_active( 'xprofile' ) ) {
