@@ -1457,6 +1457,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         }
 
         // Determines if Extended Profiles component is active.
+
         if ( ! bp_is_active( 'xprofile' ) ) {
 
             // Description
@@ -1512,7 +1513,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             }
 
             // profile:gender
-            // profile:username
+            
 
         // Extended Profiles
 
