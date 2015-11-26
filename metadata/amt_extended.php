@@ -1475,6 +1475,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $googleplus_author_url, array('http', 'https') ) . '" />';
         }
 
+
         // Determines if Extended Profiles component is active.
 
         if ( ! bp_is_active( 'xprofile' ) ) {
