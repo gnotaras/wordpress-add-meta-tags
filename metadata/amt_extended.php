@@ -1611,7 +1611,121 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
 
 function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-    $metadata_arr = array();
+    // User Profiles
+
+    // Determines if a BuddyPress user profile has been requested
+    if ( bp_is_user_profile() ) {
+        // https://codex.buddypress.org/developer/the-bp-global/
+        global $bp;
+        $user_id = $bp->displayed_user->id;
+        $user_domain = $bp->displayed_user->domain;
+        $user_fullname = $bp->displayed_user->fullname;
+        $wp_user_obj = get_user_by( 'id', $user_id );
+
+        // Generate a twitter card only if the user and the publisher have
+        // filled in their Twitter usernames.
+        $twitter_author_username = get_the_author_meta('amt_twitter_author_username', $user_id);
+        $twitter_publisher_username = $options['social_main_twitter_publisher_username'];
+        if ( empty($twitter_author_username) || empty($twitter_publisher_username) ) {
+            return $metadata_arr;
+        }
+        // Type
+        $metadata_arr[] = '<meta name="twitter:card" content="' . amt_get_default_twitter_card_type($options) . '" />';
+        // Creator
+        $metadata_arr[] = '<meta name="twitter:creator" content="@' . esc_attr( $twitter_author_username ) . '" />';
+        // Site
+        $metadata_arr[] = '<meta name="twitter:site" content="@' . esc_attr( $twitter_publisher_username ) . '" />';
+        // Title
+        $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
+
+        // Determines if Extended Profiles component is active.
+        if ( ! bp_is_active( 'xprofile' ) ) {
+
+            // Description
+            $author_description = sanitize_text_field( amt_sanitize_description( $wp_user_obj->description ) );
+            if ( empty($author_description) ) {
+                $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $wp_user_obj->display_name ) . '" />';
+            } else {
+                $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( $author_description ) . '" />';
+            }
+
+            // Profile Image
+            $author_email = sanitize_email( $wp_user_obj->user_email );
+            $avatar_size = apply_filters( 'amt_bp_avatar_size', array('width'=>50, 'height'=>50) );
+            $avatar_url = '';
+            // First try to get the avatar link by using get_avatar().
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_img = get_avatar( get_the_author_meta('ID', $wp_user_obj->ID), $avatar_size, '', get_the_author_meta('display_name', $wp_user_obj->ID) );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            } elseif ( ! empty($author_email) ) {
+                // If the user has provided an email, we use it to construct a gravatar link.
+                $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
+            }
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $avatar_url ) . '" />';
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta property="twitter:image:width" content="' . esc_attr( $avatar_size['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $avatar_size['height'] ) . '" />';
+                    // Since we do not have a way to determine the image type, the following meta tag is commented out
+                    // TODO: make a function that detects the image type from the file extension (if a file extension is available)
+                    //$metadata_arr[] = '<meta property="twitter:image:type" content="image/jpeg" />';
+                }
+            }
+
+        // Extended Profiles
+        } else {
+            // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
+
+            $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+
+            // Description
+            foreach ( $xprofile_field_map['description'] as $description_field ) {
+                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
+                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
+                if ( ! empty($author_description) ) {
+                    break;
+                }
+            }
+            if ( ! empty($author_description) ) {
+                $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( $author_description ) . '" />';
+            } else {
+                $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
+            }
+
+            // Profile Image
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_size = apply_filters( 'amt_bp_avatar_size', array('width'=>50, 'height'=>50) );
+            $avatar_url = '';
+            $avatar_args = array(
+                'item_id'   => $user_id,
+                'width'     => $avatar_size['width'],
+                'height'    => $avatar_size['height'],
+            );
+            $avatar_img = bp_core_fetch_avatar( $avatar_args );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            }
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta property="twitter:image" content="' . esc_url_raw( $avatar_url ) . '" />';
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta property="twitter:image:width" content="' . esc_attr( $avatar_size['width'] ) . '" />';
+                    $metadata_arr[] = '<meta property="twitter:image:height" content="' . esc_attr( $avatar_size['height'] ) . '" />';
+                    // Since we do not have a way to determine the image type, the following meta tag is commented out
+                    // TODO: make a function that detects the image type from the file extension (if a file extension is available)
+                    //$metadata_arr[] = '<meta property="twitter:image:type" content="image/jpeg" />';
+                }
+            }
+
+        }
+
+    }
 
     // Allow filtering of the generated metadata
     // Customize with: add_filter('amt_buddypress_twitter_cards_extra', 'my_function', 10, 5);
