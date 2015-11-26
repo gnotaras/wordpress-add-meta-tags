@@ -1830,6 +1830,188 @@ function amt_buddypress_dublin_core( $metadata_arr, $post, $options, $attachment
 
 function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
+    // User Profiles
+
+    // Determines if a BuddyPress user profile has been requested
+    if ( bp_is_user_profile() ) {
+        // https://codex.buddypress.org/developer/the-bp-global/
+        global $bp;
+        // $user_id = $bp->displayed_user->id;
+        $user_id = bp_displayed_user_id();
+        // $user_domain = $bp->displayed_user->domain;
+        // bp_core_get_user_domain( bp_displayed_user_id() )
+        $user_domain = bp_displayed_user_domain();
+        $user_fullname = $bp->displayed_user->fullname;
+        // $user_fullname = bp_displayed_user_fullname();
+        // $user_username = $bp->displayed_user->user_login;
+        $user_username = bp_get_displayed_user_username();
+        //$wp_user_obj = get_user_by( 'id', $user_id );
+        $wp_user_obj = get_userdata( $user_id );
+        //var_dump($wp_user_obj);
+
+        // Author
+        // Scope BEGIN: Person: http://schema.org/Person
+        $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
+        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
+
+        // name
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $user_fullname ) . '" />';
+
+        // URL
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $user_domain, array('http', 'https') ) . '" />';
+
+        // Related resources as sameAs
+        // Facebook Profile
+        //$fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $user_id);
+        $fb_author_url = get_user_meta($user_id, 'amt_facebook_author_profile_url', true);
+        if ( ! empty($fb_author_url) ) {
+            $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $fb_author_url, array('http', 'https') ) . '" />';
+        }
+        // Twitter
+        //$twitter_author_username = get_the_author_meta('amt_twitter_author_username', $user_id);
+        $twitter_author_username = get_user_meta($user_id, 'amt_twitter_author_username', true);
+        if ( ! empty($twitter_author_username) ) {
+            $metadata_arr[] = '<meta itemprop="sameAs" content="https://twitter.com/' . esc_attr( $twitter_author_username ) . '" />';
+        }
+        // Google+
+        //$googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $wp_user_obj);
+        $googleplus_author_url = get_user_meta($user_id, 'amt_googleplus_author_profile_url', true);
+        if ( ! empty( $googleplus_author_url ) ) {
+            $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $googleplus_author_url, array('http', 'https') ) . '" />';
+        }
+
+
+        // Determines if Extended Profiles component is active.
+        if ( ! bp_is_active( 'xprofile' ) ) {
+
+            // Website
+            //$website_url = get_user_meta($user_id, 'amt_googleplus_author_profile_url', true);
+            $website_url = get_the_author_meta( 'user_url', $user_id );
+            if ( ! empty( $website_url ) ) {
+                $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $website_url, array('http', 'https') ) . '" />';
+            }
+
+            // Description
+            $author_description = sanitize_text_field( amt_sanitize_description( $wp_user_obj->description ) );
+            if ( empty($author_description) ) {
+                $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $wp_user_obj->display_name ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $author_description ) . '" />';
+            }
+
+            // Profile Image
+            $author_email = sanitize_email( $wp_user_obj->user_email );
+            $avatar_size = apply_filters( 'amt_bp_avatar_size', array('width'=>50, 'height'=>50) );
+            $avatar_url = '';
+            // First try to get the avatar link by using get_avatar().
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_img = get_avatar( get_the_author_meta('ID', $wp_user_obj->ID), $avatar_size, '', get_the_author_meta('display_name', $wp_user_obj->ID) );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            } elseif ( ! empty($author_email) ) {
+                // If the user has provided an email, we use it to construct a gravatar link.
+                $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
+            }
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
+            }
+
+
+        // Extended Profiles
+        } else {
+            // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
+
+            $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+
+
+//var_dump(bp_xprofile_get_hidden_fields_for_user( $displayed_user_id=$user_id));
+//var_dump(bp_xprofile_get_hidden_fields_for_user());
+/*
+            $hidden_fields = bp_xprofile_get_hidden_fields_for_user();
+            if ( xprofile_get_field_data('field_name') && ! in_array(xprofile_get_field_id_from_name('field_name'), $hidden_fields)) {
+                echo xprofile_get_field_data ('field_name');
+            }
+*/
+            // Website
+            foreach ( $xprofile_field_map['website'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                    break;
+                }
+            }
+
+            // Description
+            foreach ( $xprofile_field_map['description'] as $description_field ) {
+                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
+                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
+                if ( ! empty($author_description) ) {
+                    break;
+                }
+            }
+            if ( ! empty($author_description) ) {
+                $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $author_description ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
+            }
+
+            // Profile Image
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_size = apply_filters( 'amt_bp_avatar_size', array('width'=>50, 'height'=>50) );
+            $avatar_url = '';
+            $avatar_args = array(
+                'item_id'   => $user_id,
+                'width'     => $avatar_size['width'],
+                'height'    => $avatar_size['height'],
+            );
+            $avatar_img = bp_core_fetch_avatar( $avatar_args );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            }
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
+            }
+
+            // alternateName
+            foreach ( $xprofile_field_map['nickname'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta itemprop="alternateName" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                    break;
+                }
+            }
+
+/* TODO: CHECK FOR HIDDEN FIELDS
+
+            $hidden_fields = bp_xprofile_get_hidden_fields_for_user();
+            if ( xprofile_get_field_data('field_name') && ! in_array(xprofile_get_field_id_from_name('field_name'), $hidden_fields)) {
+                echo xprofile_get_field_data ('field_name');
+            }
+
+            // telephone
+            foreach ( $xprofile_field_map['nickname'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) ) {
+                    $metadata_arr[] = '<meta itemprop="alternateName" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                    break;
+                }
+            }
+*/
+
+        }
+
+    }
+
+
+    // Scope END: Person
+    $metadata_arr[] = '</span> <!-- Scope END: Person -->';
+
     // Allow filtering of the generated metadata
     // Customize with: add_filter('amt_buddypress_schemaorg_footer_extra', 'my_function', 10, 5);
     $metadata_arr = apply_filters( 'amt_buddypress_schemaorg_footer_extra', $metadata_arr, $post, $options, $attachments, $embedded_media );
