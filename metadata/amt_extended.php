@@ -1337,7 +1337,69 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
 // bp_is_user_profile()
 // bp_is_user()
 
-    $metadata_arr = array();
+    // User Profiles
+
+    // Determines if a BuddyPress user profile has been requested
+    if ( bp_is_user_profile() ) {
+        // https://codex.buddypress.org/developer/the-bp-global/
+        global $bp;
+        $user_id = $bp->displayed_user->id;
+        $user_domain = $bp->displayed_user->domain;
+        $user_fullname = $bp->displayed_user->fullname;
+        $wp_user_obj = get_user_by( 'id', $user_id );
+
+        // Related resources
+        // Perhaps add Facebook, Twitter, Google+ profile URLs in 'og:see_also' meta tags
+        // og:see_also
+
+        // Determines if Extended Profiles component is active.
+        if ( ! bp_is_active( 'xprofile' ) ) {
+
+            // Description
+            $author_description = sanitize_text_field( amt_sanitize_description( $wp_user_obj->description ) );
+            if ( empty($author_description) ) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $wp_user_obj->display_name ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( $author_description ) . '" />';
+            }
+
+            // No automatic keywords
+
+        // Extended Profiles
+        } else {
+            // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
+
+            $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+
+            // Description
+            foreach ( $xprofile_field_map['description'] as $description_field ) {
+                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
+                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
+                if ( ! empty($author_description) ) {
+                    break;
+                }
+            }
+            if ( ! empty($author_description) ) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( $author_description ) . '" />';
+            } else {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
+            }
+
+            // Keywords
+            foreach ( $xprofile_field_map['keywords'] as $keywords_field ) {
+                $author_keywords = bp_get_profile_field_data( array( 'field'=>$keywords_field, 'user_id'=>$user_id ) );
+                $author_keywords = sanitize_text_field( amt_sanitize_keywords( $author_keywords ) );
+                if ( ! empty($author_keywords) ) {
+                    break;
+                }
+            }
+            if ( ! empty($author_keywords) ) {
+                $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $author_keywords ) . '" />';
+            }
+
+        }
+
+    }
 
     // Allow filtering of the generated metadata
     // Customize with: add_filter('amt_buddypress_basic_extra', 'my_function', 10, 5);
