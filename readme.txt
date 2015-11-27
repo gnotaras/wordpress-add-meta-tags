@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, optimize, ranking, metatag, schema, google, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.9.6
+Stable tag: 2.9.7
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -83,6 +83,15 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.7](http://www.codetrax.org/versions/304)
+ - IMPORTANT NOTICE: The file/directory layout might change in upcoming releases.
+ - Added support for the generation of metadata for _BuddyPress Profiles_. Please consult the _Extended Metadata_ section in the integrated help for more information about this new feature. This feature should be considered work in progress. Title customization is not supported yet. Many thanks to HansRuedi Keller for ideas, valuable feedback and for helping me to raise my "BuddyPress IQ" at _lerngruppen.net_.
+ - Added support for configurable source of local author profiles. Add-Meta-Tags, by convention, due to the lack of public profile pages in WordPress, treats the first page of the author archive as the author's profile page. This is now configurable. Please check the _Author Settings_ section in the integrated help for more information before changing this as it affects some parts of the metadata.
+ - Added the `amt_local_author_profile_url()` template tag which generates a URL to the local author profile according to the relevant selection in the Add-Meta-Tags settings.
+ - Added the base mechanism for bbPress support. This feature is at a very early stage of developement.
+ - Various improvements of the integrated help.
+ - Minor improvements of the administration interface.
+ - Fixes of various minor issues.
 - [2.9.6](http://www.codetrax.org/versions/303)
  - This release implements the `amt` community command of [wp-cli](http://wp-cli.org/). Downloading `wp-cli` is required. Learn more about the [Add-Meta-Tags command line interface](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Command_Line_Interface). This feature should be considered experimental and is currently meant to be used in testing environments, even if it seems to work fine.
  - Decoupled the *WebSite* and *Organisation* Schema.org entities on the homepage, as it is unclear whether the various services interpret them correctly when nested. Furthermore, more research about how these two entities could be nested is required. The default homepage is the only page on which Add-Meta-Tags prints decoupled schema.org objects.
