@@ -410,7 +410,7 @@ function amt_admin_help_tabs() {
 
     <p>'.__('It is possible to set a custom title for the content in the relevant field of the \'Metadata\' box in the post editing screen. By default, this custom title is used to modify the <code>title</code> HTML element only. Add-Meta-Tags still uses the default content title in the relevant generated meta tags, for example in <code>og:title</code>/<code>twitter:title</code>/<code>dcterms:title</code>. If this option is enabled, then Add-Meta-Tags uses the custom title of the content, if such a custom title has been set, in the the generated meta data, instead of the default title.', 'add-meta-tags').'</p>
 
-    <h3>'.__('Enable advanced SEO title management.', 'add-meta-tags').'</h3>
+    <h3>'.__('Enable advanced title management.', 'add-meta-tags').'</h3>
 
     <p>'.__('By enabling this option, Add-Meta-Tags generates the title that is used in the <code>title</code> HTML element and also the title that is used throughout the generated metadata according to user defined templates. The <em>Add-Meta-Tags Cookbook</em> has all the information you need about <a target="_blank"  href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management">how to customize the generated titles</a>.', 'add-meta-tags').'</p>
 
@@ -1054,7 +1054,7 @@ function amt_options_page() {
 
                 <p><input id="enable_advanced_title_management" type="checkbox" value="1" name="enable_advanced_title_management" '. (($options["enable_advanced_title_management"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="enable_advanced_title_management">
-                '.__('Enable advanced SEO title management.', 'add-meta-tags').'
+                '.__('Enable advanced title management.', 'add-meta-tags').'
                 (<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management">'.__('Learn more', 'add-meta-tags').'</a>)
                 (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
                 </label>
