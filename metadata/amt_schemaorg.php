@@ -178,6 +178,15 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
     } elseif ( amt_is_default_front_page() ) {
 
         // Organization
+        //
+        // NOTICE:
+        // Even if the front page has been set as the source of profile, this
+        // this does not work with the default front page with the latest posts.
+        // This is becuase this page does not have an author, which is essential
+        // for the generated metadata on a page that is supposed to be a profile.
+        // Therefore, an Organization object is always generated on the default
+        // front page and it is never treated as a profile page by Add-Meta-Tags.
+        //
         // Scope BEGIN: Organization: http://schema.org/Organization
         $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
         //$metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
@@ -532,14 +541,19 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Metadata common to all attachments
 
-        // Publisher
-        // Scope BEGIN: Organization: http://schema.org/Organization
-        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        // Get publisher metatags
-        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
-        // Scope END: Organization
-        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+        // Do not add a publisher on personal websites (static front page is source of author profile).
+        if ( $options['author_profile_source'] != 'frontpage' || ! amt_has_page_on_front() ) {
+
+            // Publisher
+            // Scope BEGIN: Organization: http://schema.org/Organization
+            $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+            $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            // Get publisher metatags
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
+            // Scope END: Organization
+            $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+
+        }
 
         // Author
         // Scope BEGIN: Person: http://schema.org/Person
@@ -655,14 +669,19 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = '<!-- Scope BEGIN: ' . esc_attr($main_content_object) . ' -->';
         $metadata_arr[] = '<div itemscope itemtype="http://schema.org/' . esc_attr($main_content_object) . '"' . amt_get_schemaorg_itemref('content') . '>';
 
-        // Publisher
-        // Scope BEGIN: Organization: http://schema.org/Organization
-        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        // Get publisher metatags
-        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
-        // Scope END: Organization
-        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+        // Do not add a publisher on personal websites (static front page is source of author profile).
+        if ( $options['author_profile_source'] != 'frontpage' || ! amt_has_page_on_front() ) {
+
+            // Publisher
+            // Scope BEGIN: Organization: http://schema.org/Organization
+            $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+            $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            // Get publisher metatags
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
+            // Scope END: Organization
+            $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+
+        }
 
         // Author
         // Scope BEGIN: Person: http://schema.org/Person
@@ -1361,6 +1380,15 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         unset( $metadata_arr['@context'] );
 
         // Organization
+        //
+        // NOTICE:
+        // Even if the front page has been set as the source of profile, this
+        // this does not work with the default front page with the latest posts.
+        // This is becuase this page does not have an author, which is essential
+        // for the generated metadata on a page that is supposed to be a profile.
+        // Therefore, an Organization object is always generated on the default
+        // front page and it is never treated as a profile page by Add-Meta-Tags.
+        //
         $organization_arr = array();
         // Context
         $organization_arr['@context'] = 'http://schema.org';
@@ -1689,15 +1717,20 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // Metadata common to all attachments
 
-        // Publisher
-        // Scope BEGIN: Organization: http://schema.org/Organization
-//        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-//        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        // Get publisher metatags
-//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
-        $metadata_arr['publisher'] = amt_get_jsonld_schemaorg_publisher_array($options, $post->post_author);
-        // Scope END: Organization
-//        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+        // Do not add a publisher on personal websites (static front page is source of author profile).
+        if ( $options['author_profile_source'] != 'frontpage' || ! amt_has_page_on_front() ) {
+
+            // Publisher
+            // Scope BEGIN: Organization: http://schema.org/Organization
+    //        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+    //        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            // Get publisher metatags
+    //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
+            $metadata_arr['publisher'] = amt_get_jsonld_schemaorg_publisher_array($options, $post->post_author);
+            // Scope END: Organization
+    //        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+
+        }
 
         // Author
         // Scope BEGIN: Person: http://schema.org/Person
@@ -1817,15 +1850,20 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Schema.org type
         $metadata_arr['@type'] = esc_attr($main_content_object);
 
-        // Publisher
-        // Scope BEGIN: Organization: http://schema.org/Organization
-//        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
-//        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        // Get publisher metatags
-//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
-        $metadata_arr['publisher'] = amt_get_jsonld_schemaorg_publisher_array($options, $post->post_author);
-        // Scope END: Organization
-//        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+        // Do not add a publisher on personal websites (static front page is source of author profile).
+        if ( $options['author_profile_source'] != 'frontpage' || ! amt_has_page_on_front() ) {
+
+            // Publisher
+            // Scope BEGIN: Organization: http://schema.org/Organization
+    //        $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+    //        $metadata_arr[] = '<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            // Get publisher metatags
+    //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options, $post->post_author ) );
+            $metadata_arr['publisher'] = amt_get_jsonld_schemaorg_publisher_array($options, $post->post_author);
+            // Scope END: Organization
+    //        $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+
+        }
 
         // Author
         // Scope BEGIN: Person: http://schema.org/Person
