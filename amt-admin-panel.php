@@ -1162,7 +1162,7 @@ function amt_options_page() {
 
                 <p><input id="extended_support_bbpress" type="checkbox" value="1" name="extended_support_bbpress" '. (($options["extended_support_bbpress"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_bbpress">
-                '.__('Metadata for bbPress pages.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
+                '.__('Metadata for bbPress.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
                 </label></p>
 
                 <br />
