@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.9.7b1\n"
+"Project-Id-Version: add-meta-tags 2.9.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 20:30+0200\n"
+"POT-Creation-Date: 2015-11-27 06:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,15 +234,15 @@ msgid "Front page (with static page only)"
 msgstr ""
 
 #: amt-admin-panel.php:232
-msgid "This option is only useful in personal web sites where there is a single author. If the front page is set as the source of the local author profile, then a <em>Person</em> metadata entity is the top level metadata object on the front page, instead of the <em>Organization</em> metadata object. Please note that profile metadata on the front page is generated automatically only when a static page has been set as the front page."
-msgstr ""
-
-#: amt-admin-panel.php:233 amt-admin-panel.php:809
-msgid "BuddyPress member page"
+msgid "This option is only useful on personal web sites where there is a single author. If the front page is set as the source of the local author profile, then a <em>Person</em> metadata entity is the top level metadata object on the front page, instead of the <em>Organization</em> metadata object. In fact, no <em>Organization</em> metadata object is generated on any web page. Please note that this option has an effect only if a static page has been set as the front page."
 msgstr ""
 
 #: amt-admin-panel.php:233
-msgid "This option is only useful if BuddyPress is used. In this case, the author's BuddyPress member page is considered as the source of the local author profile, instead of the first page of the author archive. The generation of metadata on BuddyPress pages by this plugin has to be enabled in the <em>Extended Metadata</em> settings."
+msgid "BuddyPress profile page"
+msgstr ""
+
+#: amt-admin-panel.php:233
+msgid "This option is only useful if BuddyPress is used. In this case, the author's BuddyPress profile page is considered as the source of the local author profile, instead of the first page of the author archive. The generation of metadata on BuddyPress pages by this plugin has to be enabled in the <em>Extended Metadata</em> settings."
 msgstr ""
 
 #: amt-admin-panel.php:234 amt-admin-panel.php:810
@@ -563,7 +563,7 @@ msgid "It is possible to set a custom title for the content in the relevant fiel
 msgstr ""
 
 #: amt-admin-panel.php:413 amt-admin-panel.php:1057
-msgid "Enable advanced SEO title management."
+msgid "Enable advanced title management."
 msgstr ""
 
 #: amt-admin-panel.php:415
@@ -816,6 +816,10 @@ msgstr ""
 msgid "(default)"
 msgstr ""
 
+#: amt-admin-panel.php:809
+msgid "BuddyPress member page"
+msgstr ""
+
 #: amt-admin-panel.php:814
 msgid "This is an advanced option and should not be changed, unless you have consulted the integrated help for more information."
 msgstr ""
@@ -930,7 +934,7 @@ msgid "Metadata for BuddyPress."
 msgstr ""
 
 #: amt-admin-panel.php:1165
-msgid "Metadata for bbPress pages."
+msgid "Metadata for bbPress."
 msgstr ""
 
 #: amt-admin-panel.php:1170
