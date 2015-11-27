@@ -8,11 +8,11 @@ Stable tag: 2.9.6
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
-A Free yet feature rich metadata plugin that can optimize your web site for more efficient indexing of your content and easier sharing.
+A Free yet feature rich metadata plugin that can optimize your web site for more efficient indexing and easier sharing of your content.
 
 == Description ==
 
-_Add-Meta-Tags_ is a Free metadata plugin for the _WordPress Publishing Platform_ that can optimize your web site for more efficient indexing of your content and easier sharing. It achieves this by generating machine friendly information about your content, called **metadata**, according to widely used standard specifications. More specifically, _Add-Meta-Tags_ can generate the _description_ and _keywords_ meta tags, _Opengraph_, _Schema.org_ microdata and JSON+LD data, _Twitter Cards_ and _Dublin Core_ metadata for your _WordPress_ content and archives, your _WooCommerce_ products and product groups, _BuddyPress_ profiles, and more.
+_Add-Meta-Tags_ is a Free metadata plugin for the _WordPress Publishing Platform_ that can optimize your web site for more efficient indexing and easier sharing of your content. It achieves this by generating machine friendly information about your content, called **metadata**, according to widely used standard specifications. More specifically, _Add-Meta-Tags_ can generate the _description_ and _keywords_ meta tags, _Opengraph_, _Schema.org_ microdata and JSON+LD data, _Twitter Cards_ and _Dublin Core_ metadata for your _WordPress_ content and archives, your _WooCommerce_ products and product groups, _BuddyPress_ profiles, and more.
 
 It also supports advanced _title customization_ letting you take control of the title generation on every part of the web site. Moreover, a basic _breadcrumb trail_ generator is provided for use with hierarchical post types. Last, but not least, it lets you customize the _locale_ on a per post basis generating a proper `hreflang` link for a signle language and, also, is out-of-the-box compatible with _WPML_ and _Polylang_ multilingual plugins (through the WPML language configuration file that ships with the plugin).
 
