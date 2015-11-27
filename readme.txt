@@ -8,55 +8,31 @@ Stable tag: 2.9.6
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
-Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and Dublin Core metadata to optimize your web site for better SEO.
+A Free yet feature rich metadata plugin that can optimize your web site for more efficient indexing of your content and easier sharing.
 
 == Description ==
 
-*Add-Meta-Tags* (<abbr title="Add-Meta-Tags Wordpress plugin">AMT</abbr>) adds metadata to your *content* and *WooCommerce* products, including the basic *description* and *keywords* meta tags, [Opengraph](http://ogp.me "Opengraph specification"), [Schema.org](http://schema.org/ "Schema.org Specification"), [Twitter Cards](https://dev.twitter.com/docs/cards "Twitter Cards Specification") and [Dublin Core](http://dublincore.org "Dublin Core Metadata Initiative") metadata.
+_Add-Meta-Tags_ is a Free metadata plugin for the _WordPress Publishing Platform_ that can optimize your web site for more efficient indexing of your content and easier sharing. It achieves this by generating machine friendly information about your content, called **metadata**, according to widely used standard specifications. More specifically, _Add-Meta-Tags_ can generate the _description_ and _keywords_ meta tags, _Opengraph_, _Schema.org_ microdata and JSON+LD data, _Twitter Cards_ and _Dublin Core_ metadata for your _WordPress_ content and archives, your _WooCommerce_ products and product groups, _BuddyPress_ profiles, and more.
 
-It also supports advanced *SEO title* customization letting you take control of the title generation on every part of the web site. Moreover, a basic *breadcrumb trail* generator is provided for use with hierarchical post types. Last, but not least, it lets you customize the *locale* on a per post basis generating a proper `hreflang` for a signle language and, also, is out-of-the-box compatible with WPML and Polylang multilingual plugins (through the WPML language configuration file that ships with the plugin).
+It also supports advanced _title customization_ letting you take control of the title generation on every part of the web site. Moreover, a basic _breadcrumb trail_ generator is provided for use with hierarchical post types. Last, but not least, it lets you customize the _locale_ on a per post basis generating a proper `hreflang` link for a signle language and, also, is out-of-the-box compatible with _WPML_ and _Polylang_ multilingual plugins (through the WPML language configuration file that ships with the plugin).
 
-It is actively maintained since 2006 (historical [Add-Meta-Tags home](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/ "Official historical Add-Meta-Tags Homepage")).
+Add-Meta-Tags is actively maintained since 2006. Please visit the [Add-Meta-Tags historical homepage](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/).
 
-*Add-Meta-Tags* is one of the personal software projects of George Notaras. It is developed in his free time and released to the open source WordPress community as Free software.
+_Add-Meta-Tags_ is one of the personal software projects of George Notaras. It is developed in his free time and released to the open source WordPress community as Free software.
 
-= IMPORTANT NOTICE =
-
-These forums and the reviews are no longer monitored by the developer. Please, check the support section below for your free support options.
 
 = Official Project Homepage =
 
-The Add-Meta-Tags project information and documentation has been moved to the [Add-Meta-Tags Development Web Site](http://www.codetrax.org/projects/wp-add-meta-tags/wiki).
-
-The development web site contains:
-
-- all the details about the project goals,
-- the complete [feature set](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Features) of the plugin,
-- release notes,
-- technical documentation,
-- information about how to contribute translations and source code,
-- the [Add-Meta-Tags Cookbook](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook) (the Documentation) containing:
- - customization examples with sample source code,
- - instructions about how to migrate from other SEO plugins,
- - details about the multilingual support,
- - information about how to customize the SEO titles,
- - how to use the basic semantic breadcrumb trail generator,
- - how to enhance the product metadata,
- - details about even more advanced topics!
+More information and documentation about the complete [feature set](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Features), together with technical information regarding migration and customization, can be found at the [Add-Meta-Tags Development Web Site](http://www.codetrax.org/projects/wp-add-meta-tags/wiki).
 
 
 = Support =
 
 Add-Meta-Tags is released without support of any kind.
 
-However, you can still get support free of charge at the following support channels:
+However, you can still get support free of charge at the [issue tracker](https://github.com/gnotaras/wordpress-add-meta-tags/issues) at Github. Feel free to post your questions, suggestions, bug reports, feature requests about the _Add-Meta-Tags_ project (free registration is required in order to post).
 
-- The [issue tracker](https://github.com/gnotaras/wordpress-add-meta-tags/issues) at Github. This tracker is monitored by the developer. Free registration is required in order to post. This is currently the **recommended support channel**.
-- more to come...
-
-NOTICE 1: Support requests via email are now silently ignored. Please post your support requests in the aforementioned support channels.
-
-NOTICE 2: The developer no longer monitors, participates or provides support through the wordpress org forum or review system. You can still get free support there from other users of the plugin.
+The issue tracker at Github is the **recommended support channel**. The developer no longer monitors, participates or provides support through the wordpress org forum or review system.
 
 
 = Legal Notice =
