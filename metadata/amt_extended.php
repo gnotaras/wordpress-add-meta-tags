@@ -1937,6 +1937,18 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
                 $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
             }
 
+            // familyName
+            $last_name = $wp_user_obj->last_name;
+            if ( ! empty($last_name) ) {
+                $metadata_arr[] = '<meta itemprop="familyName" content="' . esc_attr( $last_name ) . '" />';
+            }
+
+            // givenName
+            $first_name = $wp_user_obj->first_name;
+            if ( ! empty($first_name) ) {
+                $metadata_arr[] = '<meta itemprop="givenName" content="' . esc_attr( $first_name ) . '" />';
+            }
+
 
         // Extended Profiles
         } else {
@@ -2125,6 +2137,19 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
                 //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
                 $metadata_arr['image'] = esc_url( $avatar_url );
             }
+
+            // familyName
+            $last_name = $wp_user_obj->last_name;
+            if ( ! empty($last_name) ) {
+                $metadata_arr['familyName'] = esc_attr( $last_name );
+            }
+
+            // givenName
+            $first_name = $wp_user_obj->first_name;
+            if ( ! empty($first_name) ) {
+                $metadata_arr['givenName'] = esc_attr( $first_name );
+            }
+
 
         // Extended Profiles
         } else {
