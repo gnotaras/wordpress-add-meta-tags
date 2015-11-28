@@ -1327,9 +1327,16 @@ function amt_buddypress_get_xprofile_field_map() {
         'first_name'        => array('first name'),
         'last_name'         => array('last name'),
         'nickname'          => array('nickname', 'alias', 'alternate name'),
+        'additional_name'   => array('additional name', 'middle name'),
         'gender'            => array('gender', 'sex'),
         'website'           => array('website', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
+        'gln'               => array('gln', 'global location number'),
+        'latitude'          => array('latitude'),
+        'longitude'         => array('longitude'),
         'telephone'         => array('telephone', 'phone', 'tel'),
+        'faxNumber'         => array('fax number', 'fax'),
+        'email'             => array('email', 'email address'),
+        'job_title'         => array('job', 'job title'),
     );
     return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
 }
