@@ -470,7 +470,7 @@ function amt_admin_help_tabs() {
 
     <p>'.__('If the <em>Extended Profiles</em> component has not been activated in BuddyPress, then metadata is generated based on the information found in the WordPress user profile.', 'add-meta-tags').'</p>
 
-    <p>'.__('Please consult the documentation for more information about how to <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress" target="_blank">modify or extend</a> the generated metadata for BuddyPress.', 'add-meta-tags').'</p>
+    <p>'.__('Please consult the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress" target="_blank">wiki documentation about BuddyPress</a> for more information about how to modify or extend the generated metadata, override the default field map or prevent profile metadata from being added to the profile page.', 'add-meta-tags').'</p>
 
     <p>'.__('How to fully take advantage of this feature:', 'add-meta-tags').'</p>
 
