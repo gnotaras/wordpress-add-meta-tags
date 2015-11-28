@@ -2016,7 +2016,7 @@ function amt_get_local_author_profile_url( $author_id, $options ) {
         //return get_bloginfo( 'url' );
         if ( function_exists('bp_core_get_user_domain') ) {
             //return bp_core_get_user_domain($author_id);
-            $url = trailingslashit( bp_core_get_user_domain($author_id) . bp_get_profile_slug() );
+            $url = trailingslashit( bp_core_get_user_domain($author_id) . amt_bp_get_profile_slug() );
         }
     } elseif ( $options['author_profile_source'] == 'url' ) {
         $custom_url = get_the_author_meta('url', $author_id);
@@ -2940,3 +2940,19 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
 }
 
 
+
+//
+//
+//  BuddyPress Utility Functions
+//
+//
+
+// Returns the BuddyPress profile slug
+// The bp_get_profile_slug() was added in BuddyPress 2.4.
+// If the function does not exist, we hard-code 'profile'.
+function amt_bp_get_profile_slug() {
+    if ( function_exists('bp_get_profile_slug') ) {
+        return bp_get_profile_slug();
+    }
+    return 'profile';
+}
