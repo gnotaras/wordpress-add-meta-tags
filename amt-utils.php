@@ -2014,7 +2014,8 @@ function amt_get_local_author_profile_url( $author_id, $options ) {
     } elseif ( $options['author_profile_source'] == 'buddypress' ) {
         //return get_bloginfo( 'url' );
         if ( function_exists('bp_core_get_user_domain') ) {
-            return bp_core_get_user_domain($author_id);
+            //return bp_core_get_user_domain($author_id);
+            return trailingslashit( bp_core_get_user_domain($author_id) . bp_get_profile_slug() );
         }
     } elseif ( $options['author_profile_source'] == 'url' ) {
         $custom_url = get_the_author_meta('url', $author_id);
