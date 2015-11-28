@@ -2049,15 +2049,181 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
                 }
             }
 
-            // TODO: additionalName
+            // additionalName
+            foreach ( $xprofile_field_map['additional_name'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="additionalName" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // honorificPrefix
+            foreach ( $xprofile_field_map['honorific_prefix'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="honorificPrefix" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // honorificSuffix
+            foreach ( $xprofile_field_map['honorific_suffix'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="honorificSuffix" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // gender
+            foreach ( $xprofile_field_map['gender'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="gender" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // nationality
+            foreach ( $xprofile_field_map['gender'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<!-- Scope BEGIN: Country -->';
+                    $metadata_arr[] = '<span itemprop="nationality" itemscope itemtype="http://schema.org/Country">';
+                    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $field_value ) . '" />';
+                    $metadata_arr[] = '</span> <!-- Scope END: Country -->';
+                    break;
+                }
+            }
 
             // telephone
-            foreach ( $xprofile_field_map['nickname'] as $field_name ) {
+            foreach ( $xprofile_field_map['telephone'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
                 if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta itemprop="telephone" content="' . esc_attr( $field_value ) . '" />';
                     break;
                 }
+            }
+
+            // faxNumber
+            foreach ( $xprofile_field_map['fax'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['faxNumber'] = esc_attr( $field_value );
+                    $metadata_arr[] = '<meta itemprop="faxNumber" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // email
+            foreach ( $xprofile_field_map['email'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="email" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // jobTitle
+            foreach ( $xprofile_field_map['job_title'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="jobTitle" content="' . esc_attr( $field_value ) . '" />';
+                    break;
+                }
+            }
+
+            // worksFor
+            $work_name = '';
+            foreach ( $xprofile_field_map['works_for'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $work_name = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // worksFor URL
+            $work_url = '';
+            foreach ( $xprofile_field_map['works_for_url'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $work_url = esc_url( $field_value );
+                    break;
+                }
+            }
+
+            if ( ! empty($work_name) || ! empty($work_url) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
+                $metadata_arr[] = '<span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">';
+                if ( ! empty($work_name) ) {
+                    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $field_value ) . '" />';
+                }
+                if ( ! empty($work_url) ) {
+                    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $field_value ) . '" />';
+                }
+                $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
+            }
+
+            // Home Location Geo Coordinates
+
+            // home latitude
+            $latitude = '';
+            foreach ( $xprofile_field_map['home_latitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $latitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // home longitude
+            $longitude = '';
+            foreach ( $xprofile_field_map['home_longitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $longitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            if ( ! empty($latitude) && ! empty($longitude) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: Place -->';
+                $metadata_arr[] = '<span itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">';
+                $metadata_arr[] = '<meta itemprop="latitude" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '<meta itemprop="longitude" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '</span> <!-- Scope END: Place -->';
+            }
+
+            // Work Location Geo Coordinates
+
+            // work latitude
+            $latitude = '';
+            foreach ( $xprofile_field_map['work_latitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $latitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // work longitude
+            $longitude = '';
+            foreach ( $xprofile_field_map['work_longitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $longitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            if ( ! empty($latitude) && ! empty($longitude) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: Place -->';
+                $metadata_arr[] = '<span itemprop="workLocation" itemscope itemtype="http://schema.org/Place">';
+                $metadata_arr[] = '<meta itemprop="latitude" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '<meta itemprop="longitude" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '</span> <!-- Scope END: Place -->';
             }
 
         }
