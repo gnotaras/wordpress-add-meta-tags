@@ -2007,24 +2007,30 @@ function amt_get_schemaorg_itemref( $object_type ) {
 
 // Returns the URL of the page of the local author profile
 function amt_get_local_author_profile_url( $author_id, $options ) {
+    $url = '';
     if ( $options['author_profile_source'] == 'default' ) {
-        return get_author_posts_url( $author_id );
+        $url = get_author_posts_url( $author_id );
     } elseif ( $options['author_profile_source'] == 'frontpage' ) {
-        return get_bloginfo( 'url' );
+        $url = get_bloginfo( 'url' );
     } elseif ( $options['author_profile_source'] == 'buddypress' ) {
         //return get_bloginfo( 'url' );
         if ( function_exists('bp_core_get_user_domain') ) {
             //return bp_core_get_user_domain($author_id);
-            return trailingslashit( bp_core_get_user_domain($author_id) . bp_get_profile_slug() );
+            $url = trailingslashit( bp_core_get_user_domain($author_id) . bp_get_profile_slug() );
         }
     } elseif ( $options['author_profile_source'] == 'url' ) {
         $custom_url = get_the_author_meta('url', $author_id);
         if ( ! empty($custom_url) ) {
-            return $custom_url;
+            $url = $custom_url;
         }
     }
-    // Return the defaultif all else fails.
-    return get_author_posts_url( $author_id );
+    $url = apply_filters( 'amt_get_local_author_profile_url', $url );
+    if ( empty($url) ) {
+        // Return the default if all else fails.
+        return get_author_posts_url( $author_id );
+    } else { 
+        return $url;
+    }
 }
 
 
