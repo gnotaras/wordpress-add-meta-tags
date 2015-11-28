@@ -84,8 +84,8 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
 - [2.9.7](http://www.codetrax.org/versions/304)
- - IMPORTANT NOTICE: The file/directory layout might change in upcoming releases.
- - Added support for the generation of metadata for _BuddyPress Profiles_. Please consult the _Extended Metadata_ section in the integrated help for more information about this new feature. This feature should be considered work in progress. Title customization is not supported yet. Many thanks to HansRuedi Keller for ideas, valuable feedback and for helping me to raise my "BuddyPress IQ" at _lerngruppen.net_.
+ - Notice: The file/directory layout might change in upcoming releases.
+ - Added support for the generation of metadata for _BuddyPress Profiles_. Please consult the _Extended Metadata_ section in the integrated help for more information about this new feature. This feature should be considered work in progress. Title customization is not supported yet. Many thanks to HansRuedi Keller for ideas, valuable feedback and for helping me raise my "BuddyPress IQ" at _lerngruppen.net_.
  - Added support for configurable source of local author profiles. Add-Meta-Tags, by convention, due to the lack of public profile pages in WordPress, treats the first page of the author archive as the author's profile page. This is now configurable. Please check the _Author Settings_ section in the integrated help for more information before changing this as it affects some parts of the metadata.
  - Added the `amt_local_author_profile_url()` template tag which generates a URL to the local author profile according to the relevant selection in the Add-Meta-Tags settings.
  - Added the base mechanism for bbPress support. This feature is at a very early stage of developement.
