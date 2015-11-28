@@ -2001,6 +2001,39 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
                 $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
             }
 
+            // familyName
+            foreach ( $xprofile_field_map['last_name'] as $field_name ) {
+                $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $last_name = sanitize_text_field( $last_name );
+                if ( ! empty($last_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="familyName" content="' . esc_attr( $last_name ) . '" />';
+                    break;
+                }
+            }
+
+            // givenName
+            foreach ( $xprofile_field_map['first_name'] as $field_name ) {
+                $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $first_name = sanitize_text_field( $first_name );
+                if ( ! empty($first_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="givenName" content="' . esc_attr( $first_name ) . '" />';
+                    break;
+                }
+            }
+
+            // Generate first and last name from full name if needed.
+            if ( empty($last_name) && empty($first_name) && ! empty($user_fullname) ) {
+                $parts = explode(' ', $user_fullname);
+                $last_name = sanitize_text_field( array_pop($parts) ); // Removes and returns the element off the end of array
+                if ( ! empty($last_name) ) {
+                    $metadata_arr[] = '<meta itemprop="familyName" content="' . esc_attr( $last_name ) . '" />';
+                }
+                $first_name = sanitize_text_field( implode(' ', $parts) );
+                if ( ! empty($first_name) ) {
+                    $metadata_arr[] = '<meta itemprop="givenName" content="' . esc_attr( $first_name ) . '" />';
+                }
+            }
+
             // alternateName
             foreach ( $xprofile_field_map['nickname'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
@@ -2200,6 +2233,39 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             if ( ! empty($avatar_url) ) {
                 //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
                 $metadata_arr['image'] = esc_url( $avatar_url );
+            }
+
+            // familyName
+            foreach ( $xprofile_field_map['last_name'] as $field_name ) {
+                $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $last_name = sanitize_text_field( $last_name );
+                if ( ! empty($last_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['familyName'] = esc_attr( $last_name );
+                    break;
+                }
+            }
+
+            // givenName
+            foreach ( $xprofile_field_map['first_name'] as $field_name ) {
+                $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                $first_name = sanitize_text_field( $first_name );
+                if ( ! empty($first_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['givenName'] = esc_attr( $first_name );
+                    break;
+                }
+            }
+
+            // Generate first and last name from full name if needed.
+            if ( empty($last_name) && empty($first_name) && ! empty($user_fullname) ) {
+                $parts = explode(' ', $user_fullname);
+                $last_name = sanitize_text_field( array_pop($parts) ); // Removes and returns the element off the end of array
+                if ( ! empty($last_name) ) {
+                    $metadata_arr['familyName'] = esc_attr( $last_name );
+                }
+                $first_name = sanitize_text_field( implode(' ', $parts) );
+                if ( ! empty($first_name) ) {
+                    $metadata_arr['givenName'] = esc_attr( $first_name );
+                }
             }
 
             // alternateName
