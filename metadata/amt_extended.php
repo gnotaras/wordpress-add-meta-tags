@@ -1324,19 +1324,25 @@ function amt_buddypress_get_xprofile_field_map() {
     $xprofile_field_map = array(
         'description'       => array('excerpt', 'summary', 'description', 'bio', 'about'),
         'keywords'          => array('keywords', 'skills', 'interests'),    // TODO: Future: add group names?
-        'first_name'        => array('first name'),
-        'last_name'         => array('last name'),
-        'nickname'          => array('nickname', 'alias', 'alternate name'),
+        'first_name'        => array('first name', 'given name'),
+        'last_name'         => array('last name', 'family name', 'surname'),
         'additional_name'   => array('additional name', 'middle name'),
+        'nickname'          => array('nickname', 'alias', 'alternate name'),
+        'honorific_prefix'  => array('honorific prefix'),
+        'honorific_suffix'  => array('honorific suffix'),
         'gender'            => array('gender', 'sex'),
-        'website'           => array('website', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
-        'gln'               => array('gln', 'global location number'),
-        'latitude'          => array('latitude'),
-        'longitude'         => array('longitude'),
+        'nationality'       => array('nationality', 'country'),
         'telephone'         => array('telephone', 'phone', 'tel'),
-        'faxNumber'         => array('fax number', 'fax'),
+        'fax'               => array('fax number', 'fax'),
         'email'             => array('email', 'email address'),
+        'website'           => array('website', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
         'job_title'         => array('job', 'job title'),
+        'works_for'         => array('company', 'company name', 'employer', 'works for'),
+        'works_for_url'     => array('company url', 'employer url'),
+        'work_latitude'          => array('work latitude'),
+        'work_longitude'         => array('work longitude'),
+        'home_latitude'          => array('home latitude'),
+        'home_longitude'         => array('home longitude'),
     );
     return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
 }
@@ -2279,7 +2285,52 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
                 }
             }
 
-            // TODO: additionalName
+            // additionalName
+            foreach ( $xprofile_field_map['additional_name'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['additionalName'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // honorificPrefix
+            foreach ( $xprofile_field_map['honorific_prefix'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['honorificPrefix'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // honorificSuffix
+            foreach ( $xprofile_field_map['honorific_suffix'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['honorificSuffix'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // gender
+            foreach ( $xprofile_field_map['gender'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['gender'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // nationality
+            foreach ( $xprofile_field_map['gender'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['nationality'] = array();
+                    $metadata_arr['nationality']['@type'] = 'Country';
+                    $metadata_arr['nationality']['name'] = esc_attr( $field_value );
+                    break;
+                }
+            }
 
             // telephone
             foreach ( $xprofile_field_map['telephone'] as $field_name ) {
@@ -2290,6 +2341,110 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
                 }
             }
 
+            // faxNumber
+            foreach ( $xprofile_field_map['fax'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['faxNumber'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // email
+            foreach ( $xprofile_field_map['email'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['email'] = 'mailto:' . esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // jobTitle
+            foreach ( $xprofile_field_map['job_title'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['jobTitle'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // worksFor
+            foreach ( $xprofile_field_map['works_for'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['worksFor'] = array();
+                    $metadata_arr['worksFor']['@type'] = 'Organization';
+                    $metadata_arr['worksFor']['name'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // worksFor URL
+            foreach ( $xprofile_field_map['works_for_url'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr['worksFor']['url'] = esc_url( $field_value );
+                    break;
+                }
+            }
+
+            // Home Location Geo Coordinates
+
+            // home latitude
+            $latitude = '';
+            foreach ( $xprofile_field_map['home_latitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $latitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // home longitude
+            $longitude = '';
+            foreach ( $xprofile_field_map['home_longitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $longitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            if ( ! empty($latitude) && ! empty($longitude) ) {
+                $metadata_arr['homeLocation'] = array();
+                $metadata_arr['homeLocation']['@type'] = 'Place';
+                $metadata_arr['homeLocation']['latitude'] = esc_attr( $latitude );
+                $metadata_arr['homeLocation']['longitude'] = esc_attr( $longitude );
+            }
+
+            // Work Location Geo Coordinates
+
+            // work latitude
+            $latitude = '';
+            foreach ( $xprofile_field_map['work_latitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $latitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            // work longitude
+            $longitude = '';
+            foreach ( $xprofile_field_map['work_longitude'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $longitude = esc_attr( $field_value );
+                    break;
+                }
+            }
+
+            if ( ! empty($latitude) && ! empty($longitude) ) {
+                $metadata_arr['workLocation'] = array();
+                $metadata_arr['workLocation']['@type'] = 'Place';
+                $metadata_arr['workLocation']['latitude'] = esc_attr( $latitude );
+                $metadata_arr['workLocation']['longitude'] = esc_attr( $longitude );
+            }
 
         }
 
