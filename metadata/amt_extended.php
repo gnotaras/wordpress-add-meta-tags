@@ -2043,11 +2043,13 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
                 }
             }
 
+            // TODO: additionalName
+
             // telephone
             foreach ( $xprofile_field_map['nickname'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
                 if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="telephone" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="telephone" content="' . esc_attr( $field_value ) . '" />';
                     break;
                 }
             }
@@ -2276,6 +2278,8 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
                     break;
                 }
             }
+
+            // TODO: additionalName
 
             // telephone
             foreach ( $xprofile_field_map['telephone'] as $field_name ) {
