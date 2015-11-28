@@ -1294,6 +1294,7 @@ function amt_detect_buddypress( $default, $post, $options ) {
         }
         // Insert metadata for BuddyPress pages
         // Basic (description/keywords)
+        //remove_all_filters( 'amt_custom_metadata_basic' );    // CHECK IF NEEDED
         add_filter( 'amt_custom_metadata_basic', 'amt_buddypress_basic', 10, 5 );
         // Opengraph
         add_filter( 'amt_custom_metadata_opengraph', 'amt_buddypress_opengraph', 10, 5 );
@@ -1382,12 +1383,14 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
             $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+            // Get list of IDs of public fields
+            $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Description
             foreach ( $xprofile_field_map['description'] as $description_field ) {
                 $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
                 $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) ) {
+                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
                     break;
                 }
             }
@@ -1401,7 +1404,7 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
             foreach ( $xprofile_field_map['keywords'] as $keywords_field ) {
                 $author_keywords = bp_get_profile_field_data( array( 'field'=>$keywords_field, 'user_id'=>$user_id ) );
                 $author_keywords = sanitize_text_field( amt_sanitize_keywords( $author_keywords ) );
-                if ( ! empty($author_keywords) ) {
+                if ( ! empty($author_keywords) && in_array(xprofile_get_field_id_from_name($keywords_field), $xprofile_public_fields) ) {
                     break;
                 }
             }
@@ -1555,11 +1558,13 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
             $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+            // Get list of IDs of public fields
+            $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Website
             foreach ( $xprofile_field_map['website'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) ) {
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
                     break;
                 }
@@ -1569,7 +1574,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             foreach ( $xprofile_field_map['description'] as $description_field ) {
                 $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
                 $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) ) {
+                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
                     break;
                 }
             }
@@ -1616,7 +1621,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             foreach ( $xprofile_field_map['last_name'] as $field_name ) {
                 $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
                 $last_name = sanitize_text_field( $last_name );
-                if ( ! empty($last_name) ) {
+                if ( ! empty($last_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
                     break;
                 }
@@ -1626,7 +1631,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             foreach ( $xprofile_field_map['first_name'] as $field_name ) {
                 $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
                 $first_name = sanitize_text_field( $first_name );
-                if ( ! empty($first_name) ) {
+                if ( ! empty($first_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
                     break;
                 }
@@ -1654,7 +1659,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             foreach ( $xprofile_field_map['gender'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
                 $field_value = sanitize_text_field( $field_value );
-                if ( ! empty($field_value) ) {
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta property="profile:gender" content="' . esc_attr( $field_value ) . '" />';
                     break;
                 }
@@ -1769,12 +1774,14 @@ function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachme
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
             $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+            // Get list of IDs of public fields
+            $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Description
             foreach ( $xprofile_field_map['description'] as $description_field ) {
                 $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
                 $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) ) {
+                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
                     break;
                 }
             }
@@ -1929,20 +1936,13 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
             $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+            // Get list of IDs of public fields
+            $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
-
-//var_dump(bp_xprofile_get_hidden_fields_for_user( $displayed_user_id=$user_id));
-//var_dump(bp_xprofile_get_hidden_fields_for_user());
-/*
-            $hidden_fields = bp_xprofile_get_hidden_fields_for_user();
-            if ( xprofile_get_field_data('field_name') && ! in_array(xprofile_get_field_id_from_name('field_name'), $hidden_fields)) {
-                echo xprofile_get_field_data ('field_name');
-            }
-*/
             // Website
             foreach ( $xprofile_field_map['website'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) ) {
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
                     break;
                 }
@@ -1952,7 +1952,7 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             foreach ( $xprofile_field_map['description'] as $description_field ) {
                 $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
                 $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) ) {
+                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
                     break;
                 }
             }
@@ -1985,28 +1985,20 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             // alternateName
             foreach ( $xprofile_field_map['nickname'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) ) {
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr[] = '<meta itemprop="alternateName" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
                     break;
                 }
-            }
-
-/* TODO: CHECK FOR HIDDEN FIELDS
-
-            $hidden_fields = bp_xprofile_get_hidden_fields_for_user();
-            if ( xprofile_get_field_data('field_name') && ! in_array(xprofile_get_field_id_from_name('field_name'), $hidden_fields)) {
-                echo xprofile_get_field_data ('field_name');
             }
 
             // telephone
             foreach ( $xprofile_field_map['nickname'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) ) {
-                    $metadata_arr[] = '<meta itemprop="alternateName" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    $metadata_arr[] = '<meta itemprop="telephone" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
                     break;
                 }
             }
-*/
 
         }
 
@@ -2132,11 +2124,13 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             // https://codex.buddypress.org/themes/guides/displaying-extended-profile-fields-on-member-profiles/
 
             $xprofile_field_map = amt_buddypress_get_xprofile_field_map();
+            // Get list of IDs of public fields
+            $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Website
             foreach ( $xprofile_field_map['website'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) ) {
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr['sameAs'][] = esc_url( $field_value, array('http', 'https') );
                     break;
                 }
@@ -2146,7 +2140,7 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             foreach ( $xprofile_field_map['description'] as $description_field ) {
                 $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
                 $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) ) {
+                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
                     break;
                 }
             }
@@ -2179,11 +2173,22 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             // alternateName
             foreach ( $xprofile_field_map['nickname'] as $field_name ) {
                 $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) ) {
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
                     $metadata_arr['alternateName'] = esc_attr( $field_value );
                     break;
                 }
             }
+
+            // telephone
+            foreach ( $xprofile_field_map['telephone'] as $field_name ) {
+                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+                    //$metadata_arr[] = '<meta itemprop="telephone" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
+                    $metadata_arr['telephone'] = esc_attr( $field_value );
+                    break;
+                }
+            }
+
 
         }
 
