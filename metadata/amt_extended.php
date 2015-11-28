@@ -1351,6 +1351,7 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
+        $user_profile_url = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
         $user_fullname = $bp->displayed_user->fullname;
         // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
@@ -1432,6 +1433,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
+        $user_profile_url = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
         $user_fullname = $bp->displayed_user->fullname;
         // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
@@ -1448,7 +1450,7 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
         // Title
         $metadata_arr['og:title'] = '<meta property="og:title" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $wp_user_obj->display_name ) . '" />';
         // URL
-        $metadata_arr[] = '<meta property="og:url" content="' . esc_url( $user_domain, array('http', 'https') ) . '" />';
+        $metadata_arr[] = '<meta property="og:url" content="' . esc_url( $user_profile_url, array('http', 'https') ) . '" />';
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
         // fb:profile_id
@@ -1699,6 +1701,7 @@ function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachme
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
+        $user_profile_url = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
         $user_fullname = $bp->displayed_user->fullname;
         // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
@@ -1841,6 +1844,7 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
+        $user_profile_url = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
         $user_fullname = $bp->displayed_user->fullname;
         // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
@@ -1858,7 +1862,7 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $user_fullname ) . '" />';
 
         // URL
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $user_domain, array('http', 'https') ) . '" />';
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $user_profile_url, array('http', 'https') ) . '" />';
 
         // Related resources as sameAs
         // Facebook Profile
@@ -2043,6 +2047,7 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
         // $user_domain = $bp->displayed_user->domain;
         // bp_core_get_user_domain( bp_displayed_user_id() )
         $user_domain = bp_displayed_user_domain();
+        $user_profile_url = trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() );
         $user_fullname = $bp->displayed_user->fullname;
         // $user_fullname = bp_displayed_user_fullname();
         // $user_username = $bp->displayed_user->user_login;
@@ -2061,7 +2066,7 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
         $metadata_arr['name'] = esc_attr( $user_fullname );
 
         // URL
-        $metadata_arr['url'] = esc_url( $user_domain, array('http', 'https') );
+        $metadata_arr['url'] = esc_url( $user_profile_url, array('http', 'https') );
 
         // Related resources as sameAs
         $metadata_arr['sameAs'] = array();
