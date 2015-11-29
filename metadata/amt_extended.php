@@ -2121,11 +2121,10 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
 
         }
 
+        // Scope END: Person
+        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
+
     }
-
-
-    // Scope END: Person
-    $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
     // Allow filtering of the generated metadata
     // Customize with: add_filter('amt_buddypress_schemaorg_footer_extra', 'my_function', 10, 5);
