@@ -2108,7 +2108,7 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             $field_value = amt_bp_get_profile_field_data( 'work_longitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
             $field_value = sanitize_text_field( $field_value );
             if ( ! empty($field_value) ) {
-                    $longitude = esc_attr( $field_value );
+                $longitude = esc_attr( $field_value );
             }
 
             if ( ! empty($latitude) && ! empty($longitude) ) {
@@ -2300,7 +2300,7 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             $field_value = sanitize_text_field( $field_value );
             if ( ! empty($field_value) ) {
                 $metadata_arr['familyName'] = esc_attr( $field_value );
-                $has_first_name = true;
+                $has_last_name = true;
             }
 
             // givenName
