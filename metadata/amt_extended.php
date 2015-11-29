@@ -1320,34 +1320,6 @@ function amt_detect_buddypress( $default, $post, $options ) {
 add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 3 );
 
 
-function amt_buddypress_get_xprofile_field_map() {
-    $xprofile_field_map = array(
-        'description'       => array('excerpt', 'summary', 'description', 'bio', 'about'),
-        'keywords'          => array('keywords', 'skills', 'interests'),    // TODO: Future: add group names?
-        'first_name'        => array('first name', 'given name'),
-        'last_name'         => array('last name', 'family name', 'surname'),
-        'additional_name'   => array('additional name', 'middle name'),
-        'nickname'          => array('nickname', 'alias', 'alternate name'),
-        'honorific_prefix'  => array('honorific prefix'),
-        'honorific_suffix'  => array('honorific suffix'),
-        'gender'            => array('gender', 'sex'),
-        'nationality'       => array('nationality', 'country'),
-        'telephone'         => array('telephone', 'phone', 'tel'),
-        'fax'               => array('fax number', 'fax'),
-        'email'             => array('email', 'email address'),
-        'website'           => array('website', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
-        'job_title'         => array('job', 'job title'),
-        'works_for'         => array('company', 'company name', 'employer', 'works for'),
-        'works_for_url'     => array('company url', 'employer url'),
-        'work_latitude'          => array('work latitude'),
-        'work_longitude'         => array('work longitude'),
-        'home_latitude'          => array('home latitude'),
-        'home_longitude'         => array('home longitude'),
-    );
-    return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
-}
-
-
 function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
     // We only support profile pages at this time.

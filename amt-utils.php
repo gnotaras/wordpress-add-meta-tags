@@ -2950,6 +2950,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
 //
 //
 
+
 // Returns the BuddyPress profile slug
 // The bp_get_profile_slug() was added in BuddyPress 2.4.
 // If the function does not exist, we hard-code 'profile'.
@@ -2958,4 +2959,47 @@ function amt_bp_get_profile_slug() {
         return bp_get_profile_slug();
     }
     return 'profile';
+}
+
+
+// Returns the BuddyPress field map
+function amt_buddypress_get_xprofile_field_map() {
+    $xprofile_field_map = array(
+        'description'       => array('excerpt', 'summary', 'description', 'bio', 'about'),
+        'keywords'          => array('keywords', 'skills', 'interests'),    // TODO: Future: add group names?
+        'first_name'        => array('first name', 'given name'),
+        'last_name'         => array('last name', 'family name', 'surname'),
+        'additional_name'   => array('additional name', 'middle name'),
+        'nickname'          => array('nickname', 'alias', 'alternate name'),
+        'honorific_prefix'  => array('honorific prefix'),
+        'honorific_suffix'  => array('honorific suffix'),
+        'gender'            => array('gender', 'sex'),
+        'nationality'       => array('nationality', 'country'),
+        'telephone'         => array('telephone', 'phone', 'tel'),
+        'fax'               => array('fax number', 'fax'),
+        'email'             => array('email', 'email address'),
+        'website'           => array('website', 'web site', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
+        'job_title'         => array('job', 'job title'),
+        'works_for'         => array('company', 'company name', 'employer', 'works for'),
+        'works_for_url'     => array('company url', 'employer url'),
+        'work_latitude'          => array('work latitude'),
+        'work_longitude'         => array('work longitude'),
+
+        'home_latitude'          => array('home latitude'),
+        'home_longitude'         => array('home longitude'),
+    );
+    return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
+}
+
+
+// Returns the field contents
+function amt_bp_get_profile_field_data( $internal_profile_property, $user_id, $xprofile_field_map, $xprofile_public_fields ) {
+    foreach ( $xprofile_field_map[$internal_profile_property] as $field_name ) {
+        $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
+        // profile_group_id
+        if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+            return $field_value;
+        }
+    }
+    return '';
 }
