@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, optimize, ranking, metatag, schema, google, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.9.7
+Stable tag: 2.9.8
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -83,6 +83,17 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.8](http://www.codetrax.org/versions/305)
+ - Refactoring of Schema.org generators for BuddyPress metadata.
+ - More profile properties are now supported by the Schema.org generators. Please check the [BuddyPress Metadata Customization Guide](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress) for more information. The docs now include information about how to modify or extend the generated BuddyPress metadata, override the default field map or prevent profile metadata from being added to the profile page.
+ - Various improvements of the BuddyPress metadata generators. (Props to HansRuedi Keller for valuable feedback)
+ - Fixed issue with author URL for Google+ which appeared on pages without author. (Props to HansRuedi Keller for valuable feedback)
+ - Added support for checks of the privacy setting of each field of the BuddyPress extended profiles.
+ - Updated the [wiki documentation about BuddyPress](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress) with more information about how to modify or extend the generated BuddyPress metadata, override the default field map or prevent profile metadata from being added to the profile page.
+ - Fixed the BuddyPress profile URL. The profile slug is now taken into account.
+ - Allow filtering of the generated local profile url through the `amt_get_local_author_profile_url` filter hook.
+ - Fixed various minor issues.
+ - Updated translations.
 - [2.9.7](http://www.codetrax.org/versions/304)
  - Notice: The file/directory layout might change in upcoming releases.
  - Added support for the generation of metadata for _BuddyPress Profiles_. Please consult the _Extended Metadata_ section in the integrated help for more information about this new feature. This feature should be considered work in progress. Title customization is not supported yet. Many thanks to HansRuedi Keller for ideas, valuable feedback and for helping me raise my "BuddyPress IQ" at _lerngruppen.net_.
