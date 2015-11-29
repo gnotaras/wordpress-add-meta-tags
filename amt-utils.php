@@ -2984,7 +2984,6 @@ function amt_buddypress_get_xprofile_field_map() {
         'works_for_url'     => array('company url', 'employer url'),
         'work_latitude'          => array('work latitude'),
         'work_longitude'         => array('work longitude'),
-
         'home_latitude'          => array('home latitude'),
         'home_longitude'         => array('home longitude'),
     );
