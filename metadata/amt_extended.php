@@ -2446,7 +2446,7 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
 
             // work latitude
             $latitude = '';
-            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = amt_bp_get_profile_field_data( 'work_latitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
             $field_value = sanitize_text_field( $field_value );
             if ( ! empty($field_value) ) {
                 $latitude = esc_attr( $field_value );
@@ -2454,7 +2454,7 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
 
             // work longitude
             $longitude = '';
-            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = amt_bp_get_profile_field_data( 'work_longitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
             $field_value = sanitize_text_field( $field_value );
             if ( ! empty($field_value) ) {
                 $longitude = esc_attr( $field_value );
