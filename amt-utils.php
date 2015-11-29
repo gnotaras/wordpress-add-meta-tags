@@ -2975,17 +2975,17 @@ function amt_buddypress_get_xprofile_field_map() {
         'honorific_suffix'  => array('honorific suffix'),
         'gender'            => array('gender', 'sex'),
         'nationality'       => array('nationality', 'country'),
-        'telephone'         => array('telephone', 'phone', 'tel'),
+        'telephone'         => array('telephone', 'phone', 'tel', 'telephone number'),
         'fax'               => array('fax number', 'fax'),
         'email'             => array('email', 'email address'),
         'website'           => array('website', 'web site', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
         'job_title'         => array('job', 'job title'),
         'works_for'         => array('company', 'company name', 'employer', 'works for'),
         'works_for_url'     => array('company url', 'employer url'),
-        'work_latitude'          => array('work latitude'),
-        'work_longitude'         => array('work longitude'),
-        'home_latitude'          => array('home latitude'),
-        'home_longitude'         => array('home longitude'),
+        'work_latitude'     => array('work latitude'),
+        'work_longitude'    => array('work longitude'),
+        'home_latitude'     => array('home latitude'),
+        'home_longitude'    => array('home longitude'),
     );
     return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
 }
