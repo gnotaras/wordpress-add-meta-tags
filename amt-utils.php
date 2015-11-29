@@ -2008,6 +2008,9 @@ function amt_get_schemaorg_itemref( $object_type ) {
 // Returns the URL of the page of the local author profile
 function amt_get_local_author_profile_url( $author_id, $options ) {
     $url = '';
+    if ( empty($author_id) ) {
+        return $url;
+    }
     if ( $options['author_profile_source'] == 'default' ) {
         $url = get_author_posts_url( $author_id );
     } elseif ( $options['author_profile_source'] == 'frontpage' ) {
