@@ -115,13 +115,16 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, 
     }
 
     // Author
-    $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $post->post_author);
-    if ( empty( $googleplus_author_url ) ) {
-        // Link to the author archive
-        $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_attr( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
-    } else {
-        // Link to Google+ author profile
-        $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
+    // Additional check to make sure we have a post. Eg, BuddyPress pages have a $post with ID zero.
+    if ( $post->ID > 0 ) {
+        $googleplus_author_url = get_the_author_meta('amt_googleplus_author_profile_url', $post->post_author);
+        if ( empty( $googleplus_author_url ) ) {
+            // Link to the author archive
+            $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_attr( get_author_posts_url( get_the_author_meta( 'ID', $post->post_author ) ) ) . '" />';
+        } else {
+            // Link to Google+ author profile
+            $metadata_arr[] = '<link rel="author" type="text/html" title="' . esc_attr( get_the_author_meta('display_name', $post->post_author) ) . '" href="' . esc_url_raw( $googleplus_author_url, array('http', 'https') ) . '" />';
+        }
     }
 
     // Filtering of the generated Google+ metadata
