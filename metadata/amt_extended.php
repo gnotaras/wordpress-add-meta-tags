@@ -1322,10 +1322,6 @@ add_filter( 'amt_is_custom', 'amt_detect_buddypress', 10, 3 );
 
 function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $embedded_media ) {
 
-    // We only support profile pages at this time.
-// bp_is_user_profile()
-// bp_is_user()
-
     // User Profiles
 
     // Determines if a BuddyPress user profile has been requested
@@ -1372,29 +1368,19 @@ function amt_buddypress_basic( $metadata_arr, $post, $options, $attachments, $em
             $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Description
-            foreach ( $xprofile_field_map['description'] as $description_field ) {
-                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
-                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
-                    break;
-                }
-            }
-            if ( ! empty($author_description) ) {
-                $metadata_arr[] = '<meta name="description" content="' . esc_attr( $author_description ) . '" />';
+            $field_value = amt_bp_get_profile_field_data( 'description', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( amt_sanitize_description( $field_value ) );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta name="description" content="' . esc_attr( $field_value ) . '" />';
             } else {
                 $metadata_arr[] = '<meta name="description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
             }
 
             // Keywords
-            foreach ( $xprofile_field_map['keywords'] as $keywords_field ) {
-                $author_keywords = bp_get_profile_field_data( array( 'field'=>$keywords_field, 'user_id'=>$user_id ) );
-                $author_keywords = sanitize_text_field( amt_sanitize_keywords( $author_keywords ) );
-                if ( ! empty($author_keywords) && in_array(xprofile_get_field_id_from_name($keywords_field), $xprofile_public_fields) ) {
-                    break;
-                }
-            }
-            if ( ! empty($author_keywords) ) {
-                $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $author_keywords ) . '" />';
+            $field_value = amt_bp_get_profile_field_data( 'keywords', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( amt_sanitize_keywords( $field_value ) );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta name="keywords" content="' . esc_attr( $field_value ) . '" />';
             }
 
         }
@@ -1465,6 +1451,11 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $googleplus_author_url, array('http', 'https') ) . '" />';
         }
 
+        // profile:username
+        if ( ! empty($user_username) ) {
+            $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
+        }
+
 
         // Determines if Extended Profiles component is active.
 
@@ -1530,12 +1521,6 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
                 $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
             }
 
-            // profile:username
-            if ( ! empty($user_username) ) {
-                $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
-            }
-            // profile:gender
-            
 
         // Extended Profiles
 
@@ -1547,24 +1532,17 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Website
-            foreach ( $xprofile_field_map['website'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'website', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta property="og:see_also" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
             }
 
             // Description
-            foreach ( $xprofile_field_map['description'] as $description_field ) {
-                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
-                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
-                    break;
-                }
-            }
-            if ( ! empty($author_description) ) {
-                $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( $author_description ) . '" />';
+            $field_value = amt_bp_get_profile_field_data( 'description', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( amt_sanitize_description( $field_value ) );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( $field_value ) . '" />';
             } else {
                 $metadata_arr[] = '<meta property="og:description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
             }
@@ -1603,27 +1581,25 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
             // Other Profile Data
 
             // profile:last_name
-            foreach ( $xprofile_field_map['last_name'] as $field_name ) {
-                $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $last_name = sanitize_text_field( $last_name );
-                if ( ! empty($last_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $last_name ) . '" />';
-                    break;
-                }
+            $has_last_name = false;
+            $field_value = amt_bp_get_profile_field_data( 'last_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta property="profile:last_name" content="' . esc_attr( $field_value ) . '" />';
+                $has_last_name = true;
             }
 
             // profile:first_name
-            foreach ( $xprofile_field_map['first_name'] as $field_name ) {
-                $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $first_name = sanitize_text_field( $first_name );
-                if ( ! empty($first_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $first_name ) . '" />';
-                    break;
-                }
+            $has_first_name = false;
+            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta property="profile:first_name" content="' . esc_attr( $field_value ) . '" />';
+                $has_first_name = true;
             }
 
             // Generate first and last name from full name if needed.
-            if ( empty($last_name) && empty($first_name) && ! empty($user_fullname) ) {
+            if ( ! $has_last_name && ! $has_first_name && ! empty($user_fullname) ) {
                 $parts = explode(' ', $user_fullname);
                 $last_name = sanitize_text_field( array_pop($parts) ); // Removes and returns the element off the end of array
                 if ( ! empty($last_name) ) {
@@ -1635,19 +1611,11 @@ function amt_buddypress_opengraph( $metadata_arr, $post, $options, $attachments,
                 }
             }
 
-            // profile:username
-            if ( ! empty($user_username) ) {
-                $metadata_arr[] = '<meta property="profile:username" content="' . esc_attr( $user_username ) . '" />';
-            }
-
             // profile:gender
-            foreach ( $xprofile_field_map['gender'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $field_value = sanitize_text_field( $field_value );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta property="profile:gender" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'gender', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta property="profile:gender" content="' . esc_attr( $field_value ) . '" />';
             }
 
         }
@@ -1763,15 +1731,10 @@ function amt_buddypress_twitter_cards( $metadata_arr, $post, $options, $attachme
             $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Description
-            foreach ( $xprofile_field_map['description'] as $description_field ) {
-                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
-                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
-                    break;
-                }
-            }
-            if ( ! empty($author_description) ) {
-                $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( $author_description ) . '" />';
+            $field_value = amt_bp_get_profile_field_data( 'description', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( amt_sanitize_description( $field_value ) );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( $field_value ) . '" />';
             } else {
                 $metadata_arr['twitter:description'] = '<meta name="twitter:description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
             }
@@ -1937,24 +1900,17 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Website
-            foreach ( $xprofile_field_map['website'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'website', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url( $field_value, array('http', 'https') ) . '" />';
             }
 
             // Description
-            foreach ( $xprofile_field_map['description'] as $description_field ) {
-                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
-                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
-                    break;
-                }
-            }
-            if ( ! empty($author_description) ) {
-                $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $author_description ) . '" />';
+            $field_value = amt_bp_get_profile_field_data( 'description', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( amt_sanitize_description( $field_value ) );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $field_value ) . '" />';
             } else {
                 $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname ) . '" />';
             }
@@ -1980,27 +1936,25 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             }
 
             // familyName
-            foreach ( $xprofile_field_map['last_name'] as $field_name ) {
-                $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $last_name = sanitize_text_field( $last_name );
-                if ( ! empty($last_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="familyName" content="' . esc_attr( $last_name ) . '" />';
-                    break;
-                }
+            $has_last_name = false;
+            $field_value = amt_bp_get_profile_field_data( 'last_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="familyName" content="' . esc_attr( $field_value ) . '" />';
+                $has_last_name = true;
             }
 
             // givenName
-            foreach ( $xprofile_field_map['first_name'] as $field_name ) {
-                $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $first_name = sanitize_text_field( $first_name );
-                if ( ! empty($first_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="givenName" content="' . esc_attr( $first_name ) . '" />';
-                    break;
-                }
+            $has_first_name = false;
+            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="givenName" content="' . esc_attr( $field_value ) . '" />';
+                $has_first_name = true;
             }
 
             // Generate first and last name from full name if needed.
-            if ( empty($last_name) && empty($first_name) && ! empty($user_fullname) ) {
+            if ( ! $has_last_name && ! $has_first_name && ! empty($user_fullname) ) {
                 $parts = explode(' ', $user_fullname);
                 $last_name = sanitize_text_field( array_pop($parts) ); // Removes and returns the element off the end of array
                 if ( ! empty($last_name) ) {
@@ -2013,127 +1967,102 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
             }
 
             // alternateName
-            foreach ( $xprofile_field_map['nickname'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="alternateName" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'nickname', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="alternateName" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // additionalName
-            foreach ( $xprofile_field_map['additional_name'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="additionalName" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'additional_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="additionalName" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // honorificPrefix
-            foreach ( $xprofile_field_map['honorific_prefix'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="honorificPrefix" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'honorific_prefix', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="honorificPrefix" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // honorificSuffix
-            foreach ( $xprofile_field_map['honorific_suffix'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="honorificSuffix" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'honorific_suffix', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="honorificSuffix" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // gender
-            foreach ( $xprofile_field_map['gender'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="gender" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'gender', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="gender" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // nationality
-            foreach ( $xprofile_field_map['gender'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<!-- Scope BEGIN: Country -->';
-                    $metadata_arr[] = '<span itemprop="nationality" itemscope itemtype="http://schema.org/Country">';
-                    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $field_value ) . '" />';
-                    $metadata_arr[] = '</span> <!-- Scope END: Country -->';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'nationality', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: Country -->';
+                $metadata_arr[] = '<span itemprop="nationality" itemscope itemtype="http://schema.org/Country">';
+                $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '</span> <!-- Scope END: Country -->';
             }
 
             // telephone
-            foreach ( $xprofile_field_map['telephone'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="telephone" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'telephone', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="telephone" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // faxNumber
-            foreach ( $xprofile_field_map['fax'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['faxNumber'] = esc_attr( $field_value );
-                    $metadata_arr[] = '<meta itemprop="faxNumber" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'fax', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="faxNumber" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // email
-            foreach ( $xprofile_field_map['email'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="email" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'email', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="email" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // jobTitle
-            foreach ( $xprofile_field_map['job_title'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr[] = '<meta itemprop="jobTitle" content="' . esc_attr( $field_value ) . '" />';
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'job_title', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr[] = '<meta itemprop="jobTitle" content="' . esc_attr( $field_value ) . '" />';
             }
 
             // worksFor
             $work_name = '';
-            foreach ( $xprofile_field_map['works_for'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $work_name = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'works_for', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $work_name = esc_attr( $field_value );
             }
 
             // worksFor URL
             $work_url = '';
-            foreach ( $xprofile_field_map['works_for_url'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $work_url = esc_url( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'works_for_url', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $work_url = esc_url( $field_value );
             }
 
             if ( ! empty($work_name) || ! empty($work_url) ) {
                 $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
                 $metadata_arr[] = '<span itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">';
                 if ( ! empty($work_name) ) {
-                    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $field_value ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $work_name ) . '" />';
                 }
                 if ( ! empty($work_url) ) {
-                    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $field_value ) . '" />';
+                    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $work_url ) . '" />';
                 }
                 $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
             }
@@ -2142,29 +2071,25 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
 
             // home latitude
             $latitude = '';
-            foreach ( $xprofile_field_map['home_latitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $latitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'home_latitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $latitude = esc_attr( $field_value );
             }
 
             // home longitude
             $longitude = '';
-            foreach ( $xprofile_field_map['home_longitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $longitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'home_longitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $longitude = esc_attr( $field_value );
             }
 
             if ( ! empty($latitude) && ! empty($longitude) ) {
                 $metadata_arr[] = '<!-- Scope BEGIN: Place -->';
                 $metadata_arr[] = '<span itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">';
-                $metadata_arr[] = '<meta itemprop="latitude" content="' . esc_attr( $field_value ) . '" />';
-                $metadata_arr[] = '<meta itemprop="longitude" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '<meta itemprop="latitude" content="' . esc_attr( $latitude ) . '" />';
+                $metadata_arr[] = '<meta itemprop="longitude" content="' . esc_attr( $longitude ) . '" />';
                 $metadata_arr[] = '</span> <!-- Scope END: Place -->';
             }
 
@@ -2172,29 +2097,25 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
 
             // work latitude
             $latitude = '';
-            foreach ( $xprofile_field_map['work_latitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $latitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'work_latitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $latitude = esc_attr( $field_value );
             }
 
             // work longitude
             $longitude = '';
-            foreach ( $xprofile_field_map['work_longitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
+            $field_value = amt_bp_get_profile_field_data( 'work_longitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
                     $longitude = esc_attr( $field_value );
-                    break;
-                }
             }
 
             if ( ! empty($latitude) && ! empty($longitude) ) {
                 $metadata_arr[] = '<!-- Scope BEGIN: Place -->';
                 $metadata_arr[] = '<span itemprop="workLocation" itemscope itemtype="http://schema.org/Place">';
-                $metadata_arr[] = '<meta itemprop="latitude" content="' . esc_attr( $field_value ) . '" />';
-                $metadata_arr[] = '<meta itemprop="longitude" content="' . esc_attr( $field_value ) . '" />';
+                $metadata_arr[] = '<meta itemprop="latitude" content="' . esc_attr( $latitude ) . '" />';
+                $metadata_arr[] = '<meta itemprop="longitude" content="' . esc_attr( $longitude ) . '" />';
                 $metadata_arr[] = '</span> <!-- Scope END: Place -->';
             }
 
@@ -2339,24 +2260,17 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             $xprofile_public_fields = bp_xprofile_get_fields_by_visibility_levels( $user_id, array('public') );
 
             // Website
-            foreach ( $xprofile_field_map['website'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['sameAs'][] = esc_url( $field_value, array('http', 'https') );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'website', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['sameAs'][] = esc_url( $field_value, array('http', 'https') );
             }
 
             // Description
-            foreach ( $xprofile_field_map['description'] as $description_field ) {
-                $author_description = bp_get_profile_field_data( array( 'field'=>$description_field, 'user_id'=>$user_id ) );
-                $author_description = sanitize_text_field( amt_sanitize_description( $author_description ) );
-                if ( ! empty($author_description) && in_array(xprofile_get_field_id_from_name($description_field), $xprofile_public_fields) ) {
-                    break;
-                }
-            }
-            if ( ! empty($author_description) ) {
-                $metadata_arr['description'] = esc_attr( $author_description );
+            $field_value = amt_bp_get_profile_field_data( 'description', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( amt_sanitize_description( $field_value ) );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['description'] = esc_attr( $field_value );
             } else {
                 $metadata_arr['description'] = esc_attr( __('Profile of', 'add-meta-tags') . ' ' . $user_fullname );
             }
@@ -2382,27 +2296,25 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             }
 
             // familyName
-            foreach ( $xprofile_field_map['last_name'] as $field_name ) {
-                $last_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $last_name = sanitize_text_field( $last_name );
-                if ( ! empty($last_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['familyName'] = esc_attr( $last_name );
-                    break;
-                }
+            $has_last_name = false;
+            $field_value = amt_bp_get_profile_field_data( 'last_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['familyName'] = esc_attr( $field_value );
+                $has_first_name = true;
             }
 
             // givenName
-            foreach ( $xprofile_field_map['first_name'] as $field_name ) {
-                $first_name = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                $first_name = sanitize_text_field( $first_name );
-                if ( ! empty($first_name) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['givenName'] = esc_attr( $first_name );
-                    break;
-                }
+            $has_first_name = false;
+            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['givenName'] = esc_attr( $field_value );
+                $has_first_name = true;
             }
 
             // Generate first and last name from full name if needed.
-            if ( empty($last_name) && empty($first_name) && ! empty($user_fullname) ) {
+            if ( ! $has_last_name && ! $has_first_name && ! empty($user_fullname) ) {
                 $parts = explode(' ', $user_fullname);
                 $last_name = sanitize_text_field( array_pop($parts) ); // Removes and returns the element off the end of array
                 if ( ! empty($last_name) ) {
@@ -2415,137 +2327,113 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
             }
 
             // alternateName
-            foreach ( $xprofile_field_map['nickname'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['alternateName'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'nickname', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['alternateName'] = esc_attr( $field_value );
             }
 
             // additionalName
-            foreach ( $xprofile_field_map['additional_name'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['additionalName'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'additional_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['additionalName'] = esc_attr( $field_value );
             }
 
             // honorificPrefix
-            foreach ( $xprofile_field_map['honorific_prefix'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['honorificPrefix'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'honorific_prefix', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['honorificPrefix'] = esc_attr( $field_value );
             }
 
             // honorificSuffix
-            foreach ( $xprofile_field_map['honorific_suffix'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['honorificSuffix'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'honorific_suffix', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['honorificSuffix'] = esc_attr( $field_value );
             }
 
             // gender
-            foreach ( $xprofile_field_map['gender'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['gender'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'gender', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['gender'] = esc_attr( $field_value );
             }
 
             // nationality
-            foreach ( $xprofile_field_map['gender'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['nationality'] = array();
-                    $metadata_arr['nationality']['@type'] = 'Country';
-                    $metadata_arr['nationality']['name'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'nationality', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['nationality'] = array();
+                $metadata_arr['nationality']['@type'] = 'Country';
+                $metadata_arr['nationality']['name'] = esc_attr( $field_value );
             }
 
             // telephone
-            foreach ( $xprofile_field_map['telephone'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['telephone'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'telephone', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['telephone'] = esc_attr( $field_value );
             }
 
             // faxNumber
-            foreach ( $xprofile_field_map['fax'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['faxNumber'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'fax', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['faxNumber'] = esc_attr( $field_value );
             }
 
             // email
-            foreach ( $xprofile_field_map['email'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['email'] = 'mailto:' . esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'email', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['email'] = 'mailto:' . esc_attr( $field_value );
             }
 
             // jobTitle
-            foreach ( $xprofile_field_map['job_title'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['jobTitle'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'job_title', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['jobTitle'] = esc_attr( $field_value );
             }
 
             // worksFor
-            foreach ( $xprofile_field_map['works_for'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['worksFor'] = array();
-                    $metadata_arr['worksFor']['@type'] = 'Organization';
-                    $metadata_arr['worksFor']['name'] = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'works_for', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $metadata_arr['worksFor'] = array();
+                $metadata_arr['worksFor']['@type'] = 'Organization';
+                $metadata_arr['worksFor']['name'] = esc_attr( $field_value );
             }
 
             // worksFor URL
-            foreach ( $xprofile_field_map['works_for_url'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $metadata_arr['worksFor']['url'] = esc_url( $field_value );
-                    break;
+            $field_value = amt_bp_get_profile_field_data( 'works_for_url', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                if ( ! array_key_exists('worksFor', $metadata_arr) || ! is_array($metadata_arr['worksFor']) ) {
+                    $metadata_arr['worksFor'] = array();
+                    $metadata_arr['worksFor']['@type'] = 'Organization';
                 }
+                $metadata_arr['worksFor']['url'] = esc_attr( $field_value );
             }
 
             // Home Location Geo Coordinates
 
             // home latitude
             $latitude = '';
-            foreach ( $xprofile_field_map['home_latitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $latitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'home_latitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $latitude = esc_attr( $field_value );
             }
 
             // home longitude
             $longitude = '';
-            foreach ( $xprofile_field_map['home_longitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $longitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'home_longitude', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $longitude = esc_attr( $field_value );
             }
 
             if ( ! empty($latitude) && ! empty($longitude) ) {
@@ -2559,22 +2447,18 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
 
             // work latitude
             $latitude = '';
-            foreach ( $xprofile_field_map['work_latitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $latitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $latitude = esc_attr( $field_value );
             }
 
             // work longitude
             $longitude = '';
-            foreach ( $xprofile_field_map['work_longitude'] as $field_name ) {
-                $field_value = bp_get_profile_field_data( array( 'field'=>$field_name, 'user_id'=>$user_id ) );
-                if ( ! empty($field_value) && in_array(xprofile_get_field_id_from_name($field_name), $xprofile_public_fields) ) {
-                    $longitude = esc_attr( $field_value );
-                    break;
-                }
+            $field_value = amt_bp_get_profile_field_data( 'first_name', $user_id, $xprofile_field_map, $xprofile_public_fields );
+            $field_value = sanitize_text_field( $field_value );
+            if ( ! empty($field_value) ) {
+                $longitude = esc_attr( $field_value );
             }
 
             if ( ! empty($latitude) && ! empty($longitude) ) {
