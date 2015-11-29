@@ -351,6 +351,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
  */
 function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
+    // For AMT timings
+    $t = microtime(true);
+
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
@@ -1055,6 +1058,11 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = '</div> <!-- Itemprop END: ' . esc_attr($main_text_property) . ' -->';
         // Now add closing tag for Article
         $metadata_arr[] = $closing_article_tag;
+    }
+
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
     }
 
     // Add our comment

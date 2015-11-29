@@ -171,6 +171,9 @@ add_filter( 'language_attributes', 'amt_set_html_lang_attribute' );
  */
 function amt_get_metadata_head() {
 
+    // For AMT timings
+    $t = microtime(true);
+
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     $do_add_metadata = true;
@@ -264,6 +267,11 @@ function amt_get_metadata_head() {
     // Allow filtering of the all the generated metatags
     $metadata_arr = apply_filters( 'amt_metadata_head', $metadata_arr );
 
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
+    }
+
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
         array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
@@ -287,6 +295,9 @@ add_action('wp_head', 'amt_add_metadata_head', 0);
  * Returns an array of all the generated metadata for the footer area.
  */
 function amt_get_metadata_footer() {
+
+    // For AMT timings
+    $t = microtime(true);
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
@@ -336,6 +347,11 @@ function amt_get_metadata_footer() {
 
     // Allow filtering of all the generated metatags
     $metadata_arr = apply_filters( 'amt_metadata_footer', $metadata_arr );
+
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
+    }
 
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
