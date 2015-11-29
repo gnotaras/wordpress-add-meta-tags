@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.9.8b2\n"
+"Project-Id-Version: add-meta-tags 2.9.8b3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-28 19:28+0200\n"
+"POT-Creation-Date: 2015-11-29 12:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1070,19 +1070,19 @@ msgstr ""
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: amt-utils.php:2248
+#: amt-utils.php:2251
 msgid "Select a sample review"
 msgstr ""
 
-#: amt-utils.php:2280
+#: amt-utils.php:2283
 msgid "Use sample review data:"
 msgstr ""
 
-#: amt-utils.php:2374
+#: amt-utils.php:2377
 msgid "Select a meta tag group"
 msgstr ""
 
-#: amt-utils.php:2406
+#: amt-utils.php:2409
 msgid "Replace meta tags with:"
 msgstr ""
 
@@ -1115,11 +1115,11 @@ msgstr ""
 msgid "%s archive."
 msgstr ""
 
-#: metadata\amt_extended.php:1387 metadata\amt_extended.php:1413
-#: metadata\amt_extended.php:1467 metadata\amt_extended.php:1511
-#: metadata\amt_extended.php:1597 metadata\amt_extended.php:1745
-#: metadata\amt_extended.php:1753 metadata\amt_extended.php:1804
-#: metadata\amt_extended.php:1921 metadata\amt_extended.php:1987
-#: metadata\amt_extended.php:2323 metadata\amt_extended.php:2389
+#: metadata\amt_extended.php:1355 metadata\amt_extended.php:1376
+#: metadata\amt_extended.php:1425 metadata\amt_extended.php:1474
+#: metadata\amt_extended.php:1547 metadata\amt_extended.php:1685
+#: metadata\amt_extended.php:1693 metadata\amt_extended.php:1739
+#: metadata\amt_extended.php:1856 metadata\amt_extended.php:1915
+#: metadata\amt_extended.php:2216 metadata\amt_extended.php:2275
 msgid "Profile of"
 msgstr ""
