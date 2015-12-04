@@ -85,8 +85,8 @@ require( AMT_PLUGIN_DIR . 'amt-cli.php' );
  *
  * Translation files are searched in: wp-content/plugins
  */
-//load_plugin_textdomain('add-meta-tags', false, dirname( plugin_basename( AMT_PLUGIN_FILE ) ) . '/languages/');
-load_plugin_textdomain('add-meta-tags', false, AMT_PLUGIN_DIR . 'languages/');
+load_plugin_textdomain('add-meta-tags', false, dirname( plugin_basename( AMT_PLUGIN_FILE ) ) . '/languages/');
+//load_plugin_textdomain('add-meta-tags', false, AMT_PLUGIN_DIR . 'languages/');
 
 
 /**
