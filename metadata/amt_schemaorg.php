@@ -251,7 +251,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
             $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
             $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
             // Get author metatags
-            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author, $options ) );
             // Scope END: Person
             $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -332,7 +332,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $author) ) . '" />';
 
         // Get author metatags
-        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID, $options ) );
 
         // Scope END: Person
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
@@ -350,6 +350,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
  * Filter function that generates and embeds Schema.org metadata in the content.
  */
 function amt_add_schemaorg_metadata_content_filter( $post_body ) {
+
+    // For AMT timings
+    $t = microtime(true);
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
@@ -563,7 +566,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
         $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get author metatags
-        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author, $options ) );
         // Scope END: Person
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -691,7 +694,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
         $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get publisher metatags
-        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
+        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author, $options ) );
         // Scope END: Person
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -1057,6 +1060,11 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = $closing_article_tag;
     }
 
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
+    }
+
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
         array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
@@ -1196,7 +1204,7 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
  * Return an array of Schema.org metatags suitable for the author object of
  * the content. Accepts the $post object as argument.
  */
-function amt_get_schemaorg_author_metatags( $author_id ) {
+function amt_get_schemaorg_author_metatags( $author_id, $options ) {
 //$author_obj = get_user_by( 'id', $author_id );
 
     $metadata_arr = array();
@@ -1560,7 +1568,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $author) );
 
         // Get author metatags
-//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID ) );
+//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID, $options ) );
         $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_author_array( $author->ID, $options ) );
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
@@ -1873,7 +1881,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //        $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
 //        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         // Get author metatags
-//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author ) );
+//        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author, $options ) );
         $metadata_arr['author'] = amt_get_jsonld_schemaorg_author_array( $post->post_author, $options );
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';

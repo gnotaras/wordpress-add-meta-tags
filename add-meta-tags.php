@@ -3,7 +3,7 @@
 Plugin Name: Add Meta Tags
 Plugin URI: http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/
 Description: Add basic meta tags and also Opengraph, Schema.org Microdata, Twitter Cards and Dublin Core metadata to optimize your web site for better SEO.
-Version: 2.9.8
+Version: 2.9.9
 Author: George Notaras
 Author URI: http://www.g-loaded.eu/
 License: Apache License v2
@@ -171,6 +171,9 @@ add_filter( 'language_attributes', 'amt_set_html_lang_attribute' );
  */
 function amt_get_metadata_head() {
 
+    // For AMT timings
+    $t = microtime(true);
+
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     $do_add_metadata = true;
@@ -212,10 +215,6 @@ function amt_get_metadata_head() {
 
     // Get current post object
     $post = get_queried_object();
-
-    // Allow changing current post object, used to get all meta data.
-    $post = apply_filters( 'amt_got_current_post', $post );
-
     if ( is_null( $post ) ) {
         // Allow metadata on the default front page (latest posts).
         // A post object is not available on that page, but we still need to
@@ -268,6 +267,11 @@ function amt_get_metadata_head() {
     // Allow filtering of the all the generated metatags
     $metadata_arr = apply_filters( 'amt_metadata_head', $metadata_arr );
 
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
+    }
+
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
         array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
@@ -291,6 +295,9 @@ add_action('wp_head', 'amt_add_metadata_head', 0);
  * Returns an array of all the generated metadata for the footer area.
  */
 function amt_get_metadata_footer() {
+
+    // For AMT timings
+    $t = microtime(true);
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
@@ -340,6 +347,11 @@ function amt_get_metadata_footer() {
 
     // Allow filtering of all the generated metatags
     $metadata_arr = apply_filters( 'amt_metadata_footer', $metadata_arr );
+
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
+    }
 
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
