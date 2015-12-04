@@ -60,6 +60,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function amt_add_dublin_core_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
+    if ( apply_filters('amt_exclude_dublin_core_metadata', false) ) {
+        return array();
+    }
+
     $metadata_arr = array();
 
     $do_auto_dublincore = (($options["auto_dublincore"] == "1") ? true : false );

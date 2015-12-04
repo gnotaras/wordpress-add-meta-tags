@@ -93,6 +93,10 @@ add_filter( 'user_contactmethods', 'amt_add_facebook_contactmethod', 10, 1 );
  */
 function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
+    if ( apply_filters('amt_exclude_opengraph_metadata', false) ) {
+        return array();
+    }
+
     $do_auto_opengraph = (($options["auto_opengraph"] == "1") ? true : false );
     if (!$do_auto_opengraph) {
         return array();

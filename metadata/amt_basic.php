@@ -57,6 +57,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
+    if ( apply_filters('amt_exclude_basic_metadata', false) ) {
+        return array();
+    }
+
     $do_description = (($options["auto_description"] == "1") ? true : false );
     $do_keywords = (($options["auto_keywords"] == "1") ? true : false );
     $do_noodp_description = (($options["noodp_description"] == "1") ? true : false );

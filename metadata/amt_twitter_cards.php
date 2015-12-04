@@ -80,6 +80,10 @@ add_filter( 'user_contactmethods', 'amt_add_twitter_contactmethod', 10, 1 );
  */
 function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
+    if ( apply_filters('amt_exclude_twitter_cards_metadata', false) ) {
+        return array();
+    }
+
     $do_auto_twitter = (($options["auto_twitter"] == "1") ? true : false );
     if (!$do_auto_twitter) {
         return array();

@@ -82,6 +82,10 @@ add_filter( 'user_contactmethods', 'amt_add_googleplus_contactmethod', 10, 1 );
  */
 function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) {
 
+    if ( apply_filters('amt_exclude_schemaorg_metadata', false) ) {
+        return array();
+    }
+
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
         return array();
@@ -140,6 +144,10 @@ function amt_add_schemaorg_metadata_head( $post, $attachments, $embedded_media, 
  * Mainly used to embed microdata to front page, posts index page and archives.
  */
 function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media, $options ) {
+
+    if ( apply_filters('amt_exclude_schemaorg_metadata', false) ) {
+        return array();
+    }
 
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
@@ -350,6 +358,10 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
  * Filter function that generates and embeds Schema.org metadata in the content.
  */
 function amt_add_schemaorg_metadata_content_filter( $post_body ) {
+
+    if ( apply_filters('amt_exclude_schemaorg_metadata', false) ) {
+        return $post_body;
+    }
 
     // For AMT timings
     $t = microtime(true);
@@ -1340,6 +1352,10 @@ function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
  * Mainly used to embed microdata to front page, posts index page and archives.
  */
 function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_media, $options ) {
+
+    if ( apply_filters('amt_exclude_schemaorg_metadata', false) ) {
+        return array();
+    }
 
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
