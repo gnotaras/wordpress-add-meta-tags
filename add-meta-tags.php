@@ -212,6 +212,10 @@ function amt_get_metadata_head() {
 
     // Get current post object
     $post = get_queried_object();
+
+    // Allow changing current post object, used to get all meta data.
+    $post = apply_filters( 'amt_got_current_post', $post );
+
     if ( is_null( $post ) ) {
         // Allow metadata on the default front page (latest posts).
         // A post object is not available on that page, but we still need to
