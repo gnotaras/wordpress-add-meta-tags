@@ -715,7 +715,7 @@ function amt_get_content_keywords($post, $auto=true, $exclude_categories=false) 
     //if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
     if ( $auto && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
 
-        $options = get_option("add_meta_tags_opts");
+        $options = apply_filters( 'amt_get_options', get_option("add_meta_tags_opts") );
         $global_keywords = amt_get_site_global_keywords($options);
 
         if ( ! empty($global_keywords) ) {
@@ -2309,7 +2309,7 @@ function amt_get_breadcrumbs( $user_options ) {
     // Final options.
     $options = array_merge( $default_options, $user_options );
 
-    $post = get_queried_object();
+    $post = apply_filters( 'amt_get_queried_object', get_queried_object() );
 
     $bc_arr = array();
     $bc_arr[] = '<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->';
@@ -2975,17 +2975,17 @@ function amt_buddypress_get_xprofile_field_map() {
         'honorific_suffix'  => array('honorific suffix'),
         'gender'            => array('gender', 'sex'),
         'nationality'       => array('nationality', 'country'),
-        'telephone'         => array('telephone', 'phone', 'tel'),
+        'telephone'         => array('telephone', 'phone', 'tel', 'telephone number'),
         'fax'               => array('fax number', 'fax'),
         'email'             => array('email', 'email address'),
         'website'           => array('website', 'web site', 'url', 'homepage', 'blog', 'personal page', 'alternative profile'),
         'job_title'         => array('job', 'job title'),
         'works_for'         => array('company', 'company name', 'employer', 'works for'),
         'works_for_url'     => array('company url', 'employer url'),
-        'work_latitude'          => array('work latitude'),
-        'work_longitude'         => array('work longitude'),
-        'home_latitude'          => array('home latitude'),
-        'home_longitude'         => array('home longitude'),
+        'work_latitude'     => array('work latitude'),
+        'work_longitude'    => array('work longitude'),
+        'home_latitude'     => array('home latitude'),
+        'home_longitude'    => array('home longitude'),
     );
     return apply_filters( 'amt_buddypress_xprofile_field_map', $xprofile_field_map );
 }

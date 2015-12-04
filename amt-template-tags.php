@@ -50,14 +50,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 function amt_content_description() {
-    $post = get_queried_object();
+    $post = apply_filters( 'amt_get_queried_object', get_queried_object() );
     if ( ! is_null( $post ) ) {
         echo amt_get_content_description( $post );
     }
 }
 
 function amt_content_keywords() {
-    $post = get_queried_object();
+    $post = apply_filters( 'amt_get_queried_object', get_queried_object() );
     if ( ! is_null( $post ) ) {
         echo amt_get_content_keywords( $post );
     }
@@ -83,12 +83,12 @@ function amt_breadcrumbs( $user_options ) {
 }
 
 function amt_local_author_profile_url( $author_id=null, $display=true ) {
-    $options = get_option("add_meta_tags_opts");
+    $options = apply_filters( 'amt_get_options', get_option("add_meta_tags_opts") );
     if ( empty($options) ) {
         return '';
     }
     if ( is_null($author_id) ) {
-        $post = get_queried_object();
+        $post = apply_filters( 'amt_get_queried_object', get_queried_object() );
         if ( is_null($post) || $post->ID == 0 ) {
             return '';
         }
