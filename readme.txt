@@ -93,7 +93,6 @@ Please check out the changelog of each release by following the links below. You
  - Various improvements of the BuddyPress metadata generators. (Props to HansRuedi Keller for valuable feedback)
  - Fixed issue with author URL for Google+ which appeared on pages without author. (Props to HansRuedi Keller for valuable feedback)
  - Added support for checks of the privacy setting of each field of the BuddyPress extended profiles.
- - Updated the [wiki documentation about BuddyPress](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress) with more information about how to modify or extend the generated BuddyPress metadata, override the default field map or prevent profile metadata from being added to the profile page.
  - Fixed the BuddyPress profile URL. The profile slug is now taken into account.
  - Allow filtering of the generated local profile url through the `amt_get_local_author_profile_url` filter hook.
  - Fixed various minor issues.

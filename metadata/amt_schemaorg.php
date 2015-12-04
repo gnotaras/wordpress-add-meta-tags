@@ -355,7 +355,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     $t = microtime(true);
 
     // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
+    $options = apply_filters( 'amt_get_options', get_option("add_meta_tags_opts") );
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
         return $post_body;
@@ -376,7 +376,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     }
 
     // Get current post object
-    $post = get_queried_object();
+    $post = apply_filters( 'amt_get_queried_object', get_queried_object() );
 
     // Additional check to make sure we have a post.
     if ( $post->ID == 0 ) {
