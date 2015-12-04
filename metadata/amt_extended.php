@@ -1211,7 +1211,7 @@ function amt_product_group_image_url_edd( $term_id ) {
 // Product page detection for Add-Meta-Tags
 function amt_detect_ecommerce_product() {
     // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
+    $options = apply_filters( 'amt_get_options', get_option("add_meta_tags_opts") );
 
     // WooCommerce product
     if ( $options["extended_support_woocommerce"] == "1" && amt_is_woocommerce_product() ) {
@@ -1242,7 +1242,7 @@ add_filter( 'amt_is_product', 'amt_detect_ecommerce_product', 10, 1 );
 // Product group page detection for Add-Meta-Tags
 function amt_detect_ecommerce_product_group() {
     // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
+    $options = apply_filters( 'amt_get_options', get_option("add_meta_tags_opts") );
 
     // Only product groups that validate as custom taxonomies are supported
     if ( ! is_tax() ) {

@@ -715,7 +715,7 @@ function amt_get_content_keywords($post, $auto=true, $exclude_categories=false) 
     //if ( !empty($content_keywords) && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
     if ( $auto && ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) ) {
 
-        $options = get_option("add_meta_tags_opts");
+        $options = apply_filters( 'amt_get_options', get_option("add_meta_tags_opts") );
         $global_keywords = amt_get_site_global_keywords($options);
 
         if ( ! empty($global_keywords) ) {
@@ -2309,7 +2309,7 @@ function amt_get_breadcrumbs( $user_options ) {
     // Final options.
     $options = array_merge( $default_options, $user_options );
 
-    $post = get_queried_object();
+    $post = apply_filters( 'amt_get_queried_object', get_queried_object() );
 
     $bc_arr = array();
     $bc_arr[] = '<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->';
