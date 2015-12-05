@@ -2291,7 +2291,9 @@ jQuery(document).ready(function(){
 // Generates a semantic (Schema.org) breadcrumb trail.
 // Accepts array
 function amt_get_breadcrumbs( $user_options ) {
+    // Get plugin options
     $plugin_options = get_option("add_meta_tags_opts");
+    // Get post object
     $post = get_queried_object();
     // Allow filtering of the $post object.
     $post = apply_filters('amt_get_queried_object', $post, $plugin_options);
