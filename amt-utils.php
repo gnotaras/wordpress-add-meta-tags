@@ -2291,6 +2291,11 @@ jQuery(document).ready(function(){
 // Generates a semantic (Schema.org) breadcrumb trail.
 // Accepts array
 function amt_get_breadcrumbs( $user_options ) {
+    $plugin_options = get_option("add_meta_tags_opts");
+    $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $plugin_options);
+
     // Default Options
     $default_options = array(
         // ID of list element.
@@ -2308,8 +2313,6 @@ function amt_get_breadcrumbs( $user_options ) {
     );
     // Final options.
     $options = array_merge( $default_options, $user_options );
-
-    $post = get_queried_object();
 
     $bc_arr = array();
     $bc_arr[] = '<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->';
