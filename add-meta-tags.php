@@ -119,6 +119,9 @@ function amt_custom_title_tag($title) {
     // Get current post object
     $post = get_queried_object();
 
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
+
     $processed_title = amt_get_title_for_title_element($options, $post);
     if ( ! empty($processed_title) ) {
         $processed_title = str_replace('%title%', $title, $processed_title);
@@ -151,6 +154,9 @@ function amt_set_html_lang_attribute( $lang ) {
     $locale = '';
     if ( is_singular() ) {
         $post = get_queried_object();
+        // Allow filtering of the $post object.
+        $post = apply_filters('amt_get_queried_object', $post, $options);
+        // Store locale
         $locale = str_replace( '_', '-', amt_get_language_content($options, $post) );
     } else {
         $locale = str_replace( '_', '-', amt_get_language_site($options) );
@@ -215,6 +221,8 @@ function amt_get_metadata_head() {
 
     // Get current post object
     $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
     if ( is_null( $post ) ) {
         // Allow metadata on the default front page (latest posts).
         // A post object is not available on that page, but we still need to
@@ -307,6 +315,8 @@ function amt_get_metadata_footer() {
 
     // Get current post object
     $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
     if ( is_null( $post ) ) {
         // Allow metadata on the default front page (latest posts).
         // A post object is not available on that page, but we still need to
@@ -400,8 +410,12 @@ function amt_add_metadata_review($post_body) {
 
     if ( is_singular() ) {
 
+        $options = get_option("add_meta_tags_opts");
+
         // Get current post object
         $post = get_queried_object();
+        // Allow filtering of the $post object.
+        $post = apply_filters('amt_get_queried_object', $post, $options);
         if ( is_null( $post ) ) {
             return $post_body;
         }
@@ -413,7 +427,6 @@ function amt_add_metadata_review($post_body) {
         }
 
         // Check if Review Mode is enabled
-        $options = get_option("add_meta_tags_opts");
         if ( $options["review_mode"] == "0" ) {
             return $post_body;
         }

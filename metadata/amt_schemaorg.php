@@ -389,6 +389,8 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Get current post object
     $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
 
     // Additional check to make sure we have a post.
     if ( $post->ID == 0 ) {
