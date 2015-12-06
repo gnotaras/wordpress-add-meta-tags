@@ -43,6 +43,4 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-delete_option('add_meta_tags_opts');
-
-?>
+// delete_option('add_meta_tags_opts');
