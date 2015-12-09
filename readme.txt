@@ -1,10 +1,10 @@
 === Add Meta Tags ===
 Contributors: gnotaras
 Donate link: http://bit.ly/HvUakt
-Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, optimize, ranking, metatag, schema, google, google plus, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
+Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.9.9
+Stable tag: 2.9.10
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -83,6 +83,12 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.10](http://www.codetrax.org/versions/333)
+ - Added the filter hook `amt_get_queried_object` that can be used to modify the post object that is used by the plugin for metadata generation, a feature that opens the path for support of external post types like those used by _AnsPress_. (Props to Dima Stefantsov for valuable feedback, research and code contribution.)
+ - Reverted back to the old way of loading the plugin text domain for translations. Translations are now loaded as expected. (Props to Burak Yavuz for valuable feedback.)
+ - The plugin options are no longer deleted on uninstallation. Please use the `amt` command of `wp-cli` to clean up data. 
+ - Added filter based switches that can be used to easily [turn off metadata generation](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Filter_and_Action_Hooks#Metadata-exclusion) for all supported types of metadata.
+ - Updated translations.
 - [2.9.9](http://www.codetrax.org/versions/306)
  - Fixed issue with Schema.org microdata generator which did not take options into account while generating the author's Person entity. This issue affects the last two releases.
  - Updated translations.
