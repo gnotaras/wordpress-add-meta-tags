@@ -29,8 +29,8 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-28 19:28+0200\n"
-"PO-Revision-Date: 2015-11-29 02:10+0000\n"
-"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
+"PO-Revision-Date: 2015-12-08 05:42+0000\n"
+"Last-Translator: BouRock\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/codetrax/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,26 +284,26 @@ msgid ""
 "Each author may fill in the the URLs of the profiles on external social "
 "networks in the WordPress user profile page (fields marked with "
 "<em>AMT</em>)."
-msgstr ""
+msgstr "Her yazar WordPress kullanıcı profili sayfası içindeki dış sosyal ağlardaki profillerin URL'lerini doldurabilir (<em>AMT</em> ile işaretlenmiş alanlar)."
 
 #: amt-admin-panel.php:224 amt-admin-panel.php:804
 msgid "Main source of local author profiles"
-msgstr ""
+msgstr "Yerel yazar profillerinin ana kaynağı"
 
 #: amt-admin-panel.php:226
 msgid ""
 "WordPress does not have a dedicated page for author or user profiles. By "
 "convention, Add-Meta-Tags considers the first page of the author archive as "
 "the page of the local profile of each author."
-msgstr ""
+msgstr "WordPress, kullanıcı veya yazar profilleri için adanmış bir sayfaya sahip değildir. Kurala göre, Add-Meta-Tags her yazarın yerel profilinin sayfası gibi yazar arşivinin ilk sayfasını dikkate alır."
 
 #: amt-admin-panel.php:228
 msgid "It is possible to select alternative sources of local author profiles:"
-msgstr ""
+msgstr "Yerel yazar profillerinin alternatif kaynağını seçmek mümkündür:"
 
 #: amt-admin-panel.php:231 amt-admin-panel.php:807
 msgid "First page of the author archive"
-msgstr ""
+msgstr "Yazar arşivinin ilk sayfası"
 
 #: amt-admin-panel.php:231
 msgid ""
@@ -312,11 +312,11 @@ msgid ""
 "<em>Person</em> metadata entity is the top level metadata object. Moreover, "
 "the front page is considered the page on which the <em>Organization</em> "
 "metadata entity is the top level metadata object."
-msgstr ""
+msgstr "Bu varsayılan seçenektir. Yazar arşivinin ilk sayfası <em>Person</em> metadata varlığının en üst seviye metadata nesnesi olduğu yerel yazar profilinin sayfası olarak kabul edilir. Hatta, ön sayfa <em>Organization</em> metadata varlığının en üst seviye metadata nesnesi olduğu sayfa olarak kabul edilir."
 
 #: amt-admin-panel.php:232 amt-admin-panel.php:808
 msgid "Front page (with static page only)"
-msgstr ""
+msgstr "Ön sayfa (sadece sabit sayfa ile)"
 
 #: amt-admin-panel.php:232
 msgid ""
@@ -344,7 +344,7 @@ msgstr ""
 
 #: amt-admin-panel.php:234 amt-admin-panel.php:810
 msgid "Author web site URL"
-msgstr ""
+msgstr "Yazar web sitesi URL'si"
 
 #: amt-admin-panel.php:234
 msgid ""
@@ -362,7 +362,7 @@ msgstr ""
 
 #: amt-admin-panel.php:240 amt-admin-panel.php:793 amt-admin-panel.php:796
 msgid "Author Settings"
-msgstr ""
+msgstr "Yazar Ayarları"
 
 #: amt-admin-panel.php:247 amt-admin-panel.php:833
 msgid "Automatically generate the <em>description</em> meta tag."
@@ -840,7 +840,7 @@ msgstr "Yazı düzenleme sayfasında 'Metadata' kutusunun ilgili alanındaki iç
 
 #: amt-admin-panel.php:413 amt-admin-panel.php:1057
 msgid "Enable advanced title management."
-msgstr ""
+msgstr "Gelişmiş başlık yönetimini etkinleştir."
 
 #: amt-admin-panel.php:415
 msgid ""
@@ -945,7 +945,7 @@ msgstr ""
 
 #: amt-admin-panel.php:456
 msgid "Metadata for WooCommerce"
-msgstr ""
+msgstr "WooCommerce için metadata"
 
 #: amt-admin-panel.php:458
 msgid ""
@@ -977,7 +977,7 @@ msgstr ""
 
 #: amt-admin-panel.php:463
 msgid "Metadata for Easy Digital Downloads"
-msgstr ""
+msgstr "Easy Digital Downloads için metadata."
 
 #: amt-admin-panel.php:465
 msgid ""
@@ -987,7 +987,7 @@ msgstr ""
 
 #: amt-admin-panel.php:467
 msgid "Metadata for BuddyPress"
-msgstr ""
+msgstr "BuddyPress için metadata"
 
 #: amt-admin-panel.php:469
 msgid ""
@@ -1028,7 +1028,7 @@ msgstr ""
 
 #: amt-admin-panel.php:479 amt-admin-panel.php:480
 msgid "Optional"
-msgstr ""
+msgstr "İsteğe bağlı"
 
 #: amt-admin-panel.php:480
 msgid ""
@@ -1044,7 +1044,7 @@ msgstr ""
 
 #: amt-admin-panel.php:485
 msgid "Metadata for bbPress"
-msgstr ""
+msgstr "bbPress için metadata"
 
 #: amt-admin-panel.php:487
 msgid ""
@@ -1061,7 +1061,7 @@ msgstr ""
 
 #: amt-admin-panel.php:494
 msgid "Extended Metadata"
-msgstr ""
+msgstr "Genişletilmiş Metadata"
 
 #: amt-admin-panel.php:500
 msgid ""
@@ -1192,11 +1192,11 @@ msgstr "<a target=\"_blank\" href=\"https://developers.facebook.com/docs/platfor
 
 #: amt-admin-panel.php:807
 msgid "(default)"
-msgstr ""
+msgstr "(varsayılan)"
 
 #: amt-admin-panel.php:809
 msgid "BuddyPress member page"
-msgstr ""
+msgstr "BuddyPress üye sayfası"
 
 #: amt-admin-panel.php:814
 msgid ""
@@ -1324,11 +1324,11 @@ msgstr "Yapım aşamasında"
 
 #: amt-admin-panel.php:1160
 msgid "Metadata for BuddyPress."
-msgstr ""
+msgstr "BuddyPress için metadata."
 
 #: amt-admin-panel.php:1165
 msgid "Metadata for bbPress."
-msgstr ""
+msgstr "bbPress için metadata."
 
 #: amt-admin-panel.php:1170
 msgid ""
@@ -1566,7 +1566,7 @@ msgstr "İçeriği yayınlayan %s."
 #: metadata\amt_twitter_cards.php:226
 #, php-format
 msgid "%s archive."
-msgstr ""
+msgstr "%s arşivi."
 
 #: metadata\amt_extended.php:1387 metadata\amt_extended.php:1413
 #: metadata\amt_extended.php:1467 metadata\amt_extended.php:1511

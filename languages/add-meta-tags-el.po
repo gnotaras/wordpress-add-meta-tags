@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-28 19:28+0200\n"
-"PO-Revision-Date: 2015-11-29 02:10+0000\n"
+"PO-Revision-Date: 2015-12-06 20:29+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/codetrax/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -83,7 +83,7 @@ msgstr "Ξεκινώντας"
 
 #: amt-admin-panel.php:138
 msgid "Introduction to metadata"
-msgstr ""
+msgstr "Εισαγωγή στα μεταδεδομένα"
 
 #: amt-admin-panel.php:140
 msgid ""
@@ -273,7 +273,7 @@ msgstr "Ρυθμίσεις Εκδότη"
 
 #: amt-admin-panel.php:218 amt-admin-panel.php:798
 msgid "This section contains options related to the authors of the content."
-msgstr ""
+msgstr "Αυτή η ενότητα περιέχει ρυθμίσεις σχετικά με τους συγγραφείς του περιεχομένου."
 
 #: amt-admin-panel.php:220 amt-admin-panel.php:800
 msgid "URLs of author profiles on social networks"

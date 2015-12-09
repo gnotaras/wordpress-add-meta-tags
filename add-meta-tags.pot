@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.9.9\n"
+"Project-Id-Version: add-meta-tags 2.9.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-30 02:11+0200\n"
+"POT-Creation-Date: 2015-12-09 21:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1078,39 +1078,39 @@ msgstr ""
 msgid "Use sample review data:"
 msgstr ""
 
-#: amt-utils.php:2377
+#: amt-utils.php:2382
 msgid "Select a meta tag group"
 msgstr ""
 
-#: amt-utils.php:2409
+#: amt-utils.php:2414
 msgid "Replace meta tags with:"
 msgstr ""
 
-#: metadata\amt_basic.php:255 metadata\amt_opengraph.php:319
-#: metadata\amt_twitter_cards.php:167
+#: metadata\amt_basic.php:259 metadata\amt_opengraph.php:323
+#: metadata\amt_twitter_cards.php:171
 #, php-format
 msgid "Content filed under the %s category."
 msgstr ""
 
-#: metadata\amt_basic.php:282 metadata\amt_opengraph.php:321
-#: metadata\amt_twitter_cards.php:169
+#: metadata\amt_basic.php:286 metadata\amt_opengraph.php:325
+#: metadata\amt_twitter_cards.php:173
 #, php-format
 msgid "Content tagged with %s."
 msgstr ""
 
-#: metadata\amt_basic.php:319 metadata\amt_opengraph.php:327
-#: metadata\amt_twitter_cards.php:175
+#: metadata\amt_basic.php:323 metadata\amt_opengraph.php:331
+#: metadata\amt_twitter_cards.php:179
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr ""
 
-#: metadata\amt_basic.php:359
+#: metadata\amt_basic.php:363
 #, php-format
 msgid "Content published by %s."
 msgstr ""
 
-#: metadata\amt_basic.php:392 metadata\amt_opengraph.php:491
-#: metadata\amt_twitter_cards.php:226
+#: metadata\amt_basic.php:396 metadata\amt_opengraph.php:495
+#: metadata\amt_twitter_cards.php:230
 #, php-format
 msgid "%s archive."
 msgstr ""
