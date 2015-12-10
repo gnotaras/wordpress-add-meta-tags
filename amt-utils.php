@@ -2905,6 +2905,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
 
     } elseif ( empty($entity_title_template) ) {
 
+        // TODO: fix this mess. summarize the logic in a comment
         if ( $caller_is_metadata_generator ) {
             // If a metadata generator requested a title, but a template was
             // not found, return an error message as the title.
