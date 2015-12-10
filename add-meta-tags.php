@@ -110,6 +110,8 @@ add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
 // function amt_custom_title_tag($title, $separator) {
 function amt_custom_title_tag($title) {
 
+    // var_dump($title);
+
     if ( is_feed() || is_search() || is_404() ) {
         return $title;
     }
@@ -124,17 +126,29 @@ function amt_custom_title_tag($title) {
 
     $processed_title = amt_get_title_for_title_element($options, $post);
     if ( ! empty($processed_title) ) {
-        $processed_title = str_replace('%title%', $title, $processed_title);
-        return esc_attr($processed_title);
+        if ( is_array($title) ) {
+            // WP >= 4.4
+            $processed_title = str_replace('%title%', $title['title'], $processed_title);
+            return array('title' => esc_attr($processed_title));
+        } else {
+            // WP < 4.4
+            $processed_title = str_replace('%title%', $title, $processed_title);
+            return esc_attr($processed_title);
+        }
     }
 
     // WordPress adds multipage information if a custom title is not set.
     return $title;
 }
-// add_filter('wp_title', 'amt_custom_title_tag', 1000, 2);
-// Reverting back to the one argument version of the fitlering function.
-add_filter('wp_title', 'amt_custom_title_tag', 1000, 1);
-
+if ( version_compare( get_bloginfo('version'), '4.4', '>=' ) ) {
+    // Since WP 4.4
+    // - https://make.wordpress.org/core/2015/10/20/document-title-in-4-4/
+    add_filter('document_title_parts', 'amt_custom_title_tag', 9999, 1);
+} else {
+    // add_filter('wp_title', 'amt_custom_title_tag', 1000, 2);
+    // Reverting back to the one argument version of the fitlering function.
+    add_filter('wp_title', 'amt_custom_title_tag', 9999, 1);
+}
 
 /**
  * Sets the correct lang attribute of the html element of the page,
