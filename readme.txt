@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.9.11
+Stable tag: 2.9.12
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -83,6 +83,10 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.9.12](http://www.codetrax.org/versions/337)
+ - The *custom title* feature is now fully backwards compatible with older themes, which set the page title using the `wp_title()` template tag instead of implementing the `title-tag` theme feature, when used with WordPress 4.4. Admittedly, this should have been resolved before the WordPress 4.4 release, so apologies for any inconvenience. The changes WordPress 4.4 brought in this area should have been better clarified. Big thanks to all who have provided feedback.
+ - Notice 1: No new features have been planned for implementation in the near future. Releases during the upcoming months will focus on performance improvements and metadata caching and bug fixes whereever necessary. Your feedback is welcome.
+ - Notice 2: The file and directory layout of the plugin directory might change in future releases. If for any reason 
 - [2.9.11](http://www.codetrax.org/versions/336)
  - Fixed issue with WordPress 4.4 not using the custom title as expected. <strike>Backwards compatibility is maintained.</strike> Please read the following comment of mine about [how to update old themes for the WordPress 4.4 Title-Tag feature](https://github.com/gnotaras/wordpress-add-meta-tags/issues/15#issuecomment-163716554). (Props to efishinsea for reporting the issue.)
 - [2.9.10](http://www.codetrax.org/versions/333)
