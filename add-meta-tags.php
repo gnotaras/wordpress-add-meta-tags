@@ -140,15 +140,21 @@ function amt_custom_title_tag($title) {
     // WordPress adds multipage information if a custom title is not set.
     return $title;
 }
-if ( version_compare( get_bloginfo('version'), '4.4', '>=' ) ) {
-    // Since WP 4.4
-    // - https://make.wordpress.org/core/2015/10/20/document-title-in-4-4/
-    add_filter('document_title_parts', 'amt_custom_title_tag', 9999, 1);
-} else {
-    // add_filter('wp_title', 'amt_custom_title_tag', 1000, 2);
-    // Reverting back to the one argument version of the fitlering function.
+// Both filter hooks are used so as to support themes with the 'title-tag' feature
+// and also themes that generate the title using the 'wp_title()' template function.
+add_filter('document_title_parts', 'amt_custom_title_tag', 9999, 1);
+if ( apply_filters('amt_enable_legacy_title_support', true) ) {
     add_filter('wp_title', 'amt_custom_title_tag', 9999, 1);
 }
+// if ( version_compare( get_bloginfo('version'), '4.4', '>=' ) ) {
+    // Since WP 4.4
+    // - https://make.wordpress.org/core/2015/10/20/document-title-in-4-4/
+//    add_filter('document_title_parts', 'amt_custom_title_tag', 9999, 1);
+// } else {
+    // add_filter('wp_title', 'amt_custom_title_tag', 1000, 2);
+    // Reverting back to the one argument version of the fitlering function.
+//    add_filter('wp_title', 'amt_custom_title_tag', 9999, 1);
+// }
 
 /**
  * Sets the correct lang attribute of the html element of the page,
