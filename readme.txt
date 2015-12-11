@@ -84,7 +84,7 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
 - [2.9.11](http://www.codetrax.org/versions/336)
- - Fixed issue with WordPress 4.4 not using the custom title as expected. Backwards compatibility is maintained. (Props to efishinsea for reporting the issue.)
+ - Fixed issue with WordPress 4.4 not using the custom title as expected. <strike>Backwards compatibility is maintained.</strike> Please read the following comment of mine about [how to update old themes for the WordPress 4.4 Title-Tag feature](https://github.com/gnotaras/wordpress-add-meta-tags/issues/15#issuecomment-163716554). (Props to efishinsea for reporting the issue.)
 - [2.9.10](http://www.codetrax.org/versions/333)
  - Added the filter hook `amt_get_queried_object` that can be used to modify the post object that is used by the plugin for metadata generation, a feature that opens the path for support of external post types like those used by _AnsPress_. (Props to Dima Stefantsov for valuable feedback, research and code contribution.)
  - Reverted back to the old way of loading the plugin text domain for translations. Translations are now loaded as expected. (Props to Burak Yavuz for valuable feedback.)
