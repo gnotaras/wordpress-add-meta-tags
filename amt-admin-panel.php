@@ -575,6 +575,7 @@ function amt_options_page() {
 
         // Save the Add-Meta-Tags settings
         amt_save_settings($_POST);
+
         // Also, since it may happen that the rewrite rules have not been flushed
         // this is a good place to do it.
         flush_rewrite_rules();
@@ -1249,9 +1250,11 @@ function amt_options_page() {
                 <th scope="row">
                     <input id="submit" class="button-primary" type="submit" value="'.__('Save Changes', 'add-meta-tags').'" name="info_update" />
                 </th>
+
                 <th scope="row">
                     <input id="reset" class="button-primary" type="submit" value="'.__('Reset to defaults', 'add-meta-tags').'" name="info_reset" />
                 </th>
+
                 <th></th><th></th><th></th><th></th>
             </tr>
         </tbody>
