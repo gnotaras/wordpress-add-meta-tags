@@ -1074,18 +1074,19 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = $closing_article_tag;
     }
 
-    // For AMT timings
-    if ( apply_filters('amt_enable_timing', false) ) {
-        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
-    }
-
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
         array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
         array_unshift( $metadata_arr, "" );   // Intentionaly left empty
         array_push( $metadata_arr, "<!-- END Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
-        array_push( $metadata_arr, "" );   // Intentionaly left empty
     }
+
+    // For AMT timings
+    if ( apply_filters('amt_enable_timing', false) ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
+    }
+
+    array_push( $metadata_arr, "" );   // Intentionaly left empty
 
     //return $post_body;
     return implode( PHP_EOL, $metadata_arr );
