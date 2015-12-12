@@ -2416,6 +2416,8 @@ jQuery(document).ready(function(){
 
 
 // Advanced Title Management
+//
+
 
 // Returns the title that should be used in the title HTML element
 function amt_get_title_for_title_element($options, $post) {
