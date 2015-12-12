@@ -1260,6 +1260,13 @@ function amt_options_page() {
         </tbody>
         </table>
 
+        <br /><br /><br />
+
+        <h2 class="title">'.__('Notes', 'add-meta-tags').'</h2>
+
+        <p>'.__('More management tools are available via the <code>amt</code> command of <code>wp-cli</code>. Learn more about the <a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Command_Line_Interface">Add-Meta-Tags command line interface</a>.', 'add-meta-tags').'</p>
+
+
         </form>
         
     </div>
