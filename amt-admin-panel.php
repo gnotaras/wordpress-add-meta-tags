@@ -495,6 +495,57 @@ function amt_admin_help_tabs() {
         'content'	=> $help_text,
     ) );
 
+    // Metadata caching
+    $help_text = '
+    <p>'.__('This section contains information about how Add-Meta-Tags can cache the generated metadata, which can result in slightly faster page load times.', 'add-meta-tags').'</p>
+
+    <p>'.__('Metadata caching should be the last thing that should bother you while configuring this plugin. You should consider enabling it only after you have finished configuring all other settings.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Show timing information', 'add-meta-tags').'</h3>
+
+    <p>'.__('If this option is enabled, information about the total time that was required to generate a block of metadata is printed. This feature, generally, should not be enabled, unless you want an indication of the metadata generation times in each request.', 'add-meta-tags').'</p>
+
+    <p>'.__('Make no mistake, the printed timings are not a benchmark, but rather very rough indicators about how Add-Meta-Tags performs on your specific environment. Moreover, these timings may differ very much, even in consequent loadings of the same web page. This happens because other factors such as the server\'s load play a determinant role on how WordPress performs. In general, timings you get on live web sites, in shared hosting environments, on virtual servers with shared resources or even on dedicated boxes on which other production services, apart from the web server, run, the timings you get are not going to be consistent. This is not a problem of the plugin and there is absolutely nothing that can be done about it.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Enable metadata caching', 'add-meta-tags').'</h3>
+
+    <p>'.__('Metadata caching can be enabled by setting the number of seconds the metadata should be cached for to a number greater than zero.', 'add-meta-tags').'</p>
+
+    <p>'.__('Metadata generation requires some system resources. By caching the generated metadata, it does not have to regenerated in subsequent requests, but the same cached metadata is used, until it expires. Add-Meta-Tags caches metadata, if this feature has been enabled, using the WordPress Transients API, which is meant to be used to store temporary data that expires in the WordPress database. No extra database tables are created for this purpose. WordPress itself uses the Transients API for the same purpose already.', 'add-meta-tags').'</p>
+
+    <p>'.__('Obviously, metadata caching comes at the cost of some storage space in your database, which brings up the question "<em>Should I use it?</em>". Unfortunately, there is no clear answer to this question, but it depends on many factors. In general, low or mid traffic web sites would see very little benefit by using metadata caching. On the contrary, on high traffic web sites, on which WordPress loads on every request, every millisecond counts and in this case the benefits can be great. On the other hand, regardless of the amount of web traffic, in case a caching proxy server or a content delivery network (CDN) is used in front of your WordPress driven web site or if a plugin that produces static versions of your dynamic web pages is in effect, the benefits of metadata caching are minimal. In fact, in such cases caching metadata should rather be considered as waste of even the little storage space that is used, than a performance boost.', 'add-meta-tags').'</p>
+
+    <p>'.__('You should always keep in mind that this feature exists only for those who judge that they need it. There is no general rule that applies to all cases. Enabling it should result is slightly better page loading times in many cases.', 'add-meta-tags').'</p>
+
+    <h3>'.__('How it works', 'add-meta-tags').'</h3>
+
+    <p>'.__('At this time, metadata is generated only for content pages (posts, pages, custom post types, products, etc), but not for archives or other custom content. This happens because metadata generation for archives is not expensive in terms of system resources, but more importantly because more research needs to be done to determine whether such a feature could be abused.', 'add-meta-tags').'</p>
+
+    <p>'.__('If metadata caching has been enabled, before attempting to generate a new metadata block, Add-Meta-Tags checks whether a cached metadata block, which has not expired, already exists. If such a cached block is found, then it is used as is.', 'add-meta-tags').'</p>
+
+    <p>'.__('If a post, for which metadata has been cached, is edited, then automatic purging of the cached metadata takes place and Add-Meta-Tags will generate a fresh metadata block the next time the post\'s page is visited. Moreover, every time you save the plugin settings, all cached metadata entries are automatically purged in order to avoid using stale metadata which has not been generated according to the plugin settings that are in effect. This is by design.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Clearing the cached metadata', 'add-meta-tags').'</h3>
+
+    <p>'.__('In order to clear the cached metadata, you have two options. One is by simply saving the plugin options, as explained above, and the other is to use the <code>amt clean cache</code> command of <code>wp-cli</code> on the command line.', 'add-meta-tags').'</p>
+
+    <h3>'.__('How many seconds should metadata be cached for?', 'add-meta-tags').'</h3>
+
+    <p>'.__('Since you are the one who knows the details of your environment and the general configuration of your web site, this is your call. Setting the caching timeout to 60, 300, 86400 (a day), 604800 (a week) or whatever is totally up to you.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Further reading', 'add-meta-tags').'</h3>
+
+    <p>'.__('Many new features and improvements have been implemented in Add-Meta-Tags during the last years. All these implementations have slightly increased the time that is required to generate the relevant metadata. Several code optimizations have been planned for the future.', 'add-meta-tags').'</p>
+
+    <p>'.__('In the meantime, check the <a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Performance">Performance section</a> of the technical documentation. (currently, work in progress)', 'add-meta-tags').'</p>
+
+    ';
+    $screen->add_help_tab( array(
+        'id'	=> 'amt_help_metadata_caching',
+        'title'	=> __('Metadata caching', 'add-meta-tags'),
+        'content'	=> $help_text,
+    ) );
+
     // Advanced Customization
     $help_text = '
     <p>'.__('Add-Meta-Tags can be customized to a great extent programmatically. Please read the <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook" target="_blank">Add-Meta-Tags Cookbook</a> for more information.', 'add-meta-tags').'</p>
