@@ -16,9 +16,11 @@ _Add-Meta-Tags_ is a Free metadata plugin for the _WordPress Publishing Platform
 
 It also supports advanced _title customization_ letting you take control of the title generation on every part of the web site. Moreover, a basic _breadcrumb trail_ generator is provided for use with hierarchical post types. Last, but not least, it lets you customize the _locale_ on a per post basis generating a proper `hreflang` link for a signle language and, also, is out-of-the-box compatible with _WPML_ and _Polylang_ multilingual plugins (through the WPML language configuration file that ships with the plugin).
 
+Add-Meta-Tags supports internal caching of the generated metadata of content and media pages and thus contributes to the preservation of system resources on high traffic web sites.
+
 Add-Meta-Tags is actively maintained since 2006. Please visit the [Add-Meta-Tags historical homepage](http://www.g-loaded.eu/2006/01/05/add-meta-tags-wordpress-plugin/).
 
-_Add-Meta-Tags_ is one of the personal software projects of George Notaras. It is developed in his free time and released to the open source WordPress community as Free software.
+This plugin is one of the personal software projects of George Notaras. It is developed in his free time and released to the open source WordPress community as Free software.
 
 
 = Official Project Homepage =
