@@ -195,13 +195,8 @@ add_filter( 'language_attributes', 'amt_set_html_lang_attribute' );
 /**
  * Returns an array of all the generated metadata for the head area.
  */
-function amt_get_metadata_head() {
+function amt_get_metadata_head($post, $options) {
 
-    // For AMT timings
-    $t = microtime(true);
-
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_add_metadata = true;
 
     $metadata_arr = array();
@@ -239,10 +234,7 @@ function amt_get_metadata_head() {
     }
 
 
-    // Get current post object
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
+    // Check post object
     if ( is_null( $post ) ) {
         // Allow metadata on the default front page (latest posts).
         // A post object is not available on that page, but we still need to
@@ -295,17 +287,6 @@ function amt_get_metadata_head() {
     // Allow filtering of the all the generated metatags
     $metadata_arr = apply_filters( 'amt_metadata_head', $metadata_arr );
 
-    // For AMT timings
-    if ( apply_filters('amt_enable_timing', false) ) {
-        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
-    }
-
-    // Add our comment
-    if ( count( $metadata_arr ) > 0 ) {
-        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
-        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
-    }
-
     return $metadata_arr;
 }
 
@@ -314,7 +295,42 @@ function amt_get_metadata_head() {
  * Prints the generated metadata for the head area.
  */
 function amt_add_metadata_head() {
-    echo PHP_EOL . implode(PHP_EOL, amt_get_metadata_head()) . PHP_EOL . PHP_EOL;
+    // For AMT timings
+    $t = microtime(true);
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    // Get current post object
+    $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
+    // Caching indicator
+    $is_cached = 'no';
+    // Get the metadata
+    if ( absint($options['transient_cache_expiration']) > 0 ) {
+        $metadata_arr = amt_get_transient_cache($post, $options, $where='head');
+        if ( empty($metadata_arr) ) {
+            $metadata_arr = amt_get_metadata_head($post, $options);
+            // Cache the metadata
+            if ( ! empty($metadata_arr) ) {
+                amt_set_transient_cache($post, $options, $metadata_arr, $where='head');
+            }
+        } else {
+            $is_cached = 'yes';
+        }
+    } else {
+        $metadata_arr = amt_get_metadata_head($post, $options);
+    }
+    // For AMT timings
+    if ( ! empty($metadata_arr) && $options['enable_timings'] == '1' ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
+    }
+    // Add our comment
+    if ( count( $metadata_arr ) > 0 ) {
+        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
+    }
+    // Print the metadata
+    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
 }
 add_action('wp_head', 'amt_add_metadata_head', 0);
 
@@ -322,21 +338,13 @@ add_action('wp_head', 'amt_add_metadata_head', 0);
 /**
  * Returns an array of all the generated metadata for the footer area.
  */
-function amt_get_metadata_footer() {
+function amt_get_metadata_footer($post, $options) {
 
-    // For AMT timings
-    $t = microtime(true);
-
-    // Get the options the DB
-    $options = get_option("add_meta_tags_opts");
     $do_add_metadata = true;
 
     $metadata_arr = array();
 
-    // Get current post object
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
+    // Check post object
     if ( is_null( $post ) ) {
         // Allow metadata on the default front page (latest posts).
         // A post object is not available on that page, but we still need to
@@ -378,17 +386,6 @@ function amt_get_metadata_footer() {
     // Allow filtering of all the generated metatags
     $metadata_arr = apply_filters( 'amt_metadata_footer', $metadata_arr );
 
-    // For AMT timings
-    if ( apply_filters('amt_enable_timing', false) ) {
-        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
-    }
-
-    // Add our comment
-    if ( count( $metadata_arr ) > 0 ) {
-        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
-        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
-    }
-
     return $metadata_arr;
 }
 
@@ -397,7 +394,43 @@ function amt_get_metadata_footer() {
  * Prints the generated metadata for the footer area.
  */
 function amt_add_metadata_footer() {
-    echo PHP_EOL . implode(PHP_EOL, amt_get_metadata_footer()) . PHP_EOL . PHP_EOL;
+    // For AMT timings
+    $t = microtime(true);
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    // Get current post object
+    $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
+    // Caching indicator
+    $is_cached = 'no';
+    // Get the metadata
+    // NOTE: Currently metadata is cached for content pages only (is_singular())
+    if ( absint($options['transient_cache_expiration']) > 0 ) {
+        $metadata_arr = amt_get_transient_cache($post, $options, $where='footer');
+        if ( empty($metadata_arr) ) {
+            $metadata_arr = amt_get_metadata_footer($post, $options);
+            // Cache the metadata
+            if ( ! empty($metadata_arr) ) {
+                amt_set_transient_cache($post, $options, $metadata_arr, $where='footer');
+            }
+        } else {
+            $is_cached = 'yes';
+        }
+    } else {
+        $metadata_arr = amt_get_metadata_footer($post, $options);
+    }
+    // For AMT timings
+    if ( ! empty($metadata_arr) && $options['enable_timings'] == '1' ) {
+        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
+    }
+    // Add our comment
+    if ( count( $metadata_arr ) > 0 ) {
+        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
+    }
+    // Print the metadata
+    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
 }
 add_action('wp_footer', 'amt_add_metadata_footer', 0);
 
@@ -462,4 +495,80 @@ function amt_add_metadata_review($post_body) {
 }
 
 add_filter('the_content', 'amt_add_metadata_review', 9999);
+
+
+//
+// Automatic purging of cached metadata
+//
+
+
+// Purging triggered by post activities
+
+// wrapper of amt_purge_transient_cache_post for transition_post_status
+function amt_purge_transient_cache_post_status($new, $old, $post) {
+    if ( $old == 'publish' || $new == 'publish' ) {
+        amt_purge_transient_cache_post( $post->ID );
+    }
+}
+
+
+// Auto purge metadata cache for a post object
+function amt_purge_transient_cache_post($post_id) {
+    // Verify if this is an auto save routine.
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( absint($post_id) <= 0 ) {
+        return;
+    }
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    if ( absint($options['transient_cache_expiration']) > 0 ) {
+        // Purge transient data
+        amt_delete_transient_cache_for_post($post_id);
+    }
+}
+
+// When an attachment is updated. Required!
+//add_action('edit_attachment', 'amt_purge_transient_cache_post', 10, 2);
+add_action('edit_attachment', 'amt_purge_transient_cache_post');
+// Check this
+//add_action( 'edit_post', 'amt_purge_transient_cache_post' );
+// Also works, but purges on every save
+//add_action( 'save_post', 'amt_purge_transient_cache_post' );
+// When post status is changed.
+add_action('transition_post_status', 'amt_purge_transient_cache_post_status', 10, 3);
+
+
+// Purging triggered by comment activities
+
+// wrapper of amt_purge_transient_cache_post_comments for transition_post_status
+function amt_purge_transient_cache_post_comments_status($comment_id, $new_comment_status) {
+    amt_purge_transient_cache_post_comments($comment_id);
+}
+
+// Auto purge metadata cache for a post object
+function amt_purge_transient_cache_post_comments($comment_id) {
+    $comment = get_comment($comment_id);
+    $post_id = $comment->comment_post_ID;
+    if ( absint($post_id) <= 0 ) {
+        return;
+    }
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    if ( absint($options['transient_cache_expiration']) > 0 ) {
+        // Purge transient data
+        amt_delete_transient_cache_for_post($post_id);
+    }
+}
+
+if ( apply_filters('amt_purge_cached_metadata_on_comment_actions', false) ) {
+    add_action('comment_post', 'amt_purge_transient_cache_post_comments', 10);
+    add_action('edit_comment', 'amt_purge_transient_cache_post_comments', 10);
+    add_action('deleted_comment', 'amt_purge_transient_cache_post_comments', 10);
+    add_action('trashed_comment', 'amt_purge_transient_cache_post_comments', 10);
+    add_action('pingback_post', 'amt_purge_transient_cache_post_comments', 10);
+    add_action('trackback_post', 'amt_purge_transient_cache_post_comments', 10);
+    add_action('wp_set_comment_status', 'amt_purge_transient_cache_post_comments_status', 10, 2);
+}
 

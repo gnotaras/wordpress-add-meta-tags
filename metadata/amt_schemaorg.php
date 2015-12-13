@@ -368,6 +368,35 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
+    // Get current post object
+    $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
+    // Caching indicator
+    $is_cached = 'no';
+
+    // First, try to get cached metadata. Cache must be cleared if settings have changed.
+    if ( absint($options['transient_cache_expiration']) > 0 && apply_filters('amt_enable_metadata_cache_in_content_filter', true) ) {
+        $cached_content_metadata_arr = amt_get_transient_cache($post, $options, $where='content');
+        if ( ! empty($cached_content_metadata_arr) ) {
+            $is_cached = 'yes';
+
+            // Add our comment
+            array_unshift( $cached_content_metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+            array_unshift( $cached_content_metadata_arr, "" );   // Intentionaly left empty
+            // For AMT timings
+            if ( $options['enable_timings'] == '1' ) {
+                $cached_content_metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
+            }
+            array_push( $cached_content_metadata_arr, "<!-- END Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+            array_push( $cached_content_metadata_arr, "" );   // Intentionaly left empty
+
+            // Return cached metadata (contains the post body)
+            return implode( PHP_EOL, $cached_content_metadata_arr );
+        }
+    }
+
+
     $do_auto_schemaorg = (($options["auto_schemaorg"] == "1") ? true : false );
     if (!$do_auto_schemaorg) {
         return $post_body;
@@ -386,11 +415,6 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // In this filter function we only deal with content and attachments.
         return $post_body;
     }
-
-    // Get current post object
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
 
     // Additional check to make sure we have a post.
     if ( $post->ID == 0 ) {
@@ -1074,19 +1098,24 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = $closing_article_tag;
     }
 
+    // Store transient cache of content metadata
+    if ( absint($options['transient_cache_expiration']) > 0 && apply_filters('amt_enable_metadata_cache_in_content_filter', true) ) {
+        if ( ! empty($metadata_arr) ) {
+            amt_set_transient_cache($post, $options, $metadata_arr, $where='content');
+        }
+    }
+
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
         array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
         array_unshift( $metadata_arr, "" );   // Intentionaly left empty
+        // For AMT timings
+        if ( $options['enable_timings'] == '1' ) {
+            $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
+        }
         array_push( $metadata_arr, "<!-- END Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "" );   // Intentionaly left empty
     }
-
-    // For AMT timings
-    if ( apply_filters('amt_enable_timing', false) ) {
-        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings - Creation %.3f sec -->', (microtime(true) - $t) );
-    }
-
-    array_push( $metadata_arr, "" );   // Intentionaly left empty
 
     //return $post_body;
     return implode( PHP_EOL, $metadata_arr );
