@@ -501,6 +501,12 @@ function amt_admin_help_tabs() {
 
     <p>'.__('Metadata caching should be the last thing that should bother you while configuring this plugin. You should consider enabling it only after you have finished configuring all other settings.', 'add-meta-tags').'</p>
 
+    <p>'.__('If you are here to troubleshoot a problem you are having with metadata caching, please head down to the <em>Troubleshooting</em> section for quick tips.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Notice', 'add-meta-tags').'</h3>
+
+    <p>'.__('Make no mistake, metadata caching is an experimental feature of the Add-Meta-Tags plugin. It should only be used by experienced WordPress users. If you are a WordPress beginner or if you don\'t have enough knowledge about the concept of caching and, especially, if you have followed advise you found on the internet without understanding how this works, please keep this feature turned off, read this section of documentation carefully and ask any questions you might have before enabling it. Even if you do otherwise, your web site is not going to be harmed in any way, but it is always a good idea to have a good understanding how things work on your web site.', 'add-meta-tags').'</p>
+
     <h3>'.__('Show timing information', 'add-meta-tags').'</h3>
 
     <p>'.__('If this option is enabled, information about the total time that was required to generate a block of metadata is printed. This feature, generally, should not be enabled, unless you want an indication of the metadata generation times in each request.', 'add-meta-tags').'</p>
@@ -525,6 +531,8 @@ function amt_admin_help_tabs() {
 
     <p>'.__('If a post, for which metadata has been cached, is edited, then automatic purging of the cached metadata takes place and Add-Meta-Tags will generate a fresh metadata block the next time the post\'s page is visited. Moreover, every time you save the plugin settings, all cached metadata entries are automatically purged in order to avoid using stale metadata which has not been generated according to the plugin settings that are in effect. This is by design.', 'add-meta-tags').'</p>
 
+    <p>'.__('Another technical note is that WordPress keeps expired transient data in the database until they are requested again. They are not automatically cleaned up by scheduled clean up jobs. This is by WordPress design and Add-Meta-Tags has nothing to do with it. Read on to find out how Add-Meta-Tags clears cached metadata automatically and how to manually clear it yourself.', 'add-meta-tags').'</p>
+
     <h3>'.__('Clearing the cached metadata', 'add-meta-tags').'</h3>
 
     <p>'.__('In order to clear the cached metadata, you have two options. One is by simply saving the plugin options, as explained above, and the other is to use the <code>amt clean cache</code> command of <code>wp-cli</code> on the command line.', 'add-meta-tags').'</p>
@@ -532,6 +540,16 @@ function amt_admin_help_tabs() {
     <h3>'.__('How many seconds should metadata be cached for?', 'add-meta-tags').'</h3>
 
     <p>'.__('Since you are the one who knows the details of your environment and the general configuration of your web site, this is your call. Setting the caching timeout to 60, 300, 86400 (a day), 604800 (a week) or whatever is totally up to you.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Troubleshooting', 'add-meta-tags').'</h3>
+
+    <p>'.__('In case you are getting unexpected metadata in your pages, here are a few things you can try in order to troubleshoot.', 'add-meta-tags').'</p>
+
+    <p>'.__('<em>Pro tip</em>: every time before checking the HTML source code of the page, please make sure you have cleared your browser\'s cache to prevent it from getting in the way. Alternatively, you can hard refresh the web page, for instance by pressing <code>Ctrl-F5</code> in Firefox or Chrome.', 'add-meta-tags').'</p>
+
+    <p>'.__('First, turn off metadata caching in the Add-Meta-Tags settings. This can be done by setting the number of seconds to cache metadata to zero and save the settings. Saving the settings also automatically purges the metadata cache.', 'add-meta-tags').'</p>
+
+    <p>'.__('If you are still seeing wrong metadata in the HTML source, then the metadata caching of the Add-Meta-Tags plugin is not the problem. If you use a caching proxy server, a CDN, a caching plugin for WordPress, please make sure to purge their caches and ask for help in their support channels.', 'add-meta-tags').'</p>
 
     <h3>'.__('Further reading', 'add-meta-tags').'</h3>
 
