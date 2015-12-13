@@ -1232,7 +1232,7 @@ function amt_options_page() {
 
                 <p><input id="extended_support_buddypress" type="checkbox" value="1" name="extended_support_buddypress" '. (($options["extended_support_buddypress"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="extended_support_buddypress">
-                '.__('Metadata for BuddyPress.', 'add-meta-tags').' (<span style="color:red;">'.__('Work in progress', 'add-meta-tags').'</span>)
+                '.__('Metadata for BuddyPress profiles.', 'add-meta-tags').'
                 </label></p>
 
                 <p><input id="extended_support_bbpress" type="checkbox" value="1" name="extended_support_bbpress" '. (($options["extended_support_bbpress"]=="1") ? 'checked="checked"' : '') .'" />
