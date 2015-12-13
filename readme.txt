@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.9.12
+Stable tag: 2.10.0
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -85,10 +85,23 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.0](http://www.codetrax.org/versions/338)
+ - Metadata caching using the WordPress Transients API has been implemented for metadata on content pages (posts, pages, attachments, products, custom content types, etc), on which even the small overhead of the generation of the metadata might be a problem on high traffic web sites. When turned on, this feature makes the addition of metadata to the pages blazing fast with minimal overhead at the expense of some storage space. Metadata of archives is not cached as the overhead of its generation is very small. This feature should be considered experimental and should only be used by experienced WordPress users. There are some cases in which this feature is useful and other cases it is not. Please read the _Metadata Caching_ section of the integrated help for more information, which will hopefully help you decide whether you need this or not.
+ - Added option to display timing information under each metadata block so as to have a rough indication of how Add-Meta-Tags performs in your environment. Make no mistake, this is not a benchmark. These timings can vary even in consecutive requests of the same web page and heavily depend on your specific server environment.
+ - Added detailed documentation about metadata caching to the integrated help.
+ - Metadata caching can be deactivated (forced) and its relevant settings can be hidden using a filter based switch (Return true/false to `amt_enable_metadata_cache` hook). Can be useful in some cases.
+ - Removed the _experimental_ label from the _Advanced Title Management_ feature.
+ - Removed the _experimental_ label from the JSON+LD Schema.org generator.
+ - Removed the _word-in-progress_ label from the BuddyPress profile metadata generator.
+ - Updated the `amt` command of `wp-cli` to support crearing the metadata cache from the command line. Read the integrated help for more information about how the metadata cache can be cleared.
+ - Updated translations.
+ - Various minor improvements.
+ - Notice 1: No new features have been planned for implementation in the near future. Releases during the upcoming months will focus on performance improvements and bug fixes whereever necessary. Your feedback is welcome.
+ - Notice 2: The file and directory layout of the plugin might change in future releases. If for any reason this is going to affect your workflow, please let me know.
 - [2.9.12](http://www.codetrax.org/versions/337)
- - The *custom title* feature is now fully backwards compatible with older themes, which set the page title using the `wp_title()` template tag instead of implementing the `title-tag` theme feature, when used with WordPress 4.4. Admittedly, this should have been resolved before the WordPress 4.4 release, so apologies for any inconvenience. The changes WordPress 4.4 brought in this area should have been better clarified. Big thanks to all who have provided feedback.
+ - The *custom title* feature is now fully backwards compatible with older themes, which set the page title using the `wp_title()` template tag instead of implementing the `title-tag` theme feature, when used with WordPress 4.4. Admittedly, this should have been resolved before the WordPress 4.4 release, so apologies for any inconvenience. The plugin is tested with the latest default theme, so this issue had not been brought to my attention before the WordPress 4.4 release. Also, the changes WordPress 4.4 brought in this area hadn't been clear enough so as to know there was going to be a problem beforehand. Big thanks to all who have provided feedback.
  - Notice 1: No new features have been planned for implementation in the near future. Releases during the upcoming months will focus on performance improvements and metadata caching and bug fixes whereever necessary. Your feedback is welcome.
- - Notice 2: The file and directory layout of the plugin directory might change in future releases. If for any reason 
+ - Notice 2: The file and directory layout of the plugin might change in future releases. If for any reason this might affect your workflow, please let me know.
 - [2.9.11](http://www.codetrax.org/versions/336)
  - Fixed issue with WordPress 4.4 not using the custom title as expected. <strike>Backwards compatibility is maintained.</strike> Please read the following comment of mine about [how to update old themes for the WordPress 4.4 Title-Tag feature](https://github.com/gnotaras/wordpress-add-meta-tags/issues/15#issuecomment-163716554). (Props to efishinsea for reporting the issue.)
 - [2.9.10](http://www.codetrax.org/versions/333)
