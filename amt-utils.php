@@ -2415,6 +2415,176 @@ jQuery(document).ready(function(){
 }
 
 
+//
+// Metadata Caching
+//
+
+// AmtCache
+//
+// AmtCache is an array of commonly used pieces of metadata, like description,
+// keywords, etc that is passed to each metadata generator.
+// The AmtCache is only used for the metadata of content pages. It is not used
+// for the metadata of the frontpage or archive pages.
+//function amt_get_amt_cache($post, $options) {
+//}
+
+// Retrieve metadata from transient cache
+// $where should be one of: head, footer, content
+function amt_get_transient_cache($post, $options, $where='') {
+    if ( ! in_array($where, array('head', 'footer', 'content')) ) {
+        return;
+    }
+    if ( ! is_singular() ) {
+        // TODO: if ( is_search() || is_404() || is_date() || is_paged()
+        // We only cache content metadata at this time
+        return;
+    }
+    if ( $post->ID <= 0 ) {
+        return;
+    }
+    // Get transient name
+    $transient_name = amt_get_transient_name($post->ID, $where);
+    // Return the transient data
+    return get_transient($transient_name);
+}
+
+// Cache metadata in transient cache
+function amt_set_transient_cache($post, $options, $metadata_arr, $where='') {
+    if ( ! in_array($where, array('head', 'footer', 'content')) ) {
+        return;
+    }
+    if ( ! is_singular() ) {
+        // TODO: if ( is_search() || is_404() || is_date() || is_paged()
+        // We only cache content metadata at this time
+        return;
+    }
+    if ( $post->ID <= 0 ) {
+        return;
+    }
+    // Transient expiration
+    $transient_expiration = absint($options['transient_cache_expiration']);
+    if ( $transient_expiration == "0" || ! is_numeric($transient_expiration) ) {
+        return;
+    }
+    $transient_name = amt_get_transient_name($post->ID, $where);
+    // Store the transient data
+    set_transient( $transient_name, $metadata_arr, intval($transient_expiration) );
+}
+
+// Return a name of the transient. Format: amt_MD5SUM
+function amt_get_transient_name($post_id, $where) {
+    $to_hash = array();
+
+    // Content: MD5( ID, $where )
+    if ( absint($post_id) > 0 ) {
+        // DO NOT USE is_singular() here because it may be called by 'save_post' actions etc
+        $to_hash[] = $post_id;
+        $to_hash[] = $where;
+
+        // Check whether the ID is the same as the front/index static page's ID
+        $front_page_id = intval(get_option('page_on_front', 0));
+        if ( $post_id == $front_page_id ) {
+            $to_hash[] = 'front_page';
+        }
+        // No need for this check since this is considered an archive and is not cached.
+        // $index_page_id = intval(get_option('page_for_posts', 0));
+        // if ( $post_id == $index_page_id ) {
+        //     $to_hash[] = 'posts_page';
+        // }
+        
+        // No query args here because we need to construct the name when editing/publishing the post/comment
+        // See in add-meta-tags.php end.
+    }
+/*
+    // TODO: for archives
+    else {
+        global $wp;
+        $to_hash[] = serialize( $wp->query_vars );
+        if ( is_front_page() ) {
+            $to_hash[] = 'is_front_page';
+        } elseif ( is_home() ) {
+            $to_hash[] = 'is_home';
+        }
+        $to_hash[] = $where;
+    }
+*/
+    $transient_name = sprintf('amt_%s', md5(serialize($to_hash)));
+    //$transient_name = sprintf('amt_post_%d_%s', $post_id, $where);
+    //var_dump($transient_name);
+    return $transient_name;
+}
+
+// Delete transient cache
+function amt_delete_transient_cache_for_post($post_id) {
+//var_dump($aa);
+    $locations = array('head', 'footer', 'content');
+    foreach ( $locations as $where ) {
+        $transient_name = amt_get_transient_name($post_id, $where);
+        delete_transient($transient_name);
+    }
+}
+
+// Delete all transients
+function amt_delete_all_transient_metadata_cache($blog_id=null) {
+    if ( is_null($blog_id) ) {
+        $blog_id = get_current_blog_id();
+    }
+    if ( $blog_id <= 0 ) {
+        return;
+    }
+
+    // Clear the transient metadata cache
+
+    global $wpdb;
+
+    // Construct the options table name for the current blog
+    $options_table = $wpdb->get_blog_prefix($blog_id) . 'options';
+
+    // Construct SQL query that counts the AMT transient cache entries
+    $sql = "SELECT COUNT(*) FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%'";
+
+    // Get number of cache entries
+    $nr_cache_entries = $wpdb->get_var($sql);
+
+    // Construct SQL query that deletes the cached metadata
+    $sql = "DELETE FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%'";
+
+    // Execute query
+    $wpdb->query($sql);
+
+    return $nr_cache_entries;
+
+}
+
+
+// Count all AMT transients
+function amt_count_transient_metadata_cache_entries($blog_id=null) {
+    if ( is_null($blog_id) ) {
+        $blog_id = get_current_blog_id();
+    }
+    if ( $blog_id <= 0 ) {
+        return;
+    }
+
+    // Clear the transient metadata cache
+
+    global $wpdb;
+
+    // Construct the options table name for the current blog
+    $options_table = $wpdb->get_blog_prefix($blog_id) . 'options';
+
+    // Construct SQL query that counts the AMT transient cache entries
+    $sql = "SELECT COUNT(*) FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%'";
+
+    // Get number of cache entries
+    $nr_cache_entries = $wpdb->get_var($sql);
+
+    return $nr_cache_entries;
+
+}
+
+
+//
 // Advanced Title Management
 //
 
