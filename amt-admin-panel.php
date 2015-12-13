@@ -558,11 +558,13 @@ function amt_admin_help_tabs() {
     <p>'.__('In the meantime, check the <a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Performance">Performance section</a> of the technical documentation. (currently, work in progress)', 'add-meta-tags').'</p>
 
     ';
-    $screen->add_help_tab( array(
-        'id'	=> 'amt_help_metadata_caching',
-        'title'	=> __('Metadata caching', 'add-meta-tags'),
-        'content'	=> $help_text,
-    ) );
+    if ( apply_filters('amt_enable_metadata_cache', true) ) {
+        $screen->add_help_tab( array(
+            'id'	=> 'amt_help_metadata_caching',
+            'title'	=> __('Metadata caching', 'add-meta-tags'),
+            'content'	=> $help_text,
+        ) );
+    }
 
     // Advanced Customization
     $help_text = '
@@ -1249,7 +1251,13 @@ function amt_options_page() {
             </fieldset>
             </td>
             </tr>
+    ');
 
+
+    // Metadata Caching
+
+    if ( apply_filters('amt_enable_metadata_cache', true) ) {
+        print('
             <tr valign="top">
             <th scope="row">'.__('Metadata Caching', 'add-meta-tags').'</th>
             <td>
@@ -1273,7 +1281,10 @@ function amt_options_page() {
             </fieldset>
             </td>
             </tr>
+        ');
+    }
 
+    print('
             <tr valign="top">
             <th scope="row">'.__('Donations', 'add-meta-tags').'</th>
             <td>

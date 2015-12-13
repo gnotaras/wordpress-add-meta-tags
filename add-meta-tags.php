@@ -306,7 +306,7 @@ function amt_add_metadata_head() {
     // Caching indicator
     $is_cached = 'no';
     // Get the metadata
-    if ( absint($options['transient_cache_expiration']) > 0 ) {
+    if ( absint($options['transient_cache_expiration']) > 0 && apply_filters('amt_enable_metadata_cache', true) ) {
         $metadata_arr = amt_get_transient_cache($post, $options, $where='head');
         if ( empty($metadata_arr) ) {
             $metadata_arr = amt_get_metadata_head($post, $options);
@@ -406,7 +406,7 @@ function amt_add_metadata_footer() {
     $is_cached = 'no';
     // Get the metadata
     // NOTE: Currently metadata is cached for content pages only (is_singular())
-    if ( absint($options['transient_cache_expiration']) > 0 ) {
+    if ( absint($options['transient_cache_expiration']) > 0 && apply_filters('amt_enable_metadata_cache', true) ) {
         $metadata_arr = amt_get_transient_cache($post, $options, $where='footer');
         if ( empty($metadata_arr) ) {
             $metadata_arr = amt_get_metadata_footer($post, $options);
