@@ -580,6 +580,12 @@ function amt_options_page() {
         // this is a good place to do it.
         flush_rewrite_rules();
 
+        // Also, clear the metadata cache automatically on every save.
+        $result = amt_delete_all_transient_metadata_cache();
+        if ( intval($result) > 0 ) {
+            amt_show_info_msg( sprintf(__('Deleted %d transient metadata cache entries.', 'add-meta-tags'), $result) );
+        }
+
     } elseif (isset($_POST["info_reset"])) {
 
         amt_reset_settings();
