@@ -344,12 +344,12 @@ class AMT_Command extends WP_CLI_Command {
 
 
     /**
-     * Delete settings and data.
+     * Delete settings, data and metadata cache.
      * 
      * ## OPTIONS
      * 
      * <what>
-     * : The type of data to be removed. Supported: all|settings|postdata|userdata
+     * : The type of data to be removed. Supported: all|settings|postdata|userdata|cache
      * 
      * ## EXAMPLES
      * 
@@ -357,14 +357,15 @@ class AMT_Command extends WP_CLI_Command {
      *     wp amt clean settings
      *     wp amt clean postdata
      *     wp amt clean userdata
+     *     wp amt clean cache
      *
-     * @synopsis <all|settings|postdata|userdata>
+     * @synopsis <all|settings|postdata|userdata|cache>
      */
     function clean( $args, $assoc_args ) {
         list( $what ) = $args;
 
-        if ( ! in_array($what, array('all', 'settings', 'postdata', 'userdata')) ) {
-            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: all|settings|postdata|userdata)' );
+        if ( ! in_array($what, array('all', 'settings', 'postdata', 'userdata', 'cache')) ) {
+            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: all|settings|postdata|userdata|cache)' );
         }
 
         // Confirmation
@@ -409,7 +410,7 @@ class AMT_Command extends WP_CLI_Command {
             WP_CLI::line( 'Deleted post custom fields.' );
         }
 
-        // Import AMT contact infos
+        // Delete AMT contact infos
         elseif ( $what == 'userdata' || $what == 'all' ) {
             $qr_args = array(
                 'orderby'      => 'login',
@@ -425,6 +426,14 @@ class AMT_Command extends WP_CLI_Command {
             }
             WP_CLI::line( 'Deleted user contact info fields.' );
         }
+
+        // Delete transient metadata cache
+        elseif ( $what == 'cache' || $what == 'all' ) {
+
+            $result = amt_delete_all_transient_metadata_cache();
+            WP_CLI::line( sprintf('Deleted %d transient metadata cache entries.', $result) );
+        }
+
         WP_CLI::success( 'Data clean up complete.' );
     }
 
