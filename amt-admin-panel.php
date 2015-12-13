@@ -1132,7 +1132,6 @@ function amt_options_page() {
                 <label for="enable_advanced_title_management">
                 '.__('Enable advanced title management.', 'add-meta-tags').'
                 (<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management">'.__('Learn more', 'add-meta-tags').'</a>)
-                (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
                 </label>
 
                 <br />
