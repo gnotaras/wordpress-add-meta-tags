@@ -1120,7 +1120,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     //return $post_body;
     return implode( PHP_EOL, $metadata_arr );
 }
-add_filter('the_content', 'amt_add_schemaorg_metadata_content_filter', 500, 1);
+// add_filter('the_content', 'amt_add_schemaorg_metadata_content_filter', 500, 1);
+// Changed priority to 9999
+add_filter('the_content', 'amt_add_schemaorg_metadata_content_filter', 9999, 1);
 
 
 
