@@ -1228,6 +1228,30 @@ function amt_options_page() {
             </tr>
 
             <tr valign="top">
+            <th scope="row">'.__('Metadata Caching', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Metadata Caching', 'add-meta-tags').'</span></legend>
+
+                <input id="enable_timings" type="checkbox" value="1" name="enable_timings" '. (($options["enable_timings"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="enable_timings">'.__('Show timing information.', 'add-meta-tags').'</label>
+                <br /><br />
+
+                <label for="transient_cache_expiration">'.__('Cache metadata for this number of seconds:', 'add-meta-tags').'</label>
+                <input id="transient_cache_expiration" type="text" name="transient_cache_expiration" value="' . esc_attr( $options["transient_cache_expiration"] ) . '" size="10" maxlength="16" class="code" /> (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
+                <br /><br />
+
+                <p>'.__('Currently, <strong style="color: green;">' . esc_attr( amt_count_transient_metadata_cache_entries() ) . '</strong> metadata blocks have been cached. All cached entries are automatically purged every time these settings are saved.', 'add-meta-tags').'</p>
+                <br />
+
+                <p>'.__('Metadata caching is an advanced feature and should only be used after you have read and fully understood the <em>Metadata caching</em> section of the integrated help.', 'add-meta-tags').'</p>
+                <br />
+
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
             <th scope="row">'.__('Donations', 'add-meta-tags').'</th>
             <td>
             <fieldset>
