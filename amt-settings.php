@@ -105,6 +105,8 @@ function amt_get_default_options() {
         "extended_support_edd"          => "0",
         "extended_support_buddypress"   => "0",
         "extended_support_bbpress"      => "0",
+        "enable_timings"    => "0",
+        "transient_cache_expiration"    => "0", // Not check box
         "review_mode"       => "0",
         "i_have_donated"    => "0",
         );
@@ -240,6 +242,11 @@ function amt_plugin_upgrade() {
     // Added "author_profile_source"
     // No migrations required. Addition takes place in (1).
 
+    // Version 2.10.0 (settings_version 17->18)
+    // Added "enable_timings"
+    // Added "transient_cache_expiration"
+    // No migrations required. Addition takes place in (1).
+
 
     // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {
@@ -303,6 +310,12 @@ function amt_save_settings($post_payload) {
                     $author_profile_source_value = 'default';
                 }
                 $add_meta_tags_opts[$def_key] = $author_profile_source_value;
+            } elseif ( $def_key == 'transient_cache_expiration' ) {
+                $transient_cache_expiration_value = sanitize_text_field( stripslashes( $post_payload[$def_key] ) );
+                if ( ! is_numeric($transient_cache_expiration_value) || intval($transient_cache_expiration_value) < 0 ) {
+                    $transient_cache_expiration_value = '0';
+                }
+                $add_meta_tags_opts[$def_key] = $transient_cache_expiration_value;
             } else {
                 $add_meta_tags_opts[$def_key] = sanitize_text_field( stripslashes( $post_payload[$def_key] ) );
             }
