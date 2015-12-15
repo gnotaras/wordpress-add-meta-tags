@@ -294,7 +294,7 @@ function amt_get_metadata_head($post, $options) {
 /**
  * Prints the generated metadata for the head area.
  */
-function amt_add_metadata_head( $display=true ) {
+function amt_add_metadata_head() {
     // For AMT timings
     $t = microtime(true);
     // Get the options the DB
@@ -330,11 +330,7 @@ function amt_add_metadata_head( $display=true ) {
         array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
     }
     // Print the metadata
-    if ( $display ) {
-        echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
-    } else {
-        return $metadata_arr;
-    }
+    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
 }
 add_action('wp_head', 'amt_add_metadata_head', 0);
 
@@ -397,7 +393,7 @@ function amt_get_metadata_footer($post, $options) {
 /**
  * Prints the generated metadata for the footer area.
  */
-function amt_add_metadata_footer( $display=true ) {
+function amt_add_metadata_footer() {
     // For AMT timings
     $t = microtime(true);
     // Get the options the DB
@@ -434,11 +430,7 @@ function amt_add_metadata_footer( $display=true ) {
         array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
     }
     // Print the metadata
-    if ( $display ) {
-        echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
-    } else {
-        return $metadata_arr;
-    }
+    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
 }
 add_action('wp_footer', 'amt_add_metadata_footer', 0);
 
