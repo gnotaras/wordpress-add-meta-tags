@@ -326,8 +326,8 @@ function amt_add_metadata_head() {
     }
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
-        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
-        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
+        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->" );
     }
     // Print the metadata
     echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
@@ -426,8 +426,8 @@ function amt_add_metadata_footer() {
     }
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
-        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->" );
-        array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
+        array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->" );
     }
     // Print the metadata
     echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;

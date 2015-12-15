@@ -391,13 +391,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $is_cached = 'yes';
 
             // Add our comment
-            array_unshift( $cached_content_metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+            array_unshift( $cached_content_metadata_arr, "<!-- BEGIN Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
             array_unshift( $cached_content_metadata_arr, "" );   // Intentionaly left empty
             // For AMT timings
             if ( $options['enable_timings'] == '1' ) {
                 $cached_content_metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
             }
-            array_push( $cached_content_metadata_arr, "<!-- END Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+            array_push( $cached_content_metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
             array_push( $cached_content_metadata_arr, "" );   // Intentionaly left empty
 
             // Return cached metadata (contains the post body)
@@ -1161,13 +1161,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
-        array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+        array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
         array_unshift( $metadata_arr, "" );   // Intentionaly left empty
         // For AMT timings
         if ( $options['enable_timings'] == '1' ) {
             $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
         }
-        array_push( $metadata_arr, "<!-- END Schema.org microdata added by Add-Meta-Tags WordPress plugin -->" );
+        array_push( $metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
         array_push( $metadata_arr, "" );   // Intentionaly left empty
     }
 
@@ -1405,7 +1405,7 @@ function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
 
     global $post, $comment;
 
-    $metadata_arr[] = '<!-- BEGIN Metadata added by Add-Meta-Tags WordPress plugin -->';
+    $metadata_arr[] = '<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->';
 
     $metadata_arr[] = '<!-- Scope BEGIN: UserComments -->';
     $metadata_arr[] = '<div itemprop="comment" itemscope itemtype="http://schema.org/UserComments">';
@@ -1438,7 +1438,7 @@ function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
 
     $metadata_arr[] = '</div> <!-- Scope END: UserComments -->';
 
-    $metadata_arr[] = '<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->';
+    $metadata_arr[] = '<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->';
 
     // Allow filtering of the generated metadata
     $metadata_arr = apply_filters( 'amt_schemaorg_comments_extra', $metadata_arr, $post, $comment );
