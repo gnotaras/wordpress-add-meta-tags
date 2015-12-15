@@ -446,8 +446,8 @@ function amt_get_metadata_review($post, $options) {
     $metadata = '<pre>';
 
     // Metadata from head section
-    //$metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head($post, $options)) ) . PHP_EOL;
-    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_head( $display=false )) ) . PHP_EOL;
+    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head($post, $options)) ) . PHP_EOL;
+    //$metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_head( $display=false )) ) . PHP_EOL;
 
     // Metadata from content filter (Schema.org Microdata)
     if ( $options["schemaorg_force_jsonld"] == "0" ) {
@@ -455,7 +455,8 @@ function amt_get_metadata_review($post, $options) {
     }
 
     // Metadata from footer
-    $metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_footer( $display=false )) ) . PHP_EOL;
+    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_footer($post, $options)) ) . PHP_EOL;
+    //$metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_footer( $display=false )) ) . PHP_EOL;
 
     $metadata .= '</pre>';
     return $metadata;
