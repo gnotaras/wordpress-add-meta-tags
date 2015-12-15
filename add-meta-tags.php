@@ -494,7 +494,7 @@ function amt_add_metadata_review($post_body) {
     return $post_body;
 }
 
-add_filter('the_content', 'amt_add_metadata_review', 9999);
+add_filter('the_content', 'amt_add_metadata_review', 10000);
 
 
 //
