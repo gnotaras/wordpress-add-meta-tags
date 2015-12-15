@@ -1819,6 +1819,9 @@ function amt_buddypress_schemaorg_footer( $metadata_arr, $post, $options, $attac
         // URL
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $user_profile_url, array('http', 'https') ) . '" />';
 
+        // mainEntityOfPage
+        $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url( $user_profile_url, array('http', 'https') ) . '" />';
+
         // Related resources as sameAs
         // Facebook Profile
         //$fb_author_url = get_the_author_meta('amt_facebook_author_profile_url', $user_id);
@@ -2177,6 +2180,9 @@ function amt_buddypress_jsonld_schemaorg( $metadata_arr, $post, $options, $attac
 
         // URL
         $metadata_arr['url'] = esc_url( $user_profile_url, array('http', 'https') );
+
+        // mainEntityOfPage
+        $metadata_arr['mainEntityOfPage'] = esc_url( $user_profile_url, array('http', 'https') );
 
         // Related resources as sameAs
         $metadata_arr['sameAs'] = array();

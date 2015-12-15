@@ -204,6 +204,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
         // Get publisher/mainEntity metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
+        // mainEntityOfPage
+        $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
         // Scope END: Organization
         $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
 
@@ -260,6 +262,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
             $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
             // Get author metatags
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author, $options ) );
+            // mainEntityOfPage
+            $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
             // Scope END: Person
             $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -272,6 +276,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
             $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
             // Get publisher/mainEntity metatags
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
+            // mainEntityOfPage
+            $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
             // Scope END: Organization
             $metadata_arr[] = '</span> <!-- Scope END: Organization -->';
         }
@@ -341,6 +347,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
 
         // Get author metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID, $options ) );
+
+        // mainEntityOfPage
+        $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url( get_author_posts_url( $author->ID ) ) . '" />';
 
         // Scope END: Person
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
@@ -457,6 +466,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
+
+        // mainEntityOfPage
+        $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url( amt_get_permalink_for_multipage($post) ) . '" />';
 
         // name
         // Note: Contains multipage information through amt_process_paged()
@@ -642,6 +654,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             }
         }
 
+        // mainEntityOfPage
+        $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url( get_permalink( $post->ID ) ) . '" />';
+
         // Metadata specific to each attachment type
 
         if ( 'image' == $attachment_type ) {
@@ -738,6 +753,9 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
+
+        // mainEntityOfPage
+        $metadata_arr[] = '<meta itemprop="mainEntityOfPage" content="' . esc_url( amt_get_permalink_for_multipage($post) ) . '" />';
 
         // Dates
         $metadata_arr[] = '<meta itemprop="datePublished" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
@@ -1478,6 +1496,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Context
         $organization_arr['@context'] = 'http://schema.org';
         $organization_arr = array_merge($organization_arr, amt_get_jsonld_schemaorg_publisher_array($options));
+
+        // mainEntityOfPage
+        $organization_arr['mainEntityOfPage'] = esc_url( trailingslashit( get_bloginfo('url') ) );
+
         // Get publisher/mainEntity metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
 
@@ -1544,6 +1566,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         unset( $metadata_arr['@context'] );
 
         $main_entity_arr = array();
+
         // Context
         $main_entity_arr['@context'] = 'http://schema.org';
 
@@ -1555,6 +1578,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             //        $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
             // Get author metatags
             $main_entity_arr = array_merge($main_entity_arr, amt_get_jsonld_schemaorg_author_array( $post->post_author, $options ));
+
+            // mainEntityOfPage
+            $main_entity_arr['mainEntityOfPage'] = esc_url( trailingslashit( get_bloginfo('url') ) );
+
             // Scope END: Person
             //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -1562,6 +1589,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
             // Organization
             $main_entity_arr = array_merge($main_entity_arr, amt_get_jsonld_schemaorg_publisher_array($options));
+
+            // mainEntityOfPage
+            $main_entity_arr['mainEntityOfPage'] = esc_url( trailingslashit( get_bloginfo('url') ) );
+
             // Get publisher/mainEntity metatags
 //            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
         }
@@ -1644,6 +1675,10 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Get author metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID, $options ) );
         $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_author_array( $author->ID, $options ) );
+
+        // mainEntityOfPage
+        $metadata_arr['mainEntityOfPage'] = esc_url( get_author_posts_url( $author->ID ) );
+
         // Scope END: Person
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
@@ -1661,6 +1696,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr['url'] = esc_url_raw( amt_get_permalink_for_multipage($post) );
+
+        // mainEntityOfPage
+        $metadata_arr['mainEntityOfPage'] = esc_url( amt_get_permalink_for_multipage($post) );
 
         // name
         // Note: Contains multipage information through amt_process_paged()
@@ -1860,6 +1898,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             }
         }
 
+        // mainEntityOfPage
+        $metadata_arr['mainEntityOfPage'] = esc_url( get_permalink( $post->ID ) );
+
         // Metadata specific to each attachment type
 
         if ( 'image' == $attachment_type ) {
@@ -1962,6 +2003,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr['url'] = esc_url_raw( amt_get_permalink_for_multipage($post) );
+
+        // mainEntityOfPage
+        $metadata_arr['mainEntityOfPage'] = esc_url( amt_get_permalink_for_multipage($post) );
 
         // Dates
         $metadata_arr['datePublished'] = esc_attr( amt_iso8601_date($post->post_date) );
