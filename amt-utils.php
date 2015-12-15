@@ -2525,6 +2525,7 @@ function amt_delete_transient_cache_for_post($post_id) {
 }
 
 // Delete all transients
+// WORKS ONLY WHEN TRANSIENTS ARE STORED IN THE DATABASE
 function amt_delete_all_transient_metadata_cache($blog_id=null) {
     if ( is_null($blog_id) ) {
         $blog_id = get_current_blog_id();
