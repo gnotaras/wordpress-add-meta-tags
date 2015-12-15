@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.10.0
+Stable tag: 2.10.1
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -85,6 +85,14 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.1](http://www.codetrax.org/versions/339)
+ - Revised the help section about metadata caching. Added more information about the best practices when external storage backends are used for the transient data. Please, make sure you read it in order to better understand how metadata caching works in Add-Meta-Tags.
+ - Improved the information, which is available in the plugin's settings panel, about the status of the metadata cache.
+ - Made the `amt clean cache` command agnostic about the storage backend used for transient data and added a command line switch to the `amt clean` command for non interactive operation.
+ - Fixed an issue which prevented the Metadata Review box from being added to the page. This issue affected only version 2.10.0 and did not affect any public page. (Props to kochtopf for reporting the issue and for providing valuable feedback.)
+ - Google has recently revised the validation rules of their <em>Structured Data Testing Tool</em>. Many improvements of the Schema.org Microdata & JSON+LD generators have been implemented in this release in order to make the Schema.org metadata validate correctly. Please note that the <em>Yandex Structured Data Validator</em> still reports several errors. I'll provide more information about this in upcoming releases. (Props to TheSDTM for reporting the issues and for providing valuable feedback.)
+ - Fixed an issue of the Schema.org JSON+LD generator with image attachment pages which resulted in the ImageObject having incorrect attribute structure.
+ - All main Schema.org entities now have the `mainEntityOfPage` attribute set.
 - [2.10.0](http://www.codetrax.org/versions/338)
  - Metadata caching using the WordPress Transients API has been implemented for metadata on content pages (posts, pages, attachments, products, custom content types, etc), on which even the small overhead of the generation of the metadata might be a problem on high traffic web sites. When turned on, this feature makes the addition of metadata to the pages blazing fast with minimal overhead at the expense of some storage space. Metadata of archives is not cached as the overhead of its generation is very small. This feature should be considered experimental and should only be used by experienced WordPress users. There are some cases in which this feature is useful and other cases it is not. Please read the _Metadata Caching_ section of the integrated help for more information, which will hopefully help you decide whether you need this or not.
  - Added option to display timing information under each metadata block so as to have a rough indication of how Add-Meta-Tags performs in your environment. Make no mistake, this is not a benchmark. These timings can vary even in consecutive requests of the same web page and heavily depend on your specific server environment.
