@@ -1946,7 +1946,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
             // Get image metatags. $post is an image object.
-            $metadata_arr['image'] = amt_get_jsonld_schemaorg_image_array( $post, $size=$image_size, $is_representative=true );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_image_array( $post, $size=$image_size, $is_representative=true ) );
+
             // Add the post body here
 //            $metadata_arr[] = $post_body;
             // Scope END: ImageObject
