@@ -1216,8 +1216,28 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $site_description ) . '" />';
     }
     // logo
-    if ( !empty($options["default_image_url"]) ) {
-        $metadata_arr[] = '<meta itemprop="logo" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+    if ( ! empty($options["default_image_url"]) ) {
+        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+        $metadata_arr[] = '<span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
+        // name (title)
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags') . '" />';
+        // caption
+        //$metadata_arr[] = '<meta itemprop="caption" content="' . esc_attr( rtrim(get_bloginfo('description'), '.') ) . '." />';
+        // alt
+        $metadata_arr[] = '<meta itemprop="text" content="' . esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags') . '" />';
+        // URL (links to web page containing the image)
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $options["default_image_url"] ) . '" />';
+        // thumbnail url
+        //$metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
+        // main image
+        $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url( $options["default_image_url"] ) . '" />';
+        //if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+        //    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+        //    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+        //    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+        //}
+        // Scope END: ImageObject
+        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
     }
     // url
     // The blog url is used by default. Google+, Facebook and Twitter profile URLs are added as sameAs.
@@ -2392,7 +2412,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
     if ( count( $metadata_arr ) > 1 ) {
         // contains @context by default
-        return array('<script type="application/ld+json">', json_encode($metadata_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), '</script>');
+        // return array('<script type="application/ld+json">', json_encode($metadata_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), '</script>');
+        return array('<script type="application/ld+json">', json_encode($metadata_arr), '</script>');
     } else {
         return array();
     }
@@ -2495,8 +2516,30 @@ function amt_get_jsonld_schemaorg_publisher_array( $options, $author_id=null ) {
         $metadata_arr['description'] = esc_attr( $site_description );
     }
     // logo
-    if ( !empty($options["default_image_url"]) ) {
-        $metadata_arr['logo'] = esc_url_raw( $options["default_image_url"] );
+    if ( ! empty($options["default_image_url"]) ) {
+        $metadata_arr['logo'] = array();
+        $logo_obj = array();
+        // Type
+        $logo_obj['@type'] = 'ImageObject';
+        // name (title)
+        $logo_obj['name'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
+        // caption
+        //$logo_obj['caption'] = esc_attr( rtrim(get_bloginfo('description'), '.') ) . '.';
+        // alt
+        $logo_obj['text'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
+        // URL (links to web page containing the image)
+        $logo_obj['url'] = esc_url( $options["default_image_url"] );
+        // thumbnail url
+        //$logo_obj['thumbnailUrl'] = esc_url( ... );
+        // main image
+        $logo_obj['contentUrl'] = esc_url( $options["default_image_url"] );
+        //if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+        //    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+        //    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+        //    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+        //}
+        // Add logo entity to metadata
+        $metadata_arr['logo'][] = $logo_obj;
     }
     // url
     // The blog url is used by default. Google+, Facebook and Twitter profile URLs are added as sameAs.
