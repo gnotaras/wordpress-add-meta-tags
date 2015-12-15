@@ -529,19 +529,27 @@ function amt_admin_help_tabs() {
 
     <p>'.__('If metadata caching has been enabled, Add-Meta-Tags, before attempting to generate a new metadata block, checks whether a cached metadata block, which has not expired, already exists. If such a cached block is found, then it is used as is.', 'add-meta-tags').'</p>
 
-    <p>'.__('If a post, for which metadata has been cached, is edited, then automatic purging of the cached metadata takes place. Add-Meta-Tags will generate a fresh metadata block the next time the post\'s page is visited. Moreover, every time you save the plugin settings, all cached metadata entries are automatically purged in order to avoid using stale metadata which has not been generated according to the plugin settings that are in effect. This is by design.', 'add-meta-tags').'</p>
-
-    <p>'.__('Another useful technical note is that WordPress keeps expired transient data in the database or other storage backend until it is requested again. The transient data is not automatically removed by scheduled clean-up jobs. This is by WordPress design. Read on to find out how Add-Meta-Tags clears cached metadata automatically and how to manually clear it yourself.', 'add-meta-tags').'</p>
-
     <h3>'.__('Clearing the cached metadata', 'add-meta-tags').'</h3>
 
-    <p>'.__('As mentioned above, automatic purging of the cached metadata takes place whenever a post object is edited. So, in order to clear the cached metadata for a specific post, page, attachment, etc, all you have to do is to save it.', 'add-meta-tags').'</p>
+    <p>'.__('If a post, for which metadata has been cached, is edited and saved, then automatic purging of its cached metadata takes place. Add-Meta-Tags will generate a fresh metadata block the next time the post\'s page is visited. So, in order to manually clear the cached metadata for a specific post, page, attachment, etc, all you have to do is to save it. Purging the cached metadata of individual post objects works regardless of the storage backend for transient data.', 'add-meta-tags').'</p>
 
-    <p>'.__('In order to clear all the cached metadata blocks, you have two options. One is by simply saving the plugin options, as explained above, and the other is to use the <code>amt clean cache</code> command of <code>wp-cli</code> on the command line.', 'add-meta-tags').'</p>
+    <p>'.__('Moreover, every time you save the plugin settings, all metadata entries that have been cached in the database are automatically purged in order to avoid using stale metadata which has not been generated according to the plugin settings that are in effect. This is by design. Please note that this automatic purging of the whole metadata cache when the plugin settings are saved will not work in case a different storage backend than the database is used by WordPress to store the transient data. In such advanced configurations clearing the whole metadata cache can only be done manually. The manual purging of the whole metadata cache can be performed using the <code>amt</code> command of <code>wp-cli</code>. This manual purging operation is transient storage backend agnostic. Please make sure to read the <em>Using alternative transient storage backends</em> section below for more information about the best practices when using alternative storage backends.', 'add-meta-tags').'</p>
+
+    <p>'.__('Another useful technical note is that WordPress keeps expired transient data in the database or other storage backend until it is requested again. The transient data is not automatically removed by scheduled clean-up jobs. This is by WordPress design.', 'add-meta-tags').'</p>
 
     <h3>'.__('How many seconds should metadata be cached for?', 'add-meta-tags').'</h3>
 
     <p>'.__('Since you are the one who knows the details of your environment and the general configuration of your web site, this is your call. Setting the caching timeout to 60, 300, 86400 (a day), 604800 (a week) seconds or whatever is totally up to you.', 'add-meta-tags').'</p>
+
+    <p>'.__('However, some details need to be taken into consideration when a storage backend different than the database is used. Please make sure to read the <em>Using alternative transient storage backends</em> section below for more information about the best practices regarding the caching timeout in such configurations.', 'add-meta-tags').'</p>
+
+    <h3>'.__('Using alternative transient storage backends', 'add-meta-tags').'</h3>
+
+    <p>'.__('By default, WordPress stores the transient data in its database, but different storage backends may be configured for this purpose. Add-Meta-Tags uses the <em>Transients API</em> to manage its metadata cache, so it is going to work fine regardless of the type of the storage backend, except for the automatic purging of the whole metadata cache when the plugin settings are saved, which does not work in case a different storage backend than the database is used.', 'add-meta-tags').'</p>
+
+    <p>'.__('If a different storage backend than the database is used for the transient data, setting a caching timeout and thus enabling metadata caching in Add-Meta-Tags should be the last thing to configure. If you set a big caching timeout and later make changes to the Add-Meta-Tags configuration, especially changes regarding the enabled metadata generators, the metadata blocks that have already been cached will not be cleared when the plugin settings are saved, because this automatic purging of the full metadata cache works only when the cache is stored in the database. In such cases, manual purging of the whole metadata cache has to be performed from the command line.', 'add-meta-tags').'</p>
+
+    <p>'.__('If you are using an alternative transient data storage backend and access to the command line is not possible, then you should reevaluate your cache expiration strategy and set a lower caching timeout, for instance 60 or 300 seconds. This way your posts will contain stale metadata for a very little amount of time until it expires, in which case a fresh metadata block will be generated according to the plugin settings that are in effect.', 'add-meta-tags').'</p>
 
     <h3>'.__('Troubleshooting', 'add-meta-tags').'</h3>
 
@@ -549,7 +557,7 @@ function amt_admin_help_tabs() {
 
     <p>'.__('<em>Pro tip</em>: before checking the HTML source code of the page, please make sure you have cleared your browser\'s cache to prevent it from getting in the way. Alternatively, you can hard refresh the web page, for instance by pressing <code>Ctrl-F5</code> in Firefox or Chrome.', 'add-meta-tags').'</p>
 
-    <p>'.__('First, if you are seeing unexpected metadata in the HTML source code of a content page, for instance a post or page or attachment, try to resave it in order to trigger the automatic purging of its cached metadata. If for any reason this does not help, turn off metadata caching globally in the Add-Meta-Tags settings. This can be done by setting the number of seconds to cache metadata to zero and save the settings. Saving the settings also automatically purges the whole metadata cache.', 'add-meta-tags').'</p>
+    <p>'.__('First, if you are seeing unexpected metadata in the HTML source code of a content page, for instance a post or page or attachment, try to resave it in order to trigger the automatic purging of its cached metadata. If for any reason this does not help, turn off metadata caching globally in the Add-Meta-Tags settings. This can be done by setting the number of seconds to cache metadata to zero and save the settings. Saving the settings also automatically purges the whole metadata cache. If you are using an alternative storage backend for transient data (see above), use the <code>amt</code> command of <code>wp-cli</code>', 'add-meta-tags').'</p>
 
     <p>'.__('If you are still seeing wrong metadata in the HTML source, then the metadata caching feature of the Add-Meta-Tags plugin is not the cause of the problem. If you are using a caching proxy server, a CDN or a caching plugin for WordPress that generates static versions of your dynamic pages, please make sure to purge their caches and ask for help in their support channels.', 'add-meta-tags').'</p>
 
