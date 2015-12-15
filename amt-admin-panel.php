@@ -1295,7 +1295,7 @@ function amt_options_page() {
             $nr_cached_blocks = amt_count_transient_metadata_cache_entries();
             if ( absint($nr_cached_blocks) > 0 ) {
                 print('
-                    <p>'.__('<strong>Metadata cache status</strong>: <em>Activated</em>, <strong style="color: green;">' . esc_attr( $nr_cached_blocks ) . '</strong> metadata blocks have been cached. All cached entries are automatically purged every time these settings are saved.', 'add-meta-tags').'</p>
+                    <p>'.__('<strong>Metadata cache status</strong>: <em>Activated</em>, <strong style="color: green;">' . esc_attr( $nr_cached_blocks ) . '</strong> metadata blocks have been cached. All cached metadata blocks will be automatically purged the next time these settings are saved.', 'add-meta-tags').'</p>
                     <br />
                 ');
             } else {
