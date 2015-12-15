@@ -2478,7 +2478,7 @@ function amt_get_transient_name($post_id, $where) {
     // Content: MD5( ID, $where )
     if ( absint($post_id) > 0 ) {
         // DO NOT USE is_singular() here because it may be called by 'save_post' actions etc
-        $to_hash[] = $post_id;
+        $to_hash[] = absint($post_id);
         $to_hash[] = $where;
 
         // Check whether the ID is the same as the front/index static page's ID
