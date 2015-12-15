@@ -294,7 +294,7 @@ function amt_get_metadata_head($post, $options) {
 /**
  * Prints the generated metadata for the head area.
  */
-function amt_add_metadata_head() {
+function amt_add_metadata_head( $display=true ) {
     // For AMT timings
     $t = microtime(true);
     // Get the options the DB
@@ -330,7 +330,11 @@ function amt_add_metadata_head() {
         array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
     }
     // Print the metadata
-    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    if ( $display ) {
+        echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    } else {
+        return $metadata_arr;
+    }
 }
 add_action('wp_head', 'amt_add_metadata_head', 0);
 
@@ -393,7 +397,7 @@ function amt_get_metadata_footer($post, $options) {
 /**
  * Prints the generated metadata for the footer area.
  */
-function amt_add_metadata_footer() {
+function amt_add_metadata_footer( $display=true ) {
     // For AMT timings
     $t = microtime(true);
     // Get the options the DB
@@ -430,7 +434,11 @@ function amt_add_metadata_footer() {
         array_push( $metadata_arr, "<!-- END Metadata added by Add-Meta-Tags WordPress plugin -->" );
     }
     // Print the metadata
-    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    if ( $display ) {
+        echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    } else {
+        return $metadata_arr;
+    }
 }
 add_action('wp_footer', 'amt_add_metadata_footer', 0);
 
@@ -439,24 +447,27 @@ add_action('wp_footer', 'amt_add_metadata_footer', 0);
  * Review mode
  */
 
-function amt_get_metadata_review($options) {
-    //
-    //  TODO: FIX THIS MESS
-    //
-    //return '<pre>' . amt_metatag_highlighter( htmlspecialchars( amt_add_schemaorg_metadata_content_filter('dzfgdzfdzfdszfzf'), ENT_NOQUOTES) ) . '</pre>';
-    // Returns metadata review code
-    //return '<pre>' . htmlentities( implode(PHP_EOL, amt_get_metadata_head()) ) . '</pre>';
+function amt_get_metadata_review($post, $options) {
+
     $msg = '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Review Mode</span> has been enabled in' . PHP_EOL . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . PHP_EOL . PHP_EOL;
     $msg_body = '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body.</span>';
     $metadata = '<pre>';
-    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head()) ) . PHP_EOL;
+
+    // Metadata from head section
+    //$metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head($post, $options)) ) . PHP_EOL;
+    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_head( $display=false )) ) . PHP_EOL;
+
+    // Metadata from content filter (Schema.org Microdata)
     if ( $options["schemaorg_force_jsonld"] == "0" ) {
         $metadata .= PHP_EOL . $msg_body . PHP_EOL . PHP_EOL . amt_metatag_highlighter( amt_add_schemaorg_metadata_content_filter('') ) . PHP_EOL;
     }
-    $metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_footer()) ) . PHP_EOL;
+
+    // Metadata from footer
+    $metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_footer( $display=false )) ) . PHP_EOL;
+
     $metadata .= '</pre>';
     return $metadata;
-    //return '<pre lang="XML" line="1">' . implode(PHP_EOL, amt_get_metadata_head()) . '</pre>';
+
 }
 
 function amt_add_metadata_review($post_body) {
@@ -486,7 +497,7 @@ function amt_add_metadata_review($post_body) {
 
         // Only administrators can see the review box.
         if ( current_user_can( 'create_users' ) ) {
-            $post_body = amt_get_metadata_review($options) . '<br /><br />' . $post_body;
+            $post_body = amt_get_metadata_review($post, $options) . '<br /><br />' . $post_body;
         }
 
     }
