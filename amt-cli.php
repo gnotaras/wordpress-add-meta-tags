@@ -465,7 +465,7 @@ class AMT_Command extends WP_CLI_Command {
                 amt_delete_transient_cache_for_post( absint($post->ID) );
             }
 
-            WP_CLI::line( sprintf('Purged cached metadata of %d published post objects.', count($results)) );
+            WP_CLI::line( sprintf('Force purged cached metadata of %d published post objects.', count($results)) );
         }
 
         WP_CLI::success( 'Data clean up complete.' );
