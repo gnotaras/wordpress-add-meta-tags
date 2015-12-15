@@ -1151,8 +1151,12 @@ function amt_get_schemaorg_image_metatags( $image, $size='medium', $is_represent
     //    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $image_title ) . '" />';
     //}
 
-    // URL (links to attachment page)
-    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $image->ID ) ) . '" />';
+    // URL (links to image file)
+    //$metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( get_permalink( $image->ID ) ) . '" />';
+    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+
+    // sameAS (links to attachment page)
+    $metadata_arr[] = '<meta itemprop="sameAs" content="' . esc_url_raw( get_permalink( $image->ID ) ) . '" />';
 
     // Description (generated from $image->post_content. See: amt_get_the_excerpt()
     $image_description = amt_get_content_description($image);
@@ -2449,8 +2453,12 @@ function amt_get_jsonld_schemaorg_image_array( $image, $size='medium', $is_repre
     //    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( $image_title ) . '" />';
     //}
 
-    // URL (links to attachment page)
-    $metadata_arr['url'] = esc_url_raw( get_permalink( $image->ID ) );
+    // URL (links to image file)
+    //$metadata_arr['url'] = esc_url_raw( get_permalink( $image->ID ) );
+    $metadata_arr['url'] = esc_url_raw( $main_size_meta[0] );
+
+    // sameAS (links to attachment page)
+    $metadata_arr['sameAs'] = esc_url_raw( get_permalink( $image->ID ) );
 
     // Description (generated from $image->post_content. See: amt_get_the_excerpt()
     $image_description = amt_get_content_description($image);
