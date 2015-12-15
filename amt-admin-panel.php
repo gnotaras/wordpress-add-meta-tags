@@ -1282,12 +1282,36 @@ function amt_options_page() {
                 <input id="transient_cache_expiration" type="text" name="transient_cache_expiration" value="' . esc_attr( $options["transient_cache_expiration"] ) . '" size="10" maxlength="16" class="code" /> (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
                 <br /><br />
 
-                <p>'.__('Currently, <strong style="color: green;">' . esc_attr( amt_count_transient_metadata_cache_entries() ) . '</strong> metadata blocks have been cached. All cached entries are automatically purged every time these settings are saved.', 'add-meta-tags').'</p>
-                <br />
-
                 <p>'.__('Metadata caching is an advanced feature and should only be used after you have read and fully understood the <em>Metadata caching</em> section of the integrated help.', 'add-meta-tags').'</p>
                 <br />
+        ');
 
+        // Metadata cache status
+
+        if ( absint($options["transient_cache_expiration"]) > 0 ) {
+            // Get the number of cached entries
+            // This only works when the database is used as the Transient Data storage backend.
+            // If external storage backends are used for the transient data, this is always going to be zeo.
+            $nr_cached_blocks = amt_count_transient_metadata_cache_entries();
+            if ( absint($nr_cached_blocks) > 0 ) {
+                print('
+                    <p>'.__('<strong>Metadata cache status</strong>: <em>Activated</em>, <strong style="color: green;">' . esc_attr( $nr_cached_blocks ) . '</strong> metadata blocks have been cached. All cached entries are automatically purged every time these settings are saved.', 'add-meta-tags').'</p>
+                    <br />
+                ');
+            } else {
+                print('
+                    <p>'.__('<strong>Metadata cache status</strong>: <em>Activated</em>, but no cached metadata blocks have been detected. This means that either no metadata blocks have been cached yet in the database or your WordPress installation uses an external storage backend for the transient data.', 'add-meta-tags').'</p>
+                    <br />
+                ');
+            }
+        } else {
+            print('
+                <p>'.__('<strong>Metadata cache status</strong>: <em>Deactivated</em>. The caching timeout is set to zero, so metadata blocks are not cached.', 'add-meta-tags').'</p>
+                <br />
+            ');
+        }
+
+        print('
             </fieldset>
             </td>
             </tr>
