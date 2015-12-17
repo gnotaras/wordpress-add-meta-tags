@@ -1842,6 +1842,8 @@ function amt_metatag_highlighter( $metatags ) {
     // Done by wp_pre_kses_less_than()
     //$metatags = str_replace('<meta', '&lt;meta', $metatags);
     //$metatags = str_replace('/>', '/&gt;', $metatags);
+//$metatags = str_replace('<br />', '___', $metatags);
+//$metatags = str_replace('___', '<br />', $metatags);
 
     return $metatags;
 }
