@@ -2526,7 +2526,6 @@ function amt_get_transient_name($post_id, $where) {
 
 // Delete transient cache
 function amt_delete_transient_cache_for_post($post_id) {
-//var_dump($aa);
     $locations = array('head', 'footer', 'content');
     foreach ( $locations as $where ) {
         $transient_name = amt_get_transient_name($post_id, $where);
