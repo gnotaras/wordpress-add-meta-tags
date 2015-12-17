@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.10.1\n"
+"Project-Id-Version: add-meta-tags 2.10.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 16:17+0200\n"
+"POT-Creation-Date: 2015-12-17 13:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,10 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: add-meta-tags.php:660 amt-admin-panel.php:90 amt-admin-panel.php:1405
+msgid "Metadata"
+msgstr ""
+
 #: amt-admin-panel.php:67
 msgid "Add Meta Tags"
 msgstr ""
@@ -49,10 +53,6 @@ msgstr ""
 
 #: amt-admin-panel.php:90 amt-admin-panel.php:636
 msgid "Metadata Settings"
-msgstr ""
-
-#: amt-admin-panel.php:90 amt-admin-panel.php:1405
-msgid "Metadata"
 msgstr ""
 
 #: amt-admin-panel.php:123
@@ -1090,10 +1090,6 @@ msgstr ""
 msgid "Cache metadata for this number of seconds:"
 msgstr ""
 
-#: amt-admin-panel.php:1282 amt-admin-panel.php:1777
-msgid "Experimental feature"
-msgstr ""
-
 #: amt-admin-panel.php:1285
 msgid "Metadata caching is an advanced feature and should only be used after you have read and fully understood the <em>Metadata caching</em> section of the integrated help."
 msgstr ""
@@ -1239,6 +1235,10 @@ msgstr ""
 msgid "Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated."
 msgstr ""
 
+#: amt-admin-panel.php:1777
+msgid "Experimental feature"
+msgstr ""
+
 #: amt-settings.php:354
 msgid "Add-Meta-Tags options saved"
 msgstr ""
@@ -1247,19 +1247,19 @@ msgstr ""
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: amt-utils.php:2251
+#: amt-utils.php:2485
 msgid "Select a sample review"
 msgstr ""
 
-#: amt-utils.php:2283
+#: amt-utils.php:2517
 msgid "Use sample review data:"
 msgstr ""
 
-#: amt-utils.php:2382
+#: amt-utils.php:2614
 msgid "Select a meta tag group"
 msgstr ""
 
-#: amt-utils.php:2414
+#: amt-utils.php:2646
 msgid "Replace meta tags with:"
 msgstr ""
 
@@ -1292,16 +1292,16 @@ msgstr ""
 msgid "%s archive."
 msgstr ""
 
-#: metadata\amt_extended.php:1355 metadata\amt_extended.php:1376
-#: metadata\amt_extended.php:1425 metadata\amt_extended.php:1474
-#: metadata\amt_extended.php:1547 metadata\amt_extended.php:1685
-#: metadata\amt_extended.php:1693 metadata\amt_extended.php:1739
-#: metadata\amt_extended.php:1859 metadata\amt_extended.php:1918
-#: metadata\amt_extended.php:2221 metadata\amt_extended.php:2280
+#: metadata\amt_extended.php:1379 metadata\amt_extended.php:1400
+#: metadata\amt_extended.php:1449 metadata\amt_extended.php:1498
+#: metadata\amt_extended.php:1571 metadata\amt_extended.php:1709
+#: metadata\amt_extended.php:1717 metadata\amt_extended.php:1763
+#: metadata\amt_extended.php:1883 metadata\amt_extended.php:1942
+#: metadata\amt_extended.php:2245 metadata\amt_extended.php:2304
 msgid "Profile of"
 msgstr ""
 
-#: metadata\amt_schemaorg.php:1281 metadata\amt_schemaorg.php:1285
-#: metadata\amt_schemaorg.php:2657 metadata\amt_schemaorg.php:2661
+#: metadata\amt_schemaorg.php:1332 metadata\amt_schemaorg.php:1336
+#: metadata\amt_schemaorg.php:2700 metadata\amt_schemaorg.php:2704
 msgid "logo"
 msgstr ""
