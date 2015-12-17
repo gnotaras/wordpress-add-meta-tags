@@ -400,6 +400,31 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             array_push( $cached_content_metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
             array_push( $cached_content_metadata_arr, "" );   // Intentionaly left empty
 
+            //
+            // Non persistent cache for metadata review mode.
+            //
+            // The review mode's content filter should have bigger priority than this
+            // filter (be executed after this one). This one by default has priority 9999
+            // while the review mode filter has priority of 10000
+            if ( amt_check_run_metadata_review_code($options) ) {
+                // What happens here is this: we copy the metadata array and remove the
+                // item that contains the content data, because it is not needed for
+                // metadata review.
+                // Then use non-persistent cache to store this new array.
+                // Metadata Review mode's filtering function should be attached with a
+                // priority bigger than this one, so that it is executed after this one.
+                // There the data is loaded from the non-persistent cache.
+                // This way, the timings are the same as in the source code and also
+                // it is more efficient from a resources perspective.
+                // WARNING: in order to work fine, set correct filter priorities.
+                $metadata_arr_for_review = $cached_content_metadata_arr;
+                if ( array_key_exists('content_data', $metadata_arr_for_review) ) {
+                    $metadata_arr_for_review['content_data'] = '    <!-- The content has been removed from the metadata review. -->';
+                }
+                    wp_cache_add( 'amt_cache_metadata_block_content_filter', $metadata_arr_for_review, $group='add-meta-tags' );
+                unset($metadata_arr_for_review);
+            }
+
             // Return cached metadata (contains the post body)
             return implode( PHP_EOL, $cached_content_metadata_arr );
         }
@@ -559,7 +584,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // for consistency with Article objects.
         // TODO: it should allow filtering '<div>'
         $metadata_arr[] = '<div> <!-- Product text body: BEGIN -->';
-        $metadata_arr[] = $post_body;
+        $metadata_arr['content_data'] = $post_body;
         $metadata_arr[] = '</div> <!-- Product text body: END -->';
         // Now add closing tag for Article
         $metadata_arr[] = $closing_product_tag;
@@ -668,7 +693,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Get image metatags. $post is an image object.
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $post, $size=$image_size, $is_representative=true ) );
             // Add the post body here
-            $metadata_arr[] = $post_body;
+            $metadata_arr['content_data'] = $post_body;
             // Scope END: ImageObject
             $metadata_arr[] = '</div> <!-- Scope END: ImageObject -->';
 
@@ -688,7 +713,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Required by Google
             $metadata_arr[] = '<meta itemprop="uploadDate" content="' . esc_attr( amt_iso8601_date($post->post_date) ) . '" />';
             // Add the post body here
-            $metadata_arr[] = $post_body;
+            $metadata_arr['content_data'] = $post_body;
             // Scope END: VideoObject
             $metadata_arr[] = '</div> <!-- Scope END: VideoObject -->';
 
@@ -706,7 +731,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($post->ID) ) . '" />';
             $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
             // Add the post body here
-            $metadata_arr[] = $post_body;
+            $metadata_arr['content_data'] = $post_body;
             // Scope END: AudioObject
             $metadata_arr[] = '</div> <!-- Scope END: AudioObject -->';
 
@@ -1146,7 +1171,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $main_text_property = apply_filters( 'amt_schemaorg_property_main_text', $main_text_property );
 
         $metadata_arr[] = '<div itemprop="' . esc_attr($main_text_property) . '">';
-        $metadata_arr[] = $post_body;
+        $metadata_arr['content_data'] = $post_body;
         $metadata_arr[] = '</div> <!-- Itemprop END: ' . esc_attr($main_text_property) . ' -->';
         // Now add closing tag for Article
         $metadata_arr[] = $closing_article_tag;
@@ -1169,6 +1194,31 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         }
         array_push( $metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
         array_push( $metadata_arr, "" );   // Intentionaly left empty
+    }
+
+    //
+    // Non persistent cache for metadata review mode.
+    //
+    // The review mode's content filter should have bigger priority than this
+    // filter (be executed after this one). This one by default has priority 9999
+    // while the review mode filter has priority of 10000
+    if ( amt_check_run_metadata_review_code($options) ) {
+        // What happens here is this: we copy the metadata array and remove the
+        // item that contains the content data, because it is not needed for
+        // metadata review.
+        // Then use non-persistent cache to store this new array.
+        // Metadata Review mode's filtering function should be attached with a
+        // priority bigger than this one, so that it is executed after this one.
+        // There the data is loaded from the non-persistent cache.
+        // This way, the timings are the same as in the source code and also
+        // it is more efficient from a resources perspective.
+        // WARNING: in order to work fine, set correct filter priorities.
+        $metadata_arr_for_review = $metadata_arr;
+        if ( array_key_exists('content_data', $metadata_arr_for_review) ) {
+            $metadata_arr_for_review['content_data'] = '    <!-- The content has been removed from the metadata review. -->';
+        }
+        wp_cache_add( 'amt_cache_metadata_block_content_filter', $metadata_arr_for_review, $group='add-meta-tags' );
+        unset($metadata_arr_for_review);
     }
 
     //return $post_body;

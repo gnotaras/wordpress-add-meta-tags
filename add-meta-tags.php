@@ -439,35 +439,121 @@ add_action('wp_footer', 'amt_add_metadata_footer', 0);
  * Review mode
  */
 
-function amt_get_metadata_review($post, $options) {
 
-    $msg = '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Review Mode</span> has been enabled in' . PHP_EOL . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . PHP_EOL . PHP_EOL;
-    $msg_body = '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body.</span>';
-    $metadata = '<pre>';
 
-    // Metadata from head section
-    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_head($post, $options)) ) . PHP_EOL;
-    //$metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_head( $display=false )) ) . PHP_EOL;
 
-    // Metadata from content filter (Schema.org Microdata)
-    if ( $options["schemaorg_force_jsonld"] == "0" ) {
-        $metadata .= PHP_EOL . $msg_body . PHP_EOL . PHP_EOL . amt_metatag_highlighter( amt_add_schemaorg_metadata_content_filter('') ) . PHP_EOL;
+//
+// Metadata Review Mode
+//
+
+
+
+function amt_get_metadata_review($options, $add_as_view=false) {
+
+    if ( $add_as_view ) {
+
+        // $BR = '<br />';
+        $BR = PHP_EOL;
+
+        $data = '<div id="amt-metadata-review">';
+        $data .= '<h2>Add-Meta-Tags Metadata Review Mode</h2>';
+        $data .= '<pre id="amt-metadata-review-pre">' . $BR . $BR;
+        $data .= '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This menu has been added because <span style="font-weight: bold;">Metadata Review Mode</span> has been enabled in' . $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this menu.</span>' . $BR;
+    } else {
+
+        $BR = PHP_EOL;
+
+        $data = '<pre>';
+
+        $data .= '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">Add-Meta-Tags Metadata Review Mode</span></span>' . $BR . $BR;
+
+        $data .= '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Metadata Review Mode</span> has been enabled in' . $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . $BR;
     }
 
-    // Metadata from footer
-    $metadata .= $msg . amt_metatag_highlighter( implode(PHP_EOL, amt_get_metadata_footer($post, $options)) ) . PHP_EOL;
-    //$metadata .= PHP_EOL . amt_metatag_highlighter( implode(PHP_EOL, amt_add_metadata_footer( $display=false )) ) . PHP_EOL;
+    //
+    // Metadata from head section
+    //
 
-    $metadata .= '</pre>';
-    return $metadata;
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_metadata_block_head');
+    $metadata_block_head = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $metadata_block_head === false ) {
+        $metadata_block_head = amt_add_metadata_head();
+        // Cache even empty
+        wp_cache_add( $amtcache_key, $metadata_block_head, $group='add-meta-tags' );
+    }
+
+    // Add for review
+    if ( ! empty($metadata_block_head) ) {
+        // Pretty print JSON+LD
+        if ( array_key_exists('json+ld_data', $metadata_block_head) ) {
+            $jsonld_data_arr = json_decode( $metadata_block_head['json+ld_data'] );
+            $metadata_block_head['json+ld_data'] = json_encode($jsonld_data_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        }
+        $data .= $BR . '<span style="text-decoration: underline; color: black;">The following metadata has been added to the head section.</span>' . $BR;
+        $data .= $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_head ) ) . $BR;
+    }
+
+    //
+    // Metadata from content filter (Schema.org Microdata)
+    //
+
+    if ( $options["schemaorg_force_jsonld"] == "0" ) {
+        // What happens here:
+        // The Metadata Review mode content filter should have a bigger priority that the Schema.org
+        // Microdata filter. There the metadata has been stored in non persistent cache.
+        // Here we retrieve it. See the notes there for more info.
+        $metadata_block_content_filter = wp_cache_get( 'amt_cache_metadata_block_content_filter', $group='add-meta-tags' );
+        if ( $metadata_block_content_filter !== false ) {
+            if ( ! empty($metadata_block_content_filter) ) {
+                // Add for review
+                $data .= $BR . '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body of the page.</span>';
+                $data .= $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_content_filter ) ) . $BR;
+            }
+        }
+    }
+
+    //
+    // Metadata from footer
+    //
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_metadata_block_footer');
+    $metadata_block_footer = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $metadata_block_footer === false ) {
+        $metadata_block_footer = amt_add_metadata_footer();
+        // Cache even empty
+        wp_cache_add( $amtcache_key, $metadata_block_footer, $group='add-meta-tags' );
+    }
+
+    // Add for review
+    if ( ! empty($metadata_block_footer) ) {
+        $data .= $BR . '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body of the page.</span>';
+        $data .=  $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_footer ) ) . $BR;
+    }
+
+    $data .= $BR . $BR;
+
+    if ( $add_as_view ) {
+        $data .= '</pre></div>';
+    } else {
+        $data .= '</pre>';
+    }
+
+    return $data;
 
 }
 
 function amt_add_metadata_review($post_body) {
 
-    if ( is_singular() ) {
+    if ( apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
+        return $post_body;
+    }
 
-        $options = get_option("add_meta_tags_opts");
+    $options = get_option("add_meta_tags_opts");
+
+    // Only administrators can see the review box if is_singular() is true.
+    if ( amt_check_run_metadata_review_code($options) ) {
 
         // Get current post object
         $post = get_queried_object();
@@ -483,22 +569,99 @@ function amt_add_metadata_review($post_body) {
             return $post_body;
         }
 
-        // Check if Review Mode is enabled
-        if ( $options["review_mode"] == "0" ) {
-            return $post_body;
-        }
-
-        // Only administrators can see the review box.
-        if ( current_user_can( 'create_users' ) ) {
-            $post_body = amt_get_metadata_review($post, $options) . '<br /><br />' . $post_body;
-        }
+        $post_body = amt_get_metadata_review($options) . '<br /><br />' . $post_body;
 
     }
 
     return $post_body;
 }
-
 add_filter('the_content', 'amt_add_metadata_review', 10000);
+
+
+// Prints the AMT Metadata Review Mode styles
+function amt_metadata_review_mode_print_styles_scripts() {
+    $options = get_option("add_meta_tags_opts");
+    // Only administrators can see the review box if is_singular() is true.
+    if ( amt_check_run_metadata_review_code($options) ) {
+        $styles_scripts = '
+        <!-- BEGIN Add-Meta-Tags Metadata Review Mode styles and scripts (visible only by administrators when review mode in on) -->
+        <style type="text/css">
+            .amt-metadata-review-visible #amt-metadata-review {
+                display: block;
+            }
+            #amt-metadata-review {
+                display: none;
+                position: fixed;
+                top: 32px;
+                left: 0px;
+                right: 0px;
+                bottom: 0px;
+                z-index: 99123;
+                overflow: scroll;
+                /* height: 33%;
+                height: 100%; */
+                min-height: 350px;
+                background: #F1F1F1 none repeat scroll 0% 0%;
+                color: #000;
+                line-height: 150% !important;
+                text-align: left;
+                /* font-family: "Helvetica Neue",sans-serif; */
+                font-family: Monospace;
+                font-size: 12px;
+                padding: 16px;
+            }
+            #amt-metadata-review-pre {
+            }
+        </style>
+        <!-- END Add-Meta-Tags Metadata Review Mode styles and scripts (visible only by administrators when review mode in on) -->
+        ';
+        echo apply_filters('amt_metadata_review_mode_styles_scripts', $styles_scripts);
+    }
+}
+
+// Adds the 'Metadata' menu to the admin bar
+function amt_metadata_review_mode_admin_bar_links( $admin_bar ){
+
+    // Do not display the menu when the user is in the WP administration panel.
+    if ( is_admin() ) {
+        return;
+    }
+
+    // Add 'Metadata' menu to the admin bar
+    $admin_bar->add_menu( array(
+        'id'    => 'amt',
+        'title' => __('Metadata', 'add-meta-tags'),
+        'href'  => '#',
+        'meta'  => array(
+            'onclick' => 'jQuery("#amt-metadata-review").toggle(); jQuery("#amt-metadata-review").focus(); return false;'
+        )
+    ));
+// 'onclick' => 'jQuery("#amt-metadata-review").toggleClass("amt-metadata-review-visible"); return false;'
+}
+
+// Prints the alternative review mode screen
+function amt_metadata_review_mode_print() {
+    $options = get_option("add_meta_tags_opts");
+    echo amt_get_metadata_review($options, $add_as_view=true) . '<br /><br />';
+}
+
+function amt_metadata_review_mode_as_panel() {
+    $options = get_option("add_meta_tags_opts");
+    // Only administrators can see the review box if is_singular() is true.
+    if ( amt_check_run_metadata_review_code($options) ) {
+        if ( apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
+            // Add styles and scripts. No enqueue here since this is only performed for the administrator.
+            add_action('wp_head', 'amt_metadata_review_mode_print_styles_scripts');
+            // Add Purge Links to Admin Bar
+            add_action('admin_bar_menu', 'amt_metadata_review_mode_admin_bar_links', 250);
+            // Print the view
+            add_action('wp_footer', 'amt_metadata_review_mode_print');
+        }
+    }
+}
+add_action('wp', 'amt_metadata_review_mode_as_panel');
+
+
 
 
 //
