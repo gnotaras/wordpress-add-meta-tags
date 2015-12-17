@@ -85,6 +85,18 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.2](http://www.codetrax.org/versions/340)
+ - Important release notes: This release contains performance optimizations and should be the fastest release to date. The overhead of the generation of metadata for WordPress content should be significantly smaller. WooCommerce product and BuddyPress profile metadata still need some work regarding performance. Please keep in mind that for the smallest overhead possible, you should enable metadata caching by setting a caching timeout greater than zero in the plugin settings (Caching does not work for BuddyPress profiles yet). To the best of my knowledge this release works as expected, but, since code written in the distant past has been touched, I have to say that it would be a wise idea to first try it on a web site aimed for testing and that you should proceed with upgrading at your own risk. If you run a critical web site, it would be a good idea to wait for a while and check for feedback from users who have tried it. Your feedback is always welcome.
+ - Notes about future plans: No major new features have been planned for the upcoming months and this is why these releases have focused on performance. Further support for bbPress, Easy-Digital-Downloads and other parts of BuddyPress except profiles will be delayed for a while. Upcoming releases will focus on bug fixes and minor improvements wherever necessary.
+ - This release makes use of the non-persistent object caching mechanism of WordPress to optimize commonly used utility functions.
+ - The _Metadata Review Mode_ has been improved and now contains the exact timings of the generation of the metadata blocks. (Props to Kochtopf for ideas and valuable feedback)
+ - An alternative view for the _Metadata Review Mode_ has been added. By default, if _Metadata Review Mode_ has been enabled in the plugin settings, administrators can view a box containing the metadata within the post content. At this point, by adding `add_filter('amt_metadata_review_mode_enable_alternative', '__return_true');` in your theme's `functions.php` file you can switch to the alternative view. Notice the `Metadata` button in the admin toolbar on content pages (archives will be supported in the future). This view is experimental for now. Your feedback and improvements are welcome. You can use the `amt_metadata_review_mode_styles_scripts` action hook to print styles/scripts for this view.
+ - The generated JSON+LD data is now compact and escaped. It appears pretty printed in _Metadata Review Mode_ though.
+ - Removed the 'experimental' label from metadata caching. This feature is robust enough and works as expected.
+ - Timing information about the generated metadata blocks now appears at the top of the block.
+ - Various minor improvements.
+ - Updated the Turkish translation which is once again complete thanks to the work of Burak Yavuz. (I haven't updated the POT file with the new metadata caching related strings yet.)
+ - The Russian translation has been included as it is >80% complete.
 - [2.10.1](http://www.codetrax.org/versions/339)
  - Revised the help section about metadata caching. Added more information about the best practices when external storage backends are used for the transient data. Please, make sure you read it in order to better understand how metadata caching works in Add-Meta-Tags.
  - Improved the information, which is available in the plugin's settings panel, about the status of the metadata cache.
