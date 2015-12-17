@@ -49,6 +49,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+// Returns a key for the non persistent cache
+function amt_get_amtcache_key($basename, $post=null) {
+    // Non persistent object cache
+    if ( is_null($post) ) {     // other data
+        $amtcache_key = sprintf('%s_data', $basename);
+    } elseif ( is_numeric($post) ) {    // id
+        $amtcache_key = sprintf('%s_%d', $basename, $post);
+    } elseif ( isset($post->ID) ) {     // post, user
+        $amtcache_key = sprintf('%s_%d', $basename, $post->ID);
+    } elseif ( isset($post->term_id) ) {    // term
+        $amtcache_key = sprintf('%s_%d', $basename, $post->term_id);
+    } else {
+        // Use a static key name. Very unlikely for the page to have two non post objects.
+        $amtcache_key = sprintf('%s_other_post', $basename);
+    }
+    //var_dump($post);
+    //var_dump($amtcache_key);
+    return $amtcache_key;
+}
+
 /**
  * Helper function that returns an array of allowable HTML elements and attributes
  * for use in wp_kses() function.
