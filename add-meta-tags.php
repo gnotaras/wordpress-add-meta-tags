@@ -329,10 +329,32 @@ function amt_add_metadata_head() {
         array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->" );
         array_push( $metadata_arr, "<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->" );
     }
-    // Print the metadata
-    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    // Return complete metadata array
+    return $metadata_arr;
 }
-add_action('wp_head', 'amt_add_metadata_head', 0);
+
+function amt_print_head_block() {
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    if ( amt_check_run_metadata_review_code($options) ) {
+        // Here we use non persistent caching in order to be able to use the same output in the review mode.
+        // Non persistent object cache
+        $amtcache_key = amt_get_amtcache_key('amt_metadata_block_head');
+        $metadata_block_head = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+        if ( $metadata_block_head === false ) {
+            $metadata_block_head = amt_add_metadata_head();
+            // Cache even empty
+            wp_cache_add( $amtcache_key, $metadata_block_head, $group='add-meta-tags' );
+        }
+    } else {
+        $metadata_block_head = amt_add_metadata_head();
+    }
+    // Print the metadata block
+    echo PHP_EOL . implode( PHP_EOL, $metadata_block_head ) . PHP_EOL . PHP_EOL;
+
+}
+
+add_action('wp_head', 'amt_print_head_block', 0);
 
 
 /**
@@ -429,15 +451,31 @@ function amt_add_metadata_footer() {
         array_unshift( $metadata_arr, "<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->" );
         array_push( $metadata_arr, "<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->" );
     }
-    // Print the metadata
-    echo PHP_EOL . implode(PHP_EOL, $metadata_arr) . PHP_EOL . PHP_EOL;
+    // Return complete metadata array
+    return $metadata_arr;
 }
-add_action('wp_footer', 'amt_add_metadata_footer', 0);
 
+function amt_print_footer_block() {
+    // Get the options the DB
+    $options = get_option("add_meta_tags_opts");
+    if ( amt_check_run_metadata_review_code($options) ) {
+        // Here we use non persistent caching in order to be able to use the same output in the review mode.
+        // Non persistent object cache
+        $amtcache_key = amt_get_amtcache_key('amt_metadata_block_footer');
+        $metadata_block_footer = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+        if ( $metadata_block_footer === false ) {
+            $metadata_block_footer = amt_add_metadata_footer();
+            // Cache even empty
+            wp_cache_add( $amtcache_key, $metadata_block_footer, $group='add-meta-tags' );
+        }
+    } else {
+        $metadata_block_footer = amt_add_metadata_footer();
+    }
+    // Print the metadata block
+    echo PHP_EOL . implode( PHP_EOL, $metadata_block_footer ) . PHP_EOL . PHP_EOL;
+}
 
-/**
- * Review mode
- */
+add_action('wp_footer', 'amt_print_footer_block', 0);
 
 
 
@@ -667,6 +705,7 @@ add_action('wp', 'amt_metadata_review_mode_as_panel');
 //
 // Automatic purging of cached metadata
 //
+
 
 
 // Purging triggered by post activities

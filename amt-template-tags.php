@@ -71,12 +71,12 @@ function amt_content_keywords() {
 
 function amt_metadata_head() {
     // Prints full metadata for head area.
-    amt_add_metadata_head();
+    amt_print_head_block();
 }
 
 function amt_metadata_footer() {
     // Prints full metadata for footer area.
-    amt_add_metadata_footer();
+    amt_print_footer_block();
 }
 
 function amt_metadata_review() {
