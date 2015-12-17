@@ -1416,6 +1416,13 @@ function amt_get_posts_page_id() {
  */
 function amt_get_embedded_media( $post ) {
 
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_embedded_media', $post);
+    $embedded_media_urls = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $embedded_media_urls !== false ) {
+        return $embedded_media_urls;
+    }
+
     // Post content pre-processing
 
     // At this point we give devs the opportunity to inject raw URLs of
@@ -1773,6 +1780,10 @@ function amt_get_embedded_media( $post ) {
 
     // Allow filtering of the embedded media array
     $embedded_media_urls = apply_filters( 'amt_embedded_media', $embedded_media_urls, $post->ID );
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $embedded_media_urls, $group='add-meta-tags' );
 
     //var_dump($embedded_media_urls);
     return $embedded_media_urls;
