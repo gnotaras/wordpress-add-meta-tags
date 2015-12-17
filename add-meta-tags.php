@@ -657,10 +657,12 @@ function amt_metadata_review_mode_admin_bar_links( $admin_bar ){
     // Add 'Metadata' menu to the admin bar
     $admin_bar->add_menu( array(
         'id'    => 'amt',
-        'title' => __('Metadata', 'add-meta-tags'),
+        'title' => '<span class="ab-icon"></span><span class="ab-label">' . __('Metadata', 'add-meta-tags') . '</span>',
         'href'  => '#',
         'meta'  => array(
-            'onclick' => 'jQuery("#amt-metadata-review").toggle(); jQuery("#amt-metadata-review").focus(); return false;'
+            'onclick' => 'jQuery("#amt-metadata-review").toggle(); jQuery("#amt-metadata-review").focus(); return false;',
+            'class'   => 'amt-metadata',
+            'title'   => __('Metadata Review Mode', 'add-meta-tags'),
         )
     ));
 // 'onclick' => 'jQuery("#amt-metadata-review").toggleClass("amt-metadata-review-visible"); return false;'
