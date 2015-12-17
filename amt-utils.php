@@ -49,6 +49,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+// Returns the post object filtered.
+function amt_get_queried_object($options) {
+    // Get current post object
+    $post = get_queried_object();
+    // Allow filtering of the $post object.
+    $post = apply_filters('amt_get_queried_object', $post, $options);
+    return $post;
+}
+
 // Returns a key for the non persistent cache
 function amt_get_amtcache_key($basename, $post=null) {
     // Non persistent object cache
@@ -2519,9 +2528,7 @@ function amt_get_breadcrumbs( $user_options ) {
     // Get plugin options
     $plugin_options = get_option("add_meta_tags_opts");
     // Get post object
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $plugin_options);
+    $post = amt_get_queried_object($plugin_options);
 
     // Default Options
     $default_options = array(

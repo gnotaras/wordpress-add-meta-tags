@@ -51,9 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function amt_content_description() {
     $options = get_option("add_meta_tags_opts");
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
+    $post = amt_get_queried_object($options);
     if ( ! is_null( $post ) ) {
         echo amt_get_content_description( $post );
     }
@@ -61,9 +59,7 @@ function amt_content_description() {
 
 function amt_content_keywords() {
     $options = get_option("add_meta_tags_opts");
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
+    $post = amt_get_queried_object($options);
     if ( ! is_null( $post ) ) {
         echo amt_get_content_keywords( $post );
     }
@@ -94,9 +90,7 @@ function amt_local_author_profile_url( $author_id=null, $display=true ) {
         return '';
     }
     if ( is_null($author_id) ) {
-        $post = get_queried_object();
-        // Allow filtering of the $post object.
-        $post = apply_filters('amt_get_queried_object', $post, $options);
+        $post = amt_get_queried_object($options);
         if ( is_null($post) || $post->ID == 0 ) {
             return '';
         }

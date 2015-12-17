@@ -378,9 +378,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     // Get current post object
-    $post = get_queried_object();
-    // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
+    $post = amt_get_queried_object($options);
     // Caching indicator
     $is_cached = 'no';
 
