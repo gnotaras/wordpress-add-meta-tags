@@ -2533,15 +2533,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
     if ( count( $metadata_arr ) > 1 ) {
         // contains @context by default
-        //
-        // TODO: Reverse this in upcoming releases. No pretty print by default!
-        // Use the following 
-        // add_filter('amt_jsonld_schemaorg_pretty_print', '__return_false');
-        if ( apply_filters('amt_jsonld_schemaorg_pretty_print', true) ) {
-            return array('<script type="application/ld+json">', json_encode($metadata_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), '</script>');
-        } else {
-            return array('<script type="application/ld+json">', json_encode($metadata_arr), '</script>');
-        }
+        return array('<script type="application/ld+json">', 'json+ld_data' => json_encode($metadata_arr), '</script>');
     } else {
         return array();
     }
