@@ -1310,20 +1310,36 @@ function amt_get_ordered_attachments( $post ) {
  *
  */
 function amt_get_permalink_for_multipage( $post ) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_permalink_for_multipage', $post);
+    $permalink = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $permalink !== false ) {
+        return $permalink;
+    }
+
+    $permalink = '';
+
     $pagenum = get_query_var( 'page' );
     // Content is multipage
     if ( $pagenum && $pagenum > 1 ) {
         // Not using clean URLs -> Add query argument to the URL (eg: ?page=2)
         if ( '' == get_option('permalink_structure') || in_array( $post->post_status, array('draft', 'pending')) ) {
-            return esc_url( add_query_arg( 'page', $pagenum, get_permalink($post->ID) ) );
+            $permalink = esc_url( add_query_arg( 'page', $pagenum, get_permalink($post->ID) ) );
         // Using clean URLs
         } else {
-            return trailingslashit( get_permalink($post->ID) ) . user_trailingslashit( $pagenum, 'single_paged');
+            $permalink = trailingslashit( get_permalink($post->ID) ) . user_trailingslashit( $pagenum, 'single_paged');
         }
     // Content is not paged
     } else {
-        return get_permalink($post->ID);
+        $permalink = get_permalink($post->ID);
     }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $permalink, $group='add-meta-tags' );
+
+    return $permalink;
 }
 
 
