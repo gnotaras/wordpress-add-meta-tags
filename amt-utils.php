@@ -2603,6 +2603,13 @@ function amt_count_transient_metadata_cache_entries($blog_id=null) {
 // Returns the title that should be used in the title HTML element
 function amt_get_title_for_title_element($options, $post) {
     
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_title_for_title_element', $post);
+    $title_element_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $title_element_value !== false ) {
+        return $title_element_value;
+    }
+
     // Variables
     // #entity_title#, #page#, #page_total#, #site_name#, #site_tagline#
     
@@ -2674,14 +2681,26 @@ function amt_get_title_for_title_element($options, $post) {
     $title_element_title_templates = apply_filters('amt_titles_title_element_templates', $default_title_element_title_templates, $post);
 
     // Always use custom title if it is set
-    return amt_internal_get_title($options, $post, $title_element_title_templates, $force_custom_title_if_set=true, $caller_is_metadata_generator=false);
+    $title_element_value = amt_internal_get_title($options, $post, $title_element_title_templates, $force_custom_title_if_set=true, $caller_is_metadata_generator=false);
 
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $title_element_value, $group='add-meta-tags' );
+
+    return $title_element_value;
 }
 
 
 // Returns the title that should be used in the title HTML element
 function amt_get_title_for_metadata($options, $post) {
     
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_title_for_metadata', $post);
+    $metadata_title_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $metadata_title_value !== false ) {
+        return $metadata_title_value;
+    }
+
     // Variables
     // #entity_title#, #page#, #page_total#, #site_name#, #site_tagline#
     
@@ -2756,7 +2775,13 @@ function amt_get_title_for_metadata($options, $post) {
         $force_custom_title = true;
     }
 
-    return amt_internal_get_title($options, $post, $metadata_title_templates, $force_custom_title_if_set=$force_custom_title, $caller_is_metadata_generator=true);
+    $metadata_title_value = amt_internal_get_title($options, $post, $metadata_title_templates, $force_custom_title_if_set=$force_custom_title, $caller_is_metadata_generator=true);
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $metadata_title_value, $group='add-meta-tags' );
+
+    return $metadata_title_value;
 }
 
 
