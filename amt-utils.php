@@ -1878,6 +1878,14 @@ function amt_get_language_site($options) {
 // Returns content locale
 // NOTE: SHOULD NOT BE USED ON ARCHIVES
 function amt_get_language_content($options, $post) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_language_content', $post);
+    $language = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $language !== false ) {
+        return $language;
+    }
+
     $language = get_bloginfo('language');
     // If set, the 'global_locale' setting overrides WordPress.
     if ( ! empty( $options["global_locale"] ) ) {
@@ -1890,6 +1898,11 @@ function amt_get_language_content($options, $post) {
     }
     // Allow filtering of the content language
     $language = apply_filters( 'amt_language_content', $language, $post );
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $language, $group='add-meta-tags' );
+
     return $language;
 }
 
