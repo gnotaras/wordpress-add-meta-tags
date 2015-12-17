@@ -266,6 +266,13 @@ function amt_process_paged( $data ) {
  */
 function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_the_excerpt', $post);
+    $amt_excerpt = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $amt_excerpt !== false ) {
+        return $amt_excerpt;
+    }
+
     if ( empty($post->post_excerpt) || get_post_type( $post ) == 'attachment' ) {   // In attachments we always use $post->post_content to get a description
 
         // Here we generate an excerpt from $post->post_content
@@ -369,6 +376,10 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
      *  add_filter( 'amt_get_the_excerpt', 'customize_amt_excerpt', 10, 1 );
      */
     $amt_excerpt = apply_filters( 'amt_get_the_excerpt', $amt_excerpt, $post );
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $amt_excerpt, $group='add-meta-tags' );
 
     return $amt_excerpt;
 }
