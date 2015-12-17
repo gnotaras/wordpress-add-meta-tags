@@ -1109,39 +1109,54 @@ function amt_get_post_meta_full_metatags($post_id) {
  * No need to migrate from older field name.
  */
 function amt_get_post_meta_image_url($post_id) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_post_meta_image_url', $post_id);
+    $image_url = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $image_url !== false ) {
+        return $image_url;
+    }
+
+    $image_url = '';
+
     $options = get_option('add_meta_tags_opts');
+
     if ( ! is_array($options) ) {
-        return '';
+        $image_url = '';
     } elseif ( ! array_key_exists( 'metabox_enable_image_url', $options) ) {
-        return '';
+        $image_url = '';
     } elseif ( $options['metabox_enable_image_url'] == '0' ) {
-        return '';
-    }
-    // Internal fields - order matters
-    $supported_custom_fields = array( '_amt_image_url' );
-    // External fields - Allow filtering
-    $external_fields = array();
-    $external_fields = apply_filters( 'amt_external_image_url_fields', $external_fields, $post_id );
-    // Merge external fields to our supported custom fields
-    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
+        $image_url = '';
+    } else {
+        // Internal fields - order matters
+        $supported_custom_fields = array( '_amt_image_url' );
+        // External fields - Allow filtering
+        $external_fields = array();
+        $external_fields = apply_filters( 'amt_external_image_url_fields', $external_fields, $post_id );
+        // Merge external fields to our supported custom fields
+        $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
 
-    // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys( $post_id );
-    if ( empty( $custom_fields ) ) {
-        // Just return an empty string if no custom fields have been associated with this content.
-        return '';
-    }
-
-    // Try our fields
-    foreach( $supported_custom_fields as $sup_field ) {
-        // If such a field exists in the db, return its content as the news keywords.
-        if ( in_array( $sup_field, $custom_fields ) ) {
-            return get_post_meta( $post_id, $sup_field, true );
+        // Get an array of all custom fields names of the post
+        $custom_fields = get_post_custom_keys( $post_id );
+        if ( empty( $custom_fields ) ) {
+            // Just return an empty string if no custom fields have been associated with this content.
+            $image_url = '';
+        } else {
+            // Try our fields
+            foreach( $supported_custom_fields as $sup_field ) {
+                // If such a field exists in the db, return its content as the news keywords.
+                if ( in_array( $sup_field, $custom_fields ) ) {
+                    $image_url = get_post_meta( $post_id, $sup_field, true );
+                    break;
+                }
+            }
         }
     }
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $image_url, $group='add-meta-tags' );
 
-    //Return empty string if all fail
-    return '';
+    return $image_url;
 }
 
 
