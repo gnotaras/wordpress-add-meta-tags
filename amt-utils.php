@@ -1279,9 +1279,17 @@ function amt_get_post_meta_referenced_list($post_id) {
  * $post object.
  */
 function amt_get_ordered_attachments( $post ) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_ordered_attachments', $post);
+    $ordered_attachments = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $ordered_attachments !== false ) {
+        return $ordered_attachments;
+    }
+
     // to return IDs:
     // $attachments = array_values( get_children( array( 'post_parent' => $post->post_parent, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC', 'orderby' => 'menu_order ID' ) ) );
-    return get_children( array(
+    $ordered_attachments = get_children( array(
         'numberposts' => -1,
         'post_parent' => $post->ID,
         'post_type' => 'attachment',
@@ -1291,6 +1299,12 @@ function amt_get_ordered_attachments( $post ) {
         'orderby' => 'menu_order ID'
         )
     );
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $ordered_attachments, $group='add-meta-tags' );
+
+    return $ordered_attachments;
 }
 
 
