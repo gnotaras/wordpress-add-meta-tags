@@ -1279,7 +1279,7 @@ function amt_options_page() {
                 <br /><br />
 
                 <label for="transient_cache_expiration">'.__('Cache metadata for this number of seconds:', 'add-meta-tags').'</label>
-                <input id="transient_cache_expiration" type="text" name="transient_cache_expiration" value="' . esc_attr( $options["transient_cache_expiration"] ) . '" size="10" maxlength="16" class="code" /> (<span style="color:red;">'.__('Experimental feature', 'add-meta-tags').'</span>)
+                <input id="transient_cache_expiration" type="text" name="transient_cache_expiration" value="' . esc_attr( $options["transient_cache_expiration"] ) . '" size="10" maxlength="16" class="code" />
                 <br /><br />
 
                 <p>'.__('Metadata caching is an advanced feature and should only be used after you have read and fully understood the <em>Metadata caching</em> section of the integrated help.', 'add-meta-tags').'</p>
