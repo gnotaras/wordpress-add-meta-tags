@@ -504,12 +504,22 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
  *
  * Accepts the $category_arr, an array containing the initial categories.
  */
-function amt_get_categories_from_loop( $category_arr=array() ) {
+function amt_get_categories_from_loop() {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_categories_from_loop');
+    $category_arr = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $category_arr !== false ) {
+        return $category_arr;
+    }
+
+    $category_arr = array();
+
     if (have_posts()) {
         while ( have_posts() ) {
             the_post(); // Iterate the post index in The Loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
             $categories = get_the_category();
-            if( $categories ) {
+            if( ! empty($categories) ) {
                 foreach( $categories as $category ) {
                     if ( ! in_array( $category->name, $category_arr ) && $category->slug != 'uncategorized' ) {
                         $category_arr[] = $category->name;
@@ -519,6 +529,11 @@ function amt_get_categories_from_loop( $category_arr=array() ) {
 		}
 	}
     rewind_posts(); // Not sure if this is needed.
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $category_arr, $group='add-meta-tags' );
+
     return $category_arr;
 }
 
@@ -528,12 +543,22 @@ function amt_get_categories_from_loop( $category_arr=array() ) {
  *
  * Accepts the $tag_arr, an array containing the initial tags.
  */
-function amt_get_tags_from_loop( $tag_arr=array() ) {
+function amt_get_tags_from_loop() {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_tags_from_loop');
+    $tag_arr = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $tag_arr !== false ) {
+        return $tag_arr;
+    }
+
+    $tag_arr = array();
+
     if (have_posts()) {
         while ( have_posts() ) {
             the_post(); // Iterate the post index in The Loop. Retrieves the next post, sets up the post, sets the 'in the loop' property to true.
             $tags = get_the_tags();
-            if( $tags ) {
+            if( ! empty($tags) ) {
                 foreach( $tags as $tag ) {
                     if ( ! in_array( $tag->name, $tag_arr ) ) {
                         $tag_arr[] = $tag->name;
@@ -543,6 +568,11 @@ function amt_get_tags_from_loop( $tag_arr=array() ) {
 		}
 	}
     rewind_posts(); // Not sure if this is needed.
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $tag_arr, $group='add-meta-tags' );
+
     return $tag_arr;
 }
 
