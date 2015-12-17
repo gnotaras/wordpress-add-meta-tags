@@ -322,7 +322,7 @@ function amt_add_metadata_head() {
     }
     // For AMT timings
     if ( ! empty($metadata_arr) && $options['enable_timings'] == '1' ) {
-        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
+        array_unshift( $metadata_arr, sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached ) );
     }
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
@@ -444,7 +444,7 @@ function amt_add_metadata_footer() {
     }
     // For AMT timings
     if ( ! empty($metadata_arr) && $options['enable_timings'] == '1' ) {
-        $metadata_arr[] = sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached );
+        array_unshift( $metadata_arr, sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached ) );
     }
     // Add our comment
     if ( count( $metadata_arr ) > 0 ) {
