@@ -769,12 +769,24 @@ function amt_get_content_keywords($post, $auto=true, $exclude_categories=false) 
  *
  */
 function amt_get_supported_post_types() {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_supported_post_types');
+    $supported_types = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $supported_types !== false ) {
+        return $supported_types;
+    }
+
     $supported_builtin_types = array('post', 'page', 'attachment');
     $public_custom_types = get_post_types( array('public'=>true, '_builtin'=>false, 'show_ui'=>true) );
     $supported_types = array_merge($supported_builtin_types, $public_custom_types);
 
     // Allow filtering of the supported content types.
     $supported_types = apply_filters( 'amt_supported_post_types', $supported_types );
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $supported_types, $group='add-meta-tags' );
 
     return $supported_types;
 }
