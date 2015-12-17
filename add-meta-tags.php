@@ -613,9 +613,11 @@ function amt_metadata_review_mode_print_styles_scripts() {
         $styles_scripts = '
         <!-- BEGIN Add-Meta-Tags Metadata Review Mode styles and scripts (visible only by administrators when review mode in on) -->
         <style type="text/css">
+
             .amt-metadata-review-visible #amt-metadata-review {
                 display: block;
             }
+
             #amt-metadata-review {
                 display: none;
                 position: fixed;
@@ -637,8 +639,33 @@ function amt_metadata_review_mode_print_styles_scripts() {
                 font-size: 12px;
                 padding: 16px;
             }
+
             #amt-metadata-review-pre {
             }
+
+            /* Menu Icon */
+
+            #wpadminbar li#wp-admin-bar-amt {
+                display: block;
+            }
+
+            #wpadminbar #wp-admin-bar-amt .ab-icon:before {
+                content: "\f123";
+                top: 3px;
+            }
+
+            @media screen and (max-width:782px) {
+
+                #wpadminbar #wp-admin-bar-amt .ab-icon:before {
+                    display:block;
+                    font-size:34px;
+                    height:46px;
+                    line-height:47px;
+                    top:0
+                }
+
+            }
+
         </style>
         <!-- END Add-Meta-Tags Metadata Review Mode styles and scripts (visible only by administrators when review mode in on) -->
         ';
