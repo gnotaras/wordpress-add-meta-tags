@@ -378,6 +378,16 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
  * Returns a comma-delimited list of a post's terms that belong to custom taxonomies.
  */
 function amt_get_keywords_from_custom_taxonomies( $post ) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_keywords_from_custom_taxonomies', $post);
+    $custom_tax_keywords = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $custom_tax_keywords !== false ) {
+        return $custom_tax_keywords;
+    }
+
+    $custom_tax_keywords = '';
+
     // Array to hold all terms of custom taxonomies.
     $keywords_arr = array();
 
@@ -403,10 +413,16 @@ function amt_get_keywords_from_custom_taxonomies( $post ) {
     }
 
     if ( ! empty( $keywords_arr ) ) {
-        return implode(', ', $keywords_arr);
+        $custom_tax_keywords = implode(', ', $keywords_arr);
     } else {
-        return '';
+        $custom_tax_keywords = '';
     }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $custom_tax_keywords, $group='add-meta-tags' );
+
+    return $custom_tax_keywords;
 }
 
 
@@ -415,7 +431,15 @@ function amt_get_keywords_from_custom_taxonomies( $post ) {
  */
 function amt_get_keywords_from_post_cats( $post ) {
 
-    $postcats = "";
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_keywords_from_post_cats', $post);
+    $postcats = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $postcats !== false ) {
+        return $postcats;
+    }
+
+    $postcats = '';
+
     foreach((get_the_category($post->ID)) as $cat) {
         if ( $cat->slug != 'uncategorized' ) {
             $postcats .= $cat->cat_name . ', ';
@@ -423,6 +447,10 @@ function amt_get_keywords_from_post_cats( $post ) {
     }
     // strip final comma
     $postcats = substr($postcats, 0, -2);
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $postcats, $group='add-meta-tags' );
 
     return $postcats;
 }
@@ -449,21 +477,30 @@ function amt_get_first_category( $post ) {
  */
 function amt_get_post_tags( $post ) {
 
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_post_tags', $post);
+    $posttags = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $posttags !== false ) {
+        return $posttags;
+    }
+
+    $posttags = '';
+
     if ( version_compare( get_bloginfo('version'), '2.3', '>=' ) ) {
         $tags = get_the_tags($post->ID);
-        if ( empty( $tags ) ) {
-            return false;
-        } else {
-            $tag_list = "";
+        if ( ! empty( $tags ) ) {
             foreach ( $tags as $tag ) {
-                $tag_list .= $tag->name . ', ';
+                $posttags .= $tag->name . ', ';
             }
-            $tag_list = rtrim($tag_list, " ,");
-            return $tag_list;
+            $posttags = rtrim($posttags, " ,");
         }
-    } else {
-        return "";
     }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $posttags, $group='add-meta-tags' );
+
+    return $posttags;
 }
 
 
@@ -472,6 +509,15 @@ function amt_get_post_tags( $post ) {
  * The built-in category "Uncategorized" is excluded.
  */
 function amt_get_all_categories($no_uncategorized = TRUE) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_all_categories');
+    $all_cats = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $all_cats !== false ) {
+        return $all_cats;
+    }
+
+    $all_cats = '';
 
     global $wpdb;
 
@@ -483,18 +529,20 @@ function amt_get_all_categories($no_uncategorized = TRUE) {
         $sql = "SELECT cat_name FROM $wpdb->categories ORDER BY cat_name ASC";
     }
     $categories = $wpdb->get_results($sql);
-    if ( empty( $categories ) ) {
-        return "";
-    } else {
-        $all_cats = "";
+    if ( ! empty( $categories ) ) {
         foreach ( $categories as $cat ) {
             if ($no_uncategorized && $cat->$cat_field != "Uncategorized") {
                 $all_cats .= $cat->$cat_field . ', ';
             }
         }
         $all_cats = rtrim($all_cats, " ,");
-        return $all_cats;
     }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $all_cats, $group='add-meta-tags' );
+
+    return $all_cats;
 }
 
 
