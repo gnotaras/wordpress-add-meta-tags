@@ -660,9 +660,7 @@ function amt_metadata_review_mode_as_panel() {
     $options = get_option("add_meta_tags_opts");
     // Only administrators can see the review box if is_singular() is true.
     if ( amt_check_run_metadata_review_code($options) ) {
-        if ( apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
-            // Add styles and scripts. No enqueue here since this is only performed for the administrator.
-            add_action('wp_head', 'amt_metadata_review_mode_print_styles_scripts');
+        if ( apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
             // Add Purge Links to Admin Bar
             add_action('admin_bar_menu', 'amt_metadata_review_mode_admin_bar_links', 250);
             // Print the view
