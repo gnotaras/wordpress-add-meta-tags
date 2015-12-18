@@ -496,7 +496,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // name
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( strip_tags( get_the_title($post->ID) ) ) ) . '" />';
 
         // headline - contains title information
         //$metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
@@ -647,7 +647,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
         // name
-        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_the_title($post->ID) ) . '" />';
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( strip_tags( get_the_title($post->ID) ) ) . '" />';
 
         // headline - contains title information
         $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
@@ -805,7 +805,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // name
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( amt_process_paged( strip_tags( get_the_title($post->ID) ) ) ) . '" />';
 
         // headline - contains title information
         $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
@@ -965,7 +965,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                         $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                         $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
                         // name
-                        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_the_title($attachment->ID) ) . '" />';
+                        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( strip_tags( get_the_title($attachment->ID) ) ) . '" />';
                         // Description - We use the description defined by Add-Meta-Tags
                         $content_desc = amt_get_content_description($attachment);
                         if ( ! empty($content_desc) ) {
@@ -1009,7 +1009,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                         $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( wp_get_attachment_url($attachment->ID) ) . '" />';
                         $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $mime_type ) . '" />';
                         // name
-                        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_the_title($attachment->ID) ) . '" />';
+                        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( strip_tags( get_the_title($attachment->ID) ) ) . '" />';
                         // Description - We use the description defined by Add-Meta-Tags
                         $content_desc = amt_get_content_description($attachment);
                         if ( ! empty($content_desc) ) {
@@ -1249,7 +1249,7 @@ function amt_get_schemaorg_image_metatags( $image, $size='medium', $is_represent
     $main_size_meta = wp_get_attachment_image_src( $image->ID , $size );
 
     // name (title)
-    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_the_title( $image->ID ) ) . '" />';
+    $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( strip_tags( get_the_title( $image->ID ) ) ) . '" />';
     // OLD name (title)
     //$image_title = sanitize_text_field( $image->post_title );
     //if ( ! empty( $image_title ) ) {
@@ -1789,7 +1789,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // name
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr['name'] = esc_attr( amt_process_paged( get_the_title($post->ID) ) );
+        $metadata_arr['name'] = esc_attr( amt_process_paged( strip_tags( get_the_title($post->ID) ) ) );
 
         // headline - contains title information
         //$metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
@@ -1954,7 +1954,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //        $metadata_arr[] = '</span> <!-- Scope END: Person -->';
 
         // name
-        $metadata_arr['name'] = esc_attr( get_the_title($post->ID) );
+        $metadata_arr['name'] = esc_attr( strip_tags( get_the_title($post->ID) ) );
 
         // headline - contains title information
         $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
@@ -2119,7 +2119,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // name
         // Note: Contains multipage information through amt_process_paged()
-        $metadata_arr['name'] = esc_attr( amt_process_paged( get_the_title($post->ID) ) );
+        $metadata_arr['name'] = esc_attr( amt_process_paged( strip_tags( get_the_title($post->ID) ) ) );
 
         // headline - contains title information
         $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $post) );
@@ -2327,7 +2327,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         $current_video_obj['contentUrl'] = esc_url_raw( wp_get_attachment_url($attachment->ID) );
                         $current_video_obj['encodingFormat'] = esc_attr( $mime_type );
                         // name
-                        $current_video_obj['name'] = esc_attr( get_the_title($attachment->ID) );
+                        $current_video_obj['name'] = esc_attr( strip_tags( get_the_title($attachment->ID) ) );
                         // Description - We use the description defined by Add-Meta-Tags
                         $content_desc = amt_get_content_description($attachment);
                         if ( ! empty($content_desc) ) {
@@ -2373,7 +2373,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         $current_audio_obj['contentUrl'] = esc_url_raw( wp_get_attachment_url($attachment->ID) );
                         $current_audio_obj['encodingFormat'] = esc_attr( $mime_type );
                         // name
-                        $current_audio_obj['name'] = esc_attr( get_the_title($attachment->ID) );
+                        $current_audio_obj['name'] = esc_attr( strip_tags( get_the_title($attachment->ID) ) );
                         // Description - We use the description defined by Add-Meta-Tags
                         $content_desc = amt_get_content_description($attachment);
                         if ( ! empty($content_desc) ) {
@@ -2613,7 +2613,7 @@ function amt_get_jsonld_schemaorg_image_array( $image, $size='medium', $is_repre
     $main_size_meta = wp_get_attachment_image_src( $image->ID , $size );
 
     // name (title)
-    $metadata_arr['name'] = esc_attr( get_the_title( $image->ID ) );
+    $metadata_arr['name'] = esc_attr( strip_tags( get_the_title( $image->ID ) ) );
     // OLD name (title)
     //$image_title = sanitize_text_field( $image->post_title );
     //if ( ! empty( $image_title ) ) {

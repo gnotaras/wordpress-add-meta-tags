@@ -271,7 +271,7 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
 
         // Title
         // Note: Contains multipage information
-        //$metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( get_the_title($post->ID) ) ) . '" />';
+        //$metadata_arr[] = '<meta name="twitter:title" content="' . esc_attr( amt_process_paged( strip_tags( get_the_title($post->ID) ) ) ) . '" />';
         $metadata_arr['twitter:title'] = '<meta name="twitter:title" content="' . esc_attr( amt_get_title_for_metadata($options, $post) ) . '" />';
 
         // Description - We use the description defined by Add-Meta-Tags

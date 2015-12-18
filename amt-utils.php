@@ -2572,7 +2572,7 @@ function amt_get_breadcrumbs( $user_options ) {
             if ( ! empty($options['separator']) ) {
                 $bc_arr['bc-sep-' . $counter] = '<span class="separator separator-' . $counter . '"> ' . esc_attr($options['separator']) . ' </span>';
             }
-            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . '" itemprop="item" title="' . esc_attr( get_the_title($ancestor) ) . '" href="' . esc_url_raw( get_permalink($ancestor) ) . '"><span itemprop="name">' .esc_attr( get_the_title($ancestor) ) . '</span></a></li>';
+            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . '" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . '" itemprop="item" title="' . esc_attr( strip_tags( get_the_title($ancestor) ) ) . '" href="' . esc_url_raw( get_permalink($ancestor) ) . '"><span itemprop="name">' .esc_attr( strip_tags( get_the_title($ancestor) ) ) . '</span></a></li>';
             //$bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
             $counter++;
         }
@@ -2584,9 +2584,9 @@ function amt_get_breadcrumbs( $user_options ) {
             $bc_arr['bc-sep-' . $counter] = '<span class="separator separator-' . $counter . ' separator-current"> ' . esc_attr($options['separator']) . ' </span>';
         }
         if ( $options['show_last_as_link'] ) {
-            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . ' breadcrumb-current" itemprop="item" title="' . esc_attr( get_the_title($post) ) . '" href="' . esc_url_raw( get_permalink($post) ) . '"><span itemprop="name">' .esc_attr( get_the_title($post) ) . '</span></a></li>';
+            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumb breadcrumb-' . $counter . ' breadcrumb-current" itemprop="item" title="' . esc_attr( strip_tags( get_the_title($post) ) ) . '" href="' . esc_url_raw( get_permalink($post) ) . '"><span itemprop="name">' .esc_attr( strip_tags( get_the_title($post) ) ) . '</span></a></li>';
         } else {
-            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="item"><span itemprop="name">' .esc_attr( get_the_title($post) ) . '</span></span></li>';
+            $bc_arr['bc-item-' . $counter] = '<li class="list-item list-item-' . $counter . ' list-item-current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="item"><span itemprop="name">' .esc_attr( strip_tags( get_the_title($post) ) ) . '</span></span></li>';
         }
         //$bc_arr['bc-item-' . $counter . '-pos'] = '<meta itemprop="position" content="' . $counter . '" />';
         $counter++;
@@ -3133,7 +3133,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
     // Note: might also contain a listing of posts which may be paged, so use amt_process_paged()
     } elseif ( amt_is_static_front_page() ) {
         // Entity title
-        $entity_title = get_the_title($post->ID);
+        $entity_title = strip_tags( get_the_title($post->ID) );
         if ( ! empty($custom_title) && $force_custom_title_if_set ) {
             $custom_title = str_replace('%title%', $entity_title, $custom_title);
             $entity_title = $custom_title;
@@ -3150,7 +3150,7 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
     // The posts index page - a static page displaying the latest posts
     } elseif ( amt_is_static_home() ) {
         // Entity title
-        $entity_title = get_the_title($post->ID);
+        $entity_title = strip_tags( get_the_title($post->ID) );
         if ( ! empty($custom_title) && $force_custom_title_if_set ) {
             $custom_title = str_replace('%title%', $entity_title, $custom_title);
             $entity_title = $custom_title;
@@ -3254,7 +3254,10 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
     } elseif ( is_singular() ) {
 
         // Entity title
-        $entity_title = get_the_title($post->ID);
+        // In some cases, like EDD downloads, get_the_title() also returns escaped HTML. Use strip_tags().
+        $entity_title = strip_tags( get_the_title($post->ID) );
+        // Alternatively, use the_title_attribute(). See: https://codex.wordpress.org/Function_Reference/the_title_attribute
+        //$entity_title = the_title_attribute( array( 'before'=>'', 'after'=>'', 'echo'=>false, $post->ID) );
         if ( ! empty($custom_title) && $force_custom_title_if_set ) {
             $custom_title = str_replace('%title%', $entity_title, $custom_title);
             $entity_title = $custom_title;
