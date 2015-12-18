@@ -1,0 +1,96 @@
+/**
+ * This file is part of the Add-Meta-Tags plugin for WordPress.
+ *
+ * Contains style information for the Add-Meta-Tags Metadata Review Mode.
+ *
+ * For licensing information, please check the LICENSE file that ships with
+ * the Add-Meta-Tags distribution package.
+ */
+
+.amt-metadata-review-visible #amt-metadata-review {
+    display: block;
+}
+
+#amt-metadata-review {
+    display: none;
+    position: fixed;
+    top: 32px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 99123;
+    overflow: scroll;
+    /* height: 33%;
+    height: 100%; */
+    min-height: 350px;
+    background: #F1F1F1 none repeat scroll 0% 0%;
+    color: #000;
+    line-height: 150% !important;
+    text-align: left;
+    /* font-family: "Helvetica Neue",sans-serif; */
+    font-family: Monospace;
+    font-size: 12px;
+    padding: 16px;
+}
+
+#amt-metadata-review-pre {
+}
+
+/* Metadata Highlighter */
+
+.amt-ht-title {
+    font-family: sans-serif;
+    font-size: 18px;
+    /* font-weight: bold;
+    text-decoration: underline; */
+}
+
+.amt-ht-notice {
+    text-decoration: underline;
+    color: black;
+}
+
+.amt-ht-important {
+    font-weight: bold;
+}
+
+.amt-ht-itemscope {
+    font-weight: bold;
+    color: #B90746;
+}
+
+.amt-ht-attribute {
+    font-weight: bold;
+    color: black;
+}
+
+.amt-ht-value {
+    color: blue;
+}
+
+.amt-ht-comment {
+    color: green;
+}
+
+/* Menu Icon */
+
+#wpadminbar li#wp-admin-bar-amt {
+    display: block;
+}
+
+#wpadminbar #wp-admin-bar-amt .ab-icon:before {
+    content: "\f123";
+    top: 3px;
+}
+
+@media screen and (max-width:782px) {
+
+    #wpadminbar #wp-admin-bar-amt .ab-icon:before {
+        display: block;
+        font-size: 34px;
+        height: 46px;
+        line-height: 47px;
+        top: 0;
+    }
+
+}
