@@ -2029,17 +2029,20 @@ function amt_check_run_metadata_review_code($options) {
 function amt_metatag_highlighter( $metatags ) {
 
     // Convert special chars, but leave quotes.
+    // Required for pre box.
     $metatags = htmlspecialchars($metatags, ENT_NOQUOTES);
 
     if ( ! apply_filters('amt_metadata_review_mode_enable_highlighter', true) ) {
         return $metatags;
     }
 
+    // Find all property/value pairs
     preg_match_all('#([^\s]+="[^"]+?)"#i', $metatags, $matches);
     if ( ! $matches ) {
         return $metatags;
     }
 
+    // Highlight properties and values.
     //var_dump($matches[0]);
     foreach ($matches[0] as $match) {
         $highlighted = preg_replace('#^([^=]+)="(.+)"$#i', '<span class="amt-ht-attribute">$1</span>="<span class="amt-ht-value">$2</span>"', $match);
