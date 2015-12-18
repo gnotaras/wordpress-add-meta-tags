@@ -779,7 +779,7 @@ function amt_options_page() {
                 
                 <textarea name="global_keywords" id="global_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( amt_get_site_global_keywords($options) ) ) . '</textarea>
                 <br />
-                <label for="global_keywords">'.__('Enter a comma-delimited list of global keywords.', 'add-meta-tags').'</label>
+                <label for="global_keywords">'.__('Enter a comma-delimited list of global keywords. Please consult the integrated help for more information.', 'add-meta-tags').'</label>
                 <br />
             </fieldset>
             </td>
