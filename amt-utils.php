@@ -2031,8 +2031,7 @@ function amt_metatag_highlighter( $metatags ) {
     // Convert special chars, but leave quotes.
     $metatags = htmlspecialchars($metatags, ENT_NOQUOTES);
 
-    preg_match_all('#([^\s]+="[^"]+?)"#i', $metatags, $matches);
-    if ( !$matches ) {
+    if ( ! apply_filters('amt_metadata_review_mode_enable_highlighter', true) ) {
         return $metatags;
     }
 
