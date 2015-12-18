@@ -2014,7 +2014,7 @@ function amt_iso8601_date( $mysqldate ) {
 // Helper function that determines whether code that has to do with the
 // Metadata Review mode should be enabled.
 function amt_check_run_metadata_review_code($options) {
-    if ( $options["review_mode"] == "1" && is_singular() && current_user_can('create_users') ) {
+    if ( $options["review_mode"] == "1" && current_user_can('create_users') ) {
         return true;
     }
     return false;
