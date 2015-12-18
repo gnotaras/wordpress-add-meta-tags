@@ -590,7 +590,12 @@ function amt_get_metadata_review($options, $add_as_view=false) {
 // Old view within the content
 function amt_add_metadata_review($post_body) {
 
-    if ( apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
+    // Only works in content pages
+    if ( ! is_singular() ) {
+        return $post_body;
+    }
+
+    if ( apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
         return $post_body;
     }
 
