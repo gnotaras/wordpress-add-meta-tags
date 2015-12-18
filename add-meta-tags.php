@@ -711,7 +711,7 @@ function amt_metadata_review_mode_as_panel() {
             // Add Purge Links to Admin Bar
             add_action('admin_bar_menu', 'amt_metadata_review_mode_admin_bar_links', 250);
             // Print the view
-            add_action('wp_footer', 'amt_metadata_review_mode_print');
+            add_action('wp_footer', 'amt_metadata_review_mode_print', 99999);
         }
     }
 }
