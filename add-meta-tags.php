@@ -647,12 +647,15 @@ function amt_metadata_review_mode_admin_bar_links( $admin_bar ){
 // 'onclick' => 'jQuery("#amt-metadata-review").toggleClass("amt-metadata-review-visible"); return false;'
 }
 
+
 // Prints the alternative review mode screen
 function amt_metadata_review_mode_print() {
     $options = get_option("add_meta_tags_opts");
     echo amt_get_metadata_review($options, $add_as_view=true) . '<br /><br />';
 }
 
+
+// Main function for new view
 function amt_metadata_review_mode_as_panel() {
     $options = get_option("add_meta_tags_opts");
     // Only administrators can see the review box if is_singular() is true.
