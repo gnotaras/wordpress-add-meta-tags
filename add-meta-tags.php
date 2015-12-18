@@ -625,75 +625,7 @@ function amt_add_metadata_review($post_body) {
 add_filter('the_content', 'amt_add_metadata_review', 10000);
 
 
-// Prints the AMT Metadata Review Mode styles
-function amt_metadata_review_mode_print_styles_scripts() {
-    $options = get_option("add_meta_tags_opts");
-    // Only administrators can see the review box if is_singular() is true.
-    if ( amt_check_run_metadata_review_code($options) ) {
-        $styles_scripts = '
-        <!-- BEGIN Add-Meta-Tags Metadata Review Mode styles and scripts (visible only by administrators when review mode in on) -->
-        <style type="text/css">
-
-            .amt-metadata-review-visible #amt-metadata-review {
-                display: block;
-            }
-
-            #amt-metadata-review {
-                display: none;
-                position: fixed;
-                top: 32px;
-                left: 0px;
-                right: 0px;
-                bottom: 0px;
-                z-index: 99123;
-                overflow: scroll;
-                /* height: 33%;
-                height: 100%; */
-                min-height: 350px;
-                background: #F1F1F1 none repeat scroll 0% 0%;
-                color: #000;
-                line-height: 150% !important;
-                text-align: left;
-                /* font-family: "Helvetica Neue",sans-serif; */
-                font-family: Monospace;
-                font-size: 12px;
-                padding: 16px;
-            }
-
-            #amt-metadata-review-pre {
-            }
-
-            /* Menu Icon */
-
-            #wpadminbar li#wp-admin-bar-amt {
-                display: block;
-            }
-
-            #wpadminbar #wp-admin-bar-amt .ab-icon:before {
-                content: "\f123";
-                top: 3px;
-            }
-
-            @media screen and (max-width:782px) {
-
-                #wpadminbar #wp-admin-bar-amt .ab-icon:before {
-                    display:block;
-                    font-size:34px;
-                    height:46px;
-                    line-height:47px;
-                    top:0
-                }
-
-            }
-
-        </style>
-        <!-- END Add-Meta-Tags Metadata Review Mode styles and scripts (visible only by administrators when review mode in on) -->
-        ';
-        echo apply_filters('amt_metadata_review_mode_styles_scripts', $styles_scripts);
-    }
-}
-
-// Adds the 'Metadata' menu to the admin bar
+// New view -- Adds the 'Metadata' menu to the admin bar
 function amt_metadata_review_mode_admin_bar_links( $admin_bar ){
 
     // Do not display the menu when the user is in the WP administration panel.
