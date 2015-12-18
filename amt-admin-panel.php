@@ -484,6 +484,8 @@ function amt_admin_help_tabs() {
 
     <h3>'.__('Metadata for bbPress', 'add-meta-tags').'</h3>
 
+    <p>'.__('Metadata for bbPress forums and topics should be generated out of the box. More specific forum metadata has not been implemented yet.', 'add-meta-tags').'</p>
+
     <p>'.__('Currently, only the base mechanism exists, which lets you <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress" target="_blank">modify or extend</a> metadata for bbPress forums and topics.', 'add-meta-tags').'</p>
 
     <p>'.__('Please, don\'t forget to contribute your customizations to this project!', 'add-meta-tags').'</p>
