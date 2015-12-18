@@ -595,7 +595,7 @@ function amt_add_metadata_review($post_body) {
         return $post_body;
     }
 
-    if ( apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
+    if ( ! apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
         return $post_body;
     }
 
@@ -661,7 +661,7 @@ function amt_metadata_review_mode_as_panel() {
     $options = get_option("add_meta_tags_opts");
     // Only administrators can see the review box if is_singular() is true.
     if ( amt_check_run_metadata_review_code($options) ) {
-        if ( apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
+        if ( ! apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
             // Add Purge Links to Admin Bar
             add_action('admin_bar_menu', 'amt_metadata_review_mode_admin_bar_links', 250);
             // Print the view
