@@ -492,27 +492,25 @@ function amt_metadata_review_mode_enqueue_styles_scripts() {
 //add_action( 'admin_enqueue_scripts', 'amt_metadata_review_mode_enqueue_styles_scripts' );
 add_action( 'wp_enqueue_scripts', 'amt_metadata_review_mode_enqueue_styles_scripts' );
 
+
+// Build the review data
 function amt_get_metadata_review($options, $add_as_view=false) {
 
     if ( $add_as_view ) {
-
         // $BR = '<br />';
         $BR = PHP_EOL;
-
         $data = '<div id="amt-metadata-review">';
-        $data .= '<h2>Add-Meta-Tags Metadata Review Mode</h2>';
-        $data .= '<pre id="amt-metadata-review-pre">' . $BR . $BR;
-        $data .= '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This menu has been added because <span style="font-weight: bold;">Metadata Review Mode</span> has been enabled in' . $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this menu.</span>' . $BR;
     } else {
-
         $BR = PHP_EOL;
-
-        $data = '<pre>';
-
-        $data .= '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">Add-Meta-Tags Metadata Review Mode</span></span>' . $BR . $BR;
-
-        $data .= '<span style="text-decoration: underline; color: black;"><span style="font-weight: bold;">NOTE</span>: This box is displayed because <span style="font-weight: bold;">Metadata Review Mode</span> has been enabled in' . $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this box.</span>' . $BR;
+        $data = '';
     }
+
+    $data .= '<pre id="amt-metadata-review-pre">' . $BR;
+
+    $data .= '<span class="amt-ht-title">Add-Meta-Tags &mdash; Metadata Review Mode</span>' . $BR . $BR;
+
+    $data .= '<span class="amt-ht-notice"><span class="amt-ht-important">NOTE</span>: This menu has been added because <span class="amt-ht-important">Metadata Review Mode</span> has been enabled in';
+    $data .= $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this menu.</span>' . $BR;
 
     //
     // Metadata from head section
@@ -534,7 +532,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
             $jsonld_data_arr = json_decode( $metadata_block_head['json+ld_data'] );
             $metadata_block_head['json+ld_data'] = json_encode($jsonld_data_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         }
-        $data .= $BR . '<span style="text-decoration: underline; color: black;">The following metadata has been added to the head section.</span>' . $BR;
+        $data .= $BR . '<span class="amt-ht-notice">The following metadata has been added to the head section.</span>' . $BR;
         $data .= $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_head ) ) . $BR;
     }
 
@@ -551,7 +549,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
         if ( $metadata_block_content_filter !== false ) {
             if ( ! empty($metadata_block_content_filter) ) {
                 // Add for review
-                $data .= $BR . '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body of the page.</span>';
+                $data .= $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
                 $data .= $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_content_filter ) ) . $BR;
             }
         }
@@ -572,7 +570,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
 
     // Add for review
     if ( ! empty($metadata_block_footer) ) {
-        $data .= $BR . '<span style="text-decoration: underline; color: black;">The following metadata has been embedded in the body of the page.</span>';
+        $data .= $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
         $data .=  $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_footer ) ) . $BR;
     }
 
@@ -588,6 +586,8 @@ function amt_get_metadata_review($options, $add_as_view=false) {
 
 }
 
+
+// Old view within the content
 function amt_add_metadata_review($post_body) {
 
     if ( apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
