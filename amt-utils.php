@@ -3351,14 +3351,19 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
 
     } elseif ( empty($entity_title_template) ) {
 
-        // TODO: fix this mess. summarize the logic in a comment
+        // If the caller is a metadata generator, then the title cannot be determined otherwise.
+        // So, if an $entity_title has been found we return it.
         if ( $caller_is_metadata_generator ) {
             // If a metadata generator requested a title, but a template was
-            // not found, return an error message as the title.
-            //
-            // TODO: Maybe it should just set $title to an empty string.
-            //$title = 'TITLE TEMPLATE NOT FOUND';
-            $title = '';
+            // not found, return an error message as the title, unless the
+            // $entity_title is not empty, in which case set the title to it as is.
+            if ( ! empty($entity_title) ) {
+                $title = $entity_title;
+            } else {
+                // TODO: Maybe it should just set $title to an empty string.
+                //$title = 'TITLE TEMPLATE NOT FOUND';
+                $title = '';
+            }
         } else {
             // If the title was requested for the 'title' HTML element, but a template
             //was not found, return an empty string, so that the default WordPress title is used.
