@@ -595,14 +595,14 @@ function amt_add_metadata_review($post_body) {
         return $post_body;
     }
 
-    if ( ! apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
-        return $post_body;
-    }
-
     $options = get_option("add_meta_tags_opts");
 
     // Only administrators can see the review box if is_singular() is true.
     if ( amt_check_run_metadata_review_code($options) ) {
+
+        if ( ! apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
+            return $post_body;
+        }
 
         // Get current post object
         $post = amt_get_queried_object($options);
@@ -649,24 +649,25 @@ function amt_metadata_review_mode_admin_bar_links( $admin_bar ){
 }
 
 
-// Prints the alternative review mode screen
+// Prints the review mode screen
 function amt_metadata_review_mode_print() {
     $options = get_option("add_meta_tags_opts");
     echo amt_get_metadata_review($options, $add_as_view=true) . '<br /><br />';
 }
 
 
-// Main function for new view
+// Main function for metadata review mode
 function amt_metadata_review_mode_as_panel() {
     $options = get_option("add_meta_tags_opts");
     // Only administrators can see the review box if is_singular() is true.
     if ( amt_check_run_metadata_review_code($options) ) {
-        if ( ! apply_filters('amt_metadata_review_mode_enable_alternative', true) ) {
-            // Add Purge Links to Admin Bar
-            add_action('admin_bar_menu', 'amt_metadata_review_mode_admin_bar_links', 250);
-            // Print the view
-            add_action('wp_footer', 'amt_metadata_review_mode_print', 99999);
+        if ( apply_filters('amt_metadata_review_mode_enable_alternative', false) ) {
+            return;
         }
+        // Add Purge Links to Admin Bar
+        add_action('admin_bar_menu', 'amt_metadata_review_mode_admin_bar_links', 250);
+        // Print the view
+        add_action('wp_footer', 'amt_metadata_review_mode_print', 99999);
     }
 }
 add_action('wp', 'amt_metadata_review_mode_as_panel');
