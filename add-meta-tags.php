@@ -622,6 +622,7 @@ function amt_add_metadata_review($post_body) {
 
     return $post_body;
 }
+// Has to be higher (so as to be executed later) than the schema.org microdata content filter.
 add_filter('the_content', 'amt_add_metadata_review', 10000);
 
 
