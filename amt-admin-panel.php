@@ -462,7 +462,7 @@ function amt_admin_help_tabs() {
 
     <h3>'.__('Metadata for Easy Digital Downloads', 'add-meta-tags').'</h3>
 
-    <p>'.__('Support for the products and product groups of the Easy Digital Downloads plugin is still work in progress.', 'add-meta-tags').'</p>
+    <p>'.__('Support for the products and product groups of the Easy Digital Downloads plugin is still work in progress. If enabled, product and product group pages will contain basic product related metadata.', 'add-meta-tags').'</p>
 
     <h3>'.__('Metadata for BuddyPress', 'add-meta-tags').'</h3>
 
