@@ -2035,15 +2035,27 @@ function amt_metatag_highlighter( $metatags ) {
         return $metatags;
     }
 
+    preg_match_all('#([^\s]+="[^"]+?)"#i', $metatags, $matches);
+    if ( ! $matches ) {
+        return $metatags;
+    }
+
     //var_dump($matches[0]);
     foreach ($matches[0] as $match) {
-        $highlighted = preg_replace('#^([^=]+)="(.+)"$#i', '<span style="font-weight:bold;color:black;">$1</span>="<span style="color:blue;">$2</span>"', $match);
+        $highlighted = preg_replace('#^([^=]+)="(.+)"$#i', '<span class="amt-ht-attribute">$1</span>="<span class="amt-ht-value">$2</span>"', $match);
         //var_dump($highlighted);
         $metatags = str_replace($match, $highlighted, $metatags);
     }
 
     // Highlight 'itemscope'
-    $metatags = str_replace('itemscope', '<span style="font-weight: bold; color: #B90746;">itemscope</span>', $metatags);
+    $metatags = str_replace('itemscope', '<span class="amt-ht-itemscope">itemscope</span>', $metatags);
+
+    // Highlight Schema.org object
+    //$metatags = preg_replace('#: ([a-zA-Z0-9]+) --&gt;#', ': <span class="amt-ht-important">$1</span> --&gt;', $metatags);
+
+    // Highlight HTML comments
+    $metatags = str_replace('&lt;!--', '<span class="amt-ht-comment">&lt;!--', $metatags);
+    $metatags = str_replace('--&gt;', '--&gt;</span>', $metatags);
 
     // Do some conversions
     $metatags =  wp_pre_kses_less_than( $metatags );
