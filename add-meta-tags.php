@@ -550,7 +550,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
             if ( ! empty($metadata_block_content_filter) ) {
                 // Add for review
                 $data .= $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
-                $data .= $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_content_filter ) ) . $BR;
+                $data .= amt_metatag_highlighter( implode( $BR, $metadata_block_content_filter ) ) . $BR;
             }
         }
     }
