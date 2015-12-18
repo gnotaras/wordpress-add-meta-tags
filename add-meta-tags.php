@@ -476,6 +476,21 @@ add_action('wp_footer', 'amt_print_footer_block', 0);
 //
 
 
+// Prints the AMT Metadata Review Mode styles
+function amt_metadata_review_mode_enqueue_styles_scripts() {
+    $options = get_option("add_meta_tags_opts");
+    if ( amt_check_run_metadata_review_code($options) ) {
+        // Register metadata review mode stylesheet.
+        wp_register_style( 'amt_metadata_review_mode', plugins_url( 'css/amt-metadata-review-mode.css', AMT_PLUGIN_FILE ) );
+        // Enqueue the style
+        wp_enqueue_style( 'amt_metadata_review_mode' );
+        //wp_register_style( 'custom_toolbar_css', plugin_dir_url( __FILE__ ) . 'custom-toolbar.css', '', '', 'screen' );
+        //wp_enqueue_style( 'custom_toolbar_css' );
+    }
+}
+// Add styles and scripts for Metadata Review.
+//add_action( 'admin_enqueue_scripts', 'amt_metadata_review_mode_enqueue_styles_scripts' );
+add_action( 'wp_enqueue_scripts', 'amt_metadata_review_mode_enqueue_styles_scripts' );
 
 function amt_get_metadata_review($options, $add_as_view=false) {
 
