@@ -28,7 +28,8 @@ This plugin is one of the personal software projects of George Notaras. It is de
 More information and documentation about the complete [feature set](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Features), together with technical information regarding migration and customization, can be found at the [Add-Meta-Tags Development Web Site](http://www.codetrax.org/projects/wp-add-meta-tags/wiki).
 
 <blockquote>
-Interested in migrating to [Add-Meta-Tags](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Migrate_to_Add-Meta-Tags)?
+Interested in migrating to <a title="Migrate to Add-Meta-Tags from other plugins" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Migrate_to_Add-Meta-Tags">Add-Meta-Tags</a>?
+<br />
 </blockquote>
 
 = Support =
