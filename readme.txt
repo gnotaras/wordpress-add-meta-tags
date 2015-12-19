@@ -28,8 +28,8 @@ This plugin is one of the personal software projects of George Notaras. It is de
 More information and documentation about the complete [feature set](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Features), together with technical information regarding migration and customization, can be found at the [Add-Meta-Tags Development Web Site](http://www.codetrax.org/projects/wp-add-meta-tags/wiki).
 
 <blockquote>
-Interested in migrating to <a title="Migrate to Add-Meta-Tags from other plugins" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Migrate_to_Add-Meta-Tags">Add-Meta-Tags</a>?
-<br />
+Interested in <a title="Migrate to Add-Meta-Tags from other plugins" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Migrate_to_Add-Meta-Tags">migrating to Add-Meta-Tags</a>?
+<br /><br />
 </blockquote>
 
 = Support =
@@ -90,7 +90,7 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
 - [2.10.4](http://www.codetrax.org/versions/342)
- - This bug fix release addresses an issue with Metadata Review Mode in cases javascript minification/compression is in effect due to missing dependency during the registration of the script.
+ - This bug fix release addresses an issue with Metadata Review Mode in cases javascript minification/compression is in effect due to missing dependency during the registration of the javascript file.
 - [2.10.3](http://www.codetrax.org/versions/341)
  - Improved the metadata review mode menu item on the admin bar by adding a dashicon, which does not vanish in small screens. (Props to Kochtopf for ideas and valuable feedback.)
  - Minor improvements of the highlighter of the metadata in review mode.
