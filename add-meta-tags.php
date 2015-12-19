@@ -502,21 +502,7 @@ add_action( 'wp_enqueue_scripts', 'amt_metadata_review_mode_enqueue_styles_scrip
 // Build the review data
 function amt_get_metadata_review($options, $add_as_view=false) {
 
-    if ( $add_as_view ) {
-        // $BR = '<br />';
-        $BR = PHP_EOL;
-        $data = '<div id="amt-metadata-review">';
-    } else {
-        $BR = PHP_EOL;
-        $data = '';
-    }
-
-    $data .= '<pre id="amt-metadata-review-pre">' . $BR;
-
-    $data .= '<span class="amt-ht-title">Add-Meta-Tags &mdash; Metadata Review Mode</span>' . $BR . $BR;
-
-    $data .= '<span class="amt-ht-notice"><span class="amt-ht-important">NOTE</span>: This menu has been added because <span class="amt-ht-important">Metadata Review Mode</span> has been enabled in';
-    $data .= $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this menu.</span>' . $BR;
+    // Collect metadata
 
     //
     // Metadata from head section
@@ -529,36 +515,6 @@ function amt_get_metadata_review($options, $add_as_view=false) {
         $metadata_block_head = amt_add_metadata_head();
         // Cache even empty
         wp_cache_add( $amtcache_key, $metadata_block_head, $group='add-meta-tags' );
-    }
-
-    // Add for review
-    if ( ! empty($metadata_block_head) ) {
-        // Pretty print JSON+LD
-        if ( array_key_exists('json+ld_data', $metadata_block_head) ) {
-            $jsonld_data_arr = json_decode( $metadata_block_head['json+ld_data'] );
-            $metadata_block_head['json+ld_data'] = json_encode($jsonld_data_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        }
-        $data .= $BR . '<span class="amt-ht-notice">The following metadata has been added to the head section.</span>' . $BR;
-        $data .= $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_head ) ) . $BR;
-    }
-
-    //
-    // Metadata from content filter (Schema.org Microdata)
-    //
-
-    if ( $options["schemaorg_force_jsonld"] == "0" ) {
-        // What happens here:
-        // The Metadata Review mode content filter should have a bigger priority that the Schema.org
-        // Microdata filter. There the metadata has been stored in non persistent cache.
-        // Here we retrieve it. See the notes there for more info.
-        $metadata_block_content_filter = wp_cache_get( 'amt_cache_metadata_block_content_filter', $group='add-meta-tags' );
-        if ( $metadata_block_content_filter !== false ) {
-            if ( ! empty($metadata_block_content_filter) ) {
-                // Add for review
-                $data .= $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
-                $data .= amt_metatag_highlighter( implode( $BR, $metadata_block_content_filter ) ) . $BR;
-            }
-        }
     }
 
     //
@@ -574,19 +530,91 @@ function amt_get_metadata_review($options, $add_as_view=false) {
         wp_cache_add( $amtcache_key, $metadata_block_footer, $group='add-meta-tags' );
     }
 
-    // Add for review
-    if ( ! empty($metadata_block_footer) ) {
-        $data .= $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
-        $data .=  $BR . amt_metatag_highlighter( implode( $BR, $metadata_block_footer ) ) . $BR;
+    //
+    // Metadata from content filter (Schema.org Microdata)
+    //
+
+    if ( $options["schemaorg_force_jsonld"] == "0" ) {
+        // What happens here:
+        // The Metadata Review mode content filter should have a bigger priority that the Schema.org
+        // Microdata filter. There the metadata has been stored in non persistent cache.
+        // Here we retrieve it. See the notes there for more info.
+        $metadata_block_content_filter = wp_cache_get( 'amt_cache_metadata_block_content_filter', $group='add-meta-tags' );
     }
 
-    $data .= $BR . $BR;
+    // Build texts
 
     if ( $add_as_view ) {
-        $data .= '</pre></div>';
+        // $BR = '<br />';
+        $BR = PHP_EOL;
+        $enclosure_start = '<div id="amt-metadata-review">' . '<pre id="amt-metadata-review-pre">' . $BR;
+        $enclosure_end = '</pre>' . '</div>' . $BR . $BR;
     } else {
-        $data .= '</pre>';
+        $BR = PHP_EOL;
+        $enclosure_start = '<pre id="amt-metadata-review-pre">' . $BR;
+        $enclosure_end = '</pre>' . $BR . $BR;
     }
+
+    $text_title = '<span class="amt-ht-title">Add-Meta-Tags &mdash; Metadata Review Mode</span>' . $BR . $BR;
+
+    $text_intro = '<span class="amt-ht-notice"><span class="amt-ht-important">NOTE</span>: This menu has been added because <span class="amt-ht-important">Metadata Review Mode</span> has been enabled in';
+    $text_intro .= $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this menu.</span>';
+
+    $text_head_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been added to the head section.</span>' . $BR . $BR;
+
+    $text_footer_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR . $BR;
+
+    $text_content_filter_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
+
+    //
+    // Build view
+    //
+
+    $data = $enclosure_start . $text_title;
+    
+    $data .= apply_filters('amt_metadata_review_text_before', $text_intro, $metadata_block_head, $metadata_block_footer, $metadata_block_content_filter);
+
+    //
+    // Metadata from head section
+    //
+
+    // Add for review
+    if ( ! empty($metadata_block_head) ) {
+        // Pretty print JSON+LD
+        if ( array_key_exists('json+ld_data', $metadata_block_head) ) {
+            $jsonld_data_arr = json_decode( $metadata_block_head['json+ld_data'] );
+            $metadata_block_head['json+ld_data'] = json_encode($jsonld_data_arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        }
+        $data .= apply_filters('amt_metadata_review_head', $text_head_intro, $metadata_block_head);
+        $data .= amt_metatag_highlighter( implode( $BR, $metadata_block_head ) );
+    }
+
+    //
+    // Metadata from footer
+    //
+
+    // Add for review
+    if ( ! empty($metadata_block_footer) ) {
+        $data .= apply_filters('amt_metadata_review_footer', $text_footer_intro, $metadata_block_footer);
+        $data .=  amt_metatag_highlighter( implode( $BR, $metadata_block_footer ) );
+    }
+
+    //
+    // Metadata from content filter (Schema.org Microdata)
+    //
+
+    if ( $options["schemaorg_force_jsonld"] == "0" ) {
+        if ( $metadata_block_content_filter !== false ) {
+            // Add for review
+            $data .= apply_filters('amt_metadata_review_content_filter', $text_content_filter_intro, $metadata_block_content_filter);
+            $data .= amt_metatag_highlighter( implode( $BR, $metadata_block_content_filter ) );
+        }
+    }
+
+    $data .= apply_filters('amt_metadata_review_text_after', '', $metadata_block_head, $metadata_block_footer, $metadata_block_content_filter);
+
+    // End
+    $data .= $BR . $BR . $enclosure_end;
 
     return $data;
 
@@ -658,7 +686,12 @@ function amt_metadata_review_mode_admin_bar_links( $admin_bar ){
 // Prints the review mode screen
 function amt_metadata_review_mode_print() {
     $options = get_option("add_meta_tags_opts");
+
+    do_action('amt_metadata_review_mode_pretext');
+
     echo amt_get_metadata_review($options, $add_as_view=true) . '<br /><br />';
+
+    do_action('amt_metadata_review_mode_posttext');
 }
 
 
