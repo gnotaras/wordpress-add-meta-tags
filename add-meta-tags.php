@@ -488,7 +488,7 @@ function amt_metadata_review_mode_enqueue_styles_scripts() {
         wp_enqueue_style( 'amt_metadata_review_mode' );
 
         // Register metadata review mode script
-        wp_register_script( 'amt_metadata_review_mode', plugins_url( 'js/amt-metadata-review-mode.js', AMT_PLUGIN_FILE ) );
+        wp_register_script( 'amt_metadata_review_mode', plugins_url( 'js/amt-metadata-review-mode.js', AMT_PLUGIN_FILE ), array('jquery') );
         // Enqueue the style
         wp_enqueue_script( 'amt_metadata_review_mode' );
 
