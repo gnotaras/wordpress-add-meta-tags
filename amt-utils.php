@@ -65,6 +65,13 @@ function amt_get_options() {
 }
 
 
+// Returns a string suitable for a Schema.org ID
+// Absolute or relative URLs are fine
+function amt_get_schemaorg_entity_id( $ident ) {
+    return sprintf('#amt-%s', $ident);
+}
+
+
 // Returns a key for the non persistent cache
 function amt_get_amtcache_key($basename, $post=null) {
     // Non persistent object cache
