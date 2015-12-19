@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.10.2
+Stable tag: 2.10.3
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -27,6 +27,9 @@ This plugin is one of the personal software projects of George Notaras. It is de
 
 More information and documentation about the complete [feature set](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Features), together with technical information regarding migration and customization, can be found at the [Add-Meta-Tags Development Web Site](http://www.codetrax.org/projects/wp-add-meta-tags/wiki).
 
+<blockquote>
+Interested in migrating to [Add-Meta-Tags](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Migrate_to_Add-Meta-Tags)?
+</blockquote>
 
 = Support =
 
@@ -85,9 +88,17 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
- - The alt view is now available on all pages.
- - The alternative review mode has now become the default. Use `add_filter('amt_metadata_review_mode_enable_alternative', '__return_false');` to deactivate and use the old one.
- - The `amt_metadata_review_mode_styles_scripts` hook has been removed. Please use the standard WordPress methods to enqueue custom styles and scripts.
+- [2.10.3](http://www.codetrax.org/versions/341)
+ - Improved the metadata review mode menu item on the admin bar by adding a dashicon, which does not vanish in small screens. (Props to Kochtopf for ideas and valuable feedback.)
+ - Minor improvements of the highlighter of the metadata in review mode.
+ - The alternative metadata review mode via the admin toolbar panel has now become the default mode. Use `add_filter('amt_metadata_review_mode_enable_alternative', '__return_true');` to activate and use the old one.
+ - The Metadata Review mode is now available on all pages and not just content pages.
+ - Improved the title retrieval from posts in order to avoid having HTML within the title. For instance, Easy-Digital-Downloads returns HTML through the `get_the_title()` function. (Props to Mihai and the EDD support team for the hints.)
+ - Fixed an issue with EDD category/tag archives which were also being identified by the plugin as products when the Schema.org JSON+LD generator was active.
+ - Fixed issue with _Advanced Title Management_ which returned an empty title for custom post types under specific circumstances.
+ - More updates of the Russian translation have now been included. Thanks Сергей Комков!
+ - Used the default style/script enqueueing mechanism for the review mode styles and scripts. The `amt_metadata_review_mode_styles_scripts` hook has been removed. Please use the standard WordPress methods to enqueue custom styles and scripts.
+ - Added [filter hooks](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Filter_and_Action_Hooks#Metadata-Review-Mode) and [action hooks](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Filter_and_Action_Hooks#Metadata-Review-Mode-2) that can be used to customize the data that is presented in the Metadata Review mode. You can now customize this data in any way you see fit, eg by adding your own summary or analysis.
 - [2.10.2](http://www.codetrax.org/versions/340)
  - Important release notes: This release contains performance optimizations and should be the fastest release to date. The overhead of the generation of metadata for WordPress content should be significantly smaller. WooCommerce product and BuddyPress profile metadata still need work regarding performance. Please keep in mind that for the smallest overhead possible, you should enable metadata caching by setting a caching timeout greater than zero in the plugin settings (Caching does not work for BuddyPress profiles yet). To the best of my knowledge this release works as expected, but, since code written in the distant past has been slightly modified, I have to say that it would be a wise idea to first try it on a web site aimed for testing and that you should proceed with upgrading at your own risk. If you run a critical web site, it would be a good idea to wait for a while and check for feedback from users who have tried it. Your feedback is always welcome.
  - Notes about future plans: No major new features have been planned for the upcoming months and this is why these releases have focused on performance. Further support for bbPress, Easy-Digital-Downloads and other parts of BuddyPress except profiles will be delayed for a while. Upcoming releases will focus on bug fixes and minor improvements wherever necessary.
