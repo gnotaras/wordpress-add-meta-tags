@@ -1129,7 +1129,7 @@ function amt_product_group_image_url_woocommerce( $default_image_url, $tax_term_
 function amt_is_edd_product() {
     // Check if edd product page and return true;
     //  * Easy Digital Downloads
-    if ( 'download' == get_post_type() ) {
+    if ( is_singular() && 'download' == get_post_type() ) {
         return true;
     }
 }
