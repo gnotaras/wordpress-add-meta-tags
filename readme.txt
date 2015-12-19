@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.10.3
+Stable tag: 2.10.4
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -89,6 +89,8 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.4](http://www.codetrax.org/versions/342)
+ - This bug fix release addresses an issue with Metadata Review Mode in cases javascript minification/compression is in effect due to missing dependency during the registration of the script.
 - [2.10.3](http://www.codetrax.org/versions/341)
  - Improved the metadata review mode menu item on the admin bar by adding a dashicon, which does not vanish in small screens. (Props to Kochtopf for ideas and valuable feedback.)
  - Minor improvements of the highlighter of the metadata in review mode.
