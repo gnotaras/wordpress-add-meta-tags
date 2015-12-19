@@ -1773,7 +1773,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
 
     // Products
-    elseif ( amt_is_product() ) {
+    elseif ( amt_is_product() && is_singular() ) {
 
         // Scope BEGIN: Product: http://schema.org/Product
 //        $metadata_arr[] = '<!-- Scope BEGIN: Product -->';
