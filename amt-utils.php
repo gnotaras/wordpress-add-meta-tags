@@ -58,6 +58,13 @@ function amt_get_queried_object($options) {
     return $post;
 }
 
+
+// Returns the plugin options
+function amt_get_options() {
+    return get_option("add_meta_tags_opts");
+}
+
+
 // Returns a key for the non persistent cache
 function amt_get_amtcache_key($basename, $post=null) {
     // Non persistent object cache
