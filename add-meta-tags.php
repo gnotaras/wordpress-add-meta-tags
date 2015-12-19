@@ -508,6 +508,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
     // Metadata from head section
     //
 
+    $metadata_block_head = null;
     // Non persistent object cache
     $amtcache_key = amt_get_amtcache_key('amt_metadata_block_head');
     $metadata_block_head = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
@@ -521,6 +522,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
     // Metadata from footer
     //
 
+    $metadata_block_footer = null;
     // Non persistent object cache
     $amtcache_key = amt_get_amtcache_key('amt_metadata_block_footer');
     $metadata_block_footer = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
@@ -534,6 +536,7 @@ function amt_get_metadata_review($options, $add_as_view=false) {
     // Metadata from content filter (Schema.org Microdata)
     //
 
+    $metadata_block_content_filter = null;
     if ( $options["schemaorg_force_jsonld"] == "0" ) {
         // What happens here:
         // The Metadata Review mode content filter should have a bigger priority that the Schema.org
