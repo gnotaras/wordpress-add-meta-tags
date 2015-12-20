@@ -894,10 +894,10 @@ function amt_options_page() {
                 <h4>'.__('Main source of local author profiles', 'add-meta-tags').':</h4>
 
                 <select name="author_profile_source" type="text" id="author_profile_source" class="code">
-                    <option '. (($options["author_profile_source"]=="default") ? 'selected="selected"' : '') .' value="default">'.__('First page of the author archive', 'add-meta-tags').' '.__('(default)', 'add-meta-tags').'</option>
-                    <option '. (($options["author_profile_source"]=="frontpage") ? 'selected="selected"' : '') .' value="frontpage">'.__('Front page (with static page only)', 'add-meta-tags').'</option>
-                    <option '. (($options["author_profile_source"]=="buddypress") ? 'selected="selected"' : '') .' value="buddypress">'.__('BuddyPress member page', 'add-meta-tags').'</option>
-                    <option '. (($options["author_profile_source"]=="url") ? 'selected="selected"' : '') .' value="url">'.__('Author web site URL', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="default") ? 'selected="selected"' : '') .' value="default">'.__('First page of the author archive', 'add-meta-tags').' '.__('(default)', 'add-meta-tags').' &mdash; '.__('Organization web site', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="frontpage") ? 'selected="selected"' : '') .' value="frontpage">'.__('Front page (with static page only)', 'add-meta-tags').' &mdash; '.__('Personal web site', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="buddypress") ? 'selected="selected"' : '') .' value="buddypress">'.__('BuddyPress member page', 'add-meta-tags').' &mdash; '.__('Organization web site', 'add-meta-tags').'</option>
+                    <option '. (($options["author_profile_source"]=="url") ? 'selected="selected"' : '') .' value="url">'.__('Author\'s external web site URL', 'add-meta-tags').' &mdash; '.__('Organization web site', 'add-meta-tags').'</option>
                 </select> 
 
                 <br /><br />
