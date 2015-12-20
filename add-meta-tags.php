@@ -487,8 +487,13 @@ function amt_metadata_review_mode_enqueue_styles_scripts() {
         // Enqueue the style
         wp_enqueue_style( 'amt_metadata_review_mode' );
 
+        $script_path = 'js/amt-metadata-review-mode.js';
+        if ( apply_filters('amt_metadata_review_mode_enable_enhanced_script', false) ) {
+            $script_path = 'js/amt-metadata-review-mode-enhanced.js';
+        }
+
         // Register metadata review mode script
-        wp_register_script( 'amt_metadata_review_mode', plugins_url( 'js/amt-metadata-review-mode.js', AMT_PLUGIN_FILE ), array('jquery') );
+        wp_register_script( 'amt_metadata_review_mode', plugins_url( $script_path, AMT_PLUGIN_FILE ), array('jquery') );
         // Enqueue the style
         wp_enqueue_script( 'amt_metadata_review_mode' );
 
