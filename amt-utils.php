@@ -2262,8 +2262,15 @@ function amt_get_schemaorg_itemref( $object_type ) {
 
 // Returns a string suitable for a Schema.org ID
 // Absolute or relative URLs are fine
-function amt_get_schemaorg_entity_id( $ident ) {
-    return sprintf('#amt-%s', $ident);
+function amt_get_schemaorg_entity_id( $object_type ) {
+    return sprintf('#amt-%s', $object_type);
+}
+
+
+// Returns a string suitable for as a full 'itemid attribute together with itemscope.
+// Absolute or relative URLs are fine
+function amt_get_schemaorg_entity_id_as_itemid( $object_type ) {
+    return sprintf(' itemid="%s"', amt_get_schemaorg_entity_id( $object_type ));
 }
 
 

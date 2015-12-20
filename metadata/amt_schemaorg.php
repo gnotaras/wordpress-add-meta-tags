@@ -201,7 +201,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // Scope BEGIN: Organization: http://schema.org/Organization
         $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
         //$metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . amt_get_schemaorg_entity_id_as_itemid('organization') . '>';
         // Get publisher/mainEntity metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
         // mainEntityOfPage
@@ -212,7 +212,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // WebSite
         // Scope BEGIN: WebSite: http://schema.org/WebSite
         $metadata_arr[] = '<!-- Scope BEGIN: WebSite -->';
-        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite">';
+        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite"' . amt_get_schemaorg_entity_id_as_itemid('website') . '>';
         // name
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // headline - contains title information
@@ -222,6 +222,9 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         //$metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // url
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
+
+        // publisher
+//        $metadata_arr[] = '<link itemprop="publisher" href="' . esc_attr( amt_get_schemaorg_entity_id('organization') ) . '" />';
 
         // SearchAction
         // Scope BEGIN: SearchAction: http://schema.org/SearchAction
@@ -259,7 +262,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
             // Author
             // Scope BEGIN: Person: http://schema.org/Person
             $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
-            $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
+            $metadata_arr[] = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . amt_get_schemaorg_entity_id_as_itemid('person') . '>';
             // Get author metatags
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $post->post_author, $options ) );
             // mainEntityOfPage
@@ -273,7 +276,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
             // Scope BEGIN: Organization: http://schema.org/Organization
             $metadata_arr[] = '<!-- Scope BEGIN: Organization -->';
             //$metadata_arr[] = '<span itemprop="mainEntity" itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
-            $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . '>';
+            $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Organization"' . amt_get_schemaorg_itemref('organization') . amt_get_schemaorg_entity_id_as_itemid('organization') . '>';
             // Get publisher/mainEntity metatags
             $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_publisher_metatags( $options ) );
             // mainEntityOfPage
@@ -285,7 +288,7 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         // WebSite
         // Scope BEGIN: WebSite: http://schema.org/WebSite
         $metadata_arr[] = '<!-- Scope BEGIN: WebSite -->';
-        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite">';
+        $metadata_arr[] = '<span itemscope itemtype="http://schema.org/WebSite"' . amt_get_schemaorg_entity_id_as_itemid('website') . '>';
         // name
         $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // headline - contains title information
@@ -295,6 +298,14 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         //$metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . '" />';
         // url
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
+
+//        if ( $options['author_profile_source'] == 'frontpage' ) {
+            // author
+    //        $metadata_arr[] = '<link itemprop="author" href="' . esc_attr( amt_get_schemaorg_entity_id('person') ) . '" />';
+//        } else {
+            // publisher
+    //        $metadata_arr[] = '<link itemprop="publisher" href="' . esc_attr( amt_get_schemaorg_entity_id('organization') ) . '" />';
+//        }
 
         // SearchAction
         // Scope BEGIN: SearchAction: http://schema.org/SearchAction
@@ -1582,6 +1593,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $organization_arr = array();
         // Context
         $organization_arr['@context'] = 'http://schema.org';
+        // ID
+        $organization_arr['@id'] = amt_get_schemaorg_entity_id('organization');
+
         $organization_arr = array_merge($organization_arr, amt_get_jsonld_schemaorg_publisher_array($options));
 
         // mainEntityOfPage
@@ -1595,6 +1609,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $website_arr = array();
         // Context
         $website_arr['@context'] = 'http://schema.org';
+        // ID
+        $website_arr['@id'] = amt_get_schemaorg_entity_id('website');
         // Type
         $website_arr['@type'] = 'WebSite';
         // name
@@ -1607,6 +1623,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // TODO: use tag line. Needs feedback!
         // url
         $website_arr['url'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) );
+
+        // publisher
+//        $website_arr['publisher'] = array( '@id' => esc_attr(amt_get_schemaorg_entity_id('organization') ) );
 
         // SearchAction
         // Scope BEGIN: SearchAction: http://schema.org/SearchAction
@@ -1659,6 +1678,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         if ( $options['author_profile_source'] == 'frontpage' ) {
 
+            // ID
+            $main_entity_arr['@id'] = amt_get_schemaorg_entity_id('person');
+
             // Author
             // Scope BEGIN: Person: http://schema.org/Person
             //        $metadata_arr[] = '<!-- Scope BEGIN: Person -->';
@@ -1674,6 +1696,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         } else {
 
+            // ID
+            $main_entity_arr['@id'] = amt_get_schemaorg_entity_id('organization');
+
             // Organization
             $main_entity_arr = array_merge($main_entity_arr, amt_get_jsonld_schemaorg_publisher_array($options));
 
@@ -1688,6 +1713,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $website_arr = array();
         // Context
         $website_arr['@context'] = 'http://schema.org';
+        // ID
+        $website_arr['@id'] = amt_get_schemaorg_entity_id('website');
         // Type
         $website_arr['@type'] = 'WebSite';
         // name
@@ -1700,6 +1727,14 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // TODO: use tag line. Needs feedback!
         // url
         $website_arr['url'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) );
+
+//        if ( $options['author_profile_source'] == 'frontpage' ) {
+            // author
+            //$website_arr['author'] = array( '@id' => esc_attr(amt_get_schemaorg_entity_id('person') ) );
+//        } else {
+            // publisher
+            //$website_arr['publisher'] = array( '@id' => esc_attr(amt_get_schemaorg_entity_id('organization') ) );
+//        }
 
         // SearchAction
         // Scope BEGIN: SearchAction: http://schema.org/SearchAction
