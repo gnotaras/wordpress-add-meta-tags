@@ -2721,6 +2721,10 @@ function amt_set_transient_cache($post, $options, $metadata_arr, $where='') {
     if ( $post->ID <= 0 ) {
         return;
     }
+    // Cache metadata only for published content
+    if ( get_post_status($post->ID) != 'publish' ) {
+        return;
+    }
     // Transient expiration
     $transient_expiration = absint($options['transient_cache_expiration']);
     if ( $transient_expiration == "0" || ! is_numeric($transient_expiration) ) {
