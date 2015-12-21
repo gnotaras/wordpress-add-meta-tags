@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.10.4\n"
+"Project-Id-Version: add-meta-tags 2.10.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-19 05:35+0200\n"
+"POT-Creation-Date: 2015-12-21 09:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: add-meta-tags.php:677 amt-admin-panel.php:90 amt-admin-panel.php:1407
+#: add-meta-tags.php:682 amt-admin-panel.php:90 amt-admin-panel.php:1407
 msgid "Metadata"
 msgstr ""
 
-#: add-meta-tags.php:682
+#: add-meta-tags.php:687
 msgid "Metadata Review Mode"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgstr ""
 msgid "This option is only useful if BuddyPress is used. In this case, the author's BuddyPress profile page is considered as the source of the local author profile, instead of the first page of the author archive. The generation of metadata on BuddyPress pages by this plugin has to be enabled in the <em>Extended Metadata</em> settings."
 msgstr ""
 
-#: amt-admin-panel.php:234 amt-admin-panel.php:900
+#: amt-admin-panel.php:234
 msgid "Author web site URL"
 msgstr ""
 
@@ -775,7 +775,7 @@ msgid "You should always keep in mind that this feature exists only for those wh
 msgstr ""
 
 #: amt-admin-panel.php:530
-msgid "At this time, metadata can be cached only for content pages (posts, pages, attachments, custom post types, products, etc), but not for archives or other custom content. This happens because metadata generation for archives is not expensive in terms of system resources, but more importantly because more research needs to be done to determine whether such a feature could be abused."
+msgid "At this time, metadata can be cached for published content pages (posts, pages, attachments, custom post types, products, etc), but not for archives or other custom content. This happens not only because metadata generation for archives is not a computationally expensive process, but also, more importantly, because more research needs to be done to determine whether such a feature could be abused."
 msgstr ""
 
 #: amt-admin-panel.php:532
@@ -787,7 +787,7 @@ msgid "Clearing the cached metadata"
 msgstr ""
 
 #: amt-admin-panel.php:536
-msgid "If a post, for which metadata has been cached, is edited and saved, then automatic purging of its cached metadata takes place. Add-Meta-Tags will generate a fresh metadata block the next time the post's page is visited. So, in order to manually clear the cached metadata for a specific post, page, attachment, etc, all you have to do is to save it. Purging the cached metadata of individual post objects works regardless of the storage backend for transient data."
+msgid "If a <em>published</em> post, for which metadata has been cached, is edited and saved, then automatic purging of its cached metadata takes place. Add-Meta-Tags will generate a fresh metadata block the next time the post's page is visited. So, in order to manually clear the cached metadata for a specific post, page, attachment, etc, all you have to do is to save it. Purging the cached metadata of individual post objects works regardless of the storage backend for transient data."
 msgstr ""
 
 #: amt-admin-panel.php:538
@@ -965,8 +965,20 @@ msgstr ""
 msgid "(default)"
 msgstr ""
 
+#: amt-admin-panel.php:897 amt-admin-panel.php:899 amt-admin-panel.php:900
+msgid "Organization web site"
+msgstr ""
+
+#: amt-admin-panel.php:898
+msgid "Personal web site"
+msgstr ""
+
 #: amt-admin-panel.php:899
 msgid "BuddyPress member page"
+msgstr ""
+
+#: amt-admin-panel.php:900
+msgid "Author's external web site URL"
 msgstr ""
 
 #: amt-admin-panel.php:904
@@ -1255,19 +1267,19 @@ msgstr ""
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: amt-utils.php:2506
+#: amt-utils.php:2520
 msgid "Select a sample review"
 msgstr ""
 
-#: amt-utils.php:2538
+#: amt-utils.php:2552
 msgid "Use sample review data:"
 msgstr ""
 
-#: amt-utils.php:2635
+#: amt-utils.php:2649
 msgid "Select a meta tag group"
 msgstr ""
 
-#: amt-utils.php:2667
+#: amt-utils.php:2681
 msgid "Replace meta tags with:"
 msgstr ""
 
@@ -1309,7 +1321,7 @@ msgstr ""
 msgid "Profile of"
 msgstr ""
 
-#: metadata\amt_schemaorg.php:1332 metadata\amt_schemaorg.php:1336
-#: metadata\amt_schemaorg.php:2700 metadata\amt_schemaorg.php:2704
+#: metadata\amt_schemaorg.php:1343 metadata\amt_schemaorg.php:1347
+#: metadata\amt_schemaorg.php:2735 metadata\amt_schemaorg.php:2739
 msgid "logo"
 msgstr ""

@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-28 19:28+0200\n"
-"PO-Revision-Date: 2015-12-18 09:16+0000\n"
+"PO-Revision-Date: 2015-12-21 06:38+0000\n"
 "Last-Translator: Сергей Комков\n"
 "Language-Team: Russian (http://www.transifex.com/codetrax/add-meta-tags/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -124,7 +124,7 @@ msgid ""
 "<em>Metadata</em> box is not visible, you probably need to enable it at the "
 "<a href=\"http://en.support.wordpress.com/screen-options/\">Screen "
 "Options</a> of the post editing panel."
-msgstr ""
+msgstr "Автоматически генерируемые мета-данные можно в дальнейшем настроить для каждого поста, страницы или пользовательского типа поста напрямую через блок\n <em>Metadata</em> в панели редактировани поста. Если блок <em>Metadata</em> не отображается, вам, вероятно, надо включить его отображение на <a href=\"http://en.support.wordpress.com/screen-options/\">опциях экрана</a> на панели редактирования поста."
 
 #: amt-admin-panel.php:148
 msgid ""
@@ -327,7 +327,7 @@ msgid ""
 "fact, no <em>Organization</em> metadata object is generated on any web page."
 " Please note that this option has an effect only if a static page has been "
 "set as the front page."
-msgstr ""
+msgstr "Эта опция полезна на личных веб-сайтах, где всего один автор. Если главная страница задана как источник личной страницы автора, сущность мета-данных <em>Person</em> будет на главной странице объектом мета-данных верхнего уровня вместо объекта мета-данных <em>Organization</em>. Фактически объект мета-данных <em>Organization</em> генерируется для любой веб-страницы. Имейте в виду, что опция работает только в том случае, если главная страница является статической."
 
 #: amt-admin-panel.php:233
 msgid "BuddyPress profile page"
@@ -445,7 +445,7 @@ msgid ""
 "content, except for video attachment pages and posts whose post format has "
 "been set to <code>video</code>, on which <code>og:type</code> is set to "
 "<code>video.other</code>."
-msgstr ""
+msgstr "Можно управлять значением мета тега <code>og:type</code>, изменяя формат поста либо программно через фильтр. По умолчанию <code>og:type</code> для любого контента присваивается значение <code>article</code>, за исключением страниц с приложенным видео и постов, чей формат установлен в <code>video</code>, на которых <code>og:type</code> имеет значение <code>video.other</code>."
 
 #: amt-admin-panel.php:278
 msgid "Opengraph"
@@ -592,7 +592,7 @@ msgid ""
 " to insert microdata to your web pages. This generator should be considered "
 "as a workaround in case your theme lacks schema.org microdata markup in its "
 "templates and not as a replacement of schema.org enhanced themes."
-msgstr ""
+msgstr "Генератор мета-данных на деле добавляет микроразметку schema.org вокруг контента поста, поскольку маркировать контент точно автомат технически не умеет. Избегайте ошибок, это не лучший способ вставки микроразметки! Считайте генератор обходным вариантом в случае, если в вашей теме нет микроразметки на уровне шаблона, а не заменой тем, поддерживающих микроразметку schema.org."
 
 #: amt-admin-panel.php:333 amt-admin-panel.php:909
 msgid "Enforce the generation of schema.org metadata as JSON-LD data."
@@ -649,7 +649,7 @@ msgid ""
 "form of <code>language_TERRITORY</code>. This feature should not be used in "
 "conjunction with a multilingual plugin in order to avoid the potential "
 "generation of meta tags with invalid locale."
-msgstr ""
+msgstr "Введите локаль, которая будет использована в генерируемых мета-данных, отменяя локаль по умолчанию, возвращаемую WordPress. Эта настройка рекомендуется только если WordPress не возвращает локаль в формате <code>language_TERRITORY</code>. Эту опцию нельзя использовать вместе в многоязычным плагином, чтобы избежать возможной генерации мета тегов с невалидной локалью."
 
 #: amt-admin-panel.php:356 amt-admin-panel.php:930
 msgid ""
@@ -899,7 +899,7 @@ msgid ""
 "this options is enabled, additional <code>og:image:secure_url</code> meta "
 "tags will be generated for your local media. If the current connection uses "
 "HTTPS, then secure links are always generated."
-msgstr ""
+msgstr "На данный момент эта опция позволяет плагину принимать решение о генерации дополнительных безопасных ссылок даже если протокол HTTPS не используется. Например, если веб-сайт доступен по протоколу HTTP и эта опция включена, для локальных медийных файлов будут генерироваться дополнительные мета теги <code>og:image:secure_url</code> . Если используется протокол HTTPS, безопасные ссылки будет генерироваться всегда."
 
 #: amt-admin-panel.php:435 amt-admin-panel.php:1113 amt-admin-panel.php:1116
 msgid "Media Limit"
@@ -1498,7 +1498,7 @@ msgid ""
 "tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews\" "
 "target=\"_blank\">Read more</a> about the correct syntax of the review "
 "information."
-msgstr ""
+msgstr "This field accepts review related information using INI file syntax. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. \nЭто поле принимает информацию, связанную с обзором, используя синтаксис файла INI. Если эта информация дана в правильной форме, Add-Meta-Tags считает контент обзором некой сущности и генерирует соответствующую микроразметку Schema.org. <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews\" target=\"_blank\">Читайте здесь</a> о правильном синтаксисе информации обзора."
 
 #: amt-admin-panel.php:1621
 msgid "URLs of referenced items"
