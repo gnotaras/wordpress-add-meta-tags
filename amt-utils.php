@@ -2812,13 +2812,15 @@ function amt_delete_all_transient_metadata_cache($blog_id=null) {
     $options_table = $wpdb->get_blog_prefix($blog_id) . 'options';
 
     // Construct SQL query that counts the AMT transient cache entries
+    // Here we do not count the timeout entries: _transient_timeout_amt_* since they are not meant to be separate cached objects.
     $sql = "SELECT COUNT(*) FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%'";
 
     // Get number of cache entries
     $nr_cache_entries = $wpdb->get_var($sql);
 
     // Construct SQL query that deletes the cached metadata
-    $sql = "DELETE FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%'";
+    // Here we also delete the timeout entries: _transient_timeout_amt_*
+    $sql = "DELETE FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%' OR option_name LIKE '\_transient\_timeout\_amt\_%'";
 
     // Execute query
     $wpdb->query($sql);
@@ -2845,6 +2847,7 @@ function amt_count_transient_metadata_cache_entries($blog_id=null) {
     $options_table = $wpdb->get_blog_prefix($blog_id) . 'options';
 
     // Construct SQL query that counts the AMT transient cache entries
+    // Here we do not count the timeout entries: _transient_timeout_amt_* since they are not meant to be separate cached objects.
     $sql = "SELECT COUNT(*) FROM $options_table WHERE option_name LIKE '\_transient\_amt\_%'";
 
     // Get number of cache entries
