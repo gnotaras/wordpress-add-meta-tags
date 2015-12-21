@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.10.4
+Stable tag: 2.10.5
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -89,6 +89,13 @@ For some technical, but mostly for non-technical reasons, I no longer monitor, p
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.5](http://www.codetrax.org/versions/343)
+ - Notice: The plugin has undergone several much needed improvements lately. I know frequent updates make people (including me) a little nervous, but all updates have been very safe. The implementation of two or three extra minor features has been planned (time permitting) for the upcoming weeks. Development during the upcoming months will take place at a much slower pace. Thanks all for contributing in one way or another!
+ - Fixed an issue with the metadata cache clean up when the plugin settings were saved. The extra (undocumented!) 'timeout' entries WordPress automatically creates were not properly removed. Clearing the cache using the command line worked as expected. Although optional, it is recommended to save the plugin settings once so as to clear the metadata cache.
+ - Metadata for posts that are not published is no longer cached. This was a design flaw. (Thanks to kochtopf for valuable feedback and testing.)
+ - Improved the selection box for the main source of local author profiles. (Props to ditad for valuable feedback.)
+ - Updated translations.
+ - The `Esc` key can now be used to also open the metadata review panel, instead of just closing it, by adding the following in the `functions.php` file of the theme or in a [custom plugin](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Cookbook_Snippet_Uses#Custom-Plugin): `add_filter('amt_metadata_review_mode_enable_enhanced_script', '__return_true');`
 - [2.10.4](http://www.codetrax.org/versions/342)
  - This bug fix release addresses an issue with Metadata Review Mode in cases javascript minification/compression is in effect due to missing dependency during the registration of the javascript file.
 - [2.10.3](http://www.codetrax.org/versions/341)
