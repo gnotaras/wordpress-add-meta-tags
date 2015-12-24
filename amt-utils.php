@@ -3487,3 +3487,296 @@ function amt_bp_get_profile_field_data( $internal_profile_property, $user_id, $x
     }
     return '';
 }
+
+
+
+//
+// Content & Metadata Overview & Analysis
+//
+
+
+function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_block_footer, $metadata_block_content_filter) {
+    // Analysis is appended only o content pages
+    if ( ! is_singular() ) {
+        return '';
+    }
+    // Check the filter based switch
+    if ( ! apply_filters('amt_metadata_analysis_enable', false) ) {
+        return '';
+    }
+
+    //
+    // Collect data
+    //
+
+    $options = amt_get_options();
+    $post = amt_get_queried_object($options);
+
+    // Content and stats
+    $post_content = strtolower( strip_shortcodes( strip_tags( $post->post_content ) ) );
+    $post_content = preg_replace('#\[[^\]]+\]#', '', $post_content);
+    $post_content_length = strlen($post_content);
+    //var_dump($post_content);
+    // Total words
+    if ( function_exists('wordstats_words') ) {
+        $post_word_count = wordstats_words($post_content);  // provided by the word-statistics-plugin by FD
+    } else {
+        $post_word_count = str_word_count($post_content);
+    }
+    // Total sentences
+    if ( function_exists('wordstats_sentences') ) {
+        $post_sentence_count = wordstats_sentences($post_content);  // provided by the word-statistics-plugin by FD
+    } else {
+        $post_sentence_count = preg_match_all('/[.!?\r]/', $post_content, $dummy );
+    }
+    // Total syllables
+    // TODO: Find better function
+    $post_syllable_count = preg_match_all('/[aeiouy]/', $post_content, $dummy );
+
+    // Titles
+    // Original
+    $post_title = strtolower( strip_tags(get_the_title($post->ID)) );
+    // Title HTML element
+    $post_title_html_element = strtolower( amt_get_title_for_title_element($options, $post) );
+    //var_dump($post_title_html_element);
+    // Title in metadata
+    $post_title_metadata = strtolower( amt_get_title_for_metadata($options, $post) );
+    //var_dump($post_title_metadata);
+
+    // Description
+    $description = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:description']) );
+    //var_dump($description);
+    // Keywords
+    $keywords_content = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:keywords']) );
+    $keywords = explode( ',', str_replace(', ', ',', $keywords_content) );
+    //var_dump($keywords);
+
+    // Keyword matching pattern
+    //$keyword_matching_pattern = '#(?:%s)#';
+    $keyword_matching_pattern = '#(?:%s)[[:^alpha:]]#';
+
+    // Whether to use topic keywords field or the keywords from the 'keywords' meta tag.
+    $use_keywords = false;
+
+    // First check for a field that contains topic keywords.
+    $topic_keywords_field_name = apply_filters('amt_metadata_analysis_topic_keywords_field', 'topic_keywords');
+    $topic_keywords_field_value = get_post_meta( $post->ID, $topic_keywords_field_name, true );
+    if ( ! empty($topic_keywords_field_value) ) {
+        $topic_keywords = explode( ',', str_replace(', ', ',', $topic_keywords_field_value) );
+    } else {
+        $topic_keywords = $keywords;
+        $use_keywords = true;
+        //var_dump($topic_keywords);
+    }
+
+    $BR = PHP_EOL;
+
+    $output = $default_text . $BR . $BR;
+    //$output .= $BR . '<span class="">Text analysis</span>' . $BR;
+
+    $output .= 'Metadata Overview' . $BR;
+    $output .= '================='. $BR . $BR;
+
+    if ( $use_keywords ) {
+        $output .= 'This overview has been based on post keywords. ' . $BR . $BR;
+    } else {
+        $output .= sprintf('Analysis based on keywords from custom field \'%s\'.', $topic_keywords_field_name) . $BR . $BR;
+    }
+
+    $output .= 'Keyword Analysis' . $BR;
+    $output .= '----------------' . $BR;
+
+    $output .= '<table class="amt-ht-table">';
+    $output .= '<tr> <th>Keyword</th> <th>Occurrences</th> <th>Content</th> <th>Description</th> <th>Keywords</th> <th>Title</th> <th>HTML title</th> <th>Metadata titles</th> </tr>';
+    foreach ($topic_keywords as $topic_keyword) {
+        $topic_keyword_occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $matches );
+        $topic_keyword_desnity = ($topic_keyword_occurrences / $post_word_count) * 100;
+//        $output .= sprintf( '%s: %d (%.1f%%)', $topic_keyword, $topic_keyword_occurrences, $topic_keyword_desnity );
+        $output .= sprintf( '<tr> <td>%s</td> <td>%d (%.1f%%)</td>', $topic_keyword, $topic_keyword_occurrences, $topic_keyword_desnity );
+
+        $is_into = array();
+
+        // Check content
+        $is_into['content'] = '';
+        if ( preg_match( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $tmp ) ) {
+            $is_into['content'] = 'yes';
+        }
+
+        // Check description
+        $is_into['description'] = '';
+        if ( strpos($description, $topic_keyword) !== false ) {
+            $is_into['description'] = 'yes';
+        }
+
+        // Check keyowrds
+        if ( $use_keywords ) {
+            $is_into['keywords'] = 'N/A';
+        } elseif ( in_array($topic_keyword, $keywords) ) {
+            $is_into['keywords'] = 'yes';
+        } else {
+            $is_into['keywords'] = '';
+        }
+
+        // Check original title
+        $is_into['post_title'] = '';
+        if ( strpos($post_title, $topic_keyword) !== false ) {
+            $is_into['post_title'] = 'yes';
+        }
+
+        // Check title element
+        $is_into['post_title_html_element'] = '';
+        if ( strpos($post_title_html_element, $topic_keyword) !== false ) {
+            $is_into['post_title_html_element'] = 'yes';
+        }
+
+        // Check metadata titles
+        $is_into['post_title_metadata'] = '';
+        if ( strpos($post_title_metadata, $topic_keyword) !== false ) {
+            $is_into['post_title_metadata'] = 'yes';
+        }
+
+
+        $output .= sprintf( ' <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> </tr>', $is_into['content'], $is_into['description'], $is_into['keywords'], $is_into['post_title'], $is_into['post_title_html_element'], $is_into['post_title_metadata'] ) . PHP_EOL;
+    }
+
+    $output .= '</table>' . $BR . $BR;
+
+
+    // Keyword Histogram
+
+    $output .= 'Keyword Distribution' . $BR;
+    $output .= '--------------------'. $BR . $BR;
+
+    //$output .= $BR . $BR;
+    $total_bars = 39;   // zero based
+    $step = $post_content_length / $total_bars;
+
+    //$output .= $BR . $post_content_length . '  ' . $step . $BR;
+
+    $max_weight = null;
+    $weights = array();
+    for ($x = 0; $x <= $total_bars; $x++) {
+        $weights[$x] = 1;
+    }
+    foreach ($topic_keywords as $topic_keyword) {
+        // ALTERNATIVE: use preg_match_all with PREG_OFFSET_CAPTURE -- http://php.net/manual/en/function.preg-match-all.php
+        $topic_keyword_occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $matches, PREG_OFFSET_CAPTURE );
+        //var_dump($matches);
+        if ( ! empty($topic_keyword_occurrences) ) {
+            foreach ($matches[0] as $match) {
+                $pos = $match[1];
+                $step_index = absint($pos / $step);
+                $weights[$step_index] = $weights[$step_index] + 1;
+                if ($weights[$step_index] > $max_weight) {
+                    $max_weight = $weights[$step_index];
+                }
+                // Debug
+                //$output .= sprintf('kw: %s, pos: %s, step index: %s, step weight: %s', $topic_keyword, $pos, $step_index, $weights[$step_index]) . $BR;
+            }
+        }
+    }
+
+    //var_dump($weights);
+    //for ($x = $max_weight - 1; $x >= 0; $x--) { // ALTBASELINE: for * based baseline
+    for ($x = $max_weight - 1; $x >= 1; $x--) {
+        $line = '';
+        for ($y = 0; $y <= $total_bars; $y++) {
+            if ($x == 0) {
+                // ALTBASELINE: currently not used
+                $line .= '*';   // base line
+            } elseif ($weights[$y] > $x) {
+                $line .= '#';
+            } else {
+                $line .= ' ';
+            }
+        }
+        $output .= $line . $BR;
+    }
+    // ALTBASELINE: currently this text based ruler is used.
+    $output .= str_repeat('---------+', (($total_bars + 1) / 10)) . $BR;
+
+/*
+/////////////////////////////////////////////
+
+    // Keyword Histogram
+    $output .= $BR . 'ALTERNATIVE GRAPH' . $BR;
+    $total_bars = 39;   // zero based
+    $post_content_length = strlen($post_content);
+    $step = $post_content_length / $total_bars;
+
+    $output .= $BR . $post_content_length . '  ' . $step . $BR;
+
+    $max_weight = null;
+    $weights = array();
+    for ($x = 0; $x <= $total_bars; $x++) {
+        $weights[$x] = 1;
+    }
+    foreach ($topic_keywords as $topic_keyword) {
+        // ALTERNATIVE: use preg_match_all with PREG_OFFSET_CAPTURE -- http://php.net/manual/en/function.preg-match-all.php
+        $offset = 0;
+        $pos = null;
+        while ($offset <= $post_content_length) {
+            $pos = strpos($post_content, $topic_keyword, $offset);
+            if ($pos === false) {
+                break;
+                //$offset = $post_content_length;
+                //$output .= sprintf('kw: %s, pos: %s', $topic_keyword, $pos) . $BR;
+            } else {
+                //$offset = $offset + $pos + 1;
+                $offset = $pos + 1;
+                $step_index = absint($pos / $step);
+                $weights[$step_index] = $weights[$step_index] + 1;
+                if ($weights[$step_index] > $max_weight) {
+                    $max_weight = $weights[$step_index];
+                }
+                // Debug
+                $output .= sprintf('kw: %s, pos: %s, step index: %s, step weight: %s, offset: %s', $topic_keyword, $pos, $step_index, $weights[$step_index], $offset) . $BR;
+            }
+        }
+    }
+    //var_dump($weights);
+    for ($x = $max_weight - 1; $x >= 0; $x--) {
+        $line = '';
+        for ($y = 0; $y <= $total_bars; $y++) {
+            if ($x == 0) {
+                $line .= '*';   // base line
+            } elseif ($weights[$y] > $x) {
+                $line .= '#';
+            } else {
+                $line .= ' ';
+            }
+        }
+        $output .= $line . $BR;
+    }
+
+//////////////////////
+*/
+
+    // Stats and scores by algos provided by the word-statistics-plugin by FD
+    if ( function_exists('wordstats_words') ) {
+
+        // Readability Tests
+        $output .= $BR . 'Readability Scores and Text Statistics' . $BR;
+        $output .=       '--------------------------------------' . $BR;
+
+        if ( function_exists('wordstats_words') ) {
+            $output .= sprintf(' &#9679; Total words: <strong>%d</strong>', wordstats_words($post_content) ) . $BR;
+        }
+        if ( function_exists('wordstats_sentences') ) {
+            $output .= sprintf(' &#9679; Total sentences: <strong>%d</strong>', wordstats_sentences($post_content) ) . $BR;
+        }
+        if ( function_exists('wordstats_flesch_kincaid') ) {
+            $output .= sprintf(' &#9679; Flesch-Kincaid US grade level: <strong>%.1f</strong> <em>(For instance, a score of 9.3 means suitable for a 9th grade student in the US, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_flesch_kincaid($post_content), 'https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch.E2.80.93Kincaid_grade_level' ) . $BR;
+        }
+        if ( function_exists('wordstats_flesch') ) {
+            $output .= sprintf(' &#9679; Flesch reading ease: <strong>%.1f%%</strong> <em>(average 11 yo student: 90-100%%, 13-15 yo students: 60-70%%, university graduates: 0-30%%, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_flesch($post_content), 'https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_reading_ease' ) . $BR;
+        }
+        if ( function_exists('wordstats_fog') ) {
+            $output .= sprintf(' &#9679; Gunning fog index: <strong>%.1f</strong> <em>(wide audience: < 12, near universal understanding: < 8, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_fog($post_content), 'https://en.wikipedia.org/wiki/Gunning_fog_index' ) . $BR;
+        }
+
+    }
+
+    return $output;
+}
+
