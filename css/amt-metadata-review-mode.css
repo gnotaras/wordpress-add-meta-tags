@@ -72,6 +72,25 @@
     color: green;
 }
 
+.amt-ht-yes {
+    color: green;
+}
+
+.amt-ht-no {
+    color: red;
+}
+
+.amt-ht-table {
+    border: 1px solid black;
+}
+.amt-ht-table th {
+    font-weight: bold;
+}
+.amt-ht-table td, .amt-ht-table th {
+    padding: 4px 8px;
+    border: 1px solid black;
+}
+
 /* Menu Icon */
 
 #wpadminbar li#wp-admin-bar-amt {
