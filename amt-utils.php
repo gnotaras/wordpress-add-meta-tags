@@ -3498,11 +3498,11 @@ function amt_bp_get_profile_field_data( $internal_profile_property, $user_id, $x
 function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_block_footer, $metadata_block_content_filter) {
     // Analysis is appended only o content pages
     if ( ! is_singular() ) {
-        return '';
+        return $default_text;
     }
     // Check the filter based switch
     if ( ! apply_filters('amt_metadata_analysis_enable', false) ) {
-        return '';
+        return $default_text;
     }
 
     //
