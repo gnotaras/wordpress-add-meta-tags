@@ -568,11 +568,17 @@ function amt_get_metadata_review($options, $add_as_view=false) {
     $text_intro = '<span class="amt-ht-notice"><span class="amt-ht-important">NOTE</span>: This menu has been added because <span class="amt-ht-important">Metadata Review Mode</span> has been enabled in';
     $text_intro .= $BR . 'the Add-Meta-Tags settings. Only logged in administrators can see this menu.</span>';
 
-    $text_head_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been added to the head section.</span>' . $BR . $BR;
+    //$text_head_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been added to the head section.</span>' . $BR . $BR;
+    $text_head_intro = $BR . $BR . 'Metadata at the head section' . $BR;
+    $text_head_intro .=            '============================' . $BR . $BR;
 
-    $text_footer_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR . $BR;
+    //$text_footer_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR . $BR;
+    $text_footer_intro = $BR . $BR . 'Metadata within the body area' . $BR;
+    $text_footer_intro .=            '=============================' . $BR . $BR;
 
-    $text_content_filter_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
+    //$text_content_filter_intro = $BR . $BR . '<span class="amt-ht-notice">The following metadata has been embedded in the body of the page.</span>' . $BR;
+    $text_content_filter_intro = $BR . $BR . 'Metadata within the body area' . $BR;
+    $text_content_filter_intro .=            '=============================' . $BR;
 
     //
     // Build view
