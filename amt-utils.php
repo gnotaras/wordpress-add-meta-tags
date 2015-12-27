@@ -3501,7 +3501,7 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
         return $default_text;
     }
     // Check the filter based switch
-    if ( ! apply_filters('amt_metadata_analysis_enable', false) ) {
+    if ( ! apply_filters('amt_metadata_analysis_enable', true) ) {
         return $default_text;
     }
 
@@ -3582,9 +3582,9 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     $output .= 'This overview has been generated for statistical and informational purposes only.' . $BR . $BR;
 
     if ( $use_keywords ) {
-        $output .= 'This overview has been based on post keywords. ' . $BR . $BR;
+        $output .= sprintf('This overview has been based on post keywords, because <em>topic keywords</em> could not be retrieved from the custom field \'<em>%s</em>\'.', $topic_keywords_field_name) . $BR . $BR;
     } else {
-        $output .= sprintf('Analysis based on keywords from custom field \'%s\'.', $topic_keywords_field_name) . $BR . $BR;
+        $output .= sprintf('This overview has been based on <em>topic keywords</em> retrieved from the custom field \'<em>%s</em>\'.', $topic_keywords_field_name) . $BR . $BR;
     }
 
     $output .= 'Keyword Analysis' . $BR;
@@ -3721,7 +3721,7 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
             $output .= sprintf(' &#9679; Flesch-Kincaid US grade level: <strong>%.1f</strong> <em>(For instance, a score of 9.3 means suitable for a 9th grade student in the US, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_flesch_kincaid($post_content), 'https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch.E2.80.93Kincaid_grade_level' ) . $BR;
         }
         if ( function_exists('wordstats_flesch') ) {
-            $output .= sprintf(' &#9679; Flesch reading ease: <strong>%.1f%%</strong> <em>(avg 11y.o. student: 90-100%%, 13-15y.o. students: 60-70%%, university graduates: 0-30%%, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_flesch($post_content), 'https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_reading_ease' ) . $BR;
+            $output .= sprintf(' &#9679; Flesch reading ease: <strong>%.1f%%</strong> <em>(avg 11 y.o. student: 90-100%%, 13-15 y.o. students: 60-70%%, university graduates: 0-30%%, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_flesch($post_content), 'https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_reading_ease' ) . $BR;
         }
         if ( function_exists('wordstats_fog') ) {
             $output .= sprintf(' &#9679; Gunning fog index: <strong>%.1f</strong> <em>(wide audience: < 12, near universal understanding: < 8, <a target="_blank" href="%s">read more</a>.)</em>', wordstats_fog($post_content), 'https://en.wikipedia.org/wiki/Gunning_fog_index' ) . $BR;
