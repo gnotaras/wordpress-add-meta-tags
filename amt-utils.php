@@ -2678,6 +2678,23 @@ jQuery(document).ready(function(){
         }
         jQuery("#amt_custom_full_metatags").val(output);
     });
+
+    // On Reset button click
+    jQuery("#full_meta_tag_sets_reset").click(function() {
+        // Store current full meta tags box contents
+        var cur_contents = jQuery("#amt_custom_full_metatags").val();
+        if ( cur_contents != "" ) {
+            // alert( "Handler for .click() called." );
+            var rchoice = confirm("Undo your changes in the full meta tags box?");
+            if (rchoice == true) {
+                //jQuery("#amt_custom_full_metatags").val(\'\');
+                jQuery("#amt_custom_full_metatags").val(' . json_encode( html_entity_decode( $default ) ) . ');
+                jQuery("#full_meta_tag_sets_selector").val("0");
+            }
+        }
+        return false;
+    });
+
 });
 </script>
     ';
