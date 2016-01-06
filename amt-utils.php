@@ -2692,9 +2692,10 @@ jQuery(document).ready(function(){
     // Iterate through the meta tag sets and set the output value accordingly.
     foreach ( $meta_tag_sets as $key => $value ) {
         $key_slug = str_replace(' ', '_', strtolower($key));
+        $additional_metatags = implode("\n", $value);
         $html .= '
         } else if (selection == "' . esc_attr($key_slug) . '") {
-            var output = \'' . implode('\'+"\n"+\'', $value) . '\';
+            var output = ' . json_encode( html_entity_decode( $additional_metatags ) ) . ';
         ';
     }
 
