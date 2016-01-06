@@ -2636,6 +2636,10 @@ function amt_get_breadcrumbs( $user_options ) {
 }
 
 
+//
+// Full meta tag boxes helper functions
+//
+
 // Meta Tag Sets
 function amt_get_full_meta_tag_sets() {
 
