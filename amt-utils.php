@@ -2682,7 +2682,12 @@ jQuery(document).ready(function(){
 </script>
     ';
 
-    return '<br />' . __('Replace meta tags with:', 'add-meta-tags') . $html . '<br />';
+// Testing
+// jQuery("#amt_custom_full_metatags").html(' . json_encode($default) . ').text();
+// jQuery("#amt_custom_full_metatags").val("' . html_entity_decode($default, ENT_NOQUOTES) . '");
+// jQuery("#amt_custom_full_metatags").html("' . html_entity_decode($default, ENT_NOQUOTES) . '").text();
+
+    return '<br />' . __('Append a meta tag set:', 'add-meta-tags') . $html . '<br />';
 }
 
 
