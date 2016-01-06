@@ -2641,10 +2641,26 @@ function amt_get_breadcrumbs( $user_options ) {
 //
 
 // Meta Tag Sets
-function amt_get_full_meta_tag_sets() {
+function amt_get_full_meta_tag_sets( $default ) {
+
+    // Default meta tag sets
+    $default_meta_tag_sets = array();
+
+    $default_meta_tag_sets['Robots - Generic'] = array(
+        '<meta name="robots" content="all" />',
+    );
+    $default_meta_tag_sets['Robots - NoIndex, NoFollow'] = array(
+        '<meta name="robots" content="noindex,nofollow" />',
+    );
+    $default_meta_tag_sets['Robots - NoIndex, Follow'] = array(
+        '<meta name="robots" content="noindex,follow" />',
+    );
+    $default_meta_tag_sets['Robots - No extra services'] = array(
+        '<meta name="robots" content="noodp,noarchive,notranslate,noimageindex" />',
+    );
 
     // Check if we have any meta tag sets.
-    $meta_tag_sets = apply_filters( 'amt_full_meta_tag_sets', array() );
+    $meta_tag_sets = apply_filters( 'amt_full_meta_tag_sets', $default_meta_tag_sets );
     if ( empty($meta_tag_sets) ) {
         return;
     }
@@ -2653,30 +2669,45 @@ function amt_get_full_meta_tag_sets() {
     $html .= PHP_EOL . '<option value="0">'.__('Select a meta tag group', 'add-meta-tags').'</option>' . PHP_EOL;
     foreach ( array_keys($meta_tag_sets) as $key ) {
         $key_slug = str_replace(' ', '_', strtolower($key));
-        $html .= '<option value="'.$key_slug.'">'.$key.'</option>' . PHP_EOL;
+        $html .= '<option value="' . esc_attr($key_slug) . '">' . esc_attr($key) . '</option>' . PHP_EOL;
     }
     $html .= PHP_EOL . '</select>' . PHP_EOL;
+
+    $html .= PHP_EOL . '<input class="button" id="full_meta_tag_sets_reset" name="full_meta_tag_sets_reset" type="submit" value="'.__('Reset', 'add-meta-tags').'" />' . PHP_EOL;
 
     $html .='
 <script>
 jQuery(document).ready(function(){
+
+    // On selector change
     jQuery("#full_meta_tag_sets_selector").change(function(){
+        // Store current full meta tags box contents
+        var cur_contents = jQuery("#amt_custom_full_metatags").val();
+        // Get selector value
         var selection = jQuery(this).val();
         if (selection == "0") {
             var output = \'\';
     ';
 
+    // Iterate through the meta tag sets and set the output value accordingly.
     foreach ( $meta_tag_sets as $key => $value ) {
         $key_slug = str_replace(' ', '_', strtolower($key));
         $html .= '
-        } else if (selection == "'.$key_slug.'") {
-            var output = \''.implode('\'+"\n"+\'', $value).'\';
+        } else if (selection == "' . esc_attr($key_slug) . '") {
+            var output = \'' . implode('\'+"\n"+\'', $value) . '\';
         ';
     }
 
     $html .='
         }
-        jQuery("#amt_custom_full_metatags").val(output);
+        // Replace text area contents.
+        if ( cur_contents == "" ) {
+            // If the full meta tags box is currently empty
+            jQuery("#amt_custom_full_metatags").val(output);
+        } else {
+            // If the full meta tags box already contains data
+            jQuery("#amt_custom_full_metatags").val(cur_contents.trim() + "\n" + output);
+        }
     });
 
     // On Reset button click

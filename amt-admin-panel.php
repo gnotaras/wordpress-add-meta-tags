@@ -1650,7 +1650,7 @@ function amt_inner_metadata_box( $post ) {
         print('
             <p>
                 <label for="amt_custom_full_metatags"><strong>'.__('Full meta tags', 'add-meta-tags').'</strong>:</label>
-                ' . amt_get_full_meta_tag_sets() . '
+                ' . amt_get_full_meta_tag_sets( $custom_full_metatags_value ) . '
                 <textarea class="code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="30" rows="6" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
                 <br>
                 '.__('Provide the full XHTML code of extra META elements you would like to add to this content (read more about the <a href="http://en.wikipedia.org/wiki/Meta_element" target="_blank">META HTML element</a> on Wikipedia).', 'add-meta-tags').'
