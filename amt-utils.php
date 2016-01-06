@@ -1262,12 +1262,12 @@ function amt_get_post_meta_full_metatags($post_id) {
 }
 
 
-/**
- * Helper function that returns the value of the custom field that contains
- * a global image override URL.
- * The default field name for the 'global image override URL' is ``_amt_image_url``.
- * No need to migrate from older field name.
- */
+//
+// Helper function that returns the value of the custom field that contains
+// a global image override URL.
+// The default field name for the 'global image override URL' is ``_amt_image_url``.
+// No need to migrate from older field name.
+//
 function amt_get_post_meta_image_url($post_id) {
 
     // Non persistent object cache
