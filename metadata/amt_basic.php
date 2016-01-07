@@ -131,6 +131,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         $hreflang_arr = apply_filters( 'amt_hreflang_links', $hreflang_arr, $hreflang, $hreflang_url );
         // Add to to metadata array
         foreach ( $hreflang_arr as $hreflang_link ) {
+            // TODO: FIX: same key here in foreach? Always one, but needs fixing.
             $metadata_arr['basic:hreflang'] = $hreflang_link;
         }
     }
