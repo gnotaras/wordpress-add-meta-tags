@@ -105,7 +105,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     //    $copyright_url = trailingslashit( get_bloginfo('url') );
     //}
     if ( ! empty($copyright_url) ) {
-        $metadata_arr['basic:copyright'] = '<link rel="copyright" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . ' Copyright Information" href="' . esc_url_raw( $copyright_url ) . '" />';
+        $metadata_arr['basic:copyright'] = '<link rel="copyright" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . ' '.__('copyright information', 'add-meta-tags').'" href="' . esc_url( $copyright_url ) . '" />';
     }
 
     // hreflang link element
