@@ -68,37 +68,121 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     // Array to store metadata
     $metadata_arr = array();
 
+    // Pre-processing
 
-    // Robots Meta Tag.
-    $robots_content = '';
+    // Store hreflang links in array
+    $hreflang_links_arr = array();
+
+    // Store base robots options
+    $robots_options = array();
 
     if ( $do_noodp_description && ( is_front_page() || is_singular() ) ) {
         // Add NOODP on posts and pages
-        $robots_content = 'NOODP,NOYDIR';
-        // Allow filtering of the robots meta tag content.
-        $robots_content = apply_filters( 'amt_robots_data', $robots_content );
-    }
-    // Add a robots meta tag if its content is not empty.
-    if ( ! empty( $robots_content ) ) {
-        $metadata_arr['basic:robots'] = '<meta name="robots" content="' . $robots_content . '" />';
+        $robots_options[] = 'noodp';
+        $robots_options[] = 'noydir';
     }
 
+    // Store full meta tags (site wide and post specific)
+
     // Add site wide meta tags
-    if ( ! empty( $options["site_wide_meta"] ) ) {
-        $full_metatags_for_site = html_entity_decode( stripslashes( $options["site_wide_meta"] ) );
-        $metadata_arr['basic:full_metatags_site'] = apply_filters('amt_full_metatags_site', $full_metatags_for_site);
+    $full_metatags_as_string = '';
+    if ( ! empty( $options['site_wide_meta'] ) ) {
+        $full_metatags_for_site = html_entity_decode( stripslashes( $options['site_wide_meta'] ) );
+        $full_metatags_as_string .= apply_filters('amt_full_metatags_site', $full_metatags_for_site);
+        $full_metatags_as_string .= PHP_EOL;
     }
 
     // Post specific full meta tags
     if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
         // per post full meta tags
         $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
-        $full_metatags_for_content = apply_filters('amt_full_metatags_post', $full_metatags_for_content);
-        if ( ! empty( $full_metatags_for_content ) ) {
-            $metadata_arr['basic:full_metatags_post'] = html_entity_decode( stripslashes( $full_metatags_for_content ) );
-        }
+        $full_metatags_for_content = html_entity_decode( stripslashes( $full_metatags_for_content ) );
+        $full_metatags_as_string .= apply_filters('amt_full_metatags_post', $full_metatags_for_content);
     }
 
+    // Sanitize
+    //$full_metatags_as_string = esc_textarea( wp_kses( $full_metatags_as_string, amt_get_allowed_html_kses() ) );
+    $full_metatags_as_string = wp_kses( $full_metatags_as_string, amt_get_allowed_html_kses() );
+
+    // Make array of full meta tags
+    $full_meta_tags = preg_split('#\R#', $full_metatags_as_string, NULL, PREG_SPLIT_NO_EMPTY);
+
+    // Process
+
+    $processed_full_meta_tags = array();
+
+    foreach ($full_meta_tags as $single_meta_tag) {
+
+        // Process custom canonical link
+        // If a rel="canonical" meta tags exists, we deactivate WordPress' 'rel_canonical' action,
+        // Since it is assumed that a custom canonical link has been added.
+        //if ( preg_match( '# rel="canonical" #', $post_full_meta_tags, $tmp ) ) {
+        if ( strpos($single_meta_tag, ' rel="canonical" ') !== false ) {
+            // Remove default WordPress action
+            remove_action('wp_head', 'rel_canonical');
+        }
+
+        // Process robots meta tags.
+        // Multiple robots meta tags may exist. Here we collect the options.
+        elseif ( strpos($single_meta_tag, ' name="robots" ') !== false ) {
+            if ( preg_match( '# content="([^"]+)" #', $single_meta_tag, $matches ) ) {
+                $tmp_robots_opts = explode(',', $matches[1]);
+                foreach ($tmp_robots_opts as $single_robots_option) {
+                    $single_robots_option_cleaned = strtolower(trim($single_robots_option));
+                    if ( ! empty($single_robots_option_cleaned) ) {
+                        $robots_options[] = $single_robots_option_cleaned;
+                    }
+                }
+            }
+            // We simply collect options. Do not add any robots meta tags to the processed meta tags array.
+            continue;
+        }
+
+        // Process hreflang links.
+        // Here we just collect them and let them be process later below at the special section.
+        elseif ( strpos($single_meta_tag, ' hreflang="') !== false ) {
+            // Simply add to the hreflang links array for later processing
+            $hreflang_links_arr[] = $single_meta_tag;
+            // We simply collect hreflang links for later processing. Do not add them to the processed meta tags array.
+            continue;
+        }
+
+        // If we have reached here, add the meta tags to the array with processed meta tags.
+        $processed_full_meta_tags[] = $single_meta_tag;
+
+    }
+
+    //var_dump($full_meta_tags);
+    //var_dump($processed_full_meta_tags);
+
+    // Add Meta Tags
+
+    // Add a robots meta tag if robots options exist.
+    // Backwards compatible filter. TODO: This is deprecated. Needs to be deleted after a while.
+    $old_options_as_string = apply_filters( 'amt_robots_data', '' );
+    if ( ! empty($old_options_as_string) ) {
+        foreach ( explode(',', $old_options_as_string) as $single_robots_option) {
+            $single_robots_option_cleaned = strtolower(trim($single_robots_option));
+            if ( ! empty($single_robots_option_cleaned) ) {
+                $robots_options[] = $single_robots_option_cleaned;
+            }
+        }
+    }
+    // Add robot_options filtering
+    $robots_options = apply_filters( 'amt_robots_options', $robots_options );
+    $robots_options = array_unique( $robots_options, SORT_STRING );
+    if ( ! empty( $robots_options ) ) {
+        $metadata_arr['basic:robots'] = '<meta name="robots" content="' . esc_attr( implode(',', $robots_options) ) . '" />';
+    }
+
+    // Add full meta tags
+    // Merge meta tags
+    $processed_full_meta_tags = apply_filters('amt_full_metatags_processed', $processed_full_meta_tags);
+    if ( ! empty($processed_full_meta_tags) ) {
+        $metadata_arr = array_merge($metadata_arr, $processed_full_meta_tags);
+    }
+
+    // Add copyright link
     // On every page print the copyright head link
     $copyright_url = amt_get_site_copyright_url($options);
     //if ( empty($copyright_url)) {
@@ -109,6 +193,8 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     }
 
     // hreflang link element
+    // This section also expects an array of extra hreflang links that may have
+    // been collected from the full meta tags boxes.
     if ( $options['generate_hreflang_links'] == '1' ) {
         if ( is_singular() ) {
             $locale = amt_get_language_content($options, $post);
@@ -151,8 +237,12 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         if ( ! empty($hreflang) && ! empty($hreflang_url) ) {
             $hreflang_arr[] = '<link rel="alternate" hreflang="' . esc_attr( $hreflang ) . '" href="' . esc_url_raw( $hreflang_url ) . '" />';
         }
+        // Add extra hreflang links that have been collected from the full meta tags boxes
+        if ( ! empty($hreflang_links_arr) ) {
+            $hreflang_arr = array_merge($hreflang_arr, $hreflang_links_arr);
+        }
         // Allow filtering of the hreflang array
-        $hreflang_arr = apply_filters( 'amt_hreflang_links', $hreflang_arr, $hreflang, $hreflang_url );
+        $hreflang_arr = apply_filters( 'amt_hreflang_links', $hreflang_arr );
         // Add to to metadata array
         foreach ( $hreflang_arr as $hreflang_link ) {
             if ( preg_match('# hreflang="([^"]+)" #', $hreflang_link, $matches) ) {
