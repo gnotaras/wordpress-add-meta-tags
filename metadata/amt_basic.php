@@ -83,6 +83,30 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         $metadata_arr['basic:robots'] = '<meta name="robots" content="' . $robots_content . '" />';
     }
 
+    // Add site wide meta tags
+    if ( ! empty( $options["site_wide_meta"] ) ) {
+        $full_metatags_for_site = html_entity_decode( stripslashes( $options["site_wide_meta"] ) );
+        $metadata_arr['basic:full_metatags_site'] = apply_filters('amt_full_metatags_site', $full_metatags_for_site);
+    }
+
+    // Post specific full meta tags
+    if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+        // per post full meta tags
+        $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
+        $full_metatags_for_content = apply_filters('amt_full_metatags_post', $full_metatags_for_content);
+        if ( ! empty( $full_metatags_for_content ) ) {
+            $metadata_arr['basic:full_metatags_post'] = html_entity_decode( stripslashes( $full_metatags_for_content ) );
+        }
+    }
+
+    // On every page print the copyright head link
+    $copyright_url = amt_get_site_copyright_url($options);
+    //if ( empty($copyright_url)) {
+    //    $copyright_url = trailingslashit( get_bloginfo('url') );
+    //}
+    if ( ! empty($copyright_url) ) {
+        $metadata_arr['basic:copyright'] = '<link rel="copyright" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . ' Copyright Information" href="' . esc_url_raw( $copyright_url ) . '" />';
+    }
 
     // hreflang link element
     if ( $options['generate_hreflang_links'] == '1' ) {
@@ -236,13 +260,6 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         $newskeywords = amt_get_post_meta_newskeywords( $post->ID );
         if ( ! empty( $newskeywords ) ) {
             $metadata_arr['basic:news_keywords'] = '<meta name="news_keywords" content="' . esc_attr( $newskeywords ) . '" />';
-        }
-
-        // per post full meta tags
-        $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
-        $full_metatags_for_content = apply_filters('amt_full_metatags_post', $full_metatags_for_content);
-        if ( ! empty( $full_metatags_for_content ) ) {
-            $metadata_arr['basic:full_metatags_post'] = html_entity_decode( stripslashes( $full_metatags_for_content ) );
         }
 
 
@@ -412,20 +429,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     }
 
 
-    // Add site wide meta tags
-    if ( ! empty( $options["site_wide_meta"] ) ) {
-        $full_metatags_for_site = html_entity_decode( stripslashes( $options["site_wide_meta"] ) );
-        $metadata_arr['basic:full_metatags_site'] = apply_filters('amt_full_metatags_site', $full_metatags_for_site);
-    }
 
-    // On every page print the copyright head link
-    $copyright_url = amt_get_site_copyright_url($options);
-    //if ( empty($copyright_url)) {
-    //    $copyright_url = trailingslashit( get_bloginfo('url') );
-    //}
-    if ( ! empty($copyright_url) ) {
-        $metadata_arr['basic:copyright'] = '<link rel="copyright" type="text/html" title="' . esc_attr( get_bloginfo('name') ) . ' Copyright Information" href="' . esc_url_raw( $copyright_url ) . '" />';
-    }
 
     // Filtering of the generated basic metadata
     $metadata_arr = apply_filters( 'amt_basic_metadata_head', $metadata_arr );
