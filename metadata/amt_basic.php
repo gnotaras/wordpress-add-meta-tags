@@ -429,8 +429,6 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     }
 
 
-
-
     // Filtering of the generated basic metadata
     $metadata_arr = apply_filters( 'amt_basic_metadata_head', $metadata_arr );
 
