@@ -109,47 +109,104 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
     // Process
 
-    $processed_full_meta_tags = array();
+    if ( apply_filters('amt_full_metatags_processor_enable', true) ) {
 
-    foreach ($full_meta_tags as $single_meta_tag) {
+        // Store processed meta tags here
+        $processed_full_meta_tags = array();
 
-        // Process custom canonical link
-        // If a rel="canonical" meta tags exists, we deactivate WordPress' 'rel_canonical' action,
-        // Since it is assumed that a custom canonical link has been added.
-        //if ( preg_match( '# rel="canonical" #', $post_full_meta_tags, $tmp ) ) {
-        if ( strpos($single_meta_tag, ' rel="canonical" ') !== false ) {
-            // Remove default WordPress action
-            remove_action('wp_head', 'rel_canonical');
+        // Field substitutions take place only on content pages
+        // Store the post's custom fields
+        $custom_fields = null;
+        if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
+            // Get an array of all custom fields names of the post
+            $custom_fields = get_post_custom_keys( $post->ID );
         }
 
-        // Process robots meta tags.
-        // Multiple robots meta tags may exist. Here we collect the options.
-        elseif ( strpos($single_meta_tag, ' name="robots" ') !== false ) {
-            if ( preg_match( '# content="([^"]+)" #', $single_meta_tag, $matches ) ) {
-                $tmp_robots_opts = explode(',', $matches[1]);
-                foreach ($tmp_robots_opts as $single_robots_option) {
-                    $single_robots_option_cleaned = strtolower(trim($single_robots_option));
-                    if ( ! empty($single_robots_option_cleaned) ) {
-                        $robots_options[] = $single_robots_option_cleaned;
+        foreach ($full_meta_tags as $single_meta_tag) {
+
+            // Note: Field value substitutions take place first, outside the elseif clauses.
+
+            // Process substitutions of special notation with data from Custom Fields
+            // Supported special notation:
+            //   [field:Field Name]
+            // Notes:
+            // - 'Field Name' is the name of custom field.
+            // - If the custom field with name 'Field Name' does not exist, the meta tag
+            //   that contains it is omitted.
+            // - If the value of the field is an empty string, then the substitution
+            //   takes place normally.
+            //
+            if ( ! empty( $custom_fields ) && isset($post->ID) ) {
+                // This also assumes that we have a post object since custom fields
+                // are set only on content pages, otherwise it is null.
+
+                // Check for special notation
+                if ( preg_match('#(?:\[field\:)([^\]]+)(?:\])#', $single_meta_tag, $matches) ) {
+                    //var_dump($matches);
+                    // If the field name of the special notation does not match
+                    // any custom field name, omit the meta tag as per the rules above.
+                    if ( ! in_array($matches[1], $custom_fields) ) {
+                        continue;
+                    }
+                    // Since there is special notation and the field name from the special
+                    // notation exists in the $custom_fields array, iterate over the available
+                    // custom fields and perform the substitutions.
+                    foreach ( $custom_fields as $custom_field ) {
+                        // Check if it matches the field name of the special notation
+                        if ( $custom_field == $matches[1] ) {
+                            $field_value = get_post_meta( $post->ID, $custom_field, true );
+                            // Sanitize value
+                            $field_value = esc_attr( sanitize_text_field( $field_value ) );
+                            // Perform the substitution even if the the value is an empty string as per the rules above
+                            $single_meta_tag = str_replace( sprintf('[field:%s]', $custom_field), $field_value, $single_meta_tag);
+                        }
                     }
                 }
             }
-            // We simply collect options. Do not add any robots meta tags to the processed meta tags array.
-            continue;
+
+            // Process custom canonical link
+            // If a rel="canonical" meta tags exists, we deactivate WordPress' 'rel_canonical' action,
+            // Since it is assumed that a custom canonical link has been added.
+            //if ( preg_match( '# rel="canonical" #', $post_full_meta_tags, $tmp ) ) {
+            if ( strpos($single_meta_tag, ' rel="canonical" ') !== false ) {
+                // Remove default WordPress action
+                remove_action('wp_head', 'rel_canonical');
+            }
+
+            // Process robots meta tags.
+            // Multiple robots meta tags may exist. Here we collect the options.
+            elseif ( strpos($single_meta_tag, ' name="robots" ') !== false ) {
+                if ( preg_match( '# content="([^"]+)" #', $single_meta_tag, $matches ) ) {
+                    $tmp_robots_opts = explode(',', $matches[1]);
+                    foreach ($tmp_robots_opts as $single_robots_option) {
+                        $single_robots_option_cleaned = strtolower(trim($single_robots_option));
+                        if ( ! empty($single_robots_option_cleaned) ) {
+                            $robots_options[] = $single_robots_option_cleaned;
+                        }
+                    }
+                }
+                // We simply collect options. Do not add any robots meta tags to the processed meta tags array.
+                continue;
+            }
+
+            // Process hreflang links.
+            // Here we just collect them and let them be process later below at the special section.
+            elseif ( strpos($single_meta_tag, ' hreflang="') !== false ) {
+                // Simply add to the hreflang links array for later processing
+                $hreflang_links_arr[] = $single_meta_tag;
+                // We simply collect hreflang links for later processing. Do not add them to the processed meta tags array.
+                continue;
+            }
+
+
+            // If we have reached here, add the meta tags to the array with processed meta tags.
+            $processed_full_meta_tags[] = $single_meta_tag;
+
         }
 
-        // Process hreflang links.
-        // Here we just collect them and let them be process later below at the special section.
-        elseif ( strpos($single_meta_tag, ' hreflang="') !== false ) {
-            // Simply add to the hreflang links array for later processing
-            $hreflang_links_arr[] = $single_meta_tag;
-            // We simply collect hreflang links for later processing. Do not add them to the processed meta tags array.
-            continue;
-        }
-
-        // If we have reached here, add the meta tags to the array with processed meta tags.
-        $processed_full_meta_tags[] = $single_meta_tag;
-
+    } else {
+        // Full meta tags processor not enabled
+        $processed_full_meta_tags = $full_meta_tags;
     }
 
     //var_dump($full_meta_tags);
