@@ -128,7 +128,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
 
             // Process substitutions of special notation with data from Custom Fields
             // Supported special notation:
-            //   [field:Field Name]
+            //   [field=Field Name]
             // Notes:
             // - 'Field Name' is the name of custom field.
             // - If the custom field with name 'Field Name' does not exist, the meta tag
@@ -141,7 +141,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                 // are set only on content pages, otherwise it is null.
 
                 // Check for special notation
-                if ( preg_match('#(?:\[field\:)([^\]]+)(?:\])#', $single_meta_tag, $matches) ) {
+                if ( preg_match('#(?:\[field\=)([^\]]+)(?:\])#', $single_meta_tag, $matches) ) {
                     //var_dump($matches);
                     // If the field name of the special notation does not match
                     // any custom field name, omit the meta tag as per the rules above.
@@ -158,7 +158,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                             // Sanitize value
                             $field_value = esc_attr( sanitize_text_field( $field_value ) );
                             // Perform the substitution even if the the value is an empty string as per the rules above
-                            $single_meta_tag = str_replace( sprintf('[field:%s]', $custom_field), $field_value, $single_meta_tag);
+                            $single_meta_tag = str_replace( sprintf('[field=%s]', $custom_field), $field_value, $single_meta_tag);
                         }
                     }
                 }
