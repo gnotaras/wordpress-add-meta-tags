@@ -1,3 +1,6 @@
+#
+# This script is intentionally a mess. This is not meant to be used by you, folks.
+#
 
 # Copyright George Notaras
 
