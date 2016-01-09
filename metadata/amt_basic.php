@@ -114,13 +114,20 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         // Store processed meta tags here
         $processed_full_meta_tags = array();
 
-        // Field substitutions take place only on content pages
+        // Field substitutions currently take place only on content pages.
+        // TODO: See if this can be expanded to terms, authors.
+
         // Store the post's custom fields
         $custom_fields = null;
+
+        // Store the post object's custom fields.
+        //
         if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
-            // Get an array of all custom fields names of the post
+            // Get an array of all custom fields names of the post object.
             $custom_fields = get_post_custom_keys( $post->ID );
         }
+
+        // Iterate over full meta tags
 
         foreach ($full_meta_tags as $single_meta_tag) {
 
@@ -154,8 +161,10 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                     foreach ( $custom_fields as $custom_field ) {
                         // Check if it matches the field name of the special notation
                         if ( $custom_field == $matches[1] ) {
+                            // Fetch the custom field's value
                             $field_value = get_post_meta( $post->ID, $custom_field, true );
                             // Sanitize value
+                            // TODO: this can be a problem depending on the value and the used sanitization function.
                             $field_value = esc_attr( sanitize_text_field( $field_value ) );
                             // Perform the substitution even if the the value is an empty string as per the rules above
                             $single_meta_tag = str_replace( sprintf('[field=%s]', $custom_field), $field_value, $single_meta_tag);
