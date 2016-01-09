@@ -143,12 +143,17 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
             // - If the value of the field is an empty string, then the substitution
             //   takes place normally.
             //
+
+            // The regex pattern fo our special notation.
+            $special_notation_pattern = '#(?:\[field\=)([^\]]+)(?:\])#';
+
+            // The following covers content pages, as $custom_fields is only set on content pages. See above.
             if ( ! empty( $custom_fields ) && isset($post->ID) ) {
                 // This also assumes that we have a post object since custom fields
                 // are set only on content pages, otherwise it is null.
 
                 // Check for special notation
-                if ( preg_match('#(?:\[field\=)([^\]]+)(?:\])#', $single_meta_tag, $matches) ) {
+                if ( preg_match($special_notation_pattern, $single_meta_tag, $matches) ) {
                     //var_dump($matches);
                     // If the field name of the special notation does not match
                     // any custom field name, omit the meta tag as per the rules above.
@@ -170,6 +175,12 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                             $single_meta_tag = str_replace( sprintf('[field=%s]', $custom_field), $field_value, $single_meta_tag);
                         }
                     }
+                }
+
+            } else {
+                // In any other case, just remove the meta tags which contain the special notation.
+                if ( preg_match($special_notation_pattern, $single_meta_tag, $tmp) ) {
+                    continue;
                 }
             }
 
