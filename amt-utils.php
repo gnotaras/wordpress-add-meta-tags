@@ -2727,7 +2727,7 @@ jQuery(document).ready(function(){
         var cur_contents = jQuery("#amt_custom_full_metatags").val();
         if ( cur_contents != "" ) {
             // alert( "Handler for .click() called." );
-            var rchoice = confirm("Undo your changes in the full meta tags box?");
+            var rchoice = confirm(' . json_encode($reset_msg) . ');
             if (rchoice == true) {
                 //jQuery("#amt_custom_full_metatags").val(\'\');
                 jQuery("#amt_custom_full_metatags").val(' . json_encode( html_entity_decode( $default ) ) . ');
