@@ -139,6 +139,12 @@ function amt_admin_help_tabs() {
 
     <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
 
+    <h2>'.__('Add-Meta-Tags mission', 'add-meta-tags').'</h2>
+
+    <p>'.__('Add-Meta-Tags is a Free metadata plugin for the WordPress Publishing Platform that can optimize your web site for more efficient indexing of your content by search engines and easier sharing on social networks. It achieves this by generating machine friendly information about your content, called <em>metadata</em>, according to widely used standard specifications.', 'add-meta-tags').'</p>
+
+    <p>'.__('<em>Add Meta Tags</em> is a great tool to assist you with the search engine optimization (<em>SEO</em>) of your web site. However, neither the plugin nor its developer provide you with any SEO advice or rating of your content. Any decision regarding SEO is still your own responsibility and subject to your own research. This is by design.', 'add-meta-tags').'</p>
+
     <h2>'.__('How it works', 'add-meta-tags').'</h2>
         
     <p>'.__('Add-Meta-Tags tries to follow the "<em>It just works</em>" principal. By default, the <em>description</em> and <em>keywords</em> meta tags are added to the front page, posts, pages, public custom post types, attachment pages, category, tag, custom taxonomy and author based archives. Furthermore, it is possible to enable the generation of <em>Opengraph</em>, <em>Dublin Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The plugin also supports some extra SEO related functionality that helps you fine tune your web site.', 'add-meta-tags').'</p>
