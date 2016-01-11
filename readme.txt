@@ -96,7 +96,7 @@ Please read the [Add-Meta-Tags FAQ](http://www.codetrax.org/projects/wp-add-meta
 
 == Screenshots ==
 
-No screenshots are available at this time.
+Please check out these [screenshots](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Screenshots) of the plugin interfaces.
 
 
 == Changelog ==
