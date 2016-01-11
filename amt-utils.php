@@ -2658,6 +2658,12 @@ function amt_get_full_meta_tag_sets( $default ) {
     $default_meta_tag_sets['Robots - No extra services'] = array(
         '<meta name="robots" content="noodp,noarchive,notranslate,noimageindex" />',
     );
+    $default_meta_tag_sets['Hreflang - Link to alternate translation'] = array(
+        '<link rel="alternate" hreflang="ENTER_LOCALE_HERE" href="ENTER_PAGE_URL_HERE" />',
+    );
+    $default_meta_tag_sets['Canonical - Custom canonical link'] = array(
+        '<link rel="canonical" href="ENTER_PAGE_URL_HERE" />',
+    );
 
     // Check if we have any meta tag sets.
     $meta_tag_sets = apply_filters( 'amt_full_meta_tag_sets', $default_meta_tag_sets );
