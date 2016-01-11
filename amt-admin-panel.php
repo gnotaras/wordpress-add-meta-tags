@@ -187,6 +187,8 @@ function amt_admin_help_tabs() {
     <p><code>&lt;meta property="fb:admins" content="1234" /&gt;</code></p>
     <p><code>&lt;meta property="fb:app_id" content="4321" /&gt;</code></p>
 
+    <p>'.__('Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag.', 'add-meta-tags').'</p>
+
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_general',
