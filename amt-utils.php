@@ -2681,6 +2681,10 @@ function amt_get_full_meta_tag_sets( $default ) {
 
     $html .= PHP_EOL . '<input class="button" id="full_meta_tag_sets_reset" name="full_meta_tag_sets_reset" type="submit" value="'.__('Reset', 'add-meta-tags').'" />' . PHP_EOL;
 
+    $html .= PHP_EOL . ' &mdash; (<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-Meta-Tag-Sets">' . __('Customize these sets', 'add-meta-tags') . '</a>)' . PHP_EOL;
+
+    $reset_msg = __('Undo your changes in the full meta tags box?', 'add-meta-tags');
+
     $html .='
 <script>
 jQuery(document).ready(function(){
