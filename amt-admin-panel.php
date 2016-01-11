@@ -135,7 +135,7 @@ function amt_admin_help_tabs() {
 
     // Introduction
     $help_text = '
-    <h3>'.__('Introduction to metadata', 'add-meta-tags').'</h3>
+    <h2>'.__('Introduction to metadata', 'add-meta-tags').'</h2>
 
     <p>'.__('<em>Metadata</em> refers to information that describes the content in a machine-friendly way. Search engines and other online services use this metadata to better understand your content. Keep in mind that metadata itself does not automatically make your blog rank better. For this to happen the content is still required to meet various quality standards. However, the presence of accurate and adequate metadata gives search engines and other services the chance to make less guesses about your content, index and categorize it better and, eventually, deliver it to an audience that finds it useful.  Good metadata facilitates this process and thus plays a significant role in achieving better rankings. This is what the Add-Meta-Tags plugin does.', 'add-meta-tags').'</p>
 
