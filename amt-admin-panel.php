@@ -755,7 +755,7 @@ function amt_options_page() {
                 <textarea name="site_description" id="site_description" cols="100" rows="2" class="code">' . esc_attr( stripslashes( amt_get_site_description($options) ) ) . '</textarea>
                 <br />
                 <label for="site_description">
-                    '.__('Enter a short description of your blog (150-250 characters).', 'add-meta-tags').'
+                    '.__('Enter a short description of your web site.', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
@@ -770,7 +770,7 @@ function amt_options_page() {
                 
                 <textarea name="site_keywords" id="site_keywords" cols="100" rows="2" class="code">' . esc_attr( stripslashes( amt_get_site_keywords($options) ) ) . '</textarea>
                 <br />
-                <label for="site_keywords">'.__('Enter a comma-delimited list of keywords for your blog.', 'add-meta-tags').'</label>
+                <label for="site_keywords">'.__('Enter a comma-delimited list of keywords for your web site.', 'add-meta-tags').'</label>
                 <br />
             </fieldset>
             </td>
