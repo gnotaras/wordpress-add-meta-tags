@@ -1025,6 +1025,7 @@ function amt_options_page() {
                 <br />
                 <label for="global_locale">
                 '.__('Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, which will be used globally in the generated metadata overriding the default locale as returned by WordPress.', 'add-meta-tags').'
+                '.__('The locale can be overridden on a per post basis. For this purpose, enabling the relevant metabox feature below is required.', 'add-meta-tags').'
                 </label>
                 <br />
 
