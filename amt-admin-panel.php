@@ -1233,6 +1233,13 @@ function amt_options_page() {
                 <input id="review_mode" type="checkbox" value="1" name="review_mode" '. (($options["review_mode"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="review_mode">'.__('Enable <em>Metadata Review Mode</em>.', 'add-meta-tags').'</label>
                 <br />
+
+                <input id="review_mode_metadata_report" type="checkbox" value="1" name="review_mode_metadata_report" '. (($options["review_mode_metadata_report"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="review_mode_metadata_report">'.__('Enable keyword analysis and statistics.', 'add-meta-tags').'</label>
+                (<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview">'.__('Learn more', 'add-meta-tags').'</a>)
+                (<span style="color:red;">'.__('Experimental', 'add-meta-tags').'</span>)
+                <br />
+
             </fieldset>
             </td>
             </tr>
