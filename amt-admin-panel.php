@@ -1392,9 +1392,11 @@ function amt_options_page() {
                     <input id="submit" class="button-primary" type="submit" value="'.__('Save Changes', 'add-meta-tags').'" name="info_update" />
                 </th>
 
+<!--
                 <th scope="row">
                     <input id="reset" class="button-primary" type="submit" value="'.__('Reset to defaults', 'add-meta-tags').'" name="info_reset" />
                 </th>
+-->
 
                 <th></th><th></th><th></th><th></th>
             </tr>
