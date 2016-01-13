@@ -3683,6 +3683,10 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     $post_title_metadata = strtolower( amt_get_title_for_metadata($options, $post) );
     //var_dump($post_title_metadata);
 
+    // URL
+    $post_url = str_replace( get_bloginfo('url'), '', amt_get_permalink_for_multipage($post) );
+    //var_dump($post_url);
+
     // Description
     $description = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:description']) );
     //var_dump($description);
