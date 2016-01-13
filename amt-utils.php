@@ -3661,7 +3661,21 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     // Original
     $post_title = strtolower( strip_tags(get_the_title($post->ID)) );
     // Title HTML element
-    $post_title_html_element = strtolower( amt_get_title_for_title_element($options, $post) );
+    if ( $options['enable_advanced_title_management'] == '1' ) {
+        // If Advanced Title management is enabled, use this directly:
+        $post_title_html_element = strtolower( amt_get_title_for_title_element($options, $post) );
+    } else {
+        if ( version_compare( get_bloginfo('version'), '4.4', '>=' ) ) {
+            // Since WP 4.4
+            // - https://make.wordpress.org/core/2015/10/20/document-title-in-4-4/
+            //$post_title_html_element = strtolower( apply_filters('document_title_parts', array('title' => $post_title) ) );
+            //$post_title_html_element = wp_get_document_title();
+            $post_title_html_element = strtolower( get_wp_title_rss() );
+        } else {
+            // Reverting back to the one argument version of the fitlering function.
+            $post_title_html_element = strtolower( apply_filters('wp_title', $post_title) );
+        }
+    }
     //var_dump($post_title_html_element);
     // Title in metadata
     $post_title_metadata = strtolower( amt_get_title_for_metadata($options, $post) );
