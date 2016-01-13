@@ -1225,7 +1225,7 @@ function amt_get_post_meta_newskeywords($post_id) {
  * The default field name is ``_amt_full_metatags``.
  * No need to migrate from older field name.
  */
-function amt_get_post_meta_full_metatags($post_id) {
+function OLD_amt_get_post_meta_full_metatags($post_id) {
     $options = get_option('add_meta_tags_opts');
     if ( ! is_array($options) ) {
         return '';
@@ -1260,6 +1260,62 @@ function amt_get_post_meta_full_metatags($post_id) {
     //Return empty string if all fail
     return '';
 }
+
+function amt_get_post_meta_full_metatags($post_id) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_post_meta_full_metatags', $post_id);
+    $field_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $field_value !== false ) {
+        return $field_value;
+    }
+
+    $field_value = '';
+
+    $options = get_option('add_meta_tags_opts');
+
+    if ( ! is_array($options) ) {
+        $field_value = '';
+    } elseif ( ! array_key_exists( 'metabox_enable_full_metatags', $options) ) {
+        $field_value = '';
+    } elseif ( $options['metabox_enable_full_metatags'] == '0' ) {
+        $field_value = '';
+    } else {
+        // Internal fields - order matters
+        $supported_custom_fields = array( '_amt_full_metatags' );
+        // External fields - Allow filtering
+        $external_fields = array();
+        $external_fields = apply_filters( 'amt_external_full_metatags_fields', $external_fields, $post_id );
+        // Merge external fields to our supported custom fields
+        $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
+
+        // Get an array of all custom fields names of the post
+        $custom_fields = get_post_custom_keys( $post_id );
+        if ( empty( $custom_fields ) ) {
+            // Just return an empty string if no custom fields have been associated with this content.
+            $field_value = '';
+        } else {
+            // Try our fields
+            foreach( $supported_custom_fields as $sup_field ) {
+                // If such a field exists in the db, return its content as the news keywords.
+                if ( in_array( $sup_field, $custom_fields ) ) {
+                    $field_value = get_post_meta( $post_id, $sup_field, true );
+                    break;
+                }
+            }
+        }
+    }
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $field_value, $group='add-meta-tags' );
+
+    return $field_value;
+}
+
+
+
+
+
 
 
 //
