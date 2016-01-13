@@ -593,6 +593,14 @@ function amt_get_metadata_review($options, $add_as_view=false) {
     $data .= apply_filters('amt_metadata_review_text_before', $text_intro, $metadata_block_head, $metadata_block_footer, $metadata_block_content_filter);
 
     //
+    // Metadata Overview
+    //
+    if ( $options["review_mode_metadata_report"] == '1' ) {
+        $metadata_overview_default_text = '';
+        $data .= amt_metadata_analysis($metadata_overview_default_text, $metadata_block_head, $metadata_block_footer, $metadata_block_content_filter);
+    }
+
+    //
     // Metadata from head section
     //
 
