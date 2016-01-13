@@ -34,7 +34,7 @@ This plugin is one of the personal software projects of George Notaras. It is de
 
 <br /><br />
 
-Moreover, although we have nothing against the strict compliance with any <em>SEO rules</em>, such practice has never been part of our mindset. We think of such rulesets and checklists as something temporary, which could change at any time as technology advances. Hence the lack of any such guidance by the plugin. Our general suggestion to users has always been to focus on research and on writing natural, high quality and original content and thus provide their readers with something truly useful. Keeping the general <em>webmaster guidelines</em> and the <em>SEO practices</em> in mind at any given moment is always a <em>Good Thing&trade;</em>, but, quite frankly, the real problem is never those extra 50 characters of the description.
+Moreover, although we have nothing against the strict compliance with any <em>SEO rules</em>, such practice has never been part of our mindset. We perceive such rulesets and checklists as something temporary, which could change at any time as technology advances. Hence the lack of any such guidance by the plugin. Our general suggestion to users has always been to focus on research and on writing natural, high quality and original content and thus provide their readers with something truly useful. Keeping the general <em>webmaster guidelines</em> and the <em>SEO practices</em> in mind at any given moment is always a <em>Good Thing&trade;</em> and highly recommended, but, quite frankly, the real problem is never those extra 50 characters of the description.
 
 <br /><br />
 
