@@ -3698,7 +3698,9 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     // Keyword matching pattern
     //$keyword_matching_pattern = '#(?:%s)#';
     //$keyword_matching_pattern = '#(?:%s)[[:^alpha:]]#';
+    //$keyword_matching_pattern = '#(?:%s)[[:^alpha:]]?#';
     $keyword_matching_pattern = '#(?:%s)(?:[[:^alpha:]]|$)#';
+    $keyword_matching_pattern = apply_filters('amt_metadata_analysis_keyword_matching_pattern', $keyword_matching_pattern);
 
     // Whether to use topic keywords field or the keywords from the 'keywords' meta tag.
     $use_keywords = false;
