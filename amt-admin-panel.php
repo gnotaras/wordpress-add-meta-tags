@@ -450,6 +450,10 @@ function amt_admin_help_tabs() {
 
     <p>'.__('If enabled, WordPress users with administrator privileges see a box (right above the post\'s content) containing the metadata exactly as it is added in the HTML head and body. The box is displayed for posts, pages, attachments and custom post types.', 'add-meta-tags').'</p>
 
+    <h3>'.__('Enable keyword analysis and statistics', 'add-meta-tags').'</h3>
+
+    <p>'.__('If enabled, a section containing <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview">statistical information</a> about the metadata and the content is also displayed in the review mode panel.', 'add-meta-tags').'</p>
+
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_extra',
