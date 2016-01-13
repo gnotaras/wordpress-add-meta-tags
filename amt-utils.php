@@ -3728,83 +3728,106 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     //$output .= 'informational purposes only. Please do not modify or base your work upon this report.' . $BR . $BR;
     $output .= 'NOTICE: Add-Meta-Tags does not provide SEO advice and does not rate your content.' . $BR;
     $output .= 'This overview has been generated for statistical and informational purposes only.' . $BR;
-    $output .= '<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview#section-3">Read more</a> about this metadata report.' . $BR;
+    $output .= '<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview">Read more</a> about this metadata report.' . $BR;
     //$output .= '<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/FAQ#Is-Add-Meta-Tags-an-SEO-plugin">Read more</a> about the mentality upon which the development of this plugin has been based.' . $BR;
     //$output .= 'Please use this statistical information to identify keyword overstuffing' . $BR;
     //$output .= 'and stay away from following any patterns or being bound by the numbers.' . $BR . $BR;
 
     if ( $use_keywords ) {
-        $output .= sprintf('This overview has been based on post keywords, because <em>topic keywords</em> could not be retrieved from the custom field \'<em>%s</em>\'.', $topic_keywords_field_name) . $BR . $BR;
+        $output .= $BR . sprintf('This overview has been based on post keywords, because the Custom Field \'<em>%s</em>\' could not be found.', $topic_keywords_field_name) . $BR . $BR;
     } else {
-        $output .= sprintf('This overview has been based on <em>topic keywords</em> retrieved from the custom field \'<em>%s</em>\'.', $topic_keywords_field_name) . $BR . $BR;
+        $output .= $BR . sprintf('This overview has been based on <em>topic keywords</em> retrieved from the Custom Field \'<em>%s</em>\'.', $topic_keywords_field_name) . $BR . $BR;
     }
 
     $output .= 'Keyword Analysis' . $BR;
     $output .= '----------------' . $BR;
 
     $output .= '<table class="amt-ht-table">';
-    $output .= '<tr> <th>Keyword</th> <th>Occurrences</th> <th>Content</th> <th>Description</th> <th>Keywords</th> <th>Title</th> <th>HTML title</th> <th>Metadata titles</th> </tr>';
+    $output .= '<tr> <th>Topic Keyword</th> <th>Content</th> <th>Description</th> <th>Keywords</th> <th>Post Title</th> <th>HTML title</th> <th>Metadata titles</th> <th>Post URL</th> </tr>';
+
     foreach ($topic_keywords as $topic_keyword) {
-        $topic_keyword_occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $matches );
-        $topic_keyword_desnity = round( (($topic_keyword_occurrences / $post_word_count) * 100), 2);
-//        $output .= sprintf( '%s: %d (%.1f%%)', $topic_keyword, $topic_keyword_occurrences, $topic_keyword_desnity );
-        $output .= sprintf( '<tr> <td>%s</td> <td>%d (%.2f%%)</td>', $topic_keyword, $topic_keyword_occurrences, $topic_keyword_desnity );
+        $output .= sprintf( '<tr> <td>%s</td>', $topic_keyword );
 
         $is_into = array();
 
         // Check content
         $is_into['content'] = '';
-        if ( preg_match( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $tmp ) ) {
-            $is_into['content'] = 'yes';
+        $occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $matches );
+        if ( $occurrences ) {
+            // Only for content
+            $topic_keyword_desnity = round( (($occurrences / $post_word_count) * 100), 2);
+            $output .= sprintf( ' <td>%d (%.2f%%)</td>', $occurrences, $topic_keyword_desnity );
+        } else {
+            $output .= '<td> </td>';
         }
 
         // Check description
-        $is_into['description'] = '';
-        if ( strpos($description, $topic_keyword) !== false ) {
-            $is_into['description'] = 'yes';
+        $occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $description, $matches );
+        if ( $occurrences ) {
+            $output .= sprintf( ' <td>%d</td>', $occurrences );
+        } else {
+            $output .= '<td> </td>';
         }
 
-        // Check keyowrds
+        // Check keywords
         if ( $use_keywords ) {
+            $output .= '<td>N/A</td>';
             $is_into['keywords'] = 'N/A';
         } elseif ( in_array($topic_keyword, $keywords) ) {
-            $is_into['keywords'] = 'yes';
+            // Always 1
+            $output .= '<td>1</td>';
         } else {
-            $is_into['keywords'] = '';
+            $output .= '<td> </td>';
         }
 
         // Check original title
-        $is_into['post_title'] = '';
-        if ( strpos($post_title, $topic_keyword) !== false ) {
-            $is_into['post_title'] = 'yes';
+        $occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_title, $matches );
+        if ( $occurrences ) {
+            $output .= sprintf( ' <td>%d</td>', $occurrences );
+        } else {
+            $output .= '<td> </td>';
         }
 
+
         // Check title element
-        $is_into['post_title_html_element'] = '';
-        if ( strpos($post_title_html_element, $topic_keyword) !== false ) {
-            $is_into['post_title_html_element'] = 'yes';
+        $occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_title_html_element, $matches );
+        if ( $occurrences ) {
+            $output .= sprintf( ' <td>%d</td>', $occurrences );
+        } else {
+            $output .= '<td> </td>';
         }
 
         // Check metadata titles
-        $is_into['post_title_metadata'] = '';
-        if ( strpos($post_title_metadata, $topic_keyword) !== false ) {
-            $is_into['post_title_metadata'] = 'yes';
+        $occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_title_metadata, $matches );
+        if ( $occurrences ) {
+            $output .= sprintf( ' <td>%d</td>', $occurrences );
+        } else {
+            $output .= '<td> </td>';
         }
 
+        // Check post URL
+        $occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_url, $matches );
+        if ( $occurrences ) {
+            $output .= sprintf( ' <td>%d</td>', $occurrences );
+        } else {
+            $output .= '<td> </td>';
+        }
 
-        $output .= sprintf( ' <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> </tr>', $is_into['content'], $is_into['description'], $is_into['keywords'], $is_into['post_title'], $is_into['post_title_html_element'], $is_into['post_title_metadata'] ) . PHP_EOL;
+        // Close row
+        $output .= ' </tr>' . $BR;
+
     }
 
     $output .= '</table>' . $BR;
 
 
-    // Keyword Histogram
+    // Keyword Distribution Graph
 
     $output .= 'Keyword Distribution Graph' . $BR;
     $output .= '--------------------------'. $BR;
 
-    $output .= 'The following text based graph shows how the <em>topic keywords</em> are distributed within your content.'. $BR . $BR;
-    $output .= 'You can use it to identify incidents of keyword overstuffing. Tip: Stay away from patterns.'. $BR . $BR;
+    $output .= 'The following text based graph shows how the <em>topic keywords</em> are distributed within your content.'. $BR;
+    $output .= 'You can use it to identify incidents of keyword overstuffing.'. $BR . $BR;
 
     //$output .= $BR . $BR;
     $total_bars = 39;   // zero based
@@ -3884,8 +3907,12 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
 
         $output .= $BR;
 
+    } else {
+        $output .= $BR . $BR . 'Note: There is experimental support for <em>FD Word Statistics Plugin</em>.';
+        $output .= $BR . 'If installed, you can get some readability scores and text statistics here.' . $BR . $BR;
     }
 
     return $output;
 }
+
 
