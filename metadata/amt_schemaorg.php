@@ -405,9 +405,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             }
 
             // Add our comment
-            array_unshift( $cached_content_metadata_arr, "<!-- BEGIN Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+            if ( $options["omit_vendor_html_comments"] == "0" ) {
+                array_unshift( $cached_content_metadata_arr, "<!-- BEGIN Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+            }
             array_unshift( $cached_content_metadata_arr, "" );   // Intentionaly left empty
-            array_push( $cached_content_metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+            if ( $options["omit_vendor_html_comments"] == "0" ) {
+                array_push( $cached_content_metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+            }
             array_push( $cached_content_metadata_arr, "" );   // Intentionaly left empty
 
             //
@@ -1201,10 +1205,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             array_unshift( $metadata_arr, sprintf( '<!-- Add-Meta-Tags Timings (milliseconds) - Block total time: %.3f msec - Cached: %s -->', (microtime(true) - $t) * 1000, $is_cached ) );
         }
 
-        array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+        if ( $options["omit_vendor_html_comments"] == "0" ) {
+            array_unshift( $metadata_arr, "<!-- BEGIN Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+        }
         array_unshift( $metadata_arr, "" );   // Intentionaly left empty
-
-        array_push( $metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+        if ( $options["omit_vendor_html_comments"] == "0" ) {
+            array_push( $metadata_arr, "<!-- END Schema.org microdata added by the Add-Meta-Tags WordPress plugin -->" );
+        }
         array_push( $metadata_arr, "" );   // Intentionaly left empty
     }
 
@@ -1467,7 +1474,11 @@ function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
 
     global $post, $comment;
 
-    $metadata_arr[] = '<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->';
+    $options = amt_get_options();
+
+    if ( $options["omit_vendor_html_comments"] == "0" ) {
+        $metadata_arr[] = '<!-- BEGIN Metadata added by the Add-Meta-Tags WordPress plugin -->';
+    }
 
     $metadata_arr[] = '<!-- Scope BEGIN: UserComments -->';
     $metadata_arr[] = '<div itemprop="comment" itemscope itemtype="http://schema.org/UserComments">';
@@ -1500,7 +1511,9 @@ function amt_add_schemaorg_metadata_comment_filter( $comment_text ) {
 
     $metadata_arr[] = '</div> <!-- Scope END: UserComments -->';
 
-    $metadata_arr[] = '<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->';
+    if ( $options["omit_vendor_html_comments"] == "0" ) {
+        $metadata_arr[] = '<!-- END Metadata added by the Add-Meta-Tags WordPress plugin -->';
+    }
 
     // Allow filtering of the generated metadata
     $metadata_arr = apply_filters( 'amt_schemaorg_comments_extra', $metadata_arr, $post, $comment );
