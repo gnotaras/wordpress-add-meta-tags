@@ -1375,7 +1375,7 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Donations', 'add-meta-tags').'</span></legend>
 
                 <input id="i_have_donated" type="checkbox" value="1" name="i_have_donated" '. (($options["i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="i_have_donated">'.sprintf( __('If checked, the <em>message from the author</em> above goes away. Thanks for <a href="%s">donating</a>!', 'add-meta-tags'), 'http://bit.ly/HvUakt').'</label>
+                <label for="i_have_donated">'.sprintf( __('If checked, the <em>message from the author</em> above goes away. Thanks for <a target="_blank" href="%s">donating</a>!', 'add-meta-tags'), 'http://bit.ly/HvUakt').'</label>
                 <br />
             </fieldset>
             </td>
