@@ -3673,7 +3673,9 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
             $post_title_html_element = strtolower( get_wp_title_rss() );
         } else {
             // Reverting back to the one argument version of the fitlering function.
-            $post_title_html_element = strtolower( apply_filters('wp_title', $post_title) );
+            //$post_title_html_element = strtolower( apply_filters('wp_title', $post_title) );
+            // Until testing is performed on old WP versions we just use post title
+            $post_title_html_element = $post_title;
         }
     }
     //var_dump($post_title_html_element);
