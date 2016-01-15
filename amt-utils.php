@@ -3877,7 +3877,7 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     // ALTBASELINE: currently this text based ruler is used.
     $output .= str_repeat('---------+', (($total_bars + 1) / 10)) . $BR;
 
-    $output .= $BR . '<code>#</code>: indicates a single occurence of a <em>topic keyword</em>.'. $BR;
+    $output .= $BR . '<code>#</code>: indicates a single occurrence of a <em>topic keyword</em>.'. $BR;
 
 
     // Stats and scores by algos provided by the word-statistics-plugin by FD
