@@ -3636,6 +3636,10 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     $options = amt_get_options();
     $post = amt_get_queried_object($options);
 
+    if ( ! isset($post->ID) || $post->ID <= 0 ) {
+        return $default_text;
+    }
+
     // Content and stats
     $post_content = strtolower( strip_shortcodes( strip_tags( $post->post_content ) ) );
     $post_content = preg_replace('#\[[^\]]+\]#', '', $post_content);
