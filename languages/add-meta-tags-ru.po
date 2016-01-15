@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-28 19:28+0200\n"
-"PO-Revision-Date: 2015-12-21 06:38+0000\n"
+"PO-Revision-Date: 2015-12-22 12:29+0000\n"
 "Last-Translator: Сергей Комков\n"
 "Language-Team: Russian (http://www.transifex.com/codetrax/add-meta-tags/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgid ""
 "Core</em>, <em>Twitter Cards</em> and <em>Schema.org</em> metadata. The "
 "plugin also supports some extra SEO related functionality that helps you "
 "fine tune your web site."
-msgstr ""
+msgstr "Add-Meta-Tags старается соответствовать слогану \"Просто работает\". По умолчанию мета теги <em>description</em> и <em>keywords</em> добавляются к главной странице, постам, страницам, пользовательским типам постов, страницам с вложениями, категориям, тегам, пользовательской классификации и архивам автора. В дальнейшем можно настроить генерацию мета данных <em>Opengraph</em>, <em>Dublin Core</em>, <em>карточек Twitter</em> и микроразметки <em>Schema.org</em>. Плагин также поддерживает некоторые дополнительные SEO функции, помогающие провести тонкую настроqre вашего сайта."
 
 #: amt-admin-panel.php:146
 msgid ""
@@ -137,7 +137,7 @@ msgid ""
 "customizations in the <a href=\"http://www.codetrax.org/projects/wp-add-"
 "meta-tags/wiki/Add-Meta-Tags_Cookbook\" title=\"Add-Meta-Tags Cookbook"
 "\">Add-Meta-Tags Cookbook</a>."
-msgstr ""
+msgstr "Кроме настройки из панели администратора WordPress, генерируемые мета-данные и другие настройки плагина можно настроить программно. Как это сделать технически, описано href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki\" title=\"Add-Meta-Tags Development web site\">на веб-сате разработчика</a>, фрагмента кода можно найти в <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook\" title=\"Add-Meta-Tags Cookbook\">справочнике по Add-Meta-Tags</a>."
 
 #: amt-admin-panel.php:151
 msgid "Introduction"
@@ -431,7 +431,7 @@ msgid ""
 " of the author can be entered in the WordPress user <a "
 "href=\"profile.php\">profile page</a> under the section <em>Contact "
 "Info</em>. For example:"
-msgstr ""
+msgstr "По умолчанию эта опция сохраняет адрес главной страницы вашего сайта в мета теге <code>article:publisher</code>, а адрес архива автора в мета теге <code>article:author</code>. Чтобы привязаться к страницам автора и издателя на Фейсбук, надо указать соответствующие адреса. Адрес страницы издателя можно указать на этой странице в разделе <em>Настройки издателя</em>. Адрес страницы автора можно указать на странице <a href=\"profile.php\">пользователя WordPress</a> в разделе <em>Контакты</em>. Например:"
 
 #: amt-admin-panel.php:273 metadata\amt_opengraph.php:65
 msgid "Facebook author profile URL"
@@ -489,7 +489,7 @@ msgid ""
 "properly, the player cards will not be rendered by the Twitter service. "
 "Moreover, using self-signed certificates could cause problems which might be"
 " hard to identify. This feature should be considered experimental."
-msgstr ""
+msgstr "Включает генерацию карточек <em>player</em> для локально размещенных аудио и видео-вложений или постов, имеющих формат audio или video. В последнем случае ожидается, что к посту будет приложен медийный аудио или видео файл соответственно. Обязательное требование данной опции, как сказано в спецификации на Карточки Твиттер, это безопасный доступ к вашему веб-сайту по протоколу HTTPS. Если безопасный доступ к вашему веб-сайту настроен неправильно, карточки <em>player</em> не будут создаваться сервисом Твиттера. Более того, само-подписанные сертификаты могут вызвать плохо идентифицируемые проблемы. Эту опцию следует считать экспериментальной."
 
 #: amt-admin-panel.php:296 amt-admin-panel.php:337
 msgid "Important Notes"
@@ -504,7 +504,7 @@ msgid ""
 "this page under the <em>Publisher Settings</em> section. The username of the"
 " author can be entered in the WordPress user <a href=\"profile.php\">profile"
 " page</a> under the section <em>Contact Info</em>. For example:"
-msgstr ""
+msgstr "Для генерации мета тегов <code>twitter:site</code> и <code>twitter:creator</code>, нужно указать имена пользователя автора и/или издателя на Твиттере. Ник издателя можно указать в разделе <em>Настройки издателя</em>. Ник автора можно ввести на  <a href=\"profile.php\">странице пользователя WordPress</a> в разделе <em>Контакты</em>. Например:"
 
 #: amt-admin-panel.php:299 metadata\amt_twitter_cards.php:62
 msgid "Twitter author username"
@@ -615,7 +615,7 @@ msgid ""
 "The profile URL of the author can be entered in the WordPress user <a "
 "href=\"profile.php\">profile page</a> under the section <em>Contact "
 "Info</em>. For example:"
-msgstr ""
+msgstr "По умолчанию, эта функция привязывает объекты \"автор\" и \"издатель\" к архиву автора и главной странице сайта соответственно. Чтобы привязать страницы автора и издателя на Гугл+, нужно указать их полные адреса. Адрес страницы издателя можно ввести на этой разделе в разделе <em>Настройки издателя</em>. Адрес страницы автора можно указать на  странице <a href=\"profile.php\">пользователя WordPress </a> в разделе <em>Контакты</em>. Например:"
 
 #: amt-admin-panel.php:340 metadata\amt_schemaorg.php:64
 msgid "Google+ author profile URL"
@@ -694,7 +694,7 @@ msgid ""
 "information of the hreflang attribute as region targeting. If your content "
 "is not targeted to users in a specific region, it might be a good idea to "
 "strip regional information from this attribute by enabling this option."
-msgstr ""
+msgstr "По умолчанию Add-Meta-Tags использует локаль, которую обычно требуется ввести в форме <code>language_TERRITORY</code>, чтобы соответствовать разным форматам мета-данных как значение атрибута hreflang. Однако Гугл может расценить региональное значение атрибута hreflang как таргетирование на определенный регион. Если ваш контент не таргетирован на пользователей из определенного региона, лучше обрезать региональную информацию из атрибута, включив данную опцию."
 
 #: amt-admin-panel.php:367
 msgid ""
@@ -720,7 +720,7 @@ msgstr "Можно частично настроить генерацию мет
 
 #: amt-admin-panel.php:379 amt-admin-panel.php:955
 msgid "Custom description."
-msgstr ""
+msgstr "Описание, указанное пользователем."
 
 #: amt-admin-panel.php:379 amt-admin-panel.php:380 amt-admin-panel.php:955
 #: amt-admin-panel.php:960 amt-admin-panel.php:1023
@@ -729,22 +729,22 @@ msgstr "Рекомендуется"
 
 #: amt-admin-panel.php:380 amt-admin-panel.php:960
 msgid "Custom keywords."
-msgstr ""
+msgstr "Ключевые слова, указанные пользователем."
 
 #: amt-admin-panel.php:381 amt-admin-panel.php:965
 msgid "Custom content of the <code>title</code> HTML element."
-msgstr ""
+msgstr "Значение HTML элемента  <code>title</code>, указанное пользователем."
 
 #: amt-admin-panel.php:382 amt-admin-panel.php:970
 msgid ""
 "Custom news keywords. (<a target=\"_blank\" "
 "href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">more"
 " info</a>)"
-msgstr ""
+msgstr "<a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=ru&answer=68297\">Подробно</a> о ключевых словах новостей, введенных пользователем."
 
 #: amt-admin-panel.php:383 amt-admin-panel.php:975
 msgid "Full meta tags box."
-msgstr ""
+msgstr "Полная сводка мета тегов."
 
 #: amt-admin-panel.php:384 amt-admin-panel.php:980
 msgid "Global image override."
@@ -766,7 +766,7 @@ msgstr "Только для опытных пользователей"
 
 #: amt-admin-panel.php:387 amt-admin-panel.php:995
 msgid "Referenced items."
-msgstr ""
+msgstr "Упоминаемые элементы."
 
 #: amt-admin-panel.php:387 amt-admin-panel.php:995
 msgid "Not recommended"
@@ -782,7 +782,7 @@ msgstr "Выбор опции metabox выше влияет на всех пол
 
 #: amt-admin-panel.php:393 amt-admin-panel.php:946 amt-admin-panel.php:949
 msgid "Metabox Features"
-msgstr ""
+msgstr "Функции сводки мета-тегов"
 
 #: amt-admin-panel.php:399
 msgid ""
@@ -804,7 +804,7 @@ msgid ""
 "href=\"http://www.dmoz.org/\">Open Directory Project</a> or the <a "
 "href=\"http://dir.yahoo.com/\">Yahoo Directory</a> instead of the "
 "description you set in the <em>description</em> meta tag."
-msgstr ""
+msgstr "Эта опция вставляет код <code>NOODP</code> и <code>NOYDIR</code> в мета тег <em>robots</em> на главной странице, в контент и приложения. Эта настройка также запрещает всем поисковикам отображать информацию из <a href=\"http://www.dmoz.org/\">DMOZ</a> или <a href=\"http://dir.yahoo.com/\">Каталога Yahoo</a> вместо содержимого мета тега <em>description</em>."
 
 #: amt-admin-panel.php:405
 msgid ""
@@ -823,7 +823,7 @@ msgstr "Добавляет код <code>NOINDEX,FOLLOW</code> в мета тег
 #: amt-admin-panel.php:409 amt-admin-panel.php:1050
 msgid ""
 "Enforce the use of the content's custom title in the generated metadata."
-msgstr ""
+msgstr "Включает использование заголовка контента по умолчанию введенное пользователем в генерируемых мета-данных."
 
 #: amt-admin-panel.php:411
 msgid ""
@@ -836,7 +836,7 @@ msgid ""
 " If this option is enabled, then Add-Meta-Tags uses the custom title of the "
 "content, if such a custom title has been set, in the the generated meta "
 "data, instead of the default title."
-msgstr ""
+msgstr "Можно указывать свой заголовок контента в соответствующем поле раздела Мета-данные на странице редактирования поста. По умолчанию этот пользовательский заголовок используется только в HTML элементе <code>title</code>. Add-Meta-Tags продолжает использовать заголовок контента по умолчанию для генерации мета-данных, например, в <code>og:title</code>/<code>twitter:title</code>/<code>dcterms:title</code>. Если эта опция включена, Add-Meta-Tags будет использвать при генерации мета-данных пользовательский заголовок вместо умолчательного."
 
 #: amt-admin-panel.php:413 amt-admin-panel.php:1057
 msgid "Enable advanced title management."
@@ -851,7 +851,7 @@ msgid ""
 "target=\"_blank\"  href=\"http://www.codetrax.org/projects/wp-add-meta-"
 "tags/wiki/Advanced_Title_Management\">how to customize the generated "
 "titles</a>."
-msgstr ""
+msgstr "Если эта опция включена, Add-Meta-Tags генерирует заголовок, используемый в HTML элементе  <code>title</code>, а также заголовок, заданный в соответствии с пользовательским шаблоном. В <em>справочнике по Add-Meta-Tags</em> содержится вся информация о том, как <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management\">настроить генерируемые заголовки</a>."
 
 #: amt-admin-panel.php:417
 msgid ""
@@ -903,7 +903,7 @@ msgstr "На данный момент эта опция позволяет пл
 
 #: amt-admin-panel.php:435 amt-admin-panel.php:1113 amt-admin-panel.php:1116
 msgid "Media Limit"
-msgstr ""
+msgstr "Ограничение на медийные файлы"
 
 #: amt-admin-panel.php:437 amt-admin-panel.php:1119
 msgid ""
@@ -1169,18 +1169,18 @@ msgstr "Просим не вводить здесь ключевые слова.
 
 #: amt-admin-panel.php:741
 msgid "Facebook App ID"
-msgstr ""
+msgstr "App ID для Фейсбук"
 
 #: amt-admin-panel.php:746
 msgid ""
 "Enter the App ID for <a target=\"_blank\" "
 "href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
 "Insights</a>."
-msgstr ""
+msgstr "Введите App ID для <a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">статистики Фейсбук</a>."
 
 #: amt-admin-panel.php:751
 msgid "Facebook Admin ID list"
-msgstr ""
+msgstr "Список ID администраторов Фейсбук"
 
 #: amt-admin-panel.php:756
 msgid ""
@@ -1363,7 +1363,7 @@ msgstr "Описание"
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
-msgstr ""
+msgstr "Введите свое описание в 30-50 слов (исходя из средней длины слова в 5 символов)"
 
 #: amt-admin-panel.php:1375
 msgid ""
@@ -1398,7 +1398,7 @@ msgid ""
 "include the post's categories, tags and custom taxonomy terms in that list "
 "by using the special placeholders <code>%cats%</code>, <code>%tags%</code> "
 "and <code>%terms%</code> respectively."
-msgstr ""
+msgstr "Если поле <em>keywords</em> оставить пустым, мета тег <em>keywords</em> будет сгенерирован <strong>автоматически</strong> из категорий, тегов, пользовательской классификации поста и глобальных ключевых слов (буде последние заданы в настройках плагина). Если вы решили указать для поста свои ключевые слова, вполне возможно вставить в этот список элементы категорий, тегов, пользовательской классификации при помощи специальных заполнителей <code>%cats%</code>, <code>%tags%</code> и <code>%terms%</code> соответственно."
 
 #: amt-admin-panel.php:1425 amt-admin-panel.php:1431
 msgid ""
@@ -1415,7 +1415,7 @@ msgstr "Заголовок"
 msgid ""
 "Enter a custom title to be used in the <em>title</em> HTML element of the "
 "page."
-msgstr ""
+msgstr "Введите свой заголовок, который будет подставляться в HTML элемент страницы <em>title</em>."
 
 #: amt-admin-panel.php:1458
 msgid ""
@@ -1513,7 +1513,7 @@ msgid ""
 "if OpenGraph/Schema.org metadata is enabled, then the relevant "
 "<code>og:referenced</code> and <code>referencedItem</code> meta tags will be"
 " generated."
-msgstr ""
+msgstr "Введите список канонических адресов (по одному на строку) элементов, упоминаемых в контенте. Домен упоминаемой страницы может отличаться от домена контента. Например, вы можете ссылаться на страницу продукта или страницу подробного описания места. Если такие ссылки существуют и если  микроразметка OpenGraph/Schema.org включена, будут генерироваться релевантные мета теги <code>og:referenced</code> и <code>referencedItem</code>"
 
 #: amt-settings.php:341
 msgid "Add-Meta-Tags options saved"
