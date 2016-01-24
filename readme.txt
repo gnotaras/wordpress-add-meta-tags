@@ -131,6 +131,10 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.7](http://www.codetrax.org/versions/345)
+ - Added option to omit help texts and notices in the Metadata Review Mode panel.
+ - Fixed bug with the parsing of express review data containing ampersand characters. (Props to Tharic-Nar for providing valuable feedback.)
+ - The distribution graph of _topic keywords_ is now called _Topic Keywords Distribution Graph_ so as not to be confused with a feature of Bing Ads. (Props to Michael for feedback.)
 - [2.10.6](http://www.codetrax.org/versions/344)
  - Notice 1: This release packs some new features, so checking it on a staging web site first would be a good idea. These are the last planned features for now. Subsequent releases during the following weeks/months will focus on minor improvements, code clean up, and bug fixes wherever necessary. Please note that due to lack of free time, there might be big delays in my replies to support requests. Before asking for support, please make sure you have read the FAQ and checked the open and closed issues at the Github issue tracker and also the topics at the wordpress org boards.
  - Notice 2: This plugin does not provide SEO advice and there are no plans to add such functionality. This is intentional and is actually a feature.
