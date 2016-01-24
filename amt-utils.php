@@ -2422,6 +2422,22 @@ function amt_metadata_get_audio_limit($options) {
 function amt_get_review_data( $post ) {
     // Get review information from custom field
     $data = amt_get_post_meta_express_review( $post->ID );
+    //
+    // REVIEW_AMPERSAND_NOTE
+    //
+    // Note about conversion of ampersand:
+    // Data is returned with & converted to &amp; by amt_get_post_meta_express_review().
+    // This character mainly exists in sameAs URLs  (TODO: Find better replacement using preg_replace to spacifically target sameAs attributes)
+    // The problem is that ';' is interpretted as a comment in the INI specification,
+    // so parse_ini_string() strips part of the URL, which is wrong.
+    // Here we convert &amp; to & and leave it as is in the generated review data.
+    // To convert it back to &amp; after parse_ini_string() add something like:
+    //     $value = str_replace('&', '&amp;', $value);
+    // inside the foreach loop below.
+    //
+    //var_dump($data);
+    $data = str_replace('&amp;', '&', $data);
+    //var_dump($data);
     if ( empty($data) ) {
         return;
     }

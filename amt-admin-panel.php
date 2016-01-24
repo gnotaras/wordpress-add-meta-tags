@@ -1925,6 +1925,10 @@ function amt_save_postdata( $post_id, $post ) {
     // Express review
     if ( isset( $_POST['amt_custom_express_review'] ) ) {
         $express_review_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_express_review'] ), array() ) );
+        //
+        // REVIEW_AMPERSAND_NOTE: We replace &amp; to & for (see also REVIEW_AMPERSAND_NOTE in amt-utils.php)
+        //
+        $express_review_value = str_replace('&amp;', '&', $express_review_value);
     }
     // List of referenced items - We allow no HTML elements.
     if ( isset( $_POST['amt_custom_referenced_list'] ) ) {
