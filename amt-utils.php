@@ -3866,15 +3866,17 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     $total_bars = 39;   // zero based
     $step = $post_content_length / $total_bars;
 
+    // Debug
     //$output .= $BR . $post_content_length . '  ' . $step . $BR;
 
     $max_weight = null;
     $weights = array();
+    // Reset weights
     for ($x = 0; $x <= $total_bars; $x++) {
         $weights[$x] = 1;
     }
     foreach ($topic_keywords as $topic_keyword) {
-        // ALTERNATIVE: use preg_match_all with PREG_OFFSET_CAPTURE -- http://php.net/manual/en/function.preg-match-all.php
+        // Use preg_match_all with PREG_OFFSET_CAPTURE -- http://php.net/manual/en/function.preg-match-all.php
         $topic_keyword_occurrences = preg_match_all( sprintf($keyword_matching_pattern, $topic_keyword), $post_content, $matches, PREG_OFFSET_CAPTURE );
         //var_dump($matches);
         if ( ! empty($topic_keyword_occurrences) ) {
@@ -3892,14 +3894,10 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     }
 
     //var_dump($weights);
-    //for ($x = $max_weight - 1; $x >= 0; $x--) { // ALTBASELINE: for * based baseline
     for ($x = $max_weight - 1; $x >= 1; $x--) {
         $line = '';
         for ($y = 0; $y <= $total_bars; $y++) {
-            if ($x == 0) {
-                // ALTBASELINE: currently not used
-                $line .= '*';   // base line
-            } elseif ($weights[$y] > $x) {
+            if ($weights[$y] > $x) {
                 $line .= '#';
             } else {
                 $line .= ' ';
@@ -3907,7 +3905,7 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
         }
         $output .= $line . $BR;
     }
-    // ALTBASELINE: currently this text based ruler is used.
+    // Currently this text based ruler is used as base line.
     $output .= str_repeat('---------+', (($total_bars + 1) / 10)) . $BR;
 
     if ( $options['review_mode_omit_notices'] == '0' ) {
