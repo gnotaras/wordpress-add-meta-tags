@@ -109,6 +109,7 @@ function amt_get_default_options() {
         "transient_cache_expiration"    => "0", // Not check box
         "review_mode"       => "0",
         "review_mode_metadata_report"   => "0",
+        "review_mode_omit_notices"      => "0",
         "omit_vendor_html_comments"     => "0",
         "i_have_donated"    => "0",
         );
@@ -253,6 +254,11 @@ function amt_plugin_upgrade() {
     // Added "review_mode_metadata_report"
     // Added "omit_vendor_html_comments"
     // No migrations required. Addition takes place in (1).
+
+    // Version 2.10.7 (settings_version 19->20)
+    // Added "review_mode_omit_notices"
+    // No migrations required. Addition takes place in (1).
+
 
     // 3) Clean stored options.
     foreach ($stored_options as $opt => $value) {

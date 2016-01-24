@@ -454,6 +454,10 @@ function amt_admin_help_tabs() {
 
     <p>'.__('If enabled, a section containing <a href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview">statistical information</a> about the metadata and the content is also displayed in the review mode panel.', 'add-meta-tags').'</p>
 
+    <h3>'.__('Omit help messages and notices', 'add-meta-tags').'</h3>
+
+    <p>'.__('If enabled, help messages and other notices are no longer displayed in the metadata review panel.', 'add-meta-tags').'</p>
+
     ';
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_extra',
@@ -1238,6 +1242,10 @@ function amt_options_page() {
                 <label for="review_mode_metadata_report">'.__('Enable keyword analysis and statistics.', 'add-meta-tags').'</label>
                 (<a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview">'.__('Learn more', 'add-meta-tags').'</a>)
                 (<span style="color:red;">'.__('Experimental', 'add-meta-tags').'</span>)
+                <br />
+
+                <input id="review_mode_omit_notices" type="checkbox" value="1" name="review_mode_omit_notices" '. (($options["review_mode_omit_notices"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="review_mode_omit_notices">'.__('Omit help messages and notices. I have read, understood and agreed to them.', 'add-meta-tags').'</label>
                 <br />
 
             </fieldset>
