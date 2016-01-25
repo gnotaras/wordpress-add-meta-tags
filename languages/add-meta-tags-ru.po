@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-28 19:28+0200\n"
-"PO-Revision-Date: 2015-12-22 12:29+0000\n"
-"Last-Translator: Сергей Комков\n"
+"POT-Creation-Date: 2016-01-24 06:16+0200\n"
+"PO-Revision-Date: 2016-01-24 04:19+0000\n"
+"Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Russian (http://www.transifex.com/codetrax/add-meta-tags/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +42,14 @@ msgstr ""
 msgid "Settings"
 msgstr "Настройки"
 
+#: add-meta-tags.php:720 amt-admin-panel.php:90 amt-admin-panel.php:1419
+msgid "Metadata"
+msgstr "Метаданные"
+
+#: add-meta-tags.php:725
+msgid "Metadata Review Mode"
+msgstr ""
+
 #: amt-admin-panel.php:67
 msgid "Add Meta Tags"
 msgstr "Добавить Мета Теги"
@@ -52,13 +60,9 @@ msgid ""
 "and Dublin Core metadata to optimize your web site for better SEO."
 msgstr "Добавить основные мета-теги, а также метаданные Opengraph, Schema.org Microdata, Twitter Cards и Dublin Core для оптимизации вашего сайта по улучшению SEO."
 
-#: amt-admin-panel.php:90 amt-admin-panel.php:548
+#: amt-admin-panel.php:90 amt-admin-panel.php:602
 msgid "Metadata Settings"
 msgstr "Настройка метаданных"
-
-#: amt-admin-panel.php:90 amt-admin-panel.php:1252
-msgid "Metadata"
-msgstr "Метаданные"
 
 #: amt-admin-panel.php:123
 msgid "Welcome to the Add-Meta-Tags Documentation."
@@ -101,10 +105,32 @@ msgid ""
 msgstr "<em> Метаданные </em> относится к информации, описывающей содержание в понятном для программ виде. Поисковые системы и другие онлайн-сервисы используют эти метаданные, чтобы лучше понять ваш контент. Имейте в виду, что метаданные автоматически не повышают рейтинг вашего блога. Для этого контент должен соответствовать определенным стандартам качества. Тем не менее, наличие точных и адекватных метаданных дает поисковым системам и другим сервисам шанс правильно распознать содержимое, лучше его индексировать и классифицировать, в итоге, доставить его аудитории, которая найдет его полезным. Правильные метаданные облегчают этот процесс и таким образом, играют важную роль в получении высокого рейтинга. Именно этим плагин Add-Мета-Tags и занимается."
 
 #: amt-admin-panel.php:142
+msgid "Add-Meta-Tags mission"
+msgstr ""
+
+#: amt-admin-panel.php:144
+msgid ""
+"Add-Meta-Tags is a Free metadata plugin for the WordPress Publishing "
+"Platform that can optimize your web site for more efficient indexing of your"
+" content by search engines and easier sharing on social networks. It "
+"achieves this by generating machine friendly information about your content,"
+" called <em>metadata</em>, according to widely used standard specifications."
+msgstr ""
+
+#: amt-admin-panel.php:146
+msgid ""
+"<em>Add Meta Tags</em> is a great tool to assist you with the search engine "
+"optimization (<em>SEO</em>) of your web site. However, neither the plugin "
+"nor its developer provide you with any SEO advice or rating of your content."
+" Any decision regarding SEO is still your own responsibility and subject to "
+"your own research. This is by design."
+msgstr ""
+
+#: amt-admin-panel.php:148
 msgid "How it works"
 msgstr "Как это работает"
 
-#: amt-admin-panel.php:144
+#: amt-admin-panel.php:150
 msgid ""
 "Add-Meta-Tags tries to follow the \"<em>It just works</em>\" principal. By "
 "default, the <em>description</em> and <em>keywords</em> meta tags are added "
@@ -116,7 +142,7 @@ msgid ""
 "fine tune your web site."
 msgstr "Add-Meta-Tags старается соответствовать слогану \"Просто работает\". По умолчанию мета теги <em>description</em> и <em>keywords</em> добавляются к главной странице, постам, страницам, пользовательским типам постов, страницам с вложениями, категориям, тегам, пользовательской классификации и архивам автора. В дальнейшем можно настроить генерацию мета данных <em>Opengraph</em>, <em>Dublin Core</em>, <em>карточек Twitter</em> и микроразметки <em>Schema.org</em>. Плагин также поддерживает некоторые дополнительные SEO функции, помогающие провести тонкую настроqre вашего сайта."
 
-#: amt-admin-panel.php:146
+#: amt-admin-panel.php:152
 msgid ""
 "The automatically generated metadata can be further customized for each "
 "individual post, page, or any public custom post type directly from the "
@@ -126,7 +152,7 @@ msgid ""
 "Options</a> of the post editing panel."
 msgstr "Автоматически генерируемые мета-данные можно в дальнейшем настроить для каждого поста, страницы или пользовательского типа поста напрямую через блок\n <em>Metadata</em> в панели редактировани поста. Если блок <em>Metadata</em> не отображается, вам, вероятно, надо включить его отображение на <a href=\"http://en.support.wordpress.com/screen-options/\">опциях экрана</a> на панели редактирования поста."
 
-#: amt-admin-panel.php:148
+#: amt-admin-panel.php:154
 msgid ""
 "Apart from the customization through the WordPress administration interface,"
 " the generated metadata and specific aspects of the plugin's functionality "
@@ -139,15 +165,15 @@ msgid ""
 "\">Add-Meta-Tags Cookbook</a>."
 msgstr "Кроме настройки из панели администратора WordPress, генерируемые мета-данные и другие настройки плагина можно настроить программно. Как это сделать технически, описано href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki\" title=\"Add-Meta-Tags Development web site\">на веб-сате разработчика</a>, фрагмента кода можно найти в <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook\" title=\"Add-Meta-Tags Cookbook\">справочнике по Add-Meta-Tags</a>."
 
-#: amt-admin-panel.php:151
+#: amt-admin-panel.php:157
 msgid "Introduction"
 msgstr "Введение"
 
-#: amt-admin-panel.php:158 amt-admin-panel.php:652 amt-admin-panel.php:655
+#: amt-admin-panel.php:164 amt-admin-panel.php:706 amt-admin-panel.php:709
 msgid "Front Page Description"
 msgstr "Описание главной страницы"
 
-#: amt-admin-panel.php:160
+#: amt-admin-panel.php:166
 msgid ""
 "Enter a short (150-250 characters long) description of your blog. This text "
 "will be used in the <em>description</em> and other similar metatags on the "
@@ -156,11 +182,11 @@ msgid ""
 "Options</a> will be used."
 msgstr "Введите короткое (150-250 символов) описание вашего блога. Этот текст будет использован в <em>description</em> и других сходных мета тегах на <strong>главной странице</strong>. Если поле не заполнено, будет использоваться <em>Tagline</em> из <a href=\"options-general.php\">Общих настроек</a> ."
 
-#: amt-admin-panel.php:162 amt-admin-panel.php:668 amt-admin-panel.php:671
+#: amt-admin-panel.php:168 amt-admin-panel.php:722 amt-admin-panel.php:725
 msgid "Front Page Keywords"
 msgstr "Ключевые слова главной страницы"
 
-#: amt-admin-panel.php:164
+#: amt-admin-panel.php:170
 msgid ""
 "Enter a comma-delimited list of keywords for your blog. These keywords will "
 "be used in the <em>keywords</em> meta tag on the <strong>front "
@@ -169,29 +195,29 @@ msgid ""
 " for the <em>keywords</em> meta tag."
 msgstr "Введите через запятую ключевые слова вашего блога. Эти ключевые слова будут использоваться в <em>keywords</em> на <strong>главной странице</strong>. Если поле не заполнено, то в мета теге <em>keywords</em> будут указаны все  <a href=\"edit-tags.php?taxonomy=category\">категории </a> блога"
 
-#: amt-admin-panel.php:165 amt-admin-panel.php:170 amt-admin-panel.php:172
-#: amt-admin-panel.php:199 amt-admin-panel.php:204 amt-admin-panel.php:209
-#: amt-admin-panel.php:354 amt-admin-panel.php:422 amt-admin-panel.php:427
-#: amt-admin-panel.php:736 amt-admin-panel.php:748 amt-admin-panel.php:758
-#: amt-admin-panel.php:770 amt-admin-panel.php:780 amt-admin-panel.php:1419
+#: amt-admin-panel.php:171 amt-admin-panel.php:176 amt-admin-panel.php:178
+#: amt-admin-panel.php:207 amt-admin-panel.php:212 amt-admin-panel.php:217
+#: amt-admin-panel.php:362 amt-admin-panel.php:430 amt-admin-panel.php:435
+#: amt-admin-panel.php:790 amt-admin-panel.php:802 amt-admin-panel.php:812
+#: amt-admin-panel.php:824 amt-admin-panel.php:834 amt-admin-panel.php:1586
 msgid "Example"
 msgstr "Пример"
 
-#: amt-admin-panel.php:165 amt-admin-panel.php:170
+#: amt-admin-panel.php:171 amt-admin-panel.php:176
 msgid "keyword1, keyword2, keyword3"
 msgstr "ключевое слово 1, ключевое слово 2, ключевое слово 3"
 
-#: amt-admin-panel.php:167 amt-admin-panel.php:685 amt-admin-panel.php:688
+#: amt-admin-panel.php:173 amt-admin-panel.php:739 amt-admin-panel.php:742
 msgid "Global Keywords"
 msgstr "Общие ключевые слова"
 
-#: amt-admin-panel.php:169
+#: amt-admin-panel.php:175
 msgid ""
 "Enter a comma-delimited list of global keywords which will be added before "
 "the keywords of <strong>all</strong> posts and pages."
 msgstr "Введите через запятую список глобальных ключевых слов, которые будут добавлены перед ключевыми словами <strong>всех</strong>  постов и страниц."
 
-#: amt-admin-panel.php:171
+#: amt-admin-panel.php:177
 msgid ""
 "By default, these keywords are prepended to the post/page's keywords. For "
 "enhanced flexibility, it is possible to use the <code>%contentkw%</code> "
@@ -200,15 +226,15 @@ msgid ""
 "keywords to the <em>keywords</em> of your content."
 msgstr "По умолчанию эти ключевые слова идут перед ключевыми словами поста/страницы. Для особой гибкости можно использовать заполнитель <code>%contentkw%</code>, в который будут помещены автогенерированные или заданные пользователем ключевые слова."
 
-#: amt-admin-panel.php:172
+#: amt-admin-panel.php:178
 msgid "keyword1, keyword2, %contentkw%, keyword3"
 msgstr "ключевое слово 1, ключевое слово 2, %contentkw%, ключевое слово 3"
 
-#: amt-admin-panel.php:174 amt-admin-panel.php:699 amt-admin-panel.php:702
+#: amt-admin-panel.php:180 amt-admin-panel.php:753 amt-admin-panel.php:756
 msgid "Site-wide META tags"
 msgstr "Метатеги для всего сайта"
 
-#: amt-admin-panel.php:176
+#: amt-admin-panel.php:182
 msgid ""
 "Provide the full XHTML code of extra META elements you would like to add to "
 "all the pages of your web site (read more about the <a "
@@ -216,96 +242,104 @@ msgid ""
 "HTML element</a> on Wikipedia)."
 msgstr "Укажите полный XHTML код дополнительных мета-элементов, который вы добавляете на все страницы веб-сайта (подробно см. \n<a href=\"https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0%D1%82%D0%B5%D0%B3%D0%B8\" target=\"_blank\">мета-элементы HTML</a> на Википедии)."
 
-#: amt-admin-panel.php:177
+#: amt-admin-panel.php:183
 msgid "Examples"
 msgstr "Примеры"
 
-#: amt-admin-panel.php:187
+#: amt-admin-panel.php:190 amt-admin-panel.php:1674
+msgid ""
+"Moreover, the full meta tags box accepts the special notation "
+"<code>[field=Field Name]</code> which lets you use data from a Custom Field "
+"with name <em>Field Name</em>. This special notation may exist anywhere "
+"inside the meta tag."
+msgstr ""
+
+#: amt-admin-panel.php:195
 msgid "General settings"
 msgstr "Общие настройки"
 
-#: amt-admin-panel.php:193 amt-admin-panel.php:726
+#: amt-admin-panel.php:201 amt-admin-panel.php:780
 msgid ""
 "This section contains options related to your web site; the publisher of the"
 " content."
 msgstr "В этом разделе вы найдете опции связанные с вашим вебсайтом - издатель контента."
 
-#: amt-admin-panel.php:194 amt-admin-panel.php:727
+#: amt-admin-panel.php:202 amt-admin-panel.php:781
 msgid ""
 "The following publisher related settings are shared among all users. Filling"
 " in these settings is entirely optional."
 msgstr "Эти настройки, связанные с издателем, видны всем пользователям. Заполнять их не обязательно."
 
-#: amt-admin-panel.php:196 amt-admin-panel.php:274 amt-admin-panel.php:729
+#: amt-admin-panel.php:204 amt-admin-panel.php:282 amt-admin-panel.php:783
 #: metadata\amt_opengraph.php:72
 msgid "Facebook publisher profile URL"
 msgstr "Адрес страницы автора на Фейсбук"
 
-#: amt-admin-panel.php:198 amt-admin-panel.php:734
+#: amt-admin-panel.php:206 amt-admin-panel.php:788
 msgid ""
 "Enter an absolute URL to the Facebook profile of the publisher. If this is "
 "filled in, it will be used in the <code>article:publisher</code> meta tag."
 msgstr "Введите полный путь к акаунту Фейсбук издателя. Он будет отображаться в мета теге <code>article:publisher</code>."
 
-#: amt-admin-panel.php:201 amt-admin-panel.php:763
+#: amt-admin-panel.php:209 amt-admin-panel.php:817
 msgid "Google+ publisher profile URL"
 msgstr "Адрес страницы издателя на Гугл+"
 
-#: amt-admin-panel.php:203 amt-admin-panel.php:768
+#: amt-admin-panel.php:211 amt-admin-panel.php:822
 msgid ""
 "Enter an absolute URL to the Google+ profile of the publisher. If this is "
 "filled in, it will be used in the link with <code>rel=\"publisher\"</code> "
 "in the HEAD area of the web page."
 msgstr "Введите полный путь к акаунту Гугл+ издателя. Он будет отображаться в <code>rel=\"publisher\"</code> в хидере веб-страницы."
 
-#: amt-admin-panel.php:206 amt-admin-panel.php:300 amt-admin-panel.php:773
+#: amt-admin-panel.php:214 amt-admin-panel.php:308 amt-admin-panel.php:827
 #: metadata\amt_twitter_cards.php:69
 msgid "Twitter publisher username"
 msgstr "Ник издателя на Твиттере"
 
-#: amt-admin-panel.php:208 amt-admin-panel.php:778
+#: amt-admin-panel.php:216 amt-admin-panel.php:832
 msgid "Enter the Twitter username of the publisher (without @)."
 msgstr "Введите ник издателя на Твиттере (без @)."
 
-#: amt-admin-panel.php:212 amt-admin-panel.php:721 amt-admin-panel.php:724
+#: amt-admin-panel.php:220 amt-admin-panel.php:775 amt-admin-panel.php:778
 msgid "Publisher Settings"
 msgstr "Настройки публикаций"
 
-#: amt-admin-panel.php:218 amt-admin-panel.php:798
+#: amt-admin-panel.php:226 amt-admin-panel.php:852
 msgid "This section contains options related to the authors of the content."
 msgstr "Этот раздел содержит опции, связанные с авторами контента."
 
-#: amt-admin-panel.php:220 amt-admin-panel.php:800
+#: amt-admin-panel.php:228 amt-admin-panel.php:854
 msgid "URLs of author profiles on social networks"
 msgstr "Ссылки на страницы автора в социальных сетях"
 
-#: amt-admin-panel.php:222 amt-admin-panel.php:802
+#: amt-admin-panel.php:230 amt-admin-panel.php:856
 msgid ""
 "Each author may fill in the the URLs of the profiles on external social "
 "networks in the WordPress user profile page (fields marked with "
 "<em>AMT</em>)."
 msgstr "Каждый автор может указать ссылки на свои акаунты во внешних соцсетях на странице профиля пользователя WordPress (поля, помеченные как <em>AMT</em>)."
 
-#: amt-admin-panel.php:224 amt-admin-panel.php:804
+#: amt-admin-panel.php:232 amt-admin-panel.php:858
 msgid "Main source of local author profiles"
 msgstr "Главный источник локальных страниц автора"
 
-#: amt-admin-panel.php:226
+#: amt-admin-panel.php:234
 msgid ""
 "WordPress does not have a dedicated page for author or user profiles. By "
 "convention, Add-Meta-Tags considers the first page of the author archive as "
 "the page of the local profile of each author."
 msgstr "В WordPress нет специальной страницы автора или пользователя. По умолчанию Add-Meta-Tags считает страницей автора первую страницу его архива."
 
-#: amt-admin-panel.php:228
+#: amt-admin-panel.php:236
 msgid "It is possible to select alternative sources of local author profiles:"
 msgstr "Можно выбрать альтернативные источники локальных страниц автора:"
 
-#: amt-admin-panel.php:231 amt-admin-panel.php:807
+#: amt-admin-panel.php:239 amt-admin-panel.php:861
 msgid "First page of the author archive"
 msgstr "Перваястраница архива автора"
 
-#: amt-admin-panel.php:231
+#: amt-admin-panel.php:239
 msgid ""
 "This is the default option. The first page of the author archive is "
 "considered as the page of the local author profile on which a "
@@ -314,11 +348,11 @@ msgid ""
 "metadata entity is the top level metadata object."
 msgstr "Это опция по умолчанию. Первая страница архива автора считается страницей автора, на которой набор мета-данных <em>Person</em> является объектом мета-данных верхнего уровня. Более того, главной страницей считается страница, где набор мета-данных <em>Organization</em> будет объектом мета-данных верхнего уровня."
 
-#: amt-admin-panel.php:232 amt-admin-panel.php:808
+#: amt-admin-panel.php:240 amt-admin-panel.php:862
 msgid "Front page (with static page only)"
 msgstr "Главная страница (только для статических страниц)"
 
-#: amt-admin-panel.php:232
+#: amt-admin-panel.php:240
 msgid ""
 "This option is only useful on personal web sites where there is a single "
 "author. If the front page is set as the source of the local author profile, "
@@ -329,11 +363,11 @@ msgid ""
 "set as the front page."
 msgstr "Эта опция полезна на личных веб-сайтах, где всего один автор. Если главная страница задана как источник личной страницы автора, сущность мета-данных <em>Person</em> будет на главной странице объектом мета-данных верхнего уровня вместо объекта мета-данных <em>Organization</em>. Фактически объект мета-данных <em>Organization</em> генерируется для любой веб-страницы. Имейте в виду, что опция работает только в том случае, если главная страница является статической."
 
-#: amt-admin-panel.php:233
+#: amt-admin-panel.php:241
 msgid "BuddyPress profile page"
 msgstr "Страница на BuddyPress"
 
-#: amt-admin-panel.php:233
+#: amt-admin-panel.php:241
 msgid ""
 "This option is only useful if BuddyPress is used. In this case, the author's"
 " BuddyPress profile page is considered as the source of the local author "
@@ -342,11 +376,11 @@ msgid ""
 "<em>Extended Metadata</em> settings."
 msgstr "Опция работает только при использовании BuddyPress. В этом случае страница автора на BuddyPress считается источником локальной страницы автора вместо первой страницы архива автора. Генерацию мета-данных страниц BuddyPress этим плагином нужно включить в настройках <em>Extended Metadata</em>."
 
-#: amt-admin-panel.php:234 amt-admin-panel.php:810
+#: amt-admin-panel.php:242
 msgid "Author web site URL"
 msgstr "Адрес вебсайта автора"
 
-#: amt-admin-panel.php:234
+#: amt-admin-panel.php:242
 msgid ""
 "If this option is selected, then the URL of the <em>Website</em> field of "
 "the WordPress user profile is considered to be the URL of the local author "
@@ -354,21 +388,21 @@ msgid ""
 "site."
 msgstr "Если выбрана эта опция, URL поля <em>Website</em> страницы пользователя WordPress считается адресом локальной страницы автора, несмотря на то, чт оможет вести на сторонний веб-сайт."
 
-#: amt-admin-panel.php:237
+#: amt-admin-panel.php:245
 msgid ""
 "This is considered an advanced option and should not be changed, unless you "
 "know exactly what you are doing."
 msgstr "Эта опция для опытных пользователей, ее можно изменять только если точно знаешь, что делаешь."
 
-#: amt-admin-panel.php:240 amt-admin-panel.php:793 amt-admin-panel.php:796
+#: amt-admin-panel.php:248 amt-admin-panel.php:847 amt-admin-panel.php:850
 msgid "Author Settings"
 msgstr "Настройки автора"
 
-#: amt-admin-panel.php:247 amt-admin-panel.php:833
+#: amt-admin-panel.php:255 amt-admin-panel.php:887
 msgid "Automatically generate the <em>description</em> meta tag."
 msgstr "Автоматически генерирует мета тег <em>description</em>."
 
-#: amt-admin-panel.php:249
+#: amt-admin-panel.php:257
 msgid ""
 "If this option is enabled, the <em>description</em> meta tag is "
 "automatically generated for the content, attachments and archives. "
@@ -376,11 +410,11 @@ msgid ""
 "<em>Metadata</em> box in the post editing screen."
 msgstr "Если выбрана эта опция, мета тег <em>description</em> будет автоматически генерироваться для контента, вложений и архивов. Настроить мета тег <em>description</em> можно в модуле <em>Metadata</em> на странице редактирования поста."
 
-#: amt-admin-panel.php:251 amt-admin-panel.php:837
+#: amt-admin-panel.php:259 amt-admin-panel.php:891
 msgid "Automatically generate the <em>keywords</em> meta tag."
 msgstr "Автоматически генерирует мета тег <em>description</em>."
 
-#: amt-admin-panel.php:253
+#: amt-admin-panel.php:261
 msgid ""
 "If this option is enabled, the <em>keywords</em> meta tag is automatically "
 "generated for the content and archives. Keywords are not generated "
@@ -389,26 +423,26 @@ msgid ""
 "the post editing screen."
 msgstr "Если эта опция включена, мета тег <em>keywords</em> будет автоматом генерироваться для контента и архивов. Для страниц и архивов ключевые слвоа не будут генерироваться автоматически. Настройка мета тега <em>keywords</em> производится в блоке <em>Metadata</em> на странице редактирования поста."
 
-#: amt-admin-panel.php:256
+#: amt-admin-panel.php:264
 msgid "Basic meta tags"
 msgstr "Основные мета теги"
 
-#: amt-admin-panel.php:262 amt-admin-panel.php:851
+#: amt-admin-panel.php:270 amt-admin-panel.php:905
 msgid "Automatically generate Opengraph meta tags."
 msgstr "Автоматически генерирует мета теги Opengraph."
 
-#: amt-admin-panel.php:264
+#: amt-admin-panel.php:272
 msgid ""
 "If this option is enabled, Opengraph metadata is automatically generated for"
 " content, attachments and archives. For more information, please refer to "
 "the <a href=\"http://ogp.me\">Opengraph specification</a>."
 msgstr "Если включена эта опция, мета-данные Opengraph будут автоматически генерироваться для контента, вложений и архивов. Описание Opengraph можно найти <a href=\"http://ogp.me\">здесь</a>"
 
-#: amt-admin-panel.php:266 amt-admin-panel.php:855
+#: amt-admin-panel.php:274 amt-admin-panel.php:909
 msgid "Omit <code>og:video</code> meta tags."
 msgstr "Пропускает мета теги <code>og:video</code>."
 
-#: amt-admin-panel.php:268
+#: amt-admin-panel.php:276
 msgid ""
 "When a post containing a video is shared on Facebook, Facebook uses its own "
 "player to embed the video in the timeline. If this setting is enabled, "
@@ -416,11 +450,11 @@ msgid ""
 "instead of embedding your video, links to your actual video post."
 msgstr "Когда в пост встроен видеоклип, выложенный на Фейсбуке, Фейсбук использует собственный плеер для встраивания видеоклипа. Если эта опция включена, мета теги <code>og:video</code>не генерируются и Фейсбук дает ссылку на ваш реальный пост с видеоклипом."
 
-#: amt-admin-panel.php:270
+#: amt-admin-panel.php:278
 msgid "Important Note"
 msgstr "Важное замечание"
 
-#: amt-admin-panel.php:272
+#: amt-admin-panel.php:280
 msgid ""
 "By default, this feature sets the URL of the front page of your web site to "
 "the <code>article:publisher</code> meta tag and the URL of the author "
@@ -433,11 +467,11 @@ msgid ""
 "Info</em>. For example:"
 msgstr "По умолчанию эта опция сохраняет адрес главной страницы вашего сайта в мета теге <code>article:publisher</code>, а адрес архива автора в мета теге <code>article:author</code>. Чтобы привязаться к страницам автора и издателя на Фейсбук, надо указать соответствующие адреса. Адрес страницы издателя можно указать на этой странице в разделе <em>Настройки издателя</em>. Адрес страницы автора можно указать на странице <a href=\"profile.php\">пользователя WordPress</a> в разделе <em>Контакты</em>. Например:"
 
-#: amt-admin-panel.php:273 metadata\amt_opengraph.php:65
+#: amt-admin-panel.php:281 metadata\amt_opengraph.php:65
 msgid "Facebook author profile URL"
 msgstr "Адрес страницы автора на Фейсбук"
 
-#: amt-admin-panel.php:275
+#: amt-admin-panel.php:283
 msgid ""
 "It is possible to control the value of the <code>og:type</code> meta tag "
 "either by changing the post format or programmatically via a filter. By "
@@ -447,38 +481,38 @@ msgid ""
 "<code>video.other</code>."
 msgstr "Можно управлять значением мета тега <code>og:type</code>, изменяя формат поста либо программно через фильтр. По умолчанию <code>og:type</code> для любого контента присваивается значение <code>article</code>, за исключением страниц с приложенным видео и постов, чей формат установлен в <code>video</code>, на которых <code>og:type</code> имеет значение <code>video.other</code>."
 
-#: amt-admin-panel.php:278
+#: amt-admin-panel.php:286
 msgid "Opengraph"
 msgstr "Opengraph"
 
-#: amt-admin-panel.php:284 amt-admin-panel.php:869
+#: amt-admin-panel.php:292 amt-admin-panel.php:923
 msgid "Automatically generate Twitter Cards meta tags."
 msgstr "Автоматически генерирует мета теги Twitter Cards."
 
-#: amt-admin-panel.php:286
+#: amt-admin-panel.php:294
 msgid ""
 "If this option is enabled, Twitter Cards metadata is automatically generated"
 " for content and attachments. For more information, please refer to the <a "
 "href=\"https://dev.twitter.com/docs/cards\">Twitter Cards specification</a>."
 msgstr "Если эта опция включена, для контента и вложений будут автоматически генерироваться мета-данные Twitter Cards. Просим смотреть подробности в  <a href=\"https://dev.twitter.com/docs/cards\">Спецификации Twitter Cards</a>."
 
-#: amt-admin-panel.php:288 amt-admin-panel.php:873
+#: amt-admin-panel.php:296 amt-admin-panel.php:927
 msgid ""
 "Enforce the use of <code>summary_large_image</code> as default card type."
 msgstr "Заменяет тип карточки по умолчанию на <code>summary_large_image</code>."
 
-#: amt-admin-panel.php:290
+#: amt-admin-panel.php:298
 msgid ""
 "If this setting is enabled, <code>summary_large_image</code> will be used as"
 " the default Twitter Card type instead of the <code>summary</code> card "
 "type."
 msgstr "Если эта опция включена, типом Twitter Card по умолчанию будет <code>summary_large_image</code> вместо <code>summary</code>."
 
-#: amt-admin-panel.php:292 amt-admin-panel.php:877
+#: amt-admin-panel.php:300 amt-admin-panel.php:931
 msgid "Enable the generation of <em>player</em> cards for local media."
 msgstr "Включает генерацию карточек <em>player</em> для локальных медийных файлов."
 
-#: amt-admin-panel.php:294
+#: amt-admin-panel.php:302
 msgid ""
 "Enable the generation of <em>player</em> cards for locally hosted audio and "
 "video attachments or for posts with their post format set to audio or video."
@@ -491,11 +525,11 @@ msgid ""
 " hard to identify. This feature should be considered experimental."
 msgstr "Включает генерацию карточек <em>player</em> для локально размещенных аудио и видео-вложений или постов, имеющих формат audio или video. В последнем случае ожидается, что к посту будет приложен медийный аудио или видео файл соответственно. Обязательное требование данной опции, как сказано в спецификации на Карточки Твиттер, это безопасный доступ к вашему веб-сайту по протоколу HTTPS. Если безопасный доступ к вашему веб-сайту настроен неправильно, карточки <em>player</em> не будут создаваться сервисом Твиттера. Более того, само-подписанные сертификаты могут вызвать плохо идентифицируемые проблемы. Эту опцию следует считать экспериментальной."
 
-#: amt-admin-panel.php:296 amt-admin-panel.php:337
+#: amt-admin-panel.php:304 amt-admin-panel.php:345
 msgid "Important Notes"
 msgstr "Важные замечания"
 
-#: amt-admin-panel.php:298
+#: amt-admin-panel.php:306
 msgid ""
 "In order to generate the <code>twitter:site</code> and "
 "<code>twitter:creator</code> meta tags, it is required to provide the "
@@ -506,11 +540,11 @@ msgid ""
 " page</a> under the section <em>Contact Info</em>. For example:"
 msgstr "Для генерации мета тегов <code>twitter:site</code> и <code>twitter:creator</code>, нужно указать имена пользователя автора и/или издателя на Твиттере. Ник издателя можно указать в разделе <em>Настройки издателя</em>. Ник автора можно ввести на  <a href=\"profile.php\">странице пользователя WordPress</a> в разделе <em>Контакты</em>. Например:"
 
-#: amt-admin-panel.php:299 metadata\amt_twitter_cards.php:62
+#: amt-admin-panel.php:307 metadata\amt_twitter_cards.php:62
 msgid "Twitter author username"
 msgstr "Ник автора на Твиттере"
 
-#: amt-admin-panel.php:302
+#: amt-admin-panel.php:310
 msgid ""
 "By default, a Twitter Card of type <em>summary</em> is generated for your "
 "content. If your theme supports <a "
@@ -519,32 +553,32 @@ msgid ""
 "specified post format. More specifically:"
 msgstr "По умолчанию для вашего контента генерируется Twitter Card типа <em>summary</em>. Если ваша тема поддерживает <a href=\"http://codex.wordpress.org/Post_Formats\">форматы постов</a>, тогда можно генерировать Twitter Cards разных типов согласно формату поста. Более подробно:"
 
-#: amt-admin-panel.php:303
+#: amt-admin-panel.php:311
 msgid ""
 "A <code>summary</code> card is generated for posts with one of the "
 "<code>standard</code>, <code>aside</code>, <code>link</code>, "
 "<code>quote</code>, <code>status</code> and <code>chat</code> formats."
 msgstr "Карточка <code>summary</code> генерируется для постов следующих форматов:<code>standard</code>, <code>aside</code>, <code>link</code>, <code>quote</code>, <code>status</code> и <code>chat</code>."
 
-#: amt-admin-panel.php:304
+#: amt-admin-panel.php:312
 msgid ""
 "A <code>summary_large_image</code> card is generated for posts with the "
 "<code>image</code> format. An image is expected to be attached or embedded "
 "to the post."
 msgstr "Карточка <code>summary_large_image</code> генерируется для постов формата <code>image</code>. Предполагается, что картинка приложена к посту или встроена в него."
 
-#: amt-admin-panel.php:305
+#: amt-admin-panel.php:313
 msgid ""
 "A <code>gallery</code> card is generated for posts with the "
 "<code>gallery</code> format. At least one image is expected to be attached "
 "or embedded to the post."
 msgstr "Карточка <code>gallery</code> генерируется для постов формата <code>gallery</code>. Предполагается, что хотя бы одна картинка будет приложена к посту или встроена в него."
 
-#: amt-admin-panel.php:306
+#: amt-admin-panel.php:314
 msgid "A <code>photo</code> card is generated for image attachment pages."
 msgstr "Карточка <code>photo</code> генерируется для страниц с приложенными картинками."
 
-#: amt-admin-panel.php:307
+#: amt-admin-panel.php:315
 msgid ""
 "A <code>player</code> card is generated for posts with the "
 "<code>audio</code> or <code>video</code> format and for audio or video "
@@ -552,30 +586,30 @@ msgid ""
 "attached or embedded to the post."
 msgstr "Карточка <code>player</code> генерируется для постов форматов <code>audio</code> или <code>video</code> и страниц с приложенными аудио или видео файлами. Что касается постов, предполагается, что хотя бы один аудио или видео файл будет приложен к посту или встроен в него."
 
-#: amt-admin-panel.php:310
+#: amt-admin-panel.php:318
 msgid "Twitter Cards"
 msgstr "Twitter Cards"
 
-#: amt-admin-panel.php:316 amt-admin-panel.php:891
+#: amt-admin-panel.php:324 amt-admin-panel.php:945
 msgid "Automatically generate Dublin Core metadata."
 msgstr "Автоматически генерирует мета данные Dublin Core."
 
-#: amt-admin-panel.php:318
+#: amt-admin-panel.php:326
 msgid ""
 "If this option is enabled, Dublin Core metadata is automatically generated "
 "for your content and attachments. For more information, please refer to <a "
 "href=\"http://dublincore.org\">Dublin Core Metadata Initiative</a>."
 msgstr "Если включена эта опция, мета-данные Dublin Core будут автоматически генерироваться для контента, вложений и архивов. Описание Dublin Core можно найти <a href=\"http://dublincore.org\">здесь</a>."
 
-#: amt-admin-panel.php:321
+#: amt-admin-panel.php:329
 msgid "Dublin Core"
 msgstr "Dublin Core"
 
-#: amt-admin-panel.php:327 amt-admin-panel.php:905
+#: amt-admin-panel.php:335 amt-admin-panel.php:959
 msgid "Automatically generate and embed Schema.org Microdata."
 msgstr "Автоматически генерирует и вставляет микроразметку Schema.org."
 
-#: amt-admin-panel.php:329
+#: amt-admin-panel.php:337
 msgid ""
 "Automatically generate Schema.org Microdata and embed it to your content. "
 "This feature embeds <code>meta</code> elements inside the body of the web "
@@ -584,7 +618,7 @@ msgid ""
 " refer to <a href=\"http://schema.org\">Schema.org</a>."
 msgstr "Автоматически генерирует микроразметку Schema.org и внедряет ее в контент. Эта опция встраивает  <code>meta</code> элементы в тело веб-страницы. Это совместимо со стандартом HTML5, так что перед активацией этой опции убедитесь что ваша тема совместима с HTML5. Микроразметка описана <a href=\"http://schema.org\">здесь</a>."
 
-#: amt-admin-panel.php:331
+#: amt-admin-panel.php:339
 msgid ""
 "This metadata generator actually adds schema.org microdata around the post's"
 " content, because marking up the exact contents of the page in an automatic "
@@ -594,18 +628,18 @@ msgid ""
 "templates and not as a replacement of schema.org enhanced themes."
 msgstr "Генератор мета-данных на деле добавляет микроразметку schema.org вокруг контента поста, поскольку маркировать контент точно автомат технически не умеет. Избегайте ошибок, это не лучший способ вставки микроразметки! Считайте генератор обходным вариантом в случае, если в вашей теме нет микроразметки на уровне шаблона, а не заменой тем, поддерживающих микроразметку schema.org."
 
-#: amt-admin-panel.php:333 amt-admin-panel.php:909
+#: amt-admin-panel.php:341 amt-admin-panel.php:963
 msgid "Enforce the generation of schema.org metadata as JSON-LD data."
 msgstr "Включает генерацию микроразметки schema.org в формате JSON-LD."
 
-#: amt-admin-panel.php:335
+#: amt-admin-panel.php:343
 msgid ""
 "If this option is enabled, the schema.org metadata is generated as a JSON+LD"
 " script and added to the head section of the HTML page, instead of being "
 "added as microdata within the content."
 msgstr "Если включена эта опция, микроразметка schema.org будет генерироваться как скрипт JSON+LD, который добавится в заголовочный раздел HTML страницы вместо добавления самой микроразметки в контент."
 
-#: amt-admin-panel.php:339
+#: amt-admin-panel.php:347
 msgid ""
 "By default, this feature links the author and publisher objects to the "
 "author archive and to the front page of your web site respectively. In order"
@@ -617,15 +651,15 @@ msgid ""
 "Info</em>. For example:"
 msgstr "По умолчанию, эта функция привязывает объекты \"автор\" и \"издатель\" к архиву автора и главной странице сайта соответственно. Чтобы привязать страницы автора и издателя на Гугл+, нужно указать их полные адреса. Адрес страницы издателя можно ввести на этой разделе в разделе <em>Настройки издателя</em>. Адрес страницы автора можно указать на  странице <a href=\"profile.php\">пользователя WordPress </a> в разделе <em>Контакты</em>. Например:"
 
-#: amt-admin-panel.php:340 metadata\amt_schemaorg.php:64
+#: amt-admin-panel.php:348 metadata\amt_schemaorg.php:64
 msgid "Google+ author profile URL"
 msgstr "Адрес страницы автора на Гугл+"
 
-#: amt-admin-panel.php:341 metadata\amt_schemaorg.php:71
+#: amt-admin-panel.php:349 metadata\amt_schemaorg.php:71
 msgid "Google+ publisher page URL"
 msgstr "Адрес страницы издателя на Гугл+"
 
-#: amt-admin-panel.php:343
+#: amt-admin-panel.php:351
 msgid ""
 "Once you have filled in the URLs to the author profile and the publisher "
 "page on Google+, the relevant link elements with the attributes "
@@ -633,15 +667,15 @@ msgid ""
 "automatically added to the head area of the web page."
 msgstr "После того как вы введете адрес страницы автора и издателя на Гугл+, соответствующие ссылки с атрибутами <code>rel=\"author\"</code> и <code>rel=\"publisher\"</code> будут автоматически добавлены в заголовочную часть веб-страницы."
 
-#: amt-admin-panel.php:346
+#: amt-admin-panel.php:354
 msgid "Schema.org"
 msgstr "Schema.org"
 
-#: amt-admin-panel.php:352
+#: amt-admin-panel.php:360
 msgid "Enter a locale which will be used globally."
 msgstr "Введите локаль для глобального использования."
 
-#: amt-admin-panel.php:353
+#: amt-admin-panel.php:361
 msgid ""
 "Enter a locale which will be used globally in the generated metadata "
 "overriding the default locale as returned by WordPress. Filling in this "
@@ -651,13 +685,13 @@ msgid ""
 "generation of meta tags with invalid locale."
 msgstr "Введите локаль, которая будет использована в генерируемых мета-данных, отменяя локаль по умолчанию, возвращаемую WordPress. Эта настройка рекомендуется только если WordPress не возвращает локаль в формате <code>language_TERRITORY</code>. Эту опцию нельзя использовать вместе в многоязычным плагином, чтобы избежать возможной генерации мета тегов с невалидной локалью."
 
-#: amt-admin-panel.php:356 amt-admin-panel.php:930
+#: amt-admin-panel.php:364 amt-admin-panel.php:985
 msgid ""
 "Automatically set the HTML document's <code>lang</code> attribute according "
 "to the locale of the content."
 msgstr "Автоматически выставляет HTML атрибут <code>lang</code> в соответствии с локалью контента."
 
-#: amt-admin-panel.php:358
+#: amt-admin-panel.php:366
 msgid ""
 "By enabling this feature, Add-Meta-Tags will automatically set the HTML "
 "document's <code>lang</code> attribute according to the content's locale. "
@@ -666,13 +700,13 @@ msgid ""
 "attribute."
 msgstr "Эта опция автоматически выставляет атрибут HTML документа <code>lang</code> в соответствии с локалью контента. Опцию нельзя использовать вместе с многоязычным плагином, чтобы избежать возможной генерации невалидного атрибута <code>lang</code>."
 
-#: amt-admin-panel.php:360 amt-admin-panel.php:934
+#: amt-admin-panel.php:368 amt-admin-panel.php:989
 msgid ""
 "Enable the generation of a <code>link</code> element with the "
 "<code>hreflang</code> attribute."
 msgstr "Включает генерацию элемента <code>link</code> с атрибутом <code>hreflang</code>."
 
-#: amt-admin-panel.php:362
+#: amt-admin-panel.php:370
 msgid ""
 "If this feature is enabled, an HTML <code>link</code> element containing the"
 " proper hreflang attribute is added to the head section of the HTML page. "
@@ -681,11 +715,11 @@ msgid ""
 "plugin in order to avoid the potential generation of invalid hreflang links."
 msgstr "Если эта опция включена HTML элемент <code>link</code>с валидным атрибутом hreflang будет добавлен в заголовочную часть HTML страницы. Значение атрибута hreflang зависит от локали контента. Опцию нельзя использовать вместе с многоязычным плагином, чтобы избежать возможной генерации невалидных ссылок hreflang."
 
-#: amt-admin-panel.php:364 amt-admin-panel.php:938
+#: amt-admin-panel.php:372 amt-admin-panel.php:993
 msgid "Strip region code from the hreflang attribute."
 msgstr "Считывает код региона из атрибута hreflang."
 
-#: amt-admin-panel.php:366
+#: amt-admin-panel.php:374
 msgid ""
 "By default, Add-Meta-Tags uses the locale, which is usually required to be "
 "set in the form <code>language_TERRITORY</code> so as to comply with the "
@@ -696,7 +730,7 @@ msgid ""
 "strip regional information from this attribute by enabling this option."
 msgstr "По умолчанию Add-Meta-Tags использует локаль, которую обычно требуется ввести в форме <code>language_TERRITORY</code>, чтобы соответствовать разным форматам мета-данных как значение атрибута hreflang. Однако Гугл может расценить региональное значение атрибута hreflang как таргетирование на определенный регион. Если ваш контент не таргетирован на пользователей из определенного региона, лучше обрезать региональную информацию из атрибута, включив данную опцию."
 
-#: amt-admin-panel.php:367
+#: amt-admin-panel.php:375
 msgid ""
 "For instance, if your locale is <code>en_US</code>, by enabling this option "
 "you force the hreflang attribute to be <code>en</code>. In the same way, if "
@@ -705,11 +739,11 @@ msgid ""
 "attribute becomes <code>zh-Hans</code>."
 msgstr "Например, если ваша локаль <code>ru_RU</code>, при включении этой опции атрибут hreflang принудительно будет установлен в <code>ru</code>. Аналогично, если локаль указана в форме <code>language_Script_TERRITORY</code>, например, <code>zh_Hans_TW</code>, при включении этой опции атрибут hreflang принудительно будет установлен в <code>zh_Hans_TW</code>."
 
-#: amt-admin-panel.php:370 amt-admin-panel.php:917 amt-admin-panel.php:920
+#: amt-admin-panel.php:378 amt-admin-panel.php:971 amt-admin-panel.php:974
 msgid "Locale"
 msgstr "Локаль"
 
-#: amt-admin-panel.php:376 amt-admin-panel.php:951
+#: amt-admin-panel.php:384 amt-admin-panel.php:1006
 msgid ""
 "It is possible to partially customize the generated metadata on a per post "
 "basis through the <em>Metadata</em> metabox which exists in the post editing"
@@ -718,61 +752,61 @@ msgid ""
 "has been stored for each post."
 msgstr "Можно частично настроить генерацию мета-данных для каждого поста при помощи метабокса <em>Metadata</em> на странице редактирования поста. Ниже можно выбрать какие опции metabox будут включены. Включение или отключение этих опций не влияет на пользовательские данные, сохраненные для каждого поста."
 
-#: amt-admin-panel.php:379 amt-admin-panel.php:955
+#: amt-admin-panel.php:387 amt-admin-panel.php:1010
 msgid "Custom description."
 msgstr "Описание, указанное пользователем."
 
-#: amt-admin-panel.php:379 amt-admin-panel.php:380 amt-admin-panel.php:955
-#: amt-admin-panel.php:960 amt-admin-panel.php:1023
+#: amt-admin-panel.php:387 amt-admin-panel.php:388 amt-admin-panel.php:1010
+#: amt-admin-panel.php:1015 amt-admin-panel.php:1078
 msgid "Recommended"
 msgstr "Рекомендуется"
 
-#: amt-admin-panel.php:380 amt-admin-panel.php:960
+#: amt-admin-panel.php:388 amt-admin-panel.php:1015
 msgid "Custom keywords."
 msgstr "Ключевые слова, указанные пользователем."
 
-#: amt-admin-panel.php:381 amt-admin-panel.php:965
+#: amt-admin-panel.php:389 amt-admin-panel.php:1020
 msgid "Custom content of the <code>title</code> HTML element."
 msgstr "Значение HTML элемента  <code>title</code>, указанное пользователем."
 
-#: amt-admin-panel.php:382 amt-admin-panel.php:970
+#: amt-admin-panel.php:390 amt-admin-panel.php:1025
 msgid ""
 "Custom news keywords. (<a target=\"_blank\" "
 "href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">more"
 " info</a>)"
 msgstr "<a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=ru&answer=68297\">Подробно</a> о ключевых словах новостей, введенных пользователем."
 
-#: amt-admin-panel.php:383 amt-admin-panel.php:975
+#: amt-admin-panel.php:391 amt-admin-panel.php:1030
 msgid "Full meta tags box."
 msgstr "Полная сводка мета тегов."
 
-#: amt-admin-panel.php:384 amt-admin-panel.php:980
+#: amt-admin-panel.php:392 amt-admin-panel.php:1035
 msgid "Global image override."
 msgstr "Отмена глобальной картинки."
 
-#: amt-admin-panel.php:385 amt-admin-panel.php:985
+#: amt-admin-panel.php:393 amt-admin-panel.php:1040
 msgid ""
 "Content locale override. (Not to be used in conjunction with a multilingual "
 "plugin.) "
 msgstr "Отмена локали контента. (Нельзя использовать с многоязычным плагином!)"
 
-#: amt-admin-panel.php:386 amt-admin-panel.php:990
+#: amt-admin-panel.php:394 amt-admin-panel.php:1045
 msgid "Express review."
 msgstr "Быстрый просмотр."
 
-#: amt-admin-panel.php:386 amt-admin-panel.php:990
+#: amt-admin-panel.php:394 amt-admin-panel.php:1045
 msgid "For advanced users only"
 msgstr "Только для опытных пользователей"
 
-#: amt-admin-panel.php:387 amt-admin-panel.php:995
+#: amt-admin-panel.php:395 amt-admin-panel.php:1050
 msgid "Referenced items."
 msgstr "Упоминаемые элементы."
 
-#: amt-admin-panel.php:387 amt-admin-panel.php:995
+#: amt-admin-panel.php:395 amt-admin-panel.php:1050
 msgid "Not recommended"
 msgstr "Не рекомендуется"
 
-#: amt-admin-panel.php:389
+#: amt-admin-panel.php:397
 msgid ""
 "The metabox feature selection above affects all users. Advanced "
 "customization of the availability of these features on a per user basis or "
@@ -780,22 +814,22 @@ msgid ""
 "<code>amt_metadata_metabox_permissions</code> filter."
 msgstr "Выбор опции metabox выше влияет на всех пользователей. Возможна тонкая настройка доступности этих опций для каждого пользователя или в зависимости от прав доступа каждого пользователя при помощи фильтра <code>amt_metadata_metabox_permissions</code>."
 
-#: amt-admin-panel.php:393 amt-admin-panel.php:946 amt-admin-panel.php:949
+#: amt-admin-panel.php:401 amt-admin-panel.php:1001 amt-admin-panel.php:1004
 msgid "Metabox Features"
 msgstr "Функции сводки мета-тегов"
 
-#: amt-admin-panel.php:399
+#: amt-admin-panel.php:407
 msgid ""
 "This section contains information about the general Add-Meta-Tags settings."
 msgstr "Этот раздел содержит информацию об общих настройках Add-Meta-Tags."
 
-#: amt-admin-panel.php:401 amt-admin-panel.php:1010
+#: amt-admin-panel.php:409 amt-admin-panel.php:1065
 msgid ""
 "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta "
 "tag."
 msgstr "Добавляет код <code>NOODP</code> и <code>NOYDIR</code> в мета тег <em>robots</em>."
 
-#: amt-admin-panel.php:403
+#: amt-admin-panel.php:411
 msgid ""
 "If checked, <code>NOODP</code> and <code>NOYDIR</code> are added to the "
 "<em>robots</em> meta tag on the front page, content and attachments. This "
@@ -806,13 +840,13 @@ msgid ""
 "description you set in the <em>description</em> meta tag."
 msgstr "Эта опция вставляет код <code>NOODP</code> и <code>NOYDIR</code> в мета тег <em>robots</em> на главной странице, в контент и приложения. Эта настройка также запрещает всем поисковикам отображать информацию из <a href=\"http://www.dmoz.org/\">DMOZ</a> или <a href=\"http://dir.yahoo.com/\">Каталога Yahoo</a> вместо содержимого мета тега <em>description</em>."
 
-#: amt-admin-panel.php:405
+#: amt-admin-panel.php:413
 msgid ""
 "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following"
 " types of archives."
 msgstr "Добавляет код <code>NOINDEX,FOLLOW</code> в мета тег <em>robots</em> для следующих типов архивов."
 
-#: amt-admin-panel.php:407
+#: amt-admin-panel.php:415
 msgid ""
 "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following"
 " types of archives: search results, date, tag, custom taxonomy, author "
@@ -820,12 +854,12 @@ msgid ""
 "duplicate content that gets indexed by search engines"
 msgstr "Добавляет код <code>NOINDEX,FOLLOW</code> в мета тег <em>robots</em> для следующих типов архивов: результаты поиска, дата, метка, пользовательская классификация, архивы автора. Это настройка для опытных пользователей, призванная уменьшить кол-во дубликатов контента, индексируемых поисковыми машинами."
 
-#: amt-admin-panel.php:409 amt-admin-panel.php:1050
+#: amt-admin-panel.php:417 amt-admin-panel.php:1105
 msgid ""
 "Enforce the use of the content's custom title in the generated metadata."
 msgstr "Включает использование заголовка контента по умолчанию введенное пользователем в генерируемых мета-данных."
 
-#: amt-admin-panel.php:411
+#: amt-admin-panel.php:419
 msgid ""
 "It is possible to set a custom title for the content in the relevant field "
 "of the 'Metadata' box in the post editing screen. By default, this custom "
@@ -838,11 +872,11 @@ msgid ""
 "data, instead of the default title."
 msgstr "Можно указывать свой заголовок контента в соответствующем поле раздела Мета-данные на странице редактирования поста. По умолчанию этот пользовательский заголовок используется только в HTML элементе <code>title</code>. Add-Meta-Tags продолжает использовать заголовок контента по умолчанию для генерации мета-данных, например, в <code>og:title</code>/<code>twitter:title</code>/<code>dcterms:title</code>. Если эта опция включена, Add-Meta-Tags будет использвать при генерации мета-данных пользовательский заголовок вместо умолчательного."
 
-#: amt-admin-panel.php:413 amt-admin-panel.php:1057
+#: amt-admin-panel.php:421 amt-admin-panel.php:1112
 msgid "Enable advanced title management."
 msgstr "Включить продвинутое управление тегами title."
 
-#: amt-admin-panel.php:415
+#: amt-admin-panel.php:423
 msgid ""
 "By enabling this option, Add-Meta-Tags generates the title that is used in "
 "the <code>title</code> HTML element and also the title that is used "
@@ -853,29 +887,29 @@ msgid ""
 "titles</a>."
 msgstr "Если эта опция включена, Add-Meta-Tags генерирует заголовок, используемый в HTML элементе  <code>title</code>, а также заголовок, заданный в соответствии с пользовательским шаблоном. В <em>справочнике по Add-Meta-Tags</em> содержится вся информация о том, как <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Advanced_Title_Management\">настроить генерируемые заголовки</a>."
 
-#: amt-admin-panel.php:417
+#: amt-admin-panel.php:425
 msgid ""
 "Please make sure to check the <a href=\"http://www.codetrax.org/projects/wp-"
 "add-meta-tags/wiki/Requirements#Advanced-Title-Management\" "
 "target=\"_blank\">theme requirements</a> before enabling this feature."
 msgstr "Просим проверить <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Requirements#Advanced-Title-Management\" target=\"_blank\">требования к теме</a> перед включением этой опции."
 
-#: amt-admin-panel.php:419 amt-admin-panel.php:1068 amt-admin-panel.php:1071
+#: amt-admin-panel.php:427 amt-admin-panel.php:1122 amt-admin-panel.php:1125
 msgid "Copyright URL"
 msgstr "Адрес страницы авторских прав"
 
-#: amt-admin-panel.php:421
+#: amt-admin-panel.php:429
 msgid ""
 "Enter an absolute URL to a document containing copyright and licensing "
 "information about your work. If this URL is set, the relevant meta tags will"
 " be added automatically on all the pages of your web site."
 msgstr "Введите полный адрес документа с информацией об авторских правах и лицензировании вашего контента. Тогда соответствующий мета тег автоматически появится на всех страницах вашего сайта."
 
-#: amt-admin-panel.php:424 amt-admin-panel.php:1084 amt-admin-panel.php:1087
+#: amt-admin-panel.php:432 amt-admin-panel.php:1138 amt-admin-panel.php:1141
 msgid "Default Image"
 msgstr "Картинка по умолчанию"
 
-#: amt-admin-panel.php:426
+#: amt-admin-panel.php:434
 msgid ""
 "Enter an absolute URL to an image that represents your website, for instance"
 " the logo. This image will be used in the metadata of the front page and "
@@ -883,15 +917,15 @@ msgid ""
 "images have been attached or embedded."
 msgstr "Введите полный адрес картинки, символизирующей ваш сайт (например, логотипа). Тогда картинка будет использована в мета-данных главной старницы и контента, в том случае если не указана никакая другая картинка."
 
-#: amt-admin-panel.php:429 amt-admin-panel.php:1100 amt-admin-panel.php:1103
+#: amt-admin-panel.php:437 amt-admin-panel.php:1154 amt-admin-panel.php:1157
 msgid "Secure Access"
 msgstr "Безопасный доступ"
 
-#: amt-admin-panel.php:431 amt-admin-panel.php:1106
+#: amt-admin-panel.php:439 amt-admin-panel.php:1160
 msgid "Media are accessible over HTTPS."
 msgstr "Медийные файлы доступны по HTTPS."
 
-#: amt-admin-panel.php:433
+#: amt-admin-panel.php:441
 msgid ""
 "Currently this option, if enabled, lets the plugin make decisions about "
 "whether to generate additional secure links even if the active connection "
@@ -901,17 +935,17 @@ msgid ""
 "HTTPS, then secure links are always generated."
 msgstr "На данный момент эта опция позволяет плагину принимать решение о генерации дополнительных безопасных ссылок даже если протокол HTTPS не используется. Например, если веб-сайт доступен по протоколу HTTP и эта опция включена, для локальных медийных файлов будут генерироваться дополнительные мета теги <code>og:image:secure_url</code> . Если используется протокол HTTPS, безопасные ссылки будет генерироваться всегда."
 
-#: amt-admin-panel.php:435 amt-admin-panel.php:1113 amt-admin-panel.php:1116
+#: amt-admin-panel.php:443 amt-admin-panel.php:1167 amt-admin-panel.php:1170
 msgid "Media Limit"
 msgstr "Ограничение на медийные файлы"
 
-#: amt-admin-panel.php:437 amt-admin-panel.php:1119
+#: amt-admin-panel.php:445 amt-admin-panel.php:1173
 msgid ""
 "Do not generate metadata for more than one media file of each type (image, "
 "video, audio)."
 msgstr "Не генерируйте мета данные более чем для одного медийного файла каждого типа (картинка, видео, аудио)."
 
-#: amt-admin-panel.php:439
+#: amt-admin-panel.php:447
 msgid ""
 "By default, metadata is generated for all media files that have been "
 "attached or embedded in the content. By enabling this option Add-Meta-Tags "
@@ -921,11 +955,11 @@ msgid ""
 "images."
 msgstr "По умолчанию мета-данные генерируются для всех медиа-файлов, встроенных или приложенных к контенту. Включение этой опции говорит Add-Meta-Tags, чтобы он генерировал мета-данные только для первого медиа-файла каждого типа (картинка, видео или аудио). Ограничение не влияет на Twitter карточку <code>gallery</code>, которая всегда содержит все приложенные картинки."
 
-#: amt-admin-panel.php:441 amt-admin-panel.php:1126 amt-admin-panel.php:1129
+#: amt-admin-panel.php:449 amt-admin-panel.php:1180 amt-admin-panel.php:1183
 msgid "Review Mode"
 msgstr "Режим просмотра"
 
-#: amt-admin-panel.php:443
+#: amt-admin-panel.php:451
 msgid ""
 "If enabled, WordPress users with administrator privileges see a box (right "
 "above the post's content) containing the metadata exactly as it is added in "
@@ -933,28 +967,49 @@ msgid ""
 "and custom post types."
 msgstr "Если эта опция включена, пользователи WordPress с правами администратора увидят над контентом поста область, отображающую мета-данные точно в таком виде, в каком они добавляются в заголовок и тело HTML страницы. Это касается всех постов, страниц, вложений и пользовательских типов постов."
 
-#: amt-admin-panel.php:448
+#: amt-admin-panel.php:453
+msgid "Enable keyword analysis and statistics"
+msgstr ""
+
+#: amt-admin-panel.php:455
+msgid ""
+"If enabled, a section containing <a href=\"http://www.codetrax.org/projects"
+"/wp-add-meta-tags/wiki/Metadata_Overview\">statistical information</a> about"
+" the metadata and the content is also displayed in the review mode panel."
+msgstr ""
+
+#: amt-admin-panel.php:457
+msgid "Omit help messages and notices"
+msgstr ""
+
+#: amt-admin-panel.php:459
+msgid ""
+"If enabled, help messages and other notices are no longer displayed in the "
+"metadata review panel."
+msgstr ""
+
+#: amt-admin-panel.php:464
 msgid "Extra settings"
 msgstr "Дополнительные настройки"
 
-#: amt-admin-panel.php:454
+#: amt-admin-panel.php:470
 msgid ""
 "This section contains information about the metadata Add-Meta-Tags can "
 "generate for third party content."
 msgstr "Этот раздел содержит информацию о мета данных, которые можно генерировать для стороннего контента."
 
-#: amt-admin-panel.php:456
+#: amt-admin-panel.php:472
 msgid "Metadata for WooCommerce"
 msgstr "Мета данные для WooCommerce"
 
-#: amt-admin-panel.php:458
+#: amt-admin-panel.php:474
 msgid ""
 "Add-Meta-Tags can generate metadata for WooCommerce products and product "
 "groups. The Basic, Opengraph, Twitter Cards, Schema.org microdata and "
 "Schema.org JSON+LD metadata generators have been implemented."
 msgstr "Add-Meta-Tags може генерировать мета-данные для продуктов и групп продуктов WooCommerce. Микроразметка Basic, Opengraph, Twitter Cards, Schema.org и генераторы мета-данных Schema.org JSON+LD также будут работать."
 
-#: amt-admin-panel.php:459
+#: amt-admin-panel.php:475
 msgid ""
 "The generated metadata is complete and supports most of the properties of "
 "products and offers, except shipping related information. Product attributes"
@@ -963,47 +1018,48 @@ msgid ""
 "the names of product attributes that are actually used."
 msgstr "Сгенерированные мета-данные полные и поддерживают большинство свойств продуктов и услуг, за исключением информации по доставке. Также поддерживаются атрибуты продуктов. В некоторых случаях плагин подразумевает атрибуты продукта, отличные от реальных - тогда надо исправлять это вручную."
 
-#: amt-admin-panel.php:460
+#: amt-admin-panel.php:476
 msgid ""
 "Products with regular and sales prices are supported. Variable products and "
 "pages of product groups are also supported."
 msgstr "Поддерживаются продукты с розничной и распродажной ценой. Также работает для групп продуктов."
 
-#: amt-admin-panel.php:461
+#: amt-admin-panel.php:477
 msgid ""
 "The metadata generators for WooCommerce products should be considered "
 "stable. However, your comments and suggestions are welcome."
 msgstr "Генерация мета данных для продуктов WooCommerce работает стабильно. Впрочем, мы рады вашим предложениям и замечаниям."
 
-#: amt-admin-panel.php:463
+#: amt-admin-panel.php:479
 msgid "Metadata for Easy Digital Downloads"
 msgstr "Мета данные для Easy Digital Downloads"
 
-#: amt-admin-panel.php:465
+#: amt-admin-panel.php:481
 msgid ""
 "Support for the products and product groups of the Easy Digital Downloads "
-"plugin is still work in progress."
-msgstr "Поддержка продуктов и групп продуктов плагина Easy Digital Downloads еще дорабатывается."
+"plugin is still work in progress. If enabled, product and product group "
+"pages will contain basic product related metadata."
+msgstr ""
 
-#: amt-admin-panel.php:467
+#: amt-admin-panel.php:483
 msgid "Metadata for BuddyPress"
 msgstr "Мета данные для BuddyPress"
 
-#: amt-admin-panel.php:469
+#: amt-admin-panel.php:485
 msgid ""
 "Add-Meta-Tags can generate metadata for BuddyPress member profile pages. The"
 " Basic, Opengraph, Twitter Cards, Schema.org microdata and Schema.org "
 "JSON+LD metadata generators have been implemented."
 msgstr "Add-Meta-Tags може генерировать мета-данные для страниц зарегистрированных пользователей BuddyPress. Микроразметка Basic, Opengraph, Twitter Cards, Schema.org и генераторы мета-данных Schema.org JSON+LD также будут работать."
 
-#: amt-admin-panel.php:471
+#: amt-admin-panel.php:487
 msgid ""
 "If the <em>Extended Profiles</em> component has not been activated in "
 "BuddyPress, then metadata is generated based on the information found in the"
 " WordPress user profile."
 msgstr "Если в BuddyPress не активирован компонент <em>Extended Profiles</em>, тогда мета-данные будут генерироваться на основе информации, найденной в профиле пользователя WordPress."
 
-#: amt-admin-panel.php:473
+#: amt-admin-panel.php:489
 msgid ""
 "Please consult the <a href=\"http://www.codetrax.org/projects/wp-add-meta-"
 "tags/wiki/Custom_Content#Metadata-for-BuddyPress\" target=\"_blank\">wiki "
@@ -1012,25 +1068,25 @@ msgid ""
 "profile metadata from being added to the profile page."
 msgstr "В <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress\" target=\"_blank\">wiki документации по BuddyPress</a> описано, как изменять или расширять генерируемые мета-данные, изменять привязку полей по умолчанию или отменять добавление мета-данных профиля на страницу профиля."
 
-#: amt-admin-panel.php:475
+#: amt-admin-panel.php:491
 msgid "How to fully take advantage of this feature:"
 msgstr "Как сделать это правильно:"
 
-#: amt-admin-panel.php:478
+#: amt-admin-panel.php:494
 msgid "Enable BuddyPress support in the Add-Meta-Tags settings."
 msgstr "Включите поддержку BuddyPress в настройках Add-Meta-Tags."
 
-#: amt-admin-panel.php:479
+#: amt-admin-panel.php:495
 msgid ""
 "Set the source of local author profiles to <code>BuddyPress</code> in the "
 "Add-Meta-Tags settings."
 msgstr "Укажите источник локальных страниц автора для  <code>BuddyPress</code> в настройках Add-Meta-Tags."
 
-#: amt-admin-panel.php:479 amt-admin-panel.php:480
+#: amt-admin-panel.php:495 amt-admin-panel.php:496
 msgid "Optional"
 msgstr "Необязательно"
 
-#: amt-admin-panel.php:480
+#: amt-admin-panel.php:496
 msgid ""
 "Use the <code>amt_local_author_profile_url()</code> template tag in your "
 "theme templates in order to generate a URL to the author's profile. This "
@@ -1038,15 +1094,21 @@ msgid ""
 "into account."
 msgstr "Используйте метку шаблона <code>amt_local_author_profile_url()</code> в шаблонах вашей темы, чтобы сгенерировать адрес страницы автора. Эта метка шаблона запоминает источник локальной страницы автора."
 
-#: amt-admin-panel.php:483
+#: amt-admin-panel.php:499
 msgid "This is a new feature and should be considered work in progress."
 msgstr "Это новая незаконченная функция."
 
-#: amt-admin-panel.php:485
+#: amt-admin-panel.php:501
 msgid "Metadata for bbPress"
 msgstr "Мета-данные для bbPress"
 
-#: amt-admin-panel.php:487
+#: amt-admin-panel.php:503
+msgid ""
+"Metadata for bbPress forums and topics should be generated out of the box. "
+"More specific forum metadata has not been implemented yet."
+msgstr ""
+
+#: amt-admin-panel.php:505
 msgid ""
 "Currently, only the base mechanism exists, which lets you <a "
 "href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content"
@@ -1054,16 +1116,90 @@ msgid ""
 "for bbPress forums and topics."
 msgstr "На сегодня работает только базовый механизм, позволяющий <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Custom_Content#Metadata-for-BuddyPress\" target=\"_blank\">изменять или расширять</a> мета-данные для форумов и тем bbPress."
 
-#: amt-admin-panel.php:489
+#: amt-admin-panel.php:507
 msgid ""
 "Please, don't forget to contribute your customizations to this project!"
 msgstr "Просим вас присылать ваши модификации этого проекта!"
 
-#: amt-admin-panel.php:494
+#: amt-admin-panel.php:512
 msgid "Extended Metadata"
 msgstr "Расширенные мета-данные"
 
-#: amt-admin-panel.php:500
+#: amt-admin-panel.php:518
+msgid ""
+"This section contains basic information about the <em>metadata caching</em> "
+"feature. For more details about how metadata caching works in Add-Meta-Tags,"
+" troubleshooting notes and also helpful information that aims to help you "
+"decide whether you need to enable this feature or not can be found in the <a"
+" target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-"
+"tags/wiki/Performance#Metadata-Caching\">Performance</a> page of the wiki."
+msgstr ""
+
+#: amt-admin-panel.php:520
+msgid ""
+"Metadata caching is the last thing you should care about while configuring "
+"this plugin. You should consider enabling it only after you have finished "
+"configuring the rest of the settings."
+msgstr ""
+
+#: amt-admin-panel.php:522 amt-admin-panel.php:610
+msgid "Notice"
+msgstr "Предупреждение"
+
+#: amt-admin-panel.php:524
+msgid ""
+"Metadata caching is an experimental feature, which should only be used by "
+"experienced WordPress users. If you are a WordPress beginner or if you don't"
+" have enough knowledge about the concept of caching and, especially, if you "
+"have followed instructions without having understood how this works, please "
+"keep this feature turned off, read this section of the documentation and "
+"also the <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-"
+"add-meta-tags/wiki/Performance#Metadata-Caching\">Performance</a> page of "
+"the wiki carefully and ask any questions you might have before enabling it. "
+"Even if you do otherwise, your web site is not going to be harmed in any "
+"way, but it is always a good idea to have a good understanding about how "
+"things work."
+msgstr ""
+
+#: amt-admin-panel.php:526
+msgid "Show timing information"
+msgstr ""
+
+#: amt-admin-panel.php:528
+msgid ""
+"If this option is enabled, information about the total time that was "
+"required to generate a block of metadata is printed. This feature, "
+"generally, should not be enabled, unless you want an indication of the "
+"metadata generation times in each request."
+msgstr ""
+
+#: amt-admin-panel.php:530
+msgid "Enable metadata caching"
+msgstr ""
+
+#: amt-admin-panel.php:532
+msgid ""
+"Metadata caching can be enabled by setting the <em>caching timeout</em>, "
+"which is the number of seconds for which the metadata should be cached, to a"
+" number greater than zero. The cache is cleared every time you save the Add-"
+"Meta-Tags settings or from the command line using the <code>amt</code> "
+"command of <code>wp-cli</code>."
+msgstr ""
+
+#: amt-admin-panel.php:534
+msgid ""
+"The full documentation of this feature has been moved to the <a "
+"target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-"
+"tags/wiki/Performance#Metadata-Caching\">Performance</a> page of the wiki. "
+"It is highly recommended to thoroughly study this document before enabling "
+"metadata caching."
+msgstr ""
+
+#: amt-admin-panel.php:540
+msgid "Metadata caching"
+msgstr ""
+
+#: amt-admin-panel.php:547
 msgid ""
 "Add-Meta-Tags can be customized to a great extent programmatically. Please "
 "read the <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki"
@@ -1071,23 +1207,24 @@ msgid ""
 "more information."
 msgstr "Можно настраивать Add-Meta-Tags программно. Просим обращаться к <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Add-Meta-Tags_Cookbook\" target=\"_blank\">справочнику по Add-Meta-Tags</a> за подробной информацией."
 
-#: amt-admin-panel.php:504
+#: amt-admin-panel.php:551
 msgid "Advanced"
 msgstr "Опытным"
 
-#: amt-admin-panel.php:517
+#: amt-admin-panel.php:564
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Вы не имеете прав доступа для к этой странице."
 
-#: amt-admin-panel.php:550
+#: amt-admin-panel.php:582
+#, php-format
+msgid "Deleted %d transient metadata cache entries."
+msgstr ""
+
+#: amt-admin-panel.php:604
 msgid "Welcome to the administration panel of the Add-Meta-Tags plugin."
 msgstr "Добро пожаловать в панель администрирования плагина Add-Meta-Tags."
 
-#: amt-admin-panel.php:556
-msgid "Notice"
-msgstr "Предупреждение"
-
-#: amt-admin-panel.php:558
+#: amt-admin-panel.php:612
 msgid ""
 "Press the <code>Help</code> button on the top right corner for an "
 "introduction to metadata and also for detailed "
@@ -1097,7 +1234,7 @@ msgid ""
 "more user-friendly."
 msgstr "Нажмиет кнопку <code>Help</code> в правом верхнем углу, чтобы понять, что такое мета-данные и получить подробные <strong>сведения</strong> о доступных настройках и генераторах мета-данных. Все справочные тексты постепенно будут перенесены в интегрированную справку WordPress, чтобы уменьшить размер данной страницы и сделать ее боле понятной простому пользователю."
 
-#: amt-admin-panel.php:565
+#: amt-admin-panel.php:619
 msgid ""
 "It is no longer possible to enter the URLs of the Publisher's social media "
 "profiles in the WordPress user profile page. Instead, this information "
@@ -1105,29 +1242,29 @@ msgid ""
 "Settings</strong> section below."
 msgstr "На странице пользователя WordPress больше нельзя вводить адреса страниц издателя в соцсетях. Вместо этого надо использовать соответствующие поля раздела <strong>Publisher Settings</strong> ниже."
 
-#: amt-admin-panel.php:572
+#: amt-admin-panel.php:626
 msgid "Message from the author"
 msgstr "Сообщение от автора"
 
-#: amt-admin-panel.php:584
+#: amt-admin-panel.php:638
 msgid "This message can be deactivated in the settings below."
 msgstr "Это сообщение можно отключить ниже в настройках."
 
-#: amt-admin-panel.php:588
+#: amt-admin-panel.php:642
 msgid "Configuration"
 msgstr "Конфигурация"
 
-#: amt-admin-panel.php:590
+#: amt-admin-panel.php:644
 msgid ""
 "This section contains global configuration options for the metadata that is "
 "added to your web site."
 msgstr "Этот раздел содержит глобальные параметры конфигурации метаданных, которые добавляются на сайт."
 
-#: amt-admin-panel.php:626 amt-admin-panel.php:629
+#: amt-admin-panel.php:680 amt-admin-panel.php:683
 msgid "Front Page Metadata"
 msgstr "Метаданные главной страницы"
 
-#: amt-admin-panel.php:630
+#: amt-admin-panel.php:684
 msgid ""
 "It appears that you use static pages on the <em>front page</em> and the "
 "<em>latest posts page</em> of this web site. Please visit the editing panel "
@@ -1135,54 +1272,56 @@ msgid ""
 "<code>keywords</code> meta tags in the relevant Metadata box."
 msgstr "Похоже, что вы используете статическую страницу на  <em> главной странице </em> и <em> страницу последних сообщений </em> сайта. Пожалуйста, зайдите в редактор этих страниц и заполните мета-теги <code> описание </code> и <code> ключевые слова </code>  в соответствующих полях метаданных."
 
-#: amt-admin-panel.php:635
+#: amt-admin-panel.php:689
 #, php-format
 msgid "Edit the <a href=\"%s\">front page</a>"
 msgstr "Редактировать <a href=\"%s\">главную страницу</a>"
 
-#: amt-admin-panel.php:639
+#: amt-admin-panel.php:693
 #, php-format
 msgid "Edit the <a href=\"%s\">posts page</a>"
 msgstr "Редактировать <a href=\"%s\">страницу постов</a>"
 
-#: amt-admin-panel.php:660
-msgid "Enter a short description of your blog (150-250 characters)."
-msgstr "Введите краткое описание вашего блога (150-250 символов)."
+#: amt-admin-panel.php:714
+msgid "Enter a short description of your web site."
+msgstr ""
 
-#: amt-admin-panel.php:675
-msgid "Enter a comma-delimited list of keywords for your blog."
-msgstr "Введите через запятую список ключевых слов вашего блога"
+#: amt-admin-panel.php:729
+msgid "Enter a comma-delimited list of keywords for your web site."
+msgstr ""
 
-#: amt-admin-panel.php:692
-msgid "Enter a comma-delimited list of global keywords."
-msgstr "Введите через запятую список глобальных ключевых слов."
+#: amt-admin-panel.php:746
+msgid ""
+"Enter a comma-delimited list of global keywords. Please consult the "
+"integrated help for more information."
+msgstr ""
 
-#: amt-admin-panel.php:707
+#: amt-admin-panel.php:761
 msgid ""
 "Enter complete <a href=\"http://en.wikipedia.org/wiki/Meta_element\" "
 "target=\"_blank\">meta tags</a> which will appear on all web pages."
 msgstr "Введите полностью <a href=\"https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0%D1%82%D0%B5%D0%B3%D0%B8\" target=\"_blank\">мета теги</a>, которые будут отображаться на всех веб-страницах."
 
-#: amt-admin-panel.php:708
+#: amt-admin-panel.php:762
 msgid "Please, do not enter keywords here."
 msgstr "Просим не вводить здесь ключевые слова."
 
-#: amt-admin-panel.php:741
+#: amt-admin-panel.php:795
 msgid "Facebook App ID"
 msgstr "App ID для Фейсбук"
 
-#: amt-admin-panel.php:746
+#: amt-admin-panel.php:800
 msgid ""
 "Enter the App ID for <a target=\"_blank\" "
 "href=\"https://developers.facebook.com/docs/platforminsights\">Facebook "
 "Insights</a>."
 msgstr "Введите App ID для <a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">статистики Фейсбук</a>."
 
-#: amt-admin-panel.php:751
+#: amt-admin-panel.php:805
 msgid "Facebook Admin ID list"
 msgstr "Список ID администраторов Фейсбук"
 
-#: amt-admin-panel.php:756
+#: amt-admin-panel.php:810
 msgid ""
 "Enter a comma delimited list of numerical Facebook user IDs which will have "
 "access to <a target=\"_blank\" "
@@ -1190,182 +1329,310 @@ msgid ""
 "Insights</a>."
 msgstr "Введите через запятую цифровые идентификаторы пользователей Фейсбук, коорые будут иметь доступ к <a target=\"_blank\" href=\"https://developers.facebook.com/docs/platforminsights\">статистике Фейсбук</a>."
 
-#: amt-admin-panel.php:807
+#: amt-admin-panel.php:861
 msgid "(default)"
 msgstr "(по умолчанию)"
 
-#: amt-admin-panel.php:809
+#: amt-admin-panel.php:861 amt-admin-panel.php:863 amt-admin-panel.php:864
+msgid "Organization web site"
+msgstr ""
+
+#: amt-admin-panel.php:862
+msgid "Personal web site"
+msgstr ""
+
+#: amt-admin-panel.php:863
 msgid "BuddyPress member page"
 msgstr "страница члена BuddyPress"
 
-#: amt-admin-panel.php:814
+#: amt-admin-panel.php:864
+msgid "Author's external web site URL"
+msgstr ""
+
+#: amt-admin-panel.php:868
 msgid ""
 "This is an advanced option and should not be changed, unless you have "
 "consulted the integrated help for more information."
 msgstr "Эта опция для опытных пользователей, ее можно изменять только если точно знаешь, что делаешь."
 
-#: amt-admin-panel.php:827 amt-admin-panel.php:830
+#: amt-admin-panel.php:881 amt-admin-panel.php:884
 msgid "Basic Metadata"
 msgstr "Основные мета-данные"
 
-#: amt-admin-panel.php:845 amt-admin-panel.php:848
+#: amt-admin-panel.php:899 amt-admin-panel.php:902
 msgid "Opengraph Metadata"
 msgstr "Мета-данные Opengraph"
 
-#: amt-admin-panel.php:863 amt-admin-panel.php:866
+#: amt-admin-panel.php:917 amt-admin-panel.php:920
 msgid "Twitter Cards Metadata"
 msgstr "Мета-данные Twitter Cards"
 
-#: amt-admin-panel.php:885 amt-admin-panel.php:888
+#: amt-admin-panel.php:939 amt-admin-panel.php:942
 msgid "Dublin Core Metadata"
 msgstr "Мета-данные Dublin Core"
 
-#: amt-admin-panel.php:899 amt-admin-panel.php:902
+#: amt-admin-panel.php:953 amt-admin-panel.php:956
 msgid "Schema.org Metadata"
 msgstr "Мета-данные Schema.org"
 
-#: amt-admin-panel.php:909 amt-admin-panel.php:1059 amt-admin-panel.php:1624
-msgid "Experimental feature"
-msgstr "Экспериментальная функция"
-
-#: amt-admin-panel.php:925
+#: amt-admin-panel.php:979
 msgid ""
 "Enter a locale, for example <code>en_US</code> or <code>zh_Hans_TW</code>, "
 "which will be used globally in the generated metadata overriding the default"
 " locale as returned by WordPress."
 msgstr "Введите локаль, например <code>ru_RU</code>, которая будет использоваться глобально в генерируемых мета-данных, отменяя локаль по умолчанию для WordPress."
 
-#: amt-admin-panel.php:1004 amt-admin-panel.php:1007
+#: amt-admin-panel.php:980
+msgid ""
+"The locale can be overridden on a per post basis. For this purpose, enabling"
+" the relevant metabox feature below is required."
+msgstr ""
+
+#: amt-admin-panel.php:1059 amt-admin-panel.php:1062
 msgid "Extra SEO Options"
 msgstr "Дополнительные SEO опции"
 
-#: amt-admin-panel.php:1014
+#: amt-admin-panel.php:1069
 msgid ""
 "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following"
 " types of archives:"
 msgstr "Добавляет <code>NOINDEX,FOLLOW</code> в мета тег <em>robots</em> для архивов следующих видов:"
 
-#: amt-admin-panel.php:1018
+#: amt-admin-panel.php:1073
 msgid "Search results."
 msgstr "Результаты поиска."
 
-#: amt-admin-panel.php:1018
+#: amt-admin-panel.php:1073
 msgid "Highly recommended"
 msgstr "Настоятельно рекомендуется"
 
-#: amt-admin-panel.php:1023
+#: amt-admin-panel.php:1078
 msgid "Date based archives."
 msgstr "Архивы по дате"
 
-#: amt-admin-panel.php:1028
+#: amt-admin-panel.php:1083
 msgid "Category based archives."
 msgstr "Архивы по категориям"
 
-#: amt-admin-panel.php:1028 amt-admin-panel.php:1033 amt-admin-panel.php:1038
-#: amt-admin-panel.php:1043
+#: amt-admin-panel.php:1083 amt-admin-panel.php:1088 amt-admin-panel.php:1093
+#: amt-admin-panel.php:1098
 msgid ""
 "Even if checked, the first page of this type of archive is always indexed."
 msgstr "Даже если включена, первая страница этого типа архива всегда индексируется."
 
-#: amt-admin-panel.php:1033
+#: amt-admin-panel.php:1088
 msgid "Tag based archives."
 msgstr "Архивы на основе меток."
 
-#: amt-admin-panel.php:1038
+#: amt-admin-panel.php:1093
 msgid "Custom taxonomy based archives."
 msgstr "Архивы на основе пользовательской классификации."
 
-#: amt-admin-panel.php:1043
+#: amt-admin-panel.php:1098
 msgid "Author based archives."
 msgstr "Архивы по авторам."
 
-#: amt-admin-panel.php:1058
+#: amt-admin-panel.php:1113 amt-admin-panel.php:1191
 msgid "Learn more"
 msgstr "Узнать больше"
 
-#: amt-admin-panel.php:1076
+#: amt-admin-panel.php:1130
 msgid ""
 "Enter an absolute URL to a document containing copyright and licensing "
 "information about your work."
 msgstr "Введите полный путь к документу с информацией об авторских правах и лицензировании"
 
-#: amt-admin-panel.php:1092
+#: amt-admin-panel.php:1146
 msgid ""
 "Enter an absolute URL to an image that represents your website, for instance"
 " the logo."
 msgstr "Введите полный путь к картинке, представляющей ваш сайт (обычно это логотип)."
 
-#: amt-admin-panel.php:1132
+#: amt-admin-panel.php:1186
 msgid "Enable <em>Metadata Review Mode</em>."
 msgstr "Включить <em>Режим обзора мета-данных</em>."
 
-#: amt-admin-panel.php:1139 amt-admin-panel.php:1142
+#: amt-admin-panel.php:1190
+msgid "Enable keyword analysis and statistics."
+msgstr ""
+
+#: amt-admin-panel.php:1192
+msgid "Experimental"
+msgstr ""
+
+#: amt-admin-panel.php:1196
+msgid ""
+"Omit help messages and notices. I have read, understood and agreed to them."
+msgstr ""
+
+#: amt-admin-panel.php:1204 amt-admin-panel.php:1207
 msgid "Extended Metadata Support"
 msgstr "Расширенная поддержка мета-данных"
 
-#: amt-admin-panel.php:1144
+#: amt-admin-panel.php:1209
 msgid ""
 "Add-Meta-Tags supports the generation of metadata for products and other "
 "post types. Please enable any of the following generators of extended "
 "metadata."
 msgstr "Add-Meta-Tags поддерживает генерацию мета-данных для продуктови других видов постов. Просим включить любые из следующих генераторов расширенных мета-данных."
 
-#: amt-admin-panel.php:1150
+#: amt-admin-panel.php:1215
 msgid "Metadata for WooCommerce products and product groups."
 msgstr "Мета данные для продуктов и групп продуктов WooCommerce."
 
-#: amt-admin-panel.php:1155
+#: amt-admin-panel.php:1220
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
 msgstr "Мета данные для продуктов и групп продуктов Easy Digital Downloads."
 
-#: amt-admin-panel.php:1155 amt-admin-panel.php:1160 amt-admin-panel.php:1165
+#: amt-admin-panel.php:1220 amt-admin-panel.php:1230
 msgid "Work in progress"
 msgstr "Работа продолжается"
 
-#: amt-admin-panel.php:1160
-msgid "Metadata for BuddyPress."
-msgstr "Мета данные для BuddyPress"
+#: amt-admin-panel.php:1225
+msgid "Metadata for BuddyPress profiles."
+msgstr ""
 
-#: amt-admin-panel.php:1165
+#: amt-admin-panel.php:1230
 msgid "Metadata for bbPress."
 msgstr "Мета-данные для bbPress"
 
-#: amt-admin-panel.php:1170
+#: amt-admin-panel.php:1235
 msgid ""
 "Please consult the integrated help for more information about these "
 "features."
 msgstr "Обратитесь к встроенной справке по этим функциям."
 
-#: amt-admin-panel.php:1179 amt-admin-panel.php:1182
+#: amt-admin-panel.php:1250 amt-admin-panel.php:1253
+msgid "Metadata Caching"
+msgstr ""
+
+#: amt-admin-panel.php:1256
+msgid "Show timing information."
+msgstr ""
+
+#: amt-admin-panel.php:1259
+msgid "Cache metadata for this number of seconds:"
+msgstr ""
+
+#: amt-admin-panel.php:1263
+msgid ""
+"Metadata caching is an advanced feature and should only be used after you "
+"have read and fully understood the <em>Metadata caching</em> section of the "
+"integrated help."
+msgstr ""
+
+#: amt-admin-panel.php:1276
+msgid ""
+"<strong>Metadata cache status</strong>: <em>Activated</em>, <strong "
+"style=\"color: green;\">"
+msgstr ""
+
+#: amt-admin-panel.php:1281
+msgid ""
+"<strong>Metadata cache status</strong>: <em>Activated</em>, but no cached "
+"metadata blocks have been detected. This means that either no metadata "
+"blocks have been cached yet in the database or your WordPress installation "
+"uses an external storage backend for the transient data."
+msgstr ""
+
+#: amt-admin-panel.php:1287
+msgid ""
+"<strong>Metadata cache status</strong>: <em>Deactivated</em>. The caching "
+"timeout is set to zero, so metadata blocks are not cached."
+msgstr ""
+
+#: amt-admin-panel.php:1301 amt-admin-panel.php:1304
+msgid "Vendor HTML comments"
+msgstr ""
+
+#: amt-admin-panel.php:1307
+msgid ""
+"Add-Meta-Tags has always been enclosing its output in <a target=\"_blank\" "
+"href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Screenshots"
+"#Vendor-HTML-comments\">HTML comments</a>, which contain the plugin's name. "
+"This is common practice among WordPress plugin developers as it makes it "
+"easier for users to identify the output of a specific plugin and also lets "
+"those who check the HTML source code of the page know which plugin has "
+"generated this specific output. For a free product with limited resources "
+"like Add-Meta-Tags this practice is also its only means of exposure in a "
+"safe and nonintrusive way."
+msgstr ""
+
+#: amt-admin-panel.php:1312
+msgid ""
+"Although we don't like it, we have added the following option which "
+"deactivates the generation of those HTML comments*. We do not recommend "
+"checking the following box, but, if for whatever reason you have to turn "
+"these comments off, please go ahead and do it. To make it a little harder "
+"for you, an artificial requirement of a one time donation for any number of "
+"web sites you own has been added. Please keep in mind that there are no "
+"special donation links for this purpose. We do not force, check or keep "
+"track of your donations. You are free to go ahead and check this box without"
+" donating. What you do is totally your own decision and has nothing to do "
+"with us."
+msgstr ""
+
+#: amt-admin-panel.php:1317
+#, php-format
+msgid ""
+"I have made a one time <a target=\"_blank\" href=\"%s\">donation</a> of 5 "
+"USD or more for all the web sites I own."
+msgstr ""
+
+#: amt-admin-panel.php:1321
+msgid ""
+"<em>* HTML comments that are generated as part of the Schema.org microdata "
+"are always retained.</em>"
+msgstr ""
+
+#: amt-admin-panel.php:1324
+msgid ""
+"<em>** All Add-Meta-Tags contributors should feel free to check the option "
+"above without donating.</em>"
+msgstr ""
+
+#: amt-admin-panel.php:1335 amt-admin-panel.php:1338
 msgid "Donations"
 msgstr "Помочь рублем"
 
-#: amt-admin-panel.php:1185
+#: amt-admin-panel.php:1341
 #, php-format
 msgid ""
 "If checked, the <em>message from the author</em> above goes away. Thanks for"
-" <a href=\"%s\">donating</a>!"
-msgstr "Если отметить, <em>сообщение автора</em> выше исчезнет. Благодарим за <a href=\"%s\">помощь рублем</a>!"
+" <a target=\"_blank\" href=\"%s\">donating</a>!"
+msgstr ""
 
-#: amt-admin-panel.php:1199
+#: amt-admin-panel.php:1355
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: amt-admin-panel.php:1202
+#: amt-admin-panel.php:1360
 msgid "Reset to defaults"
 msgstr "Включить настройки по умолчанию"
 
-#: amt-admin-panel.php:1365
+#: amt-admin-panel.php:1371
+msgid "Notes"
+msgstr ""
+
+#: amt-admin-panel.php:1373
+msgid ""
+"More management tools are available via the <code>amt</code> command of "
+"<code>wp-cli</code>. Learn more about the <a target=\"_blank\" "
+"href=\"http://www.codetrax.org/projects/wp-add-meta-"
+"tags/wiki/Command_Line_Interface\">Add-Meta-Tags command line interface</a>."
+msgstr ""
+
+#: amt-admin-panel.php:1532
 msgid "Description"
 msgstr "Описание"
 
-#: amt-admin-panel.php:1368
+#: amt-admin-panel.php:1535
 msgid ""
 "Enter a custom description of 30-50 words (based on an average word length "
 "of 5 characters)."
 msgstr "Введите свое описание в 30-50 слов (исходя из средней длины слова в 5 символов)"
 
-#: amt-admin-panel.php:1375
+#: amt-admin-panel.php:1542
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the excerpt or, "
@@ -1373,22 +1640,22 @@ msgid ""
 "content."
 msgstr "Если поле <em>description</em> не заполнено, мета тег <em>description</em> будет <strong>автоматически</strong> генерироваться на основе цитаты или (если цитата не задана) первого параграфа контента."
 
-#: amt-admin-panel.php:1381 amt-admin-panel.php:1387
+#: amt-admin-panel.php:1548 amt-admin-panel.php:1554
 msgid ""
 "If the <em>description</em> field is left blank, a <em>description</em> meta"
 " tag will be <strong>automatically</strong> generated from the first "
 "paragraph of the content."
 msgstr "Если поле <em>description</em> не заполнено, мета тег <em>description</em> будет <strong>автоматически</strong> генерироваться на основе первого параграфа контента."
 
-#: amt-admin-panel.php:1407
+#: amt-admin-panel.php:1574
 msgid "Keywords"
 msgstr "Ключевые слова"
 
-#: amt-admin-panel.php:1410
+#: amt-admin-panel.php:1577
 msgid "Enter keywords separated with commas."
 msgstr "Введите ключевые слова через запятую."
 
-#: amt-admin-panel.php:1417
+#: amt-admin-panel.php:1584
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will be <strong>automatically</strong> generated from the post's categories,"
@@ -1400,34 +1667,34 @@ msgid ""
 "and <code>%terms%</code> respectively."
 msgstr "Если поле <em>keywords</em> оставить пустым, мета тег <em>keywords</em> будет сгенерирован <strong>автоматически</strong> из категорий, тегов, пользовательской классификации поста и глобальных ключевых слов (буде последние заданы в настройках плагина). Если вы решили указать для поста свои ключевые слова, вполне возможно вставить в этот список элементы категорий, тегов, пользовательской классификации при помощи специальных заполнителей <code>%cats%</code>, <code>%tags%</code> и <code>%terms%</code> соответственно."
 
-#: amt-admin-panel.php:1425 amt-admin-panel.php:1431
+#: amt-admin-panel.php:1592 amt-admin-panel.php:1598
 msgid ""
 "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag "
 "will only be automatically generated from global keywords, if any such "
 "global keywords have been set in the plugin settings."
 msgstr "Если поле <em>keywords</em> не заполнено, мета тег <em>keywords</em> будет автоматически генерироваться на основе глобальных ключевых слов, если они были указаны в настройках плагина."
 
-#: amt-admin-panel.php:1452
+#: amt-admin-panel.php:1619
 msgid "Title"
 msgstr "Заголовок"
 
-#: amt-admin-panel.php:1455
+#: amt-admin-panel.php:1622
 msgid ""
 "Enter a custom title to be used in the <em>title</em> HTML element of the "
 "page."
 msgstr "Введите свой заголовок, который будет подставляться в HTML элемент страницы <em>title</em>."
 
-#: amt-admin-panel.php:1458
+#: amt-admin-panel.php:1625
 msgid ""
 "The <code>%title%</code> placeholder is automatically expanded to the "
 "current title of the content."
 msgstr "Заполнитель <code>%title%</code> автоматически увеличится до длины текущего title контента."
 
-#: amt-admin-panel.php:1476
+#: amt-admin-panel.php:1643
 msgid "News Keywords"
 msgstr "Ключевые слова для новостей"
 
-#: amt-admin-panel.php:1479
+#: amt-admin-panel.php:1646
 msgid ""
 "Enter a comma-delimited list of <strong>news keywords</strong>. For more "
 "info about this meta tag, please see this <a target=\"_blank\" "
@@ -1435,61 +1702,49 @@ msgid ""
 " help page</a>."
 msgstr "Введите чере запятую список <strong>ключевых слов новости</strong>. Дополнительная информации об этом мета теге на <a target=\"_blank\" href=\"https://support.google.com/news/publisher/answer/68297?hl=ru\">этой странице справки Гугл</a>."
 
-#: amt-admin-panel.php:1497
+#: amt-admin-panel.php:1664
 msgid "Full meta tags"
 msgstr "Полные мета теги"
 
-#: amt-admin-panel.php:1501
+#: amt-admin-panel.php:1668
 msgid ""
-"Provide the full XHTML code of extra META elements you would like to add to "
-"this content (read more about the <a "
-"href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\">META "
-"HTML element</a> on Wikipedia)."
-msgstr "Укажите полный XHTML код дополнительных мета-элементов, который вы добавляете к этмоу контенту (подробно см. <a href=\"https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0%D1%82%D0%B5%D0%B3%D0%B8\" target=\"_blank\">мета-элементы HTML</a> на Википедии)."
+"Provide the full XHTML code of extra <a target=\"_blank\" "
+"href=\"http://en.wikipedia.org/wiki/Meta_element\" "
+"target=\"_blank\"><code>meta</code></a> and <code>link</code> <a "
+"target=\"_blank\" href=\"https://en.wikipedia.org/wiki/HTML_element\">HTML "
+"elements</a> you would like to add to this content."
+msgstr ""
 
-#: amt-admin-panel.php:1502
-msgid ""
-"Find out how to create <a href=\"http://www.codetrax.org/projects/wp-add-"
-"meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-"
-"Meta-Tag-Sets\">pre-defined sets</a> of the meta tags you use often."
-msgstr "Узнайте как создать <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Create-Pre-Defined-Full-Meta-Tag-Sets\">преднастроенные наборы </a> часто используемых мета тегов."
-
-#: amt-admin-panel.php:1505
+#: amt-admin-panel.php:1669
 msgid ""
 "For example, to prevent a cached copy of this content from being available "
 "in search engine results, you can add the following metatag:"
 msgstr "Например, чтобы запретить поисковику показывать кэшированную копию данного контента в поисковой выдаче, можно добавить следующий мета тег:"
 
-#: amt-admin-panel.php:1510
-msgid ""
-"Important note: for security reasons only <code>meta</code> elements are "
-"allowed in this box. All other HTML elements are automatically removed."
-msgstr "Важное замечание: ради безопасности в этом поле разрешены только <code>meta</code> элементы. Весь остальной HTML код автоматически удаляется."
-
-#: amt-admin-panel.php:1528
+#: amt-admin-panel.php:1692
 msgid "Image URL"
 msgstr "Адрес картинки"
 
-#: amt-admin-panel.php:1531
+#: amt-admin-panel.php:1695
 msgid "Enter an image URL to override all media related meta tags."
 msgstr "Введите адрес картинки, чтобы отменить все мета теги, связанные с медиа."
 
-#: amt-admin-panel.php:1549
+#: amt-admin-panel.php:1713
 msgid "Content locale"
 msgstr "Локаль контента"
 
-#: amt-admin-panel.php:1552
+#: amt-admin-panel.php:1716
 msgid ""
 "Override the default locale setting by entering a custom locale for this "
 "content in the form <code>language_TERRITORY</code>, for example: "
 "<code>en_US</code>."
 msgstr "Отмените настройки локали по умолчанию, указав локаль для данного контента в форме <code>language_TERRITORY</code>, например: <code>ru_RU</code>."
 
-#: amt-admin-panel.php:1570
+#: amt-admin-panel.php:1734
 msgid "Express review"
 msgstr "Быстрый просмотр"
 
-#: amt-admin-panel.php:1574
+#: amt-admin-panel.php:1738
 msgid ""
 "This field accepts review related information using INI file syntax. If this"
 " info is provided in the correct form, then Add-Meta-Tags treats your "
@@ -1500,11 +1755,11 @@ msgid ""
 "information."
 msgstr "This field accepts review related information using INI file syntax. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. \nЭто поле принимает информацию, связанную с обзором, используя синтаксис файла INI. Если эта информация дана в правильной форме, Add-Meta-Tags считает контент обзором некой сущности и генерирует соответствующую микроразметку Schema.org. <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews\" target=\"_blank\">Читайте здесь</a> о правильном синтаксисе информации обзора."
 
-#: amt-admin-panel.php:1621
+#: amt-admin-panel.php:1785
 msgid "URLs of referenced items"
 msgstr "Страницы упоминаемых элементов"
 
-#: amt-admin-panel.php:1624
+#: amt-admin-panel.php:1788
 msgid ""
 "Enter a list of canonical URLs (one per line) of items referenced in the "
 "content. The page referenced need not be on the same domain as the content. "
@@ -1515,64 +1770,89 @@ msgid ""
 " generated."
 msgstr "Введите список канонических адресов (по одному на строку) элементов, упоминаемых в контенте. Домен упоминаемой страницы может отличаться от домена контента. Например, вы можете ссылаться на страницу продукта или страницу подробного описания места. Если такие ссылки существуют и если  микроразметка OpenGraph/Schema.org включена, будут генерироваться релевантные мета теги <code>og:referenced</code> и <code>referencedItem</code>"
 
-#: amt-settings.php:341
+#: amt-admin-panel.php:1788
+msgid "Experimental feature"
+msgstr "Экспериментальная функция"
+
+#: amt-settings.php:366
 msgid "Add-Meta-Tags options saved"
 msgstr "Установки Add-Meta-Tags сохранены"
 
-#: amt-settings.php:354
+#: amt-settings.php:379
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr "Установки Add-Meta-Tags сброшены на умолчания"
 
-#: amt-utils.php:2248
+#: amt-utils.php:2592
 msgid "Select a sample review"
 msgstr "Выбрать образец обзора"
 
-#: amt-utils.php:2280
+#: amt-utils.php:2624
 msgid "Use sample review data:"
 msgstr "Использовать данные образца обзора:"
 
-#: amt-utils.php:2374
+#: amt-utils.php:2747
 msgid "Select a meta tag group"
 msgstr "Выбрать группу мета тегов"
 
-#: amt-utils.php:2406
-msgid "Replace meta tags with:"
-msgstr "Заменить мета теги следующими:"
+#: amt-utils.php:2754
+msgid "Reset"
+msgstr ""
 
-#: metadata\amt_basic.php:255 metadata\amt_opengraph.php:319
-#: metadata\amt_twitter_cards.php:167
+#: amt-utils.php:2756
+msgid "Customize these sets"
+msgstr ""
+
+#: amt-utils.php:2758
+msgid "Undo your changes in the full meta tags box?"
+msgstr ""
+
+#: amt-utils.php:2821
+msgid "Append a meta tag set:"
+msgstr ""
+
+#: metadata\amt_basic.php:269
+msgid "copyright information"
+msgstr ""
+
+#: metadata\amt_basic.php:445 metadata\amt_opengraph.php:323
+#: metadata\amt_twitter_cards.php:171
 #, php-format
 msgid "Content filed under the %s category."
 msgstr "Контент принадлежит категории %s."
 
-#: metadata\amt_basic.php:282 metadata\amt_opengraph.php:321
-#: metadata\amt_twitter_cards.php:169
+#: metadata\amt_basic.php:472 metadata\amt_opengraph.php:325
+#: metadata\amt_twitter_cards.php:173
 #, php-format
 msgid "Content tagged with %s."
 msgstr "Контент помечен как %s."
 
-#: metadata\amt_basic.php:319 metadata\amt_opengraph.php:327
-#: metadata\amt_twitter_cards.php:175
+#: metadata\amt_basic.php:509 metadata\amt_opengraph.php:331
+#: metadata\amt_twitter_cards.php:179
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr "Контент принадлежит классификации %s."
 
-#: metadata\amt_basic.php:359
+#: metadata\amt_basic.php:549
 #, php-format
 msgid "Content published by %s."
 msgstr "Контент опубликован %s."
 
-#: metadata\amt_basic.php:392 metadata\amt_opengraph.php:491
-#: metadata\amt_twitter_cards.php:226
+#: metadata\amt_basic.php:582 metadata\amt_opengraph.php:495
+#: metadata\amt_twitter_cards.php:230
 #, php-format
 msgid "%s archive."
 msgstr "архив %s."
 
-#: metadata\amt_extended.php:1387 metadata\amt_extended.php:1413
-#: metadata\amt_extended.php:1467 metadata\amt_extended.php:1511
-#: metadata\amt_extended.php:1597 metadata\amt_extended.php:1745
-#: metadata\amt_extended.php:1753 metadata\amt_extended.php:1804
-#: metadata\amt_extended.php:1921 metadata\amt_extended.php:1987
-#: metadata\amt_extended.php:2323 metadata\amt_extended.php:2389
+#: metadata\amt_extended.php:1379 metadata\amt_extended.php:1400
+#: metadata\amt_extended.php:1449 metadata\amt_extended.php:1498
+#: metadata\amt_extended.php:1571 metadata\amt_extended.php:1709
+#: metadata\amt_extended.php:1717 metadata\amt_extended.php:1763
+#: metadata\amt_extended.php:1883 metadata\amt_extended.php:1942
+#: metadata\amt_extended.php:2245 metadata\amt_extended.php:2304
 msgid "Profile of"
 msgstr "Страница относится к "
+
+#: metadata\amt_schemaorg.php:1350 metadata\amt_schemaorg.php:1354
+#: metadata\amt_schemaorg.php:2748 metadata\amt_schemaorg.php:2752
+msgid "logo"
+msgstr ""
