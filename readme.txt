@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.1.0
 Tested up to: 4.4
-Stable tag: 2.10.6
+Stable tag: 2.10.7
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -133,7 +133,8 @@ Please check out the changelog of each release by following the links below. You
 
 - [2.10.7](http://www.codetrax.org/versions/345)
  - Added option to omit help texts and notices in the Metadata Review Mode panel.
- - Fixed bug with the parsing of express review data containing ampersand characters. (Props to Tharic-Nar for providing valuable feedback.)
+ - Updated translations.
+ - Fixed bug with the parsing of Express Review data containing ampersand characters. (Props to Tharic-Nar for providing valuable feedback.)
  - The distribution graph of _topic keywords_ is now called _Topic Keywords Distribution Graph_ so as not to be confused with a feature of Bing Ads. (Props to Michael for feedback.)
 - [2.10.6](http://www.codetrax.org/versions/344)
  - Notice 1: This release packs some new features, so checking it on a staging web site first would be a good idea. These are the last planned features for now. Subsequent releases during the following weeks/months will focus on minor improvements, code clean up, and bug fixes wherever necessary. Please note that due to lack of free time, there might be big delays in my replies to support requests. Before asking for support, please make sure you have read the FAQ and checked the open and closed issues at the Github issue tracker and also the topics at the wordpress org boards.
