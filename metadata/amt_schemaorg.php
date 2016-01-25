@@ -501,7 +501,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // Scope BEGIN: Product: http://schema.org/Product
         $metadata_arr[] = '<!-- Scope BEGIN: Product -->';
-        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product"' . amt_get_schemaorg_itemref('product') . '>';
+        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product"' . amt_get_schemaorg_entity_id_as_itemid('product') . amt_get_schemaorg_itemref('product') . '>';
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( amt_get_permalink_for_multipage($post) ) . '" />';
@@ -1828,6 +1828,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 //        $metadata_arr[] = '<div itemscope itemtype="http://schema.org/Product"' . amt_get_schemaorg_itemref('product') . '>';
         // Schema.org type
         $metadata_arr['@type'] = 'Product';
+
+        // ID
+        $metadata_arr['@id'] = amt_get_schemaorg_entity_id('product');
 
         // URL - Uses amt_get_permalink_for_multipage()
         $metadata_arr['url'] = esc_url_raw( amt_get_permalink_for_multipage($post) );
