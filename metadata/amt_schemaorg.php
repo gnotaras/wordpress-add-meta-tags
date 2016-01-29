@@ -159,6 +159,13 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         return array();
     }
 
+    // Check for AMP page https://www.ampproject.org/
+    // For AMP pages we do not generate Schema.org microdata around the post content,
+    // but enforce the JSON+LD form.
+    if ( $do_auto_schemaorg && function_exists('is_amp_endpoint') && is_amp_endpoint() ) {
+        return array();
+    }
+
     $metadata_arr = array();
 
     if ( is_paged() ) {
@@ -452,6 +459,13 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
     // Check if the microdata or the JSON-LD schema.org generator should be used.
     if ( $options["schemaorg_force_jsonld"] == "1" ) {
+        return $post_body;
+    }
+
+    // Check for AMP page https://www.ampproject.org/
+    // For AMP pages we do not generate Schema.org microdata around the post content,
+    // but enforce the JSON+LD form.
+    if ( $do_auto_schemaorg && function_exists('is_amp_endpoint') && is_amp_endpoint() ) {
         return $post_body;
     }
 
@@ -1551,7 +1565,16 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
     // Check if the microdata or the JSON-LD schema.org generator should be used.
     if ( $options["schemaorg_force_jsonld"] == "0" ) {
-        return array();
+
+        // Here we check for AMP page https://www.ampproject.org/
+        // For AMP pages, if the Schema.org microdata generator has been enabled,
+        // we enforce the JSON+LD form instead of microdata.
+        if ( $do_auto_schemaorg && function_exists('is_amp_endpoint') && is_amp_endpoint() ) {
+            // Do nothing and let it proceed with forced generation of JSON+LD Schema.org metadata.
+        } else {
+            return array();
+        }
+
     }
 
     $metadata_arr = array();
