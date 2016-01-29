@@ -350,6 +350,10 @@ function amt_print_head_block() {
 }
 
 add_action('wp_head', 'amt_print_head_block', 0);
+// AMP page
+//if ( function_exists('is_amp_endpoint') && is_amp_endpoint() ) {
+    add_action('amp_post_template_head', 'amt_print_head_block', 0);
+//}
 
 
 /**
