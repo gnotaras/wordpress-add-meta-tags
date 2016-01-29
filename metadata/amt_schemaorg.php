@@ -533,10 +533,10 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
-        if ( empty($content_desc) ) {
-            // Use the post body as the description. Product objects do not support body text.
-            $content_desc = sanitize_text_field( amt_sanitize_description( $post_body ) );
-        }
+        //if ( empty($content_desc) ) {
+        //    // Use the post body as the description. Product objects do not support body text.
+        //    $content_desc = sanitize_text_field( amt_sanitize_description( $post_body ) );
+        //}
         if ( ! empty($content_desc) ) {
             $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( amt_process_paged( $content_desc ) ) . '" />';
         }
@@ -1871,10 +1871,11 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         // Description - We use the description defined by Add-Meta-Tags
         // Note: Contains multipage information through amt_process_paged()
         $content_desc = amt_get_content_description($post);
-        if ( empty($content_desc) ) {
-            // Use the post body as the description. Product objects do not support body text.
-            $content_desc = sanitize_text_field( amt_sanitize_description( $post_body ) );
-        }
+        //if ( empty($content_desc) ) {
+        //    // Use the post body as the description. Product objects do not support body text.
+        //    // TODO: ERROR here $post_body var does not exist
+        //    $content_desc = sanitize_text_field( amt_sanitize_description( $post_body ) );
+        //}
         if ( ! empty($content_desc) ) {
             $metadata_arr['description'] = esc_attr( amt_process_paged( $content_desc ) );
         }
