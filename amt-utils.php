@@ -3708,11 +3708,17 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     //var_dump($post_url);
 
     // Description
-    $description = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:description']) );
+    $description = '';
+    if ( array_key_exists( 'basic:description', $metadata_block_head ) ) {
+        $description = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:description']) );
+    }
     //var_dump($description);
     // Keywords
-    $keywords_content = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:keywords']) );
-    $keywords = explode( ',', str_replace(', ', ',', $keywords_content) );
+    $keywords = array();
+    if ( array_key_exists( 'basic:keywords', $metadata_block_head ) ) {
+        $keywords_content = strtolower( preg_replace('#^.*content="([^"]+)".*$#', '$1', $metadata_block_head['basic:keywords']) );
+        $keywords = explode( ',', str_replace(', ', ',', $keywords_content) );
+    }
     //var_dump($keywords);
 
     // Keyword matching pattern
