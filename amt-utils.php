@@ -2229,6 +2229,104 @@ function amt_get_the_hreflang($locale, $options) {
 }
 
 
+// Function that returns an array with data about the default image.
+function amt_get_default_image_data() {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_default_image_data');
+    $data = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $data !== false ) {
+        return $data;
+    }
+
+    // The default_image_url option accepts:
+    // 1. An attachment ID
+    // 2. Special notation about the default image:
+    //      URL[,WIDTHxHEIGHT][,TYPE]
+
+    $data = array(
+        'id'    => null,   // post ID of attachment
+        // The ID should be enough information to retrieve all attachment information
+        // Alternatively, if the ID is not set, at least the 'url' should be set.
+        'url'   => null,
+        'width' => null,
+        'height' => null,
+        'type'  => null,
+    );
+
+    $options = amt_get_options();
+
+    $value = $options["default_image_url"];
+
+    if ( ! empty($value) ) {
+
+        // First check if we have an ID
+        if ( is_numeric($value) ) {
+            $data['id'] = absint($value);
+
+        // Alternatively, check for URL
+        } else {
+
+            $parts = explode(',', $value);
+            $parts_count = count($parts);
+
+            // URL
+            if ( $parts_count == 1 ) {
+                // Retrieve URL
+                if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
+//var_dump($matches);
+                    $data['url'] = $matches[1];
+                }
+
+            // URL,WIDTHxHEIGHT
+            } elseif ( $parts_count == 2 ) {
+                // Retrieve URL
+                if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
+//var_dump($matches);
+                    $data['url'] = $matches[1];
+                    // Retrieve width and height
+                    if ( preg_match('#^([\d]+)x([\d]+)$#', $parts[1], $matches) ) {
+//var_dump($matches);
+                        $data['width'] = $matches[0][0];
+                        $data['height'] = $matches[0][1];
+                    }
+                }
+
+            // URL,WIDTHxHEIGHT,TYPE
+            } elseif ( $parts_count == 3 ) {
+                // Retrieve URL
+                if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
+//var_dump($matches);
+                    $data['url'] = $matches[1];
+                    // Retrieve width and height
+                    if ( preg_match('#^([\d]+)x([\d]+)$#', $parts[1], $matches) ) {
+//var_dump($matches);
+                        $data['width'] = $matches[0][0];
+                        $data['height'] = $matches[0][1];
+                        // Retrieve image type (expected: jpg/jpeg/png/gif etc)
+                        if ( preg_match('#^(jpe?g|png|gif|bmp)$#', $parts[2], $matches) ) {
+//var_dump($matches);
+                            $data['type'] = 'image/' . $matches[1];
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    // Allow filtering
+    $data = apply_filters('amt_default_image_data', $data);
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $data, $group='add-meta-tags' );
+
+    return $data;
+}
+
+
 // Returns the default Twitter Card type
 function amt_get_default_twitter_card_type($options) {
     $default = 'summary';
