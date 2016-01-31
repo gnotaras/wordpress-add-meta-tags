@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-24 06:16+0200\n"
-"PO-Revision-Date: 2016-01-24 17:49+0000\n"
+"PO-Revision-Date: 2016-01-25 18:10+0000\n"
 "Last-Translator: George Notaras <gnot@g-loaded.eu>\n"
 "Language-Team: Greek (http://www.transifex.com/codetrax/add-meta-tags/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgid ""
 " content by search engines and easier sharing on social networks. It "
 "achieves this by generating machine friendly information about your content,"
 " called <em>metadata</em>, according to widely used standard specifications."
-msgstr ""
+msgstr "Το πρόσθετο Add-Meta-Tags είναι ένα Ελεύθερο πρόσθετο μεταδεδομένων για την πλατφόρμα εκδόσεων WordPress, το οποίο μπορεί να βελτιστοποιήσει τον ιστοχώρο σας για πιο αποτελεσματική καταχώρηση του περιεχομένου από τις μηχανές αναζήτησης και ευκολότερο διαμοιρασμό αυτού στα κοινωνικά δίκτυα. Αυτό επιτυγχάνεται με την παραγωγή πληροφοριών φιλικών προς τις μηχανές σχετικά με το περιεχόμενό σας, οι οποίες ονομάζονται <em>μεταδεδομένα</em>, σύμφωνα με ευρέως χρησιμοποιούμενων προδιαγραφών."
 
 #: amt-admin-panel.php:146
 msgid ""
@@ -124,7 +124,7 @@ msgid ""
 "nor its developer provide you with any SEO advice or rating of your content."
 " Any decision regarding SEO is still your own responsibility and subject to "
 "your own research. This is by design."
-msgstr ""
+msgstr "Το πρόσθετο <em>Add-Meta-Tags</em> είναι ένα εξαιρετικό εργαλείο που σας βοηθά με την βελτιστοποίηση του ιστοχώρου σας για τις μηχανές αναζήτησης (<em>SEO</em>). Παρόλα αυτά, ούτε το πρόσθετο καθαυτό ούτε ο δημιουργός του σας παρέχουν συμβουλές SEO ή εκτιμήσεις για το περιεχόμενό σας. Οποιεσδήποτε αποφάσεις σχετικά με το SEO παραμένουν υπό την ευθύνη σας και υπόκεινται στη δική σας σχετική έρευνα. Αυτό είναι εκ κατασκευής."
 
 #: amt-admin-panel.php:148
 msgid "How it works"
@@ -333,7 +333,7 @@ msgstr ""
 
 #: amt-admin-panel.php:236
 msgid "It is possible to select alternative sources of local author profiles:"
-msgstr ""
+msgstr "Μπορείτε να επιλέξετε εναλλακτικές πηγές των τοπικών προφίλ των συντακτών."
 
 #: amt-admin-panel.php:239 amt-admin-panel.php:861
 msgid "First page of the author archive"
@@ -392,7 +392,7 @@ msgstr ""
 msgid ""
 "This is considered an advanced option and should not be changed, unless you "
 "know exactly what you are doing."
-msgstr ""
+msgstr "Αυτό θεωρείται ρύθμιση για προχωρημένους και δεν θα έπρεπε να αλλαχτεί, εκτός κι αν γνωρίζετε ακριβώς τι κάνετε."
 
 #: amt-admin-panel.php:248 amt-admin-panel.php:847 amt-admin-panel.php:850
 msgid "Author Settings"
@@ -976,7 +976,7 @@ msgid ""
 "If enabled, a section containing <a href=\"http://www.codetrax.org/projects"
 "/wp-add-meta-tags/wiki/Metadata_Overview\">statistical information</a> about"
 " the metadata and the content is also displayed in the review mode panel."
-msgstr ""
+msgstr "Αν ενεργοποιηθεί, μια ενότητα που περιέχει <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview\">στατιστικές πληροφορίες</a> σχετικά με τα μεταδεδομένα και το περιεχόμενο εμφανίζεται στο πλαίσιο επισκόπησης."
 
 #: amt-admin-panel.php:457
 msgid "Omit help messages and notices"
@@ -996,7 +996,7 @@ msgstr "Επιπλέον ρυθμίσεις"
 msgid ""
 "This section contains information about the metadata Add-Meta-Tags can "
 "generate for third party content."
-msgstr ""
+msgstr "Αυτή η ενότητα περιέχει πληροφορίες σχετικά με τα μεταδεδομένα που μπορεί να παράγξει το πρόσθετο Add-Meta-Tags για περιεχόμενο τρίτων."
 
 #: amt-admin-panel.php:472
 msgid "Metadata for WooCommerce"
@@ -1022,13 +1022,13 @@ msgstr ""
 msgid ""
 "Products with regular and sales prices are supported. Variable products and "
 "pages of product groups are also supported."
-msgstr ""
+msgstr "Υποστηρίζονται προϊόντα με κανονικές και εκπτωτικές τιμές. Υποστηρίζονται επίσης μεταβλητά προϊόντα και σελίδες ομάδων προϊόντων."
 
 #: amt-admin-panel.php:477
 msgid ""
 "The metadata generators for WooCommerce products should be considered "
 "stable. However, your comments and suggestions are welcome."
-msgstr ""
+msgstr "Οι γεννήτριες μεταδεδομένων για προϊόντα WooCommerce θα πρέπει να θεωρούνται σταθερές. Παρόλα αυτά, τα σχόλια και οι προτάσεις σας είναι ευπρόσδεκτες."
 
 #: amt-admin-panel.php:479
 msgid "Metadata for Easy Digital Downloads"
@@ -1070,7 +1070,7 @@ msgstr ""
 
 #: amt-admin-panel.php:491
 msgid "How to fully take advantage of this feature:"
-msgstr ""
+msgstr "Πώς να αξιοποιήσετε πλήρως αυτό το χαρακτηριστικό:"
 
 #: amt-admin-panel.php:494
 msgid "Enable BuddyPress support in the Add-Meta-Tags settings."

@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Add-Meta-Tags translations\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-24 06:16+0200\n"
-"PO-Revision-Date: 2016-01-24 13:07+0000\n"
+"PO-Revision-Date: 2016-01-28 10:09+0000\n"
 "Last-Translator: BouRock\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/codetrax/add-meta-tags/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgid ""
 " content by search engines and easier sharing on social networks. It "
 "achieves this by generating machine friendly information about your content,"
 " called <em>metadata</em>, according to widely used standard specifications."
-msgstr ""
+msgstr "Add-Meta-Tags, içeriğinizin sosyal ağlarda kolay paylaşımını ve arama motorları tarafından indekslenmesini daha etkili yapmak için web sitenizi en iyi hale getiren WordPress Yayımlama Platformu için Ücretsiz bir metadata eklentisidir. Bunu, yaygın biçimde kullanılan standart özelliklere göre <em>metadata</em> adındaki, içeriğiniz hakkında makine dostu bilgileri üreterek başarır."
 
 #: amt-admin-panel.php:146
 msgid ""
@@ -124,7 +124,7 @@ msgid ""
 "nor its developer provide you with any SEO advice or rating of your content."
 " Any decision regarding SEO is still your own responsibility and subject to "
 "your own research. This is by design."
-msgstr ""
+msgstr "<em>Add Meta Tags</em> web sitenizi arama motoruyla en iyi hale getirmeye (<em>SEO</em>) yardımcı olmak için harika bir araçtır. Ancak, ne eklenti ne de geliştiricisi içeriğinizin derecelendirmesini ya da herhangi bir SEO tavsiyesini vermez. SEO ile ilgili olarak herhangi bir karar hala sizin kendi sorumluluğunuzdadır ve sizin kendi araştırma konunuzdur. Bu tasarımdandır."
 
 #: amt-admin-panel.php:148
 msgid "How it works"
@@ -252,7 +252,7 @@ msgid ""
 "<code>[field=Field Name]</code> which lets you use data from a Custom Field "
 "with name <em>Field Name</em>. This special notation may exist anywhere "
 "inside the meta tag."
-msgstr ""
+msgstr "Dahası, dolu meta etiketleri kutusu <em>Alan Adı</em> isminde bir Özel Alandan veriyi kullanmanıza izin veren özel <code>[field=Field Name]</code> yazım şeklini kabul eder. Bu özel yazım şekli meta etiketi içinde herhangi bir yerde varolabilir."
 
 #: amt-admin-panel.php:195
 msgid "General settings"
@@ -969,24 +969,24 @@ msgstr "Etkinleştirildiyse, yönetici yetkileri olan WordPress kullanıcıları
 
 #: amt-admin-panel.php:453
 msgid "Enable keyword analysis and statistics"
-msgstr ""
+msgstr "Anahtar kelime çözümlemeleri ve istatistikleri"
 
 #: amt-admin-panel.php:455
 msgid ""
 "If enabled, a section containing <a href=\"http://www.codetrax.org/projects"
 "/wp-add-meta-tags/wiki/Metadata_Overview\">statistical information</a> about"
 " the metadata and the content is also displayed in the review mode panel."
-msgstr ""
+msgstr "Eğer etkinleştirildiyse, metadata ve içerik hakkında <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Overview\">istatiksel bilgiler</a> içeren bölüm aynı zamanda gözden geçirme kipi panelinde görüntülenir."
 
 #: amt-admin-panel.php:457
 msgid "Omit help messages and notices"
-msgstr ""
+msgstr "Yardım iletilerini ve bildirimleri gözardı et"
 
 #: amt-admin-panel.php:459
 msgid ""
 "If enabled, help messages and other notices are no longer displayed in the "
 "metadata review panel."
-msgstr ""
+msgstr "Eğer etkinleştirildiyse, yardım iletileri ve diğer bildirimler bundan böyle metadata gözden geçirme kipi panelinde görüntülenmez."
 
 #: amt-admin-panel.php:464
 msgid "Extra settings"
@@ -1197,7 +1197,7 @@ msgstr ""
 
 #: amt-admin-panel.php:540
 msgid "Metadata caching"
-msgstr ""
+msgstr "Metadata önbellekleme"
 
 #: amt-admin-panel.php:547
 msgid ""
@@ -1458,7 +1458,7 @@ msgstr ""
 
 #: amt-admin-panel.php:1192
 msgid "Experimental"
-msgstr ""
+msgstr "Deneysel"
 
 #: amt-admin-panel.php:1196
 msgid ""
@@ -1504,7 +1504,7 @@ msgstr "Bu özellikler hakkında daha fazla bilgi için lütfen bütünleşik ya
 
 #: amt-admin-panel.php:1250 amt-admin-panel.php:1253
 msgid "Metadata Caching"
-msgstr ""
+msgstr "Metadata Önbellekleme"
 
 #: amt-admin-panel.php:1256
 msgid "Show timing information."
