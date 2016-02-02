@@ -131,6 +131,8 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.8](http://www.codetrax.org/versions/345)
+ - Adds metadata to the head section of [AMP pages](https://www.ampproject.org). If the Schema.org Microdata generator is enabled, it forces JSON+LD Schema.org metadata instead.
 - [2.10.7](http://www.codetrax.org/versions/345)
  - Added option to omit help texts and notices in the Metadata Review Mode panel.
  - Updated translations.
