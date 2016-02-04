@@ -271,6 +271,10 @@ function amt_admin_help_tabs() {
 
     <p>'.__('If this option is enabled, Opengraph metadata is automatically generated for content, attachments and archives. For more information, please refer to the <a href="http://ogp.me">Opengraph specification</a>.', 'add-meta-tags').'</p>
 
+    <h3>'.__('Add Facebook\'s XML namespaces.', 'add-meta-tags').'</h3>
+
+    <p>'.__('When enabled, the Facebook\'s XML namespaces for the <code>og</code> and <code>fb</code> meta tag name prefixes are added to the <code>html</code> element of the page. If your theme already contains these namespaces, then this option should not be enabled.', 'add-meta-tags').'</p>
+
     <h3>'.__('Omit <code>og:video</code> meta tags.', 'add-meta-tags').'</h3>
 
     <p>'.__('When a post containing a video is shared on Facebook, Facebook uses its own player to embed the video in the timeline. If this setting is enabled, <code>og:video</code> meta tags are no longer generated and Facebook, instead of embedding your video, links to your actual video post.', 'add-meta-tags').'</p>
@@ -907,6 +911,10 @@ function amt_options_page() {
 
                 <input id="auto_opengraph" type="checkbox" value="1" name="auto_opengraph" '. (($options["auto_opengraph"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_opengraph">'.__('Automatically generate Opengraph meta tags.', 'add-meta-tags').'</label>
+                <br />
+
+                <input id="og_add_xml_namespaces" type="checkbox" value="1" name="og_add_xml_namespaces" '. (($options["og_add_xml_namespaces"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="og_add_xml_namespaces">'.__('Add Facebook\'s XML namespaces.', 'add-meta-tags').'</label>
                 <br />
 
                 <input id="og_omit_video_metadata" type="checkbox" value="1" name="og_omit_video_metadata" '. (($options["og_omit_video_metadata"]=="1") ? 'checked="checked"' : '') .'" />
