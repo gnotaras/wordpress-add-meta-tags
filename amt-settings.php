@@ -99,6 +99,7 @@ function amt_get_default_options() {
         "manage_html_lang_attribute" => "0",
         "has_https_access" => "0",
         "force_media_limit" => "0",
+        "expand_shortcodes" => "0",
         "copyright_url"     => "",
         "default_image_url" => "",
         "extended_support_woocommerce"  => "0",
@@ -257,6 +258,10 @@ function amt_plugin_upgrade() {
 
     // Version 2.10.7 (settings_version 19->20)
     // Added "review_mode_omit_notices"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.10.8 (settings_version 20->21)
+    // Added "expand_shortcodes"
     // No migrations required. Addition takes place in (1).
 
 

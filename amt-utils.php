@@ -302,7 +302,12 @@ function amt_get_clean_post_content( $options, $post ) {
     // exclude specific parts of the post for the rest of the algorithm.
     $initial_content = apply_filters( 'amt_get_the_excerpt_initial_content', $post->post_content, $post );
 
-    // First strip all HTML tags
+    // First expand the shortcodes if the relevant setting is enabled.
+    if ( $options['expand_shortcodes'] == '1' ) {
+        $initial_content = do_shortcode( $initial_content );
+    }
+
+    // Second strip all HTML tags
     $plain_text = wp_kses( $initial_content, array() );
 
     // Strip properly registered shortcodes

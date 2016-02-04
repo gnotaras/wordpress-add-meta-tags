@@ -434,6 +434,10 @@ function amt_admin_help_tabs() {
     <p>'.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded.', 'add-meta-tags').'</p>
     <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/logo.png</code></p>
 
+    <h3>'.__('Shortcodes', 'add-meta-tags').'</h3>
+
+    <p>'.__('Enforce the expansion of shortcodes before generating a description.', 'add-meta-tags').'</p>
+
     <h3>'.__('Secure Access', 'add-meta-tags').'</h3>
 
     <p>'.__('Media are accessible over HTTPS.', 'add-meta-tags').'</p>
@@ -1146,6 +1150,20 @@ function amt_options_page() {
                 '.__('Enter an absolute URL to an image that represents your website, for instance the logo.', 'add-meta-tags').'
                 </label>
                 <br />
+            </fieldset>
+            </td>
+            </tr>
+
+            <tr valign="top">
+            <th scope="row">'.__('Shortcodes', 'add-meta-tags').'</th>
+            <td>
+            <fieldset>
+                <legend class="screen-reader-text"><span>'.__('Shortcodes', 'add-meta-tags').'</span></legend>
+
+                <input id="expand_shortcodes" type="checkbox" value="1" name="expand_shortcodes" '. (($options["expand_shortcodes"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="expand_shortcodes">'.__('Enforce the expansion of shortcodes before generating a description.', 'add-meta-tags').'</label>
+                <br />
+
             </fieldset>
             </td>
             </tr>
