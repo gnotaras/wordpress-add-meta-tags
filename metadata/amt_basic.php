@@ -247,7 +247,12 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     }
     // Add robot_options filtering
     $robots_options = apply_filters( 'amt_robots_options', $robots_options );
-    $robots_options = array_unique( $robots_options, SORT_STRING );
+    if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
+        // The flag is not supported
+        $robots_options = array_unique( $robots_options );
+    } else {
+        $robots_options = array_unique( $robots_options, SORT_STRING );
+    }
     if ( ! empty( $robots_options ) ) {
         $metadata_arr['basic:robots'] = '<meta name="robots" content="' . esc_attr( implode(',', $robots_options) ) . '" />';
     }
