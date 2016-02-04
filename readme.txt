@@ -133,6 +133,7 @@ Please check out the changelog of each release by following the links below. You
 
 - [2.10.8](http://www.codetrax.org/versions/345)
  - Adds metadata to the head section of [AMP pages](https://www.ampproject.org). If the Schema.org Microdata generator is enabled, it forces JSON+LD Schema.org metadata instead.
+ - Updated translations. Huge thanks to everyone who has contributed so far, especially Burak Yavuz (TR), Sergey Komkov (RU), Michael Kotsarinis (GR) and others.
  - If the automatic generation of descriptions and keywords has been [turned off](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Stop-the-plugin-from-auto-generating-descriptions-and-keywords-meta-tags), warnings appear in the help texts under the relevant fields in the _Metadata_ metabox in the post editing screen. (Props to Česlav Przywara for valuable feedback.)
  - Added option to enforce the expansion of shortcodes before generating a description. (Props to kunicz for valuable feedback.)
  - Added option that adds Facebook's XML namespaces to the html element of the page. (Props to Gabriel Winnberg for ideas and valuable feedback.)
