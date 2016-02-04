@@ -287,6 +287,40 @@ function amt_process_paged( $data ) {
 }
 
 
+// Function that cleans the content of the post
+// Removes HTML markup, expands or removes short codes etc.
+function amt_get_clean_post_content( $options, $post ) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_clean_post_content', $post);
+    $plain_text_processed = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $plain_text_processed !== false ) {
+        return $plain_text_processed;
+    }
+
+    // Early filter that lets dev define the post. This makes it possible to
+    // exclude specific parts of the post for the rest of the algorithm.
+    $initial_content = apply_filters( 'amt_get_the_excerpt_initial_content', $post->post_content, $post );
+
+    // First strip all HTML tags
+    $plain_text = wp_kses( $initial_content, array() );
+
+    // Strip properly registered shortcodes
+    $plain_text = strip_shortcodes( $plain_text );
+    // Also strip any shortcodes (For example, required for the removal of Visual Composer shortcodes)
+    $plain_text = preg_replace('#\[[^\]]+\]#', '', $plain_text);
+
+    // Late preprocessing filter. Content has no HTML tags and no properly registered shortcodes. Other shortcodes might still exist.
+    $plain_text_processed = apply_filters( 'amt_get_the_excerpt_plain_text', $plain_text, $post );
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $plain_text_processed, $group='add-meta-tags' );
+
+    return $plain_text_processed;
+}
+
+
 /**
  * Returns the post's excerpt.
  * This function was written in order to get the excerpt *outside* the loop
@@ -302,6 +336,8 @@ function amt_process_paged( $data ) {
  */
 function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
+    $options = amt_get_options();
+
     // Non persistent object cache
     $amtcache_key = amt_get_amtcache_key('amt_cache_get_the_excerpt', $post);
     $amt_excerpt = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
@@ -313,20 +349,8 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
 
         // Here we generate an excerpt from $post->post_content
 
-        // Early filter that lets dev define the post. This makes it possible to
-        // exclude specific parts of the post for the rest of the algorithm.
-        $initial_content = apply_filters( 'amt_get_the_excerpt_initial_content', $post->post_content, $post );
-
-        // First strip all HTML tags
-        $plain_text = wp_kses( $initial_content, array() );
-
-        // Strip properly registered shortcodes
-        $plain_text = strip_shortcodes( $plain_text );
-        // Also strip any shortcodes (For example, required for the removal of Visual Composer shortcodes)
-        $plain_text = preg_replace('#\[[^\]]+\]#', '', $plain_text);
-
-        // Late preprocessing filter. Content has no HTML tags and no properly registered shortcodes. Other shortcodes might still exist.
-        $plain_text_processed = apply_filters( 'amt_get_the_excerpt_plain_text', $plain_text, $post );
+        // Get clean content data
+        $plain_text_processed = amt_get_clean_post_content( $options, $post );
 
         // Get the initial text.
         // We use $excerpt_max_len characters of the text for the description.
@@ -3755,8 +3779,8 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     }
 
     // Content and stats
-    $post_content = strtolower( strip_shortcodes( strip_tags( $post->post_content ) ) );
-    $post_content = preg_replace('#\[[^\]]+\]#', '', $post_content);
+    // Post content
+    $post_content = strtolower( amt_get_clean_post_content( $options, $post ) );
     $post_content_length = strlen($post_content);
     //var_dump($post_content);
     // Total words
