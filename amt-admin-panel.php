@@ -1556,6 +1556,14 @@ function amt_inner_metadata_box( $post ) {
             ');
         }
 
+        // Add warning about the automatic descriptions being turned off.
+        if ( ! apply_filters( 'amt_generate_description_if_no_manual_data', true ) ) {
+            print('
+                <p>
+                    <em>'.__('Warning: the automatic generation of descriptions has been turned off.', 'add-meta-tags').'</em>
+                </p>
+            ');
+        }
     }
 
 
@@ -1596,6 +1604,15 @@ function amt_inner_metadata_box( $post ) {
             print('
                 <p>
                     '.__('If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will only be automatically generated from global keywords, if any such global keywords have been set in the plugin settings.', 'add-meta-tags').'
+                </p>
+            ');
+        }
+
+        // Add warning about the automatic keywords being turned off.
+        if ( ! apply_filters( 'amt_generate_keywords_if_no_manual_data', true ) ) {
+            print('
+                <p>
+                    <em>'.__('Warning: the automatic generation of keywords has been turned off.', 'add-meta-tags').'</em>
                 </p>
             ');
         }
