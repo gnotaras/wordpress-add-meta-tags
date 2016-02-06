@@ -88,6 +88,10 @@ function amt_get_default_options() {
         "metabox_enable_content_locale"  => "0",
         "metabox_enable_express_review" => "0",
         "metabox_enable_referenced_list" => "0",
+        "metabox_term_enable_full_metatags" => "0",
+        "metabox_term_enable_image_url" => "0",
+        "metabox_user_enable_full_metatags" => "0",
+        "metabox_user_enable_image_url" => "0",
         "social_main_facebook_publisher_profile_url" => "",
         //"social_main_facebook_app_id" => "",
         //"social_main_facebook_admins" => "",
@@ -264,6 +268,13 @@ function amt_plugin_upgrade() {
     // Version 2.10.8 (settings_version 20->21)
     // Added "expand_shortcodes"
     // Added "og_add_xml_namespaces"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.10.9 (settings_version 21->22)
+    // Added "metabox_term_enable_full_metatags"
+    // Added "metabox_term_enable_image_url"
+    // Added "metabox_user_enable_full_metatags"
+    // Added "metabox_user_enable_image_url"
     // No migrations required. Addition takes place in (1).
 
 
