@@ -230,8 +230,8 @@ function amt_get_metadata_head($post, $options) {
         }
     }
     // Add a robots meta tag if its content is not empty.
-    if ( ! empty( $robots_content ) ) {
-        $metadata_arr[] = '<meta name="robots" content="' . $robots_content . '" />';
+    if ( ! empty( $robots_options ) ) {
+        $metadata_arr[] = '<meta name="robots" content="' . implode(',', $robots_options) . '" />';
     }
 
 
