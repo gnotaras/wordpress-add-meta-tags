@@ -1046,12 +1046,16 @@ function amt_get_term_custom_field_names() {
  */
 function amt_get_user_contactinfo_field_names() {
     return array(
+        // Contact methods
         'amt_facebook_author_profile_url',
         'amt_facebook_publisher_profile_url',
         'amt_googleplus_author_profile_url',
         'amt_googleplus_publisher_profile_url',
         'amt_twitter_author_username',
         'amt_twitter_publisher_username',
+        // User Meta
+        '_amt_user_full_metatags',
+        '_amt_user_image_url',
     );
 }
 
