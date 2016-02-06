@@ -92,7 +92,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         $full_metatags_as_string .= PHP_EOL;
     }
 
-    // Post specific full meta tags
+    // Full meta tags
     if ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
         // per post full meta tags
         $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
