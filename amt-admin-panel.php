@@ -1062,6 +1062,30 @@ function amt_options_page() {
                 '.__('Referenced items.', 'add-meta-tags').' ('.__('Not recommended', 'add-meta-tags').')
                 </label></p>
 
+                <h4>'.__('Taxonomy terms', 'add-meta-tags').':</h4>
+
+                <p><input id="metabox_term_enable_full_metatags" type="checkbox" value="1" name="metabox_term_enable_full_metatags" '. (($options["metabox_term_enable_full_metatags"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_term_enable_full_metatags">
+                '.__('Full meta tags box.', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_term_enable_image_url" type="checkbox" value="1" name="metabox_term_enable_image_url" '. (($options["metabox_term_enable_image_url"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_term_enable_image_url">
+                '.__('Global image override.', 'add-meta-tags').'
+                </label></p>
+
+                <h4>'.__('WordPress user profiles', 'add-meta-tags').':</h4>
+
+                <p><input id="metabox_user_enable_full_metatags" type="checkbox" value="1" name="metabox_user_enable_full_metatags" '. (($options["metabox_user_enable_full_metatags"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_user_enable_full_metatags">
+                '.__('Full meta tags box.', 'add-meta-tags').'
+                </label></p>
+
+                <p><input id="metabox_user_enable_image_url" type="checkbox" value="1" name="metabox_user_enable_image_url" '. (($options["metabox_user_enable_image_url"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="metabox_user_enable_image_url">
+                '.__('Global image override.', 'add-meta-tags').'
+                </label></p>
+
                 <br />
             </fieldset>
             </td>
