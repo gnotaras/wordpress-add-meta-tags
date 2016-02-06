@@ -1248,48 +1248,12 @@ function amt_get_post_meta_newskeywords($post_id) {
 }
 
 
-/**
- * Helper function that returns the value of the custom field that contains
- * the per-post full metatags.
- * The default field name is ``_amt_full_metatags``.
- * No need to migrate from older field name.
- */
-function OLD_amt_get_post_meta_full_metatags($post_id) {
-    $options = get_option('add_meta_tags_opts');
-    if ( ! is_array($options) ) {
-        return '';
-    } elseif ( ! array_key_exists( 'metabox_enable_full_metatags', $options) ) {
-        return '';
-    } elseif ( $options['metabox_enable_full_metatags'] == '0' ) {
-        return '';
-    }
-    // Internal fields - order matters
-    $supported_custom_fields = array( '_amt_full_metatags' );
-    // External fields - Allow filtering
-    $external_fields = array();
-    $external_fields = apply_filters( 'amt_external_full_metatags_fields', $external_fields, $post_id );
-    // Merge external fields to our supported custom fields
-    $supported_custom_fields = array_merge( $supported_custom_fields, $external_fields );
-
-    // Get an array of all custom fields names of the post
-    $custom_fields = get_post_custom_keys( $post_id );
-    if ( empty( $custom_fields ) ) {
-        // Just return an empty string if no custom fields have been associated with this content.
-        return '';
-    }
-
-    // Try our fields
-    foreach( $supported_custom_fields as $sup_field ) {
-        // If such a field exists in the db, return its content as the full metatags.
-        if ( in_array( $sup_field, $custom_fields ) ) {
-            return get_post_meta( $post_id, $sup_field, true );
-        }
-    }
-
-    //Return empty string if all fail
-    return '';
-}
-
+//
+// Helper function that returns the value of the custom field that contains
+// the per-post full metatags.
+// The default field name is ``_amt_full_metatags``.
+// No need to migrate from older field name.
+//
 function amt_get_post_meta_full_metatags($post_id) {
 
     // Non persistent object cache
