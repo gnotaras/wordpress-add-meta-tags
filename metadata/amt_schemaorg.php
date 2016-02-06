@@ -1267,9 +1267,63 @@ add_filter('the_content', 'amt_add_schemaorg_metadata_content_filter', 9999, 1);
  * Return an array of Schema.org metatags for the provided $image object.
  * By default, returns metadata for the 'medium' sized version of the image.
  */
-function amt_get_schemaorg_image_metatags( $image, $size='medium', $is_representative=false ) {
+function amt_get_schemaorg_image_metatags( $options, $image_data, $size='medium', $is_representative=false ) {
+
+    //
+    // $image_data can be:
+    //
+    // 1. An array with the following data:
+    //
+    //    'id'    => null,   // post ID of attachment
+    //    'url'   => null,
+    //    'width' => null,
+    //    'height' => null,
+    //    'type'  => null,
+    //
+    // 2. An attachment ID (integer)
+    //
+    // 3. An attachment object (post object)    (Usually ths is the case in the schema.org generators
+    //
 
     $metadata_arr = array();
+    $image = null;
+
+    if ( is_array($image_data) && ! is_null($image_data['url']) ) {
+        // Here we process the image data as retrieved from the special notation of the image's URL.
+        // No size information is taken into account in this case.
+        // Image tags
+        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $image_data['url'] ) . '" />';
+
+        if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+            if ( ! is_null($image_data['width']) ) {
+                $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $image_data['width'] ) . '" />';
+            }
+            if ( ! is_null($image_data['height']) ) {
+                $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $image_data['height'] ) . '" />';
+            }
+            if ( ! is_null($image_data['type']) ) {
+                $metadata_arr[] = '<meta itemprop="encodingFormat" content="' . esc_attr( $image_data['type'] ) . '" />';
+            }
+        }
+
+        return $metadata_arr;
+
+    } elseif ( is_array($image_data) && is_numeric($image_data['id']) ) {
+        // The attachment ID exists in the array's 'id' item.
+        $image = get_post( absint( $image_data['id'] ) );
+    } elseif ( is_numeric($image_data) ) {
+        // Image data is the attachment ID (integer)
+        $image = get_post( absint( $image_data ) );
+    } elseif ( is_object($image_data) && isset($image_data->ID) ) {
+        // Image data is the attachment itself.
+        $image = $image_data;
+    }
+
+    if ( is_null($image) || ! is_object($image) || ! isset($image->ID) ) {
+        return $metadata_arr;
+    }
+
+    // Process the image attachment and generate meta tags.
 
     // Get the image object <- Already have it
     //$image = get_post( $post_id );
@@ -2672,9 +2726,68 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
  * Return an array of Schema.org metatags for the provided $image object.
  * By default, returns metadata for the 'medium' sized version of the image.
  */
-function amt_get_jsonld_schemaorg_image_array( $image, $size='medium', $is_representative=false ) {
+function amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size='medium', $is_representative=false ) {
 
+    //
+    // $image_data can be:
+    //
+    // 1. An array with the following data:
+    //
+    //    'id'    => null,   // post ID of attachment
+    //    'url'   => null,
+    //    'width' => null,
+    //    'height' => null,
+    //    'type'  => null,
+    //
+    // 2. An attachment ID (integer)
+    //
+    // 3. An attachment object (post object)    (Usually ths is the case in the schema.org generators
+    //
+    //var_dump($image_data);
     $metadata_arr = array();
+    $image = null;
+
+    if ( is_array($image_data) && ! is_null($image_data['url']) ) {
+        // Here we process the image data as retrieved from the special notation of the image's URL.
+        // No size information is taken into account in this case.
+
+        // Schema.org type
+        $metadata_arr['@type'] = 'ImageObject';
+
+        // Image tags
+        $metadata_arr['url'] = esc_url( $image_data['url'] );
+
+        if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+            if ( ! is_null($image_data['width']) ) {
+                $metadata_arr['width'] = esc_attr( $image_data['width'] );
+            }
+            if ( ! is_null($image_data['height']) ) {
+                $metadata_arr['height'] = esc_attr( $image_data['height'] );
+            }
+            if ( ! is_null($image_data['type']) ) {
+                $metadata_arr['encodingFormat'] = esc_attr( $image_data['type'] );
+            }
+        }
+
+        return $metadata_arr;
+
+    } elseif ( is_array($image_data) && is_numeric($image_data['id']) ) {
+        // The attachment ID exists in the array's 'id' item.
+        $image = get_post( absint( $image_data['id'] ) );
+    } elseif ( is_numeric($image_data) ) {
+        // Image data is the attachment ID (integer)
+        $image = get_post( absint( $image_data ) );
+    } elseif ( is_object($image_data) && isset($image_data->ID) ) {
+        // Image data is the attachment itself.
+        $image = $image_data;
+    }
+
+    if ( is_null($image) || ! is_object($image) || ! isset($image->ID) ) {
+        return $metadata_arr;
+    }
+
+    // Process the image attachment and generate meta tags.
+
     // Schema.org type
     $metadata_arr['@type'] = 'ImageObject';
 

@@ -792,3 +792,74 @@ function amt_get_twitter_cards_author_publisher_metatags( $options, $post ) {
 }
 
 
+//
+// Return an array of Twitter Cards meta tags for an image attachment with the
+// provided post ID.
+// By default, returns metadata for the 'medium' sized version of the image.
+//
+function amt_get_twitter_cards_image_metatags( $options, $image_data, $size='medium' ) {
+    //
+    // $image_data can be:
+    //
+    // 1. An array with the following data:
+    //
+    //    'id'    => null,   // post ID of attachment
+    //    'url'   => null,
+    //    'width' => null,
+    //    'height' => null,
+    //    'type'  => null,
+    //
+    // 2. An attachment ID (integer)
+    //
+    $metadata_arr = array();
+    $image_id = null;
+
+    if ( is_array($image_data) && ! is_null($image_data['url']) ) {
+        // Here we process the image data as retrieved from the special notation of the image's URL.
+        // No size information is taken into account in this case.
+        // Image tags
+        $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url( $image_data['url'] ) . '" />';
+        if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+            if ( ! is_null($image_data['width']) ) {
+                $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $image_data['width'] ) . '" />';
+            }
+            if ( ! is_null($image_data['height']) ) {
+                $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $image_data['height'] ) . '" />';
+            }
+        }
+
+        return $metadata_arr;
+
+    } elseif ( is_array($image_data) && is_numeric($image_data['id']) ) {
+        // The attachment ID exists in the array's 'id' item.
+        $image_id = absint( $image_data['id'] );
+    } elseif ( is_numeric($image_data) ) {
+        // Image data is the attachment ID (integer)
+        $image_id = absint( $image_data );
+    }
+
+    if ( empty($image_id) ) {
+        return $metadata_arr;
+    }
+
+    // Process the image attachment and generate meta tags.
+
+    //$image = get_post( $image_id );
+    //$image_meta = wp_get_attachment_metadata( $image->ID );   // contains info about all sizes
+    // We use wp_get_attachment_image_src() since it constructs the URLs
+    //$thumbnail_meta = wp_get_attachment_image_src( $image->ID, 'thumbnail' );
+    $main_size_meta = wp_get_attachment_image_src( $image_id, $size );
+    // Image tags
+    $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
+    //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+    //    $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( str_replace('http:', 'https:', $main_size_meta[0]) ) . '" />';
+    //}
+    if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+        $metadata_arr[] = '<meta name="twitter:image:width" content="' . esc_attr( $main_size_meta[1] ) . '" />';
+        $metadata_arr[] = '<meta name="twitter:image:height" content="' . esc_attr( $main_size_meta[2] ) . '" />';
+        //$metadata_arr[] = '<meta name="twitter:image:type" content="' . esc_attr( get_post_mime_type( $image_id ) ) . '" />';
+    }
+
+    return $metadata_arr;
+}
+
