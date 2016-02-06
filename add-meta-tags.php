@@ -217,10 +217,16 @@ function amt_get_metadata_head($post, $options) {
             ( is_author() && is_paged() && ($options["noindex_author_archives"] == "1") )             // Author archives (except 1st page)
         ) {
             $do_add_metadata = false;   // No need to process metadata
-            $robots_content = 'NOINDEX,FOLLOW';
+            // $robots_content is old. Should remove.
+            ////$robots_content = 'NOINDEX,FOLLOW';
             // Allow filtering of the robots meta tag content.
             // Dev Note: Filtering of the robots meta tag takes place here, so as to avoid double filtering in case $do_add_metadata is true.
-            $robots_content = apply_filters( 'amt_robots_data', $robots_content );
+            ////$robots_content = apply_filters( 'amt_robots_data', $robots_content );
+
+            $robots_options = array( 'noindex', 'follow' );
+            // Allow filtering of the robots meta tag content.
+            // Dev Note: Filtering of the robots meta tag takes place here, so as to avoid double filtering in case $do_add_metadata is true.
+            $robots_options = apply_filters( 'amt_robots_options_noindex', $robots_options );
         }
     }
     // Add a robots meta tag if its content is not empty.
