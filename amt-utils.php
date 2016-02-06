@@ -1518,6 +1518,138 @@ function amt_get_post_meta_referenced_list($post_id) {
 }
 
 
+//
+// Helper functions for the retrieval of term meta
+//
+
+// Helper function that returns the value of the custom field that contains
+// the per-term full metatags.
+// The default field name is ``_amt_term_full_metatags``.
+// No need to migrate from older field name.
+function amt_get_term_meta_full_metatags($term_id) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_term_meta_full_metatags', $term_id);
+    $field_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $field_value !== false ) {
+        return $field_value;
+    }
+
+    $options = amt_get_options();
+
+    $field_name = '_amt_term_full_metatags';
+    $field_value = '';
+
+    if ( $options['metabox_term_enable_full_metatags'] == '1' ) {
+        $field_value = get_term_meta( $term_id, $field_name, true );
+    }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $field_value, $group='add-meta-tags' );
+
+    return $field_value;
+}
+
+
+//
+// Helper function that returns the value of the custom field that contains
+// a global image override URL.
+// The default field name for the 'global image override URL' is ``_amt_term_image_url``.
+// No need to migrate from older field name.
+//
+function amt_get_term_meta_image_url($term_id) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_term_meta_image_url', $term_id);
+    $field_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $field_value !== false ) {
+        return $field_value;
+    }
+
+    $options = amt_get_options();
+
+    $field_name = '_amt_term_image_url';
+    $field_value = '';
+
+    if ( $options['metabox_term_enable_image_url'] == '1' ) {
+        $field_value = get_term_meta( $term_id, $field_name, true );
+    }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $field_value, $group='add-meta-tags' );
+
+    return $field_value;
+}
+
+
+//
+// Helper functions for the retrieval of user meta
+//
+
+// Helper function that returns the value of the custom field that contains
+// the per-user full metatags.
+// The default field name is ``_amt_user_full_metatags``.
+// No need to migrate from older field name.
+function amt_get_user_meta_full_metatags($user_id) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_user_meta_full_metatags', $user_id);
+    $field_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $field_value !== false ) {
+        return $field_value;
+    }
+
+    $options = amt_get_options();
+
+    $field_name = '_amt_user_full_metatags';
+    $field_value = '';
+
+    if ( $options['metabox_user_enable_full_metatags'] == '1' ) {
+        $field_value = get_user_meta( $user_id, $field_name, true );
+    }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $field_value, $group='add-meta-tags' );
+
+    return $field_value;
+}
+
+
+//
+// Helper function that returns the value of the custom field that contains
+// a global image override URL.
+// The default field name for the 'global image override URL' is ``_amt_user_image_url``.
+// No need to migrate from older field name.
+//
+function amt_get_user_meta_image_url($user_id) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_user_meta_image_url', $user_id);
+    $field_value = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $field_value !== false ) {
+        return $field_value;
+    }
+
+    $options = amt_get_options();
+
+    $field_name = '_amt_user_image_url';
+    $field_value = '';
+
+    if ( $options['metabox_user_enable_image_url'] == '1' ) {
+        $field_value = get_user_meta( $user_id, $field_name, true );
+    }
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $field_value, $group='add-meta-tags' );
+
+    return $field_value;
+}
+
+
 /**
  * Helper function that returns an array of objects attached to the provided
  * $post object.
