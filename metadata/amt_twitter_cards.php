@@ -238,10 +238,10 @@ function amt_add_twitter_cards_metadata_head( $post, $attachments, $embedded_med
                 if ( empty($posttype_image_url) ) {
                     // Second filter (post type dependent).
                     // Construct the filter name. Template: ``amt_posttype_image_url_POSTTYPESLUG``
-                    $taxonomy_image_url_filter_name = sprintf( 'amt_posttype_image_url_%s', $post_type_object->name);
-                    //var_dump($taxonomy_image_url_filter_name);
+                    $posttype_image_url_filter_name = sprintf( 'amt_posttype_image_url_%s', $post_type_object->name);
+                    //var_dump($posttype_image_url_filter_name);
                     // The default image, if set, is used by default.
-                    $posttype_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+                    $posttype_image_url = apply_filters( $posttype_image_url_filter_name, $options["default_image_url"] );
                 }
                 if ( ! empty( $posttype_image_url ) ) {
                     $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $posttype_image_url ) . '" />';
