@@ -1032,7 +1032,17 @@ function amt_get_post_custom_field_names() {
 }
 
 /**
- * Helper function that returns an array of the supported user contactinfos.
+ * Helper function that returns an array of the supported term meta
+ */
+function amt_get_term_custom_field_names() {
+    return array(
+        '_amt_term_full_metatags',
+        '_amt_term_image_url',
+    );
+}
+
+/**
+ * Helper function that returns an array of the supported user meta fields.
  */
 function amt_get_user_contactinfo_field_names() {
     return array(
