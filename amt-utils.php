@@ -999,7 +999,13 @@ function amt_get_metadata_metabox_permissions() {
         'image_url_box_capability' => 'edit_posts',
         'content_locale_box_capability' => 'edit_posts',
         'express_review_box_capability' => 'edit_posts',
-        'referenced_list_box_capability' => 'edit_posts'
+        'referenced_list_box_capability' => 'edit_posts',
+        // Term meta
+        'term_full_metatags_box_capability' => 'edit_posts',
+        'term_image_url_box_capability' => 'edit_posts',
+        // User meta
+        'user_full_metatags_box_capability' => 'edit_posts',
+        'user_image_url_box_capability' => 'edit_posts',
     );
     // Allow filtering of the metabox permissions
     $metabox_permissions = apply_filters( 'amt_metadata_metabox_permissions', $metabox_permissions );
