@@ -76,7 +76,7 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
     // Store base robots options
     $robots_options = array();
 
-    if ( $do_noodp_description && ( is_front_page() || is_singular() ) ) {
+    if ( $do_noodp_description && ( is_front_page() || is_singular() || is_category() || is_tag() || is_tax() || is_author() ) ) {
         // Add NOODP on posts and pages
         $robots_options[] = 'noodp';
         $robots_options[] = 'noydir';
