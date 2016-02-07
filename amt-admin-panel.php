@@ -187,7 +187,7 @@ function amt_admin_help_tabs() {
     <p><code>&lt;meta property="fb:admins" content="1234" /&gt;</code></p>
     <p><code>&lt;meta property="fb:app_id" content="4321" /&gt;</code></p>
 
-    <p>'.__('Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag.', 'add-meta-tags').'</p>
+    <p>'.__('Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag. To automatically add paging information to URLs, append the <code>PAGEINFO</code> placeholder.', 'add-meta-tags').'</p>
 
     ';
     $screen->add_help_tab( array(
@@ -435,7 +435,7 @@ function amt_admin_help_tabs() {
 
     <h3>'.__('Default Image', 'add-meta-tags').'</h3>
 
-    <p>'.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded.', 'add-meta-tags').'</p>
+    <p>'.__('Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'</p>
     <p><strong>'.__('Example', 'add-meta-tags').'</strong>: <code>http://example.org/images/logo.png</code></p>
 
     <h3>'.__('Shortcodes', 'add-meta-tags').'</h3>
@@ -1180,7 +1180,7 @@ function amt_options_page() {
                 <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . esc_url_raw( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="default_image_url">
-                '.__('Enter an absolute URL to an image that represents your website, for instance the logo.', 'add-meta-tags').'
+                '.__('Enter an absolute URL to an image that represents your website, for instance the logo. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
                 </label>
                 <br />
             </fieldset>
@@ -1739,7 +1739,7 @@ function amt_inner_metadata_box( $post ) {
                 <code>&lt;meta name="robots" content="noarchive" /&gt;</code>
             </p>
 
-            <p>'.__('Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag.', 'add-meta-tags').'</p>
+            <p>'.__('Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag. To automatically add paging information to URLs, append the <code>PAGEINFO</code> placeholder.', 'add-meta-tags').'</p>
 
         ');
 
