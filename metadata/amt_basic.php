@@ -194,6 +194,32 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
                 }
             }
 
+            // Process the PAGEINFO variable.
+            // If the current page is the 1st page of any archive or of multipage content,
+            // PAGEINFO is just stripped. For subsequent pages of archives or multipage
+            // content, PAGEINFO is replaced with page based path (page/N/ for archives or N/ for multipage content)
+            //
+            // For paginated archives or paginated main page with latest posts.
+            $has_paging_info = false;
+            if ( is_paged() ) {
+                $paged = get_query_var( 'paged' );  // paged
+                if ( $paged && $paged >= 2 ) {
+                    $single_meta_tag = str_replace('PAGEINFO', 'page/' . $paged . '/', $single_meta_tag);
+                    $has_paging_info = true;
+                }
+            // For a Post or Page that has been divided into pages using the <!--nextpage--> QuickTag
+            } else {
+                $paged = get_query_var( 'page' );  // page
+                if ( $paged && $paged >= 2 ) {
+                    $single_meta_tag = str_replace('PAGEINFO', $paged . '/', $single_meta_tag);
+                    $has_paging_info = true;
+                }
+            }
+            // If this is not paged, strip PAGEINFO
+            if ( $has_paging_info === false ) {
+                $single_meta_tag = str_replace('PAGEINFO', '', $single_meta_tag);
+            }
+
             // Process custom canonical link
             // If a rel="canonical" meta tags exists, we deactivate WordPress' 'rel_canonical' action,
             // Since it is assumed that a custom canonical link has been added.
