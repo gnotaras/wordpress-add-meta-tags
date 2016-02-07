@@ -166,13 +166,12 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
         // Site Image
         // Use the default image, if one has been set.
-        if (!empty($options["default_image_url"])) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-            // If the current connection uses HTTPS, then generate og:image:secure_url
-            // If the current connection does not use HTTPS, but the "has_https_access" is enabled, then generate og:image:secure_url
-            // According to Facebook, if the web site requires HTTPS, og:image:secure_url is required even if og:image contains an HTTPS URL
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+        $image_data = amt_get_default_image_data();
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
+            $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
             }
         }
 
@@ -213,23 +212,39 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Site Image
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
+            $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
             }
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
+        //    $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+        //        $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+        //    }
         // Then try the featured image, if exists.
         } elseif ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_index', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
-        } elseif (!empty($options["default_image_url"])) {
-            // Alternatively, use default image
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+        } else {
+            // Use the default image, if one has been set.
+            $image_data = amt_get_default_image_data();
+            if ( ! empty($image_data) ) {
+                $image_size = apply_filters( 'amt_image_size_index', 'full' );
+                $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+                if ( ! empty($image_meta_tags) ) {
+                    $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                }
             }
+            // Alternatively, use default image
+            //$metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+            //    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+            //}
         }
 
         // Profile data (only if the front page has been set as the source of profile.)
@@ -275,23 +290,39 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Site Image
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
+            $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
             }
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
+        //    $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+        //        $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+        //    }
         // Then try the featured image, if exists.
         } elseif ( function_exists('has_post_thumbnail') && has_post_thumbnail( $post->ID ) ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_index', 'full' );
             $metadata_arr = array_merge( $metadata_arr, amt_get_opengraph_image_metatags( $options, get_post_thumbnail_id( $post->ID ), $size=$image_size ) );
-        } elseif (!empty($options["default_image_url"])) {
-            // Alternatively, use default image
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+        } else {
+            // Use the default image, if one has been set.
+            $image_data = amt_get_default_image_data();
+            if ( ! empty($image_data) ) {
+                $image_size = apply_filters( 'amt_image_size_index', 'full' );
+                $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+                if ( ! empty($image_meta_tags) ) {
+                    $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                }
             }
+            // Alternatively, use default image
+            //$metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+            //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+            //    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+            //}
         }
 
 
@@ -351,21 +382,40 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         // Locale
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
         // Image
-        // Use a user defined image via filter. Otherwise use default image.
-        // First filter using a term/taxonomy agnostic filter name.
-        $taxonomy_image_url = apply_filters( 'amt_taxonomy_force_image_url', '', $tax_term_object );
-        if ( empty($taxonomy_image_url) ) {
-            // Second filter (term/taxonomy dependent).
-            // Construct the filter name. Template: ``amt_taxonomy_image_url_TAXONOMYSLUG_TERMSLUG``
-            $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
-            //var_dump($taxonomy_image_url_filter_name);
-            // The default image, if set, is used by default.
-            $taxonomy_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
-        }
-        if ( ! empty( $taxonomy_image_url ) ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $taxonomy_image_url ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $taxonomy_image_url ) ) . '" />';
+        // Use an image from the 'Global image override' field.
+        // Otherwise, use a user defined image via filter.
+        // Otherwise use default image.
+        $image_data = amt_get_image_attributes_array( amt_get_term_meta_image_url( $tax_term_object->term_id ) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
+            $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+            }
+        } else {
+            // First filter using a term/taxonomy agnostic filter name.
+            $taxonomy_image_url = apply_filters( 'amt_taxonomy_force_image_url', '', $tax_term_object );
+            if ( empty($taxonomy_image_url) ) {
+                // Second filter (term/taxonomy dependent).
+                // Construct the filter name. Template: ``amt_taxonomy_image_url_TAXONOMYSLUG_TERMSLUG``
+                $taxonomy_image_url_filter_name = sprintf( 'amt_taxonomy_image_url_%s_%s', $tax_term_object->taxonomy, $tax_term_object->slug);
+                //var_dump($taxonomy_image_url_filter_name);
+                // The default image, if set, is used by default.
+                $taxonomy_image_url = apply_filters( $taxonomy_image_url_filter_name, $options["default_image_url"] );
+            }
+            if ( ! empty( $taxonomy_image_url ) ) {
+                $image_data = amt_get_image_attributes_array( $taxonomy_image_url );
+                if ( ! empty($image_data) ) {
+                    $image_size = apply_filters( 'amt_image_size_index', 'full' );
+                    $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+                    if ( ! empty($image_meta_tags) ) {
+                        $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                    }
+                }
+                //$metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $taxonomy_image_url ) . '" />';
+                //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                //    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $taxonomy_image_url ) ) . '" />';
+                //}
             }
         }
 
@@ -434,33 +484,43 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
         $metadata_arr[] = '<meta property="og:locale" content="' . esc_attr( str_replace('-', '_', amt_get_language_site($options)) ) . '" />';
 
         // Profile Image
-        $author_email = sanitize_email( $author->user_email );
-        $avatar_size = apply_filters( 'amt_avatar_size', 128 );
-        $avatar_url = '';
-        // First try to get the avatar link by using get_avatar().
-        // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
-        $avatar_img = get_avatar( get_the_author_meta('ID', $author->ID), $avatar_size, '', get_the_author_meta('display_name', $author->ID) );
-        if ( ! empty($avatar_img) ) {
-            if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
-                $avatar_url = $matches[1];
+        // First use the global image override URL
+        $image_data = amt_get_image_attributes_array( amt_get_user_meta_image_url( $author->ID ) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_index', 'full' );
+            $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
             }
-        } elseif ( ! empty($author_email) ) {
-            // If the user has provided an email, we use it to construct a gravatar link.
-            $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
-        }
-        if ( ! empty($avatar_url) ) {
-            //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
-            // Add an og:imagesecure_url if the image URL uses HTTPS
-            if ( strpos($avatar_url, 'https://') !== false ) {
-                $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( $avatar_url ) . '" />';
+        } else {
+            $author_email = sanitize_email( $author->user_email );
+            $avatar_size = apply_filters( 'amt_avatar_size', 128 );
+            $avatar_url = '';
+            // First try to get the avatar link by using get_avatar().
+            // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+            $avatar_img = get_avatar( get_the_author_meta('ID', $author->ID), $avatar_size, '', get_the_author_meta('display_name', $author->ID) );
+            if ( ! empty($avatar_img) ) {
+                if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                    $avatar_url = $matches[1];
+                }
+            } elseif ( ! empty($author_email) ) {
+                // If the user has provided an email, we use it to construct a gravatar link.
+                $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
             }
-            if ( apply_filters( 'amt_extended_image_tags', true ) ) {
-                $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $avatar_size ) . '" />';
-                $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $avatar_size ) . '" />';
-                // Since we do not have a way to determine the image type, the following meta tag is commented out
-                // TODO: make a function that detects the image type from the file extension (if a file extension is available)
-                //$metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+            if ( ! empty($avatar_url) ) {
+                //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+                $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $avatar_url ) . '" />';
+                // Add an og:imagesecure_url if the image URL uses HTTPS
+                if ( strpos($avatar_url, 'https://') !== false ) {
+                    $metadata_arr[] = '<meta property="og:imagesecure_url" content="' . esc_url_raw( $avatar_url ) . '" />';
+                }
+                if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+                    $metadata_arr[] = '<meta property="og:image:width" content="' . esc_attr( $avatar_size ) . '" />';
+                    $metadata_arr[] = '<meta property="og:image:height" content="' . esc_attr( $avatar_size ) . '" />';
+                    // Since we do not have a way to determine the image type, the following meta tag is commented out
+                    // TODO: make a function that detects the image type from the file extension (if a file extension is available)
+                    //$metadata_arr[] = '<meta property="og:image:type" content="image/jpeg" />';
+                }
             }
         }
 
@@ -523,10 +583,18 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             $posttype_image_url = apply_filters( $posttype_image_url_filter_name, $options["default_image_url"] );
         }
         if ( ! empty( $posttype_image_url ) ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $posttype_image_url ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $posttype_image_url ) ) . '" />';
+            $image_data = amt_get_image_attributes_array( $posttype_image_url );
+            if ( ! empty($image_data) ) {
+                $image_size = apply_filters( 'amt_image_size_index', 'full' );
+                $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+                if ( ! empty($image_meta_tags) ) {
+                    $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                }
             }
+            //$metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $posttype_image_url ) . '" />';
+            //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+            //    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $posttype_image_url ) ) . '" />';
+            //}
         }
 
 
@@ -673,12 +741,19 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
-            $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_content', 'full' );
+            $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
             }
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
+        //    $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+        //        $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $global_image_override_url ) ) . '" />';
+        //    }
 
         // Further image processing
         } else {
@@ -822,11 +897,22 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
             }
 
             // If no images have been found so far use the default image, if set.
-            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
-                $metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-                if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
-                    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+            if ( $has_images === false ) {
+
+                // Use the default image, if one has been set.
+                $image_data = amt_get_default_image_data();
+                if ( ! empty($image_data) ) {
+                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                    $image_meta_tags = amt_get_opengraph_image_metatags( $options, $image_data, $size=$image_size );
+                    if ( ! empty($image_meta_tags) ) {
+                        $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                    }
                 }
+
+                //$metadata_arr[] = '<meta property="og:image" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
+                //    $metadata_arr[] = '<meta property="og:image:secure_url" content="' . esc_url_raw( str_replace('http:', 'https:', $options["default_image_url"] ) ) . '" />';
+                //}
             }
 
         }
