@@ -98,6 +98,16 @@ function amt_add_basic_metadata_head( $post, $attachments, $embedded_media, $opt
         $full_metatags_for_content = amt_get_post_meta_full_metatags( $post->ID );
         $full_metatags_for_content = html_entity_decode( stripslashes( $full_metatags_for_content ) );
         $full_metatags_as_string .= apply_filters('amt_full_metatags_post', $full_metatags_for_content);
+    } elseif ( is_category() || is_tag() || is_tax() ) {
+        // Term specific full meta tags ($post is a term object)
+        $full_metatags_for_term = amt_get_term_meta_full_metatags( $post->term_id );
+        $full_metatags_for_term = html_entity_decode( stripslashes( $full_metatags_for_term ) );
+        $full_metatags_as_string .= apply_filters('amt_full_metatags_term', $full_metatags_for_term);
+    } elseif ( is_author() ) {
+        // User specific full meta tags ($post is a user object)
+        $full_metatags_for_user = amt_get_user_meta_full_metatags( $post->ID );
+        $full_metatags_for_user = html_entity_decode( stripslashes( $full_metatags_for_user ) );
+        $full_metatags_as_string .= apply_filters('amt_full_metatags_term', $full_metatags_for_user);
     }
 
     // Sanitize
