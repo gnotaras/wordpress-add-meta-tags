@@ -934,12 +934,25 @@ function amt_add_opengraph_metadata_head( $post, $attachments, $embedded_media, 
 }
 
 
-/**
- * Return an array of Opengraph metatags for an image attachment with the
- * provided post ID.
- * By default, returns metadata for the 'medium' sized version of the image.
- */
-function amt_get_opengraph_image_metatags( $options, $post_id, $size='medium' ) {
+//
+// Return an array of Opengraph metatags for an image attachment with the
+// provided post ID.
+// By default, returns metadata for the 'medium' sized version of the image.
+//
+function amt_get_opengraph_image_metatags( $options, $image_data, $size='medium' ) {
+    //
+    // $image_data can be:
+    //
+    // 1. An array with the following data:
+    //
+    //    'id'    => null,   // post ID of attachment
+    //    'url'   => null,
+    //    'width' => null,
+    //    'height' => null,
+    //    'type'  => null,
+    //
+    // 2. An attachment ID (integer)
+    //
     $metadata_arr = array();
     $image_id = null;
 
