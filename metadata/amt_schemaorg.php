@@ -595,12 +595,25 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
             // If no images have been found so far use the default image, if set.
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
-                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-                $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-                $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            if ( $has_images === false ) {
+
+                $image_data = amt_get_default_image_data();
+                if ( ! empty($image_data) ) {
+                    $image_size = apply_filters( 'amt_image_size_product', 'full' );
+                    $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+                    if ( ! empty($image_meta_tags) ) {
+                        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                        $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                        $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+                    }
+                }
+
+                //$metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                //$metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                //$metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                //$metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                //$metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
             }
             // Scope END: ImageObject
 
@@ -902,13 +915,23 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
-            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_content', 'full' );
+            $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            }
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
+        //    $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+        //    $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+        //    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
         // Further image processing
         } else {
@@ -1170,12 +1193,25 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
             // If no images have been found so far use the default image, if set.
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
-                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-                $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-                $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
-                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            if ( $has_images === false ) {
+
+                $image_data = amt_get_default_image_data();
+                if ( ! empty($image_data) ) {
+                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                    $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+                    if ( ! empty($image_meta_tags) ) {
+                        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                        $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                        $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+                    }
+                }
+
+                //$metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                //$metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                //$metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                //$metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $options["default_image_url"] ) . '" />';
+                //$metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
             }
             // Scope END: ImageObject
 
@@ -1423,29 +1459,37 @@ function amt_get_schemaorg_publisher_metatags( $options, $author_id=null ) {
         $metadata_arr[] = '<meta itemprop="description" content="' . esc_attr( $site_description ) . '" />';
     }
     // logo
-    if ( ! empty($options["default_image_url"]) ) {
-        $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-        $metadata_arr[] = '<span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
-        // name (title)
-        $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags') . '" />';
-        // caption
-        //$metadata_arr[] = '<meta itemprop="caption" content="' . esc_attr( rtrim(get_bloginfo('description'), '.') ) . '." />';
-        // alt
-        $metadata_arr[] = '<meta itemprop="text" content="' . esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags') . '" />';
-        // URL (links to web page containing the image)
-        $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $options["default_image_url"] ) . '" />';
-        // thumbnail url
-        //$metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
-        // main image
-        $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url( $options["default_image_url"] ) . '" />';
-        //if ( apply_filters( 'amt_extended_image_tags', true ) ) {
-        //    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
-        //    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
-        //    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
-        //}
-        // Scope END: ImageObject
-        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+    $image_data = amt_get_default_image_data();
+    if ( ! empty($image_data) ) {
+        $image_size = apply_filters( 'amt_image_size_index', 'full' );
+        $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+        if ( ! empty($image_meta_tags) ) {
+            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+            $metadata_arr[] = '<span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">';
+            // name (title)
+            $metadata_arr[] = '<meta itemprop="name" content="' . esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags') . '" />';
+            // caption
+            //$metadata_arr[] = '<meta itemprop="caption" content="' . esc_attr( rtrim(get_bloginfo('description'), '.') ) . '." />';
+            // alt
+            $metadata_arr[] = '<meta itemprop="text" content="' . esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags') . '" />';
+            // URL (links to web page containing the image)
+            //$metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $options["default_image_url"] ) . '" />';
+            // thumbnail url
+            //$metadata_arr[] = '<meta itemprop="thumbnailUrl" content="' . esc_url_raw( $embedded_item['thumbnail'] ) . '" />';
+            //$metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+            $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        }
     }
+    ////$metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url( $options["default_image_url"] ) . '" />';
+    //if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+    //    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+    //    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+    //    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+    //}
+    // Scope END: ImageObject
+    //$metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+
     // url
     // The blog url is used by default. Google+, Facebook and Twitter profile URLs are added as sameAs.
     $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( trailingslashit( get_bloginfo('url') ) ) . '" />';
@@ -1493,23 +1537,47 @@ function amt_get_schemaorg_author_metatags( $author_id, $options ) {
     }
 
     // Profile Image
-    $author_email = sanitize_email( get_the_author_meta('user_email', $author_id) );
-    $avatar_size = apply_filters( 'amt_avatar_size', 128 );
-    $avatar_url = '';
-    // First try to get the avatar link by using get_avatar().
-    // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
-    $avatar_img = get_avatar( get_the_author_meta('ID', $author_id), $avatar_size, '', get_the_author_meta('display_name', $author_id) );
-    if ( ! empty($avatar_img) ) {
-        if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
-            $avatar_url = $matches[1];
+    // First use the global image override URL
+    $image_data = amt_get_image_attributes_array( amt_get_user_meta_image_url( $author_id ) );
+    if ( ! empty($image_data) ) {
+        $image_size = apply_filters( 'amt_image_size_index', 'full' );
+        $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+        if ( ! empty($image_meta_tags) ) {
+            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+            $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
         }
-    } elseif ( ! empty($author_email) ) {
-        // If the user has provided an email, we use it to construct a gravatar link.
-        $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
-    }
-    if ( ! empty($avatar_url) ) {
-        //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
-        $metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
+    } else {
+        $author_email = sanitize_email( get_the_author_meta('user_email', $author_id) );
+        $avatar_size = apply_filters( 'amt_avatar_size', 128 );
+        $avatar_url = '';
+        // First try to get the avatar link by using get_avatar().
+        // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+        $avatar_img = get_avatar( get_the_author_meta('ID', $author_id), $avatar_size, '', get_the_author_meta('display_name', $author_id) );
+        if ( ! empty($avatar_img) ) {
+            if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                $avatar_url = $matches[1];
+            }
+        } elseif ( ! empty($author_email) ) {
+            // If the user has provided an email, we use it to construct a gravatar link.
+            $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
+        }
+        if ( ! empty($avatar_url) ) {
+            //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+            //$metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
+            $image_data = amt_get_image_attributes_array( sprintf('%s,%dx%d', $avatar_url, $avatar_size, $avatar_size) );
+            if ( ! empty($image_data) ) {
+                $image_size = apply_filters( 'amt_image_size_index', 'full' );
+                $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+                if ( ! empty($image_meta_tags) ) {
+                    $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                    $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                    $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                    $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+                }
+            }
+        }
     }
 
     // url
@@ -1955,16 +2023,25 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_product', 'full' );
+            $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_array) ) {
+                $metadata_arr['image'] = array();
+                $metadata_arr['image'][] = $image_meta_array;
+            }
+
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
 //            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
 //            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
 
-            $current_image_obj = array();
-            $current_image_obj['@type'] = 'ImageObject';
-            $current_image_obj['url'] = esc_url_raw( $global_image_override_url );
-            $current_image_obj['contentUrl'] = esc_url_raw( $global_image_override_url );
-            $metadata_arr['image'][] = $current_image_obj;
+         //   $current_image_obj = array();
+         //   $current_image_obj['@type'] = 'ImageObject';
+         //   $current_image_obj['url'] = esc_url_raw( $global_image_override_url );
+         //   $current_image_obj['contentUrl'] = esc_url_raw( $global_image_override_url );
+         //   $metadata_arr['image'][] = $current_image_obj;
 //            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
         // Further image processing
@@ -1995,14 +2072,25 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
             // If no images have been found so far use the default image, if set.
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+            if ( $has_images === false ) {
+
+                $image_data = amt_get_default_image_data();
+                if ( ! empty($image_data) ) {
+                    $image_size = apply_filters( 'amt_image_size_product', 'full' );
+                    $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
+                    if ( ! empty($image_meta_array) ) {
+                        $metadata_arr['image'] = array();
+                        $metadata_arr['image'][] = $image_meta_array;
+                    }
+                }
+
 //                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
 //                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-                $current_image_obj = array();
-                $current_image_obj['@type'] = 'ImageObject';
-                $current_image_obj['url'] = esc_url_raw( $options["default_image_url"] );
-                $current_image_obj['contentUrl'] = esc_url_raw( $options["default_image_url"] );
-                $metadata_arr['image'][] = $current_image_obj;
+                //$current_image_obj = array();
+                //$current_image_obj['@type'] = 'ImageObject';
+                //$current_image_obj['url'] = esc_url_raw( $options["default_image_url"] );
+                //$current_image_obj['contentUrl'] = esc_url_raw( $options["default_image_url"] );
+                //$metadata_arr['image'][] = $current_image_obj;
 //                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
             }
             // Scope END: ImageObject
@@ -2358,15 +2446,24 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_content', 'full' );
+            $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_array) ) {
+                $metadata_arr['image'] = array();
+                $metadata_arr['image'][] = $image_meta_array;
+            }
+
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
 //            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
 //            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-            $current_image_obj = array();
-            $current_image_obj['@type'] = 'ImageObject';
-            $current_image_obj['url'] = esc_url_raw( $global_image_override_url );
-            $current_image_obj['contentUrl'] = esc_url_raw( $global_image_override_url );
-            $metadata_arr['image'][] = $current_image_obj;
+        //    $current_image_obj = array();
+        //    $current_image_obj['@type'] = 'ImageObject';
+        //    $current_image_obj['url'] = esc_url_raw( $global_image_override_url );
+        //    $current_image_obj['contentUrl'] = esc_url_raw( $global_image_override_url );
+        //    $metadata_arr['image'][] = $current_image_obj;
 //            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
 //            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -2644,7 +2741,18 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
             // If no images have been found so far use the default image, if set.
             // Scope BEGIN: ImageObject: http://schema.org/ImageObject
-            if ( $has_images === false && ! empty( $options["default_image_url"] ) ) {
+            if ( $has_images === false ) {
+
+                $image_data = amt_get_default_image_data();
+                if ( ! empty($image_data) ) {
+                    $image_size = apply_filters( 'amt_image_size_content', 'full' );
+                    $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
+                    if ( ! empty($image_meta_array) ) {
+                        $metadata_arr['image'] = array();
+                        $metadata_arr['image'][] = $image_meta_array;
+                    }
+                }
+
 //                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
 //                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
                 $current_image_obj = array();
@@ -2893,31 +3001,65 @@ function amt_get_jsonld_schemaorg_publisher_array( $options, $author_id=null ) {
         $metadata_arr['description'] = esc_attr( $site_description );
     }
     // logo
-    if ( ! empty($options["default_image_url"]) ) {
-        $metadata_arr['logo'] = array();
-        $logo_obj = array();
+    $image_data = amt_get_default_image_data();
+    if ( ! empty($image_data) ) {
+        $image_size = apply_filters( 'amt_image_size_content', 'full' );
+        $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
+        if ( ! empty($image_meta_array) ) {
+            $metadata_arr['logo'] = array();
+            $logo_obj = array();
+            // Type
+            $logo_obj['@type'] = 'ImageObject';
+            // name (title)
+            $logo_obj['name'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
+            // caption
+            //$logo_obj['caption'] = esc_attr( rtrim(get_bloginfo('description'), '.') ) . '.';
+            // alt
+            $logo_obj['text'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
+            // Image URL & attributes
+            $logo_obj = array_merge( $logo_obj, $image_meta_array );
+            // URL (links to web page containing the image)
+            //$logo_obj['url'] = esc_url( $options["default_image_url"] );
+            // thumbnail url
+            //$logo_obj['thumbnailUrl'] = esc_url( ... );
+            // main image
+            //$logo_obj['contentUrl'] = esc_url( $options["default_image_url"] );
+            //if ( apply_filters( 'amt_extended_image_tags', true ) ) {
+            //    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
+            //    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
+            //    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
+            //}
+            // Add logo entity to metadata
+            $metadata_arr['logo'][] = $logo_obj;
+        }
+    }
+
+    ////if ( ! empty($options["default_image_url"]) ) {
+        ////$metadata_arr['logo'] = array();
+        ////$logo_obj = array();
         // Type
-        $logo_obj['@type'] = 'ImageObject';
+        ////$logo_obj['@type'] = 'ImageObject';
         // name (title)
-        $logo_obj['name'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
+        ////$logo_obj['name'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
         // caption
         //$logo_obj['caption'] = esc_attr( rtrim(get_bloginfo('description'), '.') ) . '.';
         // alt
-        $logo_obj['text'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
+        ////$logo_obj['text'] = esc_attr( get_bloginfo('name') ) . ' ' . __('logo', 'add-meta-tags');
         // URL (links to web page containing the image)
-        $logo_obj['url'] = esc_url( $options["default_image_url"] );
+        ////$logo_obj['url'] = esc_url( $options["default_image_url"] );
         // thumbnail url
         //$logo_obj['thumbnailUrl'] = esc_url( ... );
         // main image
-        $logo_obj['contentUrl'] = esc_url( $options["default_image_url"] );
+        ////$logo_obj['contentUrl'] = esc_url( $options["default_image_url"] );
         //if ( apply_filters( 'amt_extended_image_tags', true ) ) {
         //    $metadata_arr[] = '<meta itemprop="width" content="' . esc_attr( $embedded_item['width'] ) . '" />';
         //    $metadata_arr[] = '<meta itemprop="height" content="' . esc_attr( $embedded_item['height'] ) . '" />';
         //    $metadata_arr[] = '<meta itemprop="encodingFormat" content="image/jpeg" />';
         //}
         // Add logo entity to metadata
-        $metadata_arr['logo'][] = $logo_obj;
-    }
+        ////$metadata_arr['logo'][] = $logo_obj;
+    ////}
+
     // url
     // The blog url is used by default. Google+, Facebook and Twitter profile URLs are added as sameAs.
     $metadata_arr['url'] = esc_url_raw( trailingslashit( get_bloginfo('url') ) );
@@ -2968,23 +3110,42 @@ function amt_get_jsonld_schemaorg_author_array( $author_id, $options ) {
     }
 
     // Profile Image
-    $author_email = sanitize_email( get_the_author_meta('user_email', $author_id) );
-    $avatar_size = apply_filters( 'amt_avatar_size', 128 );
-    $avatar_url = '';
-    // First try to get the avatar link by using get_avatar().
-    // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
-    $avatar_img = get_avatar( get_the_author_meta('ID', $author_id), $avatar_size, '', get_the_author_meta('display_name', $author_id) );
-    if ( ! empty($avatar_img) ) {
-        if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
-            $avatar_url = $matches[1];
+    // First use the global image override URL
+    $image_data = amt_get_image_attributes_array( amt_get_user_meta_image_url( $author_id ) );
+    if ( ! empty($image_data) ) {
+        $image_size = apply_filters( 'amt_image_size_index', 'full' );
+        $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
+        if ( ! empty($image_meta_array) ) {
+            $metadata_arr['image'] = array();
+            $metadata_arr['image'][] = $image_meta_array;
         }
-    } elseif ( ! empty($author_email) ) {
-        // If the user has provided an email, we use it to construct a gravatar link.
-        $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
-    }
-    if ( ! empty($avatar_url) ) {
-        //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
-        $metadata_arr['image'] = esc_url_raw( $avatar_url );
+    } else {
+        $author_email = sanitize_email( get_the_author_meta('user_email', $author_id) );
+        $avatar_size = apply_filters( 'amt_avatar_size', 128 );
+        $avatar_url = '';
+        // First try to get the avatar link by using get_avatar().
+        // Important: for this to work the "Show Avatars" option should be enabled in Settings > Discussion.
+        $avatar_img = get_avatar( get_the_author_meta('ID', $author_id), $avatar_size, '', get_the_author_meta('display_name', $author_id) );
+        if ( ! empty($avatar_img) ) {
+            if ( preg_match("#src=['\"]([^'\"]+)['\"]#", $avatar_img, $matches) ) {
+                $avatar_url = $matches[1];
+            }
+        } elseif ( ! empty($author_email) ) {
+            // If the user has provided an email, we use it to construct a gravatar link.
+            $avatar_url = "http://www.gravatar.com/avatar/" . md5( $author_email ) . "?s=" . $avatar_size;
+        }
+        if ( ! empty($avatar_url) ) {
+            //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
+            //$metadata_arr['image'] = esc_url_raw( $avatar_url );
+            $image_data = amt_get_image_attributes_array( sprintf('%s,%dx%d', $avatar_url, $avatar_size, $avatar_size) );
+            if ( ! empty($image_data) ) {
+                $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data );
+                if ( ! empty($image_meta_array) ) {
+                    $metadata_arr['image'] = array();
+                    $metadata_arr['image'][] = $image_meta_array;
+                }
+            }
+        }
     }
 
     // url
