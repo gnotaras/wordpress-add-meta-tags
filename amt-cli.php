@@ -249,7 +249,7 @@ class AMT_Command extends WP_CLI_Command {
             $amt_user_fields = amt_get_user_custom_field_names();
             foreach ( $users_arr as $user ) {
                 foreach ( $amt_user_fields as $amt_user_field ) {
-                    $amt_user_field_value = get_the_author_meta( $amt_user_field, $user->ID );
+                    $amt_user_field_value = get_user_meta( $user->ID, $amt_user_field, true );
                     if ( ! empty($amt_user_field_value) ) {
                         // Export format: <user_id>;<amt_user_field>;<serialized_value>
                         //echo json_encode( sprintf( '%s;%s;%s', $post->ID, $amt_field, $amt_field_value ) );
