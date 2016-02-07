@@ -2059,6 +2059,19 @@ function amt_get_embedded_media( $post ) {
                 continue;
             }
 
+            // Get data from the cached HTML
+            preg_match( '#.* (?:width="([\d]+)") (?:height="([\d]+)") .*#', $cache, $soundcloud_clip_info );
+            //var_dump($soundcloud_clip_info);
+
+            $player_width = apply_filters( 'amt_oembed_soundcloud_player_width', '640' );
+            if ( isset($soundcloud_clip_info[1]) ) {
+                $player_width = $soundcloud_clip_info[1];
+            }
+            $player_height = apply_filters( 'amt_oembed_soundcloud_player_height', '320' );
+            if ( isset($soundcloud_clip_info[2]) ) {
+                $player_height = $soundcloud_clip_info[2];
+            }
+
             $item = array(
                 'type' => 'soundcloud',
                 'page' => $soundcloud_url,
