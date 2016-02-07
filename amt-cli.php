@@ -206,11 +206,11 @@ class AMT_Command extends WP_CLI_Command {
 
         // Export AMT settings
         if ( $what == 'settings' ) {
-            $output = get_option("add_meta_tags_opts");
-            if ( empty($output) ) {
+            $opts = amt_get_options();
+            if ( empty($opts) ) {
                 WP_CLI::error( 'Could not retrieve Add-Meta-Tags options.' );
             }
-            //var_dump( $options );
+            $output = $opts;
         }
 
         // Export AMT custom fields
