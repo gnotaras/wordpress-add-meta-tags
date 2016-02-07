@@ -1892,10 +1892,24 @@ function amt_get_embedded_media( $post ) {
                 continue;
             }
 
-            // Get image info from the cached HTML
+            // Get video ID from the video URL
             preg_match( '#.*v=([a-zA-Z0-9_-]+)#', $youtube_video_url, $video_url_info );
             //var_dump($video_url_info);
             $youtube_video_id = $video_url_info[1];
+
+            // Get data from the cached HTML
+            //var_dump($cache);
+            preg_match( '#.* (?:width="([\d]+)") (?:height="([\d]+)") .*#', $cache, $media_info );
+            //var_dump($media_info);
+
+            $player_width = '640';
+            if ( isset($media_info[1]) ) {
+                $player_width = $media_info[1];
+            }
+            $player_height = '480';
+            if ( isset($media_info[2]) ) {
+                $player_height = $media_info[2];
+            }
 
             $item = array(
                 'type' => 'youtube',
@@ -1909,8 +1923,8 @@ function amt_get_embedded_media( $post ) {
                 // http://img.youtube.com/vi/rr6H-MJCNw0/hqdefault.jpg  480x360 (same as 0.jpg)
                 // http://img.youtube.com/vi/rr6H-MJCNw0/sddefault.jpg  640x480
                 // See more here: http://stackoverflow.com/a/2068371
-                'width' => apply_filters( 'amt_oembed_youtube_player_width', '640' ),
-                'height' => apply_filters( 'amt_oembed_youtube_player_height', '480' ),
+                'width' => $player_width,
+                'height' => $player_height,
             );
             //array_unshift( $embedded_media_urls['videos'], $item );
             array_push( $embedded_media_urls['videos'], $item );
@@ -1951,18 +1965,32 @@ function amt_get_embedded_media( $post ) {
                 continue;
             }
 
-            // Get image info from the cached HTML
+            // Get video ID from the URL
             preg_match( '#.*vimeo.com\/(\d+)#', $vimeo_video_url, $video_url_info );
             //var_dump($video_url_info);
             $vimeo_video_id = $video_url_info[1];
+
+            // Get data from the cached HTML
+            //var_dump($cache);
+            preg_match( '#.* (?:width="([\d]+)") (?:height="([\d]+)") .*#', $cache, $media_info );
+            //var_dump($media_info);
+
+            $player_width = '640';
+            if ( isset($media_info[1]) ) {
+                $player_width = $media_info[1];
+            }
+            $player_height = '480';
+            if ( isset($media_info[2]) ) {
+                $player_height = $media_info[2];
+            }
 
             $item = array(
                 'type' => 'vimeo',
                 'page' => 'https://vimeo.com/' . $vimeo_video_id,
                 'player' => 'https://player.vimeo.com/video/' . $vimeo_video_id,
                 'thumbnail' => apply_filters( 'amt_oembed_vimeo_image_preview', '', $vimeo_video_id ),
-                'width' => apply_filters( 'amt_oembed_vimeo_player_width', '640' ),
-                'height' => apply_filters( 'amt_oembed_vimeo_player_height', '480' ),
+                'width' => $player_width,
+                'height' => $player_height,
             );
             array_push( $embedded_media_urls['videos'], $item );
         }
@@ -2000,18 +2028,32 @@ function amt_get_embedded_media( $post ) {
                 continue;
             }
 
-            // Get id info from the cached HTML
+            // Get id info from the URL
             preg_match( '#.*vine.co\/v\/([a-zA-Z0-9_-]+)#', $vine_video_url, $video_url_info );
             //var_dump($video_url_info);
             $vine_video_id = $video_url_info[1];
+
+            // Get data from the cached HTML
+            //var_dump($cache);
+            preg_match( '#.* (?:width="([\d]+)") (?:height="([\d]+)") .*#', $cache, $media_info );
+            //var_dump($media_info);
+
+            $player_width = '600';
+            if ( isset($media_info[1]) ) {
+                $player_width = $media_info[1];
+            }
+            $player_height = '600';
+            if ( isset($media_info[2]) ) {
+                $player_height = $media_info[2];
+            }
 
             $item = array(
                 'type' => 'vine',
                 'page' => 'https://vine.co/v/' . $vine_video_id,
                 'player' => 'https://vine.co/v/' . $vine_video_id . '/embed/simple',
                 'thumbnail' => apply_filters( 'amt_oembed_vine_image_preview', '', $vine_video_id ),
-                'width' => apply_filters( 'amt_oembed_vine_player_width', '600' ),
-                'height' => apply_filters( 'amt_oembed_vine_player_height', '600' ),
+                'width' => $player_width,
+                'height' => $player_height,
             );
             array_push( $embedded_media_urls['videos'], $item );
         }
@@ -2063,11 +2105,11 @@ function amt_get_embedded_media( $post ) {
             preg_match( '#.* (?:width="([\d]+)") (?:height="([\d]+)") .*#', $cache, $soundcloud_clip_info );
             //var_dump($soundcloud_clip_info);
 
-            $player_width = apply_filters( 'amt_oembed_soundcloud_player_width', '640' );
+            $player_width = '640';
             if ( isset($soundcloud_clip_info[1]) ) {
                 $player_width = $soundcloud_clip_info[1];
             }
-            $player_height = apply_filters( 'amt_oembed_soundcloud_player_height', '320' );
+            $player_height = '320';
             if ( isset($soundcloud_clip_info[2]) ) {
                 $player_height = $soundcloud_clip_info[2];
             }
