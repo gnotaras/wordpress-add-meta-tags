@@ -2029,6 +2029,9 @@ function amt_get_embedded_media( $post ) {
     // - https://soundcloud.com/USER_ID/TRACK_ID
     // player:
     // https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/117455833
+    //
+    // ALSO SEE: https://developers.soundcloud.com/docs/api/reference#tracks
+    //
     $pattern = '#https?:\/\/(?:www.)?soundcloud.com\/[^/]+\/[a-zA-Z0-9_-]+#i';
     preg_match_all( $pattern, $post_body, $matches );
     //var_dump($matches);
