@@ -549,13 +549,23 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $global_image_override_url = amt_get_post_meta_image_url($post->ID);
-        if ( ! empty( $global_image_override_url ) ) {
-            $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
-            $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
-            $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
-            $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        if ( ! empty($image_data) ) {
+            $image_size = apply_filters( 'amt_image_size_product', 'full' );
+            $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
+            if ( ! empty($image_meta_tags) ) {
+                $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+                $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+                $metadata_arr = array_merge( $metadata_arr, $image_meta_tags );
+                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
+            }
+        //$global_image_override_url = amt_get_post_meta_image_url($post->ID);
+        //if ( ! empty( $global_image_override_url ) ) {
+        //    $metadata_arr[] = '<!-- Scope BEGIN: ImageObject -->';
+        //    $metadata_arr[] = '<span itemprop="image" itemscope itemtype="http://schema.org/ImageObject">';
+        //    $metadata_arr[] = '<meta itemprop="url" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url_raw( $global_image_override_url ) . '" />';
+        //    $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
         // Further image processing
         } else {
