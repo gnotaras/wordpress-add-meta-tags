@@ -431,7 +431,7 @@ class AMT_Command extends WP_CLI_Command {
                 'fields'       => 'all',
             );
             $users_arr = get_users( $qr_args );
-            $amt_user_fields = amt_get_user_contactinfo_field_names();
+            $amt_user_fields = amt_get_user_custom_field_names();
             foreach ( $users_arr as $user ) {
                 foreach ( $amt_user_fields as $amt_user_field ) {
                     delete_user_meta( $user->ID, $amt_user_field );
