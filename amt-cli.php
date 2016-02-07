@@ -245,7 +245,7 @@ class AMT_Command extends WP_CLI_Command {
                 'fields'       => 'all',
             );
             $users_arr = get_users( $qr_args );
-            $amt_user_fields = amt_get_user_contactinfo_field_names();
+            $amt_user_fields = amt_get_user_custom_field_names();
             foreach ( $users_arr as $user ) {
                 foreach ( $amt_user_fields as $amt_user_field ) {
                     $amt_user_field_value = get_the_author_meta( $amt_user_field, $user->ID );
@@ -328,7 +328,7 @@ class AMT_Command extends WP_CLI_Command {
             if ( empty($data) || ! is_array($data) || empty($data[0]) ) {
                 WP_CLI::error( 'No data found.' );
             }
-            $amt_user_fields = amt_get_user_contactinfo_field_names();
+            $amt_user_fields = amt_get_user_custom_field_names();
             foreach ( $data[0] as $user_meta_info ) {
                 // Format: array( <id>, <field_name>, <field_value> )
                 if ( ! is_array($user_meta_info) || count($user_meta_info) != 3 || ! in_array( $user_meta_info[1], $amt_user_fields) || ! is_numeric($user_meta_info[0] ) ) {

@@ -1044,7 +1044,7 @@ function amt_get_term_custom_field_names() {
 /**
  * Helper function that returns an array of the supported user meta fields.
  */
-function amt_get_user_contactinfo_field_names() {
+function amt_get_user_custom_field_names() {
     return array(
         // Contact methods
         'amt_facebook_author_profile_url',
