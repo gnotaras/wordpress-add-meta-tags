@@ -361,7 +361,8 @@ function amt_add_schemaorg_metadata_footer( $post, $attachments, $embedded_media
         $metadata_arr[] = '<span itemscope itemtype="http://schema.org/Person"' . amt_get_schemaorg_itemref('person_author') . '>';
         
         // headline - contains title information
-        $metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $author) ) . '" />';
+        // NOTE: Not supported for person
+        //$metadata_arr['microdata:headline'] = '<meta itemprop="headline" content="' . esc_attr( amt_get_title_for_metadata($options, $author) ) . '" />';
 
         // Get author metatags
         $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID, $options ) );
@@ -719,7 +720,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
             // Get image metatags. $post is an image object.
-            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $post, $size=$image_size, $is_representative=true ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $options, $post, $size=$image_size, $is_representative=true ) );
             // Add the post body here
             $metadata_arr['content_data'] = $post_body;
             // Scope END: ImageObject
@@ -935,7 +936,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                 // Allow filtering of the image size.
                 $image_size = apply_filters( 'amt_image_size_content', 'full' );
                 // Get image metatags.
-                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
+                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $options, $image, $size=$image_size ) );
                 // metadata END
                 $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
                 // Finally, set the $featured_image_id
@@ -967,7 +968,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                         // Allow filtering of the image size.
                         $image_size = apply_filters( 'amt_image_size_content', 'full' );
                         // Get image metatags.
-                        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $attachment, $size=$image_size ) );
+                        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $options, $attachment, $size=$image_size ) );
                         // metadata END
                         $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -1293,6 +1294,7 @@ function amt_get_schemaorg_image_metatags( $options, $image_data, $size='medium'
         // No size information is taken into account in this case.
         // Image tags
         $metadata_arr[] = '<meta itemprop="url" content="' . esc_url( $image_data['url'] ) . '" />';
+        $metadata_arr[] = '<meta itemprop="contentUrl" content="' . esc_url( $image_data['url'] ) . '" />';
 
         if ( apply_filters( 'amt_extended_image_tags', true ) ) {
             if ( ! is_null($image_data['width']) ) {
@@ -1882,7 +1884,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
         $metadata_arr['@type'] = 'Person';
 
         // headline - contains title information
-        $metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $author) );
+        // NOTE: Not supported for person
+        //$metadata_arr['headline'] = esc_attr( amt_get_title_for_metadata($options, $author) );
 
         // Get author metatags
 //        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_author_metatags( $author->ID, $options ) );
@@ -1972,7 +1975,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 // Allow filtering of the image size.
                 $image_size = apply_filters( 'amt_image_size_product', 'full' );
                 // Get image metatags.
-                $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $image, $size=$image_size );
+                $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $options, $image, $size=$image_size );
                 // metadata END
 //                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
                 // Images have been found.
@@ -2126,7 +2129,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             // Allow filtering of the image size.
             $image_size = apply_filters( 'amt_image_size_attachment', 'full' );
             // Get image metatags. $post is an image object.
-            $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_image_array( $post, $size=$image_size, $is_representative=true ) );
+            $metadata_arr = array_merge( $metadata_arr, amt_get_jsonld_schemaorg_image_array( $options, $post, $size=$image_size, $is_representative=true ) );
 
             // Add the post body here
 //            $metadata_arr[] = $post_body;
@@ -2393,8 +2396,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                 // Allow filtering of the image size.
                 $image_size = apply_filters( 'amt_image_size_content', 'full' );
                 // Get image metatags.
-//                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
-                $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $image, $size=$image_size );
+//                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $options, $image, $size=$image_size ) );
+                $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $options, $image, $size=$image_size );
                 // metadata END
 //                $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
                 // Finally, set the $featured_image_id
@@ -2426,8 +2429,8 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
                         // Allow filtering of the image size.
                         $image_size = apply_filters( 'amt_image_size_content', 'full' );
                         // Get image metatags.
-//                        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $attachment, $size=$image_size ) );
-                        $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $attachment, $size=$image_size );
+//                        $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $options, $attachment, $size=$image_size ) );
+                        $metadata_arr['image'][] = amt_get_jsonld_schemaorg_image_array( $options, $attachment, $size=$image_size );
                         // metadata END
 //                        $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
 
@@ -2756,6 +2759,7 @@ function amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size='med
 
         // Image tags
         $metadata_arr['url'] = esc_url( $image_data['url'] );
+        $metadata_arr['contentUrl'] = esc_url( $image_data['url'] );
 
         if ( apply_filters( 'amt_extended_image_tags', true ) ) {
             if ( ! is_null($image_data['width']) ) {
