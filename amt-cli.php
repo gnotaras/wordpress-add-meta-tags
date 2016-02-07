@@ -259,6 +259,39 @@ class AMT_Command extends WP_CLI_Command {
             }
         }
 
+        // Export AMT term data
+        elseif ( $what == 'termdata' ) {
+            // Get taxonomies
+            // Get the custom taxonomy names.
+            // Arguments in order to retrieve all public custom taxonomies
+            $tax_args = array(
+                'public'   => true,
+                '_builtin' => true,
+            );
+            $tax_output = 'names'; // names or objects
+            $tax_operator = 'and'; // 'and' or 'or'
+            $taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
+            // Get terms
+            $qr_args = array(
+                'orderby'      => 'id',
+                'order'        => 'ASC',
+                'fields'       => 'all',
+            );
+            $terms_arr = get_terms( $taxonomies, $qr_args );
+            // Iterate over our fields and export
+            $amt_term_fields = amt_get_term_custom_field_names();
+            foreach ( $terms_arr as $term ) {
+                foreach ( $amt_term_fields as $amt_term_field ) {
+                    $amt_term_field_value = get_term_meta( $term->term_id, $amt_term_field, true );
+                    if ( ! empty($amt_term_field_value) ) {
+                        // Export format: <term_id>;<amt_term_field>;<serialized_value>
+                        //echo json_encode( sprintf( '%s;%s;%s', $term->term_id, $amt_field, $amt_field_value ) );
+                        $output[] = array($term->term_id, $amt_term_field, $amt_term_field_value);
+                    }
+                }
+            }
+        }
+
         // Print output
         if ( ! empty($output) ) {
             echo json_encode($output, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
@@ -343,6 +376,24 @@ class AMT_Command extends WP_CLI_Command {
             }
 
             WP_CLI::success( 'Add-Meta-Tags user data was imported successfully.' );
+        }
+
+        // Import AMT term meta
+        elseif ( $what == 'termdata' ) {
+            $data = json_decode( file_get_contents('php://stdin') );
+            if ( empty($data) || ! is_array($data) || empty($data[0]) ) {
+                WP_CLI::error( 'No data found.' );
+            }
+            $amt_term_fields = amt_get_term_custom_field_names();
+            foreach ( $data as $term_meta_info ) {
+                // Format: array( <id>, <field_name>, <field_value> )
+                if ( ! is_array($term_meta_info) || count($term_meta_info) != 3 || ! in_array( $term_meta_info[1], $amt_term_fields) || ! is_numeric($term_meta_info[0] ) ) {
+                    WP_CLI::error('Invalid data: not term contact infos');
+                }
+                update_term_meta( $term_meta_info[0], $term_meta_info[1], $term_meta_info[2] );
+            }
+
+            WP_CLI::success( 'Add-Meta-Tags term data was imported successfully.' );
         }
 
     }
@@ -440,7 +491,36 @@ class AMT_Command extends WP_CLI_Command {
                     delete_user_meta( $user->ID, $amt_user_field );
                 }
             }
-            WP_CLI::line( 'Deleted user contact info fields.' );
+            WP_CLI::line( 'Deleted user meta fields.' );
+        }
+
+        // Delete AMT term data
+        elseif ( $what == 'termdata' || $what == 'all' ) {
+            // Get taxonomies
+            // Get the custom taxonomy names.
+            // Arguments in order to retrieve all public custom taxonomies
+            $tax_args = array(
+                'public'   => true,
+                '_builtin' => true,
+            );
+            $tax_output = 'names'; // names or objects
+            $tax_operator = 'and'; // 'and' or 'or'
+            $taxonomies = get_taxonomies( $tax_args, $tax_output, $tax_operator );
+            // Get terms
+            $qr_args = array(
+                'orderby'      => 'id',
+                'order'        => 'ASC',
+                'fields'       => 'all',
+            );
+            $terms_arr = get_terms( $taxonomies, $qr_args );
+            // Iterate over our fields and export
+            $amt_term_fields = amt_get_term_custom_field_names();
+            foreach ( $terms_arr as $term ) {
+                foreach ( $amt_term_fields as $amt_term_field ) {
+                    delete_term_meta( $term->term_id, $amt_term_field );
+                }
+            }
+            WP_CLI::line( 'Deleted term meta fields.' );
         }
 
         // Delete transient metadata cache
