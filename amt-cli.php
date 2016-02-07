@@ -293,7 +293,8 @@ class AMT_Command extends WP_CLI_Command {
 
         // Import AMT settings
         if ( $what == 'settings' ) {
-            $data = json_decode( file_get_contents('php://stdin') );
+            $data = json_decode( file_get_contents('php://stdin'), true );  // true converts to associative array
+            //var_dump($data);
             if ( empty($data) || ! is_array($data) ) {
                 WP_CLI::error( 'No data found.' );
             }
@@ -304,6 +305,8 @@ class AMT_Command extends WP_CLI_Command {
             //var_dump( $options );
             update_option("add_meta_tags_opts", $data);
             amt_plugin_upgrade();
+
+            WP_CLI::success( 'Add-Meta-Tags settings imported successfully.' );
         }
 
         // Import AMT post custom fields
