@@ -2390,6 +2390,78 @@ function amt_get_the_hreflang($locale, $options) {
 }
 
 
+//
+// Returns array with attributes
+// or NULL
+function amt_get_image_attributes_array( $notation ) {
+    // Special notation about the default image:
+    //      URL[,WIDTHxHEIGHT]
+
+    if ( empty( $notation ) ) {
+        return;
+    }
+
+    $data = array(
+        'id'    => null,   // This function always returns a null attachment id.
+        // Filled from special notation
+        'url'   => null,
+        'width' => null,
+        'height' => null,
+        'type'  => null,
+    );
+
+    $parts = explode(',', $notation);
+    $parts_count = count($parts);
+
+    // URL
+    if ( $parts_count == 1 ) {
+
+        // Retrieve URL
+        if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
+            //var_dump($matches);
+            $data['url'] = $matches[1];
+
+            // Also try to determine the image type
+            $extension = substr( $data['url'], strrpos($data['url'], '.') + 1);
+            if ( $extension == 'jpg' ) {
+                $extension = 'jpeg';
+            }
+            if ( in_array( $extension, array('jpeg', 'png', 'gif', 'bmp') ) ) {
+                $data['type'] = 'image/' . $extension;
+            }
+        }
+
+    // URL,WIDTHxHEIGHT
+    } elseif ( $parts_count == 2 ) {
+
+        // Retrieve URL
+        if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
+            //var_dump($matches);
+            $data['url'] = $matches[1];
+
+            // Also try to determine the image type
+            $extension = substr( $data['url'], strrpos($data['url'], '.') + 1);
+            if ( $extension == 'jpg' ) {
+                $extension = 'jpeg';
+            }
+            if ( in_array( $extension, array('jpeg', 'png', 'gif', 'bmp') ) ) {
+                $data['type'] = 'image/' . $extension;
+            }
+
+            // Retrieve width and height
+            if ( preg_match('#^([\d]+)x([\d]+)$#', $parts[1], $matches) ) {
+                //var_dump($matches);
+                $data['width'] = $matches[1];
+                $data['height'] = $matches[2];
+            }
+        }
+
+    }
+
+    return $data;
+}
+
+
 // Function that returns an array with data about the default image.
 function amt_get_default_image_data() {
 
@@ -2403,7 +2475,7 @@ function amt_get_default_image_data() {
     // The default_image_url option accepts:
     // 1. An attachment ID
     // 2. Special notation about the default image:
-    //      URL[,WIDTHxHEIGHT][,TYPE]
+    //      URL[,WIDTHxHEIGHT]
 
     $data = array(
         'id'    => null,   // post ID of attachment
@@ -2425,53 +2497,9 @@ function amt_get_default_image_data() {
         if ( is_numeric($value) ) {
             $data['id'] = absint($value);
 
-        // Alternatively, check for URL
+        // Alternatively, check for special notation
         } else {
-
-            $parts = explode(',', $value);
-            $parts_count = count($parts);
-
-            // URL
-            if ( $parts_count == 1 ) {
-                // Retrieve URL
-                if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
-//var_dump($matches);
-                    $data['url'] = $matches[1];
-                }
-
-            // URL,WIDTHxHEIGHT
-            } elseif ( $parts_count == 2 ) {
-                // Retrieve URL
-                if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
-//var_dump($matches);
-                    $data['url'] = $matches[1];
-                    // Retrieve width and height
-                    if ( preg_match('#^([\d]+)x([\d]+)$#', $parts[1], $matches) ) {
-//var_dump($matches);
-                        $data['width'] = $matches[0][0];
-                        $data['height'] = $matches[0][1];
-                    }
-                }
-
-            // URL,WIDTHxHEIGHT,TYPE
-            } elseif ( $parts_count == 3 ) {
-                // Retrieve URL
-                if ( preg_match('#^(https?://.+)$#', $parts[0], $matches) ) {
-//var_dump($matches);
-                    $data['url'] = $matches[1];
-                    // Retrieve width and height
-                    if ( preg_match('#^([\d]+)x([\d]+)$#', $parts[1], $matches) ) {
-//var_dump($matches);
-                        $data['width'] = $matches[0][0];
-                        $data['height'] = $matches[0][1];
-                        // Retrieve image type (expected: jpg/jpeg/png/gif etc)
-                        if ( preg_match('#^(jpe?g|png|gif|bmp)$#', $parts[2], $matches) ) {
-//var_dump($matches);
-                            $data['type'] = 'image/' . $matches[1];
-                        }
-                    }
-                }
-            }
+            $data = amt_get_image_attributes_array( $value );
 
         }
 
