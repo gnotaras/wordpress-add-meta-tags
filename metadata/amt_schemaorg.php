@@ -575,7 +575,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
                 // Allow filtering of the image size.
                 $image_size = apply_filters( 'amt_image_size_product', 'full' );
                 // Get image metatags.
-                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $image, $size=$image_size ) );
+                $metadata_arr = array_merge( $metadata_arr, amt_get_schemaorg_image_metatags( $options, $image, $size=$image_size ) );
                 // metadata END
                 $metadata_arr[] = '</span> <!-- Scope END: ImageObject -->';
                 // Images have been found.
