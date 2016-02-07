@@ -198,8 +198,8 @@ class AMT_Command extends WP_CLI_Command {
     function export( $args, $assoc_args ) {
         list( $what ) = $args;
 
-        if ( ! in_array($what, array('settings', 'postdata', 'userdata')) ) {
-            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: settings|postdata|userdata)' );
+        if ( ! in_array($what, array('settings', 'postdata', 'userdata', 'termdata')) ) {
+            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: settings|postdata|userdata|termdata)' );
         }
 
         $output = array();
@@ -287,8 +287,8 @@ class AMT_Command extends WP_CLI_Command {
     function import( $args, $assoc_args ) {
         list( $what ) = $args;
 
-        if ( ! in_array($what, array('settings', 'postdata', 'userdata')) ) {
-            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: settings|postdata|userdata)' );
+        if ( ! in_array($what, array('settings', 'postdata', 'userdata', 'termdata')) ) {
+            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: settings|postdata|userdata|termdata)' );
         }
 
         // Import AMT settings
@@ -371,8 +371,8 @@ class AMT_Command extends WP_CLI_Command {
     function clean( $args, $assoc_args ) {
         list( $what ) = $args;
 
-        if ( ! in_array($what, array('all', 'settings', 'postdata', 'userdata', 'cache')) ) {
-            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: all|settings|postdata|userdata|cache)' );
+        if ( ! in_array($what, array('all', 'settings', 'postdata', 'userdata', 'termdata', 'cache')) ) {
+            WP_CLI::error( 'Invalid argument: ' . $what . ' (valid: all|settings|postdata|userdata|termdata|cache)' );
         }
 
         if ( $assoc_args['assume-yes'] ) {
