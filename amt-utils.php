@@ -2077,8 +2077,8 @@ function amt_get_embedded_media( $post ) {
                 'page' => $soundcloud_url,
                 'player' => 'https://w.soundcloud.com/player/?url=' . $soundcloud_url,
                 'thumbnail' => apply_filters( 'amt_oembed_soundcloud_image_preview', '', $soundcloud_url ),
-                'width' => apply_filters( 'amt_oembed_soundcloud_player_width', '640' ),
-                'height' => apply_filters( 'amt_oembed_soundcloud_player_height', '164' ),
+                'width' => $player_width,
+                'height' => $player_height,
             );
             array_push( $embedded_media_urls['sounds'], $item );
         }
