@@ -184,15 +184,16 @@ class AMT_Command extends WP_CLI_Command {
      * ## OPTIONS
      * 
      * <what>
-     * : The type of data to be exported. Supported: settings|postdata|userdata
+     * : The type of data to be exported. Supported: settings|postdata|userdata|termdata
      * 
      * ## EXAMPLES
      * 
      *     wp amt export settings
      *     wp amt export postdata
      *     wp amt export userdata
+     *     wp amt export termdata
      *
-     * @synopsis <settings|postdata|userdata>
+     * @synopsis <settings|postdata|userdata|termdata>
      */
     function export( $args, $assoc_args ) {
         list( $what ) = $args;
@@ -237,7 +238,7 @@ class AMT_Command extends WP_CLI_Command {
             }
         }
 
-        // Export AMT contact infos
+        // Export AMT user data
         elseif ( $what == 'userdata' ) {
             $qr_args = array(
                 'orderby'      => 'login',
@@ -272,15 +273,16 @@ class AMT_Command extends WP_CLI_Command {
      * ## OPTIONS
      * 
      * <what>
-     * : The type of data to be imported. Supported: settings|postdata|userdata
+     * : The type of data to be imported. Supported: settings|postdata|userdata|termdata
      * 
      * ## EXAMPLES
      * 
      *     wp amt import settings
      *     wp amt import postdata
      *     wp amt import userdata
+     *     wp amt import termdata
      *
-     * @synopsis <settings|postdata|userdata>
+     * @synopsis <settings|postdata|userdata|termdata>
      */
     function import( $args, $assoc_args ) {
         list( $what ) = $args;
@@ -322,7 +324,7 @@ class AMT_Command extends WP_CLI_Command {
             WP_CLI::success( 'Add-Meta-Tags post data was imported successfully.' );
         }
 
-        // Import AMT contact infos
+        // Import AMT user meta
         elseif ( $what == 'userdata' ) {
             $data = json_decode( file_get_contents('php://stdin') );
             if ( empty($data) || ! is_array($data) || empty($data[0]) ) {
@@ -349,7 +351,7 @@ class AMT_Command extends WP_CLI_Command {
      * ## OPTIONS
      * 
      * <what>
-     * : The type of data to be removed. Supported: all|settings|postdata|userdata|cache
+     * : The type of data to be removed. Supported: all|settings|postdata|userdata|termdata|cache
      * 
      * [--assume-yes]
      * : Run in non interactive mode.
@@ -360,10 +362,11 @@ class AMT_Command extends WP_CLI_Command {
      *     wp amt clean settings
      *     wp amt clean postdata
      *     wp amt clean userdata
+     *     wp amt clean termdata
      *     wp amt clean cache
      *     wp amt clean cache --assume-yes
      *
-     * @synopsis <all|settings|postdata|userdata|cache> [--assume-yes]
+     * @synopsis <all|settings|postdata|userdata|termdata|cache> [--assume-yes]
      */
     function clean( $args, $assoc_args ) {
         list( $what ) = $args;
@@ -420,7 +423,7 @@ class AMT_Command extends WP_CLI_Command {
             WP_CLI::line( 'Deleted post custom fields.' );
         }
 
-        // Delete AMT contact infos
+        // Delete AMT user data
         elseif ( $what == 'userdata' || $what == 'all' ) {
             $qr_args = array(
                 'orderby'      => 'login',
