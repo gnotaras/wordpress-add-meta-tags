@@ -2068,3 +2068,388 @@ function amt_save_postdata( $post_id, $post ) {
 }
 
 
+
+//
+//
+// Extra fields to taxonomy terms
+//
+//
+
+function amt_add_extra_section_fields_terms() {
+    $taxonomies = get_taxonomies();
+    if ( ! empty($taxonomies) ) {
+        foreach ( $taxonomies as $key => $taxonomy_slug ) {
+            // For new term additions.
+            //add_action( $taxonomy_slug . '_add_form_fields', 'amt_taxonomy_extra_fields_show', 9999, 2 );
+            // For editing current terms.
+            add_action( $taxonomy_slug . '_edit_form_fields', 'amt_taxonomy_extra_fields_show', 9999, 2 );
+
+            // Store data when created
+            //add_action( 'created_' . $taxonomy_slug, 'amt_taxonomy_extra_fields_save', 10, 2 );
+            // Store data when edited
+            add_action( 'edited_' . $taxonomy_slug, 'amt_taxonomy_extra_fields_save', 10, 2 );
+        }
+    }
+}
+add_action('admin_init', 'amt_add_extra_section_fields_terms');
+
+
+function amt_taxonomy_extra_fields_show( $term, $taxonomy_slug ) {
+
+    // Use a nonce field for verification
+    wp_nonce_field( plugin_basename( AMT_PLUGIN_FILE ), 'amt_noncename' );
+
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
+    // Get the Add-Meta-Tags options.
+    $options = amt_get_options();
+
+    // Store term ID
+    $term_id = $term->term_id;
+
+    // Display the meta box HTML code.
+
+    $metabox_has_features = false;
+
+    print('
+        <tr class="form-field">
+        <th scope="row"><h3>'.__('Add-Meta-Tags', 'add-meta-tags').'</h3></th>
+        <td></td>
+        </tr>
+    ');
+
+    // per post full meta tags
+    
+    // Full meta tags box permission check (can be user customized via filter).
+    if ( $options['metabox_term_enable_full_metatags'] == '1' && current_user_can( $metabox_permissions['term_full_metatags_box_capability'] ) ) {
+        $metabox_has_features = true;
+
+        // Retrieve the field data from the database.
+        $custom_full_metatags_value = amt_get_term_meta_full_metatags( $term_id );
+
+        print('
+
+            <tr class="form-field term-amt_custom_full_metatags-wrap">
+            <th scope="row"><label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').'</label></th>
+            <td>
+                <textarea class="large-text code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="50" rows="6" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
+                <p class="description">
+                    '.__('Provide the full XHTML code of extra <a target="_blank" href="http://en.wikipedia.org/wiki/Meta_element" target="_blank"><code>meta</code></a> and <code>link</code> <a target="_blank" href="https://en.wikipedia.org/wiki/HTML_element">HTML elements</a>. To automatically add paging information to URLs, append the <code>PAGEINFO</code> placeholder. For example:', 'add-meta-tags').'
+                    <br /><br />
+                    <code>&lt;meta name="robots" content="noodp,noarchive,notranslate,noimageindex" /&gt;</code>
+                    <br />
+                    <code>&lt;link rel="prefetch" href="http://www.example.org/landing-page.html" /&gt;</code>
+                    <br />
+                    <code>&lt;link rel="alternate" hreflang="el" href="http://example.org/section/multimedia/PAGEINFO" /&gt;</code>
+                    <br />
+                </p>
+            </td>
+            </tr>
+
+        ');
+
+    }
+
+
+    // Image URL (global override)
+    
+    // 'image_url' box permission check (can be user customized via filter).
+    if ( $options['metabox_term_enable_image_url'] == '1' && current_user_can( $metabox_permissions['term_image_url_box_capability'] ) ) {
+        $metabox_has_features = true;
+
+        // Retrieve the field data from the database.
+        $custom_image_url_value = amt_get_term_meta_image_url( $term_id );
+
+        print('
+            <tr class="form-field term-amt_custom_image_url-wrap">
+            <th scope="row"><label for="amt_custom_image_url">'.__('Image URL', 'add-meta-tags').'</label></th>
+            <td>
+            <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . esc_url_raw( stripslashes( $custom_image_url_value ) ) . '" />
+            <p class="description">
+                '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
+                <br />
+            </p>
+            </td>
+            </tr>
+
+        ');
+
+    }
+
+    // If no features have been enabled, print an informative message
+    if ( $metabox_has_features === false ) {
+        print('
+
+        <tr class="form-field">
+        <th scope="row">'.__('Notice', 'add-meta-tags').'</th>
+        <td>
+            <p>'.__(sprintf( 'No features have been enabled for this metabox in the Add-Meta-Tags <a href="%s">settings</a> or you do not have enough permissions to access the available features.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
+        </td>
+        </tr>
+        ');
+    }
+
+}
+
+
+// When the term is saved
+function amt_taxonomy_extra_fields_save( $term_id, $taxonomy_id ) {
+
+    /* Verify the nonce before proceeding. */
+    // Verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if ( ! isset($_POST['amt_noncename']) || ! wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( AMT_PLUGIN_FILE ) ) )
+        return;
+
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
+    // Global Metadata metabox permission check (can be user customized via filter).
+    if ( ! current_user_can( $metabox_permissions['global_metabox_capability'] ) ) {
+        return;
+    }
+
+    // Get the Add-Meta-Tags options.
+    $options = amt_get_options();
+
+    // Check if the current user has permission to edit the post.
+	if ( ! current_user_can( 'edit_published_posts' ) ) {
+		return;
+    }
+
+    // OK, we're authenticated: we need to find and save the data
+
+    //
+    // Sanitize user input
+    //
+
+    // Full metatags - We allow only <meta> elements.
+    if ( isset( $_POST['amt_custom_full_metatags'] ) ) {
+        $full_metatags_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_full_metatags'] ), amt_get_allowed_html_kses() ) );
+    }
+    // Image URL
+    if ( isset( $_POST['amt_custom_image_url'] ) ) {
+        $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
+    }
+
+    // If a value has not been entered we try to delete existing data from the database
+    // If the user has entered data, store it in the database.
+
+    // Add-Meta-Tags custom field names
+    $amt_full_metatags_field_name = '_amt_term_full_metatags';
+    $amt_image_url_field_name = '_amt_term_image_url';
+
+    // As an extra security measure, here we also check the user-defined per box
+    // permissions before we save any data in the database.
+
+    // per term full meta tags
+    if ( $options['metabox_term_enable_full_metatags'] == '1' && current_user_can( $metabox_permissions['term_full_metatags_box_capability'] ) ) {
+        if ( empty($full_metatags_value) ) {
+            delete_term_meta($term_id, $amt_full_metatags_field_name);
+        } else {
+            update_term_meta($term_id, $amt_full_metatags_field_name, $full_metatags_value);
+        }
+    }
+
+    // Image URL
+    if ( $options['metabox_term_enable_image_url'] == '1' && current_user_can( $metabox_permissions['term_image_url_box_capability'] ) ) {
+        if ( empty($image_url_value) ) {
+            delete_term_meta($term_id, $amt_image_url_field_name);
+        } else {
+            update_term_meta($term_id, $amt_image_url_field_name, $image_url_value);
+        }
+    }
+
+}
+
+
+//
+//
+// Extra fields to WordPress user profiles
+//
+//
+
+function amt_add_extra_section_fields_users() {
+    $taxonomies = get_taxonomies();
+    if ( ! empty($taxonomies) ) {
+        foreach ( $taxonomies as $key => $taxonomy_slug ) {
+            // Show/edit
+            add_action( 'show_user_profile', 'amt_user_extra_fields_show' );
+            add_action( 'edit_user_profile', 'amt_user_extra_fields_show' );
+
+            // Store data when created
+            add_action( 'personal_options_update', 'amt_user_extra_fields_save' );
+            add_action( 'edit_user_profile_update', 'amt_user_extra_fields_save' );
+        }
+    }
+}
+add_action('admin_init', 'amt_add_extra_section_fields_users');
+
+
+function amt_user_extra_fields_show( $user ) {
+
+    // Use a nonce field for verification
+    wp_nonce_field( plugin_basename( AMT_PLUGIN_FILE ), 'amt_noncename' );
+
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
+    // Get the Add-Meta-Tags options.
+    $options = amt_get_options();
+
+    // Display the meta box HTML code.
+
+    $metabox_has_features = false;
+
+    print('
+        <h3>'.__('Add-Meta-Tags', 'add-meta-tags').'</h3>
+
+        <table class="form-table">
+            <tbody>
+    ');
+
+    // per post full meta tags
+    // Full meta tags box permission check (can be user customized via filter).
+    if ( $options['metabox_user_enable_full_metatags'] == '1' && current_user_can( $metabox_permissions['user_full_metatags_box_capability'] ) ) {
+        $metabox_has_features = true;
+
+        // Retrieve the field data from the database.
+        $custom_full_metatags_value = amt_get_user_meta_full_metatags( $user->ID );
+
+        print('
+
+            <tr class="form-field user-amt_custom_full_metatags-wrap">
+            <th scope="row"><label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').'</label></th>
+            <td>
+                <textarea class="large-text code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="50" rows="6" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
+                <p class="description">
+                    '.__('Provide the full XHTML code of extra <a target="_blank" href="http://en.wikipedia.org/wiki/Meta_element" target="_blank"><code>meta</code></a> and <code>link</code> <a target="_blank" href="https://en.wikipedia.org/wiki/HTML_element">HTML elements</a>. To automatically add paging information to URLs, append the <code>PAGEINFO</code> placeholder. For example:', 'add-meta-tags').'
+                    <br /><br />
+                    <code>&lt;meta name="robots" content="noodp,noarchive,notranslate,noimageindex" /&gt;</code>
+                    <br />
+                    <code>&lt;link rel="prefetch" href="http://www.example.org/landing-page.html" /&gt;</code>
+                    <br />
+                    <code>&lt;link rel="alternate" hreflang="el" href="http://example.org/section/multimedia/PAGEINFO" /&gt;</code>
+                    <br />
+                </p>
+            </td>
+            </tr>
+
+        ');
+
+    }
+
+
+    // Image URL (global override)
+    
+    // 'image_url' box permission check (can be user customized via filter).
+    if ( $options['metabox_user_enable_image_url'] == '1' && current_user_can( $metabox_permissions['user_image_url_box_capability'] ) ) {
+        $metabox_has_features = true;
+
+        // Retrieve the field data from the database.
+        $custom_image_url_value = amt_get_user_meta_image_url( $user->ID );
+
+        print('
+            <tr class="form-field user-amt_custom_image_url-wrap">
+            <th scope="row"><label for="amt_custom_image_url">'.__('Image URL', 'add-meta-tags').'</label></th>
+            <td>
+            <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . esc_url_raw( stripslashes( $custom_image_url_value ) ) . '" />
+            <p class="description">
+                '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
+                <br />
+            </p>
+            </td>
+            </tr>
+
+        ');
+
+    }
+
+    print('
+            </tbody>
+        </table>
+    ');
+
+    // If no features have been enabled, print an informative message
+    if ( $metabox_has_features === false ) {
+        print('
+            <p>'.__(sprintf( 'No features have been enabled for this metabox in the Add-Meta-Tags <a href="%s">settings</a> or you do not have enough permissions to access the available features.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
+        ');
+    }
+
+}
+
+
+// When the user profile is saved
+function amt_user_extra_fields_save( $user_id ) {
+
+    /* Verify the nonce before proceeding. */
+    // Verify this came from the our screen and with proper authorization,
+    // because save_post can be triggered at other times
+    if ( ! isset($_POST['amt_noncename']) || ! wp_verify_nonce( $_POST['amt_noncename'], plugin_basename( AMT_PLUGIN_FILE ) ) )
+        return;
+
+    // Get the Metadata metabox permissions (filtered)
+    $metabox_permissions = amt_get_metadata_metabox_permissions();
+
+    // Global Metadata metabox permission check (can be user customized via filter).
+    if ( ! current_user_can( $metabox_permissions['global_metabox_capability'] ) ) {
+        return;
+    }
+
+    // Get the Add-Meta-Tags options.
+    $options = amt_get_options();
+
+    // Check if the current user has permission to edit the post.
+	if ( ! current_user_can( 'edit_published_posts' ) ) {
+		return;
+    }
+
+    // OK, we're authenticated: we need to find and save the data
+
+    //
+    // Sanitize user input
+    //
+
+    // Full metatags - We allow only <meta> elements.
+    if ( isset( $_POST['amt_custom_full_metatags'] ) ) {
+        $full_metatags_value = esc_textarea( wp_kses( stripslashes( $_POST['amt_custom_full_metatags'] ), amt_get_allowed_html_kses() ) );
+    }
+    // Image URL
+    if ( isset( $_POST['amt_custom_image_url'] ) ) {
+        $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
+    }
+
+    // If a value has not been entered we try to delete existing data from the database
+    // If the user has entered data, store it in the database.
+
+    // Add-Meta-Tags custom field names
+    $amt_full_metatags_field_name = '_amt_user_full_metatags';
+    $amt_image_url_field_name = '_amt_user_image_url';
+
+    // As an extra security measure, here we also check the user-defined per box
+    // permissions before we save any data in the database.
+
+    // per user profile full meta tags
+    if ( $options['metabox_user_enable_full_metatags'] == '1' && current_user_can( $metabox_permissions['user_full_metatags_box_capability'] ) ) {
+        if ( empty($full_metatags_value) ) {
+            delete_user_meta($user_id, $amt_full_metatags_field_name);
+        } else {
+            update_user_meta($user_id, $amt_full_metatags_field_name, $full_metatags_value);
+        }
+    }
+
+    // Image URL
+    if ( $options['metabox_user_enable_image_url'] == '1' && current_user_can( $metabox_permissions['user_image_url_box_capability'] ) ) {
+        if ( empty($image_url_value) ) {
+            delete_user_meta($user_id, $amt_image_url_field_name);
+        } else {
+            update_user_meta($user_id, $amt_image_url_field_name, $image_url_value);
+        }
+    }
+
+}
+
+
+
