@@ -313,7 +313,7 @@ class AMT_Command extends WP_CLI_Command {
                 WP_CLI::error( 'No data found.' );
             }
             $amt_post_fields = amt_get_post_custom_field_names();
-            foreach ( $data[0] as $post_meta_info ) {
+            foreach ( $data as $post_meta_info ) {
                 // Format: array( <id>, <field_name>, <field_value> )
                 if ( ! is_array($post_meta_info) || count($post_meta_info) != 3 || ! in_array( $post_meta_info[1], $amt_post_fields) || ! is_numeric($post_meta_info[0] ) ) {
                     WP_CLI::error('Invalid data: not post custom field data');
@@ -331,7 +331,7 @@ class AMT_Command extends WP_CLI_Command {
                 WP_CLI::error( 'No data found.' );
             }
             $amt_user_fields = amt_get_user_custom_field_names();
-            foreach ( $data[0] as $user_meta_info ) {
+            foreach ( $data as $user_meta_info ) {
                 // Format: array( <id>, <field_name>, <field_value> )
                 if ( ! is_array($user_meta_info) || count($user_meta_info) != 3 || ! in_array( $user_meta_info[1], $amt_user_fields) || ! is_numeric($user_meta_info[0] ) ) {
                     WP_CLI::error('Invalid data: not user contact infos');
