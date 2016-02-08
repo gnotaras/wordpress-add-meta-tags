@@ -3176,6 +3176,10 @@ function amt_get_jsonld_schemaorg_author_array( $author_id, $options ) {
     if ( !empty($user_url) ) {
         $metadata_arr['sameAs'][] = esc_url_raw( $user_url, array('http', 'https') );
     }
+    // Check if empty
+    if ( empty($metadata_arr['sameAs']) ) {
+        unset($metadata_arr['sameAs']);
+    }
 
     // Allow filtering of the Author meta tags
     $metadata_arr = apply_filters( 'amt_jsonld_schemaorg_author_extra', $metadata_arr );
