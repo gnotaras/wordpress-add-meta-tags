@@ -1817,9 +1817,40 @@ function amt_get_posts_page_id() {
 }
 
 
-/**
- * Returns an array with URLs to players for some embedded media.
- */
+//
+//function amt_store_oembed_response( $return, $data, $url ) {
+//    /**
+//     * Filter the returned oEmbed HTML.
+//     *
+//     * Use this filter to add support for custom data types, or to filter the result.
+//     *
+//     * @since 2.9.0
+//     *
+//     * @param string $return The returned oEmbed HTML.
+//     * @param object $data   A data object result from an oEmbed provider.
+//     * @param string $url    The URL of the content to be embedded.
+//     */
+//return apply_filters( 'oembed_dataparse', $return, $data, $url );
+//}
+//add_filter('oembed_dataparse', 'amt_store_oembed_response', 9999, 3);
+//
+// SEE:
+// * http://wordpress.stackexchange.com/questions/70752/featured-image-of-video-from-oembed
+// * http://wordpress.stackexchange.com/questions/19500/oembed-thumbnails-and-wordpress?lq=1
+// * http://wordpress.stackexchange.com/questions/114656/detecting-embed-urls-within-post-content
+// * http://wordpress.stackexchange.com/a/74026
+// * http://wordpress.stackexchange.com/a/180169
+// * http://wordpress.stackexchange.com/questions/78140/video-playing-from-featured-image?lq=1
+// * http://wordpress.stackexchange.com/questions/73996/how-to-replace-youtube-videos-with-a-click-to-play-thumbnail?lq=1
+// GOOD FOR OWN IMPLEMENTATION:
+// * http://wordpress.stackexchange.com/questions/78140/video-playing-from-featured-image?lq=1
+// * http://wordpress.stackexchange.com/questions/25808/setting-a-posts-featured-image-from-an-embedded-youtube-video?rq=1
+// * http://wordpress.stackexchange.com/questions/70752/featured-image-of-video-from-oembed
+//
+
+//
+// Returns an array with URLs to players for some embedded media.
+//
 function amt_get_embedded_media( $post ) {
 
     // Non persistent object cache
