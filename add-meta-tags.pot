@@ -24,9 +24,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: add-meta-tags 2.10.8\n"
+"Project-Id-Version: add-meta-tags 2.10.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-04 19:32+0200\n"
+"POT-Creation-Date: 2016-02-08 12:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,11 +39,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: add-meta-tags.php:724 amt-admin-panel.php:90 amt-admin-panel.php:1445
+#: add-meta-tags.php:730 amt-admin-panel.php:90 amt-admin-panel.php:1482
 msgid "Metadata"
 msgstr ""
 
-#: add-meta-tags.php:729
+#: add-meta-tags.php:735
 msgid "Metadata Review Mode"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr ""
 #: amt-admin-panel.php:207 amt-admin-panel.php:212 amt-admin-panel.php:217
 #: amt-admin-panel.php:366 amt-admin-panel.php:434 amt-admin-panel.php:439
 #: amt-admin-panel.php:798 amt-admin-panel.php:810 amt-admin-panel.php:820
-#: amt-admin-panel.php:832 amt-admin-panel.php:842 amt-admin-panel.php:1620
+#: amt-admin-panel.php:832 amt-admin-panel.php:842 amt-admin-panel.php:1657
 msgid "Example"
 msgstr ""
 
@@ -171,8 +171,8 @@ msgstr ""
 msgid "Examples"
 msgstr ""
 
-#: amt-admin-panel.php:190 amt-admin-panel.php:1717
-msgid "Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag."
+#: amt-admin-panel.php:190 amt-admin-panel.php:1754
+msgid "Moreover, the full meta tags box accepts the special notation <code>[field=Field Name]</code> which lets you use data from a Custom Field with name <em>Field Name</em>. This special notation may exist anywhere inside the meta tag. To automatically add paging information to URLs, append the <code>PAGEINFO</code> placeholder."
 msgstr ""
 
 #: amt-admin-panel.php:195
@@ -510,7 +510,7 @@ msgid "Custom description."
 msgstr ""
 
 #: amt-admin-panel.php:391 amt-admin-panel.php:392 amt-admin-panel.php:1022
-#: amt-admin-panel.php:1027 amt-admin-panel.php:1090
+#: amt-admin-panel.php:1027 amt-admin-panel.php:1127
 msgid "Recommended"
 msgstr ""
 
@@ -526,11 +526,13 @@ msgstr ""
 msgid "Custom news keywords. (<a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">more info</a>)"
 msgstr ""
 
-#: amt-admin-panel.php:395 amt-admin-panel.php:1042
+#: amt-admin-panel.php:395 amt-admin-panel.php:1042 amt-admin-panel.php:1075
+#: amt-admin-panel.php:1093
 msgid "Full meta tags box."
 msgstr ""
 
-#: amt-admin-panel.php:396 amt-admin-panel.php:1047
+#: amt-admin-panel.php:396 amt-admin-panel.php:1047 amt-admin-panel.php:1080
+#: amt-admin-panel.php:1098
 msgid "Global image override."
 msgstr ""
 
@@ -566,7 +568,7 @@ msgstr ""
 msgid "This section contains information about the general Add-Meta-Tags settings."
 msgstr ""
 
-#: amt-admin-panel.php:413 amt-admin-panel.php:1077
+#: amt-admin-panel.php:413 amt-admin-panel.php:1114
 msgid "Add <code>NOODP</code> and <code>NOYDIR</code> to the <em>robots</em> meta tag."
 msgstr ""
 
@@ -582,7 +584,7 @@ msgstr ""
 msgid "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives: search results, date, tag, custom taxonomy, author archives. This is an advanced setting that aims at reducing the amount of duplicate content that gets indexed by search engines"
 msgstr ""
 
-#: amt-admin-panel.php:421 amt-admin-panel.php:1117
+#: amt-admin-panel.php:421 amt-admin-panel.php:1154
 msgid "Enforce the use of the content's custom title in the generated metadata."
 msgstr ""
 
@@ -590,7 +592,7 @@ msgstr ""
 msgid "It is possible to set a custom title for the content in the relevant field of the 'Metadata' box in the post editing screen. By default, this custom title is used to modify the <code>title</code> HTML element only. Add-Meta-Tags still uses the default content title in the relevant generated meta tags, for example in <code>og:title</code>/<code>twitter:title</code>/<code>dcterms:title</code>. If this option is enabled, then Add-Meta-Tags uses the custom title of the content, if such a custom title has been set, in the the generated meta data, instead of the default title."
 msgstr ""
 
-#: amt-admin-panel.php:425 amt-admin-panel.php:1124
+#: amt-admin-panel.php:425 amt-admin-panel.php:1161
 msgid "Enable advanced title management."
 msgstr ""
 
@@ -602,7 +604,7 @@ msgstr ""
 msgid "Please make sure to check the <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Requirements#Advanced-Title-Management\" target=\"_blank\">theme requirements</a> before enabling this feature."
 msgstr ""
 
-#: amt-admin-panel.php:431 amt-admin-panel.php:1134 amt-admin-panel.php:1137
+#: amt-admin-panel.php:431 amt-admin-panel.php:1171 amt-admin-panel.php:1174
 msgid "Copyright URL"
 msgstr ""
 
@@ -610,27 +612,27 @@ msgstr ""
 msgid "Enter an absolute URL to a document containing copyright and licensing information about your work. If this URL is set, the relevant meta tags will be added automatically on all the pages of your web site."
 msgstr ""
 
-#: amt-admin-panel.php:436 amt-admin-panel.php:1150 amt-admin-panel.php:1153
+#: amt-admin-panel.php:436 amt-admin-panel.php:1187 amt-admin-panel.php:1190
 msgid "Default Image"
 msgstr ""
 
 #: amt-admin-panel.php:438
-msgid "Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded."
+msgid "Enter an absolute URL to an image that represents your website, for instance the logo. This image will be used in the metadata of the front page and also in the metadata of the content, in case no featured image or other images have been attached or embedded. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>."
 msgstr ""
 
-#: amt-admin-panel.php:441 amt-admin-panel.php:1166 amt-admin-panel.php:1169
+#: amt-admin-panel.php:441 amt-admin-panel.php:1203 amt-admin-panel.php:1206
 msgid "Shortcodes"
 msgstr ""
 
-#: amt-admin-panel.php:443 amt-admin-panel.php:1172
+#: amt-admin-panel.php:443 amt-admin-panel.php:1209
 msgid "Enforce the expansion of shortcodes before generating a description."
 msgstr ""
 
-#: amt-admin-panel.php:445 amt-admin-panel.php:1180 amt-admin-panel.php:1183
+#: amt-admin-panel.php:445 amt-admin-panel.php:1217 amt-admin-panel.php:1220
 msgid "Secure Access"
 msgstr ""
 
-#: amt-admin-panel.php:447 amt-admin-panel.php:1186
+#: amt-admin-panel.php:447 amt-admin-panel.php:1223
 msgid "Media are accessible over HTTPS."
 msgstr ""
 
@@ -638,11 +640,11 @@ msgstr ""
 msgid "Currently this option, if enabled, lets the plugin make decisions about whether to generate additional secure links even if the active connection does not use HTTPS. For instance, if the web site is accessed over HTTP and this options is enabled, additional <code>og:image:secure_url</code> meta tags will be generated for your local media. If the current connection uses HTTPS, then secure links are always generated."
 msgstr ""
 
-#: amt-admin-panel.php:451 amt-admin-panel.php:1193 amt-admin-panel.php:1196
+#: amt-admin-panel.php:451 amt-admin-panel.php:1230 amt-admin-panel.php:1233
 msgid "Media Limit"
 msgstr ""
 
-#: amt-admin-panel.php:453 amt-admin-panel.php:1199
+#: amt-admin-panel.php:453 amt-admin-panel.php:1236
 msgid "Do not generate metadata for more than one media file of each type (image, video, audio)."
 msgstr ""
 
@@ -650,7 +652,7 @@ msgstr ""
 msgid "By default, metadata is generated for all media files that have been attached or embedded in the content. By enabling this option Add-Meta-Tags will generate metadata only for the first media file of each type (image, video, audio) it encounters. This limit does not affect the <code>gallery</code> Twitter Card, which always contains all the attached images."
 msgstr ""
 
-#: amt-admin-panel.php:457 amt-admin-panel.php:1206 amt-admin-panel.php:1209
+#: amt-admin-panel.php:457 amt-admin-panel.php:1243 amt-admin-panel.php:1246
 msgid "Review Mode"
 msgstr ""
 
@@ -778,7 +780,7 @@ msgstr ""
 msgid "Metadata caching is the last thing you should care about while configuring this plugin. You should consider enabling it only after you have finished configuring the rest of the settings."
 msgstr ""
 
-#: amt-admin-panel.php:530 amt-admin-panel.php:618
+#: amt-admin-panel.php:530 amt-admin-panel.php:618 amt-admin-panel.php:2203
 msgid "Notice"
 msgstr ""
 
@@ -961,358 +963,378 @@ msgstr ""
 msgid "The locale can be overridden on a per post basis. For this purpose, enabling the relevant metabox feature below is required."
 msgstr ""
 
-#: amt-admin-panel.php:1071 amt-admin-panel.php:1074
+#: amt-admin-panel.php:1071
+msgid "Taxonomy terms"
+msgstr ""
+
+#: amt-admin-panel.php:1089
+msgid "WordPress user profiles"
+msgstr ""
+
+#: amt-admin-panel.php:1108 amt-admin-panel.php:1111
 msgid "Extra SEO Options"
 msgstr ""
 
-#: amt-admin-panel.php:1081
+#: amt-admin-panel.php:1118
 msgid "Add <code>NOINDEX,FOLLOW</code> to the <em>robots</em> meta tag on following types of archives:"
 msgstr ""
 
-#: amt-admin-panel.php:1085
+#: amt-admin-panel.php:1122
 msgid "Search results."
 msgstr ""
 
-#: amt-admin-panel.php:1085
+#: amt-admin-panel.php:1122
 msgid "Highly recommended"
 msgstr ""
 
-#: amt-admin-panel.php:1090
+#: amt-admin-panel.php:1127
 msgid "Date based archives."
 msgstr ""
 
-#: amt-admin-panel.php:1095
+#: amt-admin-panel.php:1132
 msgid "Category based archives."
 msgstr ""
 
-#: amt-admin-panel.php:1095 amt-admin-panel.php:1100 amt-admin-panel.php:1105
-#: amt-admin-panel.php:1110
+#: amt-admin-panel.php:1132 amt-admin-panel.php:1137 amt-admin-panel.php:1142
+#: amt-admin-panel.php:1147
 msgid "Even if checked, the first page of this type of archive is always indexed."
 msgstr ""
 
-#: amt-admin-panel.php:1100
+#: amt-admin-panel.php:1137
 msgid "Tag based archives."
 msgstr ""
 
-#: amt-admin-panel.php:1105
+#: amt-admin-panel.php:1142
 msgid "Custom taxonomy based archives."
 msgstr ""
 
-#: amt-admin-panel.php:1110
+#: amt-admin-panel.php:1147
 msgid "Author based archives."
 msgstr ""
 
-#: amt-admin-panel.php:1125 amt-admin-panel.php:1217
+#: amt-admin-panel.php:1162 amt-admin-panel.php:1254
 msgid "Learn more"
 msgstr ""
 
-#: amt-admin-panel.php:1142
+#: amt-admin-panel.php:1179
 msgid "Enter an absolute URL to a document containing copyright and licensing information about your work."
 msgstr ""
 
-#: amt-admin-panel.php:1158
-msgid "Enter an absolute URL to an image that represents your website, for instance the logo."
+#: amt-admin-panel.php:1195
+msgid "Enter an absolute URL to an image that represents your website, for instance the logo. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>."
 msgstr ""
 
-#: amt-admin-panel.php:1212
+#: amt-admin-panel.php:1249
 msgid "Enable <em>Metadata Review Mode</em>."
 msgstr ""
 
-#: amt-admin-panel.php:1216
+#: amt-admin-panel.php:1253
 msgid "Enable keyword analysis and statistics."
 msgstr ""
 
-#: amt-admin-panel.php:1218
+#: amt-admin-panel.php:1255
 msgid "Experimental"
 msgstr ""
 
-#: amt-admin-panel.php:1222
+#: amt-admin-panel.php:1259
 msgid "Omit help messages and notices. I have read, understood and agreed to them."
 msgstr ""
 
-#: amt-admin-panel.php:1230 amt-admin-panel.php:1233
+#: amt-admin-panel.php:1267 amt-admin-panel.php:1270
 msgid "Extended Metadata Support"
 msgstr ""
 
-#: amt-admin-panel.php:1235
+#: amt-admin-panel.php:1272
 msgid "Add-Meta-Tags supports the generation of metadata for products and other post types. Please enable any of the following generators of extended metadata."
 msgstr ""
 
-#: amt-admin-panel.php:1241
+#: amt-admin-panel.php:1278
 msgid "Metadata for WooCommerce products and product groups."
 msgstr ""
 
-#: amt-admin-panel.php:1246
+#: amt-admin-panel.php:1283
 msgid "Metadata for Easy-Digital-Downloads products and product groups."
 msgstr ""
 
-#: amt-admin-panel.php:1246 amt-admin-panel.php:1256
+#: amt-admin-panel.php:1283 amt-admin-panel.php:1293
 msgid "Work in progress"
 msgstr ""
 
-#: amt-admin-panel.php:1251
+#: amt-admin-panel.php:1288
 msgid "Metadata for BuddyPress profiles."
 msgstr ""
 
-#: amt-admin-panel.php:1256
+#: amt-admin-panel.php:1293
 msgid "Metadata for bbPress."
 msgstr ""
 
-#: amt-admin-panel.php:1261
+#: amt-admin-panel.php:1298
 msgid "Please consult the integrated help for more information about these features."
 msgstr ""
 
-#: amt-admin-panel.php:1276 amt-admin-panel.php:1279
+#: amt-admin-panel.php:1313 amt-admin-panel.php:1316
 msgid "Metadata Caching"
 msgstr ""
 
-#: amt-admin-panel.php:1282
+#: amt-admin-panel.php:1319
 msgid "Show timing information."
 msgstr ""
 
-#: amt-admin-panel.php:1285
+#: amt-admin-panel.php:1322
 msgid "Cache metadata for this number of seconds:"
 msgstr ""
 
-#: amt-admin-panel.php:1289
+#: amt-admin-panel.php:1326
 msgid "Metadata caching is an advanced feature and should only be used after you have read and fully understood the <em>Metadata caching</em> section of the integrated help."
 msgstr ""
 
-#: amt-admin-panel.php:1302
+#: amt-admin-panel.php:1339
 msgid "<strong>Metadata cache status</strong>: <em>Activated</em>, <strong style=\"color: green;\">"
 msgstr ""
 
-#: amt-admin-panel.php:1307
+#: amt-admin-panel.php:1344
 msgid "<strong>Metadata cache status</strong>: <em>Activated</em>, but no cached metadata blocks have been detected. This means that either no metadata blocks have been cached yet in the database or your WordPress installation uses an external storage backend for the transient data."
 msgstr ""
 
-#: amt-admin-panel.php:1313
+#: amt-admin-panel.php:1350
 msgid "<strong>Metadata cache status</strong>: <em>Deactivated</em>. The caching timeout is set to zero, so metadata blocks are not cached."
 msgstr ""
 
-#: amt-admin-panel.php:1327 amt-admin-panel.php:1330
+#: amt-admin-panel.php:1364 amt-admin-panel.php:1367
 msgid "Vendor HTML comments"
 msgstr ""
 
-#: amt-admin-panel.php:1333
-msgid "Add-Meta-Tags has always been enclosing its output in <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Screenshots#Vendor-HTML-comments\">HTML comments</a>, which contain the plugin's name. This is common practice among WordPress plugin developers as it makes it easier for users to identify the output of a specific plugin and also lets those who check the HTML source code of the page know which plugin has generated this specific output. For a free product with limited resources like Add-Meta-Tags this practice is also its only means of exposure in a safe and nonintrusive way."
+#: amt-admin-panel.php:1370
+msgid "Add-Meta-Tags has always been enclosing its output in <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Screenshots#Vendor-HTML-comments\">HTML comments</a>, which contain the plugin's name. This is common practice among WordPress plugin developers as it makes it easier for users to identify the output of a specific plugin and also lets those who check the HTML source code of the page know which plugin has generated this specific output. For a free product with limited resources like Add-Meta-Tags this practice is also its only means of exposure in a safe and non intrusive way."
 msgstr ""
 
-#: amt-admin-panel.php:1338
-msgid "Although we don't like it, we have added the following option which deactivates the generation of those HTML comments*. We do not recommend checking the following box, but, if for whatever reason you have to turn these comments off, please go ahead and do it. To make it a little harder for you, an artificial requirement of a one time donation for any number of web sites you own has been added. Please keep in mind that there are no special donation links for this purpose. We do not force, check or keep track of your donations. You are free to go ahead and check this box without donating. What you do is totally your own decision and has nothing to do with us."
+#: amt-admin-panel.php:1375
+msgid "Although we don't like it, we have added the following option which deactivates the generation of those HTML comments*. We do not recommend checking the following box, but, if for whatever reason you have to turn these comments off, please go ahead and do it. To make it a little harder for you, an artificial requirement of a one time donation for any number of web sites you own has been added. Please keep in mind that there are no special donation links for this purpose. We do not force or keep track of your donations. You are free to go ahead and check this box without donating. What you do is totally your own decision and has nothing to do with us."
 msgstr ""
 
-#: amt-admin-panel.php:1343
+#: amt-admin-panel.php:1380
 #, php-format
 msgid "I have made a one time <a target=\"_blank\" href=\"%s\">donation</a> of 5 USD or more for all the web sites I own."
 msgstr ""
 
-#: amt-admin-panel.php:1347
+#: amt-admin-panel.php:1384
 msgid "<em>* HTML comments that are generated as part of the Schema.org microdata are always retained.</em>"
 msgstr ""
 
-#: amt-admin-panel.php:1350
+#: amt-admin-panel.php:1387
 msgid "<em>** All Add-Meta-Tags contributors should feel free to check the option above without donating.</em>"
 msgstr ""
 
-#: amt-admin-panel.php:1361 amt-admin-panel.php:1364
+#: amt-admin-panel.php:1398 amt-admin-panel.php:1401
 msgid "Donations"
 msgstr ""
 
-#: amt-admin-panel.php:1367
+#: amt-admin-panel.php:1404
 #, php-format
 msgid "If checked, the <em>message from the author</em> above goes away. Thanks for <a target=\"_blank\" href=\"%s\">donating</a>!"
 msgstr ""
 
-#: amt-admin-panel.php:1381
+#: amt-admin-panel.php:1418
 msgid "Save Changes"
 msgstr ""
 
-#: amt-admin-panel.php:1386
+#: amt-admin-panel.php:1423
 msgid "Reset to defaults"
 msgstr ""
 
-#: amt-admin-panel.php:1397
+#: amt-admin-panel.php:1434
 msgid "Notes"
 msgstr ""
 
-#: amt-admin-panel.php:1399
+#: amt-admin-panel.php:1436
 msgid "More management tools are available via the <code>amt</code> command of <code>wp-cli</code>. Learn more about the <a target=\"_blank\" href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Command_Line_Interface\">Add-Meta-Tags command line interface</a>."
 msgstr ""
 
-#: amt-admin-panel.php:1558
+#: amt-admin-panel.php:1595
 msgid "Description"
 msgstr ""
 
-#: amt-admin-panel.php:1561
+#: amt-admin-panel.php:1598
 msgid "Enter a custom description of 30-50 words (based on an average word length of 5 characters)."
 msgstr ""
 
-#: amt-admin-panel.php:1568
+#: amt-admin-panel.php:1605
 msgid "If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the excerpt or, if an excerpt has not been set, directly from the first paragraph of the content."
 msgstr ""
 
-#: amt-admin-panel.php:1574 amt-admin-panel.php:1580
+#: amt-admin-panel.php:1611 amt-admin-panel.php:1617
 msgid "If the <em>description</em> field is left blank, a <em>description</em> meta tag will be <strong>automatically</strong> generated from the first paragraph of the content."
 msgstr ""
 
-#: amt-admin-panel.php:1589
+#: amt-admin-panel.php:1626
 msgid "Warning: the automatic generation of descriptions has been turned off."
 msgstr ""
 
-#: amt-admin-panel.php:1608
+#: amt-admin-panel.php:1645
 msgid "Keywords"
 msgstr ""
 
-#: amt-admin-panel.php:1611
+#: amt-admin-panel.php:1648
 msgid "Enter keywords separated with commas."
 msgstr ""
 
-#: amt-admin-panel.php:1618
+#: amt-admin-panel.php:1655
 msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will be <strong>automatically</strong> generated from the post's categories, tags, custom taxonomy terms and from the global keywords, if any such global keywords have been set in the plugin settings. In case you decide to set a custom list of keywords for this post, it is possible to easily include the post's categories, tags and custom taxonomy terms in that list by using the special placeholders <code>%cats%</code>, <code>%tags%</code> and <code>%terms%</code> respectively."
 msgstr ""
 
-#: amt-admin-panel.php:1626 amt-admin-panel.php:1632
+#: amt-admin-panel.php:1663 amt-admin-panel.php:1669
 msgid "If the <em>keywords</em> field is left blank, a <em>keywords</em> meta tag will only be automatically generated from global keywords, if any such global keywords have been set in the plugin settings."
 msgstr ""
 
-#: amt-admin-panel.php:1641
+#: amt-admin-panel.php:1678
 msgid "Warning: the automatic generation of keywords has been turned off."
 msgstr ""
 
-#: amt-admin-panel.php:1662
+#: amt-admin-panel.php:1699
 msgid "Title"
 msgstr ""
 
-#: amt-admin-panel.php:1665
+#: amt-admin-panel.php:1702
 msgid "Enter a custom title to be used in the <em>title</em> HTML element of the page."
 msgstr ""
 
-#: amt-admin-panel.php:1668
+#: amt-admin-panel.php:1705
 msgid "The <code>%title%</code> placeholder is automatically expanded to the current title of the content."
 msgstr ""
 
-#: amt-admin-panel.php:1686
+#: amt-admin-panel.php:1723
 msgid "News Keywords"
 msgstr ""
 
-#: amt-admin-panel.php:1689
+#: amt-admin-panel.php:1726
 msgid "Enter a comma-delimited list of <strong>news keywords</strong>. For more info about this meta tag, please see this <a target=\"_blank\" href=\"http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297\">Google help page</a>."
 msgstr ""
 
-#: amt-admin-panel.php:1707
+#: amt-admin-panel.php:1744 amt-admin-panel.php:2152 amt-admin-panel.php:2341
 msgid "Full meta tags"
 msgstr ""
 
-#: amt-admin-panel.php:1711
+#: amt-admin-panel.php:1748
 msgid "Provide the full XHTML code of extra <a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\"><code>meta</code></a> and <code>link</code> <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/HTML_element\">HTML elements</a> you would like to add to this content."
 msgstr ""
 
-#: amt-admin-panel.php:1712
+#: amt-admin-panel.php:1749
 msgid "For example, to prevent a cached copy of this content from being available in search engine results, you can add the following metatag:"
 msgstr ""
 
-#: amt-admin-panel.php:1735
+#: amt-admin-panel.php:1772 amt-admin-panel.php:2184 amt-admin-panel.php:2373
 msgid "Image URL"
 msgstr ""
 
-#: amt-admin-panel.php:1738
+#: amt-admin-panel.php:1775
 msgid "Enter an image URL to override all media related meta tags."
 msgstr ""
 
-#: amt-admin-panel.php:1756
+#: amt-admin-panel.php:1793
 msgid "Content locale"
 msgstr ""
 
-#: amt-admin-panel.php:1759
+#: amt-admin-panel.php:1796
 msgid "Override the default locale setting by entering a custom locale for this content in the form <code>language_TERRITORY</code>, for example: <code>en_US</code>."
 msgstr ""
 
-#: amt-admin-panel.php:1777
+#: amt-admin-panel.php:1814
 msgid "Express review"
 msgstr ""
 
-#: amt-admin-panel.php:1781
+#: amt-admin-panel.php:1818
 msgid "This field accepts review related information using INI file syntax. If this info is provided in the correct form, then Add-Meta-Tags treats your content as being a review of an item and generates proper Schema.org metadata. <a href=\"http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Metadata_Generators_Key_Notes#Metadata-for-reviews\" target=\"_blank\">Read more</a> about the correct syntax of the review information."
 msgstr ""
 
-#: amt-admin-panel.php:1828
+#: amt-admin-panel.php:1865
 msgid "URLs of referenced items"
 msgstr ""
 
-#: amt-admin-panel.php:1831
+#: amt-admin-panel.php:1868
 msgid "Enter a list of canonical URLs (one per line) of items referenced in the content. The page referenced need not be on the same domain as the content. For example, you might reference a page where a product can be purchased or a page that further describes a place. If such references are provided and if OpenGraph/Schema.org metadata is enabled, then the relevant <code>og:referenced</code> and <code>referencedItem</code> meta tags will be generated."
 msgstr ""
 
-#: amt-admin-panel.php:1831
+#: amt-admin-panel.php:1868
 msgid "Experimental feature"
 msgstr ""
 
-#: amt-settings.php:373
+#: amt-admin-panel.php:2135 amt-admin-panel.php:2324
+msgid "Add-Meta-Tags"
+msgstr ""
+
+#: amt-admin-panel.php:2156 amt-admin-panel.php:2345
+msgid "Provide the full XHTML code of extra <a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/Meta_element\" target=\"_blank\"><code>meta</code></a> and <code>link</code> <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/HTML_element\">HTML elements</a>. To automatically add paging information to URLs, append the <code>PAGEINFO</code> placeholder. For example:"
+msgstr ""
+
+#: amt-admin-panel.php:2188 amt-admin-panel.php:2377
+msgid "Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>."
+msgstr ""
+
+#: amt-settings.php:384
 msgid "Add-Meta-Tags options saved"
 msgstr ""
 
-#: amt-settings.php:386
+#: amt-settings.php:397
 msgid "Add-Meta-Tags options were reset to defaults"
 msgstr ""
 
-#: amt-utils.php:2719
+#: amt-utils.php:2952
 msgid "Select a sample review"
 msgstr ""
 
-#: amt-utils.php:2751
+#: amt-utils.php:2984
 msgid "Use sample review data:"
 msgstr ""
 
-#: amt-utils.php:2874
+#: amt-utils.php:3107
 msgid "Select a meta tag group"
 msgstr ""
 
-#: amt-utils.php:2881
+#: amt-utils.php:3114
 msgid "Reset"
 msgstr ""
 
-#: amt-utils.php:2883
+#: amt-utils.php:3116
 msgid "Customize these sets"
 msgstr ""
 
-#: amt-utils.php:2885
+#: amt-utils.php:3118
 msgid "Undo your changes in the full meta tags box?"
 msgstr ""
 
-#: amt-utils.php:2948
+#: amt-utils.php:3181
 msgid "Append a meta tag set:"
 msgstr ""
 
-#: metadata\amt_basic.php:274
+#: metadata\amt_basic.php:310
 msgid "copyright information"
 msgstr ""
 
-#: metadata\amt_basic.php:450 metadata\amt_opengraph.php:335
-#: metadata\amt_twitter_cards.php:171
+#: metadata\amt_basic.php:486 metadata\amt_opengraph.php:366
+#: metadata\amt_twitter_cards.php:177
 #, php-format
 msgid "Content filed under the %s category."
 msgstr ""
 
-#: metadata\amt_basic.php:477 metadata\amt_opengraph.php:337
-#: metadata\amt_twitter_cards.php:173
+#: metadata\amt_basic.php:513 metadata\amt_opengraph.php:368
+#: metadata\amt_twitter_cards.php:179
 #, php-format
 msgid "Content tagged with %s."
 msgstr ""
 
-#: metadata\amt_basic.php:514 metadata\amt_opengraph.php:343
-#: metadata\amt_twitter_cards.php:179
+#: metadata\amt_basic.php:550 metadata\amt_opengraph.php:374
+#: metadata\amt_twitter_cards.php:185
 #, php-format
 msgid "Content filed under the %s taxonomy."
 msgstr ""
 
-#: metadata\amt_basic.php:554
+#: metadata\amt_basic.php:590
 #, php-format
 msgid "Content published by %s."
 msgstr ""
 
-#: metadata\amt_basic.php:587 metadata\amt_opengraph.php:507
-#: metadata\amt_twitter_cards.php:230
+#: metadata\amt_basic.php:623 metadata\amt_opengraph.php:567
+#: metadata\amt_twitter_cards.php:255
 #, php-format
 msgid "%s archive."
 msgstr ""
@@ -1326,7 +1348,7 @@ msgstr ""
 msgid "Profile of"
 msgstr ""
 
-#: metadata\amt_schemaorg.php:1364 metadata\amt_schemaorg.php:1368
-#: metadata\amt_schemaorg.php:2775 metadata\amt_schemaorg.php:2779
+#: metadata\amt_schemaorg.php:1470 metadata\amt_schemaorg.php:1474
+#: metadata\amt_schemaorg.php:3014 metadata\amt_schemaorg.php:3018
 msgid "logo"
 msgstr ""
