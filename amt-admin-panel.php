@@ -1062,17 +1062,29 @@ function amt_options_page() {
                 '.__('Referenced items.', 'add-meta-tags').' ('.__('Not recommended', 'add-meta-tags').')
                 </label></p>
 
-                <h4>'.__('Taxonomy terms', 'add-meta-tags').':</h4>
+            ');
 
-                <p><input id="metabox_term_enable_full_metatags" type="checkbox" value="1" name="metabox_term_enable_full_metatags" '. (($options["metabox_term_enable_full_metatags"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="metabox_term_enable_full_metatags">
-                '.__('Full meta tags box.', 'add-meta-tags').'
-                </label></p>
+            // The term meta API was implemented in 4.4
+            if ( version_compare( get_bloginfo('version'), '4.4', '>=' ) ) {
+            
+                print('
+                    <h4>'.__('Taxonomy terms', 'add-meta-tags').':</h4>
 
-                <p><input id="metabox_term_enable_image_url" type="checkbox" value="1" name="metabox_term_enable_image_url" '. (($options["metabox_term_enable_image_url"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="metabox_term_enable_image_url">
-                '.__('Global image override.', 'add-meta-tags').'
-                </label></p>
+                    <p><input id="metabox_term_enable_full_metatags" type="checkbox" value="1" name="metabox_term_enable_full_metatags" '. (($options["metabox_term_enable_full_metatags"]=="1") ? 'checked="checked"' : '') .'" />
+                    <label for="metabox_term_enable_full_metatags">
+                    '.__('Full meta tags box.', 'add-meta-tags').'
+                    </label></p>
+
+                    <p><input id="metabox_term_enable_image_url" type="checkbox" value="1" name="metabox_term_enable_image_url" '. (($options["metabox_term_enable_image_url"]=="1") ? 'checked="checked"' : '') .'" />
+                    <label for="metabox_term_enable_image_url">
+                    '.__('Global image override.', 'add-meta-tags').'
+                    </label></p>
+
+                ');
+
+            }
+
+            print('
 
                 <h4>'.__('WordPress user profiles', 'add-meta-tags').':</h4>
 
@@ -2076,6 +2088,12 @@ function amt_save_postdata( $post_id, $post ) {
 //
 
 function amt_add_extra_section_fields_terms() {
+
+    // The term meta API was implemented in 4.4
+    if ( version_compare( get_bloginfo('version'), '4.4', '<' ) ) {
+        return;
+    }
+
     $taxonomies = get_taxonomies();
     if ( ! empty($taxonomies) ) {
         foreach ( $taxonomies as $key => $taxonomy_slug ) {
