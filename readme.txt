@@ -131,6 +131,15 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.9](http://www.codetrax.org/versions/347)
+ - Notice: This release contains major modifications of the metadata generators regarding image data sources. If this release works well for you, it is highly recommended to contribute to the _Compatibility Poll_ at the [plugin page](https://wordpress.org/plugins/add-meta-tags/) at wordpress org, so as to let others know it works. If you run a critical web site, please wait for feedback from others before upgrading.
+ - Any field that expects an image URL (basically the _Default Image URL_ and the _Global Image Override_ fields) now supports a simple URL, the special notation `URL,WIDTHxHEIGHT` or an attachment ID (an image selection dialog for this will be implemented in the upcoming release). Now the metadata for any image can have information about the image dimensions. Big thanks to Raymond Pirouz and Bret (WEBEAU Web Design) for valuable feedback.
+ - Extra fields for full meta tags and for an enforced image URL (Global image Override) can be added to Categories, Tags, Terms of custom taxonomies and the default WordPress User Profiles. The extra fields have to be enabled in the _Metabox Features_ of the plugin settings. Extra fields for terms cannot be used in WordPress versions older than 4.4. Big thanks to Joe Youngblood for ideas and valuable feedback.
+ - The full meta tags fields now support the special placeholder `PAGEINFO` (case sensitive), which can be appended to URLs that exist within your custom meta tags. On the first page of multipage content or archives, this placeholder is just stripped. On subsequent pages, it is replaced with the proper page related path. This feature lets you set custom meta tags with dynamic paging information, which gives a little more flexibility.
+ - Improved the command line interface with support for the extra fields of term objects.
+ - Fixed compatibility of the command line interface with the latest versions of WP-CLI.
+ - NOODP and NOYDIR are now supported on taxonomy and author archives.
+ - Various minor improvements and fixes. The code will be cleaned up during the upcoming months.
 - [2.10.8](http://www.codetrax.org/versions/346)
  - Adds metadata to the head section of [AMP pages](https://www.ampproject.org). If the Schema.org Microdata generator is enabled, it forces JSON+LD Schema.org metadata instead.
  - Updated translations. Huge thanks to everyone who has contributed so far, especially Burak Yavuz (TR), Sergey Komkov (RU), Michael Kotsarinis (GR) and others.
