@@ -1609,7 +1609,7 @@ function amt_get_schemaorg_author_metatags( $author_id, $options ) {
     }
 
     // Allow filtering of the Author meta tags
-    $metadata_arr = apply_filters( 'amt_schemaorg_author_extra', $metadata_arr );
+    $metadata_arr = apply_filters( 'amt_schemaorg_author_extra', $metadata_arr, $author_id );
 
     return $metadata_arr;
 }
@@ -3182,7 +3182,7 @@ function amt_get_jsonld_schemaorg_author_array( $author_id, $options ) {
     }
 
     // Allow filtering of the Author meta tags
-    $metadata_arr = apply_filters( 'amt_jsonld_schemaorg_author_extra', $metadata_arr );
+    $metadata_arr = apply_filters( 'amt_jsonld_schemaorg_author_extra', $metadata_arr, $author_id );
 
     return $metadata_arr;
 }
