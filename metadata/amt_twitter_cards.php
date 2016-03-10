@@ -980,6 +980,11 @@ function amt_get_twitter_cards_image_metatags( $options, $image_data, $size='med
     // We use wp_get_attachment_image_src() since it constructs the URLs
     //$thumbnail_meta = wp_get_attachment_image_src( $image->ID, 'thumbnail' );
     $main_size_meta = wp_get_attachment_image_src( $image_id, $size );
+    // Check if we have image data. $main_size_meta is false on error.
+    if ( $main_size_meta === false ) {
+        return $metadata_arr;
+    }
+
     // Image tags
     $metadata_arr[] = '<meta name="twitter:image" content="' . esc_url_raw( $main_size_meta[0] ) . '" />';
     //if ( is_ssl() || ( ! is_ssl() && $options["has_https_access"] == "1" ) ) {
