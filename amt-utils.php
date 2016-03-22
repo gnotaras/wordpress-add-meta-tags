@@ -325,6 +325,7 @@ function amt_get_clean_post_content( $options, $post ) {
 
     // Early filter that lets dev define the post. This makes it possible to
     // exclude specific parts of the post for the rest of the algorithm.
+    // NOTE: qtranslate-X needs to pass through __() at this point.
     $initial_content = apply_filters( 'amt_get_the_excerpt_initial_content', $post->post_content, $post );
 
     // First expand the shortcodes if the relevant setting is enabled.
@@ -786,6 +787,10 @@ function amt_get_content_description( $post, $auto=true ) {
     // Non persistent object cache
     // Cache even empty
     wp_cache_add( $amtcache_key, $content_description, $group='add-meta-tags' );
+
+    // Allow filtering of the final description
+    // NOTE: qtranslate-X needs to pass through __() at this point.
+    $content_description = apply_filters( 'amt_get_content_description', $content_description, $post );
 
     return $content_description;
 }
