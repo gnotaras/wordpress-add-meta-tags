@@ -463,7 +463,7 @@ function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250,
      *      $amt_excerpt = ...
      *      return $amt_excerpt;
      *  }
-     *  add_filter( 'amt_get_the_excerpt', 'customize_amt_excerpt', 10, 1 );
+     *  add_filter( 'amt_get_the_excerpt', 'customize_amt_excerpt', 10, 2 );
      */
     $amt_excerpt = apply_filters( 'amt_get_the_excerpt', $amt_excerpt, $post );
 
