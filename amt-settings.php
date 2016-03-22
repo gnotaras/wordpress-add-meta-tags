@@ -329,7 +329,7 @@ function amt_save_settings($post_payload) {
             } elseif ( $def_key == 'copyright_url' ) {
                 $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } elseif ( $def_key == 'default_image_url' ) {
-                $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
+                $add_meta_tags_opts[$def_key] = amt_esc_id_or_url_notation( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } elseif ( $def_key == 'social_main_facebook_publisher_profile_url' ) {
                 $add_meta_tags_opts[$def_key] = esc_url_raw( stripslashes( $post_payload[$def_key] ), array( 'http', 'https') );
             } elseif ( $def_key == 'social_main_googleplus_publisher_profile_url' ) {
