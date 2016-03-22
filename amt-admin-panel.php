@@ -1952,7 +1952,7 @@ function amt_save_postdata( $post_id, $post ) {
     }
     // Image URL
     if ( isset( $_POST['amt_custom_image_url'] ) ) {
-        $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
+        $image_url_value = amt_esc_id_or_url_notation( stripslashes( $_POST['amt_custom_image_url'] ) );
     }
     // Content locale
     if ( isset( $_POST['amt_custom_content_locale'] ) ) {
@@ -2183,7 +2183,7 @@ function amt_taxonomy_extra_fields_show( $term, $taxonomy_slug ) {
             <tr class="form-field term-amt_custom_image_url-wrap">
             <th scope="row"><label for="amt_custom_image_url">'.__('Image URL', 'add-meta-tags').'</label></th>
             <td>
-            <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . esc_url_raw( stripslashes( $custom_image_url_value ) ) . '" />
+            <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) . '" />
             <p class="description">
                 '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
                 <br />
@@ -2248,7 +2248,7 @@ function amt_taxonomy_extra_fields_save( $term_id, $taxonomy_id ) {
     }
     // Image URL
     if ( isset( $_POST['amt_custom_image_url'] ) ) {
-        $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
+        $image_url_value = amt_esc_id_or_url_notation( stripslashes( $_POST['amt_custom_image_url'] ) );
     }
 
     // If a value has not been entered we try to delete existing data from the database
@@ -2372,7 +2372,7 @@ function amt_user_extra_fields_show( $user ) {
             <tr class="form-field user-amt_custom_image_url-wrap">
             <th scope="row"><label for="amt_custom_image_url">'.__('Image URL', 'add-meta-tags').'</label></th>
             <td>
-            <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . esc_url_raw( stripslashes( $custom_image_url_value ) ) . '" />
+            <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) . '" />
             <p class="description">
                 '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
                 <br />
@@ -2436,7 +2436,7 @@ function amt_user_extra_fields_save( $user_id ) {
     }
     // Image URL
     if ( isset( $_POST['amt_custom_image_url'] ) ) {
-        $image_url_value = esc_url_raw( stripslashes( $_POST['amt_custom_image_url'] ) );
+        $image_url_value = amt_esc_id_or_url_notation( stripslashes( $_POST['amt_custom_image_url'] ) );
     }
 
     // If a value has not been entered we try to delete existing data from the database
