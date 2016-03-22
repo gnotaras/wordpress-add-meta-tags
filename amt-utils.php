@@ -287,6 +287,31 @@ function amt_process_paged( $data ) {
 }
 
 
+// Escapes the contents of a field that can accept an attachment ID (integer) and a URL
+// Mainly used for 'Global Image Override' fields and 'Default_image_URL' field.
+function amt_esc_id_or_url_notation( $data ) {
+    if ( empty($data) || is_numeric($data) ) {
+        return $data;
+    }
+    // Treat as URL. Split into pieaces (URL,WIDTHxHEIGHT), escape each and
+    // then reconstruct the data.
+    $parts = explode(',', $data);
+    if ( count($parts) == 1 ) {
+        // We have just the URL
+        return esc_url($data);
+    } else {
+        $url = $parts[0];
+        $dimensions = explode('x', $parts[1]);
+        if ( count($dimensions) != 2 ) {
+            return esc_url($url);
+        } elseif ( ! is_numeric($dimensions[0]) || ! is_numeric($dimensions[1]) ) {
+            return esc_url($url);
+        }
+    }
+    return sprintf('%s,%dx%d', esc_url($url), absint($dimensions[0]), absint($dimensions[1]));
+}
+
+
 // Function that cleans the content of the post
 // Removes HTML markup, expands or removes short codes etc.
 function amt_get_clean_post_content( $options, $post ) {
