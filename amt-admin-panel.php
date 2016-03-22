@@ -1173,7 +1173,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Copyright URL', 'add-meta-tags').'</span></legend>
 
-                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . esc_url_raw( stripslashes( amt_get_site_copyright_url($options) ) ) . '" size="100" maxlength="1024" />
+                <input name="copyright_url" type="text" id="copyright_url" class="code" value="' . esc_url( stripslashes( amt_get_site_copyright_url($options) ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="copyright_url">
                 '.__('Enter an absolute URL to a document containing copyright and licensing information about your work.', 'add-meta-tags').'
