@@ -1518,7 +1518,7 @@ function amt_add_metadata_box() {
     foreach ($supported_types as $supported_type) {
         add_meta_box( 
             'amt-metadata-box',
-            __( 'Metadata', 'add-meta-tags' ),
+            __( 'Metadata', 'add-meta-tags' ) . ' ' . __('(by <em>Add-Meta-Tags</em>)', 'add-meta-tags'),
             'amt_inner_metadata_box',
             $supported_type,
             'advanced',
