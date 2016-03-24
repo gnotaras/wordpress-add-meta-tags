@@ -2087,6 +2087,28 @@ function amt_save_postdata( $post_id, $post ) {
 //
 //
 
+
+function amt_terms_enqueue_scripts($hook) {
+    // Enqueue only on profile page.
+    if ( 'term.php' != $hook ) {
+        return;
+    }
+    
+    // Using included Jquery UI
+    wp_enqueue_script('jquery');
+
+    // Necessary for the media selector.
+    // https://codex.wordpress.org/Javascript_Reference/wp.media
+    wp_enqueue_media();
+
+    // Register Add-Meta-Tags admin scripts
+    wp_register_script( 'amt_image_selector_script', plugins_url( 'js/amt-image-selector.js', AMT_PLUGIN_FILE ), array('jquery') );
+    // Enqueue the Add-Meta-Tags Admin Scripts
+    wp_enqueue_script( 'amt_image_selector_script' );
+}
+add_action( 'admin_enqueue_scripts', 'amt_terms_enqueue_scripts' );
+
+
 function amt_add_extra_section_fields_terms() {
 
     // The term meta API was implemented in 4.4
@@ -2147,8 +2169,8 @@ function amt_taxonomy_extra_fields_show( $term, $taxonomy_slug ) {
         $custom_full_metatags_value = amt_get_term_meta_full_metatags( $term_id );
 
         print('
-
-            <tr class="form-field term-amt_custom_full_metatags-wrap">
+            <!-- .add-meta-tags-setting is required by the media selector -->
+            <tr class="add-meta-tags-setting form-field term-amt_custom_full_metatags-wrap">
             <th scope="row"><label for="amt_custom_full_metatags">'.__('Full meta tags', 'add-meta-tags').'</label></th>
             <td>
                 <textarea class="large-text code" style="width: 99%" id="amt_custom_full_metatags" name="amt_custom_full_metatags" cols="50" rows="6" >'. stripslashes( $custom_full_metatags_value ) .'</textarea>
@@ -2180,14 +2202,42 @@ function amt_taxonomy_extra_fields_show( $term, $taxonomy_slug ) {
         $custom_image_url_value = amt_get_term_meta_image_url( $term_id );
 
         print('
-            <tr class="form-field term-amt_custom_image_url-wrap">
+            <!-- .add-meta-tags-setting is required by the media selector -->
+            <tr class="add-meta-tags-setting form-field term-amt_custom_image_url-wrap">
             <th scope="row"><label for="amt_custom_image_url">'.__('Image URL', 'add-meta-tags').'</label></th>
             <td>
             <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) . '" />
+
+            <span id="amt-image-selector-button" class="amt-image-selector-button wp-media-buttons-icon loadmediawindow button updatemeta button-small">'.__('Select image', 'add-meta-tags').'</span>
+            <br />
+
             <p class="description">
                 '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
+                '.__('Alternatively, you can select an image by pressing the <em>Select image</em> button.', 'add-meta-tags').'
                 <br />
             </p>
+
+        ');
+
+            // Image preview
+            $image_data = amt_get_image_data( amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) );
+            $img_html = '';
+            if ( is_numeric($image_data['id']) ) {
+                $main_size_meta = wp_get_attachment_image_src( $image_data['id'], 'medium' );
+                $img_html = '<img src="' . esc_url($main_size_meta[0]) . '" width="' . esc_attr($main_size_meta[1]) . '" height="' . esc_attr($main_size_meta[2]) . '" />';
+            } elseif ( ! is_null($image_data['url']) ) {
+                $img_html = '<img src="' . esc_url($image_data['url']) . '" width="' . esc_attr($image_data['width']) . '" height="' . esc_attr($image_data['height']) . '" />';
+            }
+            if ( ! empty($img_html) ) {
+                print('
+                <p>'.__('Image preview', 'add-meta-tags').':</p>
+                <br />
+                <div id="amt-image-preview" class="amt-image-preview">' . $img_html . '</div>
+                ');
+            }
+
+        print('
+
             </td>
             </tr>
 
