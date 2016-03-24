@@ -2288,19 +2288,35 @@ function amt_taxonomy_extra_fields_save( $term_id, $taxonomy_id ) {
 //
 //
 
-function amt_add_extra_section_fields_users() {
-    $taxonomies = get_taxonomies();
-    if ( ! empty($taxonomies) ) {
-        foreach ( $taxonomies as $key => $taxonomy_slug ) {
-            // Show/edit
-            add_action( 'show_user_profile', 'amt_user_extra_fields_show' );
-            add_action( 'edit_user_profile', 'amt_user_extra_fields_show' );
-
-            // Store data when created
-            add_action( 'personal_options_update', 'amt_user_extra_fields_save' );
-            add_action( 'edit_user_profile_update', 'amt_user_extra_fields_save' );
-        }
+function amt_user_profile_enqueue_scripts($hook) {
+    // Enqueue only on profile page.
+    if ( 'profile.php' != $hook ) {
+        return;
     }
+    
+    // Using included Jquery UI
+    wp_enqueue_script('jquery');
+
+    // Necessary for the media selector.
+    // https://codex.wordpress.org/Javascript_Reference/wp.media
+    wp_enqueue_media();
+
+    // Register Add-Meta-Tags admin scripts
+    wp_register_script( 'amt_image_selector_script', plugins_url( 'js/amt-image-selector.js', AMT_PLUGIN_FILE ), array('jquery') );
+    // Enqueue the Add-Meta-Tags Admin Scripts
+    wp_enqueue_script( 'amt_image_selector_script' );
+}
+add_action( 'admin_enqueue_scripts', 'amt_user_profile_enqueue_scripts' );
+
+
+function amt_add_extra_section_fields_users() {
+    // Show/edit
+    add_action( 'show_user_profile', 'amt_user_extra_fields_show' );
+    add_action( 'edit_user_profile', 'amt_user_extra_fields_show' );
+
+    // Store data when created
+    add_action( 'personal_options_update', 'amt_user_extra_fields_save' );
+    add_action( 'edit_user_profile_update', 'amt_user_extra_fields_save' );
 }
 add_action('admin_init', 'amt_add_extra_section_fields_users');
 
@@ -2321,6 +2337,9 @@ function amt_user_extra_fields_show( $user ) {
     $metabox_has_features = false;
 
     print('
+    <!-- #add-meta-tags-settings is required by the media selector -->
+    <span id="add-meta-tags-settings">
+
         <h3>'.__('Add-Meta-Tags', 'add-meta-tags').'</h3>
 
         <table class="form-table">
@@ -2373,10 +2392,37 @@ function amt_user_extra_fields_show( $user ) {
             <th scope="row"><label for="amt_custom_image_url">'.__('Image URL', 'add-meta-tags').'</label></th>
             <td>
             <input type="text" class="code" style="width: 99%" size="40" id="amt_custom_image_url" name="amt_custom_image_url" value="' . amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) . '" />
+
+            <span id="amt-image-selector-button" class="amt-image-selector-button wp-media-buttons-icon loadmediawindow button updatemeta button-small">'.__('Select image', 'add-meta-tags').'</span>
+            <br />
+
             <p class="description">
                 '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
+                '.__('Alternatively, you can select an image by pressing the <em>Select image</em> button.', 'add-meta-tags').'
                 <br />
             </p>
+
+        ');
+
+            // Image preview
+            $image_data = amt_get_image_data( amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) );
+            $img_html = '';
+            if ( is_numeric($image_data['id']) ) {
+                $main_size_meta = wp_get_attachment_image_src( $image_data['id'], 'medium' );
+                $img_html = '<img src="' . esc_url($main_size_meta[0]) . '" width="' . esc_attr($main_size_meta[1]) . '" height="' . esc_attr($main_size_meta[2]) . '" />';
+            } elseif ( ! is_null($image_data['url']) ) {
+                $img_html = '<img src="' . esc_url($image_data['url']) . '" width="' . esc_attr($image_data['width']) . '" height="' . esc_attr($image_data['height']) . '" />';
+            }
+            if ( ! empty($img_html) ) {
+                print('
+                <p>'.__('Image preview', 'add-meta-tags').':</p>
+                <br />
+                <div id="amt-image-preview" class="amt-image-preview">' . $img_html . '</div>
+                ');
+            }
+
+        print('
+
             </td>
             </tr>
 
@@ -2395,6 +2441,10 @@ function amt_user_extra_fields_show( $user ) {
             <p>'.__(sprintf( 'No features have been enabled for this metabox in the Add-Meta-Tags <a href="%s">settings</a> or you do not have enough permissions to access the available features.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
         ');
     }
+
+    print('
+    </span> <!-- #add-meta-tags-settings -->
+    ');
 
 }
 
