@@ -1446,9 +1446,48 @@ function amt_options_page() {
 
 
 
-/**
- * Meta box in post/page editing panel.
- */
+//
+//
+// Metadata metabox in post/page editing panel.
+//
+//
+
+function amt_post_edit_metabox_enqueue_scripts($hook) {
+    // Enqueue only on profile page.
+    if ( ! in_array($hook, array('post.php', 'post-new.php')) ) {
+        return;
+    }
+    
+    // $supported_types = amt_get_post_types_for_metabox();
+    // See: #900 for details
+
+    // Using included Jquery
+    wp_enqueue_script('jquery');
+
+// For tabs
+//    wp_enqueue_script('jquery-ui-core');
+//    wp_enqueue_script('jquery-ui-widget');
+//    wp_enqueue_script('jquery-ui-tabs');
+
+    // Necessary for the media selector.
+    // https://codex.wordpress.org/Javascript_Reference/wp.media
+    wp_enqueue_media();
+
+// For tabs
+    //wp_register_style( 'amt-jquery-ui-core', plugins_url('css/jquery.ui.core.css', AMT_PLUGIN_FILE) );
+    //wp_enqueue_style( 'amt-jquery-ui-core' );
+    //wp_register_style( 'amt-jquery-ui-tabs', plugins_url('css/jquery.ui.tabs.css', AMT_PLUGIN_FILE) );
+    //wp_enqueue_style( 'amt-jquery-ui-tabs' );
+//    wp_register_style( 'amt-metabox-tabs', plugins_url('css/amt-metabox-tabs.css', AMT_PLUGIN_FILE) );
+//    wp_enqueue_style( 'amt-metabox-tabs' );
+
+    // Register Add-Meta-Tags admin scripts
+    wp_register_script( 'amt_image_selector_script', plugins_url( 'js/amt-image-selector.js', AMT_PLUGIN_FILE ), array('jquery') );
+    // Enqueue the Add-Meta-Tags Admin Scripts
+    wp_enqueue_script( 'amt_image_selector_script' );
+}
+add_action( 'admin_enqueue_scripts', 'amt_post_edit_metabox_enqueue_scripts' );
+
 
 /* Define the custom box */
 add_action( 'add_meta_boxes', 'amt_add_metadata_box' );
@@ -1490,35 +1529,8 @@ function amt_add_metadata_box() {
 }
 
 
-/**
- * Load CSS and JS for metadata box.
- * The editing pages are post.php and post-new.php
- */
-// add_action('admin_print_styles-post.php', 'amt_metadata_box_css_js');
-// add_action('admin_print_styles-post-new.php', 'amt_metadata_box_css_js');
-
-function amt_metadata_box_css_js () {
-    // $supported_types = amt_get_post_types_for_metabox();
-    // See: #900 for details
-
-    // Using included Jquery UI
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-ui-core');
-    wp_enqueue_script('jquery-ui-widget');
-    wp_enqueue_script('jquery-ui-tabs');
-
-    //wp_register_style( 'amt-jquery-ui-core', plugins_url('css/jquery.ui.core.css', AMT_PLUGIN_FILE) );
-    //wp_enqueue_style( 'amt-jquery-ui-core' );
-    //wp_register_style( 'amt-jquery-ui-tabs', plugins_url('css/jquery.ui.tabs.css', AMT_PLUGIN_FILE) );
-    //wp_enqueue_style( 'amt-jquery-ui-tabs' );
-    wp_register_style( 'amt-metabox-tabs', plugins_url('css/amt-metabox-tabs.css', AMT_PLUGIN_FILE) );
-    wp_enqueue_style( 'amt-metabox-tabs' );
-
-}
-
-
-/* For future reference - Add data to the HEAD area of post editing panel */
-
+// For future reference - Add data to the HEAD area of post editing panel
+//
 // add_action('admin_head-post.php', 'amt_metabox_script_caller');
 // add_action('admin_head-post-new.php', 'amt_metabox_script_caller');
 // OR
@@ -1580,6 +1592,11 @@ function amt_inner_metadata_box( $post ) {
     // Display the meta box HTML code.
 
     $metabox_has_features = false;
+
+    print('
+    <!-- #add-meta-tags-settings is required by the media selector -->
+    <span id="add-meta-tags-settings">
+    ');
 
     // Custom description
     
@@ -1771,10 +1788,33 @@ function amt_inner_metadata_box( $post ) {
             <p>
                 <label for="amt_custom_image_url"><strong>'.__('Image URL', 'add-meta-tags').'</strong>:</label>
                 <input type="text" class="code" style="width: 99%" id="amt_custom_image_url" name="amt_custom_image_url" value="' . amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) . '" />
-                <br>
-                '.__('Enter an image URL to override all media related meta tags.', 'add-meta-tags').'
+
+                <span id="amt-image-selector-button" class="amt-image-selector-button wp-media-buttons-icon loadmediawindow button updatemeta button-small">'.__('Select image', 'add-meta-tags').'</span>
+                <br />
+
+                '.__('Enter an absolute image URL in order to enforce the use of this image in the metadata. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
+                '.__('Alternatively, you can select an image by pressing the <em>Select image</em> button.', 'add-meta-tags').'
+                '.__('If this image is set, the plugin will not generate metadata for other media.', 'add-meta-tags').'
             </p>
+
         ');
+
+            // Image preview
+            $image_data = amt_get_image_data( amt_esc_id_or_url_notation( stripslashes( $custom_image_url_value ) ) );
+            $img_html = '';
+            if ( is_numeric($image_data['id']) ) {
+                $main_size_meta = wp_get_attachment_image_src( $image_data['id'], 'medium' );
+                $img_html = '<img src="' . esc_url($main_size_meta[0]) . '" width="' . esc_attr($main_size_meta[1]) . '" height="' . esc_attr($main_size_meta[2]) . '" />';
+            } elseif ( ! is_null($image_data['url']) ) {
+                $img_html = '<img src="' . esc_url($image_data['url']) . '" width="' . esc_attr($image_data['width']) . '" height="' . esc_attr($image_data['height']) . '" />';
+            }
+            if ( ! empty($img_html) ) {
+                print('
+                <p>'.__('Image preview', 'add-meta-tags').':</p>
+                <br />
+                <div id="amt-image-preview" class="amt-image-preview">' . $img_html . '</div>
+                ');
+            }
 
     }
 
@@ -1882,6 +1922,10 @@ sameAs = http://en.wikipedia.org/wiki/On_the_Origin_of_Species\n\
             <p style="font-size: 85%; text-align: right; margin-top: 10px;">'.__(sprintf( 'Note: more features for this metabox might be available in the Add-Meta-Tags <a href="%s">settings</a>.', admin_url( 'options-general.php?page=add-meta-tags-options' ) ), 'add-meta-tags').'</p>
         ');
     }
+
+    print('
+    </span> <!-- #add-meta-tags-settings -->
+    ');
 
 }
 
