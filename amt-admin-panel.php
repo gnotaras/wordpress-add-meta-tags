@@ -1199,6 +1199,7 @@ function amt_options_page() {
             </td>
             </tr>
 
+
             <tr valign="top">
             <th scope="row">'.__('Shortcodes', 'add-meta-tags').'</th>
             <td>
