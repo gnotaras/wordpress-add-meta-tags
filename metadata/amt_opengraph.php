@@ -55,18 +55,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-// Add the proper namespaces
-function amt_add_og_xml_namespace( $content ) {
-    $options = amt_get_options();
-    if ( $options['og_add_xml_namespaces'] == '1' ) {
-        //return ' xmlns:og="http://ogp.me/ns#" ' . $content;
-        return ' xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml" ' . $content;
-    }
-    return $content;
-}
-add_filter('language_attributes', 'amt_add_og_xml_namespace');
-
-
 /**
  * Add contact method for Facebook author and publisher.
  */
