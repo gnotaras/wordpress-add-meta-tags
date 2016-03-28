@@ -549,7 +549,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        $image_data = amt_get_image_data( amt_get_post_meta_image_url($post->ID) );
         if ( ! empty($image_data) ) {
             $image_size = apply_filters( 'amt_image_size_product', 'full' );
             $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
@@ -915,7 +915,7 @@ function amt_add_schemaorg_metadata_content_filter( $post_body ) {
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        $image_data = amt_get_image_data( amt_get_post_meta_image_url($post->ID) );
         if ( ! empty($image_data) ) {
             $image_size = apply_filters( 'amt_image_size_content', 'full' );
             $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
@@ -1538,7 +1538,7 @@ function amt_get_schemaorg_author_metatags( $author_id, $options ) {
 
     // Profile Image
     // First use the global image override URL
-    $image_data = amt_get_image_attributes_array( amt_get_user_meta_image_url( $author_id ) );
+    $image_data = amt_get_image_data( amt_get_user_meta_image_url( $author_id ) );
     if ( ! empty($image_data) ) {
         $image_size = apply_filters( 'amt_image_size_index', 'full' );
         $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
@@ -1566,7 +1566,7 @@ function amt_get_schemaorg_author_metatags( $author_id, $options ) {
         if ( ! empty($avatar_url) ) {
             //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
             //$metadata_arr[] = '<meta itemprop="image" content="' . esc_url_raw( $avatar_url ) . '" />';
-            $image_data = amt_get_image_attributes_array( sprintf('%s,%dx%d', $avatar_url, $avatar_size, $avatar_size) );
+            $image_data = amt_get_image_data( sprintf('%s,%dx%d', $avatar_url, $avatar_size, $avatar_size) );
             if ( ! empty($image_data) ) {
                 $image_size = apply_filters( 'amt_image_size_index', 'full' );
                 $image_meta_tags = amt_get_schemaorg_image_metatags( $options, $image_data, $size=$image_size );
@@ -2023,7 +2023,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        $image_data = amt_get_image_data( amt_get_post_meta_image_url($post->ID) );
         if ( ! empty($image_data) ) {
             $image_size = apply_filters( 'amt_image_size_product', 'full' );
             $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
@@ -2446,7 +2446,7 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
 
         // First check if a global image override URL has been entered.
         // If yes, use this image URL and override all other images.
-        $image_data = amt_get_image_attributes_array( amt_get_post_meta_image_url($post->ID) );
+        $image_data = amt_get_image_data( amt_get_post_meta_image_url($post->ID) );
         if ( ! empty($image_data) ) {
             $image_size = apply_filters( 'amt_image_size_content', 'full' );
             $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
@@ -3111,7 +3111,7 @@ function amt_get_jsonld_schemaorg_author_array( $author_id, $options ) {
 
     // Profile Image
     // First use the global image override URL
-    $image_data = amt_get_image_attributes_array( amt_get_user_meta_image_url( $author_id ) );
+    $image_data = amt_get_image_data( amt_get_user_meta_image_url( $author_id ) );
     if ( ! empty($image_data) ) {
         $image_size = apply_filters( 'amt_image_size_index', 'full' );
         $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data, $size=$image_size );
@@ -3137,7 +3137,7 @@ function amt_get_jsonld_schemaorg_author_array( $author_id, $options ) {
         if ( ! empty($avatar_url) ) {
             //$avatar_url = html_entity_decode($avatar_url, ENT_NOQUOTES, 'UTF-8');
             //$metadata_arr['image'] = esc_url_raw( $avatar_url );
-            $image_data = amt_get_image_attributes_array( sprintf('%s,%dx%d', $avatar_url, $avatar_size, $avatar_size) );
+            $image_data = amt_get_image_data( sprintf('%s,%dx%d', $avatar_url, $avatar_size, $avatar_size) );
             if ( ! empty($image_data) ) {
                 $image_meta_array = amt_get_jsonld_schemaorg_image_array( $options, $image_data );
                 if ( ! empty($image_meta_array) ) {
