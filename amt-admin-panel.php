@@ -619,7 +619,12 @@ function amt_options_page() {
     /*
     Configuration Page
     */
-    
+
+    print('
+    <!-- #add-meta-tags-settings is required by the media selector -->
+    <span id="add-meta-tags-settings">    
+    ');
+
     print('
     <div class="wrap">
         <div id="icon-options-general" class="icon32"><br /></div>
@@ -1207,10 +1212,34 @@ function amt_options_page() {
 
                 <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . amt_esc_id_or_url_notation( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
+
+                <span id="amt-default-image-selector-button" class="amt-default-image-selector-button wp-media-buttons-icon loadmediawindow button updatemeta button-small">Select image</span>
+                <br />
+
                 <label for="default_image_url">
                 '.__('Enter an absolute URL to an image that represents your website, for instance the logo. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
                 </label>
                 <br />
+        ');
+
+            // Default image preview
+            $image_data = amt_get_default_image_data();
+            $img_html = '';
+            if ( is_numeric($image_data['id']) ) {
+                $main_size_meta = wp_get_attachment_image_src( $image_data['id'], 'medium' );
+                $img_html = '<img src="' . esc_url($main_size_meta[0]) . '" width="' . esc_attr($main_size_meta[1]) . '" height="' . esc_attr($main_size_meta[2]) . '" />';
+            } elseif ( ! is_null($image_data['url']) ) {
+                $img_html = '<img src="' . esc_url($image_data['url']) . '" width="' . esc_attr($image_data['width']) . '" height="' . esc_attr($image_data['height']) . '" />';
+            }
+            if ( ! empty($img_html) ) {
+                print('
+                <p>'.__('Image preview', 'add-meta-tags').':</p>
+                <br />
+                <div id="amt-image-preview" class="amt-image-preview">' . $img_html . '</div>
+                ');
+            }
+
+        print('
             </fieldset>
             </td>
             </tr>
@@ -1457,6 +1486,10 @@ function amt_options_page() {
         
     </div>
 
+    ');
+
+    print('
+    </span> <!-- #add-meta-tags-settings -->
     ');
 
 }
