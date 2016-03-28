@@ -343,7 +343,12 @@ function amt_admin_help_tabs() {
     $help_text = '
         <h3>'.__('Automatically generate Dublin Core metadata.', 'add-meta-tags').'</h3>
 
-        <p>'.__('If this option is enabled, Dublin Core metadata is automatically generated for your content and attachments. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'</p>';
+        <p>'.__('If this option is enabled, Dublin Core metadata is automatically generated for your content and attachments. For more information, please refer to <a href="http://dublincore.org">Dublin Core Metadata Initiative</a>.', 'add-meta-tags').'</p>
+
+        <h3>'.__('Add the Dublin Core XML namespace.', 'add-meta-tags').'</h3>
+
+        <p>'.__('When enabled, the Dublin Core XML namespace for the <code>dcterms</code> prefix is added to the <code>html</code> element of the page. If your theme already contains this namespace, then this option should not be enabled.', 'add-meta-tags').'</p>';
+
     $screen->add_help_tab( array(
         'id'	=> 'amt_help_metadata_dublin_core',
         'title'	=> __('Dublin Core', 'add-meta-tags'),
@@ -976,6 +981,10 @@ function amt_options_page() {
 
                 <input id="auto_dublincore" type="checkbox" value="1" name="auto_dublincore" '. (($options["auto_dublincore"]=="1") ? 'checked="checked"' : '') .'" />
                 <label for="auto_dublincore">'.__('Automatically generate Dublin Core metadata.', 'add-meta-tags').'</label>
+                <br />
+
+                <input id="dc_add_xml_namespaces" type="checkbox" value="1" name="dc_add_xml_namespaces" '. (($options["dc_add_xml_namespaces"]=="1") ? 'checked="checked"' : '') .'" />
+                <label for="dc_add_xml_namespaces">'.__('Add the Dublin Core XML namespace.', 'add-meta-tags').'</label>
                 <br />
 
             </fieldset>
