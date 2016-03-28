@@ -103,6 +103,38 @@ function amt_plugin_actions( $links, $file ) {
 add_filter( 'plugin_action_links', 'amt_plugin_actions', 10, 2 );
 
 
+//
+// Adds prefixes to the html element of the page
+// ex xmlns
+//
+function amt_add_html_prefixes_and_namespaces( $content ) {
+    $options = amt_get_options();
+    $prefixes = array();
+    if ( $options['og_add_xml_namespaces'] == '1' ) {
+        $prefixes['og'] = 'http://ogp.me/ns#';
+        $prefixes['fb'] = 'https://www.facebook.com/2008/fbml';
+    }
+    // Dublin Core
+    // See: http://wiki.dublincore.org/index.php/Dublin_Core_Prefixes
+    if ( $options['dc_add_xml_namespaces'] == '1' ) {
+        $prefixes['dcterms'] = 'http://purl.org/dc/terms/';
+    }
+    // Generate the value of the prefix attribute
+    $prefix_value = '';
+    foreach ( $prefixes as $key => $val ) {
+        $prefix_value .= sprintf(' %s: %s', $key, $val);
+    }
+    // return the final attributes
+    $output = '';
+    // Although not necessary in HTML 5, we also add the xmlns="http://www.w3.org/1999/xhtml"
+    // Comment out if duplicate
+    $output .= ' xmlns="http://www.w3.org/1999/xhtml"';
+    // Add our prefixes
+    $output .= ' prefix="' . trim($prefix_value) . '"';
+    return $output . ' ' . $content;
+}
+add_filter('language_attributes', 'amt_add_html_prefixes_and_namespaces');
+
 
 /**
  * Replaces the text to be used in the title element, if a replacement text has been set.
