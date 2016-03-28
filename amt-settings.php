@@ -65,6 +65,7 @@ function amt_get_default_options() {
         "og_omit_video_metadata" => "0",    // Omit og:video and og:video:* meta tags
         "og_add_xml_namespaces" => "0",
         "auto_dublincore"   => "0",
+        "dc_add_xml_namespaces" => "0",
         "auto_twitter"      => "0",     // Twitter Cards
         "tc_enable_player_card_local" => "0",   // Enable the player card for locally hosted audio and video attachments.
         "tc_enforce_summary_large_image" => "0",   // Set summary_large_image as the default card.
@@ -275,6 +276,10 @@ function amt_plugin_upgrade() {
     // Added "metabox_term_enable_image_url"
     // Added "metabox_user_enable_full_metatags"
     // Added "metabox_user_enable_image_url"
+    // No migrations required. Addition takes place in (1).
+
+    // Version 2.10.10 (settings_version 22->23)
+    // Added "dc_add_xml_namespaces"
     // No migrations required. Addition takes place in (1).
 
 
