@@ -367,6 +367,11 @@ function amt_get_clean_post_content( $options, $post ) {
  */
 function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
+    // Note: See about the isset($post->post_content) check: https://github.com/gnotaras/wordpress-add-meta-tags/issues/46
+    if ( ! isset($post->post_content) || ! isset($post->post_excerpt) ) {
+        return '';
+    }
+
     $options = amt_get_options();
 
     // Non persistent object cache
@@ -3640,11 +3645,15 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
         }
         $var_day = get_query_var('day');
     } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
-        $var_year = mysql2date('Y', $post->post_date);
-        $var_month = mysql2date('m', $post->post_date);
-        $var_month_name = '';
-        if ( $var_month ) {
-            $var_month_name = $GLOBALS['wp_locale']->get_month($var_month);
+        // Note: See about the isset($post->post_date) check: https://github.com/gnotaras/wordpress-add-meta-tags/issues/46
+        if ( isset($post->post_date) ) {
+            $var_year = mysql2date('Y', $post->post_date);
+            $var_month = mysql2date('m', $post->post_date);
+            $var_month_name = '';
+            if ( $var_month ) {
+                $var_month_name = $GLOBALS['wp_locale']->get_month($var_month);
+            }
+            $var_day = mysql2date('d', $post->post_date);
         }
         $var_day = mysql2date('d', $post->post_date);
     }
