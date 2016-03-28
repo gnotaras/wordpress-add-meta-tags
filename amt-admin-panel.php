@@ -76,11 +76,6 @@ function amt_admin_init() {
 
     // Register scripts and styles
 
-    /* Register our script for the color picker. */
-    // wp_register_script( 'myPluginScript', plugins_url( 'script.js', AMT_PLUGIN_FILE ) );
-    /* Register our stylesheet. */
-    wp_register_style( 'amt_settings', plugins_url( 'css/amt-settings.css', AMT_PLUGIN_FILE ) );
-
 }
 add_action( 'admin_init', 'amt_admin_init' );
 
@@ -95,17 +90,38 @@ function amt_admin_menu() {
 add_action( 'admin_menu', 'amt_admin_menu');
 
 
-/** Enqueue scripts and styles
- *  From: http://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts#Example:_Target_a_Specific_Admin_Page
- */
+//
+// Enqueue scripts and styles
+// From: http://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts#Example:_Target_a_Specific_Admin_Page
+//
 function amt_enqueue_admin_scripts_and_styles( $hook ) {
     //var_dump($hook);
     if ( 'settings_page_add-meta-tags-options' != $hook ) {
         return;
     }
+
+    // Using included Jquery
+    wp_enqueue_script('jquery');
+
+    // Necessary for the media selector.
+    // https://codex.wordpress.org/Javascript_Reference/wp.media
+    wp_enqueue_media();
+
+    /* Register our script for the color picker. */
+    // wp_register_script( 'myPluginScript', plugins_url( 'script.js', AMT_PLUGIN_FILE ) );
+    /* Register our stylesheet. */
+    wp_register_style( 'amt_settings', plugins_url( 'css/amt-settings.css', AMT_PLUGIN_FILE ) );
+
     // Enqueue script and style for the color picker.
     //wp_enqueue_script( 'myPluginScript' );
     wp_enqueue_style( 'amt_settings' );
+
+    // Register Add-Meta-Tags admin scripts
+    wp_register_script( 'amt_image_selector_script', plugins_url( 'js/amt-image-selector.js', AMT_PLUGIN_FILE ), array('jquery') );
+
+    // Enqueue the Add-Meta-Tags Admin Scripts
+    wp_enqueue_script( 'amt_image_selector_script' );
+
 }
 add_action( 'admin_enqueue_scripts', 'amt_enqueue_admin_scripts_and_styles' );
 // Note: `admin_print_styles` should not be used to enqueue styles or scripts on the admin pages. Use `admin_enqueue_scripts` instead. 
