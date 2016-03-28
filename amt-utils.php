@@ -2624,6 +2624,56 @@ function amt_get_default_image_data() {
 }
 
 
+// Function that returns an array with data about the image.
+function amt_get_image_data( $value ) {
+
+    // Non persistent object cache
+    $amtcache_key = amt_get_amtcache_key('amt_cache_get_image_data_' . md5($value) );
+    $data = wp_cache_get( $amtcache_key, $group='add-meta-tags' );
+    if ( $data !== false ) {
+        return $data;
+    }
+
+    // The special notation option accepts:
+    // 1. An attachment ID
+    // 2. Special notation about the default image:
+    //      URL[,WIDTHxHEIGHT]
+
+    $data = array(
+        'id'    => null,   // post ID of attachment
+        // The ID should be enough information to retrieve all attachment information
+        // Alternatively, if the ID is not set, at least the 'url' should be set.
+        'url'   => null,
+        'width' => null,
+        'height' => null,
+        'type'  => null,
+    );
+
+    if ( ! empty($value) ) {
+
+        // First check if we have an ID
+        if ( is_numeric($value) ) {
+            $data['id'] = absint($value);
+
+        // Alternatively, check for special notation
+        } else {
+            $data = amt_get_image_attributes_array( $value );
+
+        }
+
+    }
+
+    // Allow filtering
+    //$data = apply_filters('amt_get_image_data', $data);
+
+    // Non persistent object cache
+    // Cache even empty
+    wp_cache_add( $amtcache_key, $data, $group='add-meta-tags' );
+
+    return $data;
+}
+
+
 // Returns the default Twitter Card type
 function amt_get_default_twitter_card_type($options) {
     $default = 'summary';
