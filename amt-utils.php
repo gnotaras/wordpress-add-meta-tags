@@ -3655,7 +3655,6 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
             }
             $var_day = mysql2date('d', $post->post_date);
         }
-        $var_day = mysql2date('d', $post->post_date);
     }
 
     // #page_total#
