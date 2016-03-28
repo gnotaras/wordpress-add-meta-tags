@@ -1189,7 +1189,7 @@ function amt_options_page() {
             <fieldset>
                 <legend class="screen-reader-text"><span>'.__('Default Image', 'add-meta-tags').'</span></legend>
 
-                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . esc_url_raw( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
+                <input name="default_image_url" type="text" id="default_image_url" class="code" value="' . amt_esc_id_or_url_notation( stripslashes( $options["default_image_url"] ) ) . '" size="100" maxlength="1024" />
                 <br />
                 <label for="default_image_url">
                 '.__('Enter an absolute URL to an image that represents your website, for instance the logo. To specify the image dimensions you can use the special notation <code>URL,WIDTHxHEIGHT</code>.', 'add-meta-tags').'
