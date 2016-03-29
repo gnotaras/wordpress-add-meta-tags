@@ -2577,6 +2577,7 @@ function amt_get_image_attributes_array( $notation ) {
 
 
 // Function that returns an array with data about the default image.
+// Returns false if no image could be found.
 function amt_get_default_image_data() {
 
     // Non persistent object cache
@@ -2622,6 +2623,11 @@ function amt_get_default_image_data() {
     // Allow filtering
     $data = apply_filters('amt_default_image_data', $data);
 
+    // Check if we have an image
+    if ( is_null($data['id']) && is_null($data['url']) ) {
+        $data = false;
+    }
+
     // Non persistent object cache
     // Cache even empty
     wp_cache_add( $amtcache_key, $data, $group='add-meta-tags' );
@@ -2631,6 +2637,7 @@ function amt_get_default_image_data() {
 
 
 // Function that returns an array with data about the image.
+// Returns false if no image could be found.
 function amt_get_image_data( $value ) {
 
     // Non persistent object cache
@@ -2671,6 +2678,11 @@ function amt_get_image_data( $value ) {
 
     // Allow filtering
     //$data = apply_filters('amt_get_image_data', $data);
+
+    // Check if we have an image
+    if ( is_null($data['id']) && is_null($data['url']) ) {
+        $data = false;
+    }
 
     // Non persistent object cache
     // Cache even empty
