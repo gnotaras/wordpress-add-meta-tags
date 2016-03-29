@@ -51,8 +51,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Returns the post object filtered.
 function amt_get_queried_object($options) {
-    // Get current post object
-    $post = get_queried_object();
+    // Sometimes, it is possible that a post object (static WP Page), which behaves
+    // like a custom post type archive (eg the WooCommerce main shop page -- slug=shop)
+    // has been set as the static front page.
+    // In such cases the get_queried_object() function may not return a regular
+    // WP_Post object, which is required by this plugin. So, in such cases we
+    // retrieve the WP_Post object manually.
+    if ( amt_is_static_front_page() && is_post_type_archive() ) {
+        $post = get_post( amt_get_front_page_id() );
+    } else {
+        // Use the normal way to get the $post object.
+        // Get current post object
+        $post = get_queried_object();
+    }
     // Allow filtering of the $post object.
     $post = apply_filters('amt_get_queried_object', $post, $options);
     return $post;
@@ -367,11 +378,6 @@ function amt_get_clean_post_content( $options, $post ) {
  */
 function amt_get_the_excerpt( $post, $excerpt_max_len=300, $desc_avg_length=250, $desc_min_length=150 ) {
     
-    // Note: See about the isset($post->post_content) check: https://github.com/gnotaras/wordpress-add-meta-tags/issues/46
-    if ( ! isset($post->post_content) || ! isset($post->post_excerpt) ) {
-        return '';
-    }
-
     $options = amt_get_options();
 
     // Non persistent object cache
@@ -3695,16 +3701,13 @@ function amt_internal_get_title($options, $post, $title_templates, $force_custom
         }
         $var_day = get_query_var('day');
     } elseif ( is_singular() || amt_is_static_front_page() || amt_is_static_home() ) {
-        // Note: See about the isset($post->post_date) check: https://github.com/gnotaras/wordpress-add-meta-tags/issues/46
-        if ( isset($post->post_date) ) {
-            $var_year = mysql2date('Y', $post->post_date);
-            $var_month = mysql2date('m', $post->post_date);
-            $var_month_name = '';
-            if ( $var_month ) {
-                $var_month_name = $GLOBALS['wp_locale']->get_month($var_month);
-            }
-            $var_day = mysql2date('d', $post->post_date);
+        $var_year = mysql2date('Y', $post->post_date);
+        $var_month = mysql2date('m', $post->post_date);
+        $var_month_name = '';
+        if ( $var_month ) {
+            $var_month_name = $GLOBALS['wp_locale']->get_month($var_month);
         }
+        $var_day = mysql2date('d', $post->post_date);
     }
 
     // #page_total#
