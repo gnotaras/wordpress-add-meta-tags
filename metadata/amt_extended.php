@@ -1117,6 +1117,19 @@ function amt_product_group_image_url_woocommerce( $default_image_url, $tax_term_
 }
 
 
+// Retrieve WooCommerce page IDs
+//
+//get_option( 'woocommerce_shop_page_id' ); 
+//get_option( 'woocommerce_cart_page_id' ); 
+//get_option( 'woocommerce_checkout_page_id' );
+//get_option( 'woocommerce_pay_page_id' ); 
+//get_option( 'woocommerce_thanks_page_id' ); 
+//get_option( 'woocommerce_myaccount_page_id' ); 
+//get_option( 'woocommerce_edit_address_page_id' ); 
+//get_option( 'woocommerce_view_order_page_id' ); 
+//get_option( 'woocommerce_terms_page_id' ); 
+
+
 
 /*
  * Easy Digital Downloads Product and Product Group metadata
