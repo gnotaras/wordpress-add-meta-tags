@@ -131,6 +131,17 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.10](http://www.codetrax.org/versions/347)
+ - Fixed the namespace declarations in order to comply with HTML 5. (props to Edward for pointing this out)
+ - Dublin Core metadata is now generated for the static WP Page that has been set as the front page. (props to b-rad for ideas and valuable feedback)
+ - Added support for image selector for all fields accepting image URLs.
+ - Added option for the addition of the Dublin Core `dcterms` prefix for HTML 5 validation.
+ - Improved support for qtranslate-X. Please see [this issue](https://github.com/gnotaras/wordpress-add-meta-tags/issues/36) for more details. Props to HowToSolutions.net and Kunicz for valuable feedback.
+ - Fixed PHP notices with WooCommerce main shop page when used as the front page. (props to Dima Stefantsov for valuable feedback)
+ - Fixed issue with the custom title of the main WooCommerce shop page. (props to Its-Thomas for valuable feedback)
+ - Fixed issue with the sanitization of the special notation used in fields accepting image URLs.
+ - Updated the translations. (Special thanks to Burak Yavuz)
+ - Added the Brazilian Portuguese translation. (Special thanks to Débora Fernandes)
 - [2.10.9](http://www.codetrax.org/versions/347)
  - Notice: This release contains major modifications of the metadata generators regarding image data sources. Huge effort has been made to maintain backwards compatibility, but, of course, it is impossible to test the plugin in every possible use case scenario. If this release works well for you, it is highly recommended to contribute to the _Compatibility Poll_ at the [plugin page](https://wordpress.org/plugins/add-meta-tags/) at wordpress org, so as to let others know it works. Please report any issues ASAP. If you run a critical web site, please wait for feedback from others before upgrading.
  - Any field that expects an image URL (basically the _Default Image URL_ field in plugin settings and the _Global Image Override_ field in the edit screens) now supports a simple absolute URL to an image, the special notation `URL,WIDTHxHEIGHT` or an attachment ID (an image selection dialog for this will be implemented in the upcoming release). Now the metadata for any image can have information about the image dimensions regardless of the fact that it may be a WordPress upload or not. Big thanks to Raymond Pirouz and Bret (WEBEAU Web Design) for valuable feedback.
