@@ -107,13 +107,10 @@ function amt_enqueue_admin_scripts_and_styles( $hook ) {
     // https://codex.wordpress.org/Javascript_Reference/wp.media
     wp_enqueue_media();
 
-    /* Register our script for the color picker. */
-    // wp_register_script( 'myPluginScript', plugins_url( 'script.js', AMT_PLUGIN_FILE ) );
-    /* Register our stylesheet. */
+    // Register our stylesheet.
     wp_register_style( 'amt_settings', plugins_url( 'css/amt-settings.css', AMT_PLUGIN_FILE ) );
 
-    // Enqueue script and style for the color picker.
-    //wp_enqueue_script( 'myPluginScript' );
+    // Enqueue style.
     wp_enqueue_style( 'amt_settings' );
 
     // Register Add-Meta-Tags admin scripts
