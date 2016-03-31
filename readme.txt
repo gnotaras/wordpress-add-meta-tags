@@ -131,7 +131,7 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
-- [2.10.10](http://www.codetrax.org/versions/347)
+- [2.10.10](http://www.codetrax.org/versions/348)
  - Fixed the namespace declarations in order to comply with HTML 5. (props to Edward for pointing this out)
  - Dublin Core metadata is now generated for the static WP Page that has been set as the front page. (props to b-rad for ideas and valuable feedback)
  - Added support for image selector for all fields accepting image URLs.
