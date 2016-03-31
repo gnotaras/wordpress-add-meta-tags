@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.5.2
 Tested up to: 4.5
-Stable tag: 2.10.9
+Stable tag: 2.10.10
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
@@ -136,7 +136,7 @@ Please check out the changelog of each release by following the links below. You
  - Dublin Core metadata is now generated for the static WP Page that has been set as the front page. (props to b-rad for ideas and valuable feedback)
  - Added support for image selector for all fields accepting image URLs.
  - Added option for the addition of the Dublin Core `dcterms` prefix for HTML 5 validation.
- - Improved support for qtranslate-X. Please see [this issue](https://github.com/gnotaras/wordpress-add-meta-tags/issues/36) for more details. Props to HowToSolutions.net and Kunicz for valuable feedback.
+ - Improved support for qtranslate-X. Please see [this issue](https://github.com/gnotaras/wordpress-add-meta-tags/issues/36) for more details. (props to HowToSolutions.net and Kunicz for valuable feedback)
  - Fixed PHP notices with WooCommerce main shop page when used as the front page. (props to Dima Stefantsov for valuable feedback)
  - Fixed issue with the custom title of the main WooCommerce shop page. (props to Its-Thomas for valuable feedback)
  - Fixed issue with the sanitization of the special notation used in fields accepting image URLs.
