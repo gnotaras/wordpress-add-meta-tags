@@ -345,8 +345,11 @@ function amt_get_clean_post_content( $options, $post ) {
     }
 
     // Second strip all HTML tags
-    $plain_text = wp_kses( $initial_content, array() );
-
+    //$plain_text = wp_kses( $initial_content, array() );
+    // Use wp_strip_all_tags() instead of wp_kses(). The latter leave the contents
+    // of script/style HTML tags.
+    $plain_text = wp_strip_all_tags( $initial_content, true );
+    
     // Strip properly registered shortcodes
     $plain_text = strip_shortcodes( $plain_text );
     // Also strip any shortcodes (For example, required for the removal of Visual Composer shortcodes)
