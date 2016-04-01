@@ -342,6 +342,8 @@ function amt_get_clean_post_content( $options, $post ) {
     // First expand the shortcodes if the relevant setting is enabled.
     if ( $options['expand_shortcodes'] == '1' ) {
         $initial_content = do_shortcode( $initial_content );
+        // Filter the initial content again after expanding the shortcodes.
+        $initial_content = apply_filters( 'amt_get_the_excerpt_initial_content_expanded_shortcodes', $initial_content, $post );
     }
 
     // Second strip all HTML tags
