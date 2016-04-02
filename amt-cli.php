@@ -186,7 +186,7 @@ class AMT_Command extends WP_CLI_Command {
 
 
     /**
-     * Export settings and data.
+     * Export settings and data to standard output.
      * 
      * ## OPTIONS
      * 
@@ -308,7 +308,7 @@ class AMT_Command extends WP_CLI_Command {
 
 
     /**
-     * Import settings and data.
+     * Import settings and data from standard input.
      * 
      * ## OPTIONS
      * 
