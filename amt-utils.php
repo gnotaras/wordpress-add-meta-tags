@@ -50,7 +50,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 // Returns the post object filtered.
-function amt_get_queried_object($options) {
+// In addition see this: https://github.com/Automattic/amp-wp/commit/21180205487d71e595088e2cd1d1acba3f240ea5
+function amt_get_queried_object() {
     // Sometimes, it is possible that a post object (static WP Page), which behaves
     // like a custom post type archive (eg the WooCommerce main shop page -- slug=shop)
     // has been set as the static front page.
@@ -65,7 +66,7 @@ function amt_get_queried_object($options) {
         $post = get_queried_object();
     }
     // Allow filtering of the $post object.
-    $post = apply_filters('amt_get_queried_object', $post, $options);
+    $post = apply_filters('amt_get_queried_object', $post);
     return $post;
 }
 
@@ -3103,7 +3104,7 @@ function amt_get_breadcrumbs( $user_options ) {
     // Get plugin options
     $plugin_options = get_option("add_meta_tags_opts");
     // Get post object
-    $post = amt_get_queried_object($plugin_options);
+    $post = amt_get_queried_object();
 
     // Default Options
     $default_options = array(
@@ -4118,7 +4119,7 @@ function amt_metadata_analysis($default_text, $metadata_block_head, $metadata_bl
     //
 
     $options = amt_get_options();
-    $post = amt_get_queried_object($options);
+    $post = amt_get_queried_object();
 
     if ( ! isset($post->ID) || $post->ID <= 0 ) {
         return $default_text;

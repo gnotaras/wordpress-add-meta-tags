@@ -151,7 +151,7 @@ function amt_custom_title_tag($title) {
     // Get the options
     $options = get_option('add_meta_tags_opts');
     // Get current post object
-    $post = amt_get_queried_object($options);
+    $post = amt_get_queried_object();
 
     $processed_title = amt_get_title_for_title_element($options, $post);
     if ( ! empty($processed_title) ) {
@@ -202,7 +202,7 @@ function amt_set_html_lang_attribute( $lang ) {
     // Set the html lang attribute according to the locale
     $locale = '';
     if ( is_singular() ) {
-        $post = amt_get_queried_object($options);
+        $post = amt_get_queried_object();
         // Store locale
         $locale = str_replace( '_', '-', amt_get_language_content($options, $post) );
     } else {
@@ -333,7 +333,7 @@ function amt_add_metadata_head() {
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     // Get current post object
-    $post = amt_get_queried_object($options);
+    $post = amt_get_queried_object();
     // Caching indicator
     $is_cached = 'no';
     // Get the metadata
@@ -458,7 +458,7 @@ function amt_add_metadata_footer() {
     // Get the options the DB
     $options = get_option("add_meta_tags_opts");
     // Get current post object
-    $post = amt_get_queried_object($options);
+    $post = amt_get_queried_object();
     // Caching indicator
     $is_cached = 'no';
     // Get the metadata
@@ -727,7 +727,7 @@ function amt_add_metadata_review($post_body) {
         }
 
         // Get current post object
-        $post = amt_get_queried_object($options);
+        $post = amt_get_queried_object();
         if ( is_null( $post ) ) {
             return $post_body;
         }
