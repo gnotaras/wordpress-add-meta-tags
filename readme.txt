@@ -131,6 +131,13 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+- [2.10.12](http://www.codetrax.org/versions/350)
+ - Added keys to items of the metadata array for easier isolation of most of the Opengraph meta tags. (Apologies to Salentomane for not adding this improvement to 2.10.10!)
+ - Stopped using deprecated function in the `amt upgrade` subcommand. (Props to Sebastian C. for pointing out the issue!)
+ - Minor improvements and fixes of the command line interface.
+ - Added template tags for the custom [user](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Template_Tags#User-image) and [term](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Template_Tags#Term-image) image.
+ - Added a filter-based switch to override the URL of the user avatar as returned by the `get_avatar_url()` function with the URL of custom user image as set in the user profile under the _Add-Meta-Tags_ section. For instance, this functionality can make the AMP plugin use the custom user image set in Add-Meta-Tags. To enable this functionality use the following: `add_filter('amt_set_user_image_as_avatar', '__return_true');`
+ - Added example about how to [customize the main Schema.org entity](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Customize-the-main-Schemaorg-entity) depending on the post type. This is also useful for AMP pages which require specific entities.
 - [2.10.11](http://www.codetrax.org/versions/349)
  - Improved the function that cleans up the post content before a description is generated and added an extra filter hook, which allows the preprocessing of the post content after the shortcodes have been expanded but before the HTML tags are stripped. Thanks to <em>Its-Thomas</em> for valuable feedback!
 - [2.10.10](http://www.codetrax.org/versions/348)
