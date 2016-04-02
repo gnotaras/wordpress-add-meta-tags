@@ -214,6 +214,13 @@ class AMT_Command extends WP_CLI_Command {
         // Export AMT settings
         if ( $what == 'settings' ) {
             $opts = amt_get_options();
+            // Every time Add-Meta-Tags is run it checks and upgrades its settings.
+            // Here we perform a check whether the returned settings are the defaults.
+            //$default_options = amt_get_default_options();
+            //var_dump(array_diff($opts, $default_options));
+            //if ( empty( array_diff($opts, $default_options) ) ) {
+            //    WP_CLI::error( 'No custom settings detected.' );
+            //}
             if ( empty($opts) ) {
                 WP_CLI::error( 'Could not retrieve Add-Meta-Tags options.' );
             }
