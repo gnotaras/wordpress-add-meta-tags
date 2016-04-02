@@ -102,7 +102,7 @@ class AMT_Command extends WP_CLI_Command {
         // Print a success message
         WP_CLI::success( "Operation complete." );
 */
-        WP_CLI::error('Not implemented');
+        WP_CLI::error('Not implemented.');
     }
 
 
