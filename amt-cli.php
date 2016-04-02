@@ -148,9 +148,11 @@ class AMT_Command extends WP_CLI_Command {
             }
         }
 
-        // Single site installation
-        amt_plugin_upgrade();
-        WP_CLI::success('Add-Meta-Tags settings have been upgraded.');
+        if ( ! is_multisite() ) {
+            // Single site installation
+            amt_plugin_upgrade();
+            WP_CLI::success('Add-Meta-Tags settings have been upgraded.');
+        }
 
 /*
         if ( is_multisite() ) {
