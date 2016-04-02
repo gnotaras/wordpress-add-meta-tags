@@ -195,10 +195,10 @@ class AMT_Command extends WP_CLI_Command {
      * 
      * ## EXAMPLES
      * 
-     *     wp amt export settings
-     *     wp amt export postdata
-     *     wp amt export userdata
-     *     wp amt export termdata
+     *     wp amt export settings > amt-settings.json
+     *     wp amt export postdata > amt-postdata.json
+     *     wp amt export userdata > amt-userdata.json
+     *     wp amt export termdata > amt-termdata.json
      *
      * @synopsis <settings|postdata|userdata|termdata>
      */
@@ -317,10 +317,10 @@ class AMT_Command extends WP_CLI_Command {
      * 
      * ## EXAMPLES
      * 
-     *     wp amt import settings
-     *     wp amt import postdata
-     *     wp amt import userdata
-     *     wp amt import termdata
+     *     wp amt import settings < amt-settings.json
+     *     wp amt import postdata < amt-postdata.json
+     *     wp amt import userdata < amt-userdata.json
+     *     wp amt import termdata < amt-termdata.json
      *
      * @synopsis <settings|postdata|userdata|termdata>
      */
