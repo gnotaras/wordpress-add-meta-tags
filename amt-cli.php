@@ -144,7 +144,7 @@ class AMT_Command extends WP_CLI_Command {
                 }
                 WP_CLI::success('Add-Meta-Tags settings have been upgraded network wide.');
             } else {
-                WP_CLI::warning('No network detected. Reverting to signle site settings upgrade.');
+                WP_CLI::warning('No network detected. Reverting to single site mode.');
             }
         }
 
