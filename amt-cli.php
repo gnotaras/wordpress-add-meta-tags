@@ -126,9 +126,14 @@ class AMT_Command extends WP_CLI_Command {
         // Multisite
         if ( $assoc_args['network-wide'] ) {
             if ( is_multisite() ) {
-                $blog_list = get_blog_list( 0, 'all' );
+                // Check for large network
+                if ( wp_is_large_network( $using='sites' ) ) {
+                    WP_CLI::error('Too large network. Aborting...');
+                }
+                $blog_list = wp_get_sites();
+                //var_dump($blog_list);
                 if ( empty($blog_list) ) {
-                    WP_CLI::error('No blogs could be found.');
+                    WP_CLI::error('No blogs could be found.');  // Check for large network is done above
                 }
                 foreach ( $blog_list as $blog ) {
                     switch_to_blog( $blog['blog_id'] );
