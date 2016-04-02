@@ -4,7 +4,7 @@ Donate link: http://bit.ly/HvUakt
 Tags: meta tags, seo, opengraph, dublin core, schema.org, json-ld, twitter cards, description, keywords, woocommerce, breadcrumbs, hreflang, metadata, buddypress, optimize, ranking, metatag, schema, facebook, twitter, google, google plus, g+, yahoo, bing, search engine optimization, rich snippets, semantic, structured, product, edd, breadcrumb trail, multilingual, multilanguage, microdata
 Requires at least: 3.5.2
 Tested up to: 4.5
-Stable tag: 2.10.11
+Stable tag: 2.10.12
 License: Apache License v2
 License URI: http://www.apache.org/licenses/LICENSE-2.0.txt
 
