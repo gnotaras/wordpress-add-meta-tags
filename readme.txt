@@ -131,6 +131,7 @@ The following questions and answers have been recently added to our FAQ:
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
+ - Raised minimum WP requirement to at least 3.6.0. Please note that using the 'custom image' and 'full meta tags' fields on the term edit screen, you need at least 4.4.0.
 - [2.10.12](http://www.codetrax.org/versions/350)
  - Added keys to items of the metadata array for easier isolation of most of the Opengraph meta tags. (Apologies to Salentomane for not adding this improvement to 2.10.10!)
  - Stopped using deprecated function in the `amt upgrade` subcommand. (Props to Sebastian C. for pointing out the issue!)
