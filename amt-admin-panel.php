@@ -652,23 +652,6 @@ function amt_options_page() {
     </div>
     -->
 
-    <div class="wrap amt-settings-donations-msg" style="' . (($options["i_have_donated"]=="1") ? 'display: none;' : '') . '">
-
-        <h3>'.__('Message from the author', 'add-meta-tags').'</h3>
-
-        <p><em>Add-Meta-Tags</em> is released under the terms of the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License version 2</a> and, therefore, is <strong>Free software</strong>. It is actively maintained and supported free of charge since 2006.</p>
-
-        <p>However, a significant amount of <strong>time</strong> and <strong>energy</strong> has been put into the development of this plugin, so, its production has not been free from cost. If you find this plugin useful and if it has helped your blog get indexed better and rank higher, I would appreciate an <a href="http://bit.ly/HvUakt">extra cup of coffee</a>.</p>
-        <!--
-        <p">Donations in BitCoin (BTC) are also accepted and welcome. Send the donated coin to the following address:</p>
-        <ul>
-            <li style="margin-left: 1em;">BitCoin (BTC): <code>1KkgpmaBKqQVk643VRhFRkL19Bbci4Mwn9</code></li>
-        </ul>
-        -->
-        <p>Thank you in advance,<br />George Notaras</p>
-        <div style="text-align: right;"><small>'.__('This message can be deactivated in the settings below.', 'add-meta-tags').'</small></div>
-    </div>
-
     <div class="wrap">
         <h2>'.__('Configuration', 'add-meta-tags').'</h2>
 
@@ -1419,24 +1402,16 @@ function amt_options_page() {
                 <legend class="screen-reader-text"><span>'.__('Vendor HTML comments', 'add-meta-tags').'</span></legend>
 
                 <p>
-                    '.__('Add-Meta-Tags has always been enclosing its output in <a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Screenshots#Vendor-HTML-comments">HTML comments</a>, which contain the plugin\'s name. This is common practice among WordPress plugin developers as it makes it easier for users to identify the output of a specific plugin and also lets those who check the HTML source code of the page know which plugin has generated this specific output. For a free product with limited resources like Add-Meta-Tags this practice is also its only means of exposure in a safe and non intrusive way.', 'add-meta-tags').'
-                </p>
-                <br />
-
-                <p>
-                    '.__('Although we don\'t like it, we have added the following option which deactivates the generation of those HTML comments*. We do not recommend checking the following box, but, if for whatever reason you have to turn these comments off, please go ahead and do it. To make it a little harder for you, an artificial requirement of a one time donation for any number of web sites you own has been added. Please keep in mind that there are no special donation links for this purpose. We do not force or keep track of your donations. You are free to go ahead and check this box without donating. What you do is totally your own decision and has nothing to do with us.', 'add-meta-tags').'
+                    '.__('Add-Meta-Tags has always been enclosing its output in <a target="_blank" href="http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Screenshots#Vendor-HTML-comments">HTML comments</a>, which contain the plugin\'s name. This is common practice among WordPress plugin developers as it makes it easier for users to identify the output of a specific plugin and also lets those who check the HTML source code of the page know which plugin has generated this specific output. By checking the following option you can remove those comments.', 'add-meta-tags').'
                 </p>
                 <br />
 
                 <input id="omit_vendor_html_comments" type="checkbox" value="1" name="omit_vendor_html_comments" '. (($options["omit_vendor_html_comments"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="omit_vendor_html_comments">'.sprintf( __('I have made a one time <a target="_blank" href="%s">donation</a> of 5 USD or more for all the web sites I own.', 'add-meta-tags'), 'http://bit.ly/HvUakt').'</label> **
+                <label for="omit_vendor_html_comments">'.sprintf( __('Omit the vendor HTML comments.', 'add-meta-tags'), 'http://bit.ly/HvUakt').'</label> *
                 <br />
 
                 <p>
                     '.__('<em>* HTML comments that are generated as part of the Schema.org microdata are always retained.</em>', 'add-meta-tags').'
-                </p>
-                <p>
-                    '.__('<em>** All Add-Meta-Tags contributors should feel free to check the option above without donating.</em>', 'add-meta-tags').'
                 </p>
                 <br />
 
@@ -1446,18 +1421,6 @@ function amt_options_page() {
     ');
 
     print('
-            <tr valign="top">
-            <th scope="row">'.__('Donations', 'add-meta-tags').'</th>
-            <td>
-            <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Donations', 'add-meta-tags').'</span></legend>
-
-                <input id="i_have_donated" type="checkbox" value="1" name="i_have_donated" '. (($options["i_have_donated"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="i_have_donated">'.sprintf( __('If checked, the <em>message from the author</em> above goes away. Thanks for <a target="_blank" href="%s">donating</a>!', 'add-meta-tags'), 'http://bit.ly/HvUakt').'</label>
-                <br />
-            </fieldset>
-            </td>
-            </tr>
 
         </tbody>
         </table>
