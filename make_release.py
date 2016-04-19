@@ -31,7 +31,8 @@ REL_FILES = [
 REL_DIRS = [
     'templates',
     'metadata',
-    'languages',
+#    'languages',
+#    'languages-contrib',
     'css',
     'js',
 ]
