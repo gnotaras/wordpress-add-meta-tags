@@ -122,20 +122,11 @@ For more information, please read the FAQ.
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
-- 2.11.1
- - Minor fix with the release tags.
-- 2.11.0
- - **NOTICE**: Due to some weird incidents that took place during the last days, I decided to no longer provide support for _Add-Meta-Tags_ on any support channel (issue trackers, WordPress.org forums, email or social media). This is because I can no longer find the required time to distinguish genuine support requests from support requests that simply aim at wasting my time (even on my Paypal address). Apologies to any users who currently have open tickets, but there is nothing more I can do for you. The decision is final. I tried to create a free and useful metadata tool for all, but it turns out it's not a sustainable plan in terms of required time. Moreover, no new feature or improvement of the current features has been planned for the future. The plugin will only receive updates for critical issues like PHP errors. **If you disagree with any of the above, I can only recommend to use other plugins.** Last, but not least, I won't reply to any emails about the plugin.
- - The translations directory has been renamed to `translations-contrib`. Please upload your translations to the translations service provided by WordPress.org, so as to take advantage of the language packs.
- - This release contains no improvements or fixes.
-- [2.10.12](http://www.codetrax.org/versions/350)
- - Added keys to items of the metadata array for easier isolation of most of the Opengraph meta tags. (Apologies to Salentomane for not adding this improvement to 2.10.10!)
- - Stopped using deprecated function in the `amt upgrade` subcommand. (Props to Sebastian C. for pointing out the issue!)
- - Minor improvements and fixes of the command line interface.
- - Added template tags for the custom [user](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Template_Tags#User-image) and [term](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Template_Tags#Term-image) image.
- - Added a filter-based switch to override the URL of the user avatar (as returned by the `get_avatar_url()` function) with the URL of the custom user image (as set in the user profile under the _Add-Meta-Tags_ section). For instance, this functionality can make the AMP plugin or any other plugin or theme, which uses the `get_avatar_url()` function to retrieve the user's avatar URL, use the custom user image that is set in Add-Meta-Tags. To enable this functionality use the following: `add_filter('amt_set_user_image_as_avatar', '__return_true');`
- - Added example about how to [customize the main Schema.org entity](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Plugin_Functionality_Customization#Customize-the-main-Schemaorg-entity) depending on the post type. This is also useful for AMP pages which require specific entities.
- - Raised minimum WP requirement to at least 3.6.0. Please note that using the 'custom image' and 'full meta tags' fields on the term edit screen, you need at least 4.4.0.
+- 2.11.0 & 2.11.1 & 2.11.2
+ - Please read the notice above about the current status of the plugin and the future plans.
+ - Please read the updated [FAQ](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/FAQ).
+ - The translations have been removed from the plugin. If you are interested in a translated interface, please upload your translations to the [translations service](https://translate.wordpress.org/) provided by WordPress.org, so as to take advantage of the _language packs_. Time permitting, I will also try to help current translators with this.
+ - These releases contain no improvements or fixes.
 
 Changelog information for older releases can be found in the ChangeLog file or at the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") on the [Add-Meta-Tags development web site](http://www.codetrax.org/projects/wp-add-meta-tags).
 
