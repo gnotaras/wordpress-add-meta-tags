@@ -109,7 +109,7 @@ Please note that, since version 2.11.0, the developer does not provide support f
 
 <br /><br />
 
-Moreover, no new features or improvements of the current ones have been planned. The current feature set is already beyond what the developer needs or uses, so, due to lack of free time, further development and enhancement of the plugin is no longer in the developer's interests.
+Moreover, no new features or improvements of the current ones have been planned. The current feature set is already beyond what the developer needs or uses, so, due to lack of free time, further development and enhancement of the plugin is no longer in the developer's plans.
 
 <br /><br />
 
