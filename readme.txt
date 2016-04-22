@@ -37,6 +37,8 @@ Also, please note that Add-Meta-Tags is not for sale.
 
 For more information, please read the FAQ.
 
+<br /><br />
+
 </blockquote>
 
 More specifically, _Add-Meta-Tags_ can generate the _description_ and _keywords_ meta tags, _Opengraph_, _Schema.org_ microdata and JSON+LD data, _Twitter Cards_ and _Dublin Core_ metadata for your _WordPress_ content and archives, your _WooCommerce_ products and product groups, _BuddyPress_ profiles, and more.
@@ -122,6 +124,8 @@ Also, please note that Add-Meta-Tags is not for sale.
 <br /><br />
 
 For more information, please read the FAQ.
+
+<br /><br />
 
 </blockquote>
 
