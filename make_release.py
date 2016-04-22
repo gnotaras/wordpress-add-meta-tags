@@ -47,7 +47,7 @@ POT_HEADER = """#  POT (Portable Object Template)
 #
 #    http://www.codetrax.org/projects/wp-add-meta-tags/wiki/Translations
 #
-#  Copyright (C) 2006-2015 George Notaras <gnot@g-loaded.eu>
+#  Copyright (C) 2006-2016 George Notaras <gnot@g-loaded.eu>
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.

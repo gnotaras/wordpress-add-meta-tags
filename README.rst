@@ -29,7 +29,7 @@ It is actively maintained since 2006 (`historical Add-Meta-Tags homepage`_).
 Legal Notice
 ------------
 
-Add-Meta-Tags is Copyright (c) 2006-2015 George Notaras. All rights reserved.
+Add-Meta-Tags is Copyright (c) 2006-2016 George Notaras. All rights reserved.
 
 Permission is granted to use this software under the terms of the `Apache
 License version 2`_ and the NOTICE file that ships with the distribution package.
