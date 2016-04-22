@@ -23,11 +23,15 @@ Please note that, since version 2.11.0, the developer does not provide support f
 
 <br /><br />
 
-Moreover, no new features or improvements of the current ones have been planned. The current feature set is already beyond what the developer needs or uses, so, due to lack of free time, further development and enhancement of the plugin is no longer in the developer's interests.
+Moreover, no new features or improvements of the current ones have been planned. The current feature set is already beyond what the developer needs or uses, so, due to lack of free time, further development and enhancement of the plugin is no longer in the developer's plans.
 
 <br /><br />
 
-However, the developer still uses this plugin, so, it will continue to work, but only critical issues, such as PHP errors or very important metadata issues, will be fixed in future releases. Thank you for your understanding.
+However, the developer still uses this plugin, so, it will continue to receive maintenance updates, but only for critical issues, such as PHP errors or very important metadata issues. Thank you for your understanding.
+
+<br /><br />
+
+Also, please note that Add-Meta-Tags is not for sale.
 
 <br /><br />
 
@@ -109,7 +113,11 @@ Moreover, no new features or improvements of the current ones have been planned.
 
 <br /><br />
 
-However, the developer still uses this plugin, so, it will continue to work, but only critical issues, such as PHP errors or very important metadata issues, will be fixed in future releases. Thank you for your understanding.
+However, the developer still uses this plugin, so, it will continue to receive maintenance updates, but only for critical issues, such as PHP errors or very important metadata issues. Thank you for your understanding.
+
+<br /><br />
+
+Also, please note that Add-Meta-Tags is not for sale.
 
 <br /><br />
 
