@@ -2418,9 +2418,9 @@ function amt_add_jsonld_schemaorg_metadata_head( $post, $attachments, $embedded_
             // Rating
             $metadata_arr['reviewRating'] = array();
             $metadata_arr['reviewRating']['@type'] = 'Rating';
-            $metadata_arr['reviewRating']['ratingValue'] = $review_data['ratingValue'];
+            $metadata_arr['reviewRating']['ratingValue'] = esc_attr($review_data['ratingValue']);
             $bestrating = apply_filters( 'amt_schemaorg_review_bestrating', '5' );
-            $metadata_arr['reviewRating']['bestRating'] = $bestrating;
+            $metadata_arr['reviewRating']['bestRating'] = esc_attr($bestrating);
         }
 
         // Keywords - We use the keywords defined by Add-Meta-Tags

@@ -2930,6 +2930,9 @@ function amt_get_review_data( $post ) {
     $mandatory_arr = array( 'ratingValue', 'object', 'name', 'sameAs' );
     // Add extra properties
     foreach ( $review_data_raw as $key => $value ) {
+        // Reverse the ampersand replacement. (see note above)
+        $key = str_replace('&', '&amp;', $key);
+        $value = str_replace('&', '&amp;', $value);
         if ( in_array( $key, $mandatory_arr ) ) {
             $review_data[$key] = $value;
         } else {
@@ -3061,7 +3064,7 @@ function amt_get_sample_review_sets() {
     $html .= PHP_EOL . '<option value="0">'.__('Select a sample review', 'add-meta-tags').'</option>' . PHP_EOL;
     foreach ( array_keys($review_sets) as $key ) {
         $key_slug = str_replace(' ', '_', strtolower($key));
-        $html .= '<option value="'.$key_slug.'">'.$key.'</option>' . PHP_EOL;
+        $html .= '<option value="' . esc_attr($key_slug) . '">' . esc_attr($key) . '</option>' . PHP_EOL;
     }
     $html .= PHP_EOL . '</select>' . PHP_EOL;
 
@@ -3077,7 +3080,7 @@ jQuery(document).ready(function(){
     foreach ( $review_sets as $key => $value ) {
         $key_slug = str_replace(' ', '_', strtolower($key));
         $html .= '
-        } else if (selection == "'.$key_slug.'") {
+        } else if (selection == "' . esc_attr($key_slug) . '") {
             var output = \''.implode('\'+"\n"+\'', $value).'\';
         ';
     }
