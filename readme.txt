@@ -134,11 +134,13 @@ For more information, please read the FAQ.
 
 Please check out the changelog of each release by following the links below. You can also check the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") regarding future releases of the plugin.
 
-- 2.11.0 & 2.11.1 & 2.11.2
+- 2.11.0 & 2.11.1 & 2.11.2 & 2.11.3
+ - NOTICE 1: Add-Meta-Tags is <em>not for sale</em> and there are no such plans for the future.
+ - NOTICE 2: Please <em>always</em> download the plugin from WordPress.org.
  - Please read the notice above about the current status of the plugin and the future plans.
  - Please read the updated [FAQ](http://www.codetrax.org/projects/wp-add-meta-tags/wiki/FAQ).
  - The translations have been removed from the plugin. If you are interested in a translated interface, please upload your translations to the [translations service](https://translate.wordpress.org/) provided by WordPress.org, so as to take advantage of the _language packs_. Time permitting, I will also try to help current translators with this.
- - These releases contain no improvements or fixes.
+ - The 2.11.3 release contains some minor fixes. The other releases contain no fixes. Apologies for the frequent releases lately. No new releases have been planned for the near future.
 
 Changelog information for older releases can be found in the ChangeLog file or at the [roadmap](http://www.codetrax.org/projects/wp-add-meta-tags/roadmap "Add-Meta-Tags Roadmap") on the [Add-Meta-Tags development web site](http://www.codetrax.org/projects/wp-add-meta-tags).
 
